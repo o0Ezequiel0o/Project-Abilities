@@ -1,0 +1,200 @@
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+namespace Zeke.Abilities.Modules
+{
+    [Serializable]
+    public class Saw : AbilityModule
+    {
+        [SerializeField] private GameObject prefab;
+        [SerializeField] private float castDistance;
+        [SerializeField] private float damageRadius;
+
+        [Space]
+
+        [SerializeField] private float procCoefficient;
+        [SerializeField] private float armorPenetration;
+
+        [Space]
+
+        [SerializeField] private LayerMask hitLayers;
+        [SerializeField] private LayerMask blockLayers;
+
+        [Space]
+
+        [SerializeField] private Stat damage;
+        [SerializeField] private Stat damageCooldown;
+
+        [Space]
+
+        [SerializeField] private StatusEffectData effect;
+        [SerializeField] private int effectProcChance;
+
+        private Transform spawn;
+        private GameObject source;
+        private GameObject sawInstance;
+
+        private bool enabledThisFrame = false;
+        private bool showSawThisFrame = false;
+
+        private float timer = 0f;
+
+        private readonly List<Collider2D> hits = new List<Collider2D>();
+
+        public Saw(Saw original)
+        {
+            prefab = original.prefab;
+            castDistance = original.castDistance;
+            damageRadius = original.damageRadius;
+
+            procCoefficient = original.procCoefficient;
+            armorPenetration = original.armorPenetration;
+
+            hitLayers = original.hitLayers;
+            blockLayers = original.blockLayers;
+
+            effect = original.effect;
+            effectProcChance = original.effectProcChance;
+
+            damage = original.damage.DeepCopy();
+            damageCooldown = original.damageCooldown.DeepCopy();
+        }
+
+        public override AbilityModule DeepCopy() => new Saw(this);
+
+        public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
+        {
+            this.spawn = spawn;
+            this.source = source;
+
+            if(prefab != null)
+            {
+                sawInstance = GameObject.Instantiate(prefab, source.transform.position, Quaternion.identity);
+            }
+        }
+
+        public override bool CanActivate() => true;
+
+        public override bool CanUpgrade() => true;
+
+        public override void Activate(bool holding)
+        {
+            if (enabledThisFrame) return;
+
+            showSawThisFrame = true;
+
+            if (timer > damageCooldown.Value)
+            {
+                enabledThisFrame = true;
+                UpdateSawCollision();
+                timer = 0f;
+            }
+        }
+
+        public override void Deactivate()
+        {
+            HideSawVisual();
+        }
+
+        public override void Update()
+        {
+            timer += Time.deltaTime;
+        }
+
+        public override void LateUpdate()
+        {
+            enabledThisFrame = false;
+
+            if (showSawThisFrame)
+            {
+                DisplaySawVisual();
+                UpdateSawPosition();
+                showSawThisFrame = false;
+            }
+            else
+            {
+                HideSawVisual();
+            }
+        }
+
+        public override void Upgrade()
+        {
+            base.Upgrade();
+            damage.Upgrade();
+            damageCooldown.Upgrade();
+        }
+
+        public override void Destroy()
+        {
+            if (sawInstance == null) return;
+            GameObject.Destroy(sawInstance);
+        }
+
+        private void UpdateSawCollision()
+        {
+            hits.Clear();
+
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers };
+            Physics2D.OverlapCircle(GetCastPosition(), damageRadius, contactFilter, hits);
+
+            for (int i = 0; i < hits.Count; i++)
+            {
+                if (hits[i].gameObject == source) continue;
+
+                if (!IsBlockedByObstacle(spawn.position, hits[i].transform.position))
+                {
+                    HitIfEnemy(hits[i].gameObject);
+                }
+            }
+        }
+
+        private bool IsBlockedByObstacle(Vector3 start, Vector3 end)
+        {
+            return Physics2D.Linecast(start, end, blockLayers);
+        }
+
+        private void HitIfEnemy(GameObject gameObject)
+        {
+            if (TeamManager.IsAlly(source, gameObject)) return;
+
+            if (gameObject.TryGetComponent(out Damageable damageable))
+            {
+                damageable.DealDamage(new DamageInfo(damage.Value, armorPenetration, procCoefficient), source, source);
+            }
+
+            bool statusEffectRollSuccess = effectProcChance > UnityEngine.Random.Range(0, 100);
+
+            if (statusEffectRollSuccess && gameObject.TryGetComponent(out StatusEffectHandler statusEffectHandler))
+            {
+                statusEffectHandler.ApplyEffect(effect, source);
+            }
+        }
+
+        private void UpdateSawPosition()
+        {
+            sawInstance.transform.position = GetCastPosition();
+        }
+
+        private void DisplaySawVisual()
+        {
+            if (sawInstance == null) return;
+            if (sawInstance.activeSelf) return;
+
+            sawInstance.SetActive(true);
+        }
+
+        private void HideSawVisual()
+        {
+            if (sawInstance == null) return;
+            if (!sawInstance.activeSelf) return;
+
+            sawInstance.SetActive(false);
+        }
+
+        private Vector3 GetCastPosition()
+        {
+            return spawn.position + (spawn.up * castDistance);
+        }
+    }
+}

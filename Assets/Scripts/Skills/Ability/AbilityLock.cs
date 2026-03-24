@@ -1,15 +1,18 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class AbilityLock
+namespace Zeke.Abilities
 {
-    [SerializeField] public AbilityType abilityType;
-
-    public AbilityLock(AbilityType abilityType)
+    [Serializable]
+    public class AbilityLock
     {
-        this.abilityType = abilityType;
-    }
+        [SerializeField] public AbilityType abilityType;
 
-    public AbilityLock() { }
+        public AbilityLock(AbilityType abilityType)
+        {
+            this.abilityType = abilityType;
+        }
+
+        public AbilityLock() { }
+    }
 }

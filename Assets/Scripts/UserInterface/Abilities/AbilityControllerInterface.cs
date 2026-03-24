@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zeke.Abilities;
 
 public class AbilityControllerInterface : MonoBehaviour
 {
@@ -35,8 +36,6 @@ public class AbilityControllerInterface : MonoBehaviour
     {
         if (usedAbilityDisplaySlots.TryGetValue(ability, out AbilityDisplaySlot abilityDisplaySlot))
         {
-            abilityDisplaySlot.UpdateCooldownBar(ability.ChargePercentage);
-
             if (ability.CooldownTime > 0 || ability.Charges > 0)
             {
                 abilityDisplaySlot.UpdateUsableState(ability.Charges);
@@ -45,10 +44,12 @@ public class AbilityControllerInterface : MonoBehaviour
             if (ability.DurationActive)
             {
                 abilityDisplaySlot.UpdateDurationBar(ability.DurationPercentage);
+                abilityDisplaySlot.UpdateCooldownBar(0f);
             }
             else
             {
                 abilityDisplaySlot.UpdateDurationBar(1f);
+                abilityDisplaySlot.UpdateCooldownBar(ability.ChargePercentage);
             }
 
             if (ability.MaxCharges > 1)

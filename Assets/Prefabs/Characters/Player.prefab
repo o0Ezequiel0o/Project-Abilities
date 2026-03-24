@@ -673,9 +673,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eed4b3f6c3032b40bb609739a283de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castPosition: {fileID: 8263352429358299737}
+  spawn: {fileID: 8263352429358299737}
   setAbilities:
-  - {fileID: 11400000, guid: 0bba3188c299c9c4999152790c6f60e8, type: 2}
+  - {fileID: 11400000, guid: 95130e4f3e25a044a9c129865860798b, type: 2}
 --- !u!114 &3787346725820631185
 MonoBehaviour:
   m_ObjectHideFlags: 0

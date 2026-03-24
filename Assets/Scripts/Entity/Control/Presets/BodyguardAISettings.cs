@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zeke.Abilities;
 
 [CreateAssetMenu(fileName = "New Preset", menuName = "AI Presets/Bodyguard/New Preset")]
 public class BodyguardAISettings : ScriptableObject

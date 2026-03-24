@@ -9,31 +9,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 937946325e31eae4a8c1e2156439588c, type: 3}
+  m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
   m_Name: Explode
-  m_EditorClassIdentifier: 
-  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityData
+  <Icon>k__BackingField: {fileID: 0}
   <AbilityType>k__BackingField: 0
+  <ManualDeactivation>k__BackingField: 0
   <CanHold>k__BackingField: 0
   cooldownTime:
+    baseValue: 5
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  duration:
+    baseValue: 0
+    increase: 0
+    valueLimits:
+      min: 0
+      max: 0
+  charges:
     baseValue: 1
     increase: 0
     valueLimits:
-      min: -Infinity
+      min: 1
       max: Infinity
-  damage:
-    baseValue: 50
-    increase: 0
-    valueLimits:
-      min: 0
-      max: Infinity
-  radius:
-    baseValue: 2.5
-    increase: 0
-    valueLimits:
-      min: 0
-      max: Infinity
-  <HitLayers>k__BackingField:
-    serializedVersion: 2
-    m_Bits: 256
-  <Knockback>k__BackingField: 10
+  modules:
+  - rid: 3611678542850949210
+  - rid: 3611678542850949211
+  references:
+    version: 2
+    RefIds:
+    - rid: 3611678542850949210
+      type: {class: DeltaTimeCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 3611678542850949211
+      type: {class: Explode, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        radius:
+          baseValue: 1
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        damage:
+          baseValue: 50
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        knockback: 10
+        hitLayers:
+          serializedVersion: 2
+          m_Bits: 256

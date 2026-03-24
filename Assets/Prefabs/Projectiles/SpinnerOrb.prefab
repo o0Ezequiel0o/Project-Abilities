@@ -103,7 +103,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5071053083290797565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56218ce0cf808af44a0f878446f5ebaf, type: 3}
+  m_Script: {fileID: 11500000, guid: 7dfc3840a54288148a9fa3fb9c5d548b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hitRadius: 0.325
@@ -111,16 +111,15 @@ MonoBehaviour:
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
   hitLayer:
     serializedVersion: 2
-    m_Bits: 4352
+    m_Bits: 256
   blockLayer:
     serializedVersion: 2
     m_Bits: 128
   despawnAction: 1
   despawnWithSource: 1
-  direction: {x: 0, y: 0, z: 0}
   armorPenetration: 0
   procCoefficient: 1
-  knockback: 0
+  knockback: 1
   maxHits: -1
 --- !u!114 &2102802999281974753
 MonoBehaviour:

@@ -10,6 +10,8 @@ public class Limits
     public float Min => min;
     public float Max => max;
 
+    public static Limits Zero => new Limits(0f, 0f);
+
     public Limits() { }
     
     public Limits(float min, float max)

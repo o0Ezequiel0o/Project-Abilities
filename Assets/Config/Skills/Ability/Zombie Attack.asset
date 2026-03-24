@@ -9,35 +9,51 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 605c741412d11d6418e3903cc186aad2, type: 3}
+  m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
   m_Name: Zombie Attack
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <AbilityType>k__BackingField: 0
+  <ManualDeactivation>k__BackingField: 0
   <CanHold>k__BackingField: 0
   cooldownTime:
-    baseValue: 1
-    increase: 0
-    valueLimits:
-      min: -Infinity
-      max: Infinity
-  damage:
-    baseValue: 10
+    baseValue: 3
     increase: 0
     valueLimits:
       min: 0
       max: Infinity
-  <ProcCoefficient>k__BackingField: 1
-  <ArmorPenetration>k__BackingField: 0
-  <Knockback>k__BackingField: 1
-  <HitLayers>k__BackingField:
-    serializedVersion: 2
-    m_Bits: 256
-  <BlockLayers>k__BackingField:
-    serializedVersion: 2
-    m_Bits: 128
-  <Range>k__BackingField: {x: 1.5, y: 1}
-  <AttackEffect>k__BackingField: {fileID: 5511404840289851611, guid: 9ca6d49e0f7c79349b51af81daadfc05, type: 3}
-  <AttackEffectDuration>k__BackingField: 1
-  <AttackEffectCenterDistance>k__BackingField: 0.5
-  <AttackEffectRandomRotationOffset>k__BackingField: 25
+  duration:
+    baseValue: 0
+    increase: 0
+    valueLimits:
+      min: 0
+      max: 0
+  charges:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: 1
+      max: Infinity
+  modules:
+  - rid: 3611678542850949205
+  - rid: 3611678542850949206
+  references:
+    version: 2
+    RefIds:
+    - rid: 3611678542850949205
+      type: {class: DeltaTimeCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 3611678542850949206
+      type: {class: BoxAttack, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        damage:
+          baseValue: 15
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        knockback: 5
+        range: {x: 1.5, y: 1}
+        hitLayers:
+          serializedVersion: 2
+          m_Bits: 256

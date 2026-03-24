@@ -373,9 +373,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eed4b3f6c3032b40bb609739a283de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castPosition: {fileID: 4215261322861192610}
+  spawn: {fileID: 4215261322861192610}
   setAbilities:
-  - {fileID: 11400000, guid: 92f1ccf1050cb604daae4be2f50ca98a, type: 2}
+  - {fileID: 11400000, guid: a8d4f176ae145634ab37da7091f83cf2, type: 2}
 --- !u!114 &6323631814065473988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,15 +389,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: f59ee330c2a0d584192cc7374f1d7b6e, type: 2}
-  entityAim: {fileID: 3258373292319498312}
-  abilityController: {fileID: 7673138500625142514}
-  targetLayers:
-    serializedVersion: 2
-    m_Bits: 256
-  blockLayers:
-    serializedVersion: 2
-    m_Bits: 128
-  range: 10
 --- !u!114 &4670485228891248934
 MonoBehaviour:
   m_ObjectHideFlags: 0

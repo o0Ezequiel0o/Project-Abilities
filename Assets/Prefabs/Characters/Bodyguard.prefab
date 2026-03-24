@@ -680,9 +680,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eed4b3f6c3032b40bb609739a283de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castPosition: {fileID: 5520335661535053719}
+  spawn: {fileID: 5520335661535053719}
   setAbilities:
-  - {fileID: 11400000, guid: 6e739a938c2d3d74a87eb2e26e53f806, type: 2}
+  - {fileID: 11400000, guid: a8d4f176ae145634ab37da7091f83cf2, type: 2}
 --- !u!114 &1494136500013779202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,10 +766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad6fa80b0241b24abb5cff10de0f306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BodyguardAI
-  protectTarget: {fileID: 0}
   settings: {fileID: 11400000, guid: 89b7ca6c33a03694889c972557ed93de, type: 2}
-  updateInterval: 0.1
-  avoidanceDirections: 8
 --- !u!114 &6190951273211959679
 MonoBehaviour:
   m_ObjectHideFlags: 0
