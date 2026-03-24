@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27889ae7730c5d04fa75e6673aafd7db, type: 3}
+  m_Name: Reload
+  m_EditorClassIdentifier: 
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <AbilityType>k__BackingField: 1
+  <CanHold>k__BackingField: 0
+  cooldownTime:
+    baseValue: 15
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  <AbilityToRecharge>k__BackingField: 0
+  rechargeAmount:
+    baseValue: 50
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  rechargeTime:
+    baseValue: 5
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity

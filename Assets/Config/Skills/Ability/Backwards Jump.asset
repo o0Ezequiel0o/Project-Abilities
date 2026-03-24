@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0dabe9592d5e444c94aaddf85f3b1b6, type: 3}
+  m_Name: Backwards Jump
+  m_EditorClassIdentifier: Assembly-CSharp::BackwardsJumpData
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <AbilityType>k__BackingField: 2
+  <CanHold>k__BackingField: 0
+  cooldownTime:
+    baseValue: 8
+    increase: 0
+    valueLimits:
+      min: -Infinity
+      max: Infinity
+  <JumpForce>k__BackingField: 200
+  <AbilityToRestoreCharges>k__BackingField: {fileID: 11400000, guid: f065a781a2ce8e94085675645ac25d76, type: 2}
+  chargesRestoreAmount:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity

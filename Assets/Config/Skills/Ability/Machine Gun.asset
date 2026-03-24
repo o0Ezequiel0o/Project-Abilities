@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231a92f243d8c8747a0c14fdb0a87c59, type: 3}
+  m_Name: Machine Gun
+  m_EditorClassIdentifier: 
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <AbilityType>k__BackingField: 0
+  <CanHold>k__BackingField: 1
+  cooldownTime:
+    baseValue: 0.5
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  <ProjectilePrefab>k__BackingField: {fileID: 3777845839141210170, guid: a99ca3cb5c8356943a11d345cbac8900, type: 3}
+  <CastDistanceAway>k__BackingField: 0.25
+  maxRange:
+    baseValue: 10
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  damage:
+    baseValue: 5
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  speed:
+    baseValue: 20
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  <Charges>k__BackingField: 100
+  <FireCooldown>k__BackingField: 0.05
+  <ChargeWithCooldown>k__BackingField: 1

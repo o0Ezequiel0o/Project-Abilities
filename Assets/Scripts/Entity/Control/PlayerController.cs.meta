@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 03b1d99d3a6e6a84ab93f9ffb87ba49c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - entityMove: {instanceID: 0}
+  - entityAim: {instanceID: 0}
+  - abilityController: {instanceID: 0}
+  - interactionHandler: {instanceID: 0}
+  - vehicleHandler: {instanceID: 0}
+  - itemsRenderer: {instanceID: 0}
+  - center: {instanceID: 0}
+  - moveInput: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  - primaryInput: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  - secondaryInput: {fileID: -6528747838407589065, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  - utilityInput: {fileID: -7471211009204490832, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  - ultimateInput: {fileID: -2099379676528639254, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  - interactInput: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  - exitVehicleInput: {fileID: 2018276834044115719, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  - toggleItemsMenuInput: {fileID: 4329412348586097452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

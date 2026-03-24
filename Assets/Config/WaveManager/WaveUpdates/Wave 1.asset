@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a8d6b42abdf7c479306c26e87699e0, type: 3}
+  m_Name: Wave 1
+  m_EditorClassIdentifier: 
+  <Wave>k__BackingField: 1
+  <BossWave>k__BackingField: 0
+  <PointsPerWave>k__BackingField: 2
+  <SpawnCooldown>k__BackingField: 0.5
+  <AddToPool>k__BackingField:
+  - {fileID: 11400000, guid: 3338b2e8a0a6e8d43b433a4d67347372, type: 2}
+  <RemoveFromPool>k__BackingField: []

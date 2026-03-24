@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: cb2341636185faf44aff6cbe37d1c8d8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - abilityDisplaySlotPrefab: {fileID: 140077436113715308, guid: 1256024bd8c21d14d8155732c08dbc7c, type: 3}
+  - abilityDisplaySlotsRoot: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

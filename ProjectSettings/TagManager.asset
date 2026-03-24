@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Floor
+  - Wall
+  - Entity
+  - Item
+  - Projectile
+  - Object
+  - ProjectileDetector
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Floor
+    uniqueID: 2926886921
+    locked: 0
+  - name: Dropped
+    uniqueID: 1405350633
+    locked: 0
+  - name: Objects
+    uniqueID: 1423631375
+    locked: 0
+  - name: Entity
+    uniqueID: 4215108711
+    locked: 0
+  - name: Projectiles
+    uniqueID: 2902548689
+    locked: 0
+  - name: Walls
+    uniqueID: 3502297801
+    locked: 0
+  - name: Particles
+    uniqueID: 2363485
+    locked: 0
+  - name: WUI
+    uniqueID: 603197301
+    locked: 0
+  - name: UI
+    uniqueID: 3810967637
+    locked: 0
+  m_RenderingLayers:
+  - Default

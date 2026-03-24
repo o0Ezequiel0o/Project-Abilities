@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e9bf2e3531db1409d9281434644ffa, type: 3}
+  m_Name: Item Settings
+  m_EditorClassIdentifier: 
+  itemTriggerOrder: {fileID: 11400000, guid: d4494e2930a803b49860d91229b40523, type: 2}
+  avaibleItems:
+  - {fileID: 11400000, guid: 57df328e90faa214a9055072c55e6805, type: 2}
+  - {fileID: 11400000, guid: 47b7469bfb5d6a84d96a60b2c02af775, type: 2}
+  - {fileID: 11400000, guid: c171ef39e735d8c4aa4e422a8ef8f862, type: 2}
+  - {fileID: 11400000, guid: e86c6312819ee054295b7acd3bd04039, type: 2}
+  - {fileID: 11400000, guid: 9a7cb73b80ac28b44be91cb12d8b4561, type: 2}
+  - {fileID: 11400000, guid: 202e3a5b378477142b10c63c777ac2db, type: 2}
+  commonColor: {r: 1, g: 1, b: 1, a: 1}
+  rareColor: {r: 0.014198542, g: 1, b: 0, a: 1}
+  epicColor: {r: 0.934319, g: 0, b: 1, a: 1}
+  legendaryColor: {r: 1, g: 0, b: 0, a: 1}
+  uniqueColor: {r: 1, g: 0.5254832, b: 0, a: 1}
+  itemsNotInTriggerOrder: []
+  commonItems:
+  - {fileID: 11400000, guid: 57df328e90faa214a9055072c55e6805, type: 2}
+  - {fileID: 11400000, guid: 47b7469bfb5d6a84d96a60b2c02af775, type: 2}
+  - {fileID: 11400000, guid: c171ef39e735d8c4aa4e422a8ef8f862, type: 2}
+  - {fileID: 11400000, guid: e86c6312819ee054295b7acd3bd04039, type: 2}
+  - {fileID: 11400000, guid: 9a7cb73b80ac28b44be91cb12d8b4561, type: 2}
+  - {fileID: 11400000, guid: 202e3a5b378477142b10c63c777ac2db, type: 2}
+  rareItems: []
+  epicItems: []
+  legendaryItems: []
+  uniqueItems: []

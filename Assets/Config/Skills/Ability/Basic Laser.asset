@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47eb718653e2f95488c6f170c0fe37ce, type: 3}
+  m_Name: Basic Laser
+  m_EditorClassIdentifier: 
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <AbilityType>k__BackingField: 0
+  <CanHold>k__BackingField: 1
+  cooldownTime:
+    baseValue: 0
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  <LaserPrefab>k__BackingField: {fileID: 843782506186080318, guid: b31156720078cb34689a8bb54207a090, type: 3}
+  damage:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  damageCooldown:
+    baseValue: 0.1
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  maxRange:
+    baseValue: 5
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  <Radius>k__BackingField: 0.15
+  <MaxPierce>k__BackingField: 0

@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caba93863832b984bbd45017349d4f9a, type: 3}
+  m_Name: Machine Guns
+  m_EditorClassIdentifier: 
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <AbilityType>k__BackingField: 0
+  <CanHold>k__BackingField: 1
+  cooldownTime:
+    baseValue: 0.1
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  <ProjectilePrefab>k__BackingField: {fileID: 3777845839141210170, guid: 6f6ff7d6431d08444bf5c913843b393e, type: 3}
+  <CastDistanceAway>k__BackingField: 0
+  maxRange:
+    baseValue: 10
+    increase: 0
+    valueLimits:
+      min: -Infinity
+      max: Infinity
+  damage:
+    baseValue: 5
+    increase: 0
+    valueLimits:
+      min: -Infinity
+      max: Infinity
+  speed:
+    baseValue: 10
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  <MachineGunsPrefab>k__BackingField: {fileID: 6621356650605364259, guid: fdd5921a585d2474abb04b079fe399c1, type: 3}
+  <DistanceFromCenter>k__BackingField: 0.8
+  <AngleOffset>k__BackingField: 3

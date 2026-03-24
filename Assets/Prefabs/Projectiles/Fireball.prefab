@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4201946138875304654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8195141644302352150}
+  - component: {fileID: 437356665002056714}
+  - component: {fileID: 7148762787314530083}
+  - component: {fileID: -2446229885022621982}
+  m_Layer: 0
+  m_Name: Fireball
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8195141644302352150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201946138875304654}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &437356665002056714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201946138875304654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f1778b3db355e4590aa46f8b922a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitRadius: 0.25
+  tipDistance: 0.25
+  gizmosColor: {r: 1, g: 1, b: 1, a: 1}
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 4352
+  blockLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  despawnAction: 1
+  despawnWithSource: 0
+  statusEffectToApply: {fileID: 11400000, guid: 0195ac4fba5f4d748a37f9b91d367d23, type: 2}
+  armorPenetration: 0
+  procCoefficient: 1
+  knockback: 1
+--- !u!114 &7148762787314530083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201946138875304654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846b2350f1272204a803eeacf7284b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopAction: 1
+  spawnParticles:
+  - particlesPrefab: {fileID: 7562753469400107764, guid: deda1037addf2274089ffc5b351ccc7a, type: 3}
+    prefabOffset: {x: 0, y: 0, z: 0}
+    enable: 1
+  - particlesPrefab: {fileID: 6393412465089220366, guid: 7c3d9052f2967044ea4500d195eac597, type: 3}
+    prefabOffset: {x: 0, y: -0.068, z: 0}
+    enable: 1
+  - particlesPrefab: {fileID: 1493388553776206132, guid: 519d19dd38d00484db2af1d3bfccf8b4, type: 3}
+    prefabOffset: {x: 0, y: 0.085, z: 0}
+    enable: 1
+  - particlesPrefab: {fileID: 4288973705588570470, guid: ff3d9a056c8812449b275ba6ab7ad935, type: 3}
+    prefabOffset: {x: 0, y: 0.085, z: 0}
+    enable: 2
+--- !u!114 &-2446229885022621982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201946138875304654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b640a9d43c55f1443a2893329c2d1dd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

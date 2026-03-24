@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 855c98e29ef87a041bf741f54c36c06d, type: 3}
+  m_Name: Saw
+  m_EditorClassIdentifier: 
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <AbilityType>k__BackingField: 0
+  <CanHold>k__BackingField: 1
+  cooldownTime:
+    baseValue: 0
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  <DamageRadius>k__BackingField: 0.5
+  <CastDistanceAway>k__BackingField: 0.5
+  <HitLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 256
+  <BlockLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 2176
+  damage:
+    baseValue: 5
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  damageCooldown:
+    baseValue: 0.2
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  <ArmorPenetration>k__BackingField: 0
+  <ProcCoefficient>k__BackingField: 1
+  <StatusEffectToApply>k__BackingField: {fileID: 11400000, guid: 0195ac4fba5f4d748a37f9b91d367d23, type: 2}
+  <StatusEffectProcChance>k__BackingField: 100
+  <SawPrefab>k__BackingField: {fileID: 8456839551105744551, guid: d6961137a4e07c849a787fe64f52dd5c, type: 3}
