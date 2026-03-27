@@ -32,7 +32,7 @@ namespace Zeke.Abilities
 
         public abstract bool CanActivate();
 
-        public abstract void TryActivate(bool holding);
+        public abstract bool TryActivate(bool holding);
 
         public abstract void TryDeactivate();
 

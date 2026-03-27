@@ -4,33 +4,40 @@ using System;
 namespace Zeke.Abilities.Modules
 {
     [Serializable]
-    public class FireGiantOrb : GenericFireProjectile<GiantOrbProjectile>
+    public class FireGiantOrb : FireDamageProjectile<GiantOrbProjectile>
     {
-        [SerializeField] private Stat homingOrbDamage;
-        [SerializeField] private Stat homingOrbSpeed;
-        [SerializeField] private Stat homingOrbRange;
+        [SerializeField] private Stat smallOrbDamage;
+        [SerializeField] private Stat smallOrbSpeed;
+        [SerializeField] private Stat smallOrbRange;
+        [SerializeField] private Stat smallOrbPierce;
+
+        public FireGiantOrb() { }
 
         public FireGiantOrb(FireGiantOrb original) : base(original)
         {
-            homingOrbDamage = original.homingOrbDamage.DeepCopy();
-            homingOrbSpeed = original.homingOrbSpeed.DeepCopy();
-            homingOrbRange = original.homingOrbRange.DeepCopy();
+            smallOrbDamage = original.smallOrbDamage.DeepCopy();
+            smallOrbSpeed = original.smallOrbSpeed.DeepCopy();
+            smallOrbRange = original.smallOrbRange.DeepCopy();
+            smallOrbPierce = original.smallOrbPierce.DeepCopy();
         }
 
-        public override AbilityModule DeepCopy() => new FireGiantOrb(this);
+        public override FireProjectileType DeepCopy() => new FireGiantOrb(this);
 
-        public override void Activate(bool holding)
+        public override bool CanLaunchProjectile() => true;
+
+        public override void LaunchProjectile(Vector3 position, Vector3 direction, float damage, float speed, float maxRange, GameObject source, Teams team)
         {
-            GiantOrbProjectile giantOrb = LaunchAndGetProjectile(spawn.position, spawn.up, source);
-            giantOrb.SetHomingOrbsValues(homingOrbDamage.Value, homingOrbSpeed.Value, homingOrbRange.Value);
+            GiantOrbProjectile projectile = projectilePool.Get(prefab);
+            projectile.Launch(position, speed, direction, maxRange, damage, smallOrbDamage.Value, smallOrbSpeed.Value, smallOrbRange.Value, smallOrbPierce.ValueInt, source, team);
+            projectile.gameObject.SetActive(true);
         }
 
         public override void Upgrade()
         {
+            smallOrbDamage.Upgrade();
+            smallOrbSpeed.Upgrade();
+            smallOrbRange.Upgrade();
             base.Upgrade();
-            homingOrbDamage.Upgrade();
-            homingOrbSpeed.Upgrade();
-            homingOrbRange.Upgrade();
         }
     }
 }

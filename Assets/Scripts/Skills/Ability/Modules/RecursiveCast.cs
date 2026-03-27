@@ -13,6 +13,8 @@ namespace Zeke.Abilities.Modules
         private Ability ability;
         private AbilityController controller;
 
+        public RecursiveCast() { }
+
         public RecursiveCast(RecursiveCast original)
         {
             modules = new List<ModuleSpawnData>();

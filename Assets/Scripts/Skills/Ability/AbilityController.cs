@@ -236,8 +236,10 @@ namespace Zeke.Abilities
         {
             if (CanUseAbility(ability))
             {
-                ability.TryActivate(holding);
-                onAbilityUsed?.Invoke(ability);
+                if (ability.TryActivate(holding))
+                {
+                    onAbilityUsed?.Invoke(ability);
+                }   
             }
         }
 

@@ -5,12 +5,12 @@ public class EngineerTurret : MonoBehaviour
     [SerializeField] private LevelHandler levelHandler;
     [SerializeField] private TeamIdentifier teamIdentifier;
 
-    private LevelHandler ownerLevelHandlerCache;
+    private LevelHandler ownerLevelHandler;
 
-    public void SetData(GameObject owner)
+    public void Initialize(GameObject owner)
     {
         teamIdentifier.Team = TeamManager.GetTeam(owner);
-        ownerLevelHandlerCache = owner.GetComponent<LevelHandler>();
+        ownerLevelHandler = owner.GetComponent<LevelHandler>();
     }
 
     private void Awake()
@@ -20,7 +20,7 @@ public class EngineerTurret : MonoBehaviour
 
     private void ShareExperienceWithOwner(int experienceReceived)
     {
-        if (ownerLevelHandlerCache == null) return;
-        ownerLevelHandlerCache.GiveExperience(experienceReceived);
+        if (ownerLevelHandler == null) return;
+        ownerLevelHandler.GiveExperience(experienceReceived);
     }
 }

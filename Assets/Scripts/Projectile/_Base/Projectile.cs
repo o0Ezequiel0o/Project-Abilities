@@ -5,7 +5,7 @@ using System;
 
 public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
 {
-    [Header("Projectile Settings")]
+    [Header("Collision")]
     [SerializeField] private float hitRadius;
     [SerializeField] private float tipDistance;
 
@@ -21,16 +21,10 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
     [Header("Despawn")]
 
     [SerializeField] private DespawnAction despawnAction;
-    [SerializeField] private bool despawnWithSource;
 
     public virtual bool CanGetPoolable => true;
 
-    public Action<Projectile> onDespawn;
-
-    public GameObject SourceUser { get; protected set; }
-
     public float Speed { get; set; }
-    public float Damage { get; set; }
     public float MaxRange { get; set; }
 
     public float Radius => hitRadius;
@@ -39,6 +33,8 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
     public Vector3 PreviousPosition => lastPosition;
 
     public virtual Vector3 Direction { get; protected set; }
+
+    public Action<Projectile> onDespawn;
 
     protected readonly QuickLookupList<GameObject, IProjectileTrigger> objectsNotExited = new QuickLookupList<GameObject, IProjectileTrigger>();
     protected readonly HashSet<GameObject> objectsHit = new HashSet<GameObject>();
@@ -52,14 +48,13 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
 
     protected float distanceTravelled = 0f;
 
-    private readonly List<RaycastHit2D> hits = new List<RaycastHit2D>();
-
-    private bool despawnCanceled = false;
-    private bool hasSourceUser = false;
-
     private bool despawnCalled = false;
+    private bool despawnCanceled = false;
+
     private bool stopLoopingHits = false;
     private bool despawnThisFrame = false;
+
+    private readonly List<RaycastHit2D> hits = new List<RaycastHit2D>();
 
     private LayerMask CollideLayers
     {
@@ -72,7 +67,6 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
     public virtual void OnPoolableGet()
     {
         Speed = 0f;
-        Damage = 0f;
         MaxRange = 0f;
 
         distanceTravelled = 0f;
@@ -81,37 +75,20 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
         despawnThisFrame = false;
         despawnCanceled = false;
         despawnCalled = false;
-        hasSourceUser = false;
-        SourceUser = null;
 
         objectsHit.Clear();
         objectsNotExited.Clear();
     }
 
-    public void Launch(Vector3 startPosition, float speed, Vector2 direction, float maxRange)
+    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange)
     {
-        Launch(startPosition, speed, direction, maxRange, 0f, null);
-    }
-
-    public void Launch(Vector3 startPosition, float speed, Vector2 direction, float maxRange, float damage)
-    {
-        Launch(startPosition, speed, direction, maxRange, damage, null);
-    }
-
-    public void Launch(Vector3 startPosition, float speed, Vector2 direction, float maxRange, float damage, GameObject source)
-    {
-        SourceUser = source;
-
         Speed = speed;
-        Damage = damage;
         MaxRange = maxRange;
 
         Direction = direction;
 
-        hasSourceUser = source != null;
-
-        ResetPositionAndRotation(startPosition, GetRotation(direction));
-        OnLaunch(startPosition, speed, direction, maxRange, damage, source);
+        ResetPositionAndRotation(position, GetRotation(direction));
+        OnLaunch(position, speed, direction, maxRange);
     }
 
     public void Teleport(Vector3 newPosition)
@@ -136,7 +113,7 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
 
     protected virtual void OnCollision(RaycastHit2D hit) { }
 
-    protected virtual void OnLaunch(Vector3 startPosition, float speed, Vector2 direction, float maxRange, float damage, GameObject source) { }
+    protected virtual void OnLaunch(Vector3 startPosition, float speed, Vector2 direction, float maxRange) { }
 
     protected virtual void OnDestroy()
     {
@@ -219,15 +196,8 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
 
     protected virtual void Update()
     {
-        if (hasSourceUser && SourceUser == null)
-        {
-            Despawn();
-        }
-        else
-        {
-            UpdateMovement();
-            UpdateCollision();
-        }
+        UpdateMovement();
+        UpdateCollision();
     }
 
     protected float GetRotation(Vector2 direction)

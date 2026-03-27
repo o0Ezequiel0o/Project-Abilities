@@ -31,7 +31,7 @@ public class Missile : BasicProjectile
         target = null;
     }
 
-    public void SetTarget(Transform target)
+    private void SetTarget(Transform target)
     {
         this.target = target;
     }

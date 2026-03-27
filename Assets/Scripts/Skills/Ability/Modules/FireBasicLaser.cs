@@ -21,10 +21,10 @@ namespace Zeke.Abilities.Modules
 
         private Transform spawn;
         private GameObject source;
-        private AbilityController controller;
 
         private Laser laserInstance = null;
-        private bool laserEnabledThisFrame = false;
+
+        public FireBasicLaser() { }
 
         public FireBasicLaser(FireBasicLaser original)
         {
@@ -33,8 +33,8 @@ namespace Zeke.Abilities.Modules
             pierce = original.pierce;
 
             damage = original.damage.DeepCopy();
-            damageCooldown = original.damageCooldown.DeepCopy();
             maxRange = original.maxRange.DeepCopy();
+            damageCooldown = original.damageCooldown.DeepCopy();
         }
 
         public override AbilityModule DeepCopy() => new FireBasicLaser(this);
@@ -43,7 +43,6 @@ namespace Zeke.Abilities.Modules
         {
             this.spawn = spawn;
             this.source = source;
-            this.controller = controller;
 
             GameObject laserGOInstance = GameObject.Instantiate(prefab, source.transform.position, Quaternion.identity);
 
@@ -55,38 +54,34 @@ namespace Zeke.Abilities.Modules
             laserGOInstance.SetActive(false);
         }
 
-        public override bool CanActivate()
-        {
-            return laserInstance != null;
-        }
-
+        public override bool CanActivate() => true;
         public override bool CanUpgrade() => true;
 
         public override void Activate(bool holding)
         {
-            laserEnabledThisFrame = true;
+            if (laserInstance == null) return;
+
+            if (!laserInstance.gameObject.activeSelf)
+            {
+                laserInstance.gameObject.SetActive(true);
+            }
         }
 
         public override void Deactivate()
         {
-            DisableLaser();
+            if (laserInstance == null) return;
+
+            if (laserInstance.gameObject.activeSelf)
+            {
+                laserInstance.gameObject.SetActive(false);
+            }
         }
 
-        public override void LateUpdate()
+        public override void UpdateActive()
         {
             if (laserInstance == null) return;
 
-            if (laserEnabledThisFrame)
-            {
-                laserInstance.UpdateLaser(spawn.position, spawn.rotation, spawn.up, radius, maxRange.Value);
-                if (!laserInstance.gameObject.activeSelf) laserInstance.gameObject.SetActive(true);
-
-                laserEnabledThisFrame = false;
-            }
-            else
-            {
-                DisableLaser();
-            }
+            laserInstance.UpdateLaser(spawn.position, spawn.rotation, spawn.up, radius, maxRange.Value);
         }
 
         public override void Upgrade()
@@ -105,16 +100,6 @@ namespace Zeke.Abilities.Modules
         {
             if (laserInstance == null) return;
             GameObject.Destroy(laserInstance.gameObject);
-        }
-
-        private void DisableLaser()
-        {
-            if (laserInstance == null) return;
-
-            if (laserInstance.gameObject.activeSelf)
-            {
-                laserInstance.gameObject.SetActive(false);
-            }
         }
     }
 }

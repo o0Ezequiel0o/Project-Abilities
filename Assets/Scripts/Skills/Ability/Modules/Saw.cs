@@ -42,6 +42,8 @@ namespace Zeke.Abilities.Modules
 
         private readonly List<Collider2D> hits = new List<Collider2D>();
 
+        public Saw() { }
+
         public Saw(Saw original)
         {
             prefab = original.prefab;

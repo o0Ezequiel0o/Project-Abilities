@@ -17,6 +17,8 @@ public class CrowbarItem : Item
     
     public override void OnDealDamage(Damageable.DamageEvent damageEvent)
     {
+        if (damageEvent.SourceUser != null && damageEvent.SourceUser == source) return;
+
         if (damageEvent.Receiver.TryGetComponent(out Damageable damageable))
         {
             float healthRatio = damageable.Health / damageable.MaxHealth.Value;

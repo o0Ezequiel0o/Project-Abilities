@@ -23,6 +23,8 @@ namespace Zeke.Abilities.Modules
 
         private readonly List<Collider2D> hits = new List<Collider2D>();
 
+        public HealWithNearbyEffects() { }
+
         public HealWithNearbyEffects(HealWithNearbyEffects original)
         {
             consumesEffects = original.consumesEffects;

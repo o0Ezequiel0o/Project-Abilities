@@ -20,6 +20,7 @@ public class GasolineItem : Item
         this.source = source;
         this.itemHandler = itemHandler;
     }
+
     public override void OnKill(Damageable.DamageEvent damageEvent) 
     {
         hits.Clear();

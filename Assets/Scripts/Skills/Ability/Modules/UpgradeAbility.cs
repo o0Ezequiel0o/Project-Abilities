@@ -11,6 +11,8 @@ namespace Zeke.Abilities.Modules
 
         private AbilityController controller;
 
+        public UpgradeAbility() { }
+
         public UpgradeAbility(UpgradeAbility original)
         {
             levels = original.levels;

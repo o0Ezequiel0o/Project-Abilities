@@ -1,33 +1,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MegaFireballProjectile : Projectile
+public class MegaFireballProjectile : DamageProjectileBase
 {
-    [Header("Mega Fireball Settings")]
+    [Header("Mega Fireball | Settings")]
     [SerializeField] public StatusEffectData statusEffectToApply;
     [SerializeField] private GameObject fireballsPrefab;
-    [Space]
-    [SerializeField] public float armorPenetration = 0f;
-    [SerializeField] public float procCoefficient = 1f;
-    [SerializeField] public float knockback = 0f;
 
-    public override bool CanGetPoolable => base.CanGetPoolable && activeFireballs.Count == 0; //FIX THIS, CHECK THE POOLABLEGAMEOBJECT BOOL
+    public override bool CanGetPoolable => base.CanGetPoolable && activeFireballs.Count == 0;
 
     private float damageRadius;
-    private Collider2D[] hits;
 
     private int fireballsAmount;
     private float anglePerFireball;
 
-    private GameObjectPool fireballsPool = new GameObjectPool();
-    private HashSet<Projectile> activeFireballs = new HashSet<Projectile>();
+    private readonly List<Collider2D> hits = new List<Collider2D>();
+    private readonly GameObjectPool fireballsPool = new GameObjectPool();
+    private readonly HashSet<Projectile> activeFireballs = new HashSet<Projectile>();
 
-    public void SetDamageRadiusAndFireballsAmount(float damageRadius, int fireballsAmount)
+    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, float damageRadius, int fireballsAmount, GameObject source, Teams team)
     {
         this.damageRadius = damageRadius;
         this.fireballsAmount = fireballsAmount;
 
         anglePerFireball = 360 / Mathf.Max(1, fireballsAmount);
+        Launch(position, speed, direction, maxRange, damage, source, team);
     }
 
     protected override void OnCollision(RaycastHit2D hit)
@@ -49,38 +46,29 @@ public class MegaFireballProjectile : Projectile
         fireballsPool.Clear();
     }
 
-    void Explode()
+    private void Explode()
     {
-        hits = Physics2D.OverlapCircleAll(TipPosition, damageRadius, hitLayer);
+        hits.Clear();
 
-        for (int i = 0; i < hits.Length; i++)
+        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayer };
+        Physics2D.OverlapCircle(TipPosition, damageRadius, contactFilter, hits);
+
+        for (int i = 0; i < hits.Count; i++)
         {
-            OnHit(hits[i].gameObject);
+            Hit(hits[i].gameObject);
         }
 
         SpawnFireballs();
         Despawn();
     }
 
-    void OnHit(GameObject receiver)
+    private void Hit(GameObject receiver)
     {
-        bool damageRejected = false;
+        if (TeamManager.IsAlly(Team, receiver)) return;
 
-        if (Physics2D.Linecast(TipPosition, receiver.transform.position, blockLayer))
-        {
-            return;
-        }
+        if (Physics2D.Linecast(TipPosition, receiver.transform.position, blockLayer)) return;
 
-        if (TeamManager.IsAlly(SourceUser, receiver))
-        {
-            return;
-        }
-
-        if (receiver.TryGetComponent(out Damageable damageable))
-        {
-            Damageable.DamageEvent damageEvent = damageable.DealDamage(new DamageInfo(Damage, 0f, 1f), SourceUser, gameObject);
-            damageRejected = damageEvent.damageRejected;
-        }
+        bool damageRejected = DealDamage(receiver);
 
         if (damageRejected) return;
 
@@ -89,13 +77,10 @@ public class MegaFireballProjectile : Projectile
             statusEffectHandler.ApplyEffect(statusEffectToApply, SourceUser);
         }
 
-        if (receiver.TryGetComponent(out Physics physics))
-        {
-            physics.AddForce(knockback, Direction);
-        }
+        ApplyKnockback(receiver, Direction);
     }
 
-    void SpawnFireballs()
+    private void SpawnFireballs()
     {
         for (int i = 0; i < fireballsAmount; i++)
         {
@@ -104,20 +89,18 @@ public class MegaFireballProjectile : Projectile
             float theta = (i + 1) * anglePerFireball * Mathf.PI / 180;
             Vector2 direction = new Vector2(Mathf.Cos(theta), Mathf.Sin(theta));
 
-            if (fireball.TryGetComponent(out FireBallProjectile fireballProjectile) && fireball.TryGetComponent(out Projectile projectile))
+            if (fireball.TryGetComponent(out FireBallProjectile fireballProjectile))
             {
-                projectile.Launch(TipPosition, Speed * .5f, direction, MaxRange * .5f, Damage * .5f, SourceUser);
-
-                fireballProjectile.SetDamageRadius(damageRadius * .5f);
+                fireballProjectile.Launch(TipPosition, Speed * .5f, direction, MaxRange * .5f, Damage * .5f, damageRadius * .5f, SourceUser, Team);
                 fireballProjectile.onDespawn += RemoveFromActiveFireballs;
-                activeFireballs.Add(projectile);
+                activeFireballs.Add(fireballProjectile);
             }
 
             fireball.SetActive(true);
         }
     }
 
-    GameObject GetNewFireballProjectile()
+    private GameObject GetNewFireballProjectile()
     {
         GameObject fireball = fireballsPool.Get();
 
@@ -130,7 +113,7 @@ public class MegaFireballProjectile : Projectile
         return fireball;
     }
 
-    void RemoveFromActiveFireballs(Projectile projectile)
+    private void RemoveFromActiveFireballs(Projectile projectile)
     {
         projectile.onDespawn -= RemoveFromActiveFireballs;
         activeFireballs.Remove(projectile);

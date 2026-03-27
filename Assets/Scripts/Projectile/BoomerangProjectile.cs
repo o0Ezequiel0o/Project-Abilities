@@ -1,12 +1,7 @@
 using UnityEngine;
 
-public class BoomerangProjectile : Projectile
+public class BoomerangProjectile : DamageProjectileBase
 {
-    [Header("Boomerang Settings")]
-    [SerializeField] private float armorPenetration = 0f;
-    [SerializeField] private float procCoefficient = 1f;
-    [SerializeField] private float knockback = 1f;
-
     [Header("Return settings")]
     [SerializeField] private float returnDeceleration;
     [SerializeField] private float speedIncreaseRate;
@@ -22,6 +17,7 @@ public class BoomerangProjectile : Projectile
     [SerializeField] private float maxReturnTime = 10f;
 
     private BoomerangState state = BoomerangState.Normal;
+    private Vector3 lastSourcePosition = Vector3.zero;
 
     private float currentRotationSpeed = 0f;
     private float targetAngle = 0f;
@@ -39,13 +35,19 @@ public class BoomerangProjectile : Projectile
         returnTimer = 0f;
     }
 
-    protected override void OnLaunch(Vector3 startPosition, float speed, Vector2 direction, float maxRange, float damage, GameObject source)
+    protected override void OnLaunch(Vector3 startPosition, float speed, Vector2 direction, float maxRange)
     {
         currentRotationSpeed = startRotationSpeed;
+        if (SourceUser == null) lastSourcePosition = startPosition;
     }
 
     protected override void Update()
     {
+        if (SourceUser != null)
+        {
+            lastSourcePosition = SourceUser.transform.position;
+        }
+
         switch (state)
         {
             case BoomerangState.Slowing:
@@ -53,10 +55,7 @@ public class BoomerangProjectile : Projectile
                 break;
 
             case BoomerangState.Returning:
-                if (SourceUser != null)
-                {
-                    UpdateOwnerTrackingState(SourceUser.transform);
-                }
+                UpdateOwnerTrackingState(lastSourcePosition);
                 break;
         }
 
@@ -71,7 +70,6 @@ public class BoomerangProjectile : Projectile
         {
             if (state == BoomerangState.Returning)
             {
-                StopLoopingHits();
                 Despawn();
             }
             else
@@ -85,7 +83,7 @@ public class BoomerangProjectile : Projectile
             return;
         }
 
-        OnImpact(hit);
+        Hit(hitObject);
     }
 
     protected override void OnMaxDistanceReached()
@@ -94,40 +92,20 @@ public class BoomerangProjectile : Projectile
         state = BoomerangState.Slowing;
     }
 
-    protected virtual void OnHitInternal(GameObject receiver, bool damageRejected) { }
-
-    protected void Hit(GameObject receiver)
+    private void Hit(GameObject receiver)
     {
-        bool damageRejected = false;
-
-        if (receiver.TryGetComponent(out Damageable damageable))
-        {
-            Damageable.DamageEvent damageEvent = damageable.DealDamage(new DamageInfo(Damage, procCoefficient, armorPenetration), SourceUser, gameObject);
-
-            damageRejected = damageEvent.damageRejected;
-        }
-
-        if (!damageRejected && knockback != 0f && receiver.TryGetComponent(out Physics physics))
-        {
-            physics.AddForce(knockback, Direction);
-        }
-
-        OnHitInternal(receiver, damageRejected);
-    }
-
-    private void OnImpact(RaycastHit2D collision)
-    {
-        GameObject hitObject = collision.collider.gameObject;
-
-        if (TeamManager.IsEnemy(SourceUser, hitObject))
-        {
-            Hit(hitObject);
-        }
-
         if (state == BoomerangState.Normal)
         {
             state = BoomerangState.Slowing;
         }
+
+        if (TeamManager.IsAlly(Team, receiver)) return;
+
+        bool damageRejected = DealDamage(receiver);
+
+        if (damageRejected) return;
+
+        ApplyKnockback(receiver, Direction);
     }
 
     private void UpdateSlowDownState()
@@ -142,14 +120,14 @@ public class BoomerangProjectile : Projectile
         }
     }
 
-    private void UpdateOwnerTrackingState(Transform target)
+    private void UpdateOwnerTrackingState(Vector3 targetPos)
     {
         float accelerationStep = speedIncreaseRate * Time.deltaTime;
 
         Speed = Mathf.Clamp(Speed + accelerationStep, 0f, speedCap);
         currentRotationSpeed += rotationSpeedIncreaseRate * Time.deltaTime;
 
-        targetAngle = GetRotation(target.position - transform.position);
+        targetAngle = GetRotation(targetPos - transform.position);
 
         float rotationStep = currentRotationSpeed * Time.deltaTime;
         float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, targetAngle, rotationStep);

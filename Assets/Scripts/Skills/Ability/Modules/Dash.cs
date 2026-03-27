@@ -14,6 +14,8 @@ namespace Zeke.Abilities.Modules
 
         private bool hasRequiredComponents = true;
 
+        public Dash() { }
+
         public Dash(Dash original)
         {
             jumpForce = original.jumpForce;

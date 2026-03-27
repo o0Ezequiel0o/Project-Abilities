@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightingBoltProjectile : BasicProjectile
+public class LightingBoltProjectile : DamageProjectileBase
 {
-    [Header("Lighting Bolt Settings")]
+    [Header("Lighting Bolt | Spread")]
     [SerializeField] private float spreadMaxRadius = 3f;
 
     private float spreadTargets;
@@ -11,41 +11,60 @@ public class LightingBoltProjectile : BasicProjectile
     private readonly List<Collider2D> hits = new List<Collider2D>();
     private readonly HashSet<GameObject> ignoreTargets = new HashSet<GameObject>();
 
-    public void SetSpreadTargets(float spreadTargets)
-    {
-        this.spreadTargets = spreadTargets + 1;
-    }
-
     public override void OnPoolableGet()
     {
         base.OnPoolableGet();
         ignoreTargets.Clear();
     }
 
-    protected override void OnHitInternal(GameObject receiver, bool damageRejected)
+    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, float spreadTargets, GameObject source, Teams team)
+    {
+        this.spreadTargets = spreadTargets;
+        Launch(position, speed, direction, maxRange, damage, source, team);
+    }
+
+    protected override void OnCollision(RaycastHit2D hit)
+    {
+        if (hit.collider.gameObject == SourceUser) return;
+
+        Hit(hit.transform.gameObject);
+        TeleportToHitPoint(hit.point);
+
+        Despawn();
+    }
+
+    private void Hit(GameObject receiver)
+    {
+        if (TeamManager.IsAlly(Team, receiver)) return;
+
+        bool damageRejected = DealDamage(receiver);
+
+        if (damageRejected) return;
+
+        ApplyKnockback(receiver, Direction);
+
+        if (spreadTargets > 0)
+        {
+            spreadTargets -= 1;
+            ignoreTargets.Add(receiver);
+            SpreadToNearTargets(receiver);
+        }
+    }
+
+    private void SpreadToNearTargets(GameObject receiver)
     {
         hits.Clear();
-
-        if (spreadTargets <= 0 || damageRejected) return;
-
-        ignoreTargets.Add(receiver);
 
         ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayer };
         Physics2D.OverlapCircle(receiver.transform.position, spreadMaxRadius, contactFilter, hits);
 
         for (int i = 0; i < hits.Count; i++)
         {
-            if (TeamManager.IsAlly(SourceUser, hits[i].gameObject)) continue;
+            if (TeamManager.IsAlly(Team, hits[i].gameObject)) continue;
             if (ignoreTargets.Contains(hits[i].gameObject)) continue;
 
-            SpreadToTarget(hits[i].gameObject);
+            Hit(hits[i].gameObject);
             break;
         }
-    }
-
-    void SpreadToTarget(GameObject target)
-    {
-        spreadTargets -= 1;
-        Hit(target);
     }
 }

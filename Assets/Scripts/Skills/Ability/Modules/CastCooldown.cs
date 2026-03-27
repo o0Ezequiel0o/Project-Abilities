@@ -10,6 +10,8 @@ namespace Zeke.Abilities.Modules
 
         private float timer = 0f;
 
+        public CastCooldown() { }
+
         public CastCooldown(CastCooldown original)
         {
             cooldown = original.cooldown.DeepCopy();
@@ -37,6 +39,11 @@ namespace Zeke.Abilities.Modules
         public override void Update()
         {
             timer += Time.deltaTime;
+        }
+
+        public override void Upgrade()
+        {
+            cooldown.Upgrade();
         }
     }
 }

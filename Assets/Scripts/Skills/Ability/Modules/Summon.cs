@@ -8,30 +8,31 @@ namespace Zeke.Abilities.Modules
     public class Summon : AbilityModule
     {
         [Header("Summon")]
-        [SerializeField] protected GameObject prefab;
-        [SerializeField] protected Stat maxSummons;
+        [SerializeReferenceDropdown, SerializeReference] private SummonType summon;
+        [SerializeField] private Stat maxSummons;
 
         [Header("Spawning")]
-        [SerializeField] protected float spawnBlockRadius;
-        [SerializeField] protected float spawnDistance;
-        [SerializeField] protected LayerMask spawnBlockLayers;
+        [SerializeField] private float spawnBlockRadius;
+        [SerializeField] private float spawnDistance;
+        [SerializeField] private LayerMask spawnBlockLayers;
 
-        protected Transform spawn;
-        protected GameObject source;
-        protected Ability ability;
-        protected AbilityController controller;
+        private Transform spawn;
+        private GameObject source; 
 
-        protected readonly List<GameObject> summons = new List<GameObject>();
+        private readonly List<GameObject> summons = new List<GameObject>();
+        private readonly List<Collider2D> hits = new List<Collider2D>();
 
-        protected Vector3 WorldSpawnPosition => spawn.position + (spawnDistance * spawn.up);
+        private Vector3 WorldSpawnPosition => spawn.position + (spawnDistance * spawn.up);
+
+        public Summon() { }
 
         public Summon(Summon original)
         {
-            prefab = original.prefab;
             spawnDistance = original.spawnDistance;
             spawnBlockRadius = original.spawnBlockRadius;
             spawnBlockLayers = original.spawnBlockLayers;
 
+            summon = original.summon.DeepCopy();
             maxSummons = original.maxSummons.DeepCopy();
         }
 
@@ -45,13 +46,16 @@ namespace Zeke.Abilities.Modules
         {
             this.spawn = spawn;
             this.source = source;
-            this.ability = ability;
-            this.controller = controller;
         }
 
         public override void Activate(bool holding)
         {
-            TrySpawnSummon(prefab);
+            if (summons.Count >= maxSummons.ValueInt)
+            {
+                DestroySummon(summons[0]);
+            }
+
+            SpawnSummon(WorldSpawnPosition, spawn.rotation);
         }
 
         public override void Upgrade()
@@ -59,45 +63,53 @@ namespace Zeke.Abilities.Modules
             maxSummons.Upgrade();
         }
 
-        protected bool TrySpawnSummon(GameObject prefab)
+        public override void Destroy()
         {
-            if (summons.Count >= maxSummons.ValueInt) return false;
-
-            Vector3 spawnPosition = spawn.position + (spawnDistance * spawn.up);
-            if (IsBlocked(spawnPosition, spawnBlockRadius, spawnBlockLayers)) return false;
-
-            SpawnSummon(prefab, spawnPosition);
-            return true;
+            DestroySummons();
         }
 
-        protected GameObject SpawnSummon(GameObject prefab, Vector3 spawnPosition)
+        private void SpawnSummon(Vector3 position, Quaternion rotation)
         {
-            if (summons.Count >= maxSummons.ValueInt) return null;
+            GameObject summonInstance = summon.SpawnSummon(position, rotation, source);
+            TrackSummonInstanceDestruction(summonInstance);
+            summons.Add(summonInstance);
+        }
 
-            GameObject spawnedSummon = GameObject.Instantiate(prefab, spawnPosition, Quaternion.identity);
-
-            if (!spawnedSummon.TryGetComponent(out TrackSummonDestruction trackSummonDestruction))
+        private void TrackSummonInstanceDestruction(GameObject summonInstance)
+        {
+            if (!summonInstance.TryGetComponent(out TrackSummonDestruction trackSummonDestruction))
             {
-                trackSummonDestruction = spawnedSummon.AddComponent<TrackSummonDestruction>();
+                trackSummonDestruction = summonInstance.AddComponent<TrackSummonDestruction>();
             }
 
             trackSummonDestruction.onDestroy += OnSummonDestroyed;
-            summons.Add(spawnedSummon);
-            return spawnedSummon;
         }
 
         protected bool IsBlocked(Vector3 position, float radius, LayerMask layers)
         {
-            return Physics2D.OverlapCircle(position, radius, layers) != null;
+            hits.Clear();
+
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = layers };
+            Physics2D.OverlapCircle(position, radius, contactFilter, hits);
+
+            for (int i = 0; i < hits.Count; i++)
+            {
+                if (hits[i].gameObject != source)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         protected void DestroySummon(GameObject summon)
         {
-            GameObject.Destroy(summon);
             summons.Remove(summon);
+            GameObject.Destroy(summon);
         }
 
-        protected void DestroyAllSummoned()
+        protected void DestroySummons()
         {
             for (int i = 0; i < summons.Count; i++)
             {

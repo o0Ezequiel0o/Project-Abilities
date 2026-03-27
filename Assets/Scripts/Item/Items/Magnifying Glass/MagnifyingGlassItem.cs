@@ -17,6 +17,8 @@ public class MagnifyingGlassItem : Item
 
     public override void OnDealDamage(Damageable.DamageEvent damageEvent)
     {
+        if (damageEvent.SourceUser != null && damageEvent.SourceUser == source) return;
+
         if (Vector3.Distance(source.transform.position, damageEvent.Receiver.transform.position) <= data.MinDistance)
         {
             damageEvent.damageMultiplier *= data.DamageMultiplier.CalculateValue(stacks);

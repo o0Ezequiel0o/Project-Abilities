@@ -1,0 +1,50 @@
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+namespace Zeke.Abilities.Modules
+{
+    [Serializable]
+    public class AreaHealthRegen : HealthRegen
+    {
+        [SerializeField] private Stat radius;
+        [SerializeField] private LayerMask hitLayers;
+
+        private readonly List<Collider2D> hits = new List<Collider2D>();
+
+        public AreaHealthRegen() { }
+
+        public AreaHealthRegen(AreaHealthRegen original) : base(original)
+        {
+            hitLayers = original.hitLayers;
+            radius = original.radius.DeepCopy();
+        }
+
+        public override AbilityModule DeepCopy() => new AreaHealthRegen(this);
+
+        public override void OnHealthRegenTick()
+        {
+            base.OnHealthRegenTick();
+
+            hits.Clear();
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers };
+            Physics2D.OverlapCircle(source.transform.position, radius.Value, contactFilter, hits);
+
+            for (int i = 0; i < hits.Count; i++)
+            {
+                if (TeamManager.IsEnemy(source, hits[i].gameObject)) continue;
+
+                if (hits[i].TryGetComponent(out Damageable damageable))
+                {
+                    damageable.GiveHealing(amount.Value, source, source);
+                }
+            }
+        }
+
+        public override void Upgrade()
+        {
+            base.Upgrade();
+            radius.Upgrade();
+        }
+    }
+}

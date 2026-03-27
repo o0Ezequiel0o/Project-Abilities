@@ -44,13 +44,13 @@ namespace Zeke.Abilities
 
         public bool HasCharges => Charges > 0;
 
-        protected bool UsesDuration => DurationTime > 0f;
+        private bool UsesDuration => DurationTime > 0f;
 
-        protected readonly AbilityController controller;
+        private readonly AbilityController controller;
 
-        protected readonly Stat cooldownTime;
-        protected readonly Stat durationTime;
-        protected readonly Stat maxCharges;
+        private readonly Stat cooldownTime;
+        private readonly Stat durationTime;
+        private readonly Stat maxCharges;
 
         private readonly Transform spawn;
         private readonly GameObject source;
@@ -133,7 +133,7 @@ namespace Zeke.Abilities
             }
         }
 
-        public void TryActivate(bool holding)
+        public bool TryActivate(bool holding)
         {
             if (CanActivate() && CanActivateBase())
             {
@@ -141,13 +141,17 @@ namespace Zeke.Abilities
 
                 if (!DurationActive)
                 {
-                    TryDeactivate();
+                    Deactivate();
                 }
+
+                return true;
             }
-            else if (DurationActive && data.ManualDeactivation)
+            else if (DurationActive && data.CanManuallyDeactivate)
             {
                 TryDeactivate();
             }
+
+            return false;
         }
 
         public void TryDeactivate()
@@ -266,19 +270,19 @@ namespace Zeke.Abilities
             }
         }
 
-        private void UpdateActive()
-        {
-            for (int i = 0; i < modules.Count; i++)
-            {
-                modules[i].UpdateActive();
-            }
-        }
-
         private void UpdateUnactive()
         {
             for (int i = 0; i < modules.Count; i++)
             {
                 modules[i].UpdateUnactive();
+            }
+        }
+
+        private void UpdateActive()
+        {
+            for (int i = 0; i < modules.Count; i++)
+            {
+                modules[i].UpdateActive();
             }
         }
 

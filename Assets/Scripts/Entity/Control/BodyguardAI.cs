@@ -161,7 +161,11 @@ public abstract class BodyguardBaseState : State<BodyguardStateContext>
         for (int i = 0; i < projectileDetector.Projectiles.Count; i++)
         {
             Projectile projectile = projectileDetector.Projectiles[i];
-            if (projectile.SourceUser == source) continue;
+
+            if (projectile.TryGetComponent(out DamageProjectileBase damageProjectileBase))
+            {
+                if (damageProjectileBase.SourceUser == source) continue;
+            }
 
             projectileDirections.Add((projectile.transform.position - position).normalized);
         }

@@ -1,15 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GiantOrbProjectile : Projectile
+public class GiantOrbProjectile : DamageProjectileBase
 {
-    [Header("Basic Projectile Settings")]
-    [SerializeField] private float armorPenetration = 0f;
-    [SerializeField] private float procCoefficient = 1f;
-    [SerializeField] private float knockback = 1f;
-
     [Header("Homing Projectiles")]
-    [SerializeField] private HomingOrb homingOrbPrefab;
+    [SerializeField] private HomingOrbProjectile homingOrbPrefab;
     [SerializeField] private float fireHomingOrbCooldown = 0.25f;
 
     [Space]
@@ -18,21 +13,25 @@ public class GiantOrbProjectile : Projectile
     [SerializeField] private LayerMask findTargetLayer;
     [SerializeField] private LayerMask findTargetBlockLayer;
 
-    private readonly GameObjectPool<HomingOrb> homingOrbs = new GameObjectPool<HomingOrb>();
+    private readonly GameObjectPool<HomingOrbProjectile> homingOrbs = new GameObjectPool<HomingOrbProjectile>();
 
     private float homingOrbSpeed = 0f;
     private float homingOrbDamage = 0f;
     private float homingOrbRange = 0f;
+    private int homingOrbPierce = 0;
 
     private float fireHomingOrbTimer = 0f;
 
     private readonly List<RaycastHit2D> closeTargets = new List<RaycastHit2D>();
 
-    public void SetHomingOrbsValues(float damage, float speed, float range)
+    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, float smallOrbDamage, float smallOrbSpeed, float smallOrbRange, int smallOrbPierce, GameObject source, Teams team)
     {
-        homingOrbDamage = damage;
-        homingOrbSpeed = speed;
-        homingOrbRange = range;
+        homingOrbDamage = smallOrbDamage;
+        homingOrbSpeed = smallOrbSpeed;
+        homingOrbRange = smallOrbRange;
+        homingOrbPierce = smallOrbPierce;
+
+        Launch(position, speed, direction, maxRange, damage, source, team);
     }
 
     protected override void OnCollision(RaycastHit2D hit)
@@ -42,7 +41,7 @@ public class GiantOrbProjectile : Projectile
         if (hitObject == SourceUser) return;
         if (objectsNotExited.Contains(hitObject)) return;
 
-        OnImpact(hitObject);
+        Hit(hitObject);
     }
 
     protected override void Update()
@@ -58,28 +57,15 @@ public class GiantOrbProjectile : Projectile
         }
     }
 
-    private void OnImpact(GameObject hitObject)
-    {
-        if (TeamManager.IsAlly(SourceUser, hitObject)) return;
-
-        Hit(hitObject);
-    }
-
     private void Hit(GameObject receiver)
     {
-        bool damageRejected = false;
+        if (TeamManager.IsAlly(Team, receiver)) return;
 
-        if (receiver.TryGetComponent(out Damageable damageable))
-        {
-            Damageable.DamageEvent damageEvent = damageable.DealDamage(new DamageInfo(Damage, procCoefficient, armorPenetration), SourceUser, gameObject);
+        bool damageRejected = DealDamage(receiver);
 
-            damageRejected = damageEvent.damageRejected;
-        }
+        if (damageRejected) return;
 
-        if (!damageRejected && knockback != 0f && receiver.TryGetComponent(out Physics physics))
-        {
-            physics.AddForce(knockback, Direction);
-        }
+        ApplyKnockback(receiver, Direction);
     }
 
     private void FireHomingOrbs()
@@ -92,14 +78,10 @@ public class GiantOrbProjectile : Projectile
 
     private void FireHomingOrb(Vector2 launchDirection)
     {
-        HomingOrb homingOrb = homingOrbs.Get(homingOrbPrefab);
-
-        homingOrb.Launch(transform.position, homingOrbSpeed, launchDirection, homingOrbRange, homingOrbDamage, SourceUser);
+        HomingOrbProjectile homingOrb = homingOrbs.Get(homingOrbPrefab);
         Transform target = GetClosestTarget(homingOrb.transform.position, launchDirection);
 
-        homingOrb.SetTarget(target);
-        homingOrb.EnableCollider();
-
+        homingOrb.Launch(transform.position, homingOrbSpeed, launchDirection, homingOrbRange, homingOrbDamage, homingOrbPierce, target, SourceUser, Team);
         homingOrb.gameObject.SetActive(true);
     }
 
@@ -113,7 +95,7 @@ public class GiantOrbProjectile : Projectile
         for (int i = 0; i < closeTargets.Count; i++)
         {
             if (closeTargets[i].collider.gameObject == SourceUser) continue;
-            if (TeamManager.IsAlly(SourceUser, closeTargets[i].collider.gameObject)) continue;
+            if (TeamManager.IsAlly(Team, closeTargets[i].collider.gameObject)) continue;
             if (Physics2D.CircleCast(position, Radius, direction, Vector3.Distance(position, closeTargets[i].transform.position), findTargetBlockLayer)) continue;
 
             return closeTargets[i].transform;

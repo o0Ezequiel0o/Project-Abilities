@@ -19,6 +19,8 @@ namespace Zeke.Abilities.Modules
 
         protected Spinner<T> spinnerInstance;
 
+        public GenericSpinner() { }
+
         public GenericSpinner(GenericSpinner<T> original)
         {
             prefab = original.prefab;

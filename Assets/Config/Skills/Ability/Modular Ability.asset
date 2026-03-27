@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ModularAbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <AbilityType>k__BackingField: 0
-  <ManualDeactivation>k__BackingField: 0
+  <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 1
   cooldownTime:
-    baseValue: 0.2
+    baseValue: 0.5
     increase: 0
     valueLimits:
       min: 0
@@ -35,37 +35,16 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 3611678528502235253
-  - rid: 3611678551402086485
+  - rid: 3611678573724172376
   references:
     version: 2
     RefIds:
-    - rid: 3611678528502235253
-      type: {class: DeltaTimeCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data: 
-    - rid: 3611678551402086485
-      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 3611678573724172376
+      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        fireDistance: 0.2
-        spread:
-          min: 0
-          max: 0
-        prefab: {fileID: 4095476445108489073, guid: 6f6ff7d6431d08444bf5c913843b393e, type: 3}
-        speed:
-          baseValue: 10
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        damage:
-          baseValue: 10
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        maxRange:
-          baseValue: 10
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
+        updateMode: 0
+        type:
+          rid: 3611678573724172377
+    - rid: 3611678573724172377
+      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 

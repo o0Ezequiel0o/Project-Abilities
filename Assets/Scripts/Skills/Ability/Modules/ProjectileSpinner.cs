@@ -9,6 +9,8 @@ namespace Zeke.Abilities.Modules
     {
         [SerializeField] private Stat damage;
 
+        public ProjectileSpinner() { }
+
         public ProjectileSpinner(ProjectileSpinner original) : base(original)
         {
             damage = original.damage.DeepCopy();
@@ -41,7 +43,7 @@ namespace Zeke.Abilities.Modules
         {
             for (int i = 0; i < spawnedObjects.Count; i++)
             {
-                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damage.Value, source);
+                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damage.Value, source, TeamManager.GetTeam(source));
             }
         }
     }

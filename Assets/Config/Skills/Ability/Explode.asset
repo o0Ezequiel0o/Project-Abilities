@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   <Icon>k__BackingField: {fileID: 0}
   <AbilityType>k__BackingField: 0
-  <ManualDeactivation>k__BackingField: 0
+  <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
   cooldownTime:
-    baseValue: 5
+    baseValue: 0.5
     increase: 0
     valueLimits:
       min: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
     increase: 0
     valueLimits:
       min: 0
-      max: 0
+      max: Infinity
   charges:
     baseValue: 1
     increase: 0
@@ -35,30 +35,16 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 3611678542850949210
-  - rid: 3611678542850949211
+  - rid: 3611678573724172365
   references:
     version: 2
     RefIds:
-    - rid: 3611678542850949210
-      type: {class: DeltaTimeCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data: 
-    - rid: 3611678542850949211
-      type: {class: Explode, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 3611678573724172365
+      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        radius:
-          baseValue: 1
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        damage:
-          baseValue: 50
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        knockback: 10
-        hitLayers:
-          serializedVersion: 2
-          m_Bits: 256
+        updateMode: 0
+        type:
+          rid: 3611678573724172366
+    - rid: 3611678573724172366
+      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 

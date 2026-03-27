@@ -10,6 +10,8 @@ namespace Zeke.Abilities.Modules
 
         private AbilityController controller;
 
+        public Reload() { }
+
         public Reload(Reload original)
         {
             reload = original.reload.CreateDeepCopy();

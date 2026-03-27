@@ -18,6 +18,8 @@ namespace Zeke.Abilities.Modules
         private GameObject source;
         private Transform spawn;
 
+        public BoxAttack() { }
+
         public BoxAttack(BoxAttack original)
         {
             damage = original.damage.DeepCopy();

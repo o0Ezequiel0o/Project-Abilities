@@ -13,6 +13,8 @@ namespace Zeke.Abilities.Modules
 
         private bool hasRequiredComponents = true;
 
+        public UpgradePassive() { }
+
         public UpgradePassive(UpgradePassive original)
         {
             passive = original.passive;

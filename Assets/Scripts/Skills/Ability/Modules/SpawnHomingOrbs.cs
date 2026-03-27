@@ -8,7 +8,7 @@ namespace Zeke.Abilities.Modules
     public class SpawnHomingOrbs : AbilityModule
     {
         [Header("Spawning")]
-        [SerializeField] private HomingOrb prefab;
+        [SerializeField] private HomingOrbProjectile prefab;
         [SerializeField] private float distance;
         [SerializeField] private float spinSpeed;
 
@@ -28,7 +28,7 @@ namespace Zeke.Abilities.Modules
 
         private GameObject source;
 
-        private Spinner<HomingOrb> spinnerInstance;
+        private Spinner<HomingOrbProjectile> spinnerInstance;
 
         private readonly List<Transform> targetsInRange = new List<Transform>();
 
@@ -38,10 +38,12 @@ namespace Zeke.Abilities.Modules
         private float fireCooldownTimer = 0f;
         private float warmUpTimer = 0f;
 
-        private List<HomingOrb> homingOrbs = new List<HomingOrb>();
+        private List<HomingOrbProjectile> homingOrbs = new List<HomingOrbProjectile>();
 
         private readonly List<RaycastHit2D> targetsInLaunchPath = new List<RaycastHit2D>();
         private readonly List<Collider2D> unfilteredTargetsInRange = new List<Collider2D>();
+
+        public SpawnHomingOrbs() { }
 
         public SpawnHomingOrbs(SpawnHomingOrbs original)
         {
@@ -68,7 +70,7 @@ namespace Zeke.Abilities.Modules
         {
             this.source = source;
 
-            spinnerInstance = new Spinner<HomingOrb>();
+            spinnerInstance = new Spinner<HomingOrbProjectile>();
             spinnerInstance.onInitialization += OnSpinnerInitialization;
         }
 
@@ -109,6 +111,7 @@ namespace Zeke.Abilities.Modules
         {
             amount.Upgrade();
             damage.Upgrade();
+            maxRange.Upgrade();
             fireCooldown.Upgrade();
         }
 
@@ -118,11 +121,12 @@ namespace Zeke.Abilities.Modules
             spinnerInstance = null;
         }
 
-        protected virtual void OnSpinnerInitialization(List<HomingOrb> spawnedObjects)
+        protected virtual void OnSpinnerInitialization(List<HomingOrbProjectile> spawnedObjects)
         {
             for (int i = 0; i < spawnedObjects.Count; i++)
             {
-                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damage.Value, source);
+                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damage.Value, source, TeamManager.GetTeam(source));
+                spawnedObjects[i].ColliderEnabled = false;
             }
 
             spinnerCreatedThisFrame = true;
@@ -186,7 +190,7 @@ namespace Zeke.Abilities.Modules
         {
             for (int i = 0; i < targets.Count; i++)
             {
-                if (TryGetClosestValidOrbToTarget(targets[i], source, hitLayers, blockLayers, out HomingOrb homingOrb))
+                if (TryGetClosestValidOrbToTarget(targets[i], source, hitLayers, blockLayers, out HomingOrbProjectile homingOrb))
                 {
                     FireOrb(homingOrb, targets[i], source);
                     return true;
@@ -196,7 +200,7 @@ namespace Zeke.Abilities.Modules
             return false;
         }
 
-        private bool TryGetClosestValidOrbToTarget(Transform target, GameObject source, LayerMask hitLayers, LayerMask blockLayers, out HomingOrb closestOrb)
+        private bool TryGetClosestValidOrbToTarget(Transform target, GameObject source, LayerMask hitLayers, LayerMask blockLayers, out HomingOrbProjectile closestOrb)
         {
             closestOrb = null;
             float closestDistance = float.PositiveInfinity;
@@ -221,17 +225,17 @@ namespace Zeke.Abilities.Modules
             return closestOrb != null;
         }
 
-        private void FireOrb(HomingOrb homingOrb, Transform target, GameObject source)
+        private void FireOrb(HomingOrbProjectile homingOrb, Transform target, GameObject source)
         {
             Vector3 direction = (target.transform.position - homingOrb.transform.position).normalized;
 
             homingOrbs.Remove(homingOrb);
             spinnerInstance.RemoveFromPivot(homingOrb.transform);
 
-            homingOrb.Launch(homingOrb.transform.position, 5f, direction, maxRange.Value, damage.Value, source);
+            homingOrb.Launch(homingOrb.transform.position, 5f, direction, maxRange.Value, damage.Value, source, TeamManager.GetTeam(source));
 
             homingOrb.SetTarget(target);
-            homingOrb.EnableCollider();
+            homingOrb.ColliderEnabled = true;
         }
 
         protected bool InLayerMask(GameObject hit, LayerMask layerMask)
@@ -239,7 +243,7 @@ namespace Zeke.Abilities.Modules
             return (layerMask & 1 << hit.layer) != 0;
         }
 
-        private bool ValidOrbLaunch(HomingOrb homingOrb, Transform target, GameObject source, LayerMask hitLayers, LayerMask blockLayers)
+        private bool ValidOrbLaunch(HomingOrbProjectile homingOrb, Transform target, GameObject source, LayerMask hitLayers, LayerMask blockLayers)
         {
             targetsInLaunchPath.Clear();
 

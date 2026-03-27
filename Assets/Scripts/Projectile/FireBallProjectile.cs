@@ -1,22 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class FireBallProjectile : Projectile
+public class FireBallProjectile : DamageProjectileBase
 {
     [Header("Fireball Settings")]
     public StatusEffectData statusEffectToApply;
 
-    [Space]
-
-    public float armorPenetration = 0f;
-    public float procCoefficient = 1f;
-    public float knockback = 1f;
-
     private float damageRadius;
-    private Collider2D[] hits;
+    private readonly List<Collider2D> hits = new List<Collider2D>();
 
-    public void SetDamageRadius(float damageRadius)
+    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, float damageRadius, GameObject source, Teams team)
     {
         this.damageRadius = damageRadius;
+        Launch(position, speed, direction, maxRange, damage, source, team);
     }
 
     protected override void OnCollision(RaycastHit2D hit)
@@ -33,37 +29,28 @@ public class FireBallProjectile : Projectile
         Explode();
     }
 
-    void Explode()
+    private void Explode()
     {
-        hits = Physics2D.OverlapCircleAll(TipPosition, damageRadius, hitLayer);
+        hits.Clear();
 
-        for (int i = 0; i < hits.Length; i++)
+        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayer };
+        Physics2D.OverlapCircle(TipPosition, damageRadius, contactFilter, hits);
+
+        for (int i = 0; i < hits.Count; i++)
         {
-            OnHit(hits[i].gameObject);
+            Hit(hits[i].gameObject);
         }
 
         Despawn();
     }
 
-    void OnHit(GameObject receiver)
+    void Hit(GameObject receiver)
     {
-        bool damageRejected = false;
+        if (TeamManager.IsAlly(Team, receiver)) return;
 
-        if (Physics2D.Linecast(TipPosition, receiver.transform.position, blockLayer))
-        {
-            return;
-        }
+        if (Physics2D.Linecast(TipPosition, receiver.transform.position, blockLayer)) return;
 
-        if (TeamManager.IsAlly(SourceUser, receiver))
-        {
-            return;
-        }
-
-        if (receiver.TryGetComponent(out Damageable damageable))
-        {
-            Damageable.DamageEvent damageEvent = damageable.DealDamage(new DamageInfo(Damage, procCoefficient, armorPenetration), SourceUser, gameObject);
-            damageRejected = damageEvent.damageRejected;
-        }
+        bool damageRejected = DealDamage(receiver);
 
         if (damageRejected) return;
 
@@ -72,9 +59,6 @@ public class FireBallProjectile : Projectile
             statusEffectHandler.ApplyEffect(statusEffectToApply, SourceUser);
         }
 
-        if (receiver.TryGetComponent(out Physics physics))
-        {
-            physics.AddForce(knockback, Direction);
-        }
+        ApplyKnockback(receiver, Direction);
     }
 }

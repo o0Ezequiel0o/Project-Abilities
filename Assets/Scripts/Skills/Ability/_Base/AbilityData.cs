@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using Zeke.Abilities.Modules;
 
@@ -13,16 +12,16 @@ namespace Zeke.Abilities
 
         [field: Header("Toggling")]
         [field: SerializeField] public AbilityType AbilityType { get; private set; }
-        [field: SerializeField] public bool ManualDeactivation { get; private set; }
+        [field: SerializeField] public bool CanManuallyDeactivate { get; private set; }
         [field: SerializeField] public bool CanHold { get; private set; }
 
         [Header("Casting")]
         [SerializeField] private Stat cooldownTime = new Stat(5f, 0f, 0f, float.PositiveInfinity);
-        [SerializeField] private Stat duration = Stat.Zero;
+        [SerializeField] private Stat duration = new Stat(0f, 0f, 0f, float.PositiveInfinity);
         [SerializeField] private Stat charges = new Stat(1f, 0f, 1f, float.PositiveInfinity);
 
         [Header("Modules")]
-        [SerializeReferenceDropdown, SerializeReference] private List<AbilityModule> modules = new List<AbilityModule> { new DeltaTimeCooldown() };
+        [SerializeReferenceDropdown, SerializeReference] private List<AbilityModule> modules = new List<AbilityModule> { new Recharge() };
 
         public Ability CreateModularAbility(AbilityController controller, Transform spawn, GameObject source)
         {

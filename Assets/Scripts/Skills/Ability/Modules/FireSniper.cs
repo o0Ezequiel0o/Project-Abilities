@@ -8,17 +8,17 @@ namespace Zeke.Abilities.Modules
     {
         [SerializeField] private Stat doubleDamageChance;
 
+        public FireSniper() { }
+
         public FireSniper(FireSniper original) : base(original)
         {
             doubleDamageChance = original.doubleDamageChance.DeepCopy();
         }
 
-        public override AbilityModule DeepCopy() => new FireSniper(this);
+        public override FireProjectileType DeepCopy() => new FireSniper(this);
 
-        public override void Activate(bool holding)
+        public override void LaunchProjectile(Vector3 position, Vector3 direction, float damage, float speed, float maxRange, GameObject source, Teams team)
         {
-            float damage = this.damage.Value;
-
             float randomNum = UnityEngine.Random.Range(0, 99);
 
             if (randomNum < doubleDamageChance.ValueInt)
@@ -26,13 +26,13 @@ namespace Zeke.Abilities.Modules
                 damage *= 2;
             }
 
-            LaunchProjectile(spawn.position, spawn.up, damage, speed.Value, maxRange.Value, source);
+            base.LaunchProjectile(position, direction, damage, speed, maxRange, source, team);
         }
 
         public override void Upgrade()
         {
-            base.Upgrade();
             doubleDamageChance.Upgrade();
+            base.Upgrade();
         }
     }
 }
