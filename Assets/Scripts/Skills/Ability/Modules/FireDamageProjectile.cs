@@ -1,4 +1,6 @@
 using UnityEngine;
+using Zeke.PoolableGameObjects;
+using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules
 {
@@ -27,6 +29,11 @@ namespace Zeke.Abilities.Modules
         public override void Upgrade()
         {
             damage.Upgrade();
+        }
+
+        public override void Destroy()
+        {
+            projectilePool.Clear();
         }
     }
 }

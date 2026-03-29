@@ -1,5 +1,6 @@
 using UnityEngine;
 using Zeke.Abilities;
+using Zeke.TeamSystem;
 
 public class ZombieAI : MonoBehaviour
 {

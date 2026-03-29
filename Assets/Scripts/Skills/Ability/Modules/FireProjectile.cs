@@ -57,6 +57,11 @@ namespace Zeke.Abilities.Modules
             projectile.Upgrade();
         }
 
+        public override void Destroy()
+        {
+            projectile.Destroy();
+        }
+
         private void LaunchProjectile(Vector3 position, Vector3 direction, float speed, float maxRange, GameObject source)
         {
             position += fireDistance * direction;

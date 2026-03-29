@@ -60,6 +60,11 @@ public class InteractionHandler : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        Destroy(overlayObjectInstance);
+    }
+
     private InteractableData GetClosestUsableInteractable()
     {
         hits = Physics2D.CircleCastAll(transform.position, range, Vector2.zero, 0f, layer);

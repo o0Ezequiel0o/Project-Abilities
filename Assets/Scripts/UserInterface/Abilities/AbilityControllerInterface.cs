@@ -38,7 +38,7 @@ public class AbilityControllerInterface : MonoBehaviour
         {
             if (ability.CooldownTime > 0 || ability.Charges > 0)
             {
-                abilityDisplaySlot.UpdateUsableState(ability.Charges);
+                abilityDisplaySlot.UpdateUseState(ability.Charges, ability.DurationActive);
             }
 
             if (ability.DurationActive)

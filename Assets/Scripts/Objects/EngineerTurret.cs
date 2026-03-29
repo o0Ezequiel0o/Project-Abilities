@@ -1,15 +1,15 @@
 using UnityEngine;
+using Zeke.TeamSystem;
 
 public class EngineerTurret : MonoBehaviour
 {
     [SerializeField] private LevelHandler levelHandler;
-    [SerializeField] private TeamIdentifier teamIdentifier;
 
     private LevelHandler ownerLevelHandler;
 
     public void Initialize(GameObject owner)
     {
-        teamIdentifier.Team = TeamManager.GetTeam(owner);
+        TeamManager.ChangeTeams(gameObject, owner);
         ownerLevelHandler = owner.GetComponent<LevelHandler>();
     }
 

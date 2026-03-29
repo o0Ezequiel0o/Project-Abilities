@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules
 {
@@ -12,7 +13,7 @@ namespace Zeke.Abilities.Modules
 
         public FireLightingBolt(FireLightingBolt original) : base(original)
         {
-            original.spreadTargets = spreadTargets.DeepCopy();
+            spreadTargets = original.spreadTargets.DeepCopy();
         }
 
         public override FireProjectileType DeepCopy() => new FireLightingBolt(this);
@@ -28,8 +29,8 @@ namespace Zeke.Abilities.Modules
 
         public override void Upgrade()
         {
-            spreadTargets.Upgrade();
             base.Upgrade();
+            spreadTargets.Upgrade();
         }
     }
 }

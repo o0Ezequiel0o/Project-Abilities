@@ -1,6 +1,9 @@
-public interface IPoolableGameObjectConfirmator
+namespace Zeke.PoolableGameObjects
 {
-    public bool CanGetPoolable { get; }
+    public interface IPoolableGameObjectConfirmator
+    {
+        public bool CanGetPoolable { get; }
 
-    public void OnPoolableGet();
+        public void OnRetrievedFromPool();
+    }
 }

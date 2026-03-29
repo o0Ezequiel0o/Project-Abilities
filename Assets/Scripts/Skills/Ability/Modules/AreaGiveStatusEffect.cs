@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules
 {
@@ -19,13 +20,13 @@ namespace Zeke.Abilities.Modules
         {
             hitLayers = original.hitLayers;
             targeting = original.targeting;
+
             radius = original.radius.DeepCopy();
         }
 
         public override AbilityModule DeepCopy() => new AreaGiveStatusEffect(this);
 
         public override bool CanActivate() => true;
-
         public override bool CanUpgrade() => true;
 
         public override void Activate(bool holding)

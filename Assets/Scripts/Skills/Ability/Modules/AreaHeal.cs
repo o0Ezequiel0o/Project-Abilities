@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules
 {
@@ -43,6 +44,7 @@ namespace Zeke.Abilities.Modules
 
         public override void Upgrade()
         {
+            base.Upgrade();
             radius.Upgrade();
         }
     }

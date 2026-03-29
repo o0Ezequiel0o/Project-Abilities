@@ -36,7 +36,7 @@ MonoBehaviour:
       max: Infinity
   modules:
   - rid: 3611678573724172416
-  - rid: 3611678573724172418
+  - rid: 3611678664227553373
   references:
     version: 2
     RefIds:
@@ -49,7 +49,7 @@ MonoBehaviour:
     - rid: 3611678573724172417
       type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data: 
-    - rid: 3611678573724172418
+    - rid: 3611678664227553373
       type: {class: FireProjectile, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         fireDistance: 0.2
@@ -57,7 +57,7 @@ MonoBehaviour:
           min: 0
           max: 0
         projectile:
-          rid: 3611678573724172419
+          rid: 3611678664227553375
         speed:
           baseValue: 10
           increase: 0
@@ -70,7 +70,7 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
-    - rid: 3611678573724172419
+    - rid: 3611678664227553375
       type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         prefab: {fileID: 4095476445108489073, guid: 6f6ff7d6431d08444bf5c913843b393e, type: 3}

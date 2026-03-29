@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zeke.PoolableGameObjects;
+using Zeke.TeamSystem;
 
 public class FireBarrier : MonoBehaviour, IPoolableGameObjectConfirmator
 {
@@ -25,7 +27,7 @@ public class FireBarrier : MonoBehaviour, IPoolableGameObjectConfirmator
     private readonly HashSet<GameObject> ignoreGameObjects = new HashSet<GameObject>();
     private readonly List<Collider2D> hits = new List<Collider2D>();
 
-    public void OnPoolableGet()
+    public void OnRetrievedFromPool()
     { 
         ignoreGameObjects.Clear();
         despawnTimer = 0f;

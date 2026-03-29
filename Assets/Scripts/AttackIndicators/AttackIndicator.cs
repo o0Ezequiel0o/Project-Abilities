@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zeke.PoolableGameObjects;
 
 public class AttackIndicator : MonoBehaviour, IPoolableGameObjectConfirmator
 {
@@ -32,7 +33,7 @@ public class AttackIndicator : MonoBehaviour, IPoolableGameObjectConfirmator
         transform.localScale = size;
     }
 
-    public void OnPoolableGet()
+    public void OnRetrievedFromPool()
     {
         animationTimer = 0f;
         target = null;

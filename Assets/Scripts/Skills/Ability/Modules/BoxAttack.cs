@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules
 {
@@ -9,10 +10,9 @@ namespace Zeke.Abilities.Modules
         [Header("Local Data")]
         [SerializeField] private Stat damage;
 
-        [Header("Should Be Global Data")]
-        [SerializeField] private float knockback; //make data
-        [SerializeField] private Vector2 range; //make data
-        [SerializeField] private LayerMask hitLayers; //make data
+        [SerializeField] private float knockback;
+        [SerializeField] private Vector2 range;
+        [SerializeField] private LayerMask hitLayers;
 
         private AbilityController controller;
         private GameObject source;
@@ -22,11 +22,11 @@ namespace Zeke.Abilities.Modules
 
         public BoxAttack(BoxAttack original)
         {
-            damage = original.damage.DeepCopy();
-            knockback = original.knockback;
-
             range = original.range;
+            knockback = original.knockback;
             hitLayers = original.hitLayers;
+
+            damage = original.damage.DeepCopy();
         }
 
         public override AbilityModule DeepCopy() => new BoxAttack(this);
@@ -39,7 +39,6 @@ namespace Zeke.Abilities.Modules
         }
 
         public override bool CanActivate() => true;
-
         public override bool CanUpgrade() => true;
 
         public override void Activate(bool holding)

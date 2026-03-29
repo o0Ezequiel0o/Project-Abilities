@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules
 {
@@ -28,8 +29,8 @@ namespace Zeke.Abilities.Modules
 
         public override void Upgrade()
         {
-            damageRadius.Upgrade();
             base.Upgrade();
+            damageRadius.Upgrade();
         }
     }
 }

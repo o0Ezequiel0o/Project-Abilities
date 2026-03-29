@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Zeke.PoolableGameObjects;
 
 public class ParticleHandler : MonoBehaviour, IPoolableGameObjectConfirmator
 {
@@ -55,6 +56,8 @@ public class ParticleHandler : MonoBehaviour, IPoolableGameObjectConfirmator
     {
         for (int i = 0; i < spawnedParticles.Count; i++)
         {
+            if (spawnedParticles[i].particles == null) continue;
+
             if (spawnedParticles[i].particles.IsAlive())
             {
                 return true;
@@ -90,24 +93,7 @@ public class ParticleHandler : MonoBehaviour, IPoolableGameObjectConfirmator
         }
     }
 
-    public void EnableParticles()
-    {
-        for (int i = 0; i < spawnedParticles.Count; i++)
-        {
-            spawnedParticles[i].particles.Play();
-            spawnedParticles[i].particles.gameObject.SetActive(true);
-        }
-    }
-
-    public void DisableParticles()
-    {
-        for (int i = 0; i < spawnedParticles.Count; i++)
-        {
-            spawnedParticles[i].particles.gameObject.SetActive(false);
-        }
-    }
-
-    public void OnPoolableGet() { }
+    public void OnRetrievedFromPool() { }
 
     private void SpawnParticle(ParticlesData particleData)
     {

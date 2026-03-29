@@ -18,7 +18,6 @@ public class Physics : MonoBehaviour
     public Vector2 Forces => forces;
 
     protected Vector2 forces;
-    protected Vector2 velocity;
 
     protected float forceStopThreshold = 0.01f;
 
@@ -81,5 +80,11 @@ public class Physics : MonoBehaviour
     private void ClampValues()
     {
         linearDamping = Mathf.Max(0, linearDamping);
+    }
+
+    protected virtual void OnDisable()
+    {
+        forces = Vector2.zero;
+        rigidBody.linearVelocity = Vector2.zero;
     }
 }

@@ -45,7 +45,6 @@ namespace Zeke.Abilities.Modules
         }
 
         public override bool CanActivate() => true;
-
         public override bool CanUpgrade() => true;
 
         public override void Activate(bool holding)

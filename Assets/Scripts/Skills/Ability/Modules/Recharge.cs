@@ -13,6 +13,7 @@ namespace Zeke.Abilities.Modules
 
         public Recharge(Recharge original)
         {
+            updateMode = original.updateMode;
             type = original.type.DeepCopy();
         }
 
@@ -74,11 +75,6 @@ namespace Zeke.Abilities.Modules
             {
                 type.UpdateDuration();
             }
-        }
-
-        public override void Update()
-        {
-            type.UpdateDuration();
         }
 
         public override void Upgrade()

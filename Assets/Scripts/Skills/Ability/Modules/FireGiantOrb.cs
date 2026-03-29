@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules
 {
@@ -34,10 +35,11 @@ namespace Zeke.Abilities.Modules
 
         public override void Upgrade()
         {
+            base.Upgrade();
             smallOrbDamage.Upgrade();
             smallOrbSpeed.Upgrade();
             smallOrbRange.Upgrade();
-            base.Upgrade();
+            smallOrbPierce.Upgrade();
         }
     }
 }

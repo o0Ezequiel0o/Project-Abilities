@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules
 {
@@ -36,7 +37,6 @@ namespace Zeke.Abilities.Modules
         public override AbilityModule DeepCopy() => new AreaDamage(this);
 
         public override bool CanActivate() => true;
-
         public override bool CanUpgrade() => true;
 
         public override void Activate(bool holding)

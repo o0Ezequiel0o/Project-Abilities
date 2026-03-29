@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zeke.TeamSystem;
 
 public class BoomerangProjectile : DamageProjectileBase
 {
@@ -24,9 +25,9 @@ public class BoomerangProjectile : DamageProjectileBase
 
     private float returnTimer = 0f;
 
-    public override void OnPoolableGet()
+    public override void OnRetrievedFromPool()
     {
-        base.OnPoolableGet();
+        base.OnRetrievedFromPool();
 
         state = BoomerangState.Normal;
 

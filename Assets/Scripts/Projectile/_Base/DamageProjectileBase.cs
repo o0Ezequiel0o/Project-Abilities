@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zeke.TeamSystem;
 
 public abstract class DamageProjectileBase : Projectile
 {
@@ -12,9 +13,9 @@ public abstract class DamageProjectileBase : Projectile
     public GameObject SourceUser { get; protected set; }
     public Teams Team { get; private set; }
 
-    public override void OnPoolableGet()
+    public override void OnRetrievedFromPool()
     {
-        base.OnPoolableGet();
+        base.OnRetrievedFromPool();
         Damage = 0f;
 
         SourceUser = null;

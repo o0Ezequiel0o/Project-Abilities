@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules
 {
@@ -31,12 +32,11 @@ namespace Zeke.Abilities.Modules
         [SerializeField] private StatusEffectData effect;
         [SerializeField] private int effectProcChance;
 
+        private Vector3 CastPosition => spawn.position + (spawn.up * castDistance);
+
         private Transform spawn;
         private GameObject source;
         private GameObject sawInstance;
-
-        private bool enabledThisFrame = false;
-        private bool showSawThisFrame = false;
 
         private float timer = 0f;
 
@@ -70,54 +70,50 @@ namespace Zeke.Abilities.Modules
             this.spawn = spawn;
             this.source = source;
 
-            if(prefab != null)
+            if (prefab != null)
             {
                 sawInstance = GameObject.Instantiate(prefab, source.transform.position, Quaternion.identity);
+                sawInstance.SetActive(false);
             }
         }
 
         public override bool CanActivate() => true;
-
         public override bool CanUpgrade() => true;
 
         public override void Activate(bool holding)
         {
-            if (enabledThisFrame) return;
+            if (sawInstance == null) return;
 
-            showSawThisFrame = true;
-
-            if (timer > damageCooldown.Value)
+            if (!sawInstance.activeSelf)
             {
-                enabledThisFrame = true;
-                UpdateSawCollision();
-                timer = 0f;
+                sawInstance.SetActive(true);
             }
         }
 
         public override void Deactivate()
         {
-            HideSawVisual();
+            if (sawInstance == null) return;
+
+            if (sawInstance.activeSelf)
+            {
+                sawInstance.SetActive(false);
+            }
         }
 
-        public override void Update()
+        public override void UpdateActive()
         {
             timer += Time.deltaTime;
+
+            if (timer > damageCooldown.Value)
+            {
+                UpdateSawCollision();
+                timer = 0f;
+            }
         }
 
         public override void LateUpdate()
         {
-            enabledThisFrame = false;
-
-            if (showSawThisFrame)
-            {
-                DisplaySawVisual();
-                UpdateSawPosition();
-                showSawThisFrame = false;
-            }
-            else
-            {
-                HideSawVisual();
-            }
+            sawInstance.transform.position = CastPosition;
         }
 
         public override void Upgrade()
@@ -138,7 +134,7 @@ namespace Zeke.Abilities.Modules
             hits.Clear();
 
             ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers };
-            Physics2D.OverlapCircle(GetCastPosition(), damageRadius, contactFilter, hits);
+            Physics2D.OverlapCircle(CastPosition, damageRadius, contactFilter, hits);
 
             for (int i = 0; i < hits.Count; i++)
             {
@@ -146,7 +142,7 @@ namespace Zeke.Abilities.Modules
 
                 if (!IsBlockedByObstacle(spawn.position, hits[i].transform.position))
                 {
-                    HitIfEnemy(hits[i].gameObject);
+                    OnHit(hits[i].gameObject);
                 }
             }
         }
@@ -156,7 +152,7 @@ namespace Zeke.Abilities.Modules
             return Physics2D.Linecast(start, end, blockLayers);
         }
 
-        private void HitIfEnemy(GameObject gameObject)
+        private void OnHit(GameObject gameObject)
         {
             if (TeamManager.IsAlly(source, gameObject)) return;
 
@@ -171,32 +167,6 @@ namespace Zeke.Abilities.Modules
             {
                 statusEffectHandler.ApplyEffect(effect, source);
             }
-        }
-
-        private void UpdateSawPosition()
-        {
-            sawInstance.transform.position = GetCastPosition();
-        }
-
-        private void DisplaySawVisual()
-        {
-            if (sawInstance == null) return;
-            if (sawInstance.activeSelf) return;
-
-            sawInstance.SetActive(true);
-        }
-
-        private void HideSawVisual()
-        {
-            if (sawInstance == null) return;
-            if (!sawInstance.activeSelf) return;
-
-            sawInstance.SetActive(false);
-        }
-
-        private Vector3 GetCastPosition()
-        {
-            return spawn.position + (spawn.up * castDistance);
         }
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zeke.TeamSystem;
 
 public class HomingOrbProjectile : DamageProjectileBase
 {
@@ -25,9 +26,9 @@ public class HomingOrbProjectile : DamageProjectileBase
 
     private int currentHits = 0;
 
-    public override void OnPoolableGet()
+    public override void OnRetrievedFromPool()
     {
-        base.OnPoolableGet();
+        base.OnRetrievedFromPool();
         ColliderEnabled = true;
         target = null;
 

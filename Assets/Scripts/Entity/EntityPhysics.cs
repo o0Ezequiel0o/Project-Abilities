@@ -27,7 +27,13 @@ public class EntityPhysics : Physics
 
     protected override void UpdateVelocity()
     {
-        velocity = forces + moveForces;
+        Vector2 velocity = forces + moveForces;
         rigidBody.linearVelocity = velocity;
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        moveForces = Vector2.zero;
     }
 }

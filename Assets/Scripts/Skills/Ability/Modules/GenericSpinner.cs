@@ -35,7 +35,6 @@ namespace Zeke.Abilities.Modules
         public override AbilityModule DeepCopy() => new GenericSpinner<T>(this);
 
         public override bool CanActivate() => true;
-
         public override bool CanUpgrade() => true;
 
         public override void Activate(bool holding) { }

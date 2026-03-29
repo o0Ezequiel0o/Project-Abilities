@@ -1,65 +1,44 @@
 using UnityEngine;
-using System;
 
-public class TeamIdentifier : MonoBehaviour
+namespace Zeke.TeamSystem
 {
-    [SerializeField] private Teams team;
-
-    public Teams Team
+    public class TeamIdentifier : MonoBehaviour
     {
-        get
-        {
-            if (team != lastTeamValue)
-            {
-                onTeamChanged?.Invoke(gameObject, lastTeamValue, team);
-                lastTeamValue = team;
-            }
+        [SerializeField] private Teams team;
 
-            return team;
+        public Teams Team => team;
+
+        public void ChangeTeam(Teams team)
+        {
+            TeamManager.ChangeTeams(gameObject, team);
         }
 
-        set
+        private void OnEnable()
         {
-            team = value;
+            TeamManager.Add(gameObject, this);
+        }
+
+        private void OnDisable()
+        {
+            TeamManager.Remove(gameObject, this);
+        }
+
+        private void OnDestroy()
+        {
+            TeamManager.Remove(gameObject, this);
         }
     }
 
-    public Action<GameObject, Teams, Teams> onTeamChanged;
-
-    private Teams lastTeamValue = Teams.IgnoreTeam;
-
-    void Awake()
+    public enum Teams
     {
-        lastTeamValue = team;
+        Team1,
+        Team2,
+        Team3,
+        Team4,
+        Team5,
+        Team6,
+        Team7,
+        Team8,
+        IgnoreTeam,
     }
-
-    private void OnEnable()
-    {
-        TeamManager.Add(gameObject, this);
-    }
-
-    private void OnDisable()
-    {
-        if (TeamManager.IsNull) return;
-        TeamManager.Remove(gameObject, this);
-    }
-
-    void OnDestroy()
-    {
-        if (TeamManager.IsNull) return;
-        TeamManager.Remove(gameObject, this);
-    }
-}
-
-public enum Teams
-{
-    Team1,
-    Team2,
-    Team3,
-    Team4,
-    Team5,
-    Team6,
-    Team7,
-    Team8,
-    IgnoreTeam,
 }

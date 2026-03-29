@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zeke.PoolableGameObjects;
 
 public class SoundInstance : MonoBehaviour, IPoolableGameObjectConfirmator
 {
@@ -8,7 +9,7 @@ public class SoundInstance : MonoBehaviour, IPoolableGameObjectConfirmator
 
     public bool CanGetPoolable => startedPlaying && !audioSource.isPlaying;
 
-    public void OnPoolableGet() { }
+    public void OnRetrievedFromPool() { }
 
     private void Update()
     {

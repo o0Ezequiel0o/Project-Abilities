@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules
 {
@@ -30,8 +31,8 @@ namespace Zeke.Abilities.Modules
 
         public override void Upgrade()
         {
-            fireballsAmount.Upgrade();
             base.Upgrade();
+            fireballsAmount.Upgrade();
         }
     }
 }

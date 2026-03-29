@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zeke.TeamSystem;
 
 public class LightingBoltProjectile : DamageProjectileBase
 {
@@ -11,9 +12,9 @@ public class LightingBoltProjectile : DamageProjectileBase
     private readonly List<Collider2D> hits = new List<Collider2D>();
     private readonly HashSet<GameObject> ignoreTargets = new HashSet<GameObject>();
 
-    public override void OnPoolableGet()
+    public override void OnRetrievedFromPool()
     {
-        base.OnPoolableGet();
+        base.OnRetrievedFromPool();
         ignoreTargets.Clear();
     }
 

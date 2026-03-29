@@ -1,37 +1,54 @@
 using UnityEngine;
 
-public class PoolableGameObject : MonoBehaviour
+namespace Zeke.PoolableGameObjects
 {
-    private IPoolableGameObjectConfirmator[] poolableConfirmators;
-
-    private void Awake()
+    public class PoolableGameObject : MonoBehaviour
     {
-        poolableConfirmators = GetComponentsInChildren<IPoolableGameObjectConfirmator>();
-    }
+        private IPoolableGameObjectConfirmator[] poolableConfirmators;
 
-    public bool ReadyToRetrieve()
-    {
-        if (gameObject.activeSelf)
+        private void Awake()
         {
-            return false;
+            poolableConfirmators = GetComponentsInChildren<IPoolableGameObjectConfirmator>();
         }
 
-        for (int i = 0; i < poolableConfirmators.Length; i++)
+        public bool CanRetrieve()
         {
-            if (!poolableConfirmators[i].CanGetPoolable)
+            if (gameObject.activeSelf) return false;
+
+            for (int i = 0; i < poolableConfirmators.Length; i++)
             {
-                return false;
+                if (!poolableConfirmators[i].CanGetPoolable)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public void OnRetrievedFromPool()
+        {
+            for (int i = 0; i < poolableConfirmators.Length; i++)
+            {
+                poolableConfirmators[i].OnRetrievedFromPool();
             }
         }
 
-        return true;
-    }
-
-    public void OnPoolableGet()
-    {
-        for (int i = 0; i < poolableConfirmators.Length; i++)
+        public void OnPoolDestroyed()
         {
-            poolableConfirmators[i].OnPoolableGet();
+            if (CanRetrieve())
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                PoolableGameObjectsManager.MarkPoolableForDestroy(this);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            PoolableGameObjectsManager.UnmarkPoolableForDestroy(this);
         }
     }
 }

@@ -25,9 +25,9 @@ public class Missile : BasicProjectile
         }
     }
 
-    public override void OnPoolableGet()
+    public override void OnRetrievedFromPool()
     {
-        base.OnPoolableGet();
+        base.OnRetrievedFromPool();
         target = null;
     }
 

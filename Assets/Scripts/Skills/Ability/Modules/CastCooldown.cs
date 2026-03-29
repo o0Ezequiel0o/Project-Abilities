@@ -24,10 +24,7 @@ namespace Zeke.Abilities.Modules
 
         public override AbilityModule DeepCopy() => new CastCooldown(this);
 
-        public override bool CanActivate()
-        {
-            return timer > cooldown.Value;
-        }
+        public override bool CanActivate() => timer > cooldown.Value;
 
         public override bool CanUpgrade() => true;
 

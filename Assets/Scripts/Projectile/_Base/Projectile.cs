@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using Zeke.PoolableGameObjects;
 
 public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
 {
@@ -64,7 +65,7 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
         }
     }
 
-    public virtual void OnPoolableGet()
+    public virtual void OnRetrievedFromPool()
     {
         Speed = 0f;
         MaxRange = 0f;

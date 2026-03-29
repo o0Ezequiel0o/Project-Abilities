@@ -25,7 +25,6 @@ namespace Zeke.Abilities.Modules
         public override AbilityModule DeepCopy() => new Dash(this);
 
         public override bool CanActivate() => true;
-
         public override bool CanUpgrade() => true;
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
