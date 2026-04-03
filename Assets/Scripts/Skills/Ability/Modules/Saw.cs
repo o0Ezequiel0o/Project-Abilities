@@ -133,7 +133,7 @@ namespace Zeke.Abilities.Modules
         {
             hits.Clear();
 
-            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers };
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers, useLayerMask = true };
             Physics2D.OverlapCircle(CastPosition, damageRadius, contactFilter, hits);
 
             for (int i = 0; i < hits.Count; i++)

@@ -54,6 +54,8 @@ namespace Zeke.TeamSystem
 
         public static void ChangeTeams(GameObject obj, Teams newTeam)
         {
+            if (!HasTeamIdentifier(obj)) return;
+
             Teams oldTeam = GetTeam(obj);
 
             if (oldTeam == newTeam) return;
@@ -184,6 +186,11 @@ namespace Zeke.TeamSystem
             }
 
             return false;
+        }
+
+        private static bool HasTeamIdentifier(GameObject obj)
+        {
+            return entitiesWithTeam.ContainsKey(obj);
         }
     }
 }

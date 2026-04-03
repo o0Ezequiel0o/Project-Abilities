@@ -24,6 +24,11 @@ public class TurretAI : MonoBehaviour
         stateMachine.Update();
     }
 
+    private void LateUpdate()
+    {
+        stateMachine.LateUpdate();
+    }
+
     private void OnDestroy()
     {
         stateMachine.Destroy();
@@ -66,7 +71,7 @@ public class TurretStateMachine : StateMachine<TurretStateContext>
 
     public TurretStateMachine(GameObject gameObject, TurretStateContext context)
     {
-        idleState = new TurretIdleState(gameObject, this);
+        idleState = new TurretIdleState(gameObject, this, context);
         attackState = new TurretAttackState(gameObject, this);
 
         this.context = context;
@@ -85,6 +90,11 @@ public class TurretStateMachine : StateMachine<TurretStateContext>
         idleState.DestroyState(context);
     }
 
+    public override void LateUpdate()
+    {
+        currentState?.UpdateState(context);
+    }
+
     public override void Update()
     {
         currentState?.UpdateState(context);
@@ -97,15 +107,15 @@ public class TurretIdleState : State<TurretStateContext>
     private readonly EntityAim entityAim;
 
     private readonly TurretStateMachine stateMachine;
-    private readonly Predicate<GameObject> IsEnemy;
+    private readonly Predicate<GameObject> filter;
 
-    public TurretIdleState(GameObject gameObject, TurretStateMachine stateMachine)
+    public TurretIdleState(GameObject gameObject, TurretStateMachine stateMachine, TurretStateContext context)
     {
         transform = gameObject.transform;
         this.stateMachine = stateMachine;
 
         entityAim = gameObject.GetComponent<EntityAim>();
-        IsEnemy = target => TeamManager.IsEnemy(gameObject, target);
+        filter = target => TeamManager.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform, context.ai.BlockLayers);
     }
 
     public override void DestroyState(TurretStateContext context) { }
@@ -114,9 +124,11 @@ public class TurretIdleState : State<TurretStateContext>
 
     public override void ExitState(TurretStateContext context) { }
 
+    public override void LateUpdateState(TurretStateContext context) { }
+
     public override void UpdateState(TurretStateContext context)
     {
-        if (TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.Range, context.ai.TargetLayers, context.ai.BlockLayers, IsEnemy, out Transform target))
+        if (TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.Range, context.ai.TargetLayers, context.ai.BlockLayers, filter, out Transform target))
         {
             context.Target = target;
             stateMachine.ChangeState(stateMachine.attackState);
@@ -150,6 +162,8 @@ public class TurretAttackState : State<TurretStateContext>
     public override void EnterState(TurretStateContext context) { }
 
     public override void ExitState(TurretStateContext context) { }
+
+    public override void LateUpdateState(TurretStateContext context) { }
 
     public override void UpdateState(TurretStateContext context)
     {

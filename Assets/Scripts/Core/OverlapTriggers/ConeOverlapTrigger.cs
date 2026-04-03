@@ -21,7 +21,7 @@ public class ConeOverlapTrigger : OverlapTrigger
 
     protected override void GetHitsInternal(Vector3 center, Vector3 direction, LayerMask hitLayers)
     {
-        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers };
+        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers, useLayerMask = true };
         Physics2D.OverlapCircle(center, radius, contactFilter, hits);
 
         for (int i = hits.Count - 1; i >= 0; i--)

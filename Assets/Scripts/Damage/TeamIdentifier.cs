@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Zeke.TeamSystem
 {
+    [DisallowMultipleComponent]
     public class TeamIdentifier : MonoBehaviour
     {
         [SerializeField] private Teams team;

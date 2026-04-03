@@ -139,11 +139,11 @@ GameObject:
   - component: {fileID: 3258373292319498312}
   - component: {fileID: 3220386045857683405}
   - component: {fileID: 6071420938375230477}
+  - component: {fileID: 8500224788475130761}
   - component: {fileID: 3685242802834864705}
   - component: {fileID: 7673138500625142514}
   - component: {fileID: 6323631814065473988}
   - component: {fileID: 4670485228891248934}
-  - component: {fileID: 9077690947569997350}
   m_Layer: 8
   m_Name: EngineerTurret
   m_TagString: Untagged
@@ -364,6 +364,20 @@ MonoBehaviour:
     valueLimits:
       min: -Infinity
       max: Infinity
+--- !u!114 &8500224788475130761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647093461853523306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37d4f8dcf818b9c4a9b9f4b506699670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemHandler
+  itemSettings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
+  <Luck>k__BackingField: 1
 --- !u!114 &3685242802834864705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,20 +435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5f76439480cfe4cb6d557aaae48071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &9077690947569997350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5647093461853523306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ac869f8128295c48ae85fb189a440ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EngineerTurret
-  levelHandler: {fileID: 6071420938375230477}
-  teamIdentifier: {fileID: 9207376675633253813}
 --- !u!1 &8496455079109391439
 GameObject:
   m_ObjectHideFlags: 0

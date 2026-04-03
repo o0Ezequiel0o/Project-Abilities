@@ -4,6 +4,8 @@ public abstract class StateMachine<T> where T : class
 
     public abstract void Update();
 
+    public abstract void LateUpdate();
+
     public abstract void ChangeState(State<T> newState);
 
     public abstract void Destroy();

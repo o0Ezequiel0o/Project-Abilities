@@ -6,10 +6,12 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class CastWhileActive : AbilityModule
     {
-        [SerializeField] private Stat interval;
+        [SerializeField] private Stat unactiveLength;
+        [SerializeField] private Stat activeLength;
+        [SerializeField] private InternalLoopState startState;
         [SerializeReferenceDropdown, SerializeReference] private AbilityModule module;
 
-        private bool activatedThisFrame = false;
+        private InternalLoopState loopState = InternalLoopState.Unactive;
 
         private float timer = 0f;
 
@@ -17,7 +19,10 @@ namespace Zeke.Abilities.Modules
 
         public CastWhileActive(CastWhileActive original)
         {
-            interval = original.interval.DeepCopy();
+            startState = original.startState;
+
+            unactiveLength = original.unactiveLength.DeepCopy();
+            activeLength = original.activeLength.DeepCopy();
             module = original.module.DeepCopy();
         }
 
@@ -33,7 +38,13 @@ namespace Zeke.Abilities.Modules
 
         public override void Activate(bool holding)
         {
-            activatedThisFrame = true;
+            loopState = startState;
+            timer = 0f;
+
+            if (startState == InternalLoopState.Active)
+            {
+                module.Activate(holding);
+            }
         }
 
         public override void Deactivate()
@@ -53,41 +64,76 @@ namespace Zeke.Abilities.Modules
 
         public override void UpdateActive()
         {
-            module.UpdateActive();
-
-            if (activatedThisFrame)
+            if (loopState == InternalLoopState.Unactive)
             {
-                activatedThisFrame = false;
-                return;
+                float oldTimerValue = timer;
+                timer += Time.deltaTime;
+
+                if (unactiveLength.Value > 0f && oldTimerValue <= 0f)
+                {
+                    module.UpdateUnactive();
+                }
+
+                if (!module.CanActivate()) return;
+
+                if (timer > unactiveLength.Value)
+                {
+                    module.Activate(false);
+
+                    if (activeLength.Value <= 0f)
+                    {
+                        module.Deactivate();
+                    }
+                    else
+                    {
+                        loopState = InternalLoopState.Active;
+                    }
+
+                    timer = 0f;
+                }
             }
-
-            timer += Time.deltaTime;
-
-            if (!module.CanActivate()) return;
-
-            if (timer > interval.Value)
+            else
             {
-                module.Activate(false);
-                module.Deactivate();
+                timer += Time.deltaTime;
 
-                timer = 0f;
+                if (activeLength.Value > 0f)
+                {
+                    module.UpdateActive();
+                }
+
+                if (timer > activeLength.Value)
+                {
+                    module.Deactivate();
+
+                    if (unactiveLength.Value <= 0f && activeLength.Value > 0f)
+                    {
+                        module.Activate(false);
+                    }
+                    else
+                    {
+                        loopState = InternalLoopState.Unactive;
+                    }
+
+                    timer = 0f;
+                }
             }
-        }
-
-        public override void UpdateUnactive()
-        {
-            module.UpdateUnactive();
         }
 
         public override void Upgrade()
         {
-            interval.Upgrade();
+            unactiveLength.Upgrade();
             module.Upgrade();
         }
 
         public override void Destroy()
         {
             module.Destroy();
+        }
+
+        private enum InternalLoopState
+        {
+            Active,
+            Unactive
         }
     }
 }

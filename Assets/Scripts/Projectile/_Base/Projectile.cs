@@ -228,7 +228,7 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
         Vector3 lastPositionCenter = GetCircleCastCenterPosition(lastPosition);
         Vector3 currentPositionCenter = GetCircleCastCenterPosition(currentPosition);
 
-        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = CollideLayers, useTriggers = true };
+        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = CollideLayers, useTriggers = true, useLayerMask = true };
         Physics2D.CircleCast(lastPositionCenter, hitRadius, Direction, contactFilter, hits, Vector3.Distance(lastPositionCenter, currentPositionCenter));
 
         CheckColliderExitedProjectile();

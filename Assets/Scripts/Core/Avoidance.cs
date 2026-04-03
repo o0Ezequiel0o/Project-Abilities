@@ -68,7 +68,7 @@ public static class Avoidance
         hits.Clear();
         targetDirections.Clear();
 
-        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = layerMask };
+        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = layerMask, useLayerMask = true };
         Physics2D.OverlapCircle(position, radius, contactFilter, hits);
 
         for (int i = 0; i < hits.Count; i++)

@@ -1,0 +1,25 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement tooltip="" enabled="true" view-data-key="" style="flex-grow: 1; background-position-x: center; opacity: 1; margin-right: -1px; margin-bottom: 1.5px; padding-left: 0; padding-right: 0; margin-top: 1.5px; margin-left: 4px; height: auto;">
+        <ui:TabView>
+            <ui:Tab label="Visual" name="VisualTab">
+                <ui:VisualElement name="Content" style="flex-grow: 1; background-color: rgb(72, 72, 72); padding-right: 2px; padding-bottom: 4px; padding-top: 2px;">
+                    <uie:PropertyField binding-path="attackIndicator" style="padding-left: 15px; padding-right: 5px;"/>
+                </ui:VisualElement>
+            </ui:Tab>
+            <ui:Tab label="Position" name="PositionTab">
+                <ui:VisualElement name="Content" style="flex-grow: 1; background-color: rgb(72, 72, 72); padding-right: 2px; padding-bottom: 4px; padding-top: 2px;">
+                    <ui:EnumField label="Spawn Position" value="Center" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" binding-path="spawnPosition"/>
+                    <ui:Vector2Field label="Offset" binding-path="offset"/>
+                    <ui:FloatField label="Angle Offset" value="1" name="FloatField" password="false" binding-path="angleOffset" style="padding-right: 0;"/>
+                    <uie:PropertyField binding-path="valueLimits"/>
+                </ui:VisualElement>
+            </ui:Tab>
+            <ui:Tab label="Time" name="TimeTab">
+                <ui:VisualElement name="Content" style="flex-grow: 1; background-color: rgb(72, 72, 72); padding-right: 2px; padding-bottom: 4px; padding-top: 2px;">
+                    <ui:FloatField label="Show Time" value="1" name="FloatField" password="false" binding-path="showTime" style="padding-right: 0;"/>
+                    <ui:FloatField label="Hide Time" value="1" name="FloatField" password="false" binding-path="hideTime" style="padding-right: 0;"/>
+                </ui:VisualElement>
+            </ui:Tab>
+        </ui:TabView>
+    </ui:VisualElement>
+</ui:UXML>

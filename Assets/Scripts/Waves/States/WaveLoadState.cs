@@ -38,6 +38,8 @@ public class WaveLoadState : State<WaveStateContext>
         }
     }
 
+    public override void LateUpdateState(WaveStateContext context) { }
+
     public override void ExitState(WaveStateContext context) { }
 
     private int GetSpawnableAmountToPrepareThisFrame(WaveStateContext context)

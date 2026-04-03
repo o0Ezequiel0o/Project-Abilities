@@ -30,6 +30,17 @@ public class ItemHandler : MonoBehaviour
         }
     }
 
+    public void AddItems(List<Item> items)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            for (int x = 0; x < items[i].stacks; x++)
+            {
+                AddItem(items[i].Data);
+            }
+        }
+    }
+
     public void AddItem(ItemData itemData)
     {
         for (int i = 0; i < items.Count; i++)

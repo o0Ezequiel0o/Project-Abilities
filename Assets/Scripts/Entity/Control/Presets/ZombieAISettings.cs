@@ -1,5 +1,6 @@
 using UnityEngine;
 using Zeke.Abilities;
+using Zeke.Abilities.Indicators;
 
 [CreateAssetMenu(fileName = "New Preset", menuName = "AI Presets/Zombie/New Preset")]
 public class ZombieAISettings : ScriptableObject
@@ -15,7 +16,6 @@ public class ZombieAISettings : ScriptableObject
     [field: Space]
 
     [field: SerializeField] public float MinStartAttackAngle { get; private set; }
-    [field: SerializeField] public float AttackWindUp { get; private set; }
     [field: SerializeField] public float AttackRecover { get; private set; }
 
     [field: Header("Visual")]

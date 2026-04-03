@@ -681,6 +681,50 @@ Transform:
   - {fileID: 1052080368}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &560234039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 560234041}
+  - component: {fileID: 560234040}
+  m_Layer: 0
+  m_Name: ChangeSceneTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &560234040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560234039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a217d6bd0ac9bb4ab548d13ded39de6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChangeScene
+--- !u!4 &560234041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560234039}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.41211, y: 6.5291, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,6 +1179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret 1_01
       objectReference: {fileID: 0}
+    - target: {fileID: 5647093461853523306, guid: 15c47a48665e8314d8a017ae4beab109, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1543,6 +1591,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5647093461853523306, guid: 15c47a48665e8314d8a017ae4beab109, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1562,11 +1614,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8580555354026715777, guid: a6ed0a14cbb362240a834a57315f47d0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.128393
+      value: -18.983345
       objectReference: {fileID: 0}
     - target: {fileID: 8580555354026715777, guid: a6ed0a14cbb362240a834a57315f47d0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.594284
+      value: -8.231661
       objectReference: {fileID: 0}
     - target: {fileID: 8580555354026715777, guid: a6ed0a14cbb362240a834a57315f47d0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1756,7 +1808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageNumberPrefab: {fileID: 2116738366424433878, guid: afa099423fe26634a81eb4dbb2e08978, type: 3}
-  preWarmAmount: 10
+  preWarmAmount: 50
   duration: 0.8
   config: {fileID: 11400000, guid: a330fcacc9b18ef4ba3f998e819efd4e, type: 2}
 --- !u!1 &1921030200
@@ -1841,63 +1893,6 @@ MonoBehaviour:
   worldCanvas: {fileID: 193892494}
   startingDifficulty: 0
   difficultyScaleRate: 0.05
---- !u!1 &2071001622
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2071001624}
-  - component: {fileID: 2071001623}
-  - component: {fileID: 2071001625}
-  m_Layer: 0
-  m_Name: Empty
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2071001623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2071001622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed63290a42a6a6c4fb500083c87007fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DummyScript
---- !u!4 &2071001624
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2071001622}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.49041, y: 0.50078, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2071001625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2071001622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a217d6bd0ac9bb4ab548d13ded39de6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ChangeScene
 --- !u!1001 &2102329655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2199,4 +2194,4 @@ SceneRoots:
   - {fileID: 133822141}
   - {fileID: 1704237486}
   - {fileID: 704598326}
-  - {fileID: 2071001624}
+  - {fileID: 560234041}

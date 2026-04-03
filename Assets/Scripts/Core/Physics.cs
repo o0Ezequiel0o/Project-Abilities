@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Physics : MonoBehaviour
 {
     [Header("Dependency")]

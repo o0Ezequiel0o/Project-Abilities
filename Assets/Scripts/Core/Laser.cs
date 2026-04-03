@@ -59,7 +59,7 @@ public abstract class Laser : MonoBehaviour
 
         int targetsPierced = 0;
 
-        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers | blockLayers };
+        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers | blockLayers, useLayerMask = true };
         Physics2D.CircleCast(position, radius, direction, contactFilter, hits, maxRange);
 
         for (int i = 0; i < hits.Count; i++)

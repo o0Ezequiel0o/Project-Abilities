@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zeke.Abilities.Indicators;
 using Zeke.Abilities.Modules;
 
 namespace Zeke.Abilities
@@ -22,6 +23,9 @@ namespace Zeke.Abilities
 
         [Header("Modules")]
         [SerializeReferenceDropdown, SerializeReference] private List<AbilityModule> modules = new List<AbilityModule> { new Recharge() };
+
+        [field: Header("Optional - AI")]
+        [field: SerializeField] public AbilityIndicatorData IndicatorData { get; private set; }
 
         public Ability CreateModularAbility(AbilityController controller, Transform spawn, GameObject source)
         {

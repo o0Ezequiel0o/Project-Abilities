@@ -4,12 +4,11 @@ using Zeke.TeamSystem;
 
 public class GasolineItem : Item
 {
-    //Template
     public override ItemData Data => data;
-    private GasolineItemData data;
+    private readonly GasolineItemData data;
 
-    private ItemHandler itemHandler;
-    private GameObject source;
+    private readonly ItemHandler itemHandler;
+    private readonly GameObject source;
 
     private float Radius => data.Radius.CalculateValue(stacks);
 
@@ -26,10 +25,10 @@ public class GasolineItem : Item
     {
         hits.Clear();
 
-        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.Hitlayers };
-        Physics2D.OverlapCircle(source.transform.position, Radius, contactFilter, hits);
+        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.Hitlayers, useLayerMask = true };
+        Physics2D.OverlapCircle(damageEvent.Receiver.transform.position, Radius, contactFilter, hits);
 
-        for (int i = 0; i < hits.Count; ++i)
+        for (int i = 0; i < hits.Count; i++)
         {
             if (TeamManager.IsAlly(source, hits[i].gameObject)) continue;
 

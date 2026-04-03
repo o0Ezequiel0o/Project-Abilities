@@ -21,10 +21,8 @@ MonoBehaviour:
   <AttackType>k__BackingField: 0
   <AttackRange>k__BackingField: 1.5
   <MinStartAttackAngle>k__BackingField: 15
-  <AttackWindUp>k__BackingField: 0.6
   <AttackRecover>k__BackingField: 1
   <AttackIndicatorPrefab>k__BackingField: {fileID: 3989299346036747125, guid: 2ea498da4becba540935fb81cefc9aa8, type: 3}
   <IndicatorCenterOffset>k__BackingField: 1
   <IndicatorSize>k__BackingField: {x: 1.5, y: 1}
   <WindUpSound>k__BackingField: {fileID: 0}
-  <UpdateInterval>k__BackingField: 0.1

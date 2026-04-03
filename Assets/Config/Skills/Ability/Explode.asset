@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
   m_Name: Explode
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
@@ -36,6 +36,7 @@ MonoBehaviour:
       max: Infinity
   modules:
   - rid: 3611678573724172365
+  <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:

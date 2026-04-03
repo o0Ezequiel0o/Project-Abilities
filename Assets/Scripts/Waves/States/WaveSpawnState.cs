@@ -30,6 +30,8 @@ public class WaveSpawnState : State<WaveStateContext>
         UpdateSpawnTimer(context);
     }
 
+    public override void LateUpdateState(WaveStateContext context) { }
+
     private void UpdateSpawnTimer(WaveStateContext context)
     {
         timer += Time.deltaTime;

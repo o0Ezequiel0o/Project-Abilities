@@ -175,7 +175,7 @@ namespace Zeke.Abilities.Modules
         {
             targetsInRange.Clear();
 
-            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers };
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers, useLayerMask = true };
             Physics2D.OverlapCircle(source.transform.position, detectRadius, contactFilter, unfilteredTargetsInRange);
 
             for (int i = 0; i < unfilteredTargetsInRange.Count; i++)
@@ -251,7 +251,7 @@ namespace Zeke.Abilities.Modules
             Vector3 direction = (target.transform.position - homingOrb.transform.position).normalized;
             float distance = Vector3.Distance(homingOrb.transform.position, target.transform.position);
 
-            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers | blockLayers };
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers | blockLayers, useLayerMask = true };
             Physics2D.CircleCast(homingOrb.transform.position, homingOrb.Radius, direction, contactFilter, targetsInLaunchPath, distance);
 
             for (int i = 0; i < targetsInLaunchPath.Count; i++)

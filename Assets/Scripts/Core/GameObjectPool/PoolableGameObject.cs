@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Zeke.PoolableGameObjects
 {
+    [DisallowMultipleComponent]
     public class PoolableGameObject : MonoBehaviour
     {
         private IPoolableGameObjectConfirmator[] poolableConfirmators;

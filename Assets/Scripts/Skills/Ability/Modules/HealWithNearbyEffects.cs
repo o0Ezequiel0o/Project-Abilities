@@ -53,7 +53,7 @@ namespace Zeke.Abilities.Modules
 
             hits.Clear();
 
-            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers };
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers, useLayerMask = true };
             Physics2D.OverlapCircle(source.transform.position, radius.Value, contactFilter, hits);
 
             float healingToReceive = 0f;

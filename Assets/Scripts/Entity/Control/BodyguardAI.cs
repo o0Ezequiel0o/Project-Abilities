@@ -30,6 +30,11 @@ public class BodyguardAI : MonoBehaviour
         stateMachine.Update();
     }
 
+    private void LateUpdate()
+    {
+        stateMachine.LateUpdate();
+    }
+
     private void OnDestroy()
     {
         stateMachine.Destroy();
@@ -94,11 +99,11 @@ public class BodyguardStateMachine : StateMachine<BodyguardStateContext>
     {
         this.context = context;
 
-        protectState = new BodyguardProtectState(this, gameObject);
-        attackState = new BodyguardAttackState(this, gameObject);
-        returnState = new BodyguardReturnState(this, gameObject);
-        fleeState = new BodyguardFleeState(this, gameObject);
-        idleState = new BodyguardIdleState(this, gameObject);
+        protectState = new BodyguardProtectState(this, gameObject, context);
+        attackState = new BodyguardAttackState(this, gameObject, context);
+        returnState = new BodyguardReturnState(this, gameObject, context);
+        fleeState = new BodyguardFleeState(this, gameObject, context);
+        idleState = new BodyguardIdleState(this, gameObject, context);
     }
 
     public override void ChangeState(State<BodyguardStateContext> newState)
@@ -117,6 +122,11 @@ public class BodyguardStateMachine : StateMachine<BodyguardStateContext>
         idleState.DestroyState(context);
     }
 
+    public override void LateUpdate()
+    {
+        currentState?.LateUpdateState(context);
+    }
+
     public override void Update()
     {
         currentState?.UpdateState(context);
@@ -132,7 +142,7 @@ public abstract class BodyguardBaseState : State<BodyguardStateContext>
     {
         hits.Clear();
 
-        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = targetLayers };
+        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = targetLayers, useLayerMask = true };
         Physics2D.OverlapCircle(position, range, contactFilter, hits);
 
         for (int i = 0; i < hits.Count; i++)
@@ -228,7 +238,9 @@ public class BodyguardProtectState : BodyguardBaseState
 
     private readonly BodyguardStateMachine stateMachine;
 
-    public BodyguardProtectState(BodyguardStateMachine stateMachine, GameObject gameObject)
+    private Predicate<GameObject> filter;
+
+    public BodyguardProtectState(BodyguardStateMachine stateMachine, GameObject gameObject, BodyguardStateContext context)
     {
         this.gameObject = gameObject;
         transform = gameObject.transform;
@@ -236,6 +248,8 @@ public class BodyguardProtectState : BodyguardBaseState
 
         entityMove = gameObject.GetComponent<EntityMove>();
         entityAim = gameObject.GetComponent<EntityAim>();
+
+        filter = target => TeamManager.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
     }
 
     public override void DestroyState(BodyguardStateContext context) { }
@@ -247,15 +261,17 @@ public class BodyguardProtectState : BodyguardBaseState
         entityMove.StopMoving();
     }
 
+    public override void LateUpdateState(BodyguardStateContext context) { }
+
     public override void UpdateState(BodyguardStateContext context)
     {
-        if (TargetsInFleetingRange(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, IsEnemy))
+        if (TargetsInFleetingRange(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, target => TeamManager.IsEnemy(gameObject, target)))
         {
             stateMachine.ChangeState(stateMachine.fleeState);
             return;
         }
 
-        if (TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, context.ai.BlockLayers, IsEnemy, out Transform target))
+        if (TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, context.ai.BlockLayers, filter, out Transform target))
         {
             context.EngageTarget = target;
             stateMachine.ChangeState(stateMachine.attackState);
@@ -287,11 +303,6 @@ public class BodyguardProtectState : BodyguardBaseState
         entityMove.MoveTowards(direction);
         entityAim.AimTowards(direction);
     }
-
-    private bool IsEnemy(GameObject targetObject)
-    {
-        return TeamManager.IsEnemy(gameObject, targetObject);
-    }
 }
 
 public class BodyguardAttackState : BodyguardBaseState
@@ -307,7 +318,9 @@ public class BodyguardAttackState : BodyguardBaseState
 
     private readonly BodyguardStateMachine stateMachine;
 
-    public BodyguardAttackState(BodyguardStateMachine stateMachine, GameObject gameObject)
+    private Predicate<GameObject> filter;
+
+    public BodyguardAttackState(BodyguardStateMachine stateMachine, GameObject gameObject, BodyguardStateContext context)
     {
         this.gameObject = gameObject;
         transform = gameObject.transform;
@@ -318,6 +331,8 @@ public class BodyguardAttackState : BodyguardBaseState
 
         abilityController = gameObject.GetComponent<AbilityController>();
         projectileDetector = gameObject.GetComponentInChildren<ProjectileDetector>();
+
+        filter = target => TeamManager.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
     }
 
     public override void DestroyState(BodyguardStateContext context) { }
@@ -326,9 +341,11 @@ public class BodyguardAttackState : BodyguardBaseState
 
     public override void ExitState(BodyguardStateContext context) { }
 
+    public override void LateUpdateState(BodyguardStateContext context) { }
+
     public override void UpdateState(BodyguardStateContext context)
     {
-        if(TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, context.ai.BlockLayers, IsEnemy, out Transform target))
+        if(TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, context.ai.BlockLayers, filter, out Transform target))
         {
             context.EngageTarget = target;
         }
@@ -339,7 +356,7 @@ public class BodyguardAttackState : BodyguardBaseState
 
         if (context.EngageTarget != null)
         {
-            if (TargetAwareness.AnyTargetInLineOfSight(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, IsEnemy) && abilityController.CanUseAbility(context.ai.AttackType))
+            if (TargetAwareness.AnyTargetInLineOfSight(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, filter) && abilityController.CanUseAbility(context.ai.AttackType))
             {
                 abilityController.TryUseAbility(context.ai.AttackType);
             }
@@ -353,7 +370,7 @@ public class BodyguardAttackState : BodyguardBaseState
             return;
         }
 
-        if (TargetsInFleetingRange(transform.position, context.ai.EngageRange, context.ai.TargetLayers, IsEnemy))
+        if (TargetsInFleetingRange(transform.position, context.ai.EngageRange, context.ai.TargetLayers, target => TeamManager.IsEnemy(gameObject, target)))
         {
             stateMachine.ChangeState(stateMachine.fleeState);
             return;
@@ -364,11 +381,6 @@ public class BodyguardAttackState : BodyguardBaseState
             stateMachine.ChangeState(stateMachine.protectState);
             return;
         }
-    }
-
-    private bool IsEnemy(GameObject targetObject)
-    {
-        return TeamManager.IsEnemy(gameObject, targetObject);
     }
 }
 
@@ -384,7 +396,9 @@ public class BodyguardFleeState : BodyguardBaseState
 
     private readonly BodyguardStateMachine stateMachine;
 
-    public BodyguardFleeState(BodyguardStateMachine stateMachine, GameObject gameObject)
+    private Predicate<GameObject> filter;
+
+    public BodyguardFleeState(BodyguardStateMachine stateMachine, GameObject gameObject, BodyguardStateContext context)
     {
         this.gameObject = gameObject;
         transform = gameObject.transform;
@@ -394,6 +408,8 @@ public class BodyguardFleeState : BodyguardBaseState
         entityAim = gameObject.GetComponent<EntityAim>();
 
         abilityController = gameObject.GetComponent<AbilityController>();
+
+        filter = target => TeamManager.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
     }
 
     public override void DestroyState(BodyguardStateContext context) { }
@@ -405,16 +421,18 @@ public class BodyguardFleeState : BodyguardBaseState
         entityMove.StopMoving();
     }
 
+    public override void LateUpdateState(BodyguardStateContext context) { }
+
     public override void UpdateState(BodyguardStateContext context)
     {
-        if (TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, context.ai.BlockLayers, IsEnemy, out Transform target))
+        if (TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, context.ai.BlockLayers, filter, out Transform target))
         {
             context.EngageTarget = target;
         }
 
         if (context.EngageTarget != null)
         {
-            if (TargetAwareness.AnyTargetInLineOfSight(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, IsEnemy) && abilityController.CanUseAbility(context.ai.AttackType))
+            if (TargetAwareness.AnyTargetInLineOfSight(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, filter) && abilityController.CanUseAbility(context.ai.AttackType))
             {
                 abilityController.TryUseAbility(context.ai.AttackType);
             }
@@ -444,11 +462,6 @@ public class BodyguardFleeState : BodyguardBaseState
             }
         }
     }
-
-    private bool IsEnemy(GameObject targetObject)
-    {
-        return TeamManager.IsEnemy(gameObject, targetObject);
-    }
 }
 
 public class BodyguardIdleState : BodyguardBaseState
@@ -460,13 +473,16 @@ public class BodyguardIdleState : BodyguardBaseState
 
     private readonly BodyguardStateMachine stateMachine;
 
-    public BodyguardIdleState(BodyguardStateMachine stateMachine, GameObject gameObject)
+    private Predicate<GameObject> filter;
+
+    public BodyguardIdleState(BodyguardStateMachine stateMachine, GameObject gameObject, BodyguardStateContext context)
     {
         this.gameObject = gameObject;
         transform = gameObject.transform;
         this.stateMachine = stateMachine;
 
         entityAim = gameObject.GetComponent<EntityAim>();
+        filter = target => TeamManager.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
     }
 
     public override void DestroyState(BodyguardStateContext context) { }
@@ -474,6 +490,8 @@ public class BodyguardIdleState : BodyguardBaseState
     public override void EnterState(BodyguardStateContext context) { }
 
     public override void ExitState(BodyguardStateContext context) { }
+
+    public override void LateUpdateState(BodyguardStateContext context) { }
 
     public override void UpdateState(BodyguardStateContext context)
     {
@@ -483,13 +501,13 @@ public class BodyguardIdleState : BodyguardBaseState
             return;
         }
 
-        if (TargetsInFleetingRange(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, IsEnemy))
+        if (TargetsInFleetingRange(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, target => TeamManager.IsEnemy(gameObject, target)))
         {
             stateMachine.ChangeState(stateMachine.fleeState);
             return;
         }
 
-        if (TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, context.ai.BlockLayers, IsEnemy, out Transform target))
+        if (TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, context.ai.BlockLayers, filter, out Transform target))
         {
             context.EngageTarget = target;
             stateMachine.ChangeState(stateMachine.attackState);
@@ -501,11 +519,6 @@ public class BodyguardIdleState : BodyguardBaseState
             stateMachine.ChangeState(stateMachine.protectState);
             return;
         }
-    }
-
-    private bool IsEnemy(GameObject targetObject)
-    {
-        return TeamManager.IsEnemy(gameObject, targetObject);
     }
 }
 
@@ -522,7 +535,9 @@ public class BodyguardReturnState : BodyguardBaseState
     private bool reachedTargetOnce = false;
     private float timer = 0f;
 
-    public BodyguardReturnState(BodyguardStateMachine stateMachine, GameObject gameObject)
+    private Predicate<GameObject> filter;
+
+    public BodyguardReturnState(BodyguardStateMachine stateMachine, GameObject gameObject, BodyguardStateContext context)
     {
         this.gameObject = gameObject;
         transform = gameObject.transform;
@@ -530,6 +545,8 @@ public class BodyguardReturnState : BodyguardBaseState
 
         entityMove = gameObject.GetComponent<EntityMove>();
         entityAim = gameObject.GetComponent<EntityAim>();
+
+        filter = target => TeamManager.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
     }
 
     public override void DestroyState(BodyguardStateContext context) { }
@@ -552,13 +569,13 @@ public class BodyguardReturnState : BodyguardBaseState
 
         if ((timer >= context.ai.ReturnLockStateTime || reachedTargetOnce) && ProtectTargetOutOfRange(transform.position, context))
         {
-            if (TargetsInFleetingRange(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, IsEnemy))
+            if (TargetsInFleetingRange(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, target => TeamManager.IsEnemy(gameObject, target)))
             {
                 stateMachine.ChangeState(stateMachine.fleeState);
                 return;
             }
 
-            if (TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, context.ai.BlockLayers, IsEnemy, out Transform target))
+            if (TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, context.ai.BlockLayers, filter, out Transform target))
             {
                 context.EngageTarget = target;
                 stateMachine.ChangeState(stateMachine.attackState);
@@ -573,7 +590,7 @@ public class BodyguardReturnState : BodyguardBaseState
     {
         Vector2 desiredDirection = (context.ProtectTarget.position - transform.position).normalized;
 
-        if (Avoidance.TryGetAvoidanceDirection(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, IsEnemy, out Vector2 fleeDirection))
+        if (Avoidance.TryGetAvoidanceDirection(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, filter, out Vector2 fleeDirection))
         {
             Vector2 direction = (fleeDirection + desiredDirection).normalized;
             entityMove.MoveTowards(direction);
@@ -591,7 +608,7 @@ public class BodyguardReturnState : BodyguardBaseState
             }
         }
 
-        if (TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, context.ai.BlockLayers, IsEnemy, out Transform target))
+        if (TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.EngageRange, context.ai.TargetLayers, context.ai.BlockLayers, filter, out Transform target))
         {
             context.EngageTarget = target;
             stateMachine.ChangeState(stateMachine.attackState);
@@ -605,8 +622,5 @@ public class BodyguardReturnState : BodyguardBaseState
         timer += Time.deltaTime;
     }
 
-    protected bool IsEnemy(GameObject targetObject)
-    {
-        return TeamManager.IsEnemy(gameObject, targetObject);
-    }
+    public override void LateUpdateState(BodyguardStateContext context) { }
 }

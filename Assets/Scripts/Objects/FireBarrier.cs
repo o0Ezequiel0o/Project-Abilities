@@ -64,7 +64,7 @@ public class FireBarrier : MonoBehaviour, IPoolableGameObjectConfirmator
     {
         hits.Clear();
 
-        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayer };
+        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayer, useLayerMask = true };
         Physics2D.OverlapBox(transform.position, size, rotation, contactFilter, hits);
 
         for (int i = 0; i < hits.Count; i++)

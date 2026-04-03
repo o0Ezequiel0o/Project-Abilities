@@ -346,6 +346,11 @@ public class WaveStateMachine : StateMachine<WaveStateContext>
         currentState?.UpdateState(context);
     }
 
+    public override void LateUpdate()
+    {
+        currentState?.LateUpdateState(context);
+    }
+
     public override void Destroy()
     {
         spawnState.DestroyState(context);

@@ -35,7 +35,7 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
         ActivateDamageNumber(damageNumber, receiver, offset);
     }
 
-    void Start()
+    private void Start()
     {
         worldCanvas = GameInstance.WorldCanvas;
 

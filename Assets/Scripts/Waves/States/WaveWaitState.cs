@@ -20,4 +20,6 @@ public class WaveWaitState : State<WaveStateContext>
             stateMachine.ChangeState(stateMachine.loadState);
         }
     }
+
+    public override void LateUpdateState(WaveStateContext context) { }
 }

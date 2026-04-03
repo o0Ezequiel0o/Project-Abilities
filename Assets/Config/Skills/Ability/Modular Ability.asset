@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ModularAbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <AbilityType>k__BackingField: 0
-  <CanManuallyDeactivate>k__BackingField: 1
-  <CanHold>k__BackingField: 0
+  <CanManuallyDeactivate>k__BackingField: 0
+  <CanHold>k__BackingField: 1
   cooldownTime:
-    baseValue: 3
+    baseValue: 0.25
     increase: 0
     valueLimits:
       min: 0
       max: Infinity
   duration:
-    baseValue: 10
+    baseValue: 0
     increase: 0
     valueLimits:
       min: 0
@@ -36,10 +36,55 @@ MonoBehaviour:
       max: Infinity
   modules:
   - rid: 3611678573724172376
-  - rid: 3611678668075303006
+  - rid: 2308102547953418334
+  <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
+    - rid: 2308102547953418334
+      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        fireDistance: 0
+        spread:
+          min: 0
+          max: 0
+        projectile:
+          rid: 2308102547953418336
+        speed:
+          baseValue: 10
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        maxRange:
+          baseValue: Infinity
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 2308102547953418336
+      type: {class: FireHomingOrb, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        prefab: {fileID: -1221922450799852821, guid: a67f971b497c47d47b6375ef17ade2b6, type: 3}
+        damage:
+          baseValue: 1
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        pierce:
+          baseValue: 20
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        targetRange: 10
+        targetLayer:
+          serializedVersion: 2
+          m_Bits: 256
+        blockLayer:
+          serializedVersion: 2
+          m_Bits: 128
     - rid: 3611678573724172376
       type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
@@ -49,31 +94,3 @@ MonoBehaviour:
     - rid: 3611678573724172377
       type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data: 
-    - rid: 3611678668075303006
-      type: {class: Saw, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        prefab: {fileID: 8456839551105744551, guid: d6961137a4e07c849a787fe64f52dd5c, type: 3}
-        castDistance: 0.5
-        damageRadius: 0.5
-        procCoefficient: 1
-        armorPenetration: 0
-        hitLayers:
-          serializedVersion: 2
-          m_Bits: 256
-        blockLayers:
-          serializedVersion: 2
-          m_Bits: 128
-        damage:
-          baseValue: 5
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        damageCooldown:
-          baseValue: 0.2
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        effect: {fileID: 11400000, guid: 0195ac4fba5f4d748a37f9b91d367d23, type: 2}
-        effectProcChance: 10

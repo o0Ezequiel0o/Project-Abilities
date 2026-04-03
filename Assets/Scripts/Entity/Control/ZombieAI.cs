@@ -1,5 +1,6 @@
 using UnityEngine;
 using Zeke.Abilities;
+using Zeke.Abilities.Indicators;
 using Zeke.TeamSystem;
 
 public class ZombieAI : MonoBehaviour
@@ -18,15 +19,18 @@ public class ZombieAI : MonoBehaviour
 
     private void Awake()
     {
-        context = new ZombieStateContext(settings, attackIndicatorSpawn);
-        stateMachine = new ZombieStateMachine(gameObject, context);
-
-        stateMachine.ChangeState(stateMachine.idleState);
-
         if (TryGetComponent(out Damageable damageable))
         {
             damageable.onDamageTaken += OnDamageTaken;
         }
+    }
+
+    private void Start()
+    {
+        context = new ZombieStateContext(settings, attackIndicatorSpawn);
+        stateMachine = new ZombieStateMachine(gameObject, context);
+
+        stateMachine.ChangeState(stateMachine.idleState);
     }
 
     private void Update()
@@ -34,9 +38,14 @@ public class ZombieAI : MonoBehaviour
         stateMachine.Update();
     }
 
+    private void LateUpdate()
+    {
+        stateMachine.LateUpdate();
+    }
+
     private void OnDestroy()
     {
-        stateMachine.Destroy();
+        stateMachine?.Destroy();
     }
 
     private void OnDamageTaken(Damageable.DamageEvent damageEvent)
@@ -127,6 +136,11 @@ public class ZombieStateMachine : StateMachine<ZombieStateContext>
         currentState?.UpdateState(context);
     }
 
+    public override void LateUpdate()
+    {
+        currentState?.LateUpdateState(context);
+    }
+
     public override void Destroy()
     {
         followState.DestroyState(context);
@@ -164,6 +178,8 @@ public class ZombieIdleState : ZombieBaseState
     }
 
     public override void ExitState(ZombieStateContext context) { }
+
+    public override void LateUpdateState(ZombieStateContext context) { }
 
     public override void UpdateState(ZombieStateContext context)
     {
@@ -232,20 +248,27 @@ public class ZombieFollowState : ZombieBaseState
         }
     }
 
+    public override void LateUpdateState(ZombieStateContext context) { }
+
     private void Update(ZombieStateContext context)
     {
         Vector2 targetDirection = (context.Target.position - transform.position).normalized;
 
-        entityMove.MoveTowards(targetDirection);
         entityAim.AimTowards(targetDirection);
 
-        if (InStartAttackAngle(context) && TargetInRange(context))
+        if (InStartAttackAngle(context) && TargetInRange(transform, context))
         {
-            if (abilityController.CanUseAbility(context.ai.AttackType))
+            if (TargetAwareness.HasLineOfSight(transform.position, context.TargetCollider, context.ai.BlockLayers | context.ai.TargetLayers))
             {
-                stateMachine.ChangeState(stateMachine.attackState);
+                if (abilityController.CanUseAbility(context.ai.AttackType))
+                {
+                    stateMachine.ChangeState(stateMachine.attackState);
+                    return;
+                }
             }
         }
+        
+        entityMove.MoveTowards(targetDirection);
     }
 
     private bool InStartAttackAngle(ZombieStateContext context)
@@ -254,7 +277,7 @@ public class ZombieFollowState : ZombieBaseState
         return angleDifference < context.ai.MinStartAttackAngle;
     }
 
-    private bool TargetInRange(ZombieStateContext context)
+    private bool TargetInRange(Transform transform, ZombieStateContext context)
     {
         Vector3 targetPosition = context.Target.position;
 
@@ -273,15 +296,11 @@ public class ZombieAttackState : ZombieBaseState
     private readonly EntityAim entityAim;
 
     private readonly AbilityController abilityController;
+    private readonly AbilityIndicator abilityIndicator;
 
     private readonly ZombieStateMachine stateMachine;
 
-    private readonly Stat.Multiplier zeroMoveSpeedMultiplier;
-    private readonly Stat.Multiplier zeroAimSpeedMultiplier;
-
-    private AttackIndicator attackIndicatorCache;
-
-    private float windUpTimer = 0f;
+    private float attackTimer = 0f;
     private float recoverTimer = 0f;
 
     private AttackPhase attackPhase = AttackPhase.WindUp;
@@ -289,6 +308,7 @@ public class ZombieAttackState : ZombieBaseState
     private enum AttackPhase
     {
         WindUp,
+        Attack,
         Recover
     }
 
@@ -301,34 +321,31 @@ public class ZombieAttackState : ZombieBaseState
 
         abilityController = gameObject.GetComponent<AbilityController>();
 
-        zeroMoveSpeedMultiplier = new Stat.Multiplier(0f);
-        zeroAimSpeedMultiplier = new Stat.Multiplier(0f);
-
-        SpawnAttackIndicator(context);
+        abilityIndicator = CreateAbilityIndicator(context.ai.AttackType, gameObject);
     }
 
     public override void DestroyState(ZombieStateContext context)
     {
-        if (attackIndicatorCache == null) return;
-        GameObject.Destroy(attackIndicatorCache.gameObject);
+        if (abilityIndicator == null) return;
+        abilityIndicator.Destroy();
     }
 
     public override void EnterState(ZombieStateContext context)
     {
-        entityMove.MoveSpeed.AddMultiplier(zeroMoveSpeedMultiplier);
-        entityAim.RotationSpeed.AddMultiplier(zeroAimSpeedMultiplier);
+        entityMove.StopMoving();
+        entityAim.StopAiming();
 
         attackPhase = AttackPhase.WindUp;
-        StartAttackIndicator(context);
 
-        windUpTimer = 0f;
+        attackTimer = 0f;
         recoverTimer = 0f;
+
+        abilityIndicator?.Reset();
     }
 
     public override void ExitState(ZombieStateContext context)
     {
-        entityMove.MoveSpeed.RemoveMultiplier(zeroMoveSpeedMultiplier);
-        entityAim.RotationSpeed.RemoveMultiplier(zeroAimSpeedMultiplier);
+        abilityIndicator?.Disable();
     }
 
     public override void UpdateState(ZombieStateContext context)
@@ -339,19 +356,57 @@ public class ZombieAttackState : ZombieBaseState
                 UpdateWindUp(context);
                 break;
 
+            case AttackPhase.Attack:
+                UpdateAttack(context);
+                break;
+
             case AttackPhase.Recover:
                 UpdateRecover(context);
                 break;
         }
     }
 
+    public override void LateUpdateState(ZombieStateContext context)
+    {
+        abilityIndicator?.LateUpdate();
+    }
+
     private void UpdateWindUp(ZombieStateContext context)
     {
-        windUpTimer += Time.deltaTime;
-
-        if (windUpTimer > context.ai.AttackWindUp)
+        if (abilityIndicator == null)
         {
             PerformAttack(context);
+            attackPhase = AttackPhase.Attack;
+        }
+        else
+        {
+            attackTimer += Time.deltaTime;
+
+            abilityIndicator.Update();
+
+            if (attackTimer > abilityIndicator.FirstHideTime)
+            {
+                PerformAttack(context);
+                attackPhase = AttackPhase.Attack;
+            }
+        }
+    }
+
+    private void UpdateAttack(ZombieStateContext context)
+    {
+        if (abilityIndicator != null)
+        {
+            attackTimer += Time.deltaTime;
+
+            abilityIndicator.Update();
+
+            if (attackTimer > abilityIndicator.LastHideTime)
+            {
+                attackPhase = AttackPhase.Recover;
+            }
+        }
+        else
+        {
             attackPhase = AttackPhase.Recover;
         }
     }
@@ -383,16 +438,16 @@ public class ZombieAttackState : ZombieBaseState
         }
     }
 
-    private void SpawnAttackIndicator(ZombieStateContext context)
+    private AbilityIndicator CreateAbilityIndicator(AbilityType abilityType, GameObject gameObject)
     {
-        attackIndicatorCache = GameObject.Instantiate(context.ai.AttackIndicatorPrefab, GameInstance.WorldCanvas.transform);
-        attackIndicatorCache.despawnAction = DespawnAction.Disable;
-        attackIndicatorCache.gameObject.SetActive(false);
-    }
+        if (abilityController.TryGetAbility(abilityType, out IAbility ability))
+        {
+            if (ability.IndicatorData != null)
+            {
+                return ability.IndicatorData.CreateAbilityIndicator(gameObject, abilityController.Spawn);
+            }
+        }
 
-    private void StartAttackIndicator(ZombieStateContext context)
-    {
-        attackIndicatorCache.gameObject.SetActive(true);
-        attackIndicatorCache.StartAnimation(context.attackIndicatorSpawn, context.ai.AttackWindUp, context.ai.IndicatorSize, context.ai.IndicatorCenterOffset);
+        return null;
     }
 }

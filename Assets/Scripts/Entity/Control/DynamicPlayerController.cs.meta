@@ -5,7 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - center: {instanceID: 0}
-  - moveInput: {instanceID: 0}
+  - moveInput: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   - primaryInput: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   - secondaryInput: {fileID: -6528747838407589065, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   - utilityInput: {fileID: -7471211009204490832, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

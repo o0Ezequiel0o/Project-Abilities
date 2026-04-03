@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
   m_Name: Turret Fire
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
@@ -36,41 +36,11 @@ MonoBehaviour:
       max: Infinity
   modules:
   - rid: 3611678573724172371
-  - rid: 3611678565350244479
+  - rid: 3611678669646069864
+  <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 3611678565350244479
-      type: {class: FireProjectile, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        fireDistance: 0.2
-        spread:
-          min: 0
-          max: 0
-        projectile:
-          rid: 3611678565350244480
-        speed:
-          baseValue: 10
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        maxRange:
-          baseValue: 10
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-    - rid: 3611678565350244480
-      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        prefab: {fileID: 4095476445108489073, guid: 6f6ff7d6431d08444bf5c913843b393e, type: 3}
-        damage:
-          baseValue: 10
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
     - rid: 3611678573724172371
       type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
@@ -80,3 +50,34 @@ MonoBehaviour:
     - rid: 3611678573724172372
       type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data: 
+    - rid: 3611678669646069864
+      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        fireDistance: 0
+        spread:
+          min: 0
+          max: 0
+        projectile:
+          rid: 3611678669646069865
+        speed:
+          baseValue: 8
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        maxRange:
+          baseValue: 12
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 3611678669646069865
+      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        prefab: {fileID: 4095476445108489073, guid: 6f6ff7d6431d08444bf5c913843b393e, type: 3}
+        damage:
+          baseValue: 10
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity

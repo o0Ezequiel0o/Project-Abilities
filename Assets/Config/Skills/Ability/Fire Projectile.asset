@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
   m_Name: Fire Projectile
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
-  <CanHold>k__BackingField: 0
+  <CanHold>k__BackingField: 1
   cooldownTime:
-    baseValue: 5
+    baseValue: 3
     increase: 0
     valueLimits:
       min: 0
@@ -36,7 +36,8 @@ MonoBehaviour:
       max: Infinity
   modules:
   - rid: 3611678573724172416
-  - rid: 3611678664227553373
+  - rid: 3611678669646069862
+  <IndicatorData>k__BackingField: {fileID: 11400000, guid: 2ec5749152799634e948e5fd55b0b038, type: 2}
   references:
     version: 2
     RefIds:
@@ -49,15 +50,15 @@ MonoBehaviour:
     - rid: 3611678573724172417
       type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data: 
-    - rid: 3611678664227553373
-      type: {class: FireProjectile, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 3611678669646069862
+      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
         fireDistance: 0.2
         spread:
           min: 0
           max: 0
         projectile:
-          rid: 3611678664227553375
+          rid: 3611678669646069863
         speed:
           baseValue: 10
           increase: 0
@@ -70,8 +71,8 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
-    - rid: 3611678664227553375
-      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 3611678669646069863
+      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
         prefab: {fileID: 4095476445108489073, guid: 6f6ff7d6431d08444bf5c913843b393e, type: 3}
         damage:
