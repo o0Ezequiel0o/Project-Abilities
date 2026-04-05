@@ -1,0 +1,18 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Bleeding", menuName = "ScriptableObjects/Status Effects/Bleeding", order = 1)]
+public class BleedingStatusData : StatusEffectData
+{
+    [field: Space]
+    [field: SerializeField] public int Ticks { get; private set; }
+    [field: SerializeField] public float TickTime { get; private set; }
+
+    [field: Space]
+    [field: SerializeField] public StackStat DamageHealthRatio { get; private set; }
+    [field: SerializeField] public StackStat MaxDamage { get; private set; }
+
+    public override StatusEffect CreateEffect(StatusEffectHandler statusEffectHandler, GameObject receiver, GameObject source)
+    {
+        return new BleedingStatus(statusEffectHandler, receiver, source, this);
+    }
+}

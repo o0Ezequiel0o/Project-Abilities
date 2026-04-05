@@ -4,7 +4,7 @@ using UnityEngine;
 public class GasolineItemData : ItemData
 {
     [field: Space]
-    [field: SerializeField] public ItemStat Radius { get; private set; }
+    [field: SerializeField] public StackStat Radius { get; private set; }
     [field: SerializeField] public StatusEffectData StatusEffectToApply { get; private set; }
     [field: SerializeField] public LayerMask Hitlayers { get; private set; }
 

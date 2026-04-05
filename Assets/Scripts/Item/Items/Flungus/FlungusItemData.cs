@@ -8,8 +8,8 @@ public class FlungusItemData : ItemData
     [field: SerializeField] public float ActivationDelay { get; private set; }
     [field: SerializeField] public GameObject Particles { get; private set; }
     [field: SerializeField] public LayerMask HitLayers { get; private set; }
-    [field: SerializeField] public ItemStat HealAmount { get; private set; }
-    [field: SerializeField] public ItemStat Radius { get; private set; }
+    [field: SerializeField] public StackStat HealAmount { get; private set; }
+    [field: SerializeField] public StackStat Radius { get; private set; }
 
     public override Item CreateItem(ItemHandler itemHandler, GameObject source)
     {

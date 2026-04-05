@@ -13,7 +13,7 @@ public class BasicProjectile : DamageProjectileBase
         Despawn();
     }
     
-    protected void Hit(GameObject receiver)
+    protected virtual void Hit(GameObject receiver)
     {
         if (TeamManager.IsAlly(Team, receiver)) return;
 

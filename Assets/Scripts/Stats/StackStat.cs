@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public struct ItemStat
+public struct StackStat
 {
     [SerializeField] private ScalingMode scalingMode;
     

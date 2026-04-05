@@ -449,7 +449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSettings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
-  <Luck>k__BackingField: 1
+  <Luck>k__BackingField: 0
 --- !u!114 &4878768829829094210
 MonoBehaviour:
   m_ObjectHideFlags: 0

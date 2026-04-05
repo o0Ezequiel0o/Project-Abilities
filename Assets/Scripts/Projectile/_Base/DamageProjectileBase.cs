@@ -4,9 +4,9 @@ using Zeke.TeamSystem;
 public abstract class DamageProjectileBase : Projectile
 {
     [Header("Impact")]
-    [SerializeField] private float armorPenetration = 0f;
-    [SerializeField] private float procCoefficient = 1f;
-    [SerializeField] private float knockback = 1f;
+    [SerializeField] protected float armorPenetration = 0f;
+    [SerializeField] protected float procCoefficient = 1f;
+    [SerializeField] protected float knockback = 1f;
 
     public float Damage { get; private set; }
 
@@ -37,7 +37,7 @@ public abstract class DamageProjectileBase : Projectile
     {
         if (receiver.TryGetComponent(out Damageable damageable))
         {
-            Damageable.DamageEvent damageEvent = damageable.DealDamage(new DamageInfo(Damage, procCoefficient, armorPenetration), SourceUser, gameObject);
+            Damageable.DamageEvent damageEvent = damageable.DealDamage(new DamageInfo(Damage, armorPenetration, procCoefficient), SourceUser, gameObject);
             return damageEvent.damageRejected;
         }
 

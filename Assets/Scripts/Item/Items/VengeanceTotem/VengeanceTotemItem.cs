@@ -18,9 +18,8 @@ public class VengeanceTotemItem : Item
 
     public override void OnDamageTaken(Damageable.DamageEvent damageEvent)
     {
-        if (damageEvent.SourceUser == null || damageEvent.ProcChainBranch.Contains(Data)) return;
-
-        if (damageEvent.SourceUser == source) return;
+        if (damageEvent.SourceUser == null || damageEvent.Receiver.gameObject == source) return;
+        if (damageEvent.ProcChainBranch.Contains(Data)) return;
 
         if (damageEvent.SourceUser.TryGetComponent(out Damageable damageable))
         {

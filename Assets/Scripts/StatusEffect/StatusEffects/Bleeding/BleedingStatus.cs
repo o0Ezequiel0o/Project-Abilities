@@ -1,23 +1,21 @@
 using UnityEngine;
 
-public class BurningStatus : StatusEffect
+public class BleedingStatus : StatusEffect
 {
     public override StatusEffectData Data => effectData;
-    private BurningStatusData effectData;
+    private readonly BleedingStatusData effectData;
 
-    private StatusEffectHandler statusEffectHandler;
-
-    private GameObject receiver;
-    private GameObject source;
+    private readonly StatusEffectHandler statusEffectHandler;
 
     private Damageable damageable;
 
-    private int currentTicks = 0;
+    private readonly GameObject receiver;
+    private readonly GameObject source;
+
     private float timer = 0f;
+    private int currentTicks;
 
-    private GameObject particleHandler;
-
-    public BurningStatus(StatusEffectHandler statusEffectHandler, GameObject receiver, GameObject source, BurningStatusData effectData)
+    public BleedingStatus(StatusEffectHandler statusEffectHandler, GameObject receiver, GameObject source, BleedingStatusData effectData)
     {
         this.statusEffectHandler = statusEffectHandler;
 
@@ -33,14 +31,9 @@ public class BurningStatus : StatusEffect
         {
             statusEffectHandler.RemoveEffect(this);
         }
-
-        particleHandler = Object.Instantiate(effectData.ParticleHandler, receiver.transform);
     }
 
-    public override void OnStackApply()
-    {
-        //FINISH BURNING IMPLEMENTATION
-    }
+    public override void OnStackApply() {}
 
     public override void OnUpdate()
     {
@@ -48,15 +41,14 @@ public class BurningStatus : StatusEffect
 
         if (timer >= effectData.TickTime)
         {
-            damageable.DealDamage(new DamageInfo(effectData.Damage, 0f, 0f), source, null);
+            float damage = damageable.MaxHealth.Value * effectData.DamageHealthRatio.CalculateValue(stacks);
+            damage = Mathf.Min(damage, effectData.MaxDamage.CalculateValue(stacks));
+            damageable.DealDamage(new DamageInfo(damage, 0f, 0f), source, null);
             UpdateTicks();
         }
     }
-
-    public override void OnRemove()
-    {
-        Object.Destroy(particleHandler);
-    }
+    
+    public override void OnRemove() {}
 
     private void UpdateTicks()
     {

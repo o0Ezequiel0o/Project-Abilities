@@ -17,7 +17,7 @@ public class CrowbarItem : Item
     
     public override void OnDealDamage(Damageable.DamageEvent damageEvent)
     {
-        if (damageEvent.SourceUser != null && damageEvent.SourceUser == source) return;
+        if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
 
         if (damageEvent.Receiver.TryGetComponent(out Damageable damageable))
         {

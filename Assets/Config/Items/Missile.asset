@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e43936437176ce5408d1167581721b84, type: 3}
+  m_Name: Missile
+  m_EditorClassIdentifier: Assembly-CSharp::MissileItemData
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Missile
+  <Description>k__BackingField: 
+  <Rarity>k__BackingField: 1
+  <MissilePrefab>k__BackingField: {fileID: 786095908060177754, guid: 8150bc3e50f9b494ebc4b37f14482a65, type: 3}
+  <ProcChance>k__BackingField: 22
+  <SpawnDirection>k__BackingField: {x: 0, y: -1}
+  <DamageMultiplier>k__BackingField:
+    scalingMode: 0
+    BaseValue: 3
+    Increase: 0.5
+  <MaxRange>k__BackingField: 30
+  <Speed>k__BackingField: 8

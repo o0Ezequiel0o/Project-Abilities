@@ -1,5 +1,23 @@
+using UnityEngine;
+
 public abstract class Item
 {
+    public static bool RollProc(float chance, float coefficient, int luck)
+    {
+        bool rollSucess = chance * coefficient > Random.Range(0f, 100f - Mathf.Epsilon);
+
+        if (luck < 0 && rollSucess)
+        {
+            return RollProc(chance, coefficient, luck + 1);
+        }
+        if (luck > 0 && !rollSucess)
+        {
+            return RollProc(chance, coefficient, luck - 1);
+        }
+
+        return rollSucess;
+    }
+
     public abstract ItemData Data { get; }
 
     public int stacks;

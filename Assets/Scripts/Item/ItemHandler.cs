@@ -8,7 +8,7 @@ public class ItemHandler : MonoBehaviour
     [SerializeField] private ItemSettings itemSettings;
 
     [field: Header("Settings")]
-    [field: SerializeField] public int Luck { get; private set; } = 1;
+    [field: SerializeField] public int Luck { get; private set; }
 
     public List<Item> Items => items;
     public List<ItemData> ItemsData => itemsData;

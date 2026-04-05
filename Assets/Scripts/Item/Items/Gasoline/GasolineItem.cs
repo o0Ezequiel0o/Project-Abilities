@@ -30,6 +30,7 @@ public class GasolineItem : Item
 
         for (int i = 0; i < hits.Count; i++)
         {
+            if (hits[i].transform == source.transform) continue;
             if (TeamManager.IsAlly(source, hits[i].gameObject)) continue;
 
             if (hits[i].TryGetComponent(out StatusEffectHandler statusEffectHandler))
