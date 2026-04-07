@@ -29,7 +29,7 @@ public class Exosuit : Vehicle
         if (source.TryGetComponent(out Damageable damageable))
         {
             damageable.AddImmunitySource(immunityID);
-            damageable.onTakeHitAny += RedirectDamage;
+            damageable.onDamageEvent += RedirectDamage;
         }
         if (source.TryGetComponent(out StatusEffectHandler statusEffectHandler))
         {
@@ -43,7 +43,7 @@ public class Exosuit : Vehicle
         if (source.TryGetComponent(out Damageable damageable))
         {
             damageable.RemoveImmunitySource(immunityID);
-            damageable.onTakeHitAny -= RedirectDamage;
+            damageable.onDamageEvent -= RedirectDamage;
         }
         if (source.TryGetComponent(out StatusEffectHandler statusEffectHandler))
         {

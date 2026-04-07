@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
+  m_Name: Fire Giant Orb
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <AbilityType>k__BackingField: 3
+  <CanManuallyDeactivate>k__BackingField: 0
+  <CanHold>k__BackingField: 0
+  cooldownTime:
+    baseValue: 5
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  duration:
+    baseValue: 0
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  charges:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: 1
+      max: Infinity
+  modules:
+  - rid: 2308102682624393312
+  - rid: 2308102682624393314
+  <IndicatorData>k__BackingField: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2308102682624393312
+      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        updateMode: 0
+        type:
+          rid: 2308102682624393313
+    - rid: 2308102682624393313
+      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 2308102682624393314
+      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        fireDistance: 0.5
+        spread:
+          min: 0
+          max: 0
+        projectile:
+          rid: 2308102682624393315
+        speed:
+          baseValue: 15
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        maxRange:
+          baseValue: 40
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 2308102682624393315
+      type: {class: FireGiantOrb, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        prefab: {fileID: 1995363315318189085, guid: b1700eae23f047845bb158ec1d9ed1df, type: 3}
+        damage:
+          baseValue: 100
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        smallOrbDamage:
+          baseValue: 5
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        smallOrbSpeed:
+          baseValue: 8
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        smallOrbRange:
+          baseValue: 20
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        smallOrbPierce:
+          baseValue: 0
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity

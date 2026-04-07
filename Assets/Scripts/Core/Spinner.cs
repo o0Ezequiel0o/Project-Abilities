@@ -83,14 +83,6 @@ public class Spinner<T> where T : Component
         GameObject.Destroy(Pivot.gameObject);
     }
 
-    public void DestroyPivotChildren()
-    {
-        foreach (Transform child in Pivot)
-        {
-            GameObject.Destroy(child.gameObject);
-        }
-    }
-
     public void DisablePivotChildren()
     {
         if (Pivot == null) return;

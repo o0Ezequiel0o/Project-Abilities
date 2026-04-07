@@ -31,7 +31,11 @@ namespace Zeke.PoolableGameObjects
         {
             GameObject poolObject = Get();
 
-            if (poolObject != null) return poolObject;
+            if (poolObject != null)
+            {
+                poolObject.transform.SetParent(parent);
+                return poolObject;
+            }
 
             poolObject = UnityEngine.Object.Instantiate(prefab, parent);
 
@@ -78,8 +82,8 @@ namespace Zeke.PoolableGameObjects
         {
             for (int i = 0; i < poolableGameObjects.Count; i++)
             {
-                if (poolableGameObjects[i] == null) continue;
-                GameObject.Destroy(poolableGameObjects[i].gameObject);
+                if (poolableGameObjects[i]== null) continue;
+                poolableGameObjects[i].OnPoolDestroyed();
             }
             poolableGameObjects.Clear();
         }

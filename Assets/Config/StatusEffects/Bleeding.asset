@@ -25,3 +25,4 @@ MonoBehaviour:
     scalingMode: 0
     BaseValue: 0
     Increase: 100
+  <StainParticles>k__BackingField: {fileID: 4495174346934379719, guid: 77fe2d29d7a41ef41b5b4526d625fd10, type: 3}

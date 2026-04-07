@@ -12,15 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23d19aedcc131d04c94d73a3727191a1, type: 3}
   m_Name: Burning
   m_EditorClassIdentifier: 
+  <Icon>k__BackingField: {fileID: 0}
   <MaxStacks>k__BackingField: 10
   <StatusEffectType>k__BackingField: 2
-  <ParticleHandler>k__BackingField: {fileID: 5858856877039675562, guid: b19a0e4ade462874898bdf4be3107fa0, type: 3}
+  <Particles>k__BackingField: {fileID: 5858856877039675562, guid: b19a0e4ade462874898bdf4be3107fa0, type: 3}
   <Damage>k__BackingField: 3
   <TickTime>k__BackingField: 1
   <Ticks>k__BackingField: 5
-  <StatusEffectToSpread>k__BackingField: {fileID: 11400000}
-  <SpreadLayer>k__BackingField:
-    serializedVersion: 2
-    m_Bits: 256
-  <SpreadRadius>k__BackingField: 2.5
-  <ChanceToSpread>k__BackingField: 25

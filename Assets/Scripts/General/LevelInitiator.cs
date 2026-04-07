@@ -2,11 +2,17 @@ using UnityEngine;
 
 public class LevelInitiator : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
-    [SerializeField] private CameraController cameraController;
+    [SerializeField] private GameObject level;
 
-    void Awake()
+    private GameObject currentLevel;
+
+    private void Start()
     {
-        cameraController.SetTarget(player.transform);
+        LoadLevel();
+    }
+
+    private void LoadLevel()
+    {
+        currentLevel = Instantiate(level);
     }
 }

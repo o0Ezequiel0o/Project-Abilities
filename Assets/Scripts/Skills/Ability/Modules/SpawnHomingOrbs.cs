@@ -17,6 +17,7 @@ namespace Zeke.Abilities.Modules
         [SerializeField] protected Stat amount;
         [SerializeField] protected Stat damage;
         [SerializeField] protected Stat maxRange;
+        [SerializeField] protected Stat pierce;
         [SerializeField] protected Stat fireCooldown;
 
         [Header("Targeting")]
@@ -60,6 +61,7 @@ namespace Zeke.Abilities.Modules
 
             amount = original.amount.DeepCopy();
             damage = original.damage.DeepCopy();
+            pierce = original.pierce.DeepCopy();
             maxRange = original.maxRange.DeepCopy();
 
             fireCooldown = original.fireCooldown.DeepCopy();
@@ -233,7 +235,7 @@ namespace Zeke.Abilities.Modules
             homingOrbs.Remove(homingOrb);
             spinnerInstance.RemoveFromPivot(homingOrb.transform);
 
-            homingOrb.Launch(homingOrb.transform.position, 5f, direction, maxRange.Value, damage.Value, source, TeamManager.GetTeam(source));
+            homingOrb.Launch(homingOrb.transform.position, 5f, direction, maxRange.Value, damage.Value, pierce.ValueInt, source, TeamManager.GetTeam(source));
 
             homingOrb.SetTarget(target);
             homingOrb.ColliderEnabled = true;

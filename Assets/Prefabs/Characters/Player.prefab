@@ -498,7 +498,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageable: {fileID: 3571629176375247297}
   healthBarPrefab: {fileID: 8229053637792263258, guid: 552631845816855469f5d1ac505252bd, type: 3}
-  follow: {fileID: 4369443556788299361}
+  center: {fileID: 4369443556788299361}
+  offset: {x: 0, y: 0, z: 0}
   size: {x: 1, y: 1}
   duration: 5
 --- !u!114 &3336023691050110098
@@ -569,7 +570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawn: {fileID: 8263352429358299737}
   setAbilities:
-  - {fileID: 11400000, guid: 95130e4f3e25a044a9c129865860798b, type: 2}
+  - {fileID: 11400000, guid: f611cbfa55019494096bf24099653a39, type: 2}
 --- !u!114 &3787346725820631185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,3 +702,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9a7cb73b80ac28b44be91cb12d8b4561, type: 2}
   - {fileID: 11400000, guid: 8f4b86123f36dbd45b362a97802ee45f, type: 2}
   - {fileID: 11400000, guid: 57df328e90faa214a9055072c55e6805, type: 2}
+  - {fileID: 11400000, guid: 939aec0778a46134aa2d3ed39e68a35b, type: 2}

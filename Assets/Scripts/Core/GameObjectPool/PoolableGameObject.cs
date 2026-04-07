@@ -5,6 +5,9 @@ namespace Zeke.PoolableGameObjects
     [DisallowMultipleComponent]
     public class PoolableGameObject : MonoBehaviour
     {
+        [Tooltip("Check if the object is disabled for pooling")]
+        [SerializeField] private bool checkDisabled = true;
+
         private IPoolableGameObjectConfirmator[] poolableConfirmators;
 
         private void Awake()
@@ -14,7 +17,7 @@ namespace Zeke.PoolableGameObjects
 
         public bool CanRetrieve()
         {
-            if (gameObject.activeSelf) return false;
+            if (checkDisabled && gameObject.activeSelf) return false;
 
             for (int i = 0; i < poolableConfirmators.Length; i++)
             {

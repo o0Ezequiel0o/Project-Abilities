@@ -23,6 +23,6 @@ MonoBehaviour:
   <DamageMultiplier>k__BackingField:
     scalingMode: 0
     BaseValue: 3
-    Increase: 0.5
+    Increase: 1
   <MaxRange>k__BackingField: 30
   <Speed>k__BackingField: 8

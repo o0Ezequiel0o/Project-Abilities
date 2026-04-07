@@ -710,7 +710,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageable: {fileID: 4898625653222785418}
   healthBarPrefab: {fileID: 8229053637792263258, guid: 552631845816855469f5d1ac505252bd, type: 3}
-  follow: {fileID: 1754573666794688898}
+  center: {fileID: 1754573666794688898}
+  offset: {x: 0, y: 0, z: 0}
   size: {x: 1, y: 1}
   duration: 5
 --- !u!114 &2348310840592670989

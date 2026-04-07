@@ -3,19 +3,19 @@ using UnityEngine;
 public class BurningStatus : StatusEffect
 {
     public override StatusEffectData Data => effectData;
-    private BurningStatusData effectData;
+    private readonly BurningStatusData effectData;
 
-    private StatusEffectHandler statusEffectHandler;
+    private readonly StatusEffectHandler statusEffectHandler;
 
-    private GameObject receiver;
-    private GameObject source;
+    private readonly GameObject receiver;
+    private readonly GameObject source;
 
     private Damageable damageable;
 
     private int currentTicks = 0;
     private float timer = 0f;
 
-    private GameObject particleHandler;
+    private GameObject particles;
 
     public BurningStatus(StatusEffectHandler statusEffectHandler, GameObject receiver, GameObject source, BurningStatusData effectData)
     {
@@ -34,7 +34,9 @@ public class BurningStatus : StatusEffect
             statusEffectHandler.RemoveEffect(this);
         }
 
-        particleHandler = Object.Instantiate(effectData.ParticleHandler, receiver.transform);
+        particles = StatusEffectParticlesPool.Get(effectData.Particles);
+        particles.transform.position = Vector3.zero;
+        particles.SetActive(true);
     }
 
     public override void OnStackApply()
@@ -48,14 +50,28 @@ public class BurningStatus : StatusEffect
 
         if (timer >= effectData.TickTime)
         {
-            damageable.DealDamage(new DamageInfo(effectData.Damage, 0f, 0f), source, null);
+            DamageInfo damageInfo = new(effectData.Damage, 0f, 0f) { hit = false };
+            damageable.DealDamage(damageInfo, source, null);
             UpdateTicks();
         }
     }
 
+    public override void OnLateUpdate()
+    {
+        if (particles == null) return;
+        particles.transform.position = receiver.transform.position;
+    }
+
     public override void OnRemove()
     {
-        Object.Destroy(particleHandler);
+        if (particles == null) return;
+        particles.SetActive(false);
+    }
+
+    public override void OnDestroy()
+    {
+        if (particles == null) return;
+        particles.SetActive(false);
     }
 
     private void UpdateTicks()

@@ -122,7 +122,7 @@ public class StatusEffectHandler : MonoBehaviour
         immunitySources.Remove(ID);
     }
 
-    void Awake()
+    private void Awake()
     {
         for (int i = 0; i < statusEffectsImmunityConfig.Count; i++)
         {
@@ -130,7 +130,7 @@ public class StatusEffectHandler : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         for (int i = 0; i < statusEffects.Count; i++)
         {
@@ -138,7 +138,23 @@ public class StatusEffectHandler : MonoBehaviour
         }
     }
 
-    void AddNewStatusEffect(StatusEffectData statusEffectData, GameObject source)
+    private void LateUpdate()
+    {
+        for (int i = 0; i < statusEffects.Count; i++)
+        {
+            statusEffects[i].OnLateUpdate();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        for (int i = 0; i < statusEffects.Count; i++)
+        {
+            statusEffects[i].OnDestroy();
+        }
+    }
+
+    private void AddNewStatusEffect(StatusEffectData statusEffectData, GameObject source)
     {
         StatusEffect statusEffect = statusEffectData.CreateEffect(this, gameObject, source);
 
@@ -149,7 +165,7 @@ public class StatusEffectHandler : MonoBehaviour
         onEffectApplied?.Invoke(statusEffect);
     }
 
-    void ApplyStacks(StatusEffect statusEffect, int stacks)
+    private void ApplyStacks(StatusEffect statusEffect, int stacks)
     {
         statusEffect.stacks += stacks;
         statusEffect.OnStackApply();

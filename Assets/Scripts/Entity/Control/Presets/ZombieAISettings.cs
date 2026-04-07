@@ -1,6 +1,5 @@
 using UnityEngine;
 using Zeke.Abilities;
-using Zeke.Abilities.Indicators;
 
 [CreateAssetMenu(fileName = "New Preset", menuName = "AI Presets/Zombie/New Preset")]
 public class ZombieAISettings : ScriptableObject
@@ -17,15 +16,6 @@ public class ZombieAISettings : ScriptableObject
 
     [field: SerializeField] public float MinStartAttackAngle { get; private set; }
     [field: SerializeField] public float AttackRecover { get; private set; }
-
-    [field: Header("Visual")]
-
-    [field: SerializeField] public AttackIndicator AttackIndicatorPrefab { get; private set; }
-
-    [field: Space]
-
-    [field: SerializeField] public bool IndicatorCenterOffset { get; private set; }
-    [field: SerializeField] public Vector2 IndicatorSize { get; private set; }
 
     [field: Header("Sounds")]
     [field: SerializeField] public Sound WindUpSound { get; private set; }

@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
+  m_Name: Fireball
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <AbilityType>k__BackingField: 0
+  <CanManuallyDeactivate>k__BackingField: 0
+  <CanHold>k__BackingField: 1
+  cooldownTime:
+    baseValue: 0.5
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  duration:
+    baseValue: 0
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  charges:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: 1
+      max: Infinity
+  modules:
+  - rid: 2308102658494038109
+  - rid: 2308102658494038111
+  <IndicatorData>k__BackingField: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2308102658494038109
+      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        updateMode: 0
+        type:
+          rid: 2308102658494038110
+    - rid: 2308102658494038110
+      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 2308102658494038111
+      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        fireDistance: 0.2
+        spread:
+          min: 0
+          max: 0
+        projectile:
+          rid: 2308102658494038112
+        speed:
+          baseValue: 8
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        maxRange:
+          baseValue: 10
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 2308102658494038112
+      type: {class: FireFireball, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        prefab: {fileID: 437356665002056714, guid: 6c1002edcf6b99e47a629e10d9afb5f0, type: 3}
+        damage:
+          baseValue: 15
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        damageRadius:
+          baseValue: 0.25
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity

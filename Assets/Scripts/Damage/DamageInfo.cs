@@ -5,6 +5,7 @@ public struct DamageInfo
     public float armorPenetration;
 
     public bool lethal;
+    public bool hit;
 
     public DamageInfo(Damageable.DamageEvent damageEvent)
     {
@@ -13,6 +14,7 @@ public struct DamageInfo
         armorPenetration = damageEvent.ArmorPenetration;
 
         lethal = damageEvent.IsLethal;
+        hit = damageEvent.IsHit;
     }
 
     public DamageInfo(float baseDamage, float armorPenetration, float procCoefficient)
@@ -22,14 +24,18 @@ public struct DamageInfo
         this.procCoefficient = procCoefficient;
 
         lethal = true;
+        hit = true;
     }
 
-    public DamageInfo(float baseDamage, float armorPenetration, float procCoefficient, bool lethal)
+    public static DamageInfo Zero
     {
-        this.baseDamage = baseDamage;
-        this.armorPenetration = armorPenetration;
-        this.procCoefficient = procCoefficient;
-
-        this.lethal = lethal;
+        get
+        {
+            return new DamageInfo(0f, 0f, 0f)
+            {
+                lethal = false,
+                hit = false,
+            };
+        }
     }
 }

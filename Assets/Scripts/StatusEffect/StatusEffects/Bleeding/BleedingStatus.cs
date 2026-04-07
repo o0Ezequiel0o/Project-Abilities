@@ -43,12 +43,25 @@ public class BleedingStatus : StatusEffect
         {
             float damage = damageable.MaxHealth.Value * effectData.DamageHealthRatio.CalculateValue(stacks);
             damage = Mathf.Min(damage, effectData.MaxDamage.CalculateValue(stacks));
-            damageable.DealDamage(new DamageInfo(damage, 0f, 0f), source, null);
+            DamageInfo damageInfo = new(damage, 0f, 0f) { hit = false };
+            damageable.DealDamage(damageInfo, source, null);
+            SpawnBloodStain();
             UpdateTicks();
         }
     }
+
+    public override void OnLateUpdate() { }
     
-    public override void OnRemove() {}
+    public override void OnRemove() { }
+
+    public override void OnDestroy() { }
+
+    private void SpawnBloodStain()
+    {
+        GameObject newBloodStain = StatusEffectParticlesPool.Get(effectData.StainParticles);
+        newBloodStain.transform.position = receiver.transform.position;
+        newBloodStain.SetActive(true);
+    }
 
     private void UpdateTicks()
     {

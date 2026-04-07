@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
+  m_Name: Spinning Orbs
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <AbilityType>k__BackingField: 1
+  <CanManuallyDeactivate>k__BackingField: 0
+  <CanHold>k__BackingField: 0
+  cooldownTime:
+    baseValue: 5
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  duration:
+    baseValue: 5
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  charges:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: 1
+      max: Infinity
+  modules:
+  - rid: 2308102682624393323
+  - rid: 2308102682624393325
+  <IndicatorData>k__BackingField: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2308102682624393323
+      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        updateMode: 0
+        type:
+          rid: 2308102682624393324
+    - rid: 2308102682624393324
+      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 2308102682624393325
+      type: {class: ProjectileSpinner, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        prefab: {fileID: 5071053083290797565, guid: 4c810d6170641d54988cdfe555307cee, type: 3}
+        distance:
+          baseValue: 1.5
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        amount:
+          baseValue: 3
+          increase: 1
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        speed:
+          baseValue: 180
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        damage:
+          baseValue: 5
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity

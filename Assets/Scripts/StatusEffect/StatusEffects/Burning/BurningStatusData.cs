@@ -4,7 +4,7 @@ using UnityEngine;
 public class BurningStatusData : StatusEffectData
 {
     [field: Header("Visual")]
-    [field: SerializeField] public GameObject ParticleHandler {private set; get;}
+    [field: SerializeField] public GameObject Particles {private set; get;}
     [field: Header("Damage")]
     [field: SerializeField] public int Damage {private set; get;}
     [field: Space]

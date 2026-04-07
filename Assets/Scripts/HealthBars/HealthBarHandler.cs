@@ -7,8 +7,9 @@ public class HealthBarHandler : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private GameObject healthBarPrefab;
-    [SerializeField] private Transform follow;
+    [SerializeField] private Transform center;
     [Space]
+    [SerializeField] private Vector3 offset = Vector3.zero;
     [SerializeField] private Vector2 size = Vector2.one;
     [SerializeField] private float duration = 5f;
 
@@ -18,7 +19,7 @@ public class HealthBarHandler : MonoBehaviour
     void Reset()
     {
         damageable = GetComponentInChildren<Damageable>();
-        follow = GetComponentInChildren<Transform>();
+        center = GetComponentInChildren<Transform>();
     }
 
     void Start()
@@ -94,7 +95,7 @@ public class HealthBarHandler : MonoBehaviour
 
     void HealthBarFollowTargetPosition()
     {
-        healthBar.transform.position = follow.position;
+        healthBar.transform.position = (center.position + offset);
     }
 
     void UpdateHealthBarDurationTimer()

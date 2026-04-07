@@ -3,12 +3,12 @@ using UnityEngine;
 public class TemplateStatusEffect : StatusEffect
 {
     public override StatusEffectData Data => effectData;
-    private TemplateStatusEffectData effectData;
+    private readonly TemplateStatusEffectData effectData;
 
-    private StatusEffectHandler statusEffectHandler;
+    private readonly StatusEffectHandler statusEffectHandler;
 
-    private GameObject receiver;
-    private GameObject source;
+    private readonly GameObject receiver;
+    private readonly GameObject source;
 
     public TemplateStatusEffect(StatusEffectHandler statusEffectHandler, GameObject receiver, GameObject source, TemplateStatusEffectData effectData)
     {
@@ -25,6 +25,10 @@ public class TemplateStatusEffect : StatusEffect
     public override void OnStackApply() {}
 
     public override void OnUpdate() {}
+
+    public override void OnLateUpdate() {}
     
     public override void OnRemove() {}
+
+    public override void OnDestroy() {}
 }

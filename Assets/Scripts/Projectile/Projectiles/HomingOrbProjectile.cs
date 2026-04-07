@@ -14,7 +14,7 @@ public class HomingOrbProjectile : DamageProjectileBase
 
     [Space]
 
-    [SerializeField] private int maxHits = -1;
+    [SerializeField] private int pierce = -1;
 
     public bool ColliderEnabled { get; set; } = true;
 
@@ -53,7 +53,7 @@ public class HomingOrbProjectile : DamageProjectileBase
 
     public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, int pierce, Transform target, GameObject source, Teams team)
     {
-        maxHits = pierce;
+        this.pierce = pierce;
         SetTarget(target);
         Launch(position, speed, direction, maxRange, damage, source, team);
     }
@@ -91,7 +91,7 @@ public class HomingOrbProjectile : DamageProjectileBase
 
         currentHits += 1;
 
-        if (maxHits >= 0 && currentHits >= maxHits)
+        if (pierce >= 0 && currentHits > pierce)
         {
             Despawn();
         }

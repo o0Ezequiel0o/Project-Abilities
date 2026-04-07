@@ -10,7 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8195141644302352150}
   - component: {fileID: 437356665002056714}
-  - component: {fileID: 7148762787314530083}
+  - component: {fileID: 7780204454717737620}
+  - component: {fileID: 3473610057277787166}
+  - component: {fileID: 5964796314606694076}
+  - component: {fileID: 2327263793986835553}
   - component: {fileID: -2446229885022621982}
   m_Layer: 0
   m_Name: Fireball
@@ -56,12 +59,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   despawnAction: 1
-  despawnWithSource: 1
-  statusEffectToApply: {fileID: 11400000, guid: 0195ac4fba5f4d748a37f9b91d367d23, type: 2}
   armorPenetration: 0
   procCoefficient: 1
   knockback: 1
---- !u!114 &7148762787314530083
+  statusEffectToApply: {fileID: 11400000, guid: 0195ac4fba5f4d748a37f9b91d367d23, type: 2}
+--- !u!114 &7780204454717737620
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,23 +72,61 @@ MonoBehaviour:
   m_GameObject: {fileID: 4201946138875304654}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 846b2350f1272204a803eeacf7284b20, type: 3}
+  m_Script: {fileID: 11500000, guid: b554641d3d0dea54a960bcc78c8a5880, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  stopAction: 1
-  spawnParticles:
-  - particlesPrefab: {fileID: 7562753469400107764, guid: deda1037addf2274089ffc5b351ccc7a, type: 3}
-    prefabOffset: {x: 0, y: 0, z: 0}
-    enable: 1
-  - particlesPrefab: {fileID: 6393412465089220366, guid: 7c3d9052f2967044ea4500d195eac597, type: 3}
-    prefabOffset: {x: 0, y: -0.068, z: 0}
-    enable: 1
-  - particlesPrefab: {fileID: 1493388553776206132, guid: 519d19dd38d00484db2af1d3bfccf8b4, type: 3}
-    prefabOffset: {x: 0, y: 0.085, z: 0}
-    enable: 1
-  - particlesPrefab: {fileID: 4288973705588570470, guid: ff3d9a056c8812449b275ba6ab7ad935, type: 3}
-    prefabOffset: {x: 0, y: 0.085, z: 0}
-    enable: 2
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleController
+  particles: {fileID: 7562753469400107764, guid: deda1037addf2274089ffc5b351ccc7a, type: 3}
+  offset: {x: 0, y: 0, z: 0}
+  start: 1
+  stop: 2
+--- !u!114 &3473610057277787166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201946138875304654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b554641d3d0dea54a960bcc78c8a5880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleController
+  particles: {fileID: 6393412465089220366, guid: 7c3d9052f2967044ea4500d195eac597, type: 3}
+  offset: {x: 0, y: -0.068, z: 0}
+  start: 1
+  stop: 2
+--- !u!114 &5964796314606694076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201946138875304654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b554641d3d0dea54a960bcc78c8a5880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleController
+  particles: {fileID: 1493388553776206132, guid: 519d19dd38d00484db2af1d3bfccf8b4, type: 3}
+  offset: {x: 0, y: 0.085, z: 0}
+  start: 1
+  stop: 2
+--- !u!114 &2327263793986835553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201946138875304654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b554641d3d0dea54a960bcc78c8a5880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleController
+  particles: {fileID: 4288973705588570470, guid: ff3d9a056c8812449b275ba6ab7ad935, type: 3}
+  offset: {x: 0, y: 0.085, z: 0}
+  start: 2
+  stop: 4
 --- !u!114 &-2446229885022621982
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class Damageable : MonoBehaviour, IUpgradable
     public Action<HealEvent> onHealthReceived;
 
     /// <summary> Called when hit, before any condition. </summary>
-    public Action<DamageEvent> onTakeHitAny;
+    public Action<DamageEvent> onDamageEvent;
     
     public Action<DamageEvent> onTakeDamage;
     public Action<DamageEvent> onDamageTaken;
@@ -183,6 +183,7 @@ public class Damageable : MonoBehaviour, IUpgradable
         public float UncappedDamageDealt => DamageDealt + OverflowDamage;
 
         public bool IsLethal { get; private set; }
+        public bool IsHit { get; private set; }
 
         public float ProcCoefficient { get; private set; }
         public List<ItemData> ProcChainBranch { get; private set; }
@@ -211,6 +212,7 @@ public class Damageable : MonoBehaviour, IUpgradable
 
         public DamageEvent(DamageInfo damageInfo, Damageable receiver, GameObject userSource, GameObject sourceObject, List<ItemData> procChain)
         {
+            IsHit = damageInfo.hit;
             IsLethal = damageInfo.lethal;
             ProcChainBranch = procChain;
 
@@ -228,12 +230,16 @@ public class Damageable : MonoBehaviour, IUpgradable
         {
             if (!Receiver.IsAlive) return;
 
-            HandleHitAnyEvents();
+            Receiver.onDamageEvent?.Invoke(this);
+
             HandleImmunityState();
 
             if (damageRejected) return;
 
-            HandleOnHitEvents();
+            if (IsHit)
+            {
+                HandleOnHitEvents();
+            }
 
             if (damageRejected) return;
 
@@ -274,11 +280,6 @@ public class Damageable : MonoBehaviour, IUpgradable
             DamageDealt = Receiver.TakeDamage(Damage, IsLethal);
 
             OverflowDamage = Mathf.Max(0f, Damage - DamageDealt);
-        }
-
-        private void HandleHitAnyEvents()
-        {
-            Receiver.onTakeHitAny?.Invoke(this);
         }
 
         private void HandlePreDamageEvents()

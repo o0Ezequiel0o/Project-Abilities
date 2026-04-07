@@ -10,5 +10,9 @@ public abstract class StatusEffect
 
     public abstract void OnUpdate();
 
+    public abstract void OnLateUpdate();
+
     public abstract void OnRemove();
+
+    public abstract void OnDestroy();
 }

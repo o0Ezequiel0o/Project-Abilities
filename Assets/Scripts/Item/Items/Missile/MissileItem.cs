@@ -20,16 +20,10 @@ public class MissileItem : Item
         this.itemHandler = itemHandler;
     }
 
-    public override void OnAdded() { }
-
     public override void OnRemoved()
     {
         missilePool.Clear();
     }
-
-    public override void OnStackAdded() { }
-
-    public override void OnStackRemoved() { }
 
     public override void OnHit(Damageable.DamageEvent damageEvent)
     {
