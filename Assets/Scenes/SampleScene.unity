@@ -365,7 +365,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 603197301
   m_SortingOrder: 0
@@ -1525,6 +1525,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 157dba167c3ce2e46af7d9cbb537e618, type: 3}
+--- !u!1 &1608614819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1608614820}
+  - component: {fileID: 1608614821}
+  m_Layer: 0
+  m_Name: Debug
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1608614820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608614819}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -23.35678, y: -2.13471, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1608614821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608614819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1765edfeb3fd1114a9751b8f40de382c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebugEnemyViewer
+  window: {fileID: 1056272673393832950, guid: 2e26933134343be499044407826dc5b6, type: 3}
+  interactionLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  selectInput: {fileID: 2528258934333979048, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1001 &1693831994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1883,38 +1932,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-      propertyPath: setAbilities.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-      propertyPath: 'setAbilities.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 230ac335eff6e0543a0039d224ce2bf9, type: 2}
-    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-      propertyPath: 'setAbilities.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 5f31e64124b5af7448150b8c628ce657, type: 2}
-    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-      propertyPath: 'setAbilities.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 542a9efba95d18f4eb221ee65f85f477, type: 2}
-    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-      propertyPath: 'setAbilities.Array.data[3]'
-      value: 
-      objectReference: {fileID: 11400000, guid: cae99c8b9d3aebe45a6ccceccece6757, type: 2}
-    - target: {fileID: 3787346725820631185, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-      propertyPath: setPassives.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3787346725820631185, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-      propertyPath: 'setPassives.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 898bb47ddb6690c408e6a60ca6d37508, type: 2}
-    - target: {fileID: 3787346725820631185, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-      propertyPath: 'setPassives.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: abf678b73e6688a45a1f226022f45888, type: 2}
     - target: {fileID: 4369443556788299361, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.83691
@@ -2209,3 +2226,4 @@ SceneRoots:
   - {fileID: 1704237486}
   - {fileID: 704598326}
   - {fileID: 560234041}
+  - {fileID: 1608614820}

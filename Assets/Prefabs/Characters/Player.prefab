@@ -570,7 +570,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawn: {fileID: 8263352429358299737}
   setAbilities:
-  - {fileID: 11400000, guid: f611cbfa55019494096bf24099653a39, type: 2}
+  - {fileID: 11400000, guid: 230ac335eff6e0543a0039d224ce2bf9, type: 2}
+  - {fileID: 11400000, guid: 5f31e64124b5af7448150b8c628ce657, type: 2}
+  - {fileID: 11400000, guid: 542a9efba95d18f4eb221ee65f85f477, type: 2}
+  - {fileID: 11400000, guid: cae99c8b9d3aebe45a6ccceccece6757, type: 2}
 --- !u!114 &3787346725820631185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,7 +586,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fae8419fa7f2534d9a85130f9ca0008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setPassives: []
+  setPassives:
+  - {fileID: 11400000, guid: 898bb47ddb6690c408e6a60ca6d37508, type: 2}
+  - {fileID: 11400000, guid: abf678b73e6688a45a1f226022f45888, type: 2}
 --- !u!114 &6380266063980628222
 MonoBehaviour:
   m_ObjectHideFlags: 0

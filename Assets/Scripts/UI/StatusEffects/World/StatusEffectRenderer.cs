@@ -1,27 +1,33 @@
 using UnityEngine;
 
-[RequireComponent(typeof(StatusEffectHandler))]
 public class StatusEffectRenderer : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private StatusEffectInterface interfacePrefab;
+    [SerializeField] private Transform follow;
+    [SerializeField] private Vector3 offset;
 
     private StatusEffectInterface interfaceInstance;
     private StatusEffectHandler statusEffectHandler;
 
-    void Awake()
+    private void Awake()
     {
         statusEffectHandler = GetComponent<StatusEffectHandler>();
     }
 
-    void Start()
+    private void Start()
     {
         SpawnInterfaceInCanvas();
         SubscribeToEvents();
         LoadInterfaceData();
     }
 
-    void SubscribeToEvents()
+    private void LateUpdate()
+    {
+        interfaceInstance.transform.position = transform.position + offset;
+    }
+
+    private void SubscribeToEvents()
     {
         statusEffectHandler.onEffectApplied += interfaceInstance.AddStatusEffectSlot;
         statusEffectHandler.onEffectRemoved += interfaceInstance.RemoveStatusEffectSlot;
@@ -30,17 +36,17 @@ public class StatusEffectRenderer : MonoBehaviour
         statusEffectHandler.onStacksRemoved += interfaceInstance.UpdateStatusEffectSlot;
     }
 
-    void SpawnInterfaceInCanvas()
+    private void SpawnInterfaceInCanvas()
     {
-        interfaceInstance = Instantiate(interfacePrefab, GameInstance.ScreenCanvas.transform);
+        interfaceInstance = Instantiate(interfacePrefab, GameInstance.WorldCanvas.transform);
     }
 
-    void LoadInterfaceData()
+    private void LoadInterfaceData()
     {
         interfaceInstance.LoadData(statusEffectHandler.StatusEffects);
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         if (interfaceInstance == null) return;
         Destroy(interfaceInstance);

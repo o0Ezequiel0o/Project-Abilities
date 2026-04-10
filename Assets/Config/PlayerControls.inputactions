@@ -514,6 +514,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Open Debug Window",
+                    "type": "Button",
+                    "id": "2f9cf3c5-ed38-41c5-bcf3-29657af24fe4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -943,6 +952,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Open Items Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "566b9ea0-cba2-4dc7-85ec-877721a81708",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open Debug Window",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
