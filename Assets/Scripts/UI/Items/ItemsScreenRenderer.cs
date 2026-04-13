@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(ItemHandler))]
-public class ItemsRenderer : MonoBehaviour
+public class ItemsScreenRenderer : MonoBehaviour
 {
     [SerializeField] private ItemsInterface itemsInterfacePrefab;
     [SerializeField] private ItemsInterface itemsInterfaceMenuPrefab;

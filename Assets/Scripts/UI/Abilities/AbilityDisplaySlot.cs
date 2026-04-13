@@ -66,10 +66,6 @@ public class AbilityDisplaySlot : MonoBehaviour
         }
     }
 
-    private int chargesTextIntCache = -1;
-    private int chargesUsableIntCache = -1;
-    private bool durationActiveCache = false;
-
     public void UpdateCooldownBar(float fillAmount)
     {
         cooldownBar.UpdateBar(fillAmount);
@@ -82,27 +78,17 @@ public class AbilityDisplaySlot : MonoBehaviour
 
     public void UpdateUseState(int charges, bool durationActive)
     {
-        if (chargesUsableIntCache == charges && durationActiveCache == durationActive) return;
-
-        bool activeState = charges <= 0 && !durationActive;
-
+        bool activeState = charges <= 0 && durationActive;
         usableOverlay.gameObject.SetActive(activeState);
-
-        chargesUsableIntCache = charges;
-        durationActiveCache = durationActive;
     }
 
     public void UpdateChargesText(int amount)
     {
-        if (chargesTextIntCache == amount) return;
-
         chargesText.text = amount.ToString();
-        chargesTextIntCache = amount;
     }
 
     public void ClearChargesText()
     {
         chargesText.text = null;
-        chargesTextIntCache = -1;
     }
 }

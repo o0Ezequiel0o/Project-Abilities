@@ -3,7 +3,7 @@ using System;
 
 public class LevelHandler : MonoBehaviour
 {
-    [SerializeField] private Stat experienceMultiplier;
+    [field: SerializeField] public Stat ExperienceMultiplier { get; private set; }
 
     public int Level { get; private set; }
 
@@ -17,7 +17,7 @@ public class LevelHandler : MonoBehaviour
 
     public void GiveExperience(int experienceGained)
     {
-        int experienceReceived = Mathf.FloorToInt(experienceGained * experienceMultiplier.Value);
+        int experienceReceived = Mathf.FloorToInt(experienceGained * ExperienceMultiplier.Value);
 
         experience += Mathf.FloorToInt(experienceReceived);
         onExperienceReceived?.Invoke(experienceReceived);

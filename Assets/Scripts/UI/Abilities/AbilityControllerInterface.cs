@@ -1,22 +1,21 @@
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.UI;
 using Zeke.Abilities;
+using UnityEngine;
+using System;
 
 public class AbilityControllerInterface : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private Transform root;
-    [SerializeField] private List<AbilityType> abilityDisplayOrder;
 
     [Header("Spawning")]
     [SerializeField] private AbilityDisplaySlot abilityDisplaySlotPrefab;
     [SerializeField] private Transform abilityDisplaySlotsRoot;
-    [SerializeField] private int spawnAmount;
 
-    private readonly List<AbilityDisplaySlot> abilityDisplaySlots = new List<AbilityDisplaySlot>();
     private readonly Dictionary<IAbility, AbilityDisplaySlot> usedAbilityDisplaySlots = new Dictionary<IAbility, AbilityDisplaySlot>();
 
-    void Awake()
+    private void Awake()
     {
         SpawnAbilityDisplaySlots();
     }
@@ -25,14 +24,11 @@ public class AbilityControllerInterface : MonoBehaviour
     {
         for (int i = 0; i < abilities.Count; i++)
         {
-            if (!usedAbilityDisplaySlots.ContainsKey(abilities[i]))
-            {
-                AddAbilitySlot(abilities[i]);
-            }
+            AddAbilitySlot(abilities[i]);
         }
     }
 
-    public void UpdateAbilitySlot(IAbility ability)
+    public void UpdateAbilitySlotRender(IAbility ability)
     {
         if (usedAbilityDisplaySlots.TryGetValue(ability, out AbilityDisplaySlot abilityDisplaySlot))
         {
@@ -44,11 +40,11 @@ public class AbilityControllerInterface : MonoBehaviour
             if (ability.DurationActive)
             {
                 abilityDisplaySlot.UpdateDurationBar(ability.DurationPercentage);
-                abilityDisplaySlot.UpdateCooldownBar(0f);
+                abilityDisplaySlot.UpdateCooldownBar(1f);
             }
             else
             {
-                abilityDisplaySlot.UpdateDurationBar(1f);
+                abilityDisplaySlot.UpdateDurationBar(0f);
                 abilityDisplaySlot.UpdateCooldownBar(ability.ChargePercentage);
             }
 
@@ -65,79 +61,52 @@ public class AbilityControllerInterface : MonoBehaviour
 
     public void AddAbilitySlot(IAbility ability)
     {
-        if (usedAbilityDisplaySlots.Count >= abilityDisplaySlots.Count) return;
+        if (!usedAbilityDisplaySlots.ContainsKey(ability))
+        {
+            usedAbilityDisplaySlots.Add(ability, null);
+            LayoutGroup layoutGroup = root.GetComponentInChildren<LayoutGroup>();
+            Transform obj = layoutGroup.transform.GetChild((int)ability.Data.AbilityType);
 
-        usedAbilityDisplaySlots.Add(ability, null);
-        RefreshAbilitySlotsData();
+            AbilityDisplaySlot slot = obj.GetComponent<AbilityDisplaySlot>();
+
+            usedAbilityDisplaySlots[ability] = slot;
+            RefreshAbilitySlotData(slot, ability.Data);
+
+            slot.gameObject.SetActive(true);
+        }
     }
 
     public void RemoveAbilitySlot(IAbility ability)
     {
-        if (usedAbilityDisplaySlots.Remove(ability))
+        if (usedAbilityDisplaySlots.TryGetValue(ability, out AbilityDisplaySlot slot))
         {
-            RefreshAbilitySlotsData();
-        }
-    }
-
-    public void RefreshAbilitySlotsData()
-    {
-        List<IAbility> abilities = new List<IAbility>(usedAbilityDisplaySlots.Keys);
-        List<IAbility> orderedAbilities = OrderAbilitiesByType(abilities);
-
-        usedAbilityDisplaySlots.Clear();
-
-        for (int i = 0; i < abilityDisplaySlots.Count; i++)
-        {
-            if (abilityDisplaySlots[i] == null) continue;
-
-            if (i < orderedAbilities.Count)
+            if (usedAbilityDisplaySlots.Remove(ability))
             {
-                usedAbilityDisplaySlots.Add(orderedAbilities[i], abilityDisplaySlots[i]);
-                RefreshAbilitySlotData(abilityDisplaySlots[i], orderedAbilities[i].Data);
-
-                abilityDisplaySlots[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                abilityDisplaySlots[i].gameObject.SetActive(false);
+                if (slot == null) return;
+                slot.gameObject.SetActive(false);
             }
         }
     }
 
-    void RefreshAbilitySlotData(AbilityDisplaySlot abilityDisplaySlot, AbilityData abilityData)
+    private void RefreshAbilitySlotData(AbilityDisplaySlot abilityDisplaySlot, AbilityData abilityData)
     {
         abilityDisplaySlot.CooldowSprite = abilityData.Icon;
         abilityDisplaySlot.UsableSprite = abilityData.Icon;
         abilityDisplaySlot.Background = abilityData.Icon;
     }
 
-    List<IAbility> OrderAbilitiesByType(List<IAbility> original)
+    private void SpawnAbilityDisplaySlots()
     {
-        List<IAbility> copy = new List<IAbility>();
+        System.Collections.IList list = Enum.GetValues(typeof(AbilityType));
 
-        for (int i = 0; i < abilityDisplayOrder.Count; i++)
+        for (int i = 0; i < list.Count; i++)
         {
-            for (int x = 0; x < original.Count; x++)
-            {
-                if (original[x].Data.AbilityType == abilityDisplayOrder[i])
-                {
-                    copy.Add(original[x]);
-                }
-            }
-        }
-
-        return copy;
-    }
-
-    void SpawnAbilityDisplaySlots()
-    {
-        for (int i = 0; i < spawnAmount; i++)
-        {
-            abilityDisplaySlots.Add(Instantiate(abilityDisplaySlotPrefab, abilityDisplaySlotsRoot));
+            AbilityDisplaySlot slot = Instantiate(abilityDisplaySlotPrefab, abilityDisplaySlotsRoot);
+            slot.gameObject.SetActive(false);
         }
     }
     
-    void OnDestroy()
+    private void OnDestroy()
     {
         if (root.gameObject == null) return;
         Destroy(root.gameObject);

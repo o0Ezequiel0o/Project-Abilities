@@ -148,11 +148,12 @@ GameObject:
   - component: {fileID: 451946761675307707}
   - component: {fileID: 5359202114343581178}
   - component: {fileID: 6014630828880702897}
-  - component: {fileID: 1295819619765179186}
   - component: {fileID: 3488604664206737772}
   - component: {fileID: 2850728051695421839}
   - component: {fileID: 3637401574649249139}
   - component: {fileID: -1916451124747499836}
+  - component: {fileID: 1295819619765179186}
+  - component: {fileID: 842629725209027823}
   m_Layer: 8
   m_Name: Zombie
   m_TagString: Untagged
@@ -541,18 +542,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffectsImmunityConfig: []
---- !u!114 &1295819619765179186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3581127942586707295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b5f76439480cfe4cb6d557aaae48071, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3488604664206737772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,6 +605,31 @@ MonoBehaviour:
   layers:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &1295819619765179186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581127942586707295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b5f76439480cfe4cb6d557aaae48071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &842629725209027823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581127942586707295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46c8f5c187947b44b9a6d2705371cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeathRewards
+  deathRewardsData: {fileID: 11400000, guid: 5151aec341520f8408a90e295d81fcb9, type: 2}
 --- !u!1 &5232573915153245470
 GameObject:
   m_ObjectHideFlags: 0

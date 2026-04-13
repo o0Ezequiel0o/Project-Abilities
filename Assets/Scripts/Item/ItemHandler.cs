@@ -100,32 +100,7 @@ public class ItemHandler : MonoBehaviour
         }
     }
 
-    public void ClearItems()
-    {
-        items.Clear();
-        itemsData.Clear();
-    }
-
-    void Awake()
-    {
-        SubscribeToEvents();
-        SubscribeToGlobalEvents();
-    }
-
-    private void Update()
-    {
-        for (int i = 0; i < items.Count; i++)
-        {
-            items[i].OnUpdate();
-        }
-    }
-
-    void OnDestroy()
-    {
-        UnsubscribeFromGlobalEvents();
-    }
-
-    private bool TryGetItem(ItemData itemData, out Item item)
+    public bool TryGetItem(ItemData itemData, out Item item)
     {
         item = null;
 
@@ -139,6 +114,31 @@ public class ItemHandler : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void ClearItems()
+    {
+        items.Clear();
+        itemsData.Clear();
+    }
+
+    private void Awake()
+    {
+        SubscribeToEvents();
+        SubscribeToGlobalEvents();
+    }
+
+    private void Update()
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            items[i].OnUpdate();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeFromGlobalEvents();
     }
 
     private void AddNewItem(ItemData itemData)

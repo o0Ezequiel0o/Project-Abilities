@@ -18,7 +18,7 @@ namespace Zeke.Abilities
         {
             get
             {
-                if (CooldownTime <= 0f) return 1f;
+                if (CooldownTime <= 0f || Charges == MaxCharges) return 1f;
                 return Mathf.Clamp01(CooldownTimer / CooldownTime);
             }
         }

@@ -55,7 +55,7 @@ MonoBehaviour:
       data:
         prefab: {fileID: 5071053083290797565, guid: 4c810d6170641d54988cdfe555307cee, type: 3}
         distance:
-          baseValue: 1.5
+          baseValue: 1.8
           increase: 0
           valueLimits:
             min: -Infinity

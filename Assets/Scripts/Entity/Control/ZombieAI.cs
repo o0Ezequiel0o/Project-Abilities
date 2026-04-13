@@ -19,6 +19,9 @@ public class ZombieAI : MonoBehaviour
 
     private void Awake()
     {
+        context = new ZombieStateContext(settings, attackIndicatorSpawn);
+        stateMachine = new ZombieStateMachine(gameObject, context);
+
         if (TryGetComponent(out Damageable damageable))
         {
             damageable.onDamageTaken += OnDamageTaken;
@@ -27,9 +30,6 @@ public class ZombieAI : MonoBehaviour
 
     private void Start()
     {
-        context = new ZombieStateContext(settings, attackIndicatorSpawn);
-        stateMachine = new ZombieStateMachine(gameObject, context);
-
         stateMachine.ChangeState(stateMachine.idleState);
     }
 
@@ -185,15 +185,19 @@ public class ZombieIdleState : ZombieBaseState
     {
         if (context.Target == null)
         {
-            if (TryGetRandomTarget(context, out Transform target))
+            if (TryGetRandomTarget(out Transform target))
             {
                 context.Target = target;
                 stateMachine.ChangeState(stateMachine.followState);
             }
         }
+        else
+        {
+            stateMachine.ChangeState(stateMachine.followState);
+        }
     }
 
-    private bool TryGetRandomTarget(ZombieStateContext context, out Transform target)
+    private bool TryGetRandomTarget(out Transform target)
     {
         GameObject enemy = TeamManager.GetRandomEnemy(gameObject);
         target = null;

@@ -1,8 +1,8 @@
 using UnityEngine;
 using Zeke.Abilities;
 
-[RequireComponent(typeof(StatusEffectHandler))]
-public class AbilityControllerRenderer : MonoBehaviour
+[RequireComponent(typeof(AbilityController))]
+public class AbilityControllerScreenRenderer : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private AbilityControllerInterface interfacePrefab;
@@ -10,50 +10,50 @@ public class AbilityControllerRenderer : MonoBehaviour
     private AbilityControllerInterface interfaceInstance;
     private AbilityController abilityController;
 
-    void Awake()
+    private void Awake()
     {
         abilityController = GetComponent<AbilityController>();
     }
 
-    void Start()
+    private void Start()
     {
         SpawnInterfaceInCanvas();
         SubscribeToEvents();
         LoadInterfaceData();
     }
 
-    void Update()
+    private void Update()
     {
         UpdateSkillsInterface();
     }
 
-    void SpawnInterfaceInCanvas()
+    private void SpawnInterfaceInCanvas()
     {
         interfaceInstance = Instantiate(interfacePrefab, GameInstance.ScreenCanvas.transform);
     }
 
-    void SubscribeToEvents()
+    private void SubscribeToEvents()
     {
         abilityController.onAbilityAdded += interfaceInstance.AddAbilitySlot;
         abilityController.onAbilityRemoved += interfaceInstance.RemoveAbilitySlot;
     }
 
-    void UpdateSkillsInterface()
+    private void UpdateSkillsInterface()
     {
         for (int i = 0; i < abilityController.Abilities.Count; i++)
         {
-            interfaceInstance.UpdateAbilitySlot(abilityController.Abilities[i]);
+            interfaceInstance.UpdateAbilitySlotRender(abilityController.Abilities[i]);
         }
     }
 
-    void LoadInterfaceData()
+    private void LoadInterfaceData()
     {
         interfaceInstance.LoadData(abilityController.Abilities);
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         if (interfaceInstance == null) return;
-        Destroy(interfaceInstance);
+        Destroy(interfaceInstance.gameObject);
     }
 }

@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [Space]
 
     [SerializeField] private VehicleHandler vehicleHandler;
-    [SerializeField] private ItemsRenderer itemsRenderer;
+    [SerializeField] private ItemsScreenRenderer itemsRenderer;
 
     [Header("Settings")]
     [SerializeField] private Transform center;
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         interactionHandler = GetComponentInChildren<InteractionHandler>();
 
         vehicleHandler = GetComponentInChildren<VehicleHandler>();
-        itemsRenderer = GetComponentInChildren<ItemsRenderer>();
+        itemsRenderer = GetComponentInChildren<ItemsScreenRenderer>();
 
         center = GetComponentInChildren<Transform>();
     }

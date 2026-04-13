@@ -194,7 +194,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 20
   m_LinearDamping: 0
   m_AngularDamping: 5
   m_GravityScale: 0
@@ -369,11 +369,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e741714ba6d48f74fa8665ce76686ce3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experienceMultiplier:
+  <ExperienceMultiplier>k__BackingField:
     baseValue: 1
     increase: 0
     valueLimits:
-      min: 0
+      min: -Infinity
       max: Infinity
 --- !u!114 &7648585092559927398
 MonoBehaviour:
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField:
     baseValue: 100
-    increase: 0
+    increase: 10
     valueLimits:
       min: 0
       max: Infinity
@@ -537,7 +537,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5218312312708394220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf567707c9b50d4786d347fcd30a01b, type: 3}
+  m_Script: {fileID: 11500000, guid: 232c7f94618af6c439f4f85744b653d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemsInterfacePrefab: {fileID: 2711525490271769255, guid: 2af3debb0e2103c45b03f0307a7de71b, type: 3}
@@ -708,3 +708,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8f4b86123f36dbd45b362a97802ee45f, type: 2}
   - {fileID: 11400000, guid: 57df328e90faa214a9055072c55e6805, type: 2}
   - {fileID: 11400000, guid: 939aec0778a46134aa2d3ed39e68a35b, type: 2}
+  - {fileID: 11400000, guid: 75fb7d0d718f12e49b996aabc4830a22, type: 2}
+  - {fileID: 11400000, guid: 75fb7d0d718f12e49b996aabc4830a22, type: 2}
+  - {fileID: 11400000, guid: 75fb7d0d718f12e49b996aabc4830a22, type: 2}
+  - {fileID: 11400000, guid: 3ee30bd49d1103d44bdeaf35e3043350, type: 2}
