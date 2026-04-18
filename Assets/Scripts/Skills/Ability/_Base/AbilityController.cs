@@ -12,7 +12,15 @@ namespace Zeke.Abilities
 
         public Transform Spawn => spawn;
 
-        public readonly Dictionary<AbilityType, Stat> abilityCooldownMultiplier = new Dictionary<AbilityType, Stat>
+        public readonly Dictionary<AbilityType, Stat> cooldownMultiplier = new Dictionary<AbilityType, Stat>
+        {
+            {AbilityType.Primary, new Stat(1f, 0f, 0f, float.PositiveInfinity)},
+            {AbilityType.Secondary, new Stat(1f, 0f, 0f, float.PositiveInfinity)},
+            {AbilityType.Utility, new Stat(1f, 0f, 0f, float.PositiveInfinity)},
+            {AbilityType.Ultimate, new Stat(1f, 0f, 0f, float.PositiveInfinity)}
+        };
+
+        public readonly Dictionary<AbilityType, Stat> rechargeSpeed = new Dictionary<AbilityType, Stat>
         {
             {AbilityType.Primary, new Stat(1f, 0f, 0f, float.PositiveInfinity)},
             {AbilityType.Secondary, new Stat(1f, 0f, 0f, float.PositiveInfinity)},

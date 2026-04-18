@@ -6,6 +6,8 @@ public class StatusBar : MonoBehaviour
     [SerializeField] protected Image bar;
     [SerializeField] protected Mode mode;
 
+    public float Fill => bar.fillAmount;
+
     public virtual void UpdateBar(float value, float maxValue)
     {
         UpdateBar(value / maxValue);

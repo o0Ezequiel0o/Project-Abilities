@@ -4,28 +4,39 @@ using System;
 
 public class Damageable : MonoBehaviour, IUpgradable
 {
+    [Header("Global Settings")]
+    [SerializeField] private DamageableSettings settings;
+
     [field: Header("Stats")]
     [field: SerializeField] public Stat MaxHealth { get; private set; }
+    [field: SerializeField] public Stat MaxShield { get; private set; }
     [field: SerializeField] public Stat HealthRegen { get; private set; }
+    [field: SerializeField] public Stat ShieldRegen { get; private set; }
     [field: SerializeField] public Stat Armor { get; private set; }
     [field: Space]
     [field: SerializeField] public Stat DamageReceivedMultiplier { get; private set; }
     [field: SerializeField] public Stat HealingReceivedMultiplier { get; private set; }
+    [field: SerializeField] public Stat ShieldReceivedMultiplier { get; private set; }
 
     public float Health { get; private set; }
+    public float Shield { get; private set; }
     public bool IsAlive { get; private set; }
 
+    public bool MarkedForDeath { get; private set; }
+
     public Action<HealEvent> onReceiveHealth;
-    public Action<HealEvent> onHealthReceived;
+    public Action<HealEvent> onReceivedHealth;
 
     /// <summary> Called when hit, before any condition. </summary>
     public Action<DamageEvent> onDamageEvent;
     
     public Action<DamageEvent> onTakeDamage;
-    public Action<DamageEvent> onDamageTaken;
+    public Action<DamageEvent> onTakenDamage;
 
     public Action<DamageEvent> onHitTaken;
     public Action<DamageEvent> onDeath;
+
+    public Action onAnyHealthUpdate;
 
     public bool Immune => immunitySources.Count > 0;
     private readonly HashSet<int> immunitySources = new HashSet<int>();
@@ -91,6 +102,11 @@ public class Damageable : MonoBehaviour, IUpgradable
         return healingEvent;
     }
 
+    public void GiveShields(float shields, GameObject sourceUser, GameObject sourceObject)
+    {
+        ReceiveShield(shields);
+    }
+
     public void AddImmunitySource(int ID)
     {
         immunitySources.Add(ID);
@@ -99,6 +115,21 @@ public class Damageable : MonoBehaviour, IUpgradable
     public void RemoveImmunitySource(int ID)
     {
         immunitySources.Remove(ID);
+    }
+
+    public void Upgrade()
+    {
+        MaxHealth.Upgrade();
+        HealthRegen.Upgrade();
+
+        MaxShield.Upgrade();
+        ShieldRegen.Upgrade();
+
+        Armor.Upgrade();
+
+        DamageReceivedMultiplier.Upgrade();
+        HealingReceivedMultiplier.Upgrade();
+        ShieldReceivedMultiplier.Upgrade();
     }
 
     private float CalculateDamage(DamageEvent damageEvent)
@@ -114,56 +145,87 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     private float TakeDamage(float damage, bool lethal)
     {
-        float healthLost = Mathf.Min(Health, damage);
+        float combinedHealth = Health + Shield;
+        float damageTaken = Mathf.Min(combinedHealth, damage);
 
-        if (!lethal && healthLost >= Health)
+        if (!lethal && damageTaken >= combinedHealth)
         {
-            healthLost -= 0.01f;
+            damageTaken -= 0.01f;
         }
 
-        Health -= healthLost;
+        float overflow = GetOverflow(damageTaken, Shield);
 
-        return healthLost;
+        Shield -= damageTaken - overflow;
+        Health -= overflow;
+
+        if (damageTaken > 0)
+        {
+            onAnyHealthUpdate?.Invoke();
+        }
+
+        return damageTaken;
     }
 
-    private float ReceiveHealing(HealEvent healingEvent)
+    private float ReceiveHealing(float healing)
     {
-        float healthHealed = Mathf.Min(MaxHealth.Value - Health, healingEvent.Healing);
+        float healthHealed = Mathf.Min(MaxHealth.Value - Health, healing);
         Health += healthHealed;
+
+        if (healthHealed > 0)
+        {
+            onAnyHealthUpdate?.Invoke();
+        }
 
         return healthHealed;
     }
 
-    public void Upgrade()
+    private float ReceiveShield(float shields)
     {
-        MaxHealth.Upgrade();
-        HealthRegen.Upgrade();
+        float shieldGained = Mathf.Min(MaxShield.Value - Shield, shields);
+        Shield += shieldGained;
 
-        Armor.Upgrade();
+        if (shieldGained > 0)
+        {
+            onAnyHealthUpdate?.Invoke();
+        }
 
-        DamageReceivedMultiplier.Upgrade();
-        HealingReceivedMultiplier.Upgrade();
+        return shieldGained;
+    }
+
+    private float GetOverflow(float damage, float health)
+    {
+        return Mathf.Max(0f, damage - health);
     }
 
     private void Awake()
     {
         Health = MaxHealth.Value;
+        Shield = MaxShield.Value;
         IsAlive = true;
+
+        MarkedForDeath = false;
     }
 
     private void Update()
     {
-        if (Health == MaxHealth.Value) return;
-        UpdateHealthRegeneration();
+        UpdateRegeneration();
     }
 
-    private void UpdateHealthRegeneration()
+    private void UpdateRegeneration()
     {
         regenTimer += Time.deltaTime;
 
-        if (regenTimer >= 1f)
+        if (regenTimer >= settings.RegenInterval)
         {
-            GiveHealing(HealthRegen.Value, gameObject, gameObject);
+            if (Health < MaxHealth.Value)
+            {
+                ReceiveHealing(HealthRegen.Value * settings.RegenInterval);
+            }
+            else
+            {
+                ReceiveShield(ShieldRegen.Value * settings.RegenInterval);
+            }
+
             regenTimer = 0f;
         }
     }
@@ -182,6 +244,8 @@ public class Damageable : MonoBehaviour, IUpgradable
 
         public float UncappedDamageDealt => DamageDealt + OverflowDamage;
 
+        public bool DestroyedShield { get; private set; }
+        public bool DeathBlow { get; private set; }
         public bool IsLethal { get; private set; }
         public bool IsHit { get; private set; }
 
@@ -193,9 +257,7 @@ public class Damageable : MonoBehaviour, IUpgradable
         public GameObject SourceObject { get; private set; }
 
         public float damageMultiplier = 1f;
-
         public bool damageRejected = false;
-        public bool deathBlow = false;
 
         private float armorPenetration;
         public float ArmorPenetration
@@ -228,7 +290,7 @@ public class Damageable : MonoBehaviour, IUpgradable
 
         public void ExecuteEventFlow()
         {
-            if (!Receiver.IsAlive) return;
+            if (!Receiver.IsAlive || Receiver.MarkedForDeath) return;
 
             Receiver.onDamageEvent?.Invoke(this);
 
@@ -251,16 +313,17 @@ public class Damageable : MonoBehaviour, IUpgradable
 
             if (DamageDealt <= 0) return;
 
-            if (Receiver.IsAlive && Receiver.Health <= 0)
+            if (!Receiver.MarkedForDeath && Receiver.Health <= 0)
             {
-                deathBlow = true;
-                Receiver.IsAlive = false;
+                DeathBlow = true;
+                Receiver.MarkedForDeath = true;
             }
 
             HandlePostDamageEvents();
 
-            if (!deathBlow) return;
+            if (!Receiver.MarkedForDeath || !Receiver.IsAlive) return;
 
+            Receiver.IsAlive = false;
             HandleDeathEvents();
         }
 
@@ -274,12 +337,19 @@ public class Damageable : MonoBehaviour, IUpgradable
 
         private void HandleDamage()
         {
+            bool hadShield = Receiver.Shield > 0;
+
             Damage *= damageMultiplier;
 
             Damage = Receiver.CalculateDamage(this);
             DamageDealt = Receiver.TakeDamage(Damage, IsLethal);
 
             OverflowDamage = Mathf.Max(0f, Damage - DamageDealt);
+
+            if (hadShield && Receiver.Shield <= 0)
+            {
+                DestroyedShield = true;
+            }
         }
 
         private void HandlePreDamageEvents()
@@ -293,7 +363,7 @@ public class Damageable : MonoBehaviour, IUpgradable
 
         private void HandlePostDamageEvents()
         {
-            Receiver.onDamageTaken?.Invoke(this);
+            Receiver.onTakenDamage?.Invoke(this);
             onDamageDealt.Invoke(SourceUser, this);
         }
 
@@ -362,7 +432,7 @@ public class Damageable : MonoBehaviour, IUpgradable
             Healing *= healingMultiplier;
 
             Healing = Receiver.CalculateHealing(this);
-            HealthHealed = Receiver.ReceiveHealing(this);
+            HealthHealed = Receiver.ReceiveHealing(Healing);
 
             OverflowHealing = Mathf.Max(0f, Healing - HealthHealed);
         }
@@ -375,7 +445,7 @@ public class Damageable : MonoBehaviour, IUpgradable
 
         private void HandleHealingEvents()
         {
-            Receiver.onHealthReceived?.Invoke(this);
+            Receiver.onReceivedHealth?.Invoke(this);
             onHealthHealed.Invoke(SourceUser, this);
         }
     }

@@ -185,8 +185,8 @@ public class ItemHandler : MonoBehaviour
     {
         if (TryGetComponent(out Damageable damageable))
         {
-            damageable.onHealthReceived += OnHealthReceived;
-            damageable.onDamageTaken += OnDamageTaken;
+            damageable.onReceivedHealth += OnHealthReceived;
+            damageable.onTakenDamage += OnDamageTaken;
             damageable.onTakeDamage += OnTakeDamage;
             damageable.onHitTaken += OnHitTaken;
             damageable.onDeath += OnDeath;

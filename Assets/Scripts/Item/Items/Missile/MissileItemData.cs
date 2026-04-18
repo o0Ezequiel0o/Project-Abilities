@@ -11,7 +11,7 @@ public class MissileItemData : ItemData
 
     [field: Header("Stats")]
 
-    [field: SerializeField] public StackStat DamageMultiplier { get; private set; }
+    [field: SerializeReferenceDropdown, SerializeReference] public IStackStat DamageMult { get; private set; }
     [field: SerializeField] public float MaxRange { get; private set; }
     [field: SerializeField] public float Speed { get; private set; }
 

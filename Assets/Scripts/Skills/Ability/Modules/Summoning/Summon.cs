@@ -105,9 +105,9 @@ namespace Zeke.Abilities.Modules.Summoning
 
         private void TrackSummonInstanceDestruction(GameObject summonInstance)
         {
-            if (!summonInstance.TryGetComponent(out TrackSummonDestruction trackSummonDestruction))
+            if (!summonInstance.TryGetComponent(out DestroyEventTracker trackSummonDestruction))
             {
-                trackSummonDestruction = summonInstance.AddComponent<TrackSummonDestruction>();
+                trackSummonDestruction = summonInstance.AddComponent<DestroyEventTracker>();
             }
 
             trackSummonDestruction.onDestroy += OnSummonDestroyed;

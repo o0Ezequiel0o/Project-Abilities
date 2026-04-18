@@ -31,7 +31,7 @@ public class MissileItem : Item
         if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
         if (damageEvent.ProcChainBranch.Contains(Data)) return;
 
-        float damage = damageEvent.BaseDamage * data.DamageMultiplier.CalculateValue(stacks);
+        float damage = damageEvent.BaseDamage * data.DamageMult.GetValue(stacks);
         Vector2 direction = GetRelativeDirection(data.SpawnDirection, source.transform.up);
 
         List<ItemData> newProcChainBranch = new List<ItemData>(damageEvent.ProcChainBranch) { Data };

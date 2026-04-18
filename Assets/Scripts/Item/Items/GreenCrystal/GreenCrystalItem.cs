@@ -48,7 +48,7 @@ public class GreenCrystalItem : Item
 
     void ApplyNewHealthModifier(Damageable damageable)
     {
-        extraHealth = data.ExtraHealth.CalculateValue(stacks);
+        extraHealth = data.ExtraHealth.GetValue(stacks);
         damageable.MaxHealth.ApplyFlatModifier(extraHealth);
     }
 

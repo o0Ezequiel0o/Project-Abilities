@@ -22,7 +22,12 @@ namespace Zeke.Abilities
         [SerializeField] private Stat charges = new Stat(1f, 0f, 1f, float.PositiveInfinity);
 
         [Header("Modules")]
-        [SerializeReferenceDropdown, SerializeReference] private List<AbilityModule> modules = new List<AbilityModule> { new Recharge() };
+        [SerializeReferenceDropdown, SerializeReference]
+        private List<AbilityModule> modules = new List<AbilityModule>
+        {
+            new Recharge(),
+            new BaseCastCooldown()
+        };
 
         [field: Header("Optional - AI")]
         [field: SerializeField] public AbilityIndicatorData IndicatorData { get; private set; }

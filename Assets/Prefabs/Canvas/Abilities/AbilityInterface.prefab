@@ -54,7 +54,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 15
   m_ChildAlignment: 8
-  m_Spacing: 25
+  m_Spacing: 10
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -136,7 +136,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 7395749333365541739}
-  abilityDisplayOrder: 00000000010000000200000003000000
   abilityDisplaySlotPrefab: {fileID: 140077436113715308, guid: 1256024bd8c21d14d8155732c08dbc7c, type: 3}
   abilityDisplaySlotsRoot: {fileID: 2020672256784873397}
-  spawnAmount: 4

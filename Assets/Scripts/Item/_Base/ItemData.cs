@@ -2,6 +2,12 @@ using UnityEngine;
 
 public abstract class ItemData : ScriptableObject
 {
+    [Space]
+
+    [SerializeField] private ItemDrop worldPrefab;
+
+    [field: Space]
+
     [field: SerializeField] public Sprite Icon { get; private set; }
     [field: SerializeField] public Sprite Outline { get; private set; }
     [field: Space]
@@ -10,4 +16,18 @@ public abstract class ItemData : ScriptableObject
     [field: SerializeField] public ItemRarity Rarity { get; private set; }
 
     public abstract Item CreateItem(ItemHandler itemHandler, GameObject source);
+
+    public GameObject CreateInWorld(Vector3 position, Quaternion rotation)
+    {
+        if (worldPrefab == null)
+        {
+            Debug.LogError("ItemData does not have a world prefab", this);
+        }
+
+        ItemDrop itemDrop = Instantiate(worldPrefab, position, rotation);
+        itemDrop.LoadItemData(this);
+        itemDrop.name = Name;
+
+        return itemDrop.gameObject;
+    }
 }

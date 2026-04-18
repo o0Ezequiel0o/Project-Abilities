@@ -15,7 +15,7 @@ namespace Zeke.Abilities.Modules
 
         public override void UpdateDuration()
         {
-            UpdateCooldown(Time.deltaTime, ValueType.Flat);
+            UpdateCooldown(Time.deltaTime * CastSpeed.Value, ValueType.Flat);
         }
     }
 }

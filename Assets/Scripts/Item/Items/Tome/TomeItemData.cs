@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Tome", menuName = "ScriptableObjects/Items/Items/Tome", order = 1)]
 public class TomeItemData : ItemData
 {
-    [field: SerializeField] public StackStat ExperienceMultiplier { get; private set; }
+    [field: SerializeReferenceDropdown, SerializeReference] public IStackStat XPMult { get; private set; }
 
     public override Item CreateItem(ItemHandler itemHandler, GameObject source)
     {

@@ -17,12 +17,21 @@ MonoBehaviour:
   <StatusEffectType>k__BackingField: 2
   <Ticks>k__BackingField: 5
   <TickTime>k__BackingField: 0.5
-  <DamageHealthRatio>k__BackingField:
-    scalingMode: 0
-    BaseValue: 0
-    Increase: 0.05
+  <MaxHealthRatio>k__BackingField:
+    rid: 2308102863504277879
   <MaxDamage>k__BackingField:
-    scalingMode: 0
-    BaseValue: 0
-    Increase: 100
+    rid: 2308102863504277880
   <StainParticles>k__BackingField: {fileID: 4495174346934379719, guid: 77fe2d29d7a41ef41b5b4526d625fd10, type: 3}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2308102863504277879
+      type: {class: LinearStat, ns: , asm: Assembly-CSharp}
+      data:
+        startValue: 0
+        increase: 0.05
+    - rid: 2308102863504277880
+      type: {class: LinearStat, ns: , asm: Assembly-CSharp}
+      data:
+        startValue: 0
+        increase: 100

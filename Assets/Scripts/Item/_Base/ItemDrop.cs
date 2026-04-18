@@ -4,15 +4,11 @@ public class ItemDrop : MonoBehaviour, IInteractable
 {
     [SerializeField] private ItemSettings itemSettings;
 
-    [field: Header("Visual")]
-    [field: SerializeField] public Sprite InteractOverlay { get; private set; }
-
-    [field: SerializeField] public Color CanInteractOverlayColor { get; private set; }
-    [field: SerializeField] public Color CantInteractOverlayColor { get; private set; }
-
     [Header("Dependency")]
     [SerializeField] private SpriteRenderer iconRenderer;
     [SerializeField] private SpriteRenderer outlineRenderer;
+
+    public Sprite InteractOverlay { get; private set; }
 
     private ItemData itemData;
 
@@ -22,6 +18,8 @@ public class ItemDrop : MonoBehaviour, IInteractable
 
         iconRenderer.sprite = itemData.Icon;
         outlineRenderer.sprite = itemData.Outline;
+
+        InteractOverlay = itemData.Outline;
 
         outlineRenderer.color = itemSettings.GetRarityColor(itemData.Rarity);
     }

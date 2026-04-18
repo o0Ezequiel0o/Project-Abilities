@@ -38,7 +38,7 @@ public class FlungusItem : Item
 
     public override void OnStackAdded()
     {
-        float diameter = data.Radius.CalculateValue(stacks) * 2f;
+        float diameter = data.Radius.GetValue(stacks) * 2f;
         particlesInstance.transform.localScale = new Vector3(diameter, diameter, 1f);
     }
 
@@ -52,7 +52,7 @@ public class FlungusItem : Item
             {
                 UpdateHealing();
             }
-            else if (delayTimer > data.ActivationDelay)
+            else if (delayTimer > data.ActivateDelay)
             {
                 Activate();
             }
@@ -83,9 +83,9 @@ public class FlungusItem : Item
 
         if (healTimer > data.HealCooldown)
         {
-            Collider2D[] hits = Physics2D.OverlapCircleAll(source.transform.position, data.Radius.CalculateValue(stacks), data.HitLayers);
+            Collider2D[] hits = Physics2D.OverlapCircleAll(source.transform.position, data.Radius.GetValue(stacks), data.HitLayers);
 
-            float healing = data.HealAmount.CalculateValue(stacks);
+            float healing = data.Healing.GetValue(stacks);
 
             for (int i = 0; i < hits.Length; i++)
             {

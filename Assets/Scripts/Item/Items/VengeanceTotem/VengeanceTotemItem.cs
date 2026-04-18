@@ -24,7 +24,7 @@ public class VengeanceTotemItem : Item
         if (damageEvent.SourceUser.TryGetComponent(out Damageable damageable))
         {
             List<ItemData> newProcChainBranch = new List<ItemData>(damageEvent.ProcChainBranch) { Data };
-            damageable.DealDamage(new DamageInfo(data.Damage.CalculateValue(stacks), data.ProcCoefficient, data.ArmorPenetration), source, source, newProcChainBranch);
+            damageable.DealDamage(new DamageInfo(data.Damage.GetValue(stacks), data.ProcCoefficient, data.ArmorPenetration), source, source, newProcChainBranch);
         }
     }
 }

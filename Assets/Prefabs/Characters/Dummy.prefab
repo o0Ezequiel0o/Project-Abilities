@@ -226,11 +226,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e741714ba6d48f74fa8665ce76686ce3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experienceMultiplier:
+  <ExperienceMultiplier>k__BackingField:
     baseValue: 1
     increase: 0
     valueLimits:
-      min: 0
+      min: -Infinity
       max: Infinity
 --- !u!114 &4151391699370881623
 MonoBehaviour:
@@ -295,13 +295,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e810a262e810dbd4187a6b07b89d52b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
   <MaxHealth>k__BackingField:
     baseValue: 100
     increase: 0
     valueLimits:
       min: 0
       max: Infinity
+  <MaxShield>k__BackingField:
+    baseValue: 50
+    increase: 0
+    valueLimits:
+      min: -Infinity
+      max: Infinity
   <HealthRegen>k__BackingField:
+    baseValue: 0
+    increase: 0
+    valueLimits:
+      min: -Infinity
+      max: Infinity
+  <ShieldRegen>k__BackingField:
     baseValue: 0
     increase: 0
     valueLimits:
@@ -368,7 +381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageable: {fileID: 4867755174697972544}
-  healthBarPrefab: {fileID: 8229053637792263258, guid: 552631845816855469f5d1ac505252bd, type: 3}
+  healthBarPrefab: {fileID: 2168890936801063155, guid: 9808f266e3dbf7f4096286ef70c6b192, type: 3}
   center: {fileID: 8580555354026715777}
   offset: {x: 0, y: 0, z: 0}
   size: {x: 1, y: 1}

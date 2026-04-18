@@ -5,7 +5,9 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - itemSettings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
-  - itemDropPrefab: {fileID: 397519805344400825, guid: 4819904f3edf76047b0c3d1198696ba3, type: 3}
+  - <InteractOverlay>k__BackingField: {instanceID: 0}
+  - itemSelectionWindow: {fileID: 5283664177091368193, guid: 15b69a7c7671b5f43bdee276a4731e4a, type: 3}
+  - itemOptionWindow: {fileID: 6831720364878063803, guid: 089f68913f42ad848ba1bde62a68f74d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -3,10 +3,10 @@ using UnityEngine;
 public class CrowbarItem : Item
 {
     public override ItemData Data => data;
-    private CrowbarItemData data;
+    private readonly CrowbarItemData data;
 
-    private ItemHandler itemHandler;
-    private GameObject source;
+    private readonly ItemHandler itemHandler;
+    private readonly GameObject source;
 
     public CrowbarItem(CrowbarItemData data, ItemHandler itemHandler, GameObject source)
     {
@@ -25,7 +25,7 @@ public class CrowbarItem : Item
 
             if (healthRatio >= data.HealthThreshold)
             {
-                damageEvent.damageMultiplier *= data.DamageMultiplier.CalculateValue(stacks);
+                damageEvent.damageMultiplier *= data.DamageMult.GetValue(stacks);
             }
         }
     }

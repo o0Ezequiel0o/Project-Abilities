@@ -34,7 +34,7 @@ public class DamageableFlash : MonoBehaviour
                 break;
 
             case TriggerEvent.Damage:
-                damageable.onDamageTaken += StartFlash;
+                damageable.onTakenDamage += StartFlash;
                 break;
         }
     }

@@ -24,7 +24,7 @@ public class ZombieAI : MonoBehaviour
 
         if (TryGetComponent(out Damageable damageable))
         {
-            damageable.onDamageTaken += OnDamageTaken;
+            damageable.onTakenDamage += OnDamageTaken;
         }
     }
 

@@ -1,11 +1,10 @@
 using UnityEngine;
 
-public class ItemChest : ItemDropper
+public class ItemChest : ItemGenerator
 {
     [Header("Despawn")]
     [SerializeField] private float fadeAwaySeconds;
 
-    private Player player;
     private bool used = false;
 
     public override bool CanSelect(GameObject source)
@@ -15,16 +14,17 @@ public class ItemChest : ItemDropper
 
     public override bool CanInteract(GameObject source)
     {
-        return source.TryGetComponent(out player) && player.Money >= cost && !used;
+        return source.TryGetComponent(out MoneyHandler wallet) && wallet.Money >= cost && !used;
     }
 
     public override bool Interact(GameObject source)
     {
         if (used) return false;
 
-        if (CanInteract(source))
+        if (CanInteract(source) && source.TryGetComponent(out MoneyHandler wallet))
         {
-            Use(player);
+            Purchase(source, wallet);
+
             Disappear();
             return true;
         }
@@ -32,10 +32,11 @@ public class ItemChest : ItemDropper
         return false;
     }
 
-    private void Use(Player player)
+    private void Purchase(GameObject source, MoneyHandler wallet)
     {
-        player.UseMoney(cost);
-        SpawnRandomItem();
+        wallet.UseMoney(cost);
+        GenerateOptions(source, options);
+
         used = true;
     }
 

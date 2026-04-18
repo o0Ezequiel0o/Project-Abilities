@@ -5,7 +5,7 @@ public class CrowbarItemData : ItemData
 {
     [field: Space]
     [field: SerializeField] public float HealthThreshold { get; private set; }
-    [field: SerializeField] public StackStat DamageMultiplier { get; private set; }
+    [field: SerializeReferenceDropdown, SerializeReference] public IStackStat DamageMult { get; private set; }
 
     public override Item CreateItem(ItemHandler itemHandler, GameObject source)
     {

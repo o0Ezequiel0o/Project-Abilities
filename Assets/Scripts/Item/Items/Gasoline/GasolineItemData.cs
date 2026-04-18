@@ -4,9 +4,9 @@ using UnityEngine;
 public class GasolineItemData : ItemData
 {
     [field: Space]
-    [field: SerializeField] public StackStat Radius { get; private set; }
+    [field: SerializeReferenceDropdown, SerializeReference] public IStackStat Radius { get; private set; }
     [field: SerializeField] public StatusEffectData StatusEffectToApply { get; private set; }
-    [field: SerializeField] public LayerMask Hitlayers { get; private set; }
+    [field: SerializeField] public LayerMask HitLayers { get; private set; }
 
     public override Item CreateItem(ItemHandler itemHandler, GameObject source)
     {

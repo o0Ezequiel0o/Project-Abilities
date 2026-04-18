@@ -10,7 +10,7 @@ public class GasolineItem : Item
     private readonly ItemHandler itemHandler;
     private readonly GameObject source;
 
-    private float Radius => data.Radius.CalculateValue(stacks);
+    private float Radius => data.Radius.GetValue(stacks);
 
     private readonly List<Collider2D> hits = new List<Collider2D>();
 
@@ -25,7 +25,7 @@ public class GasolineItem : Item
     {
         hits.Clear();
 
-        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.Hitlayers, useLayerMask = true };
+        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.HitLayers, useLayerMask = true };
         Physics2D.OverlapCircle(damageEvent.Receiver.transform.position, Radius, contactFilter, hits);
 
         for (int i = 0; i < hits.Count; i++)

@@ -6,7 +6,7 @@ namespace Zeke.TeamSystem
     public static class TeamManager
     {
         private static readonly Dictionary<GameObject, TeamIdentifier> entitiesWithTeam = new Dictionary<GameObject, TeamIdentifier>();
-        private static readonly Dictionary<Teams, List<GameObject>> enemiesOf = new Dictionary<Teams, List<GameObject>>()
+        private static readonly Dictionary<Teams, List<GameObject>> targeteables = new Dictionary<Teams, List<GameObject>>()
         {
             {Teams.Team1, new List<GameObject>()},
             {Teams.Team2, new List<GameObject>()},
@@ -25,11 +25,11 @@ namespace Zeke.TeamSystem
 
             entitiesWithTeam.Add(obj, identifier);
 
-            foreach (Teams team in enemiesOf.Keys)
+            foreach (Teams team in targeteables.Keys)
             {
                 if (team != identifier.Team || identifier.Team == Teams.IgnoreTeam)
                 {
-                    enemiesOf[team].Add(obj);
+                    targeteables[team].Add(obj);
                 }
             }
         }
@@ -38,11 +38,11 @@ namespace Zeke.TeamSystem
         {
             entitiesWithTeam.Remove(obj);
 
-            foreach (Teams team in enemiesOf.Keys)
+            foreach (Teams team in targeteables.Keys)
             {
                 if (team != identifier.Team || identifier.Team == Teams.IgnoreTeam)
                 {
-                    enemiesOf[team].Remove(obj);
+                    targeteables[team].Remove(obj);
                 }
             }
         }
@@ -62,10 +62,10 @@ namespace Zeke.TeamSystem
 
             if (oldTeam != Teams.IgnoreTeam)
             {
-                enemiesOf[oldTeam].Add(obj);
+                targeteables[oldTeam].Add(obj);
             }
 
-            if (newTeam != Teams.IgnoreTeam && enemiesOf.TryGetValue(newTeam, out List<GameObject> enemiesList))
+            if (newTeam != Teams.IgnoreTeam && targeteables.TryGetValue(newTeam, out List<GameObject> enemiesList))
             {
                 enemiesList.Remove(obj);
             }
@@ -117,18 +117,18 @@ namespace Zeke.TeamSystem
 
         public static List<GameObject> GetEnemies(TeamIdentifier identifier)
         {
-            if (identifier != null) return enemiesOf[identifier.Team];
-            return enemiesOf[Teams.IgnoreTeam];
+            if (identifier != null) return targeteables[identifier.Team];
+            return targeteables[Teams.IgnoreTeam];
         }
 
         public static List<GameObject> GetEnemies(GameObject obj)
         {
             if (entitiesWithTeam.TryGetValue(obj, out TeamIdentifier identifier))
             {
-                return enemiesOf[identifier.Team];
+                return targeteables[identifier.Team];
             }
 
-            return enemiesOf[Teams.IgnoreTeam];
+            return targeteables[Teams.IgnoreTeam];
         }
 
         public static bool IsEnemy(GameObject obj1, GameObject obj2)

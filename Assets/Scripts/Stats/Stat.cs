@@ -17,6 +17,8 @@ public class Stat
     public float Value => Mathf.Clamp((baseValue + flatModifier) * multiplier, valueLimits.Min, valueLimits.Max);
     public int ValueInt => Mathf.FloorToInt(Value);
 
+    public float ExtraValue => (Value - baseValue);
+
     public int Level { get; private set; }
 
     public Stat() { }

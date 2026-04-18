@@ -41,8 +41,8 @@ public class BleedingStatus : StatusEffect
 
         if (timer >= effectData.TickTime)
         {
-            float damage = damageable.MaxHealth.Value * effectData.DamageHealthRatio.CalculateValue(stacks);
-            damage = Mathf.Min(damage, effectData.MaxDamage.CalculateValue(stacks));
+            float damage = damageable.MaxHealth.Value * effectData.MaxHealthRatio.GetValue(stacks);
+            damage = Mathf.Min(damage, effectData.MaxDamage.GetValue(stacks));
             DamageInfo damageInfo = new(damage, 0f, 0f) { hit = false };
             damageable.DealDamage(damageInfo, source, null);
             SpawnBloodStain();

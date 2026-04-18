@@ -304,7 +304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 536.19324, y: 301.28986}
+  m_AnchoredPosition: {x: -802, y: 39}
   m_SizeDelta: {x: 1074, y: 604}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &193892492
@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 222998842}
   - component: {fileID: 222998843}
   m_Layer: 0
-  m_Name: WaveManager
+  m_Name: Enemy Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,15 +411,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 222998841}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e885b1c72ff644b4a9a37500e29495e3, type: 3}
+  m_Script: {fileID: 11500000, guid: a91918a462263a0479e4224a3bc1ab85, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  <IntermissionLength>k__BackingField: 5
-  startPoints: 5
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  startingPoints: 10
+  basePointGeneration: 0.75
+  pointGenerationDifficultyRatio: 0.02
+  maxAliveSpawnables: 1000
   spawnpoints:
   - {fileID: 1706324768}
-  waveUpdates:
-  - {fileID: 11400000, guid: 0f51506f879c15a468db8b9543293c06, type: 2}
+  spawnables:
+  - {fileID: 11400000, guid: 3338b2e8a0a6e8d43b433a4d67347372, type: 2}
 --- !u!1001 &356951126
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1705,7 +1707,7 @@ MonoBehaviour:
   exclude: []
   include: []
   fillInclude: 1
-  Weight: 100
+  <Weight>k__BackingField: 100
   radius: 2
 --- !u!1001 &1762876349
 PrefabInstance:
@@ -1892,8 +1894,7 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   screenCanvas: {fileID: 8001973668159243074}
   worldCanvas: {fileID: 193892494}
-  startingDifficulty: 0
-  difficultyScaleRate: 0.05
+  difficulty: {fileID: 11400000, guid: 852cab525c0f7de4695cbd3b0c241eb8, type: 2}
 --- !u!1001 &2102329655
 PrefabInstance:
   m_ObjectHideFlags: 0

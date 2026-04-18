@@ -3,7 +3,9 @@ guid: 73ee1344c187b7c4b85d62771cb71101
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - overlayPrefab: {fileID: 3358359640585397639, guid: 142d313917930444884c2d3db6ccefa1, type: 3}
+  - settings: {fileID: 11400000, guid: 383bada47420c1c47bf2e7dad1a66821, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

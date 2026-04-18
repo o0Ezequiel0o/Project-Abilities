@@ -8,7 +8,9 @@ namespace Zeke.Abilities.Modules
     {
         protected GameObject source;
         protected AbilityController controller;
-        
+
+        protected Stat CastSpeed => controller.rechargeSpeed[ability.Data.AbilityType];
+
         private Ability ability;
 
         public virtual void OnInitialization(AbilityController controller, GameObject source, Ability ability)

@@ -10,8 +10,8 @@ public class BleedingStatusData : StatusEffectData
 
     [field: Space]
 
-    [field: SerializeField] public StackStat DamageHealthRatio { get; private set; }
-    [field: SerializeField] public StackStat MaxDamage { get; private set; }
+    [field: SerializeReferenceDropdown, SerializeReference] public IStackStat MaxHealthRatio { get; private set; }
+    [field: SerializeReferenceDropdown, SerializeReference] public IStackStat MaxDamage { get; private set; }
 
     [field: Space]
 

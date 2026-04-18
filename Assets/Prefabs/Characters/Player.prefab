@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 6656351697229743751}
   - component: {fileID: 3571629176375247297}
   - component: {fileID: 1194936845695977804}
-  - component: {fileID: 6022250066541503612}
+  - component: {fileID: 1263257551977199966}
   - component: {fileID: 3336023691050110098}
   - component: {fileID: 7245188018465221074}
   - component: {fileID: 5379934569254923749}
@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 6380266063980628222}
   - component: {fileID: 3315950687603881688}
   - component: {fileID: 5383467074626949665}
+  - component: {fileID: 3333061981324723736}
   - component: {fileID: 3371380917540402303}
   - component: {fileID: 4867269373459583256}
   - component: {fileID: 8265923583279707991}
@@ -438,13 +439,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e810a262e810dbd4187a6b07b89d52b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
   <MaxHealth>k__BackingField:
     baseValue: 100
     increase: 10
     valueLimits:
       min: 0
       max: Infinity
+  <MaxShield>k__BackingField:
+    baseValue: 50
+    increase: 0
+    valueLimits:
+      min: -Infinity
+      max: Infinity
   <HealthRegen>k__BackingField:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: -Infinity
+      max: Infinity
+  <ShieldRegen>k__BackingField:
     baseValue: 1
     increase: 0
     valueLimits:
@@ -468,6 +482,12 @@ MonoBehaviour:
     valueLimits:
       min: 0
       max: Infinity
+  <ShieldReceivedMultiplier>k__BackingField:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: -Infinity
+      max: Infinity
 --- !u!114 &1194936845695977804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,7 +504,7 @@ MonoBehaviour:
   triggerEvent: 0
   flashAmount: 1
   flashDuration: 0.25
---- !u!114 &6022250066541503612
+--- !u!114 &1263257551977199966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -493,15 +513,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5218312312708394220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7372d2cf336d13b42a07cd75619a825a, type: 3}
+  m_Script: {fileID: 11500000, guid: c8987f0c7311b38468085c1dd8c3b61c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthBarScreenRenderer
   damageable: {fileID: 3571629176375247297}
-  healthBarPrefab: {fileID: 8229053637792263258, guid: 552631845816855469f5d1ac505252bd, type: 3}
-  center: {fileID: 4369443556788299361}
-  offset: {x: 0, y: 0, z: 0}
-  size: {x: 1, y: 1}
-  duration: 5
+  windowPrefab: {fileID: 6405216531569743264, guid: 2f786b583e9135747bdb34499dd2876f, type: 3}
 --- !u!114 &3336023691050110098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,6 +630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overlayPrefab: {fileID: 3358359640585397639, guid: 142d313917930444884c2d3db6ccefa1, type: 3}
+  settings: {fileID: 11400000, guid: 383bada47420c1c47bf2e7dad1a66821, type: 2}
   range: 1.4
   angle: 65
   layer:
@@ -633,6 +650,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffectsImmunityConfig: []
+--- !u!114 &3333061981324723736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218312312708394220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4bfd1a312d9224da2e8a59271f6a56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyHandler
+  <GoldMultiplier>k__BackingField:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
 --- !u!114 &3371380917540402303
 MonoBehaviour:
   m_ObjectHideFlags: 0

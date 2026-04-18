@@ -7,8 +7,11 @@ public class LevelHandler : MonoBehaviour
 
     public int Level { get; private set; }
 
+    public int Experience => experience;
+    public int ExperienceRequired => experienceRequired;
+
     public Action<int> onLevelUp;
-    public Action<int> onExperienceReceived;
+    public Action<int> onReceiveExperience;
 
     private int experience = 0;
     private int experienceRequired = 0;
@@ -20,7 +23,7 @@ public class LevelHandler : MonoBehaviour
         int experienceReceived = Mathf.FloorToInt(experienceGained * ExperienceMultiplier.Value);
 
         experience += Mathf.FloorToInt(experienceReceived);
-        onExperienceReceived?.Invoke(experienceReceived);
+        onReceiveExperience?.Invoke(experienceReceived);
 
         while (experience >= experienceRequired)
         {

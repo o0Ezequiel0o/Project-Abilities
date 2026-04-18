@@ -36,6 +36,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &507090151261281749
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -54,6 +55,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -75,9 +78,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1423631375
   m_SortingLayer: 3
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0.112401485, b: 1, a: 1}
   m_FlipX: 0
@@ -87,7 +92,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &1392316326529472503
 MonoBehaviour:
@@ -103,11 +107,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSettings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   <InteractOverlay>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <CanInteractOverlayColor>k__BackingField: {r: 1, g: 1, b: 1, a: 0.14901961}
-  <CantInteractOverlayColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0.14901961}
+  itemSelectionWindow: {fileID: 5283664177091368193, guid: 15b69a7c7671b5f43bdee276a4731e4a, type: 3}
+  itemOptionWindow: {fileID: 6831720364878063803, guid: 089f68913f42ad848ba1bde62a68f74d, type: 3}
   cost: 0
-  dropDistance: 1
-  itemDropPrefab: {fileID: 397519805344400825, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
+  options: 3
   itemDropChance:
   - rarity: 0
     weight: 100

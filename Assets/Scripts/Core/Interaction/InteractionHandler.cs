@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -5,6 +6,7 @@ public class InteractionHandler : MonoBehaviour
 {
     [Header("Visual")]
     [SerializeField] private GameObject overlayPrefab;
+    [SerializeField] private InteractableSettings settings;
 
     [Header("Settings")]
     [SerializeField] private float range;
@@ -13,19 +15,24 @@ public class InteractionHandler : MonoBehaviour
     [SerializeField] private float checkInterval;
 
     public GameObject SelectedInteractable => currentInteractable?.gameObject;
-    public Action<GameObject> onInteraction;
+    public Action<InteractionResult> onInteraction;
 
-    private RaycastHit2D[] hits;
     private GameObject overlayObjectInstance;
     private InteractableData currentInteractable;
 
     private float scanSurroundingsTimer = 0f;
 
+    private readonly List<RaycastHit2D> hits = new List<RaycastHit2D>(16);
+
     public void TryInteractWithClose()
     {
         currentInteractable = GetClosestUsableInteractable();
-        currentInteractable?.interactable.Interact(gameObject);
-        onInteraction?.Invoke(currentInteractable.gameObject);
+
+        if (currentInteractable != null)
+        {
+            bool success = currentInteractable.interactable.Interact(gameObject);
+            onInteraction?.Invoke(new InteractionResult());
+        }
     }
 
     private void Awake()
@@ -67,9 +74,12 @@ public class InteractionHandler : MonoBehaviour
 
     private InteractableData GetClosestUsableInteractable()
     {
-        hits = Physics2D.CircleCastAll(transform.position, range, Vector2.zero, 0f, layer);
+        hits.Clear();
 
-        for (int i = 0; i < hits.Length; i++)
+        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = layer, useLayerMask = true, useTriggers = true };
+        Physics2D.CircleCast(transform.position, range, Vector2.zero, contactFilter, hits, 0f);
+
+        for (int i = 0; i < hits.Count; i++)
         {
             Vector2 relativeDirection = hits[i].transform.position - transform.position;
 
@@ -122,11 +132,11 @@ public class InteractionHandler : MonoBehaviour
         {
             if (interactableData.interactable.CanInteract(gameObject))
             {
-                spriteRenderer.color = interactableData.interactable.CanInteractOverlayColor;
+                spriteRenderer.color = settings.CanInteractOverlayColor;
             }
             else
             {
-                spriteRenderer.color = interactableData.interactable.CantInteractOverlayColor;
+                spriteRenderer.color = settings.CantInteractOverlayColor;
             }
         }
 

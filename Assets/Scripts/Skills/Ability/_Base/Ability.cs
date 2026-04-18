@@ -60,7 +60,7 @@ namespace Zeke.Abilities
         private readonly AbilityData data;
         private readonly List<AbilityModule> modules;
 
-        private float CooldownMultiplier => controller.abilityCooldownMultiplier[Data.AbilityType].Value;
+        private float CooldownMultiplier => controller.cooldownMultiplier[Data.AbilityType].Value;
 
         private int queuedUpgrades = 0;
 

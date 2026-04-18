@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85bfa2f76f260ad47bdd4fc5491c6d06, type: 3}
+  m_Name: Flungus
+  m_EditorClassIdentifier: 
+  worldPrefab: {fileID: 3753182464441508134, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
+  <Icon>k__BackingField: {fileID: -1130577112789112938, guid: e5f71359257a23e468f09ecd6b6f8962, type: 3}
+  <Outline>k__BackingField: {fileID: 7933047657225129039, guid: e5f71359257a23e468f09ecd6b6f8962, type: 3}
+  <Name>k__BackingField: Flungus
+  <Description>k__BackingField: FLUNGUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  <Rarity>k__BackingField: 0
+  <HealCooldown>k__BackingField: 0.25
+  <ActivateDelay>k__BackingField: 0
+  <Particles>k__BackingField: {fileID: 5017539559455958488, guid: 8dbf258c1d1de0d41ab89f60126a2686, type: 3}
+  <HitLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 256
+  <Healing>k__BackingField:
+    rid: 2308102863504277868
+  <Radius>k__BackingField:
+    rid: 2308102863504277869
+  references:
+    version: 2
+    RefIds:
+    - rid: 2308102863504277868
+      type: {class: LinearStat, ns: , asm: Assembly-CSharp}
+      data:
+        startValue: 0
+        increase: 1
+    - rid: 2308102863504277869
+      type: {class: LinearStat, ns: , asm: Assembly-CSharp}
+      data:
+        startValue: 0.5
+        increase: 0.1

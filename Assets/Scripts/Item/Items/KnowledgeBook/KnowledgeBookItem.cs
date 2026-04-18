@@ -27,8 +27,8 @@ public class KnowledgeBookItem : Item
             levelHandler.ExperienceMultiplier.AddMultiplier(experienceMultiplier);
         }
 
-        extraTomeExperience = data.ExtraMultiplierPerTome.CalculateValue(GetTomesAmount());
-        experienceMultiplier.UpdateMultiplier(data.ExperienceMultiplier.CalculateValue(stacks) + extraTomeExperience);
+        extraTomeExperience = data.ExtraMultPerTome.GetValue(GetTomesAmount());
+        experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks) + extraTomeExperience);
 
         itemHandler.onItemAdded += OnItemAdded;
         itemHandler.onItemRemoved += OnItemRemoved;
@@ -45,12 +45,12 @@ public class KnowledgeBookItem : Item
 
     public override void OnStackAdded()
     {
-        experienceMultiplier.UpdateMultiplier(data.ExperienceMultiplier.CalculateValue(stacks) + extraTomeExperience);
+        experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks) + extraTomeExperience);
     }
 
     public override void OnStackRemoved()
     {
-        experienceMultiplier.UpdateMultiplier(data.ExperienceMultiplier.CalculateValue(stacks) + extraTomeExperience);
+        experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks) + extraTomeExperience);
     }
 
     private int GetTomesAmount()
@@ -69,8 +69,8 @@ public class KnowledgeBookItem : Item
     {
         if (item == data.TomeItem)
         {
-            extraTomeExperience = data.ExtraMultiplierPerTome.CalculateValue(GetTomesAmount());
-            experienceMultiplier.UpdateMultiplier(data.ExperienceMultiplier.CalculateValue(stacks) + extraTomeExperience);
+            extraTomeExperience = data.ExtraMultPerTome.GetValue(GetTomesAmount());
+            experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks) + extraTomeExperience);
         }
     }
 
@@ -78,8 +78,8 @@ public class KnowledgeBookItem : Item
     {
         if (item == data.TomeItem)
         {
-            extraTomeExperience = data.ExtraMultiplierPerTome.CalculateValue(GetTomesAmount());
-            experienceMultiplier.UpdateMultiplier(data.ExperienceMultiplier.CalculateValue(stacks) + extraTomeExperience);
+            extraTomeExperience = data.ExtraMultPerTome.GetValue(GetTomesAmount());
+            experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks) + extraTomeExperience);
         }
     }
 
@@ -87,8 +87,8 @@ public class KnowledgeBookItem : Item
     {
         if (item == data.TomeItem)
         {
-            extraTomeExperience = data.ExtraMultiplierPerTome.CalculateValue(GetTomesAmount());
-            experienceMultiplier.UpdateMultiplier(data.ExperienceMultiplier.CalculateValue(stacks) + extraTomeExperience);
+            extraTomeExperience = data.ExtraMultPerTome.GetValue(GetTomesAmount());
+            experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks) + extraTomeExperience);
         }
     }
 }

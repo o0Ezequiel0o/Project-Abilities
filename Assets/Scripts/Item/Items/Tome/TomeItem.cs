@@ -24,12 +24,12 @@ public class TomeItem : Item
             levelHandler.ExperienceMultiplier.AddMultiplier(experienceMultiplier);
         }
 
-        experienceMultiplier.UpdateMultiplier(data.ExperienceMultiplier.CalculateValue(stacks));
+        experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
     }
 
     public override void OnRemoved()
     {
-        experienceMultiplier.UpdateMultiplier(data.ExperienceMultiplier.CalculateValue(stacks));
+        experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
 
         if (source.TryGetComponent(out LevelHandler levelHandler))
         {
@@ -39,11 +39,11 @@ public class TomeItem : Item
 
     public override void OnStackAdded()
     {
-        experienceMultiplier.UpdateMultiplier(data.ExperienceMultiplier.CalculateValue(stacks));
+        experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
     }
 
     public override void OnStackRemoved()
     {
-        experienceMultiplier.UpdateMultiplier(data.ExperienceMultiplier.CalculateValue(stacks));
+        experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
     }
 }
