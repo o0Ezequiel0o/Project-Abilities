@@ -1,51 +1,54 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
 
-[RequireComponent(typeof(ItemDisplaySlot))]
-public class ItemInfoDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+namespace Zeke.Items
 {
-    [Header("Dependency")]
-    [SerializeField] private ItemDisplaySlot itemDisplaySlot;
-    [SerializeField] private ItemInfoDisplaySlot itemInfoDisplaySlotPrefab;
-
-    [Header("Settings")]
-    [SerializeField] private Vector3 offset;
-
-    private ItemInfoDisplaySlot itemInfoDisplaySlotInstance;
-
-    private void Reset()
+    [RequireComponent(typeof(ItemDisplaySlot))]
+    public class ItemInfoDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        itemDisplaySlot = GetComponentInChildren<ItemDisplaySlot>();
-    }
+        [Header("Dependency")]
+        [SerializeField] private ItemDisplaySlot itemDisplaySlot;
+        [SerializeField] private ItemInfoDisplaySlot itemInfoDisplaySlotPrefab;
 
-    private void OnDisable()
-    {
-        if (itemInfoDisplaySlotInstance != null)
+        [Header("Settings")]
+        [SerializeField] private Vector3 offset;
+
+        private ItemInfoDisplaySlot itemInfoDisplaySlotInstance;
+
+        private void Reset()
         {
-            Destroy(itemInfoDisplaySlotInstance.gameObject);
+            itemDisplaySlot = GetComponentInChildren<ItemDisplaySlot>();
         }
-    }
 
-    private void OnDestroy()
-    {
-        if (itemInfoDisplaySlotInstance != null)
+        private void OnDisable()
         {
-            Destroy(itemInfoDisplaySlotInstance.gameObject);
+            if (itemInfoDisplaySlotInstance != null)
+            {
+                Destroy(itemInfoDisplaySlotInstance.gameObject);
+            }
         }
-    }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        itemInfoDisplaySlotInstance = Instantiate(itemInfoDisplaySlotPrefab, GameInstance.ScreenCanvas.transform);
-        itemInfoDisplaySlotInstance.transform.position = transform.position + offset;
-        itemInfoDisplaySlotInstance.SetData(itemDisplaySlot.ItemData.Name, itemDisplaySlot.ItemData.Description);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (itemInfoDisplaySlotInstance != null)
+        private void OnDestroy()
         {
-            Destroy(itemInfoDisplaySlotInstance.gameObject);
+            if (itemInfoDisplaySlotInstance != null)
+            {
+                Destroy(itemInfoDisplaySlotInstance.gameObject);
+            }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            itemInfoDisplaySlotInstance = Instantiate(itemInfoDisplaySlotPrefab, GameInstance.ScreenCanvas.transform);
+            itemInfoDisplaySlotInstance.transform.position = transform.position + offset;
+            itemInfoDisplaySlotInstance.SetData(itemDisplaySlot.ItemData.Name, itemDisplaySlot.ItemData.Description);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (itemInfoDisplaySlotInstance != null)
+            {
+                Destroy(itemInfoDisplaySlotInstance.gameObject);
+            }
         }
     }
 }

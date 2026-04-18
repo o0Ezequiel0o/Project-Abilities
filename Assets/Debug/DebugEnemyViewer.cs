@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zeke.Abilities;
+using Zeke.Items;
 using Zeke.UI;
 using TMPro;
 

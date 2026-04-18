@@ -1,8 +1,11 @@
-public enum ItemRarity
+namespace Zeke.Items
 {
-    Common,
-    Rare,
-    Epic,
-    Legendary,
-    Unique
+    public enum ItemRarity
+    {
+        Common,
+        Rare,
+        Epic,
+        Legendary,
+        Unique
+    }
 }

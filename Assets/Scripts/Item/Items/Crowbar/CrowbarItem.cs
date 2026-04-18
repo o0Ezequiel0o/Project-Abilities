@@ -1,31 +1,34 @@
 using UnityEngine;
 
-public class CrowbarItem : Item
+namespace Zeke.Items
 {
-    public override ItemData Data => data;
-    private readonly CrowbarItemData data;
-
-    private readonly ItemHandler itemHandler;
-    private readonly GameObject source;
-
-    public CrowbarItem(CrowbarItemData data, ItemHandler itemHandler, GameObject source)
+    public class CrowbarItem : Item
     {
-        this.data = data;
-        this.source = source;
-        this.itemHandler = itemHandler;
-    }
-    
-    public override void OnDealDamage(Damageable.DamageEvent damageEvent)
-    {
-        if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
+        public override ItemData Data => data;
+        private readonly CrowbarItemData data;
 
-        if (damageEvent.Receiver.TryGetComponent(out Damageable damageable))
+        private readonly ItemHandler itemHandler;
+        private readonly GameObject source;
+
+        public CrowbarItem(CrowbarItemData data, ItemHandler itemHandler, GameObject source)
         {
-            float healthRatio = damageable.Health / damageable.MaxHealth.Value;
+            this.data = data;
+            this.source = source;
+            this.itemHandler = itemHandler;
+        }
 
-            if (healthRatio >= data.HealthThreshold)
+        public override void OnDealDamage(Damageable.DamageEvent damageEvent)
+        {
+            if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
+
+            if (damageEvent.Receiver.TryGetComponent(out Damageable damageable))
             {
-                damageEvent.damageMultiplier *= data.DamageMult.GetValue(stacks);
+                float healthRatio = damageable.Health / damageable.MaxHealth.Value;
+
+                if (healthRatio >= data.HealthThreshold)
+                {
+                    damageEvent.damageMultiplier *= data.DamageMult.GetValue(stacks);
+                }
             }
         }
     }

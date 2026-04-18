@@ -1,17 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AddItems : MonoBehaviour
+namespace Zeke.Items
 {
-    [SerializeField] private List<ItemData> items;
-
-    void Awake()
+    public class AddItems : MonoBehaviour
     {
-        if (TryGetComponent(out ItemHandler itemHandler))
+        [SerializeField] private List<ItemData> items;
+
+        void Awake()
         {
-            for (int i = 0; i < items.Count; i++)
+            if (TryGetComponent(out ItemHandler itemHandler))
             {
-                itemHandler.AddItem(items[i]);
+                for (int i = 0; i < items.Count; i++)
+                {
+                    itemHandler.AddItem(items[i]);
+                }
             }
         }
     }

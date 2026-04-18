@@ -39,7 +39,7 @@ public class BurningStatus : StatusEffect
         particles.SetActive(true);
     }
 
-    public override void OnStackApply()
+    public override void OnStackApplied(int stacks)
     {
         //FINISH BURNING IMPLEMENTATION
     }

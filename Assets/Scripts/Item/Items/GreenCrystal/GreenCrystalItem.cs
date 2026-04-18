@@ -1,59 +1,62 @@
 using UnityEngine;
 
-public class GreenCrystalItem : Item
+namespace Zeke.Items
 {
-    public override ItemData Data => data;
-    private GreenCrystalItemData data;
-
-    private ItemHandler itemHandler;
-    private GameObject source;
-
-    private float extraHealth = 0f;
-
-    public GreenCrystalItem(GreenCrystalItemData data, ItemHandler itemHandler, GameObject source)
+    public class GreenCrystalItem : Item
     {
-        this.data = data;
-        this.source = source;
-        this.itemHandler = itemHandler;
-    }
+        public override ItemData Data => data;
+        private GreenCrystalItemData data;
 
-    public override void OnAdded()
-    {
-        UpdateHealthValue();
-    }
+        private ItemHandler itemHandler;
+        private GameObject source;
 
-    public override void OnRemoved()
-    {
-        UpdateHealthValue();
-    }
+        private float extraHealth = 0f;
 
-    public override void OnStackAdded()
-    {
-        UpdateHealthValue();
-    }
-
-    public override void OnStackRemoved()
-    {
-        UpdateHealthValue();
-    }
-
-    void UpdateHealthValue()
-    {
-        if (source.TryGetComponent(out Damageable damageable))
+        public GreenCrystalItem(GreenCrystalItemData data, ItemHandler itemHandler, GameObject source)
         {
-            RemoveOldHealthModifier(damageable);
-            ApplyNewHealthModifier(damageable);
+            this.data = data;
+            this.source = source;
+            this.itemHandler = itemHandler;
         }
-    }
 
-    void ApplyNewHealthModifier(Damageable damageable)
-    {
-        extraHealth = data.ExtraHealth.GetValue(stacks);
-        damageable.MaxHealth.ApplyFlatModifier(extraHealth);
-    }
+        public override void OnAdded()
+        {
+            UpdateHealthValue();
+        }
 
-    void RemoveOldHealthModifier(Damageable damageable)
-    {
-        damageable.MaxHealth.ApplyFlatModifier(-extraHealth);
+        public override void OnRemoved()
+        {
+            UpdateHealthValue();
+        }
+
+        public override void OnStackAdded()
+        {
+            UpdateHealthValue();
+        }
+
+        public override void OnStackRemoved()
+        {
+            UpdateHealthValue();
+        }
+
+        void UpdateHealthValue()
+        {
+            if (source.TryGetComponent(out Damageable damageable))
+            {
+                RemoveOldHealthModifier(damageable);
+                ApplyNewHealthModifier(damageable);
+            }
+        }
+
+        void ApplyNewHealthModifier(Damageable damageable)
+        {
+            extraHealth = data.ExtraHealth.GetValue(stacks);
+            damageable.MaxHealth.ApplyFlatModifier(extraHealth);
+        }
+
+        void RemoveOldHealthModifier(Damageable damageable)
+        {
+            damageable.MaxHealth.ApplyFlatModifier(-extraHealth);
+        }
     }
 }

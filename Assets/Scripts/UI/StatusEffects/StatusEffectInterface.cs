@@ -11,10 +11,10 @@ public class StatusEffectInterface : MonoBehaviour
     [SerializeField] private Transform statusEffectDisplaySlotsRoot;
     [SerializeField] private int spawnAmount;
 
-    private List<StatusEffectDisplaySlot> statusEffectDisplaySlots = new List<StatusEffectDisplaySlot>();
-    private Dictionary<StatusEffect, StatusEffectDisplaySlot> usedStatusEffectDisplaySlots = new Dictionary<StatusEffect, StatusEffectDisplaySlot>();
+    private readonly List<StatusEffectDisplaySlot> statusEffectDisplaySlots = new List<StatusEffectDisplaySlot>();
+    private readonly Dictionary<StatusEffect, StatusEffectDisplaySlot> usedStatusEffectDisplaySlots = new Dictionary<StatusEffect, StatusEffectDisplaySlot>();
 
-    void Awake()
+    private void Awake()
     {
         SpawnStatusEffectDisplaySlots();
     }
@@ -63,13 +63,13 @@ public class StatusEffectInterface : MonoBehaviour
         }
     }
 
-    void RefreshStatusEffectSlotData(StatusEffectDisplaySlot abilityDisplaySlot, StatusEffect statusEffect)
+    private void RefreshStatusEffectSlotData(StatusEffectDisplaySlot abilityDisplaySlot, StatusEffect statusEffect)
     {
         abilityDisplaySlot.Icon = statusEffect.Data.Icon;
         abilityDisplaySlot.UpdateStacksAmount(statusEffect.stacks);
     }
 
-    void SpawnStatusEffectDisplaySlots()
+    private void SpawnStatusEffectDisplaySlots()
     {
         for (int i = 0; i < spawnAmount; i++)
         {
@@ -78,7 +78,7 @@ public class StatusEffectInterface : MonoBehaviour
         }
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         if (root.gameObject == null) return;
         Destroy(root.gameObject);

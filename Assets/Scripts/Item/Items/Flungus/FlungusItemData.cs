@@ -1,18 +1,21 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Flungus", menuName = "ScriptableObjects/Items/Items/Flungus", order = 1)]
-public class FlungusItemData : ItemData
+namespace Zeke.Items
 {
-    [field: Space]
-    [field: SerializeField] public float HealCooldown { get; private set; }
-    [field: SerializeField] public float ActivateDelay { get; private set; }
-    [field: SerializeField] public GameObject Particles { get; private set; }
-    [field: SerializeField] public LayerMask HitLayers { get; private set; }
-    [field: SerializeReferenceDropdown, SerializeReference] public IStackStat Healing { get; private set; }
-    [field: SerializeReferenceDropdown, SerializeReference] public IStackStat Radius { get; private set; }
-
-    public override Item CreateItem(ItemHandler itemHandler, GameObject source)
+    [CreateAssetMenu(fileName = "Flungus", menuName = "ScriptableObjects/Items/Items/Flungus", order = 1)]
+    public class FlungusItemData : ItemData
     {
-        return new FlungusItem(this, itemHandler, source);
+        [field: Space]
+        [field: SerializeField] public float HealCooldown { get; private set; }
+        [field: SerializeField] public float ActivateDelay { get; private set; }
+        [field: SerializeField] public GameObject Particles { get; private set; }
+        [field: SerializeField] public LayerMask HitLayers { get; private set; }
+        [field: SerializeReferenceDropdown, SerializeReference] public IStackStat Healing { get; private set; }
+        [field: SerializeReferenceDropdown, SerializeReference] public IStackStat Radius { get; private set; }
+
+        public override Item CreateItem(ItemHandler itemHandler, GameObject source)
+        {
+            return new FlungusItem(this, itemHandler, source);
+        }
     }
 }

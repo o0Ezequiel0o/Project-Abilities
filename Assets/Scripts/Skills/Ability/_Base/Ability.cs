@@ -105,11 +105,20 @@ namespace Zeke.Abilities
 
         public void SetCharges(int amount)
         {
+            int previousChargesAmount = Charges;
+
             Charges = Mathf.Clamp(amount, 0, MaxCharges);
 
             if (Charges == MaxCharges)
             {
                 CooldownTimer = CooldownTime;
+            }
+
+            int loops = Mathf.Max(0, Charges - previousChargesAmount);
+
+            for (int i = 0; i < loops; i++)
+            {
+                controller.onAbilityCharged?.Invoke(this);
             }
         }
 

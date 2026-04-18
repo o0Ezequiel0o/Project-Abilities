@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72755ecb2ac718c4396c975715c09efc, type: 3}
   m_Name: Bleeding
   m_EditorClassIdentifier: Assembly-CSharp::BleedingStatusData
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: ef70b23796fac4e41837a54c32f25ed0, type: 3}
   <MaxStacks>k__BackingField: 999
   <StatusEffectType>k__BackingField: 2
   <Ticks>k__BackingField: 5

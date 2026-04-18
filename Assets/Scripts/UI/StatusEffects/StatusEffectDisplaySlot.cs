@@ -28,7 +28,7 @@ public class StatusEffectDisplaySlot : MonoBehaviour
         }
         else
         {
-            stacksText.text = "x " + stacks.ToString();
+            stacksText.text = stacks.ToString();
         }
     }
 }

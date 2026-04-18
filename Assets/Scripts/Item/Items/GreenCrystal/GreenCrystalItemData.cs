@@ -1,12 +1,15 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Green Crystal", menuName = "ScriptableObjects/Items/Items/GreenCrystal", order = 1)]
-public class GreenCrystalItemData : ItemData
+namespace Zeke.Items
 {
-    [field: SerializeReferenceDropdown, SerializeReference] public IStackStat ExtraHealth { get; private set; }
-
-    public override Item CreateItem(ItemHandler itemHandler, GameObject source)
+    [CreateAssetMenu(fileName = "Green Crystal", menuName = "ScriptableObjects/Items/Items/GreenCrystal", order = 1)]
+    public class GreenCrystalItemData : ItemData
     {
-        return new GreenCrystalItem(this, itemHandler, source);
+        [field: SerializeReferenceDropdown, SerializeReference] public IStackStat ExtraHealth { get; private set; }
+
+        public override Item CreateItem(ItemHandler itemHandler, GameObject source)
+        {
+            return new GreenCrystalItem(this, itemHandler, source);
+        }
     }
 }

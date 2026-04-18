@@ -34,6 +34,8 @@ namespace Zeke.Abilities
         public Action<AbilityType, bool> onUseAbility;
 
         public Action<IAbility> onAbilityUsed;
+        public Action<IAbility> onAbilityCharged;
+
         public Action<IAbility> onAbilityAdded;
         public Action<IAbility> onAbilityRemoved;
 
@@ -193,12 +195,18 @@ namespace Zeke.Abilities
 
         private void Update()
         {
-            UpdateAbilities();
+            for (int i = 0; i < Abilities.Count; i++)
+            {
+                Abilities[i].Update();
+            }
         }
 
         private void LateUpdate()
         {
-            LateUpdateAbilities();
+            for (int i = 0; i < Abilities.Count; i++)
+            {
+                Abilities[i].LateUpdate();
+            }
         }
 
         private void OnDestroy()
@@ -250,34 +258,6 @@ namespace Zeke.Abilities
                 {
                     onAbilityUsed?.Invoke(ability);
                 }   
-            }
-        }
-
-        private AbilityType IntToAbilityType(int value)
-        {
-            return value switch
-            {
-                0 => AbilityType.Primary,
-                1 => AbilityType.Secondary,
-                2 => AbilityType.Utility,
-                3 => AbilityType.Ultimate,
-                _ => AbilityType.Primary,
-            };
-        }
-
-        private void UpdateAbilities()
-        {
-            for (int i = 0; i < Abilities.Count; i++)
-            {
-                Abilities[i].Update();
-            }
-        }
-
-        private void LateUpdateAbilities()
-        {
-            for (int i = 0; i < Abilities.Count; i++)
-            {
-                Abilities[i].LateUpdate();
             }
         }
 

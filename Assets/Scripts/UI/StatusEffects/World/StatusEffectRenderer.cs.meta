@@ -4,7 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - interfacePrefab: {fileID: 6802807126714689970, guid: 230ca6748d0aaf44aa028a0ea78945f8, type: 3}
+  - interfacePrefab: {fileID: 8360619127707872843, guid: 230ca6748d0aaf44aa028a0ea78945f8, type: 3}
   - follow: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}

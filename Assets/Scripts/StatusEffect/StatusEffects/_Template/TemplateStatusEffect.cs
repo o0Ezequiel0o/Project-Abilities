@@ -22,7 +22,7 @@ public class TemplateStatusEffect : StatusEffect
 
     public override void OnApply() {}
 
-    public override void OnStackApply() {}
+    public override void OnStackApplied(int stacks) {}
 
     public override void OnUpdate() {}
 

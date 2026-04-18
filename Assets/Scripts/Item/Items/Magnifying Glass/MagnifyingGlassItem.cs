@@ -1,27 +1,30 @@
 using UnityEngine;
 
-public class MagnifyingGlassItem : Item
+namespace Zeke.Items
 {
-    public override ItemData Data => data;
-    private MagnifyingGlassItemData data;
-
-    private ItemHandler itemHandler;
-    private GameObject source;
-
-    public MagnifyingGlassItem(MagnifyingGlassItemData data, ItemHandler itemHandler, GameObject source)
+    public class MagnifyingGlassItem : Item
     {
-        this.data = data;
-        this.source = source;
-        this.itemHandler = itemHandler;
-    }
+        public override ItemData Data => data;
+        private MagnifyingGlassItemData data;
 
-    public override void OnDealDamage(Damageable.DamageEvent damageEvent)
-    {
-        if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
+        private ItemHandler itemHandler;
+        private GameObject source;
 
-        if (Vector3.Distance(source.transform.position, damageEvent.Receiver.transform.position) <= data.MinDistance)
+        public MagnifyingGlassItem(MagnifyingGlassItemData data, ItemHandler itemHandler, GameObject source)
         {
-            damageEvent.damageMultiplier *= data.DamageMult.GetValue(stacks);
+            this.data = data;
+            this.source = source;
+            this.itemHandler = itemHandler;
+        }
+
+        public override void OnDealDamage(Damageable.DamageEvent damageEvent)
+        {
+            if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
+
+            if (Vector3.Distance(source.transform.position, damageEvent.Receiver.transform.position) <= data.MinDistance)
+            {
+                damageEvent.damageMultiplier *= data.DamageMult.GetValue(stacks);
+            }
         }
     }
 }

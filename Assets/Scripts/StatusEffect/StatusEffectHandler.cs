@@ -38,18 +38,16 @@ public class StatusEffectHandler : MonoBehaviour
             return;
         }
 
-        if (TryGetActiveStatusEffect(statusEffectData, out StatusEffect statusEffect))
+        if (!TryGetActiveStatusEffect(statusEffectData, out StatusEffect statusEffect))
         {
-            int stacksToApply = Mathf.Min(stacks, statusEffect.Data.MaxStacks - statusEffect.stacks);
-
-            if (stacksToApply > 0)
-            {
-                ApplyStacks(statusEffect, stacksToApply);
-            }
+            statusEffect = AddNewStatusEffect(statusEffectData, source);
         }
-        else
+
+        int stacksToApply = Mathf.Min(stacks, statusEffect.Data.MaxStacks - statusEffect.stacks);
+
+        if (stacksToApply > 0)
         {
-            AddNewStatusEffect(statusEffectData, source);
+            ApplyStacks(statusEffect, stacksToApply);
         }
     }
 
@@ -154,7 +152,7 @@ public class StatusEffectHandler : MonoBehaviour
         }
     }
 
-    private void AddNewStatusEffect(StatusEffectData statusEffectData, GameObject source)
+    private StatusEffect AddNewStatusEffect(StatusEffectData statusEffectData, GameObject source)
     {
         StatusEffect statusEffect = statusEffectData.CreateEffect(this, gameObject, source);
 
@@ -163,12 +161,14 @@ public class StatusEffectHandler : MonoBehaviour
         statusEffect.OnApply();
 
         onEffectApplied?.Invoke(statusEffect);
+
+        return statusEffect;
     }
 
     private void ApplyStacks(StatusEffect statusEffect, int stacks)
     {
         statusEffect.stacks += stacks;
-        statusEffect.OnStackApply();
+        statusEffect.OnStackApplied(stacks);
 
         onStacksApplied?.Invoke(statusEffect);
     }

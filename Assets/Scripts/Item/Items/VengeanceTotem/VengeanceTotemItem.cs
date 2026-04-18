@@ -1,30 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VengeanceTotemItem : Item
+namespace Zeke.Items
 {
-    public override ItemData Data => data;
-    private VengeanceTotemItemData data;
-
-    private ItemHandler itemHandler;
-    private GameObject source;
-
-    public VengeanceTotemItem(VengeanceTotemItemData data, ItemHandler itemHandler, GameObject source)
+    public class VengeanceTotemItem : Item
     {
-        this.data = data;
-        this.source = source;
-        this.itemHandler = itemHandler;
-    }
+        public override ItemData Data => data;
+        private readonly VengeanceTotemItemData data;
 
-    public override void OnDamageTaken(Damageable.DamageEvent damageEvent)
-    {
-        if (damageEvent.SourceUser == null || damageEvent.Receiver.gameObject == source) return;
-        if (damageEvent.ProcChainBranch.Contains(Data)) return;
+        private readonly ItemHandler itemHandler;
+        private readonly GameObject source;
 
-        if (damageEvent.SourceUser.TryGetComponent(out Damageable damageable))
+        public VengeanceTotemItem(VengeanceTotemItemData data, ItemHandler itemHandler, GameObject source)
         {
-            List<ItemData> newProcChainBranch = new List<ItemData>(damageEvent.ProcChainBranch) { Data };
-            damageable.DealDamage(new DamageInfo(data.Damage.GetValue(stacks), data.ProcCoefficient, data.ArmorPenetration), source, source, newProcChainBranch);
+            this.data = data;
+            this.source = source;
+            this.itemHandler = itemHandler;
+        }
+
+        public override void OnDamageTaken(Damageable.DamageEvent damageEvent)
+        {
+            if (damageEvent.SourceUser == source) return;
+            if (damageEvent.ProcChainBranch.Contains(Data)) return;
+
+            if (damageEvent.SourceUser.TryGetComponent(out Damageable damageable))
+            {
+                List<ItemData> newProcChainBranch = new List<ItemData>(damageEvent.ProcChainBranch) { Data };
+                damageable.DealDamage(new DamageInfo(data.Damage.GetValue(stacks), data.ProcCoefficient, data.ArmorPenetration), source, source, newProcChainBranch);
+            }
         }
     }
 }

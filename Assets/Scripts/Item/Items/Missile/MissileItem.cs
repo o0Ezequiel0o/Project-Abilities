@@ -3,48 +3,51 @@ using UnityEngine;
 using Zeke.PoolableGameObjects;
 using Zeke.TeamSystem;
 
-public class MissileItem : Item
+namespace Zeke.Items
 {
-    public override ItemData Data => data;
-    private readonly MissileItemData data;
-
-    private readonly GameObject source;
-    private readonly ItemHandler itemHandler;
-
-    private readonly GameObjectPool<MissileItemProjectile> missilePool = new GameObjectPool<MissileItemProjectile>();
-
-    public MissileItem(MissileItemData data, ItemHandler itemHandler, GameObject source)
+    public class MissileItem : Item
     {
-        this.data = data;
-        this.source = source;
-        this.itemHandler = itemHandler;
-    }
+        public override ItemData Data => data;
+        private readonly MissileItemData data;
 
-    public override void OnRemoved()
-    {
-        missilePool.Clear();
-    }
+        private readonly GameObject source;
+        private readonly ItemHandler itemHandler;
 
-    public override void OnHit(Damageable.DamageEvent damageEvent)
-    {
-        if (!RollProc(data.ProcChance, damageEvent.ProcCoefficient, itemHandler.Luck)) return;
-        if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
-        if (damageEvent.ProcChainBranch.Contains(Data)) return;
+        private readonly GameObjectPool<MissileItemProjectile> missilePool = new GameObjectPool<MissileItemProjectile>();
 
-        float damage = damageEvent.BaseDamage * data.DamageMult.GetValue(stacks);
-        Vector2 direction = GetRelativeDirection(data.SpawnDirection, source.transform.up);
+        public MissileItem(MissileItemData data, ItemHandler itemHandler, GameObject source)
+        {
+            this.data = data;
+            this.source = source;
+            this.itemHandler = itemHandler;
+        }
 
-        List<ItemData> newProcChainBranch = new List<ItemData>(damageEvent.ProcChainBranch) { Data };
+        public override void OnRemoved()
+        {
+            missilePool.Clear();
+        }
 
-        MissileItemProjectile missile = missilePool.Get(data.MissilePrefab);
-        missile.Launch(source.transform.position, data.Speed, direction, data.MaxRange, damage, source, TeamManager.GetTeam(source), newProcChainBranch);
+        public override void OnHit(Damageable.DamageEvent damageEvent)
+        {
+            if (!RollProc(data.ProcChance, damageEvent.ProcCoefficient, itemHandler.Luck)) return;
+            if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
+            if (damageEvent.ProcChainBranch.Contains(Data)) return;
 
-        missile.gameObject.SetActive(true);
-    }
+            float damage = damageEvent.BaseDamage * data.DamageMult.GetValue(stacks);
+            Vector2 direction = GetRelativeDirection(data.SpawnDirection, source.transform.up);
 
-    private Vector2 GetRelativeDirection(Vector2 direction, Vector2 relativeTo)
-    {
-        float angle = Vector2.SignedAngle(Vector2.up, direction);
-        return (Quaternion.Euler(0f, 0f, angle) * relativeTo).normalized;
+            List<ItemData> newProcChainBranch = new List<ItemData>(damageEvent.ProcChainBranch) { Data };
+
+            MissileItemProjectile missile = missilePool.Get(data.MissilePrefab);
+            missile.Launch(source.transform.position, data.Speed, direction, data.MaxRange, damage, source, TeamManager.GetTeam(source), newProcChainBranch);
+
+            missile.gameObject.SetActive(true);
+        }
+
+        private Vector2 GetRelativeDirection(Vector2 direction, Vector2 relativeTo)
+        {
+            float angle = Vector2.SignedAngle(Vector2.up, direction);
+            return (Quaternion.Euler(0f, 0f, angle) * relativeTo).normalized;
+        }
     }
 }

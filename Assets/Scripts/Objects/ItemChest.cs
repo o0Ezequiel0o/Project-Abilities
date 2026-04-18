@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zeke.Items;
 
 public class ItemChest : ItemGenerator
 {

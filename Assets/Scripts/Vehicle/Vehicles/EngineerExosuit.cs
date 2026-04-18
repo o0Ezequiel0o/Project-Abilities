@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Zeke.Abilities;
+using Zeke.Items;
 
 public class EngineerExosuit : Exosuit
 {

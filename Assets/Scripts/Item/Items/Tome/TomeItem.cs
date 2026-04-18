@@ -1,49 +1,52 @@
 using UnityEngine;
 
-public class TomeItem : Item
+namespace Zeke.Items
 {
-    public override ItemData Data => data;
-    private readonly TomeItemData data;
-
-    private readonly GameObject source;
-
-    private readonly Stat.Multiplier experienceMultiplier;
-
-    public TomeItem(TomeItemData data, ItemHandler _, GameObject source)
+    public class TomeItem : Item
     {
-        this.data = data;
-        this.source = source;
+        public override ItemData Data => data;
+        private readonly TomeItemData data;
 
-        experienceMultiplier = new Stat.Multiplier(1f);
-    }
+        private readonly GameObject source;
 
-    public override void OnAdded()
-    {
-        if (source.TryGetComponent(out LevelHandler levelHandler))
+        private readonly Stat.Multiplier experienceMultiplier;
+
+        public TomeItem(TomeItemData data, ItemHandler _, GameObject source)
         {
-            levelHandler.ExperienceMultiplier.AddMultiplier(experienceMultiplier);
+            this.data = data;
+            this.source = source;
+
+            experienceMultiplier = new Stat.Multiplier(1f);
         }
 
-        experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
-    }
-
-    public override void OnRemoved()
-    {
-        experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
-
-        if (source.TryGetComponent(out LevelHandler levelHandler))
+        public override void OnAdded()
         {
-            levelHandler.ExperienceMultiplier.RemoveMultiplier(experienceMultiplier);
+            if (source.TryGetComponent(out LevelHandler levelHandler))
+            {
+                levelHandler.ExperienceMultiplier.AddMultiplier(experienceMultiplier);
+            }
+
+            experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
         }
-    }
 
-    public override void OnStackAdded()
-    {
-        experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
-    }
+        public override void OnRemoved()
+        {
+            experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
 
-    public override void OnStackRemoved()
-    {
-        experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
+            if (source.TryGetComponent(out LevelHandler levelHandler))
+            {
+                levelHandler.ExperienceMultiplier.RemoveMultiplier(experienceMultiplier);
+            }
+        }
+
+        public override void OnStackAdded()
+        {
+            experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
+        }
+
+        public override void OnStackRemoved()
+        {
+            experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
+        }
     }
 }

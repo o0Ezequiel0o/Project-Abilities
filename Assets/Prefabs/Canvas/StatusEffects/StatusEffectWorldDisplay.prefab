@@ -55,7 +55,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 5
+  m_Spacing: 1
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -76,6 +76,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectInterface
   root: {fileID: 5336375882191938863}
-  statusEffectDisplaySlotPrefab: {fileID: -5736844568995319268, guid: e9cf30db81b60a246afca76f2f9ad609, type: 3}
+  statusEffectDisplaySlotPrefab: {fileID: -5736844568995319268, guid: a3a8c094c2c94e947bd36ebc7011ab40, type: 3}
   statusEffectDisplaySlotsRoot: {fileID: 5336375882191938863}
   spawnAmount: 4

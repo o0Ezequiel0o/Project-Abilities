@@ -2,40 +2,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zeke.TeamSystem;
 
-public class GasolineItem : Item
+namespace Zeke.Items
 {
-    public override ItemData Data => data;
-    private readonly GasolineItemData data;
-
-    private readonly ItemHandler itemHandler;
-    private readonly GameObject source;
-
-    private float Radius => data.Radius.GetValue(stacks);
-
-    private readonly List<Collider2D> hits = new List<Collider2D>();
-
-    public GasolineItem(GasolineItemData data, ItemHandler itemHandler, GameObject source)
+    public class GasolineItem : Item
     {
-        this.data = data;
-        this.source = source;
-        this.itemHandler = itemHandler;
-    }
+        public override ItemData Data => data;
+        private readonly GasolineItemData data;
 
-    public override void OnKill(Damageable.DamageEvent damageEvent) 
-    {
-        hits.Clear();
+        private readonly ItemHandler itemHandler;
+        private readonly GameObject source;
 
-        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.HitLayers, useLayerMask = true };
-        Physics2D.OverlapCircle(damageEvent.Receiver.transform.position, Radius, contactFilter, hits);
+        private float Radius => data.Radius.GetValue(stacks);
 
-        for (int i = 0; i < hits.Count; i++)
+        private readonly List<Collider2D> hits = new List<Collider2D>();
+
+        public GasolineItem(GasolineItemData data, ItemHandler itemHandler, GameObject source)
         {
-            if (hits[i].transform == source.transform) continue;
-            if (TeamManager.IsAlly(source, hits[i].gameObject)) continue;
+            this.data = data;
+            this.source = source;
+            this.itemHandler = itemHandler;
+        }
 
-            if (hits[i].TryGetComponent(out StatusEffectHandler statusEffectHandler))
+        public override void OnKill(Damageable.DamageEvent damageEvent)
+        {
+            hits.Clear();
+
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.HitLayers, useLayerMask = true };
+            Physics2D.OverlapCircle(damageEvent.Receiver.transform.position, Radius, contactFilter, hits);
+
+            for (int i = 0; i < hits.Count; i++)
             {
-                statusEffectHandler.ApplyEffect(data.StatusEffectToApply, source);
+                if (hits[i].transform == source.transform) continue;
+                if (TeamManager.IsAlly(source, hits[i].gameObject)) continue;
+
+                if (hits[i].TryGetComponent(out StatusEffectHandler statusEffectHandler))
+                {
+                    statusEffectHandler.ApplyEffect(data.StatusEffectToApply, source);
+                }
             }
         }
     }

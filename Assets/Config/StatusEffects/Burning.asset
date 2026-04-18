@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23d19aedcc131d04c94d73a3727191a1, type: 3}
   m_Name: Burning
   m_EditorClassIdentifier: 
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: b6de3ee85f6ce3e4b881f3d453623b3c, type: 3}
   <MaxStacks>k__BackingField: 10
   <StatusEffectType>k__BackingField: 2
   <Particles>k__BackingField: {fileID: 5858856877039675562, guid: b19a0e4ade462874898bdf4be3107fa0, type: 3}

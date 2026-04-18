@@ -1,110 +1,113 @@
 using UnityEngine;
 using Zeke.TeamSystem;
 
-public class FlungusItem : Item
+namespace Zeke.Items
 {
-    public override ItemData Data => data;
-    private FlungusItemData data;
-
-    private ItemHandler itemHandler;
-    private GameObject source;
-
-    private Vector3 lastPosition;
-    private GameObject particlesInstance;
-
-    private float delayTimer = 0f;
-    private float healTimer = 0f;
-
-    private bool active = false;
-
-    public FlungusItem(FlungusItemData data, ItemHandler itemHandler, GameObject source)
+    public class FlungusItem : Item
     {
-        this.data = data;
-        this.source = source;
-        this.itemHandler = itemHandler;
-    }
+        public override ItemData Data => data;
+        private readonly FlungusItemData data;
 
-    public override void OnAdded()
-    {
-        lastPosition = source.transform.position;
-        particlesInstance = GameObject.Instantiate(data.Particles, source.transform.position, Quaternion.identity);
-        particlesInstance.SetActive(false);
-    }
+        private readonly ItemHandler itemHandler;
+        private readonly GameObject source;
 
-    public override void OnRemoved()
-    {
-        GameObject.Destroy(particlesInstance);
-    }
+        private Vector3 lastPosition;
+        private GameObject particlesInstance;
 
-    public override void OnStackAdded()
-    {
-        float diameter = data.Radius.GetValue(stacks) * 2f;
-        particlesInstance.transform.localScale = new Vector3(diameter, diameter, 1f);
-    }
+        private float delayTimer = 0f;
+        private float healTimer = 0f;
 
-    public override void OnUpdate()
-    {
-        if (lastPosition == source.transform.position)
+        private bool active = false;
+
+        public FlungusItem(FlungusItemData data, ItemHandler itemHandler, GameObject source)
         {
-            delayTimer += Time.deltaTime;
-
-            if (active)
-            {
-                UpdateHealing();
-            }
-            else if (delayTimer > data.ActivateDelay)
-            {
-                Activate();
-            }
-        }
-        else
-        {
-            delayTimer = 0f;
-            healTimer = 0f;
-
-            if (active)
-            {
-                Deactivate();
-            }
+            this.data = data;
+            this.source = source;
+            this.itemHandler = itemHandler;
         }
 
-        lastPosition = source.transform.position;
-    }
-
-    private void Deactivate()
-    {
-        active = false;
-        particlesInstance.SetActive(false);
-    }
-
-    private void UpdateHealing()
-    {
-        healTimer += Time.deltaTime;
-
-        if (healTimer > data.HealCooldown)
+        public override void OnAdded()
         {
-            Collider2D[] hits = Physics2D.OverlapCircleAll(source.transform.position, data.Radius.GetValue(stacks), data.HitLayers);
+            lastPosition = source.transform.position;
+            particlesInstance = GameObject.Instantiate(data.Particles, source.transform.position, Quaternion.identity);
+            particlesInstance.SetActive(false);
+        }
 
-            float healing = data.Healing.GetValue(stacks);
+        public override void OnRemoved()
+        {
+            GameObject.Destroy(particlesInstance);
+        }
 
-            for (int i = 0; i < hits.Length; i++)
+        public override void OnStackAdded()
+        {
+            float diameter = data.Radius.GetValue(stacks) * 2f;
+            particlesInstance.transform.localScale = new Vector3(diameter, diameter, 1f);
+        }
+
+        public override void OnUpdate()
+        {
+            if (lastPosition == source.transform.position)
             {
-                if (TeamManager.IsEnemy(hits[i].gameObject, source)) continue;
+                delayTimer += Time.deltaTime;
 
-                if (hits[i].TryGetComponent(out Damageable damageable))
+                if (active)
                 {
-                    damageable.GiveHealing(healing, source, source);
+                    UpdateHealing();
+                }
+                else if (delayTimer > data.ActivateDelay)
+                {
+                    Activate();
+                }
+            }
+            else
+            {
+                delayTimer = 0f;
+                healTimer = 0f;
+
+                if (active)
+                {
+                    Deactivate();
                 }
             }
 
-            healTimer = 0f;
+            lastPosition = source.transform.position;
         }
-    }
 
-    private void Activate()
-    {
-        active = true;
-        particlesInstance.SetActive(true);
-        particlesInstance.transform.position = source.transform.position;
+        private void Deactivate()
+        {
+            active = false;
+            particlesInstance.SetActive(false);
+        }
+
+        private void UpdateHealing()
+        {
+            healTimer += Time.deltaTime;
+
+            if (healTimer > data.HealCooldown)
+            {
+                Collider2D[] hits = Physics2D.OverlapCircleAll(source.transform.position, data.Radius.GetValue(stacks), data.HitLayers);
+
+                float healing = data.Healing.GetValue(stacks);
+
+                for (int i = 0; i < hits.Length; i++)
+                {
+                    if (TeamManager.IsEnemy(hits[i].gameObject, source)) continue;
+
+                    if (hits[i].TryGetComponent(out Damageable damageable))
+                    {
+                        damageable.GiveHealing(healing, source, source);
+                    }
+                }
+
+                healTimer = 0f;
+            }
+        }
+
+        private void Activate()
+        {
+            active = true;
+            particlesInstance.SetActive(true);
+            particlesInstance.transform.position = source.transform.position;
+        }
     }
 }

@@ -1,52 +1,55 @@
 using UnityEngine;
 
-[RequireComponent(typeof(ItemHandler))]
-public class ItemsScreenRenderer : MonoBehaviour
+namespace Zeke.Items
 {
-    [SerializeField] private ItemsInterface itemsInterfacePrefab;
-    [SerializeField] private ItemsInterface itemsInterfaceMenuPrefab;
-
-    private ItemHandler itemHandler;
-    private ItemsInterface itemsInterface;
-    private ItemsInterface itemsMenuInterface;
-
-    public void ToggleMenuVisibility()
+    [RequireComponent(typeof(ItemHandler))]
+    public class ItemsScreenRenderer : MonoBehaviour
     {
-        SetMenuVisibility(!itemsMenuInterface.gameObject.activeSelf);
-    }
+        [SerializeField] private ItemsInterface itemsInterfacePrefab;
+        [SerializeField] private ItemsInterface itemsInterfaceMenuPrefab;
 
-    public void SetMenuVisibility(bool visibility)
-    {
-        itemsMenuInterface.gameObject.SetActive(visibility);
+        private ItemHandler itemHandler;
+        private ItemsInterface itemsInterface;
+        private ItemsInterface itemsMenuInterface;
 
-        if (visibility == true)
+        public void ToggleMenuVisibility()
         {
-            itemsMenuInterface.SubscribeToEvents(itemHandler);
-            itemsMenuInterface.RefreshAllItems(itemHandler);
+            SetMenuVisibility(!itemsMenuInterface.gameObject.activeSelf);
         }
-        else
+
+        public void SetMenuVisibility(bool visibility)
         {
-            itemsMenuInterface.UnsubscribeFromEvents(itemHandler);
+            itemsMenuInterface.gameObject.SetActive(visibility);
+
+            if (visibility == true)
+            {
+                itemsMenuInterface.SubscribeToEvents(itemHandler);
+                itemsMenuInterface.RefreshAllItems(itemHandler);
+            }
+            else
+            {
+                itemsMenuInterface.UnsubscribeFromEvents(itemHandler);
+            }
         }
-    }
 
-    private void Awake()
-    {
-        SpawnInterfacesInCanvas();
-        itemHandler = GetComponent<ItemHandler>();
-        itemsInterface.SubscribeToEvents(itemHandler);
+        private void Awake()
+        {
+            SpawnInterfacesInCanvas();
+            itemHandler = GetComponent<ItemHandler>();
+            itemsInterface.SubscribeToEvents(itemHandler);
 
-        itemsMenuInterface.gameObject.SetActive(false);
-    }
+            itemsMenuInterface.gameObject.SetActive(false);
+        }
 
-    private void Start()
-    {
-        itemsInterface.RefreshAllItems(itemHandler);
-    }
+        private void Start()
+        {
+            itemsInterface.RefreshAllItems(itemHandler);
+        }
 
-    private void SpawnInterfacesInCanvas()
-    {
-        itemsInterface = Instantiate(itemsInterfacePrefab, GameInstance.ScreenCanvas.transform);
-        itemsMenuInterface = Instantiate(itemsInterfaceMenuPrefab, GameInstance.ScreenCanvas.transform);
+        private void SpawnInterfacesInCanvas()
+        {
+            itemsInterface = Instantiate(itemsInterfacePrefab, GameInstance.ScreenCanvas.transform);
+            itemsMenuInterface = Instantiate(itemsInterfaceMenuPrefab, GameInstance.ScreenCanvas.transform);
+        }
     }
 }

@@ -2,50 +2,53 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
-public class ItemDisplaySlot : MonoBehaviour
+namespace Zeke.Items
 {
-    [SerializeField] private Image image;
-    [SerializeField] private Image outline;
-    [SerializeField] private TextMeshProUGUI stacksText;
-
-    public ItemData ItemData { get; private set; }
-    public int Stacks { get; private set; }
-
-    public Sprite Icon
+    public class ItemDisplaySlot : MonoBehaviour
     {
-        get
-        {
-            return image.sprite;
-        }
-        set
-        {
-            image.sprite = value;
-        }
-    }
+        [SerializeField] private Image image;
+        [SerializeField] private Image outline;
+        [SerializeField] private TextMeshProUGUI stacksText;
 
-    public Sprite Outline
-    {
-        get
+        public ItemData ItemData { get; private set; }
+        public int Stacks { get; private set; }
+
+        public Sprite Icon
         {
-            return outline.sprite;
+            get
+            {
+                return image.sprite;
+            }
+            set
+            {
+                image.sprite = value;
+            }
         }
-        set
+
+        public Sprite Outline
         {
-            outline.sprite = value;
+            get
+            {
+                return outline.sprite;
+            }
+            set
+            {
+                outline.sprite = value;
+            }
         }
-    }
 
-    public void SetData(ItemData itemData)
-    {
-        Icon = itemData.Icon;
-        Outline = itemData.Outline;
+        public void SetData(ItemData itemData)
+        {
+            Icon = itemData.Icon;
+            Outline = itemData.Outline;
 
-        ItemData = itemData;
-    }
+            ItemData = itemData;
+        }
 
-    public void UpdateStacksAmount(int stacks)
-    {
-        stacksText.text = "x " + stacks.ToString();
-        Stacks = stacks;
+        public void UpdateStacksAmount(int stacks)
+        {
+            stacksText.text = "x " + stacks.ToString();
+            Stacks = stacks;
+        }
     }
 }

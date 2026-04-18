@@ -2,6 +2,7 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
 using Zeke.Abilities;
+using Zeke.Items;
 
 public class PlayerController : MonoBehaviour
 {

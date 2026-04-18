@@ -33,7 +33,7 @@ public class BleedingStatus : StatusEffect
         }
     }
 
-    public override void OnStackApply() {}
+    public override void OnStackApplied(int stacks) {}
 
     public override void OnUpdate()
     {
