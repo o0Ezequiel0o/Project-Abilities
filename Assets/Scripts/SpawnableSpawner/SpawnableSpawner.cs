@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zeke.Collections;
 
 public class SpawnableSpawner : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class SpawnableSpawner : MonoBehaviour
     [SerializeField] private int maxAliveSpawnables = 1000;
     [SerializeField] private List<Spawnpoint> spawnpoints;
     [SerializeField] private List<WaveSpawnable> spawnables;
+
+    public static OrderedAction<GameObject> onSpawnableSpawned = new OrderedAction<GameObject>();
 
     private readonly Dictionary<CachedSpawnableData, WaveSpawnable> cachedSpawnablesRef = new Dictionary<CachedSpawnableData, WaveSpawnable>();
     private readonly List<CachedSpawnableData> cachedSpawnables = new List<CachedSpawnableData>();
@@ -79,6 +82,8 @@ public class SpawnableSpawner : MonoBehaviour
         destroyEventTracker.onDestroy += OnSpawnableDeath;
         aliveSpawnables.Add(spawnableInstance);
         currentPoints -= cachedSpawnable.cost;
+
+        onSpawnableSpawned?.Invoke(spawnableInstance);
     }
 
     private void OnSpawnableDeath(GameObject spawnableInstance)
