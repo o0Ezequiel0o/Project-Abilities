@@ -43,7 +43,7 @@ public class BleedingStatus : StatusEffect
         {
             float damage = damageable.MaxHealth.Value * effectData.MaxHealthRatio.GetValue(stacks);
             damage = Mathf.Min(damage, effectData.MaxDamage.GetValue(stacks));
-            DamageInfo damageInfo = new(damage, 0f, 0f) { hit = false };
+            DamageInfo damageInfo = new DamageInfo(damage, 0f, 0f) { hit = false };
             damageable.DealDamage(damageInfo, source, null);
             SpawnBloodStain();
             UpdateTicks();

@@ -252,6 +252,8 @@ public class Damageable : MonoBehaviour, IUpgradable
         public bool IsLethal { get; private set; }
         public bool IsHit { get; private set; }
 
+        public Vector2 Direction { get; private set; }
+
         public float ProcCoefficient { get; private set; }
         public List<ItemData> ProcChainBranch { get; private set; }
 
@@ -285,6 +287,8 @@ public class Damageable : MonoBehaviour, IUpgradable
             BaseDamage = damageInfo.baseDamage;
             ProcCoefficient = damageInfo.procCoefficient;
             ArmorPenetration = damageInfo.armorPenetration;
+
+            Direction = damageInfo.direction;
 
             Receiver = receiver;
             SourceUser = userSource;

@@ -28,7 +28,12 @@ public class MissileItemProjectile : Missile
 
         if (receiver.TryGetComponent(out Damageable damageable))
         {
-            damageRejected = damageable.DealDamage(new DamageInfo(Damage, armorPenetration, procCoefficient), SourceUser, gameObject, ProcChainCopy).damageRejected;
+            DamageInfo damageInfo = new DamageInfo(Damage, armorPenetration, procCoefficient)
+            {
+                direction = GetHitDirection(receiver)
+            };
+
+            damageRejected = damageable.DealDamage(damageInfo, SourceUser, gameObject, ProcChainCopy).damageRejected;
         }
 
         if (!damageRejected)

@@ -38,7 +38,12 @@ public class OrbExtraDamageSkill : PassiveBase
 
         if (damageEvent.SourceObject.TryGetComponent(out OrbIdentifier _))
         {
-            damageEvent.Receiver.DealDamage(new DamageInfo(extraDamage.Value, data.ArmorPenetration, data.ProcCoefficient), source, source);
+            DamageInfo damageInfo = new DamageInfo(extraDamage.Value, data.ArmorPenetration, data.ProcCoefficient)
+            {
+                hit = false
+            };
+
+            damageEvent.Receiver.DealDamage(damageInfo, source, source);
         }
     }
 }

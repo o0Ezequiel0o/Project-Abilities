@@ -9,7 +9,12 @@ public class FireBasicLaser : Laser
 
         if (hit.TryGetComponent(out Damageable damageable))
         {
-            damageable.DealDamage(new DamageInfo(damage, armorPenetration, procCoefficient), source, gameObject);
+            DamageInfo damageInfo = new DamageInfo(damage, armorPenetration, procCoefficient)
+            {
+                direction = (hit.transform.position - source.transform.position).normalized
+            };
+
+            damageable.DealDamage(damageInfo, source, gameObject);
         }
     }
 }

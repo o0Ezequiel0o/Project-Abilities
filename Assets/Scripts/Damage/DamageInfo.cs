@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public struct DamageInfo
 {
     public float baseDamage;
@@ -7,6 +9,8 @@ public struct DamageInfo
     public bool lethal;
     public bool hit;
 
+    public Vector3 direction;
+
     public DamageInfo(Damageable.DamageEvent damageEvent)
     {
         baseDamage = damageEvent.BaseDamage;
@@ -15,6 +19,8 @@ public struct DamageInfo
 
         lethal = damageEvent.IsLethal;
         hit = damageEvent.IsHit;
+
+        direction = damageEvent.Direction;
     }
 
     public DamageInfo(float baseDamage, float armorPenetration, float procCoefficient)
@@ -25,6 +31,8 @@ public struct DamageInfo
 
         lethal = true;
         hit = true;
+
+        direction = Vector3.zero;
     }
 
     public static DamageInfo Zero

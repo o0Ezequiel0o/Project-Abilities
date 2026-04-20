@@ -158,7 +158,12 @@ namespace Zeke.Abilities.Modules
 
             if (gameObject.TryGetComponent(out Damageable damageable))
             {
-                damageable.DealDamage(new DamageInfo(damage.Value, armorPenetration, procCoefficient), source, source);
+                DamageInfo damageInfo = new DamageInfo(damage.Value, armorPenetration, procCoefficient)
+                {
+                    direction = (damageable.transform.position - source.transform.position).normalized
+                };
+
+                damageable.DealDamage(damageInfo, source, source);
             }
 
             bool statusEffectRollSuccess = effectProcChance > UnityEngine.Random.Range(0, 100);

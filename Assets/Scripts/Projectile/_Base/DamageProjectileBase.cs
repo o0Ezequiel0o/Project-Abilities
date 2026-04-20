@@ -37,7 +37,12 @@ public abstract class DamageProjectileBase : Projectile
     {
         if (receiver.TryGetComponent(out Damageable damageable))
         {
-            Damageable.DamageEvent damageEvent = damageable.DealDamage(new DamageInfo(Damage, armorPenetration, procCoefficient), SourceUser, gameObject);
+            DamageInfo damageInfo = new DamageInfo(Damage, armorPenetration, procCoefficient) 
+            {
+                direction = GetHitDirection(receiver),
+            };
+
+            Damageable.DamageEvent damageEvent = damageable.DealDamage(damageInfo, SourceUser, gameObject);
             return damageEvent.damageRejected;
         }
 
@@ -50,5 +55,10 @@ public abstract class DamageProjectileBase : Projectile
         {
             physics.AddForce(knockback, direction);
         }
+    }
+
+    protected Vector2 GetHitDirection(GameObject receiver)
+    {
+        return (receiver.transform.position - lastPosition).normalized;
     }
 }

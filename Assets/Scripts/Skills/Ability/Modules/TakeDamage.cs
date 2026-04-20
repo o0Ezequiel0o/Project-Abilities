@@ -40,7 +40,9 @@ namespace Zeke.Abilities.Modules
         {
             if (!hasRequiredComponents) return;
             float damageLocal = GetDamage(damage.Value, valueType);
-            damageable.DealDamage(new DamageInfo(damageLocal, armorPenetration, 0f), source, source);
+
+            DamageInfo damageInfo = new DamageInfo(damageLocal, armorPenetration, 0f) { hit = false };
+            damageable.DealDamage(damageInfo, source, source);
         }
 
         public override void Upgrade()

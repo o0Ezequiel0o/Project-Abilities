@@ -86,7 +86,12 @@ namespace Zeke.Abilities.Modules
             {
                 if (target.TryGetComponent(out Damageable damageable))
                 {
-                    Damageable.DamageEvent damageEvent = damageable.DealDamage(new DamageInfo(damage, 0f, 1f), source, source);
+                    DamageInfo damageInfo = new DamageInfo(damage, 0f, 1f)
+                    {
+                        direction = (damageable.transform.position - source.transform.position).normalized
+                    };
+
+                    Damageable.DamageEvent damageEvent = damageable.DealDamage(damageInfo, source, source);
 
                     if (damageEvent.DamageDealt > 0f && !damageEvent.damageRejected)
                     {

@@ -42,7 +42,13 @@ namespace Zeke.Items
             if (damageEvent.SourceUser.TryGetComponent(out Damageable damageable))
             {
                 List<ItemData> newProcChainBranch = new List<ItemData>(damageEvent.ProcChainBranch) { Data };
-                damageable.DealDamage(new DamageInfo(data.Damage.GetValue(stacks), data.ProcCoefficient, data.ArmorPenetration), source, source, newProcChainBranch);
+
+                DamageInfo damageInfo = new DamageInfo(data.Damage.GetValue(stacks), data.ProcCoefficient, data.ArmorPenetration)
+                {
+                    direction = (damageEvent.SourceUser.transform.position - source.transform.position).normalized
+                };
+
+                damageable.DealDamage(damageInfo, source, source, newProcChainBranch);
             }
         }
     }
