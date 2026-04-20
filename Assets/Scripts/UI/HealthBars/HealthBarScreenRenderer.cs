@@ -26,6 +26,11 @@ public class HealthBarScreenRenderer : MonoBehaviour
         damageable.onAnyHealthUpdate += UpdateBar;
     }
 
+    private void Start()
+    {
+        UpdateBar();
+    }
+
     private void OnDestroy()
     {
         if (window == null) return;
