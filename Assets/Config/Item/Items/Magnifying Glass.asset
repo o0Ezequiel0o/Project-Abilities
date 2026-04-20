@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b813d8a7692b08b4e9c742f08c539587, type: 3}
   m_Name: Magnifying Glass
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   worldPrefab: {fileID: 3753182464441508134, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
   <Icon>k__BackingField: {fileID: 92086293866280538, guid: 6bba9cfa306935447b942680fcc104fe, type: 3}
   <Outline>k__BackingField: {fileID: -630506825, guid: 6bba9cfa306935447b942680fcc104fe, type: 3}
@@ -29,4 +28,4 @@ MonoBehaviour:
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 1
-        increase: 0.1
+        increase: 0.15

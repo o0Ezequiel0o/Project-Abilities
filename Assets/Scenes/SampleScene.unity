@@ -1506,7 +1506,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1608614820}
   - component: {fileID: 1608614821}
-  - component: {fileID: 1608614822}
   m_Layer: 0
   m_Name: Debug
   m_TagString: Untagged
@@ -1547,24 +1546,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   selectInput: {fileID: 2528258934333979048, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
---- !u!114 &1608614822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608614819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed63290a42a6a6c4fb500083c87007fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DummyScript
-  moveSpeed: 0
-  colliderRadius: 0
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  testVelocity: {x: 0, y: 0}
 --- !u!1001 &1693831994
 PrefabInstance:
   m_ObjectHideFlags: 0

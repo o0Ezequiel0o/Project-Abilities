@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Zeke.Items;
-using Zeke.Collections;
 
 public class Damageable : MonoBehaviour, IUpgradable
 {
@@ -26,17 +25,17 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     public bool MarkedForDeath { get; private set; }
 
-    public OrderedAction<HealEvent> onReceiveHealth = new OrderedAction<HealEvent>();
-    public OrderedAction<HealEvent> onReceivedHealth = new OrderedAction<HealEvent>();
+    public Action<HealEvent> onReceiveHealth;
+    public Action<HealEvent> onReceivedHealth;
 
     /// <summary> Called when hit, before any condition. </summary>
-    public OrderedAction<DamageEvent> onDamageEvent = new OrderedAction<DamageEvent>();
+    public Action<DamageEvent> onDamageEvent;
     
-    public OrderedAction<DamageEvent> onTakeDamage = new OrderedAction<DamageEvent>();
-    public OrderedAction<DamageEvent> onTakenDamage = new OrderedAction<DamageEvent>();
+    public Action<DamageEvent> onTakeDamage;
+    public Action<DamageEvent> onTakenDamage;
 
-    public OrderedAction<DamageEvent> onHitTaken = new OrderedAction<DamageEvent>();
-    public OrderedAction<DamageEvent> onDeath = new OrderedAction<DamageEvent>();
+    public Action<DamageEvent> onHitTaken;
+    public Action<DamageEvent> onDeath;
 
     public Action onAnyHealthUpdate;
 
@@ -234,10 +233,10 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     public class DamageEvent
     {
-        public static readonly OrderedActionDictionary<GameObject, DamageEvent> onDamageDealt = new OrderedActionDictionary<GameObject, DamageEvent>();
-        public static readonly OrderedActionDictionary<GameObject, DamageEvent> onDealDamage = new OrderedActionDictionary<GameObject, DamageEvent>();
-        public static readonly OrderedActionDictionary<GameObject, DamageEvent> onKill = new OrderedActionDictionary<GameObject, DamageEvent>();
-        public static readonly OrderedActionDictionary<GameObject, DamageEvent> onHit = new OrderedActionDictionary<GameObject, DamageEvent>();
+        public static readonly ActionDictionary<GameObject, DamageEvent> onDamageDealt = new ActionDictionary<GameObject, DamageEvent>();
+        public static readonly ActionDictionary<GameObject, DamageEvent> onDealDamage = new ActionDictionary<GameObject, DamageEvent>();
+        public static readonly ActionDictionary<GameObject, DamageEvent> onKill = new ActionDictionary<GameObject, DamageEvent>();
+        public static readonly ActionDictionary<GameObject, DamageEvent> onHit = new ActionDictionary<GameObject, DamageEvent>();
 
         public float Damage { get; private set; }
         public float BaseDamage { get; private set; }

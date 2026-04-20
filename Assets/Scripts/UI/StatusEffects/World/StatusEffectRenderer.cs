@@ -29,11 +29,11 @@ public class StatusEffectRenderer : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        statusEffectHandler.onEffectApplied.Subscribe(interfaceInstance.AddStatusEffectSlot);
-        statusEffectHandler.onEffectRemoved.Subscribe(interfaceInstance.RemoveStatusEffectSlot);
+        statusEffectHandler.onEffectApplied += interfaceInstance.AddStatusEffectSlot;
+        statusEffectHandler.onEffectRemoved += interfaceInstance.RemoveStatusEffectSlot;
 
-        statusEffectHandler.onStacksApplied.Subscribe(interfaceInstance.UpdateStatusEffectSlot);
-        statusEffectHandler.onStacksRemoved.Subscribe(interfaceInstance.UpdateStatusEffectSlot);
+        statusEffectHandler.onStacksApplied += interfaceInstance.UpdateStatusEffectSlot;
+        statusEffectHandler.onStacksRemoved += interfaceInstance.UpdateStatusEffectSlot;
     }
 
     private void SpawnInterfaceInCanvas()

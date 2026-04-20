@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 using Zeke.UI;
 using TMPro;
-using Zeke.Collections;
 
 namespace Zeke.Items
 {
@@ -26,8 +25,8 @@ namespace Zeke.Items
         [SerializeField] protected int options = 3;
         [SerializeField] private List<ItemDropSlot> itemDropChance;
 
-        public static OrderedActionDictionary<GameObject, List<ItemGenerationData>> onOptionsGenerated = new OrderedActionDictionary<GameObject, List<ItemGenerationData>>();
-        public static OrderedActionDictionary<GameObject, ItemGenerationData> onItemSelected = new OrderedActionDictionary<GameObject, ItemGenerationData>();
+        public static ActionDictionary<GameObject, List<ItemGenerationData>> onOptionsGenerated;
+        public static ActionDictionary<GameObject, ItemGenerationData> onItemSelected;
 
         private UIWindow windowInstance;
 

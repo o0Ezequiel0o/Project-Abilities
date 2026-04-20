@@ -6,8 +6,6 @@ namespace Zeke.Items
     {
         public static bool RollProc(float chance, float coefficient, int luck)
         {
-            if (coefficient == 0 || chance == 0) return false;
-
             bool rollSucess = chance * coefficient > Random.Range(0f, 100f - Mathf.Epsilon);
 
             if (luck < 0 && rollSucess)
@@ -26,6 +24,8 @@ namespace Zeke.Items
 
         public int stacks;
 
+        public virtual void OnUpdate() { }
+
         public virtual void OnAdded() { }
 
         public virtual void OnRemoved() { }
@@ -34,6 +34,24 @@ namespace Zeke.Items
 
         public virtual void OnStackRemoved() { }
 
-        public virtual void OnUpdate() { }
+        public virtual void OnHealthHealed(Damageable.HealEvent healingEvent) { }
+
+        public virtual void OnHealthReceived(Damageable.HealEvent healingEvent) { }
+
+        public virtual void OnHit(Damageable.DamageEvent damageEvent) { }
+
+        public virtual void OnHitTaken(Damageable.DamageEvent damageEvent) { }
+
+        public virtual void OnDealDamage(Damageable.DamageEvent damageEvent) { }
+
+        public virtual void OnTakeDamage(Damageable.DamageEvent damageEvent) { }
+
+        public virtual void OnDamageDealt(Damageable.DamageEvent damageEvent) { }
+
+        public virtual void OnDamageTaken(Damageable.DamageEvent damageEvent) { }
+
+        public virtual void OnKill(Damageable.DamageEvent damageEvent) { }
+
+        public virtual void OnDeath(Damageable.DamageEvent damageEvent) { }
     }
 }

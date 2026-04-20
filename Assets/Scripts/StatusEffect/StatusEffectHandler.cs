@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Zeke.Collections;
+using System;
 
 public class StatusEffectHandler : MonoBehaviour
 {
@@ -12,12 +12,12 @@ public class StatusEffectHandler : MonoBehaviour
     public List<StatusEffect> StatusEffects => statusEffects;
 
     /// <summary> Called before any effect is applied. Returns the data of the status effect, source and stacks to apply. </summary>
-    public OrderedAction<EffectApplyInfo> onApplyEffect = new OrderedAction<EffectApplyInfo>();
+    public Action<StatusEffectData, GameObject, int> onApplyEffect;
 
-    public OrderedAction<StatusEffect> onEffectApplied = new OrderedAction<StatusEffect>();
-    public OrderedAction<StatusEffect> onStacksApplied = new OrderedAction<StatusEffect>();
-    public OrderedAction<StatusEffect> onEffectRemoved = new OrderedAction<StatusEffect>();
-    public OrderedAction<StatusEffect> onStacksRemoved = new OrderedAction<StatusEffect>();
+    public Action<StatusEffect> onEffectApplied;
+    public Action<StatusEffect> onStacksApplied;
+    public Action<StatusEffect> onEffectRemoved;
+    public Action<StatusEffect> onStacksRemoved;
 
     private readonly HashSet<StatusEffectData> statusEffectsImmunity = new HashSet<StatusEffectData>();
     private readonly List<StatusEffect> statusEffects = new List<StatusEffect>();
@@ -31,7 +31,7 @@ public class StatusEffectHandler : MonoBehaviour
 
     public void ApplyEffect(StatusEffectData statusEffectData, GameObject source, int stacks)
     {
-        onApplyEffect?.Invoke(new EffectApplyInfo(statusEffectData, source, stacks));
+        onApplyEffect?.Invoke(statusEffectData, source, stacks);
 
         if (statusEffectsImmunity.Contains(statusEffectData) || Immune)
         {
@@ -171,19 +171,5 @@ public class StatusEffectHandler : MonoBehaviour
         statusEffect.OnStackApplied(stacks);
 
         onStacksApplied?.Invoke(statusEffect);
-    }
-
-    public readonly struct EffectApplyInfo
-    {
-        public readonly StatusEffectData data;
-        public readonly GameObject source;
-        public readonly int stacks;
-
-        public EffectApplyInfo(StatusEffectData data, GameObject source, int stacks)
-        {
-            this.data = data;
-            this.source = source;
-            this.stacks = stacks;
-        }
     }
 }

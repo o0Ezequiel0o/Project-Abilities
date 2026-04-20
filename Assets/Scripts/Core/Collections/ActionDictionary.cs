@@ -1,49 +1,46 @@
 using System.Collections.Generic;
 using System;
 
-namespace Zeke.Collections
+public class ActionDictionary<TSubKey, TCallBack>
 {
-    public class ActionDictionary<TSubKey, TCallBack>
+    private readonly Dictionary<TSubKey, Action<TCallBack>> subscribers;
+
+    public ActionDictionary()
     {
-        private readonly Dictionary<TSubKey, Action<TCallBack>> subscribers;
+        subscribers = new Dictionary<TSubKey, Action<TCallBack>>();
+    }
 
-        public ActionDictionary()
+    public void Invoke(TSubKey key, TCallBack output)
+    {
+        if (key == null) return;
+
+        if (subscribers.TryGetValue(key, out Action<TCallBack> callBack))
         {
-            subscribers = new Dictionary<TSubKey, Action<TCallBack>>();
+            callBack?.Invoke(output);
         }
+    }
 
-        public void Invoke(TSubKey key, TCallBack output)
+    public void Subscribe(TSubKey key, Action<TCallBack> callBack)
+    {
+        if (subscribers.ContainsKey(key))
         {
-            if (key == null) return;
-
-            if (subscribers.TryGetValue(key, out Action<TCallBack> callBack))
-            {
-                callBack?.Invoke(output);
-            }
+            subscribers[key] += callBack;
         }
-
-        public void Subscribe(TSubKey key, Action<TCallBack> callBack)
+        else
         {
-            if (subscribers.ContainsKey(key))
-            {
-                subscribers[key] += callBack;
-            }
-            else
-            {
-                subscribers.Add(key, callBack);
-            }
+            subscribers.Add(key, callBack);
         }
+    }
 
-        public void Unsubscribe(TSubKey source, Action<TCallBack> callBack)
+    public void Unsubscribe(TSubKey source, Action<TCallBack> callBack)
+    {
+        if (subscribers.ContainsKey(source))
         {
-            if (subscribers.ContainsKey(source))
-            {
-                subscribers[source] -= callBack;
+            subscribers[source] -= callBack;
 
-                if (subscribers[source] == null)
-                {
-                    subscribers.Remove(source);
-                }
+            if (subscribers[source] == null)
+            {
+                subscribers.Remove(source);
             }
         }
     }

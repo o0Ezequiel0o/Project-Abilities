@@ -35,9 +35,9 @@ public class DamageableParticles : MonoBehaviour
 
     void SubscribeToEvents(Damageable damageable)
     {
-        damageable.onTakenDamage.Subscribe(OnDamageTaken);
-        damageable.onHitTaken.Subscribe(OnHitTaken);
-        damageable.onDeath.Subscribe(OnDeath);
+        damageable.onTakenDamage += OnDamageTaken;
+        damageable.onHitTaken += OnHitTaken;
+        damageable.onDeath += OnDeath;
     }
 
     void OnDamageTaken(Damageable.DamageEvent _)

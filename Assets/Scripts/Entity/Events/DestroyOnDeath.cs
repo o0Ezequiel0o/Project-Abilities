@@ -7,7 +7,7 @@ public class DestroyOnDeath : MonoBehaviour
     {
         if (TryGetComponent(out Damageable damageable))
         {
-            damageable.onDeath.Subscribe(Destroy);
+            damageable.onDeath += Destroy;
         }
     }
 

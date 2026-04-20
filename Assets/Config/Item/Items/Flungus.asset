@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bfa2f76f260ad47bdd4fc5491c6d06, type: 3}
   m_Name: Flungus
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   worldPrefab: {fileID: 3753182464441508134, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
   <Icon>k__BackingField: {fileID: -1130577112789112938, guid: e5f71359257a23e468f09ecd6b6f8962, type: 3}
   <Outline>k__BackingField: {fileID: 7933047657225129039, guid: e5f71359257a23e468f09ecd6b6f8962, type: 3}

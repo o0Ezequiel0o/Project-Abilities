@@ -36,7 +36,7 @@ public class DamageableNumbers : MonoBehaviour
     {
         if (TryGetComponent(out Damageable damageable))
         {
-            damageable.onTakenDamage.Subscribe(DisplayDamageNumber);
+            damageable.onTakenDamage += DisplayDamageNumber;
         }
     }
 

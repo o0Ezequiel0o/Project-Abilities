@@ -22,18 +22,12 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
-        public override void OnAdded()
-        {
-            Damageable.DamageEvent.onHit.Subscribe(source, OnHit, data.TriggerOrder);
-        }
-
         public override void OnRemoved()
         {
-            Damageable.DamageEvent.onHit.Unsubscribe(source, OnHit);
             missilePool.Clear();
         }
 
-        private void OnHit(Damageable.DamageEvent damageEvent)
+        public override void OnHit(Damageable.DamageEvent damageEvent)
         {
             if (!RollProc(data.ProcChance, damageEvent.ProcCoefficient, itemHandler.Luck)) return;
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;

@@ -18,23 +18,7 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
-        public override void OnAdded()
-        {
-            if (source.TryGetComponent(out Damageable damageable))
-            {
-                damageable.onTakenDamage.Subscribe(OnTakenDamage, data.TriggerOrder);
-            }
-        }
-
-        public override void OnRemoved()
-        {
-            if (source.TryGetComponent(out Damageable damageable))
-            {
-                damageable.onTakeDamage.Unsubscribe(OnTakenDamage);
-            }
-        }
-
-        private void OnTakenDamage(Damageable.DamageEvent damageEvent)
+        public override void OnDamageTaken(Damageable.DamageEvent damageEvent)
         {
             if (damageEvent.SourceUser == source) return;
             if (damageEvent.ProcChainBranch.Contains(Data)) return;

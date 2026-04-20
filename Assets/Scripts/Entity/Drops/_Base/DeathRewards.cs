@@ -8,7 +8,7 @@ public class DeathRewards : MonoBehaviour
     {
         if (TryGetComponent(out Damageable damageable))
         {
-            damageable.onDeath.Subscribe(OnDeath);
+            damageable.onDeath += OnDeath;
         }
     }
 

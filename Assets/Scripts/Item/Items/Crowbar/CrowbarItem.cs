@@ -17,17 +17,7 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
-        public override void OnAdded()
-        {
-            Damageable.DamageEvent.onDealDamage.Subscribe(source, OnDealDamage, data.TriggerOrder);
-        }
-
-        public override void OnRemoved()
-        {
-            Damageable.DamageEvent.onDealDamage.Unsubscribe(source, OnDealDamage);
-        }
-
-        private void OnDealDamage(Damageable.DamageEvent damageEvent)
+        public override void OnDealDamage(Damageable.DamageEvent damageEvent)
         {
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
 

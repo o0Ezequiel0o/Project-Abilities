@@ -113,13 +113,15 @@ MonoBehaviour:
   options: 3
   itemDropChance:
   - rarity: 0
-    weight: 1000
+    weight: 100
   - rarity: 1
-    weight: 200
+    weight: 0
   - rarity: 2
     weight: 0
   - rarity: 3
-    weight: 3
+    weight: 0
+  - rarity: 4
+    weight: 0
   fadeAwaySeconds: 1
 --- !u!61 &3627848488999911121
 BoxCollider2D:

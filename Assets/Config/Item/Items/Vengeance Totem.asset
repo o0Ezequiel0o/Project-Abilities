@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b96f17453ca31244e9e5f2d13f9bf92c, type: 3}
   m_Name: Vengeance Totem
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   worldPrefab: {fileID: 3753182464441508134, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
   <Icon>k__BackingField: {fileID: -5526905303279678722, guid: 263c59f857c95a44fbc226be66a709fc, type: 3}
   <Outline>k__BackingField: {fileID: -1042015122476481078, guid: 263c59f857c95a44fbc226be66a709fc, type: 3}
