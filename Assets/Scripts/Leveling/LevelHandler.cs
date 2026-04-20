@@ -1,5 +1,5 @@
 using UnityEngine;
-using System;
+using Zeke.Collections;
 
 public class LevelHandler : MonoBehaviour
 {
@@ -10,8 +10,8 @@ public class LevelHandler : MonoBehaviour
     public int Experience => experience;
     public int ExperienceRequired => experienceRequired;
 
-    public Action<int> onLevelUp;
-    public Action<int> onReceiveExperience;
+    public OrderedAction<int> onLevelUp = new OrderedAction<int>();
+    public OrderedAction<int> onReceiveExperience = new OrderedAction<int>();
 
     private int experience = 0;
     private int experienceRequired = 0;

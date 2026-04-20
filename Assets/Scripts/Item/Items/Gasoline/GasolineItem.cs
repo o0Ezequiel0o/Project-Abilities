@@ -23,7 +23,17 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
-        public override void OnKill(Damageable.DamageEvent damageEvent)
+        public override void OnAdded()
+        {
+            Damageable.DamageEvent.onKill.Subscribe(source, OnKill, data.TriggerOrder);
+        }
+
+        public override void OnRemoved()
+        {
+            Damageable.DamageEvent.onKill.Unsubscribe(source, OnKill);
+        }
+
+        private void OnKill(Damageable.DamageEvent damageEvent)
         {
             hits.Clear();
 

@@ -63,7 +63,7 @@ public class HealthBarRenderer : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        damageable.onTakenDamage += OnDamageTaken;
+        damageable.onTakenDamage.Subscribe(OnDamageTaken);
         damageable.onAnyHealthUpdate += UpdateHealthBar;
     }
 

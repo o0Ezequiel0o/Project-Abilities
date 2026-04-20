@@ -5,10 +5,10 @@ namespace Zeke.Items
     public class MagnifyingGlassItem : Item
     {
         public override ItemData Data => data;
-        private MagnifyingGlassItemData data;
+        private readonly MagnifyingGlassItemData data;
 
-        private ItemHandler itemHandler;
-        private GameObject source;
+        private readonly ItemHandler itemHandler;
+        private readonly GameObject source;
 
         public MagnifyingGlassItem(MagnifyingGlassItemData data, ItemHandler itemHandler, GameObject source)
         {
@@ -17,7 +17,17 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
-        public override void OnDealDamage(Damageable.DamageEvent damageEvent)
+        public override void OnAdded()
+        {
+            Damageable.DamageEvent.onDealDamage.Subscribe(source, OnDealDamage, data.TriggerOrder);
+        }
+
+        public override void OnRemoved()
+        {
+            Damageable.DamageEvent.onDealDamage.Unsubscribe(source, OnDealDamage);
+        }
+
+        private void OnDealDamage(Damageable.DamageEvent damageEvent)
         {
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
 

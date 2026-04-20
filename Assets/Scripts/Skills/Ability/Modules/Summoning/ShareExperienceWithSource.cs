@@ -12,7 +12,7 @@ namespace Zeke.Abilities.Modules.Summoning
         {
             if (summon.TryGetComponent(out LevelHandler summonLevelHandler) && source.TryGetComponent(out LevelHandler sourceLevelHandler))
             {
-                summonLevelHandler.onReceiveExperience += sourceLevelHandler.GiveExperience;
+                summonLevelHandler.onReceiveExperience.Subscribe(sourceLevelHandler.GiveExperience);
             }
         }
 
@@ -20,7 +20,7 @@ namespace Zeke.Abilities.Modules.Summoning
         {
             if (summon.TryGetComponent(out LevelHandler summonLevelHandler) && source.TryGetComponent(out LevelHandler sourceLevelHandler))
             {
-                summonLevelHandler.onReceiveExperience -= sourceLevelHandler.GiveExperience;
+                summonLevelHandler.onReceiveExperience.Unsubscribe(sourceLevelHandler.GiveExperience);
             }
         }
     }

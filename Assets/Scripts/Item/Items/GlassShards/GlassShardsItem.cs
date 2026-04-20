@@ -17,7 +17,17 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
-        public override void OnHit(Damageable.DamageEvent damageEvent)
+        public override void OnAdded()
+        {
+            Damageable.DamageEvent.onHit.Subscribe(source, OnHit, data.TriggerOrder);
+        }
+
+        public override void OnRemoved()
+        {
+            Damageable.DamageEvent.onHit.Unsubscribe(source, OnHit);
+        }
+
+        private void OnHit(Damageable.DamageEvent damageEvent)
         {
             if (!RollProc(data.ProcChance.GetValue(stacks), damageEvent.ProcCoefficient, itemHandler.Luck)) return;
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;

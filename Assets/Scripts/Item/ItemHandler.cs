@@ -20,8 +20,7 @@ namespace Zeke.Items
 
         public Action<ItemData, int> onItemStacksUpdated;
 
-        private List<Item> items = new List<Item>();
-
+        private readonly List<Item> items = new List<Item>();
         private readonly List<ItemData> itemsData = new List<ItemData>();
 
         public void AddItems(List<ItemData> itemsData)
@@ -118,16 +117,15 @@ namespace Zeke.Items
             return false;
         }
 
-        public void ClearItems()
+        public void RemoveItems()
         {
+            for (int i = 0; i < items.Count; i++)
+            {
+                items[i].OnRemoved();
+            }
+
             items.Clear();
             itemsData.Clear();
-        }
-
-        private void Awake()
-        {
-            SubscribeToEvents();
-            SubscribeToGlobalEvents();
         }
 
         private void Update()
@@ -140,7 +138,10 @@ namespace Zeke.Items
 
         private void OnDestroy()
         {
-            UnsubscribeFromGlobalEvents();
+            for (int i = 0; i < items.Count; i++)
+            {
+                items[i].OnRemoved();
+            }
         }
 
         private void AddNewItem(ItemData itemData)
@@ -148,7 +149,6 @@ namespace Zeke.Items
             items.Add(itemData.CreateItem(this, gameObject));
             items[^1].stacks = 1;
             items[^1].OnAdded();
-            UpdateItemsOrder();
 
             itemsData.Add(itemData);
         }
@@ -157,140 +157,6 @@ namespace Zeke.Items
         {
             item.OnStackAdded();
             item.stacks += 1;
-        }
-
-        private void UpdateItemsOrder()
-        {
-            List<Item> orderedInventory = new List<Item>();
-
-            for (int i = 0; i < itemSettings.TriggerOrder.Count; i++)
-            {
-                if (orderedInventory.Count == items.Count)
-                {
-                    break;
-                }
-
-                for (int x = 0; x < items.Count; x++)
-                {
-                    if (itemSettings.TriggerOrder[i] == items[x].Data)
-                    {
-                        orderedInventory.Add(items[x]);
-                        break;
-                    }
-                }
-            }
-
-            items = orderedInventory;
-        }
-
-        private void SubscribeToEvents()
-        {
-            if (TryGetComponent(out Damageable damageable))
-            {
-                damageable.onReceivedHealth += OnHealthReceived;
-                damageable.onTakenDamage += OnDamageTaken;
-                damageable.onTakeDamage += OnTakeDamage;
-                damageable.onHitTaken += OnHitTaken;
-                damageable.onDeath += OnDeath;
-            }
-        }
-
-        private void SubscribeToGlobalEvents()
-        {
-            Damageable.HealEvent.onHealthHealed.Subscribe(gameObject, OnHealthHealed);
-            Damageable.DamageEvent.onDamageDealt.Subscribe(gameObject, OnDamageDealt);
-            Damageable.DamageEvent.onDealDamage.Subscribe(gameObject, OnDealDamage);
-            Damageable.DamageEvent.onKill.Subscribe(gameObject, OnKill);
-            Damageable.DamageEvent.onHit.Subscribe(gameObject, OnHit);
-        }
-
-        private void UnsubscribeFromGlobalEvents()
-        {
-            Damageable.HealEvent.onHealthHealed.Unsubscribe(gameObject, OnHealthHealed);
-            Damageable.DamageEvent.onDamageDealt.Unsubscribe(gameObject, OnDamageDealt);
-            Damageable.DamageEvent.onDealDamage.Unsubscribe(gameObject, OnDealDamage);
-            Damageable.DamageEvent.onKill.Unsubscribe(gameObject, OnKill);
-            Damageable.DamageEvent.onHit.Unsubscribe(gameObject, OnHit);
-        }
-
-        private void OnHealthHealed(Damageable.HealEvent healingEvent)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].OnHealthHealed(healingEvent);
-            }
-        }
-
-        private void OnHealthReceived(Damageable.HealEvent healingEvent)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].OnHealthReceived(healingEvent);
-            }
-        }
-
-        private void OnHit(Damageable.DamageEvent damageEvent)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].OnHit(damageEvent);
-            }
-        }
-
-        private void OnHitTaken(Damageable.DamageEvent damageEvent)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].OnHitTaken(damageEvent);
-            }
-        }
-
-        private void OnDealDamage(Damageable.DamageEvent damageEvent)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].OnDealDamage(damageEvent);
-            }
-        }
-
-        private void OnTakeDamage(Damageable.DamageEvent damageEvent)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].OnTakeDamage(damageEvent);
-            }
-        }
-
-        private void OnDamageDealt(Damageable.DamageEvent damageEvent)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].OnDamageDealt(damageEvent);
-            }
-        }
-
-        private void OnDamageTaken(Damageable.DamageEvent damageEvent)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].OnDamageTaken(damageEvent);
-            }
-        }
-
-        private void OnKill(Damageable.DamageEvent damageEvent)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].OnKill(damageEvent);
-            }
-        }
-
-        private void OnDeath(Damageable.DamageEvent damageEvent)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].OnDeath(damageEvent);
-            }
         }
     }
 }

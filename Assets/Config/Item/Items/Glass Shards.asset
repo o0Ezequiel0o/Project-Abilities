@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d77dc8cba9aaecc479408c2a5b710ad6, type: 3}
   m_Name: Glass Shards
   m_EditorClassIdentifier: Assembly-CSharp::GlassShardsItemData
+  settings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   worldPrefab: {fileID: 3753182464441508134, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}

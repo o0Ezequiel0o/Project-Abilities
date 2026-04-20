@@ -35,7 +35,7 @@ public class EngineerExosuit : Exosuit
     protected override void OnExitVehicle(GameObject source)
     {
         RemoveExoBuffs(source);
-        ClearInheritItems(source);
+        RemoveInheritedItems(source);
         RemoveSuitSkills(source);
         UnlockAbilities(source);
         base.OnExitVehicle(source);
@@ -130,9 +130,9 @@ public class EngineerExosuit : Exosuit
         }
     }
 
-    private void ClearInheritItems(GameObject source)
+    private void RemoveInheritedItems(GameObject source)
     {
-        itemHandler.ClearItems();
+        itemHandler.RemoveItems();
     }
 
     private void IncreaseDamage(Damageable.DamageEvent damageEvent)

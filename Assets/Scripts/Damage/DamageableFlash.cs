@@ -30,11 +30,11 @@ public class DamageableFlash : MonoBehaviour
         switch (triggerEvent)
         {
             case TriggerEvent.Hit:
-                damageable.onHitTaken += StartFlash;
+                damageable.onHitTaken.Subscribe(StartFlash);
                 break;
 
             case TriggerEvent.Damage:
-                damageable.onTakenDamage += StartFlash;
+                damageable.onTakenDamage.Subscribe(StartFlash);
                 break;
         }
     }

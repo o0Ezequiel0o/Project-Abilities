@@ -8,45 +8,51 @@ namespace Zeke.Items
         private readonly TomeItemData data;
 
         private readonly GameObject source;
+        private LevelHandler levelHandler;
 
-        private readonly Stat.Multiplier experienceMultiplier;
+        private float flatModifier = 0f;
 
         public TomeItem(TomeItemData data, ItemHandler _, GameObject source)
         {
             this.data = data;
             this.source = source;
-
-            experienceMultiplier = new Stat.Multiplier(1f);
         }
 
         public override void OnAdded()
         {
-            if (source.TryGetComponent(out LevelHandler levelHandler))
-            {
-                levelHandler.ExperienceMultiplier.AddMultiplier(experienceMultiplier);
-            }
-
-            experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
+            levelHandler = source.GetComponent<LevelHandler>();
+            UpdateFlatModifier();
         }
 
         public override void OnRemoved()
         {
-            experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
-
-            if (source.TryGetComponent(out LevelHandler levelHandler))
-            {
-                levelHandler.ExperienceMultiplier.RemoveMultiplier(experienceMultiplier);
-            }
+            RemoveFlatModifier();
         }
 
         public override void OnStackAdded()
         {
-            experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
+            UpdateFlatModifier();
         }
 
         public override void OnStackRemoved()
         {
-            experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks));
+            UpdateFlatModifier();
+        }
+
+        private void UpdateFlatModifier()
+        {
+            if (levelHandler == null) return;
+
+            float oldFlatModifier = flatModifier;
+            flatModifier = data.XPFlatMult.GetValue(stacks);
+
+            levelHandler.ExperienceMultiplier.ApplyFlatModifier(-oldFlatModifier);
+            levelHandler.ExperienceMultiplier.ApplyFlatModifier(flatModifier);
+        }
+
+        private void RemoveFlatModifier()
+        {
+            levelHandler.ExperienceMultiplier.ApplyFlatModifier(-flatModifier);
         }
     }
 }

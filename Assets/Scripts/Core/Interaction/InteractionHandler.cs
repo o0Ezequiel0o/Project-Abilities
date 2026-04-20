@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using Zeke.Collections;
 
 public class InteractionHandler : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class InteractionHandler : MonoBehaviour
     [SerializeField] private float checkInterval;
 
     public GameObject SelectedInteractable => currentInteractable?.gameObject;
-    public Action<InteractionResult> onInteraction;
+    public OrderedAction<InteractionResult> onInteraction = new OrderedAction<InteractionResult>();
 
     private GameObject overlayObjectInstance;
     private InteractableData currentInteractable;
