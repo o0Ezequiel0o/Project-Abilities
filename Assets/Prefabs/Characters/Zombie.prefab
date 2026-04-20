@@ -593,7 +593,7 @@ MonoBehaviour:
   yStart: 0.5
   yLowest: -0.5
   yLower: 0.3
-  xRandomTest: 0.15
+  xRandom: 0.15
 --- !u!114 &2850728051695421839
 MonoBehaviour:
   m_ObjectHideFlags: 0

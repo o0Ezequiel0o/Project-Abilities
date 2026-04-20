@@ -31,6 +31,9 @@ namespace Zeke.Abilities.Modules
             castOffset = original.castOffset;
 
             knockback = original.knockback;
+            armorPenetration = original.armorPenetration;
+            procCoefficient = original.procCoefficient;
+
             hitLayers = original.hitLayers;
             castAtSourceCenter = original.castAtSourceCenter;
 
