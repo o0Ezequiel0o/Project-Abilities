@@ -9,6 +9,8 @@ namespace Zeke.Abilities.Modules
     public class BasicAttack : AbilityModule
     {
         [SerializeField] private Stat damage;
+        [SerializeField] private float armorPenetration;
+        [SerializeField] private float procCoefficient;
         [SerializeField] private float knockback;
 
         [Space]
@@ -86,7 +88,7 @@ namespace Zeke.Abilities.Modules
             {
                 if (target.TryGetComponent(out Damageable damageable))
                 {
-                    DamageInfo damageInfo = new DamageInfo(damage, 0f, 1f)
+                    DamageInfo damageInfo = new DamageInfo(damage, armorPenetration, procCoefficient)
                     {
                         direction = (damageable.transform.position - source.transform.position).normalized
                     };

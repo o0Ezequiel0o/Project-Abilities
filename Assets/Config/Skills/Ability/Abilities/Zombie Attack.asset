@@ -59,6 +59,8 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
+        armorPenetration: 0
+        procCoefficient: 1
         knockback: 5
         shape:
           rid: 3611678692085071970
