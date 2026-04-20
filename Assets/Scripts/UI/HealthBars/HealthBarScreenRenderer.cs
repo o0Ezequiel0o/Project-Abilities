@@ -11,7 +11,7 @@ public class HealthBarScreenRenderer : MonoBehaviour
     [SerializeField] private UIWindow windowPrefab;
 
     private UIWindow window;
-    private HealthBar healthBar;
+    private ScreenHealthBar healthBar;
 
     private void Reset()
     {
@@ -21,7 +21,7 @@ public class HealthBarScreenRenderer : MonoBehaviour
     private void Awake()
     {
         window = Instantiate(windowPrefab, GameInstance.ScreenCanvas.transform);
-        healthBar = window.TryGetElement<HealthBar>("Health Bar");
+        healthBar = window.TryGetElement<ScreenHealthBar>("Health Bar");
 
         damageable.onAnyHealthUpdate += UpdateBar;
     }
@@ -37,6 +37,6 @@ public class HealthBarScreenRenderer : MonoBehaviour
         float healthRatio = damageable.Health / damageable.MaxHealth.Value;
         float shieldRatio = damageable.Shield / damageable.MaxShield.Value;
 
-        healthBar.UpdateBar(healthRatio, shieldRatio);
+        healthBar.UpdateBar(healthRatio, shieldRatio, damageable.CombinedHealth);
     }
 }

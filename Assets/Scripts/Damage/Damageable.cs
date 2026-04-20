@@ -22,8 +22,10 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     public float Health { get; private set; }
     public float Shield { get; private set; }
-    public bool IsAlive { get; private set; }
 
+    public float CombinedHealth => Health + Shield;
+
+    public bool IsAlive { get; private set; }
     public bool MarkedForDeath { get; private set; }
 
     public OrderedAction<HealEvent> onReceiveHealth = new OrderedAction<HealEvent>();
@@ -147,10 +149,9 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     private float TakeDamage(float damage, bool lethal)
     {
-        float combinedHealth = Health + Shield;
-        float damageTaken = Mathf.Min(combinedHealth, damage);
+        float damageTaken = Mathf.Min(CombinedHealth, damage);
 
-        if (!lethal && damageTaken >= combinedHealth)
+        if (!lethal && damageTaken >= CombinedHealth)
         {
             damageTaken -= 0.01f;
         }

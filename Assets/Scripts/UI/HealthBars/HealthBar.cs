@@ -45,19 +45,19 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    private void StartChipping(float startFill)
+    protected void StartChipping(float startFill)
     {
         chipStartFill = startFill;
         chipping = true;
     }
 
-    private void StopChipping()
+    protected void StopChipping()
     {
         chipping = false;
         chipTimer = 0f;
     }
 
-    private void UpdateChipBarFill()
+    protected void UpdateChipBarFill()
     {
         chip.UpdateBar(Mathf.Lerp(chipStartFill, health.Fill, chipTimer / chipTime));
 
@@ -67,7 +67,7 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    private bool IsInfiniteOrUndefined(float value)
+    protected bool IsInfiniteOrUndefined(float value)
     {
         return float.IsNaN(value) || float.IsInfinity(value);
     }
