@@ -5,10 +5,10 @@ namespace Zeke.Items
     public class GreenCrystalItem : Item
     {
         public override ItemData Data => data;
-        private GreenCrystalItemData data;
+        private readonly GreenCrystalItemData data;
 
-        private ItemHandler itemHandler;
-        private GameObject source;
+        private readonly ItemHandler itemHandler;
+        private readonly GameObject source;
 
         private float extraHealth = 0f;
 
@@ -39,7 +39,7 @@ namespace Zeke.Items
             UpdateHealthValue();
         }
 
-        void UpdateHealthValue()
+        private void UpdateHealthValue()
         {
             if (source.TryGetComponent(out Damageable damageable))
             {
@@ -48,13 +48,13 @@ namespace Zeke.Items
             }
         }
 
-        void ApplyNewHealthModifier(Damageable damageable)
+        private void ApplyNewHealthModifier(Damageable damageable)
         {
             extraHealth = data.ExtraHealth.GetValue(stacks);
             damageable.MaxHealth.ApplyFlatModifier(extraHealth);
         }
 
-        void RemoveOldHealthModifier(Damageable damageable)
+        private void RemoveOldHealthModifier(Damageable damageable)
         {
             damageable.MaxHealth.ApplyFlatModifier(-extraHealth);
         }

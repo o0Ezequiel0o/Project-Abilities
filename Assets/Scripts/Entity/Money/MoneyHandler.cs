@@ -1,5 +1,5 @@
 using UnityEngine;
-using System;
+using Zeke.Collections;
 
 public class MoneyHandler : MonoBehaviour
 {
@@ -7,7 +7,7 @@ public class MoneyHandler : MonoBehaviour
 
     public int Money { get; private set; }
 
-    public Action<int> onReceiveMoney;
+    public OrderedAction<int> onReceiveMoney = new OrderedAction<int>();
 
     public void GiveMoney(int money)
     {

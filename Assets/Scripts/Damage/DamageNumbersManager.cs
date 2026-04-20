@@ -17,7 +17,8 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
     public static float Duration => Duration;
 
     private readonly GameObjectPool<DamageNumber> damageNumbersPool = new GameObjectPool<DamageNumber>();
-    private readonly List<ActiveDamageNumberData> activeDamageNumbers = new List<ActiveDamageNumberData>();
+    private readonly Stack<DamageNumberData> unactiveDamageNumbers = new Stack<DamageNumberData>();
+    private readonly List<DamageNumberData> activeDamageNumbers = new List<DamageNumberData>();
 
     private Canvas worldCanvas;
 
@@ -45,69 +46,76 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
         }
     }
 
-    void Update()
+    private void Update()
     {
         currentTime += Time.deltaTime;
         UpdateAndRemoveActiveNumbers();
     }
 
-    static DamageNumber GetDamageNumber()
+    private static DamageNumber GetDamageNumber()
     {
         return Instance.damageNumbersPool.Get(Instance.damageNumberPrefab, Instance.worldCanvas.transform);
     }
 
-    static void ActivateDamageNumber(DamageNumber damageNumber, GameObject receiver, Vector2 offset)
+    private static void ActivateDamageNumber(DamageNumber damageNumber, GameObject receiver, Vector2 offset)
     {
-        Instance.activeDamageNumbers.Add(new ActiveDamageNumberData(damageNumber, receiver, Instance.currentTime, Instance.duration, offset));
+        DamageNumberData damageNumberData;
+
+        if (Instance.unactiveDamageNumbers.Count <= 0)
+        {
+            damageNumberData = new DamageNumberData(damageNumber, receiver, Instance.currentTime, Instance.duration, offset);
+        }
+        else
+        {
+            damageNumberData = Instance.unactiveDamageNumbers.Pop();
+            damageNumberData.Initialize(damageNumber, receiver, Instance.currentTime, Instance.duration, offset);
+        }
+
+        Instance.activeDamageNumbers.Add(damageNumberData);
+
         damageNumber.gameObject.transform.SetAsLastSibling();
         damageNumber.gameObject.SetActive(true);
     }
 
-    static void InitializeDamageNumber(Vector3 position, DamageNumber damageNumber, float damage, float size)
+    private static void InitializeDamageNumber(Vector3 position, DamageNumber damageNumber, float damage, float size)
     {
         damageNumber.Initialize(damage, size, Instance.config.DefaultColor);
         damageNumber.UpdateAlpha(Instance.config.StartAlpha);
         damageNumber.transform.position = position;
     }
 
-    void UpdateAndRemoveActiveNumbers()
+    private void UpdateAndRemoveActiveNumbers()
     {
         for (int i = activeDamageNumbers.Count - 1; i >= 0; i--)
         {
-            UpdateActiveDamageNumberAlpha(activeDamageNumbers[i]);
+            DamageNumberData damageNumberData = activeDamageNumbers[i];
 
-            if (activeDamageNumbers[i].receiver != null)
+            UpdateActiveDamageNumberAlpha(damageNumberData);
+
+            if (damageNumberData.receiver != null)
             {
-                Vector3 position = GetTargetPosition(activeDamageNumbers[i]);
-                position.y += FloatUpwards(activeDamageNumbers[i].spawnTime);
-
-                activeDamageNumbers[i].number.transform.position = position + activeDamageNumbers[i].offset;
+                damageNumberData.UpdateLastPosition();
             }
 
-            if (currentTime > activeDamageNumbers[i].despawnTime)
+            Vector3 newPosition = damageNumberData.lastPosition;
+            Vector3 newOffset = damageNumberData.offset;
+            newOffset.y += Instance.config.FloatSpeed * Time.deltaTime;
+
+            damageNumberData.offset = newOffset;
+            newPosition += damageNumberData.offset;
+
+            damageNumberData.number.transform.position = newPosition;
+
+            if (currentTime > damageNumberData.despawnTime)
             {
-                activeDamageNumbers[i].number.gameObject.SetActive(false);
+                damageNumberData.number.gameObject.SetActive(false);
+                unactiveDamageNumbers.Push(damageNumberData);
                 activeDamageNumbers.RemoveAt(i);
             }
         }
     }
 
-    private float FloatUpwards(float spawnTime)
-    {
-        float timeSinceStarted = (currentTime - spawnTime);
-        float maxHeight = Instance.config.FloatSpeed * Instance.duration;
-
-        float currentFloatHeight = Mathf.Lerp(0f, maxHeight, timeSinceStarted / Instance.duration);
-
-        return currentFloatHeight;
-    }
-
-    private Vector3 GetTargetPosition(ActiveDamageNumberData data)
-    {
-        return data.receiver.transform.position;
-    }
-
-    private void UpdateActiveDamageNumberAlpha(ActiveDamageNumberData data)
+    private void UpdateActiveDamageNumberAlpha(DamageNumberData data)
     {
         float alphaStartTime = Mathf.Lerp(data.spawnTime, data.despawnTime, config.AlphaStartTime);
 
@@ -120,26 +128,37 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
         }
     }
 
-    public readonly struct ActiveDamageNumberData
+    public class DamageNumberData
     {
-        public readonly DamageNumber number;
-        public readonly GameObject receiver;
+        public DamageNumber number;
+        public GameObject receiver;
 
+        public Vector3 lastPosition;
 
-        public readonly float spawnTime;
-        public readonly float despawnTime;
+        public float spawnTime;
+        public float despawnTime;
 
-        public readonly Vector3 offset;
+        public Vector3 offset;
 
-        public ActiveDamageNumberData(DamageNumber number, GameObject receiver, float spawnTime, float duration, Vector3 offset)
+        public DamageNumberData(DamageNumber number, GameObject receiver, float spawnTime, float duration, Vector3 offset)
+        {
+            Initialize(number, receiver, spawnTime, duration, offset);
+        }
+
+        public void Initialize(DamageNumber number, GameObject receiver, float spawnTime, float duration, Vector3 offset)
         {
             this.number = number;
             this.receiver = receiver;
             this.spawnTime = spawnTime;
-
             this.offset = offset;
 
             despawnTime = spawnTime + duration;
+            lastPosition = receiver.transform.position;
+        }
+
+        public void UpdateLastPosition()
+        {
+            lastPosition = receiver.transform.position;
         }
     }
 }

@@ -86,18 +86,33 @@ namespace Zeke.Items
             return null;
         }
 
-        void OnValidate()
+        public int GetTriggerOrder(ItemData itemData)
+        {
+            for (int i = 0; i < itemTriggerOrder.Order.Count; i++)
+            {
+                if (itemTriggerOrder.Order[i] == itemData)
+                {
+                    return i;
+                }
+            }
+
+            Debug.LogWarning($"{itemData.name} does not have a trigger order, please add it to {itemTriggerOrder.name}.", itemData);
+
+            return 0;
+        }
+
+        private void OnValidate()
         {
             SearchForAvaibleItemsNotInTriggerOrder();
             RefreshItemRarityLists();
         }
 
-        void Awake()
+        private void Awake()
         {
             RefreshItemRarityLists();
         }
 
-        void RefreshItemRarityLists()
+        private void RefreshItemRarityLists()
         {
             AddItemsOfRarityToList(commonItems, ItemRarity.Common);
             AddItemsOfRarityToList(rareItems, ItemRarity.Rare);
@@ -106,7 +121,7 @@ namespace Zeke.Items
             AddItemsOfRarityToList(uniqueItems, ItemRarity.Unique);
         }
 
-        void AddItemsOfRarityToList(List<ItemData> list, ItemRarity rarity)
+        private void AddItemsOfRarityToList(List<ItemData> list, ItemRarity rarity)
         {
             list.Clear();
 
@@ -119,7 +134,7 @@ namespace Zeke.Items
             }
         }
 
-        void SearchForAvaibleItemsNotInTriggerOrder()
+        private void SearchForAvaibleItemsNotInTriggerOrder()
         {
             itemsNotInTriggerOrder.Clear();
 

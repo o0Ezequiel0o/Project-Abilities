@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Zeke.Collections;
 
 namespace Zeke.Abilities
 {
@@ -33,8 +34,8 @@ namespace Zeke.Abilities
         /// <summary> Called before ability is used. Returns AbilityType and if input is being held. </summary>
         public Action<AbilityType, bool> onUseAbility;
 
-        public Action<IAbility> onAbilityUsed;
-        public Action<IAbility> onAbilityCharged;
+        public OrderedAction<IAbility> onAbilityUsed = new OrderedAction<IAbility>();
+        public OrderedAction<IAbility> onAbilityCharged = new OrderedAction<IAbility>();
 
         public Action<IAbility> onAbilityAdded;
         public Action<IAbility> onAbilityRemoved;

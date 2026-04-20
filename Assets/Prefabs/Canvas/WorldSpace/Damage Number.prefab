@@ -67,10 +67,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 999999
+  m_text: '9999
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7ca7e5ac908f7df4fb752d5f2bc76a22, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 902d64202718df24893bfe7a06bc149a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -94,8 +96,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.55
-  m_fontSizeBase: 0.55
+  m_fontSize: 0.43
+  m_fontSizeBase: 0.43
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -105,6 +107,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -151,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   display: {fileID: 6037471281710645534}
+  roundToCeil: 1
 --- !u!114 &6292476175978205947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,3 +167,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b640a9d43c55f1443a2893329c2d1dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkDisabled: 1

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd7d9a0a54980ce4bb80dae8b7593469, type: 3}
   m_Name: Crowbar
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   worldPrefab: {fileID: 3753182464441508134, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
   <Icon>k__BackingField: {fileID: 6003113951198659176, guid: e4d36286a357c8d4c99c6f364858e442, type: 3}
   <Outline>k__BackingField: {fileID: -8786367028877512878, guid: e4d36286a357c8d4c99c6f364858e442, type: 3}

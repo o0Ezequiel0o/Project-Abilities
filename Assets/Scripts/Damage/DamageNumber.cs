@@ -23,7 +23,7 @@ public class DamageNumber : MonoBehaviour
     public void UpdateValue(float value)
     {
         if (roundToCeil) value = Mathf.Ceil(value);
-        display.text = value.ToString();
+        display.text = NumberFormatter.FormatNumber(value);
         Value = value;
     }
 }

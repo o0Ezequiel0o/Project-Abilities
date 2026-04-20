@@ -11,6 +11,10 @@ public class DamageableNumbers : MonoBehaviour
     [SerializeField] private float yLowest = -0.5f;
     [SerializeField] private float yLower = 0.3f;
 
+    [Space]
+
+    [SerializeField] private float xRandom = 0.15f;
+
     private float currentYoffset = 0f;
 
     private void Reset()
@@ -36,13 +40,13 @@ public class DamageableNumbers : MonoBehaviour
     {
         if (TryGetComponent(out Damageable damageable))
         {
-            damageable.onTakenDamage += DisplayDamageNumber;
+            damageable.onTakenDamage.Subscribe(DisplayDamageNumber);
         }
     }
 
     private void DisplayDamageNumber(Damageable.DamageEvent damageEvent)
     {
-        Vector2 spawnOffset = new Vector2(0f, currentYoffset);
+        Vector2 spawnOffset = new Vector2(Random.Range(-xRandom, xRandom), currentYoffset);
 
         DamageNumbersManager.DisplayDamageNumber(transform.position, gameObject, damageEvent.UncappedDamageDealt, displaySize, spawnOffset);
         UpdateCurrentOffset(currentYoffset - yLower);

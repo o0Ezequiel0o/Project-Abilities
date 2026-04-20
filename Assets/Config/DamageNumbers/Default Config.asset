@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: addf2ca49da30ef449b4e89c49462edc, type: 3}
   m_Name: Default Config
   m_EditorClassIdentifier: 
-  <DefaultColor>k__BackingField: {r: 1, g: 0, b: 0, a: 1}
+  <DefaultColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
   <AlphaStartTime>k__BackingField: 0.6
   <StartAlpha>k__BackingField: 1
   <FloatSpeed>k__BackingField: 2.5

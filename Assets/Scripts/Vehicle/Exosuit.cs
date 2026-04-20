@@ -29,12 +29,12 @@ public class Exosuit : Vehicle
         if (source.TryGetComponent(out Damageable damageable))
         {
             damageable.AddImmunitySource(immunityID);
-            damageable.onDamageEvent += RedirectDamage;
+            damageable.onDamageEvent.Subscribe(RedirectDamage);
         }
         if (source.TryGetComponent(out StatusEffectHandler statusEffectHandler))
         {
             statusEffectHandler.AddImmunitySource(immunityID);
-            statusEffectHandler.onApplyEffect += RedirectStatusEffect;
+            statusEffectHandler.onApplyEffect.Subscribe(RedirectStatusEffect);
         }
     }
 
@@ -43,12 +43,12 @@ public class Exosuit : Vehicle
         if (source.TryGetComponent(out Damageable damageable))
         {
             damageable.RemoveImmunitySource(immunityID);
-            damageable.onDamageEvent -= RedirectDamage;
+            damageable.onDamageEvent.Subscribe(RedirectDamage);
         }
         if (source.TryGetComponent(out StatusEffectHandler statusEffectHandler))
         {
             statusEffectHandler.RemoveImmunitySource(immunityID);
-            statusEffectHandler.onApplyEffect -= RedirectStatusEffect;
+            statusEffectHandler.onApplyEffect.Unsubscribe(RedirectStatusEffect);
         }
     }
 
@@ -59,10 +59,10 @@ public class Exosuit : Vehicle
         damageable.DealDamage(new DamageInfo(damageEvent), damageEvent.SourceUser, damageEvent.SourceObject, damageEvent.ProcChainBranch);
     }
 
-    private void RedirectStatusEffect(StatusEffectData statusEffectData, GameObject source, int stacks)
+    private void RedirectStatusEffect(StatusEffectHandler.EffectApplyInfo effectInfo)
     {
         if (statusEffectHandler == null) return;
-        statusEffectHandler.ApplyEffect(statusEffectData, source, stacks);
+        statusEffectHandler.ApplyEffect(effectInfo.data, effectInfo.source, effectInfo.stacks);
     }
 
     private class RedirectedHitData
