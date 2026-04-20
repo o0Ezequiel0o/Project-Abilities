@@ -47,7 +47,7 @@ namespace Zeke.Items
 
         public void UpdateStacksAmount(int stacks)
         {
-            stacksText.text = "x " + stacks.ToString();
+            stacksText.text = "x" + stacks.ToString();
             Stacks = stacks;
         }
     }

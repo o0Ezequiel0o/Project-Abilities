@@ -1565,6 +1565,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   testVelocity: {x: 0, y: 0}
+  prefab: {fileID: 0}
 --- !u!1001 &1693831994
 PrefabInstance:
   m_ObjectHideFlags: 0

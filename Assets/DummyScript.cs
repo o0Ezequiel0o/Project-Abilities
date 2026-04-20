@@ -12,10 +12,19 @@ public class DummyScript : MonoBehaviour
 
     [Header("Test")]
     [SerializeField] private Vector2 testVelocity = Vector2.zero;
+    [SerializeField] private GameObject prefab;
 
     private readonly List<RaycastHit2D> hits = new List<RaycastHit2D>();
 
     private const float DISTANCE_MULT = 10f;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Instantiate(prefab, transform);
+        }
+    }
 
     private void FixedUpdate()
     {
