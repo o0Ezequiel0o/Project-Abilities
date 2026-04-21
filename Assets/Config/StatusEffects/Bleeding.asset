@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bleeding
   m_EditorClassIdentifier: Assembly-CSharp::BleedingStatusData
   <Icon>k__BackingField: {fileID: 21300000, guid: ef70b23796fac4e41837a54c32f25ed0, type: 3}
-  <MaxStacks>k__BackingField: 999
+  <MaxStacks>k__BackingField: 9999
   <StatusEffectType>k__BackingField: 2
   <Ticks>k__BackingField: 5
   <TickTime>k__BackingField: 0.5
@@ -29,9 +29,9 @@ MonoBehaviour:
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 0
-        increase: 0.05
+        increase: 0.03
     - rid: 2308102863504277880
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 0
-        increase: 100
+        increase: 30

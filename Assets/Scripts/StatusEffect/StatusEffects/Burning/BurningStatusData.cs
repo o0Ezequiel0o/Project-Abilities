@@ -11,6 +11,10 @@ public class BurningStatusData : StatusEffectData
     [field: SerializeField] public float TickTime {private set; get;}
     [field: SerializeField] public int Ticks {private set; get;}
 
+    [field: Header("Damage Increase")]
+    [field: SerializeField] public int StacksRequired { get; private set; }
+    [field: SerializeField] public float IncreasePerStacksRequired { get; private set; }
+
     public override StatusEffect CreateEffect(StatusEffectHandler statusEffectHandler, GameObject receiver, GameObject source)
     {
         return new BurningStatus(statusEffectHandler, receiver, source, this);

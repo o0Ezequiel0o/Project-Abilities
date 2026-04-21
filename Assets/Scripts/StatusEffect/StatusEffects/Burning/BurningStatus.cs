@@ -17,6 +17,8 @@ public class BurningStatus : StatusEffect
 
     private GameObject particles;
 
+    private readonly Stat.Multiplier damageReceivedMultiplier = new Stat.Multiplier(1);
+
     public BurningStatus(StatusEffectHandler statusEffectHandler, GameObject receiver, GameObject source, BurningStatusData effectData)
     {
         this.statusEffectHandler = statusEffectHandler;
@@ -33,6 +35,10 @@ public class BurningStatus : StatusEffect
         {
             statusEffectHandler.RemoveEffect(this);
         }
+        else
+        {
+            damageable.DamageReceivedMultiplier.AddMultiplier(damageReceivedMultiplier);
+        }
 
         particles = StatusEffectParticlesPool.Get(effectData.Particles);
         particles.transform.position = Vector3.zero;
@@ -41,7 +47,8 @@ public class BurningStatus : StatusEffect
 
     public override void OnStackApplied(int stacks)
     {
-        //FINISH BURNING IMPLEMENTATION
+        damageReceivedMultiplier.UpdateMultiplier(CalculateDamageReceivedMultiplier());
+        Debug.Log(CalculateDamageReceivedMultiplier());
     }
 
     public override void OnUpdate()
@@ -66,12 +73,14 @@ public class BurningStatus : StatusEffect
     {
         if (particles == null) return;
         particles.SetActive(false);
+        damageable.DamageReceivedMultiplier.RemoveMultiplier(damageReceivedMultiplier);
     }
 
     public override void OnDestroy()
     {
         if (particles == null) return;
         particles.SetActive(false);
+        damageable.DamageReceivedMultiplier.RemoveMultiplier(damageReceivedMultiplier);
     }
 
     private void UpdateTicks()
@@ -84,5 +93,10 @@ public class BurningStatus : StatusEffect
             statusEffectHandler.RemoveOneEffectStack(this);
             currentTicks = 0;
         }
+    }
+
+    private float CalculateDamageReceivedMultiplier()
+    {
+        return 1f + (Mathf.FloorToInt(stacks / effectData.StacksRequired) * effectData.IncreasePerStacksRequired);
     }
 }
