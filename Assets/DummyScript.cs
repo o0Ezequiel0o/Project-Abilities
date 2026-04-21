@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DummyScript : MonoBehaviour
 {
@@ -12,17 +14,45 @@ public class DummyScript : MonoBehaviour
 
     [Header("Test")]
     [SerializeField] private Vector2 testVelocity = Vector2.zero;
-    [SerializeField] private GameObject prefab;
+
+    [Space]
+
+    [SerializeField] private Transform target;
+    [SerializeField] private float minDistance;
+    [SerializeField] private float speed;
+
+    private int currentIndex = 0;
 
     private readonly List<RaycastHit2D> hits = new List<RaycastHit2D>();
 
     private const float DISTANCE_MULT = 10f;
 
+    private NavMeshPath path;
+
+    private void Start()
+    {
+        path = new NavMeshPath();
+
+        NavMesh.CalculatePath(transform.position, target.position, NavMesh.AllAreas, path);
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (currentIndex > path.corners.Length) return;
+
+        Vector3 corner = path.corners[currentIndex];
+        Vector2 direction = (corner - transform.position).normalized;
+
+        transform.Translate(speed * Time.deltaTime * direction);
+
+        if (Vector3.Distance(corner, transform.position) < minDistance)
         {
-            Instantiate(prefab, transform);
+            currentIndex += 1;
+
+            if (currentIndex > path.corners.Length)
+            {
+                Debug.Log("path completed");
+            }
         }
     }
 
