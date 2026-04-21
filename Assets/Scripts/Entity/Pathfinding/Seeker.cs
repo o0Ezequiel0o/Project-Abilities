@@ -10,8 +10,6 @@ public class Seeker : MonoBehaviour
 
     public Vector2 Direction { get; private set; }
 
-    private bool pathUpdateDone = false;
-
     private void Awake()
     {
         path = new NavMeshPath();
@@ -48,7 +46,5 @@ public class Seeker : MonoBehaviour
                 UpdateDirection();
             }
         }
-
-        pathUpdateDone = true;
     }
 }
