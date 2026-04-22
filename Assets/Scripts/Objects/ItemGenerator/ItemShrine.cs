@@ -5,14 +5,12 @@ public class ItemShrine : ItemGenerator
 {
     [Header("Shrine")]
     [SerializeField] private int maxRewards = 3;
-    [SerializeField] private IStackStat costMultiplier;
     [SerializeField, Range(0, 100)] private int rollNothingChange;
 
     [Header("Despawn")]
     [SerializeField] private float fadeAwaySeconds;
 
     private int rewards = 0;
-    private int uses = 0;
 
     public override bool CanSelect(GameObject source)
     {
@@ -31,8 +29,6 @@ public class ItemShrine : ItemGenerator
         if (CanInteract(source) && source.TryGetComponent(out MoneyHandler wallet))
         {
             Purchase(source, wallet);
-
-            Disappear();
             return true;
         }
 
@@ -50,13 +46,19 @@ public class ItemShrine : ItemGenerator
             rewards += 1;
         }
 
-        uses += 1;
-        IncreaseCost();
+        if (rewards >= maxRewards)
+        {
+            Disappear();
+        }
+        else
+        {
+            IncreaseCost();
+        }
     }
 
     private void IncreaseCost()
     {
-        float newCost = cost * costMultiplier.GetValue(uses);
+        int newCost = cost * 2;
 
         if (newCost < 1f && cost >= 1)
         {
@@ -64,7 +66,7 @@ public class ItemShrine : ItemGenerator
         }
         else
         {
-            cost = Mathf.FloorToInt(cost * costMultiplier.GetValue(uses));
+            cost = newCost;
         }
     }
 

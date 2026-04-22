@@ -159,5 +159,15 @@ MonoBehaviour:
   cost: 0
   options: 1
   maxRewards: 3
+  costMultiplier:
+    rid: 2308103018234249312
   rollNothingChange: 0
   fadeAwaySeconds: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2308103018234249312
+      type: {class: ExponentialStat, ns: , asm: Assembly-CSharp}
+      data:
+        startValue: 0
+        baseValue: 2
