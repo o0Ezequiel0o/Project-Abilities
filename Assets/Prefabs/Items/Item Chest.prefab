@@ -106,20 +106,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSettings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
+  drops: {fileID: 11400000, guid: 32cd9b39d09399d41ad3d44ae2beeccc, type: 2}
   <InteractOverlay>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   itemSelectionWindow: {fileID: 5283664177091368193, guid: 15b69a7c7671b5f43bdee276a4731e4a, type: 3}
   itemOptionWindow: {fileID: 6831720364878063803, guid: 089f68913f42ad848ba1bde62a68f74d, type: 3}
   cost: 0
   options: 3
-  itemDropChance:
-  - rarity: 0
-    weight: 1000
-  - rarity: 1
-    weight: 200
-  - rarity: 2
-    weight: 0
-  - rarity: 3
-    weight: 3
   fadeAwaySeconds: 1
 --- !u!61 &3627848488999911121
 BoxCollider2D:

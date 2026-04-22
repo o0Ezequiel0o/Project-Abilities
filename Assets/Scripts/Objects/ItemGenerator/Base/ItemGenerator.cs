@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-using System;
 using Zeke.UI;
 using TMPro;
 using Zeke.Collections;
@@ -11,6 +10,7 @@ namespace Zeke.Items
     public abstract class ItemGenerator : MonoBehaviour, IInteractable
     {
         [SerializeField] private ItemSettings itemSettings;
+        [SerializeField] private ItemGeneratorDrops drops;
 
         [field: Header("Visual - Object")]
         [field: SerializeField] public Sprite InteractOverlay { get; private set; }
@@ -24,7 +24,6 @@ namespace Zeke.Items
 
         [Header("Selection")]
         [SerializeField] protected int options = 3;
-        [SerializeField] private List<ItemDropSlot> itemDropChance;
 
         public static OrderedActionDictionary<GameObject, List<ItemGenerationData>> onOptionsGenerated = new OrderedActionDictionary<GameObject, List<ItemGenerationData>>();
         public static OrderedActionDictionary<GameObject, ItemGenerationData> onItemSelected = new OrderedActionDictionary<GameObject, ItemGenerationData>();
@@ -80,7 +79,7 @@ namespace Zeke.Items
 
         private ItemGenerationData RollItem()
         {
-            ItemRarity rarity = WeightedSelect.SelectElement(itemDropChance).rarity;
+            ItemRarity rarity = WeightedSelect.SelectElement(drops.RaritySlots).rarity;
             ItemData item = itemSettings.GetRandomItem(rarity);
             return new ItemGenerationData(item, this);
         }
@@ -121,23 +120,6 @@ namespace Zeke.Items
         protected void DestroyObject()
         {
             Destroy(gameObject);
-        }
-
-        [Serializable]
-        private class ItemDropSlot : IWeighted
-        {
-            public ItemRarity rarity;
-            public int weight;
-
-            public int Weight => weight;
-
-            public ItemDropSlot() { }
-
-            public ItemDropSlot(ItemRarity rarity, int weight)
-            {
-                this.rarity = rarity;
-                this.weight = weight;
-            }
         }
 
         public class ItemGenerationData
