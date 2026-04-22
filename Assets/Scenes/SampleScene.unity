@@ -2258,6 +2258,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4830977437039163219, guid: d099fffa01c7fc34a8c96f1877b3ea07, type: 3}
+      propertyPath: drops
+      value: 
+      objectReference: {fileID: 11400000, guid: dbdc7ca8d8345a14c9e896a8898da446, type: 2}
+    - target: {fileID: 4830977437039163219, guid: d099fffa01c7fc34a8c96f1877b3ea07, type: 3}
+      propertyPath: options
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830977437039163219, guid: d099fffa01c7fc34a8c96f1877b3ea07, type: 3}
+      propertyPath: itemSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
+    - target: {fileID: 4830977437039163219, guid: d099fffa01c7fc34a8c96f1877b3ea07, type: 3}
+      propertyPath: fadeAwaySeconds
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4830977437039163219, guid: d099fffa01c7fc34a8c96f1877b3ea07, type: 3}
+      propertyPath: itemOptionWindow
+      value: 
+      objectReference: {fileID: 6831720364878063803, guid: 089f68913f42ad848ba1bde62a68f74d, type: 3}
+    - target: {fileID: 4830977437039163219, guid: d099fffa01c7fc34a8c96f1877b3ea07, type: 3}
+      propertyPath: itemSelectionWindow
+      value: 
+      objectReference: {fileID: 5283664177091368193, guid: 15b69a7c7671b5f43bdee276a4731e4a, type: 3}
+    - target: {fileID: 4830977437039163219, guid: d099fffa01c7fc34a8c96f1877b3ea07, type: 3}
+      propertyPath: <InteractOverlay>k__BackingField
+      value: 
+      objectReference: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
