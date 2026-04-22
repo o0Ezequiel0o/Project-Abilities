@@ -33,29 +33,15 @@ public class StatusEffectHandler : MonoBehaviour
     {
         onApplyEffect?.Invoke(new EffectApplyInfo(statusEffectData, source, stacks));
 
-        if (statusEffectsImmunity.Contains(statusEffectData) || Immune)
+        if (statusEffectsImmunity.Contains(statusEffectData) || Immune) return;
+
+        if (TryGetActiveStatusEffect(statusEffectData, out StatusEffect statusEffect))
         {
-            return;
+            ApplyStacks(statusEffect, stacks);
         }
-
-        bool effectApplied = false;
-
-        if (!TryGetActiveStatusEffect(statusEffectData, out StatusEffect statusEffect))
+        else
         {
-            statusEffect = AddNewStatusEffect(statusEffectData, source);
-            effectApplied = true;
-        }
-
-        int stacksToApply = Mathf.Min(stacks, statusEffect.Data.MaxStacks - statusEffect.stacks);
-
-        if (effectApplied)
-        {
-            stacksToApply -= 1;
-        }
-
-        if (stacksToApply > 0)
-        {
-            ApplyStacks(statusEffect, stacksToApply);
+            AddNewStatusEffect(statusEffectData, source, stacks);
         }
     }
 
@@ -160,25 +146,31 @@ public class StatusEffectHandler : MonoBehaviour
         }
     }
 
-    private StatusEffect AddNewStatusEffect(StatusEffectData statusEffectData, GameObject source)
+    private StatusEffect AddNewStatusEffect(StatusEffectData statusEffectData, GameObject source, int stacks)
     {
         StatusEffect statusEffect = statusEffectData.CreateEffect(this, gameObject, source);
 
+        statusEffect.stacks = stacks;
         statusEffects.Add(statusEffect);
-        statusEffect.stacks = 1;
-        statusEffect.OnApply();
 
+        statusEffect.Initialize();
         onEffectApplied?.Invoke(statusEffect);
+
+        ApplyStacks(statusEffect, stacks);
 
         return statusEffect;
     }
 
     private void ApplyStacks(StatusEffect statusEffect, int stacks)
     {
-        statusEffect.stacks += stacks;
-        statusEffect.OnStackApplied(stacks);
+        int stacksToApply = Mathf.Min(stacks, statusEffect.Data.MaxStacks - statusEffect.stacks);
 
-        onStacksApplied?.Invoke(statusEffect);
+        if (stacksToApply > 0)
+        {
+            statusEffect.stacks += stacksToApply;
+            statusEffect.OnStackApplied(stacksToApply);
+            onStacksApplied?.Invoke(statusEffect);
+        }
     }
 
     public readonly struct EffectApplyInfo

@@ -20,7 +20,7 @@ public class TemplateStatusEffect : StatusEffect
         this.effectData = effectData;
     }
 
-    public override void OnApply() {}
+    public override void Initialize() {}
 
     public override void OnStackApplied(int stacks) {}
 

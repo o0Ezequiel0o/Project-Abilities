@@ -4,7 +4,7 @@ public abstract class StatusEffect
 
     public int stacks;
 
-    public abstract void OnApply();
+    public abstract void Initialize();
 
     public abstract void OnStackApplied(int stacks);
 

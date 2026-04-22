@@ -25,7 +25,7 @@ public class BleedingStatus : StatusEffect
         this.effectData = effectData;
     }
 
-    public override void OnApply()
+    public override void Initialize()
     {
         if (!receiver.TryGetComponent(out damageable) || effectData.Ticks <= 0)
         {
@@ -33,7 +33,7 @@ public class BleedingStatus : StatusEffect
         }
     }
 
-    public override void OnStackApplied(int stacks) {}
+    public override void OnStackApplied(int stacks) { }
 
     public override void OnUpdate()
     {
