@@ -6,7 +6,7 @@ public abstract class StatusEffectData : ScriptableObject
     [field: SerializeField] public Sprite Icon { get; private set; }
 
     [field: Header("Data")]
-    [field: SerializeField] public int MaxStacks {private set; get;} = 1;
+    [field: SerializeField, Min(1)] public int MaxStacks {private set; get;} = 1;
     [field: SerializeField] public StatusEffectType StatusEffectType {private set; get;}
 
     public abstract StatusEffect CreateEffect(StatusEffectHandler statusEffectHandler, GameObject receiver, GameObject source);
