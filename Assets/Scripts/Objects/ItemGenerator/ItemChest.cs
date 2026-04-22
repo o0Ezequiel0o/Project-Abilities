@@ -15,7 +15,7 @@ public class ItemChest : ItemGenerator
 
     public override bool CanInteract(GameObject source)
     {
-        return source.TryGetComponent(out MoneyHandler wallet) && wallet.Money >= cost && !used;
+        return source.TryGetComponent(out MoneyHandler wallet) && wallet.Money >= ScaledCost && !used;
     }
 
     public override bool Interact(GameObject source)
@@ -35,7 +35,7 @@ public class ItemChest : ItemGenerator
 
     private void Purchase(GameObject source, MoneyHandler wallet)
     {
-        wallet.UseMoney(cost);
+        wallet.UseMoney(ScaledCost);
         GenerateOptions(source, options);
 
         used = true;
