@@ -44,8 +44,6 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
     {
         if (!Application.isPlaying) return;
 
-        Debug.Log("shit worked");
-
         instance = this as T;
         OnInitialization();
     }
