@@ -150,10 +150,8 @@ public class StatusEffectHandler : MonoBehaviour
     {
         StatusEffect statusEffect = statusEffectData.CreateEffect(this, gameObject, source);
 
-        statusEffect.stacks = stacks;
-        statusEffects.Add(statusEffect);
-
         statusEffect.Initialize();
+        statusEffects.Add(statusEffect);
         onEffectApplied?.Invoke(statusEffect);
 
         ApplyStacks(statusEffect, stacks);
