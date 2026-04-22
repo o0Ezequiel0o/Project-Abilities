@@ -45,6 +45,23 @@ public class StatusEffectHandler : MonoBehaviour
         }
     }
 
+    public void RemoveEffect(StatusEffectData statusEffectData)
+    {
+        RemoveEffect(statusEffectData, int.MaxValue);
+    }
+
+    public void RemoveEffect(StatusEffectData statusEffectData, int stacks)
+    {
+        for (int i = 0; i < statusEffects.Count; i++)
+        {
+            if (statusEffectData == statusEffects[i].Data)
+            {
+                RemoveEffect(statusEffects[i], stacks);
+                return;
+            }
+        }
+    }
+
     public void RemoveEffect(StatusEffect statusEffect)
     {
         RemoveEffect(statusEffect, int.MaxValue);
