@@ -30,6 +30,7 @@ public class StatusEffectInterface : MonoBehaviour
             else
             {
                 AddStatusEffectSlot(statusEffects[i]);
+                UpdateStatusEffectSlot(statusEffects[i]);
             }
         }
     }
@@ -50,7 +51,7 @@ public class StatusEffectInterface : MonoBehaviour
         usedStatusEffectDisplaySlots.Add(statusEffect, statusEffectDisplaySlots[usedStatusEffectDisplaySlots.Count]);
         StatusEffectDisplaySlot statusEffectDisplaySlot = usedStatusEffectDisplaySlots[statusEffect];
 
-        RefreshStatusEffectSlotData(statusEffectDisplaySlot, statusEffect);
+        InitializeStatusEffectSlotData(statusEffectDisplaySlot, statusEffect);
         statusEffectDisplaySlot.gameObject.SetActive(true);
     }
 
@@ -63,10 +64,9 @@ public class StatusEffectInterface : MonoBehaviour
         }
     }
 
-    private void RefreshStatusEffectSlotData(StatusEffectDisplaySlot abilityDisplaySlot, StatusEffect statusEffect)
+    private void InitializeStatusEffectSlotData(StatusEffectDisplaySlot abilityDisplaySlot, StatusEffect statusEffect)
     {
         abilityDisplaySlot.Icon = statusEffect.Data.Icon;
-        abilityDisplaySlot.UpdateStacksAmount(statusEffect.stacks);
     }
 
     private void SpawnStatusEffectDisplaySlots()

@@ -9,19 +9,19 @@ public class StatusEffectScreenRenderer : MonoBehaviour
     private StatusEffectInterface interfaceInstance;
     private StatusEffectHandler statusEffectHandler;
 
-    void Awake()
+    private void Awake()
     {
         statusEffectHandler = GetComponent<StatusEffectHandler>();
     }
 
-    void Start()
+    private void Start()
     {
         SpawnInterfaceInCanvas();
         SubscribeToEvents();
         LoadInterfaceData();
     }
 
-    void SubscribeToEvents()
+    private void SubscribeToEvents()
     {
         statusEffectHandler.onEffectApplied.Subscribe(interfaceInstance.AddStatusEffectSlot);
         statusEffectHandler.onEffectRemoved.Subscribe(interfaceInstance.RemoveStatusEffectSlot);
@@ -30,17 +30,17 @@ public class StatusEffectScreenRenderer : MonoBehaviour
         statusEffectHandler.onStacksRemoved.Subscribe(interfaceInstance.UpdateStatusEffectSlot);
     }
 
-    void SpawnInterfaceInCanvas()
+    private void SpawnInterfaceInCanvas()
     {
         interfaceInstance = Instantiate(interfacePrefab, GameInstance.ScreenCanvas.transform);
     }
 
-    void LoadInterfaceData()
+    private void LoadInterfaceData()
     {
         interfaceInstance.LoadData(statusEffectHandler.StatusEffects);
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         if (interfaceInstance == null) return;
         Destroy(interfaceInstance);

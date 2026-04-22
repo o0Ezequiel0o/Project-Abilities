@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(StatusEffectHandler))]
 public class StatusEffectRenderer : MonoBehaviour
 {
     [Header("Settings")]
