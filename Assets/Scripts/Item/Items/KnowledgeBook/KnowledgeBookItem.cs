@@ -22,7 +22,7 @@ namespace Zeke.Items
             experienceMultiplier = new Stat.Multiplier(1f);
         }
 
-        public override void OnAdded()
+        public override void Initialize()
         {
             if (source.TryGetComponent(out LevelHandler levelHandler))
             {
@@ -30,7 +30,6 @@ namespace Zeke.Items
             }
 
             extraTomeExperience = data.ExtraMultPerTome.GetValue(GetTomesAmount());
-            experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks) + extraTomeExperience);
 
             itemHandler.onItemAdded += OnItemAdded;
             itemHandler.onItemRemoved += OnItemRemoved;
@@ -45,12 +44,12 @@ namespace Zeke.Items
             }
         }
 
-        public override void OnStackAdded()
+        public override void OnStacksAdded(int amount)
         {
             experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks) + extraTomeExperience);
         }
 
-        public override void OnStackRemoved()
+        public override void OnStacksRemoved(int amount)
         {
             experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks) + extraTomeExperience);
         }

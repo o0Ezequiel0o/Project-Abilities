@@ -26,13 +26,13 @@ namespace Zeke.Items
 
         public int stacks;
 
-        public virtual void OnAdded() { }
+        public virtual void Initialize() { }
 
         public virtual void OnRemoved() { }
 
-        public virtual void OnStackAdded() { }
+        public virtual void OnStacksAdded(int amount) { }
 
-        public virtual void OnStackRemoved() { }
+        public virtual void OnStacksRemoved(int amount) { }
 
         public virtual void OnUpdate() { }
     }

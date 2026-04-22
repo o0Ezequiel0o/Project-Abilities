@@ -1223,16 +1223,6 @@ Transform:
   - {fileID: 1706324767}
   m_Father: {fileID: 521104042}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1220174449 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2238542110421828030, guid: a6ed0a14cbb362240a834a57315f47d0, type: 3}
-  m_PrefabInstance: {fileID: 1704237486}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1275651081 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5218312312708394220, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-  m_PrefabInstance: {fileID: 2102329655}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1451325853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1960,31 +1950,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5218312312708394220, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2102329686}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
 --- !u!4 &2102329657 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4369443556788299361, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
   m_PrefabInstance: {fileID: 2102329655}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2102329686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1275651081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 700e9b176b6bb174da4a241f64b0fe14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectDebug
-  statusEffectToApply: {fileID: 11400000, guid: 6a23c38cf1531774184c1ad484ce7c57, type: 2}
-  stacks: 3
-  source: {fileID: 1220174449}
 --- !u!1001 &2137525144
 PrefabInstance:
   m_ObjectHideFlags: 0

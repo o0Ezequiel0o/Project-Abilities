@@ -35,69 +35,45 @@ namespace Zeke.Items
         {
             for (int i = 0; i < items.Count; i++)
             {
-                for (int x = 0; x < items[i].stacks; x++)
-                {
-                    AddItem(items[i].Data);
-                }
+                AddItem(items[i].Data);
             }
         }
 
         public void AddItem(ItemData itemData)
         {
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (items[i].Data == itemData)
-                {
-                    UpdateItemStacks(items[i]);
-                    onItemStacksUpdated?.Invoke(itemData, items[i].stacks);
-                    return;
-                }
-            }
-
-            AddNewItem(itemData);
-            onItemAdded?.Invoke(itemData);
+            AddItem(itemData, 1);
         }
 
-        public void AddItemStacks(ItemData itemData, int stacks)
+        public void AddItem(ItemData itemData, int stacks)
         {
-            if (!TryGetItem(itemData, out Item item))
+            if (TryGetItem(itemData, out Item item))
             {
-                AddNewItem(itemData);
-                onItemAdded?.Invoke(itemData);
-                item = items[^1];
-                stacks -= 1;
+                UpdateItemStacks(item, stacks);
             }
-
-            for (int i = 0; i < stacks; i++)
+            else
             {
-                UpdateItemStacks(item);
-                onItemStacksUpdated?.Invoke(itemData, item.stacks);
+                AddNewItem(itemData, stacks);
             }
         }
 
         public void RemoveItem(ItemData itemData)
         {
-            for (int i = 0; i < items.Count; i++)
+            RemoveItem(itemData, int.MaxValue);
+        }
+
+        public void RemoveItem(ItemData itemData, int stacks)
+        {
+            if (TryGetItem(itemData, out Item item))
             {
-                if (items[i].Data == itemData)
-                {
-                    if (items[i].stacks == 1)
-                    {
-                        items[i].OnRemoved();
-                        items.RemoveAt(i);
-                        onItemRemoved?.Invoke(itemData);
+                RemoveItem(item, stacks);
+            }
+        }
 
-                        itemsData.Remove(itemData);
-                    }
-                    else
-                    {
-                        items[i].stacks -= 1;
-                        items[i].OnStackRemoved();
-                        onItemStacksUpdated?.Invoke(itemData, items[i].stacks);
-                    }
-
-                    return;
-                }
+        public void RemoveItems()
+        {
+            for (int i = items.Count - 1; i >= 0; i--)
+            {
+                RemoveItem(items[i], int.MaxValue);
             }
         }
 
@@ -117,17 +93,6 @@ namespace Zeke.Items
             return false;
         }
 
-        public void RemoveItems()
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].OnRemoved();
-            }
-
-            items.Clear();
-            itemsData.Clear();
-        }
-
         private void Update()
         {
             for (int i = 0; i < items.Count; i++)
@@ -144,19 +109,41 @@ namespace Zeke.Items
             }
         }
 
-        private void AddNewItem(ItemData itemData)
+        private void AddNewItem(ItemData itemData, int stacks)
         {
-            items.Add(itemData.CreateItem(this, gameObject));
-            items[^1].stacks = 1;
-            items[^1].OnAdded();
+            if (stacks == 0) return;
 
+            Item item = itemData.CreateItem(this, gameObject);
+
+            items.Add(item);
             itemsData.Add(itemData);
+
+            item.Initialize();
+            onItemAdded?.Invoke(itemData);
+            UpdateItemStacks(item, stacks);
         }
 
-        private void UpdateItemStacks(Item item)
+        private void RemoveItem(Item item, int stacks)
         {
-            item.OnStackAdded();
-            item.stacks += 1;
+            int maxStacks = Mathf.Max(stacks, item.stacks);
+            item.stacks -= maxStacks;
+
+            onItemStacksUpdated?.Invoke(item.Data, maxStacks);
+
+            if (item.stacks <= 0)
+            {
+                items.Remove(item);
+                itemsData.Remove(item.Data);
+                onItemRemoved?.Invoke(item.Data);
+            }
+        }
+
+        private void UpdateItemStacks(Item item, int stacks)
+        {
+            item.stacks += stacks;
+            item.OnStacksAdded(stacks);
+
+            onItemStacksUpdated?.Invoke(item.Data, stacks);
         }
     }
 }

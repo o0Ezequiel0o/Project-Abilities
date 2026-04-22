@@ -49,7 +49,6 @@ public class StatusEffectHandler : MonoBehaviour
     {
         statusEffect.OnRemove();
         statusEffects.Remove(statusEffect);
-
         onEffectRemoved?.Invoke(statusEffect);
     }
 

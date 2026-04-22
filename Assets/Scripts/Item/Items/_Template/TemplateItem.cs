@@ -18,13 +18,13 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
-        public override void OnAdded() { }
+        public override void Initialize() { }
 
         public override void OnRemoved() { }
 
-        public override void OnStackAdded() { }
+        public override void OnStacksAdded(int amount) { }
 
-        public override void OnStackRemoved() { }
+        public override void OnStacksRemoved(int amount) { }
 
         public override void OnUpdate() { }
     }

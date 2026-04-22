@@ -10,7 +10,7 @@ namespace Zeke.Items
         private readonly ItemHandler itemHandler;
         private readonly GameObject source;
 
-        private float extraHealth = 0f;
+        private float flatModifier = 0f;
 
         public GreenCrystalItem(GreenCrystalItemData data, ItemHandler itemHandler, GameObject source)
         {
@@ -19,22 +19,16 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
-        public override void OnAdded()
+        public override void Initialize() { }
+
+        public override void OnRemoved() { }
+
+        public override void OnStacksAdded(int amount)
         {
             UpdateHealthValue();
         }
 
-        public override void OnRemoved()
-        {
-            UpdateHealthValue();
-        }
-
-        public override void OnStackAdded()
-        {
-            UpdateHealthValue();
-        }
-
-        public override void OnStackRemoved()
+        public override void OnStacksRemoved(int amount)
         {
             UpdateHealthValue();
         }
@@ -43,20 +37,12 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out Damageable damageable))
             {
-                RemoveOldHealthModifier(damageable);
-                ApplyNewHealthModifier(damageable);
+                float oldFlatModifier = flatModifier;
+                flatModifier = data.ExtraHealth.GetValue(stacks);
+
+                damageable.MaxHealth.ApplyFlatModifier(-oldFlatModifier);
+                damageable.MaxHealth.ApplyFlatModifier(flatModifier);
             }
-        }
-
-        private void ApplyNewHealthModifier(Damageable damageable)
-        {
-            extraHealth = data.ExtraHealth.GetValue(stacks);
-            damageable.MaxHealth.ApplyFlatModifier(extraHealth);
-        }
-
-        private void RemoveOldHealthModifier(Damageable damageable)
-        {
-            damageable.MaxHealth.ApplyFlatModifier(-extraHealth);
         }
     }
 }

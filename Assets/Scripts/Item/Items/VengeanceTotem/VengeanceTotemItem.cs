@@ -18,7 +18,7 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
-        public override void OnAdded()
+        public override void Initialize()
         {
             if (source.TryGetComponent(out Damageable damageable))
             {

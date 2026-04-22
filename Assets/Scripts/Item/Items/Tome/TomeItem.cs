@@ -18,10 +18,9 @@ namespace Zeke.Items
             this.source = source;
         }
 
-        public override void OnAdded()
+        public override void Initialize()
         {
             levelHandler = source.GetComponent<LevelHandler>();
-            UpdateFlatModifier();
         }
 
         public override void OnRemoved()
@@ -29,12 +28,12 @@ namespace Zeke.Items
             RemoveFlatModifier();
         }
 
-        public override void OnStackAdded()
+        public override void OnStacksAdded(int amount)
         {
             UpdateFlatModifier();
         }
 
-        public override void OnStackRemoved()
+        public override void OnStacksRemoved(int amount)
         {
             UpdateFlatModifier();
         }

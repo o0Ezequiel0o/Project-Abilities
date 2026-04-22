@@ -23,7 +23,7 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
-        public override void OnAdded()
+        public override void Initialize()
         {
             Damageable.DamageEvent.onKill.Subscribe(source, OnKill, data.TriggerOrder);
         }

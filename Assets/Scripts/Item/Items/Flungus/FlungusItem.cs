@@ -26,7 +26,7 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
-        public override void OnAdded()
+        public override void Initialize()
         {
             lastPosition = source.transform.position;
             particlesInstance = GameObject.Instantiate(data.Particles, source.transform.position, Quaternion.identity);
@@ -38,7 +38,7 @@ namespace Zeke.Items
             GameObject.Destroy(particlesInstance);
         }
 
-        public override void OnStackAdded()
+        public override void OnStacksAdded(int amount)
         {
             float diameter = data.Radius.GetValue(stacks) * 2f;
             particlesInstance.transform.localScale = new Vector3(diameter, diameter, 1f);
