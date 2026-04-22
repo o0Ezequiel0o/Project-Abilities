@@ -48,7 +48,6 @@ public class BurningStatus : StatusEffect
     public override void OnStackApplied(int stacks)
     {
         damageReceivedMultiplier.UpdateMultiplier(CalculateDamageReceivedMultiplier());
-        Debug.Log(CalculateDamageReceivedMultiplier());
     }
 
     public override void OnUpdate()
