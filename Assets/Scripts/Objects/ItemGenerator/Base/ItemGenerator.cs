@@ -34,7 +34,7 @@ namespace Zeke.Items
             {
                 int newValue = Mathf.FloorToInt(cost * GameInstance.GoldMultiplier);
 
-                if (ScaledCost >= 1 && newValue <= 0)
+                if (cost >= 1 && newValue <= 0)
                 {
                     return 1;
                 }
