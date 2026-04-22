@@ -125,8 +125,12 @@ namespace Zeke.Items
 
         private void RemoveItem(Item item, int stacks)
         {
-            int maxStacks = Mathf.Max(stacks, item.stacks);
+            int maxStacks = Mathf.Min(stacks, item.stacks);
+
+            if (maxStacks <= 0) return;
+
             item.stacks -= maxStacks;
+            item.OnStacksRemoved(maxStacks);
 
             onItemStacksUpdated?.Invoke(item.Data, maxStacks);
 
