@@ -6,7 +6,9 @@ public abstract class StatusEffect
 
     public abstract void Initialize();
 
-    public abstract void OnStackApplied(int stacks);
+    public abstract void OnStacksApplied(int stacks);
+
+    public abstract void OnStacksRemoved(int stacks);
 
     public abstract void OnUpdate();
 

@@ -45,7 +45,12 @@ public class BurningStatus : StatusEffect
         particles.SetActive(true);
     }
 
-    public override void OnStackApplied(int stacks)
+    public override void OnStacksApplied(int stacks)
+    {
+        damageReceivedMultiplier.UpdateMultiplier(CalculateDamageReceivedMultiplier());
+    }
+
+    public override void OnStacksRemoved(int stacks)
     {
         damageReceivedMultiplier.UpdateMultiplier(CalculateDamageReceivedMultiplier());
     }
@@ -89,7 +94,7 @@ public class BurningStatus : StatusEffect
 
         if (currentTicks >= effectData.Ticks)
         {
-            statusEffectHandler.RemoveOneEffectStack(this);
+            statusEffectHandler.RemoveEffect(this, 1);
             currentTicks = 0;
         }
     }

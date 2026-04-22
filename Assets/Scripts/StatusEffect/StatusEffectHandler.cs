@@ -47,25 +47,24 @@ public class StatusEffectHandler : MonoBehaviour
 
     public void RemoveEffect(StatusEffect statusEffect)
     {
-        statusEffect.OnRemove();
-        statusEffects.Remove(statusEffect);
-        onEffectRemoved?.Invoke(statusEffect);
+        RemoveEffect(statusEffect, int.MaxValue);
     }
 
-    public void RemoveOneEffectStack(StatusEffect statusEffect)
+    public void RemoveEffect(StatusEffect statusEffect, int stacks)
     {
-        if (TryGetActiveStatusEffect(statusEffect.Data, out StatusEffect foundStatusEffect))
-        {
-            foundStatusEffect.stacks -= 1;
+        if (!statusEffects.Contains(statusEffect)) return;
 
-            if (foundStatusEffect.stacks > 0)
-            {
-                onStacksRemoved?.Invoke(statusEffect);
-            }
-            else
-            {
-                RemoveEffect(foundStatusEffect);
-            }
+        int maxStacks = Mathf.Min(stacks, statusEffect.stacks);
+
+        statusEffect.stacks -= maxStacks;
+        statusEffect.OnStacksRemoved(maxStacks);
+        onStacksRemoved?.Invoke(statusEffect);
+
+        if (statusEffect.stacks <= 0)
+        {
+            statusEffect.OnRemove();
+            statusEffects.Remove(statusEffect);
+            onEffectRemoved?.Invoke(statusEffect);
         }
     }
 
@@ -165,7 +164,7 @@ public class StatusEffectHandler : MonoBehaviour
         if (stacksToApply > 0)
         {
             statusEffect.stacks += stacksToApply;
-            statusEffect.OnStackApplied(stacksToApply);
+            statusEffect.OnStacksApplied(stacksToApply);
             onStacksApplied?.Invoke(statusEffect);
         }
     }

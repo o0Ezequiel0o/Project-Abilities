@@ -33,7 +33,9 @@ public class BleedingStatus : StatusEffect
         }
     }
 
-    public override void OnStackApplied(int stacks) { }
+    public override void OnStacksApplied(int stacks) { }
+
+    public override void OnStacksRemoved(int stacks) { }
 
     public override void OnUpdate()
     {
@@ -70,7 +72,7 @@ public class BleedingStatus : StatusEffect
 
         if (currentTicks >= effectData.Ticks)
         {
-            statusEffectHandler.RemoveOneEffectStack(this);
+            statusEffectHandler.RemoveEffect(this, 1);
             currentTicks = 0;
         }
     }
