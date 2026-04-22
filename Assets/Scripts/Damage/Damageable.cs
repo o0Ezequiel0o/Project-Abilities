@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using Zeke.Items;
 using Zeke.Collections;
+using Zeke.Items;
+using static Damageable;
 
 public class Damageable : MonoBehaviour, IUpgradable
 {
@@ -111,6 +112,12 @@ public class Damageable : MonoBehaviour, IUpgradable
         ReceiveShield(shields);
     }
 
+    public float CalculateDamage(float damage, float armorPenetration)
+    {
+        float damageReduction = CalculateDamageReduction(Armor.Value, armorPenetration);
+        return damage * (1 - damageReduction) * DamageReceivedMultiplier.Value;
+    }
+
     public void AddImmunitySource(int ID)
     {
         immunitySources.Add(ID);
@@ -138,8 +145,7 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     private float CalculateDamage(DamageEvent damageEvent)
     {
-        float damageReduction = CalculateDamageReduction(Armor.Value, damageEvent.ArmorPenetration);
-        return damageEvent.Damage * (1 - damageReduction) * DamageReceivedMultiplier.Value;
+        return CalculateDamage(damageEvent.Damage, damageEvent.ArmorPenetration);
     }
 
     private float CalculateHealing(HealEvent healingEvent)
