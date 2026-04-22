@@ -48,7 +48,7 @@ namespace Zeke.Collections
             {
                 subscribers[source].Unsubscribe(callBack);
 
-                if (subscribers[source] == null)
+                if (subscribers[source].Callbacks <= 0)
                 {
                     subscribers.Remove(source);
                 }
