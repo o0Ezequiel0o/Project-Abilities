@@ -5,6 +5,8 @@ namespace Zeke.Collections
 {
     public class OrderedAction
     {
+        public int Callbacks => callbacks.Count;
+
         private readonly List<Callback> callbacks = new List<Callback>();
 
         public void Invoke()
@@ -58,6 +60,8 @@ namespace Zeke.Collections
 
     public class OrderedAction<T1>
     {
+        public int Callbacks => callbacks.Count;
+
         private readonly List<Callback> callbacks = new List<Callback>();
 
         public void Invoke(T1 param1)
@@ -111,6 +115,8 @@ namespace Zeke.Collections
 
     public class OrderedAction<T1, T2>
     {
+        public int Callbacks => callbacks.Count;
+
         private readonly List<Callback> callbacks = new List<Callback>();
 
         public void Invoke(T1 param1, T2 param2)
