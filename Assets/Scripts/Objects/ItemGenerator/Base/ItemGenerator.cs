@@ -9,8 +9,8 @@ namespace Zeke.Items
 {
     public abstract class ItemGenerator : MonoBehaviour, IInteractable
     {
-        [SerializeField] private ItemSettings itemSettings;
-        [SerializeField] private ItemGeneratorDrops drops;
+        [SerializeField] protected ItemSettings itemSettings;
+        [SerializeField] protected ItemGeneratorDrops drops;
 
         [field: Header("Visual - Object")]
         [field: SerializeField] public Sprite InteractOverlay { get; private set; }
