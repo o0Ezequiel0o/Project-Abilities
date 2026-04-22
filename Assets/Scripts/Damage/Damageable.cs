@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zeke.Collections;
 using Zeke.Items;
-using static Damageable;
 
 public class Damageable : MonoBehaviour, IUpgradable
 {
