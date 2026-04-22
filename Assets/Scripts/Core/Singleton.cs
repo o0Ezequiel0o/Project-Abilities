@@ -13,6 +13,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
             if (instance != null) return instance;
 
             instance = FindAnyObjectByType<T>();
+            InitializeSingleton(instance);
 
             if (instance != null) return instance;
 
@@ -20,24 +21,30 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
         }
     }
 
-    static T CreateSingletonGameObject()
+    private static T CreateSingletonGameObject()
     {
-        GameObject newGameObject = new GameObject(typeof(T).Name + " [Auto]");
+        GameObject newGameObject = new GameObject(typeof(T).Name + " [Auto-Generated]");
         instance = newGameObject.AddComponent<T>();
+        InitializeSingleton(instance);
 
         return instance;
     }
 
     protected virtual void OnInitialization() { }
 
-    protected void Awake()
+    private static void InitializeSingleton(T instance)
     {
-        InitializeSingleton();
+        if (instance is Singleton<T> singleton)
+        {
+            singleton.InitializeSingleton();
+        }
     }
 
-    void InitializeSingleton()
+    private void InitializeSingleton()
     {
         if (!Application.isPlaying) return;
+
+        Debug.Log("shit worked");
 
         instance = this as T;
         OnInitialization();

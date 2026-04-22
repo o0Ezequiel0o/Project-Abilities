@@ -28,6 +28,21 @@ namespace Zeke.Items
         public static OrderedActionDictionary<GameObject, List<ItemGenerationData>> onOptionsGenerated = new OrderedActionDictionary<GameObject, List<ItemGenerationData>>();
         public static OrderedActionDictionary<GameObject, ItemGenerationData> onItemSelected = new OrderedActionDictionary<GameObject, ItemGenerationData>();
 
+        public int ScaledCost
+        {
+            get
+            {
+                int newValue = Mathf.FloorToInt(cost * GameInstance.GoldMultiplier);
+
+                if (ScaledCost >= 1 && newValue <= 0)
+                {
+                    return 1;
+                }
+
+                return newValue;
+            }
+        }
+
         private UIWindow windowInstance;
 
         public abstract bool CanSelect(GameObject source);
