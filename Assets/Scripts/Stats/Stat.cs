@@ -38,6 +38,13 @@ public class Stat
         return Value.ToString();
     }
 
+    public Multiplier Multiply(float value)
+    {
+        Multiplier multiplier = new Multiplier(value);
+        AddMultiplier(multiplier);
+        return multiplier;
+    }
+
     public void AddMultiplier(Multiplier statMultiplier)
     {
         if (!multipliers.Contains(statMultiplier))
