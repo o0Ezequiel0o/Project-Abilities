@@ -267,7 +267,8 @@ public class Damageable : MonoBehaviour, IUpgradable
         public GameObject SourceUser { get; private set; }
         public GameObject SourceObject { get; private set; }
 
-        public float damageMultiplier = 1f;
+        public Stat DamageMultiplier { get; private set; }
+
         public bool damageRejected = false;
 
         private float armorPenetration;
@@ -299,6 +300,8 @@ public class Damageable : MonoBehaviour, IUpgradable
             Receiver = receiver;
             SourceUser = userSource;
             SourceObject = sourceObject;
+
+            DamageMultiplier = new Stat(1f, 0f, 0f, float.PositiveInfinity);
         }
 
         public void ExecuteEventFlow()
@@ -352,7 +355,7 @@ public class Damageable : MonoBehaviour, IUpgradable
         {
             bool hadShield = Receiver.Shield > 0;
 
-            Damage *= damageMultiplier;
+            Damage *= DamageMultiplier.Value;
 
             Damage = Receiver.CalculateDamage(this);
             DamageDealt = Receiver.TakeDamage(Damage, IsLethal);

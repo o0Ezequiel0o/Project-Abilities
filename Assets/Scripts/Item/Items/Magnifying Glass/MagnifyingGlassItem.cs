@@ -33,7 +33,7 @@ namespace Zeke.Items
 
             if (Vector3.Distance(source.transform.position, damageEvent.Receiver.transform.position) <= data.MinDistance)
             {
-                damageEvent.damageMultiplier *= data.DamageMult.GetValue(stacks);
+                damageEvent.DamageMultiplier.Multiply(data.DamageMult.GetValue(stacks));
             }
         }
     }
