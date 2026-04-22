@@ -23,7 +23,7 @@ public static class WeightedSelect
         return default;
     }
 
-    private static int CalculateMaxRollWeight<T>(List<T> elements) where T : IWeighted
+    public static int CalculateMaxRollWeight<T>(List<T> elements) where T : IWeighted
     {
         int maxRollWeight = 0;
 
