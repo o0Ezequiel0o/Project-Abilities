@@ -10,11 +10,9 @@ namespace Zeke.Items
         [SerializeField] private Image outline;
         [SerializeField] private TextMeshProUGUI stacksText;
 
-        public ItemData ItemData { get; private set; }
-        public int Stacks { get; private set; }
+        public int Accumulator => accumulator;
 
         private int accumulator = 0;
-        private int startValue = 0;
 
         public Sprite Icon
         {
@@ -40,20 +38,21 @@ namespace Zeke.Items
             }
         }
 
-        public void SetData(ItemData itemData, int stacks)
+        public void SetData(ItemData itemData)
         {
             Icon = itemData.Icon;
             Outline = itemData.Outline;
-
-            ItemData = itemData;
-
-            startValue = stacks;
         }
 
-        public void UpdateStacksAmount(int stacks)
+        public void UpdateStacksAmount(int stacksUpdate)
         {
-            stacksText.text = "x" + stacks.ToString();
-            Stacks = stacks;
+            accumulator += stacksUpdate;
+            stacksText.text = accumulator.ToString("+0;-0;0");
+        }
+
+        public void ResetAccumulator()
+        {
+            accumulator = 0;
         }
     }
 }

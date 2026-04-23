@@ -558,6 +558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemsInterfacePrefab: {fileID: 2711525490271769255, guid: 2af3debb0e2103c45b03f0307a7de71b, type: 3}
   itemsInterfaceMenuPrefab: {fileID: 4442968359091310543, guid: 58a162b374754a54abede138ee783961, type: 3}
+  itemNotificatorInterfacePrefab: {fileID: 5801491027282703636, guid: aea325e98050b734e9bfc57755c7c00b, type: 3}
 --- !u!114 &1445715788866165582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,6 +724,7 @@ MonoBehaviour:
   yStart: 0.5
   yLowest: -0.5
   yLower: 0.3
+  xRandom: 0.15
 --- !u!114 &4944555292566857165
 MonoBehaviour:
   m_ObjectHideFlags: 0

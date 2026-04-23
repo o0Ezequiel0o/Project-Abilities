@@ -7,10 +7,12 @@ namespace Zeke.Items
     {
         [SerializeField] private ItemsInterface itemsInterfacePrefab;
         [SerializeField] private ItemsInterface itemsInterfaceMenuPrefab;
+        [SerializeField] private ItemNotificatorInterface itemNotificatorInterfacePrefab;
 
         private ItemHandler itemHandler;
         private ItemsInterface itemsInterface;
         private ItemsInterface itemsMenuInterface;
+        private ItemNotificatorInterface itemNotificatorInterface;
 
         public void ToggleMenuVisibility()
         {
@@ -37,6 +39,7 @@ namespace Zeke.Items
             SpawnInterfacesInCanvas();
             itemHandler = GetComponent<ItemHandler>();
             itemsInterface.SubscribeToEvents(itemHandler);
+            itemNotificatorInterface.SubscribeToEvents(itemHandler);
 
             itemsMenuInterface.gameObject.SetActive(false);
         }
@@ -50,6 +53,7 @@ namespace Zeke.Items
         {
             itemsInterface = Instantiate(itemsInterfacePrefab, GameInstance.ScreenCanvas.transform);
             itemsMenuInterface = Instantiate(itemsInterfaceMenuPrefab, GameInstance.ScreenCanvas.transform);
+            itemNotificatorInterface = Instantiate(itemNotificatorInterfacePrefab, GameInstance.ScreenCanvas.transform);
         }
     }
 }
