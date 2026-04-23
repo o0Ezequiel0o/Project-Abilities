@@ -41,7 +41,7 @@ public class AmbushSkill : PassiveBase
     {
         if (timer >= data.TimeToActivate)
         {
-            damageEvent.DamageMultiplier.Multiply(data.DamageMultiplier);
+            damageEvent.Multiplier.Multiply(data.DamageMultiplier);
         }
 
         timer = 0f;

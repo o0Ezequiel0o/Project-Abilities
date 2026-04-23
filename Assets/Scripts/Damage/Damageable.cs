@@ -144,7 +144,7 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     private float CalculateDamage(DamageEvent damageEvent)
     {
-        float damage = damageEvent.Damage * damageEvent.DamageMultiplier.Value;
+        float damage = (damageEvent.Damage + damageEvent.FlatAccumulator) * damageEvent.Multiplier.Value;
         return CalculateDamage(damage, damageEvent.ArmorPenetration);
     }
 
@@ -267,7 +267,8 @@ public class Damageable : MonoBehaviour, IUpgradable
         public GameObject SourceUser { get; private set; }
         public GameObject SourceObject { get; private set; }
 
-        public Stat DamageMultiplier { get; private set; }
+        public float FlatAccumulator { get; set; }
+        public Stat Multiplier { get; private set; }
 
         public bool damageRejected = false;
 
@@ -301,7 +302,7 @@ public class Damageable : MonoBehaviour, IUpgradable
             SourceUser = userSource;
             SourceObject = sourceObject;
 
-            DamageMultiplier = new Stat(1f, 0f, 0f, float.PositiveInfinity);
+            Multiplier = new Stat(1f, 0f, 0f, float.PositiveInfinity);
         }
 
         public void ExecuteEventFlow()

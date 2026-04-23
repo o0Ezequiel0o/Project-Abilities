@@ -137,7 +137,7 @@ public class EngineerExosuit : Exosuit
 
     private void IncreaseDamage(Damageable.DamageEvent damageEvent)
     {
-        damageEvent.DamageMultiplier.Multiply(damageStatMultiplier.Value);
+        damageEvent.Multiplier.Multiply(damageStatMultiplier.Value);
     }
 
     private readonly struct SwitchedAbilityData

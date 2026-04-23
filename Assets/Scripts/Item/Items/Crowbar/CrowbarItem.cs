@@ -37,7 +37,7 @@ namespace Zeke.Items
 
                 if (healthRatio >= data.HealthThreshold)
                 {
-                    damageEvent.DamageMultiplier.Multiply(data.DamageMult.GetValue(stacks));
+                    damageEvent.Multiplier.Multiply(data.DamageMult.GetValue(stacks));
                 }
             }
         }
