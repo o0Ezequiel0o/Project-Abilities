@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Zeke.Items.ItemHandler;
 
 namespace Zeke.Items
 {
@@ -61,9 +62,9 @@ namespace Zeke.Items
             }
         }
 
-        private void UpdateItemStacks(ItemData itemData, int stacks)
+        private void UpdateItemStacks(ItemStackUpdate stackUpdate)
         {
-            itemDisplaySlots[itemData].UpdateStacksAmount(stacks);
+            itemDisplaySlots[stackUpdate.itemData].UpdateStacksAmount(stackUpdate.stacks);
         }
     }
 }

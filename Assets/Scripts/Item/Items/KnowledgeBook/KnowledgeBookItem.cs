@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Zeke.Items.ItemHandler;
 
 namespace Zeke.Items
 {
@@ -67,27 +68,27 @@ namespace Zeke.Items
             return tomes;
         }
 
-        private void OnItemAdded(ItemData item)
+        private void OnItemAdded(ItemData itemData)
         {
-            if (item == data.TomeItem)
+            if (itemData == data.TomeItem)
             {
                 extraTomeExperience = data.ExtraMultPerTome.GetValue(GetTomesAmount());
                 experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks) + extraTomeExperience);
             }
         }
 
-        private void OnItemRemoved(ItemData item)
+        private void OnItemRemoved(ItemData itemData)
         {
-            if (item == data.TomeItem)
+            if (itemData == data.TomeItem)
             {
                 extraTomeExperience = data.ExtraMultPerTome.GetValue(GetTomesAmount());
                 experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks) + extraTomeExperience);
             }
         }
 
-        private void OnItemStacksUpdated(ItemData item, int _)
+        private void OnItemStacksUpdated(ItemStackUpdate itemStackUpdate)
         {
-            if (item == data.TomeItem)
+            if (itemStackUpdate.itemData == data.TomeItem)
             {
                 extraTomeExperience = data.ExtraMultPerTome.GetValue(GetTomesAmount());
                 experienceMultiplier.UpdateMultiplier(data.XPMult.GetValue(stacks) + extraTomeExperience);
