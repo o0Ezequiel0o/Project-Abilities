@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zeke.Collections;
 using Zeke.Items;
+using static Damageable;
 
 public class Damageable : MonoBehaviour, IUpgradable
 {
@@ -144,7 +145,8 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     private float CalculateDamage(DamageEvent damageEvent)
     {
-        return CalculateDamage(damageEvent.Damage, damageEvent.ArmorPenetration);
+        float damage = damageEvent.Damage * damageEvent.DamageMultiplier.Value;
+        return CalculateDamage(damage, damageEvent.ArmorPenetration);
     }
 
     private float CalculateHealing(HealEvent healingEvent)
@@ -353,8 +355,6 @@ public class Damageable : MonoBehaviour, IUpgradable
         private void HandleDamage()
         {
             bool hadShield = Receiver.Shield > 0;
-
-            Damage *= DamageMultiplier.Value;
 
             Damage = Receiver.CalculateDamage(this);
             DamageDealt = Receiver.TakeDamage(Damage, IsLethal);
