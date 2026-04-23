@@ -22,7 +22,9 @@ namespace Zeke.Items
         public void UnsubscribeFromEvents(ItemHandler itemHandler)
         {
             itemHandler.onItemAdded -= AddNewItem;
+            itemHandler.onItemRemoved += RemoveItem;
             itemHandler.onStacksAdded -= UpdateItemStacks;
+            itemHandler.onStacksRemoved += UpdateItemStacks;
         }
 
         public void RefreshAllItems(ItemHandler itemHandler)

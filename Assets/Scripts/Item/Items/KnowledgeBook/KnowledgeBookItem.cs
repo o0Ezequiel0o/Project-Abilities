@@ -44,6 +44,11 @@ namespace Zeke.Items
             {
                 levelHandler.ExperienceMultiplier.RemoveMultiplier(experienceMultiplier);
             }
+
+            itemHandler.onItemAdded -= OnItemAdded;
+            itemHandler.onItemRemoved -= OnItemRemoved;
+            itemHandler.onStacksAdded -= OnItemStacksUpdated;
+            itemHandler.onStacksRemoved -= OnItemStacksUpdated;
         }
 
         public override void OnStacksAdded(int amount)
