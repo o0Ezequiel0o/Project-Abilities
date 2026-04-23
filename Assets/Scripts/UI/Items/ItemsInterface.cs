@@ -14,13 +14,14 @@ namespace Zeke.Items
         {
             itemHandler.onItemAdded += AddNewItem;
             itemHandler.onItemRemoved += RemoveItem;
-            itemHandler.onItemStacksUpdated += UpdateItemStacks;
+            itemHandler.onStacksAdded += UpdateItemStacks;
+            itemHandler.onStacksRemoved += UpdateItemStacks;
         }
 
         public void UnsubscribeFromEvents(ItemHandler itemHandler)
         {
             itemHandler.onItemAdded -= AddNewItem;
-            itemHandler.onItemStacksUpdated -= UpdateItemStacks;
+            itemHandler.onStacksAdded -= UpdateItemStacks;
         }
 
         public void RefreshAllItems(ItemHandler itemHandler)

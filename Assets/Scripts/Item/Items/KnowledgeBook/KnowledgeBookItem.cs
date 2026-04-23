@@ -33,7 +33,8 @@ namespace Zeke.Items
 
             itemHandler.onItemAdded += OnItemAdded;
             itemHandler.onItemRemoved += OnItemRemoved;
-            itemHandler.onItemStacksUpdated += OnItemStacksUpdated;
+            itemHandler.onStacksAdded += OnItemStacksUpdated;
+            itemHandler.onStacksRemoved += OnItemStacksUpdated;
         }
 
         public override void OnRemoved()

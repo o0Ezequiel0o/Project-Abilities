@@ -18,7 +18,8 @@ namespace Zeke.Items
         public Action<ItemData> onItemAdded;
         public Action<ItemData> onItemRemoved;
 
-        public Action<ItemData, int> onItemStacksUpdated;
+        public Action<ItemData, int> onStacksAdded;
+        public Action<ItemData, int> onStacksRemoved;
 
         private readonly List<Item> items = new List<Item>();
         private readonly List<ItemData> itemsData = new List<ItemData>();
@@ -125,11 +126,7 @@ namespace Zeke.Items
 
         private void RemoveItem(Item item, int stacks)
         {
-            int maxStacks = Mathf.Min(stacks, item.stacks);
-
-            if (maxStacks <= 0) return;
-
-            RemoveItemStacks(item, maxStacks);
+            RemoveItemStacks(item, stacks);
 
             if (item.stacks <= 0)
             {
@@ -141,18 +138,24 @@ namespace Zeke.Items
 
         private void AddItemStacks(Item item, int stacks)
         {
+            if (stacks <= 0) return;
+
             item.stacks += stacks;
             item.OnStacksAdded(stacks);
 
-            onItemStacksUpdated?.Invoke(item.Data, stacks);
+            onStacksAdded?.Invoke(item.Data, stacks);
         }
 
         private void RemoveItemStacks(Item item, int stacks)
         {
-            item.stacks -= stacks;
-            item.OnStacksRemoved(stacks);
+            int maxStacks = Mathf.Min(stacks, item.stacks);
 
-            onItemStacksUpdated?.Invoke(item.Data, stacks);
+            if (maxStacks <= 0) return;
+
+            item.stacks -= maxStacks;
+            item.OnStacksRemoved(maxStacks);
+
+            onStacksRemoved?.Invoke(item.Data, maxStacks);
         }
     }
 }
