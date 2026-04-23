@@ -48,7 +48,7 @@ namespace Zeke.Items
         {
             if (TryGetItem(itemData, out Item item))
             {
-                UpdateItemStacks(item, stacks);
+                AddItemStacks(item, stacks);
             }
             else
             {
@@ -120,7 +120,7 @@ namespace Zeke.Items
 
             item.Initialize();
             onItemAdded?.Invoke(itemData);
-            UpdateItemStacks(item, stacks);
+            AddItemStacks(item, stacks);
         }
 
         private void RemoveItem(Item item, int stacks)
@@ -129,10 +129,7 @@ namespace Zeke.Items
 
             if (maxStacks <= 0) return;
 
-            item.stacks -= maxStacks;
-            item.OnStacksRemoved(maxStacks);
-
-            onItemStacksUpdated?.Invoke(item.Data, maxStacks);
+            RemoveItemStacks(item, maxStacks);
 
             if (item.stacks <= 0)
             {
@@ -142,10 +139,18 @@ namespace Zeke.Items
             }
         }
 
-        private void UpdateItemStacks(Item item, int stacks)
+        private void AddItemStacks(Item item, int stacks)
         {
             item.stacks += stacks;
             item.OnStacksAdded(stacks);
+
+            onItemStacksUpdated?.Invoke(item.Data, stacks);
+        }
+
+        private void RemoveItemStacks(Item item, int stacks)
+        {
+            item.stacks -= stacks;
+            item.OnStacksRemoved(stacks);
 
             onItemStacksUpdated?.Invoke(item.Data, stacks);
         }
