@@ -144,7 +144,7 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     private float CalculateDamage(DamageEvent damageEvent)
     {
-        float damage = (damageEvent.Damage + damageEvent.FlatAccumulator) * damageEvent.Multiplier.Value;
+        float damage = Mathf.Max(0, (damageEvent.Damage + damageEvent.FlatAccumulator) * damageEvent.Multiplier.Value);
         return CalculateDamage(damage, damageEvent.ArmorPenetration);
     }
 
