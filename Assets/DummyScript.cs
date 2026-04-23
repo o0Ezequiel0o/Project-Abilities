@@ -29,33 +29,6 @@ public class DummyScript : MonoBehaviour
 
     private NavMeshPath path;
 
-    private void Start()
-    {
-        path = new NavMeshPath();
-
-        NavMesh.CalculatePath(transform.position, target.position, NavMesh.AllAreas, path);
-    }
-
-    private void Update()
-    {
-        if (currentIndex > path.corners.Length) return;
-
-        Vector3 corner = path.corners[currentIndex];
-        Vector2 direction = (corner - transform.position).normalized;
-
-        transform.Translate(speed * Time.deltaTime * direction);
-
-        if (Vector3.Distance(corner, transform.position) < minDistance)
-        {
-            currentIndex += 1;
-
-            if (currentIndex > path.corners.Length)
-            {
-                Debug.Log("path completed");
-            }
-        }
-    }
-
     private void FixedUpdate()
     {
         //Vector2 force = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
