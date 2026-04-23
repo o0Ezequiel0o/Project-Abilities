@@ -40,8 +40,8 @@ namespace Zeke.Items
                 float oldFlatModifier = flatModifier;
                 flatModifier = data.ExtraShieldGeneration.GetValue(stacks);
 
-                damageable.MaxHealth.ApplyFlatModifier(-oldFlatModifier);
-                damageable.MaxHealth.ApplyFlatModifier(flatModifier);
+                damageable.ShieldRegen.ApplyFlatModifier(-oldFlatModifier);
+                damageable.ShieldRegen.ApplyFlatModifier(flatModifier);
             }
         }
     }
