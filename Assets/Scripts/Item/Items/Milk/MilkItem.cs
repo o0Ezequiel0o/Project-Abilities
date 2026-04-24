@@ -35,6 +35,7 @@ namespace Zeke.Items
         private void OnHit(DamageEvent damageEvent)
         {
             if (!HasRequiredComponents) return;
+            if (damageEvent.Receiver.gameObject == source) return;
 
             float healthPercentage = damageable.Health / damageable.MaxHealth.Value;
             float damage = data.DamageFlatMult.GetValue(stacks) * healthPercentage;

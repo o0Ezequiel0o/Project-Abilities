@@ -30,6 +30,8 @@ namespace Zeke.Items
 
         private void OnHit(DamageEvent damageEvent)
         {
+            if (damageEvent.Receiver.gameObject == source) return;
+
             Vector3 closestPoint;
 
             if (damageEvent.Receiver.TryGetComponent(out Collider2D collider))

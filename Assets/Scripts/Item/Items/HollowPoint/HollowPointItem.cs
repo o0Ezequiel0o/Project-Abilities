@@ -31,6 +31,7 @@ namespace Zeke.Items
 
         public void OnDealDamage(DamageEvent damageEvent)
         {
+            if (damageEvent.Receiver.gameObject == source) return;
             damageEvent.Multiplier.ApplyFlatModifier(data.FlatMultDamage.GetValue(stacks));
         }
     }

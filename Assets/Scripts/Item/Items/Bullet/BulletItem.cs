@@ -30,6 +30,7 @@ namespace Zeke.Items
 
         private void OnHit(DamageEvent damageEvent)
         {
+            if (damageEvent.Receiver.gameObject == source) return;
             damageEvent.FlatAccumulator += data.FlatDamage.GetValue(stacks);
         }
     }
