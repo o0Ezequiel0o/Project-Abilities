@@ -1,5 +1,7 @@
 using UnityEngine;
+using System;
 
+[Serializable]
 public class GoldDeathReward : DeathReward
 {
     [SerializeField] private int gold;

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DeathRewardsData
   rewards:
   - rid: 2308102816636862546
+  - rid: 2308103065204424785
   references:
     version: 2
     RefIds:
@@ -21,3 +22,7 @@ MonoBehaviour:
       type: {class: XPDeathReward, ns: , asm: Assembly-CSharp}
       data:
         experience: 15
+    - rid: 2308103065204424785
+      type: {class: GoldDeathReward, ns: , asm: Assembly-CSharp}
+      data:
+        gold: 10
