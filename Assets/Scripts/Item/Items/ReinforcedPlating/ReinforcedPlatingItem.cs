@@ -2,17 +2,17 @@ using UnityEngine;
 
 namespace Zeke.Items
 {
-    public class GreenCrystalItem : Item
+    public class ReinforcedPlatingItem : Item
     {
         public override ItemData Data => data;
-        private readonly GreenCrystalItemData data;
+        private readonly ReinforcedPlatingItemData data;
 
         private readonly ItemHandler itemHandler;
         private readonly GameObject source;
 
         private float flatModifier = 0f;
 
-        public GreenCrystalItem(GreenCrystalItemData data, ItemHandler itemHandler, GameObject source)
+        public ReinforcedPlatingItem(ReinforcedPlatingItemData data, ItemHandler itemHandler, GameObject source)
         {
             this.data = data;
             this.source = source;
@@ -21,23 +21,23 @@ namespace Zeke.Items
 
         public override void OnStacksAdded(int amount)
         {
-            UpdateHealthValue();
+            UpdateArmorValue();
         }
 
         public override void OnStacksRemoved(int amount)
         {
-            UpdateHealthValue();
+            UpdateArmorValue();
         }
 
-        private void UpdateHealthValue()
+        private void UpdateArmorValue()
         {
             if (source.TryGetComponent(out Damageable damageable))
             {
                 float oldFlatModifier = flatModifier;
-                flatModifier = data.ExtraHealth.GetValue(stacks);
+                flatModifier = data.ExtraArmor.GetValue(stacks);
 
-                damageable.MaxHealth.ApplyFlatModifier(-oldFlatModifier);
-                damageable.MaxHealth.ApplyFlatModifier(flatModifier);
+                damageable.Armor.ApplyFlatModifier(-oldFlatModifier);
+                damageable.Armor.ApplyFlatModifier(flatModifier);
             }
         }
     }

@@ -447,7 +447,7 @@ MonoBehaviour:
       min: 0
       max: Infinity
   <MaxShield>k__BackingField:
-    baseValue: 50
+    baseValue: 0
     increase: 0
     valueLimits:
       min: -Infinity
@@ -735,19 +735,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1796d0b6a7815489a4c7916d40c148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: 47b7469bfb5d6a84d96a60b2c02af775, type: 2}
-  - {fileID: 11400000, guid: e86c6312819ee054295b7acd3bd04039, type: 2}
-  - {fileID: 11400000, guid: e86c6312819ee054295b7acd3bd04039, type: 2}
-  - {fileID: 11400000, guid: 9a7cb73b80ac28b44be91cb12d8b4561, type: 2}
-  - {fileID: 11400000, guid: 8f4b86123f36dbd45b362a97802ee45f, type: 2}
-  - {fileID: 11400000, guid: 57df328e90faa214a9055072c55e6805, type: 2}
-  - {fileID: 11400000, guid: 75fb7d0d718f12e49b996aabc4830a22, type: 2}
-  - {fileID: 11400000, guid: 75fb7d0d718f12e49b996aabc4830a22, type: 2}
-  - {fileID: 11400000, guid: 75fb7d0d718f12e49b996aabc4830a22, type: 2}
-  - {fileID: 11400000, guid: 3ee30bd49d1103d44bdeaf35e3043350, type: 2}
-  - {fileID: 11400000, guid: 939aec0778a46134aa2d3ed39e68a35b, type: 2}
-  - {fileID: 11400000, guid: 939aec0778a46134aa2d3ed39e68a35b, type: 2}
-  - {fileID: 11400000, guid: 939aec0778a46134aa2d3ed39e68a35b, type: 2}
-  - {fileID: 11400000, guid: 939aec0778a46134aa2d3ed39e68a35b, type: 2}
-  - {fileID: 11400000, guid: 939aec0778a46134aa2d3ed39e68a35b, type: 2}
+  items: []
