@@ -19,13 +19,14 @@ MonoBehaviour:
   <Name>k__BackingField: Sniper Scope
   <Description>k__BackingField: 
   <Rarity>k__BackingField: 0
-  <DamageMultPerMeter>k__BackingField:
-    rid: 2308103044736483410
+  <BaseDamageMultValue>k__BackingField: 1
+  <DamageMultIncreasePerMeter>k__BackingField:
+    rid: 2308103063999873105
   references:
     version: 2
     RefIds:
-    - rid: 2308103044736483410
+    - rid: 2308103063999873105
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
-        startValue: 1
+        startValue: 0
         increase: 0.01

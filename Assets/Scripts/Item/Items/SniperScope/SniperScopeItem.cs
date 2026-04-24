@@ -44,7 +44,7 @@ namespace Zeke.Items
             }
 
             float distance = Vector2.Distance(source.transform.position, closestPoint);
-            damageEvent.Multiplier.Multiply(data.DamageMultPerMeter.GetValue(stacks) * distance);
+            damageEvent.Multiplier.Multiply(data.BaseDamageMultValue + (data.DamageMultIncreasePerMeter.GetValue(stacks) * distance));
         }
     }
 }
