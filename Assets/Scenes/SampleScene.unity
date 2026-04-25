@@ -2215,7 +2215,11 @@ PrefabInstance:
     - target: {fileID: 4944555292566857165, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: 'items.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 09490405d67abae4db3441dfcade5b01, type: 2}
+      objectReference: {fileID: 11400000, guid: 6a620d13e31405d419303c1c3740f95b, type: 2}
+    - target: {fileID: 4944555292566857165, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: 'items.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 39fad4589f681974895e8e86113e851f, type: 2}
     - target: {fileID: 5218312312708394220, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: m_Name
       value: Player

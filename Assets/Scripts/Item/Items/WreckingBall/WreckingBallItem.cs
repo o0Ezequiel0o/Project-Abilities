@@ -47,8 +47,7 @@ namespace Zeke.Items
             float oldModifier = flatModifier;
             flatModifier = armor * speed;
 
-            damageable.Armor.ApplyFlatModifier(-oldModifier);
-            damageable.Armor.ApplyFlatModifier(flatModifier);
+            damageable.Armor.ApplyFlatModifier(-oldModifier, flatModifier);
         }
     }
 }

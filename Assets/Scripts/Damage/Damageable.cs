@@ -262,13 +262,13 @@ public class Damageable : MonoBehaviour, IUpgradable
             if (Health < MaxHealth.Value)
             {
                 Health += HealthRegen.Value * regenTimer;
-                onAnyHealthUpdate?.Invoke();
             }
             else
             {
                 Shield += ShieldRegen.Value * regenTimer;
             }
 
+            onAnyHealthUpdate?.Invoke();
             regenTimer = 0f;
         }
     }

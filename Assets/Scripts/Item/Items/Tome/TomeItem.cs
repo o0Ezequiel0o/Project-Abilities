@@ -25,7 +25,7 @@ namespace Zeke.Items
 
         public override void OnRemoved()
         {
-            RemoveFlatModifier();
+            levelHandler.ExperienceMultiplier.ApplyFlatModifier(-flatModifier);
         }
 
         public override void OnStacksAdded(int amount)
@@ -45,13 +45,7 @@ namespace Zeke.Items
             float oldFlatModifier = flatModifier;
             flatModifier = data.XPFlatMult.GetValue(stacks);
 
-            levelHandler.ExperienceMultiplier.ApplyFlatModifier(-oldFlatModifier);
-            levelHandler.ExperienceMultiplier.ApplyFlatModifier(flatModifier);
-        }
-
-        private void RemoveFlatModifier()
-        {
-            levelHandler.ExperienceMultiplier.ApplyFlatModifier(-flatModifier);
+            levelHandler.ExperienceMultiplier.ApplyFlatModifier(-oldFlatModifier, flatModifier);
         }
     }
 }

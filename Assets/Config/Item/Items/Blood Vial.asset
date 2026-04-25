@@ -9,39 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e178addd09a277b48a12ac994276c1ef, type: 3}
-  m_Name: Copper Wires
-  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Items.CopperWiresItemData
+  m_Script: {fileID: 11500000, guid: d9ce314c69b6af54a98e4f7f95813bd1, type: 3}
+  m_Name: Blood Vial
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Items.BloodVialItemData
   settings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   worldPrefab: {fileID: 3753182464441508134, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: Copper Wires
+  <Name>k__BackingField: Blood Vial
   <Description>k__BackingField: 
   <Rarity>k__BackingField: 1
-  <ProcChance>k__BackingField: 25
-  <ProcCoefficient>k__BackingField: 0.5
-  <ArmorPenetration>k__BackingField: 0
-  <HitLayers>k__BackingField:
-    serializedVersion: 2
-    m_Bits: 256
-  <BlockLayers>k__BackingField:
-    serializedVersion: 2
-    m_Bits: 128
-  <MaxTargets>k__BackingField:
-    rid: 2308103065204424783
-  <Radius>k__BackingField:
-    rid: 2308103065204424784
+  <Cooldown>k__BackingField: 1
+  <Healing>k__BackingField:
+    rid: 2308103083634196570
   references:
     version: 2
     RefIds:
-    - rid: 2308103065204424783
+    - rid: 2308103083634196570
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
-        startValue: 2
-        increase: 1
-    - rid: 2308103065204424784
-      type: {class: LinearStat, ns: , asm: Assembly-CSharp}
-      data:
-        startValue: 2
+        startValue: 0
         increase: 2

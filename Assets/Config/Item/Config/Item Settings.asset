@@ -49,6 +49,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 09490405d67abae4db3441dfcade5b01, type: 2}
   - {fileID: 11400000, guid: 0420411d4f001f64eb242ec31e2c2eba, type: 2}
   - {fileID: 11400000, guid: c4620efce1d53354aa30cf0019e96bc5, type: 2}
+  - {fileID: 11400000, guid: 850b76195c97d9a42a6770edf277a122, type: 2}
+  - {fileID: 11400000, guid: 8aaff72907f8e184babaca9ba5fa7355, type: 2}
+  - {fileID: 11400000, guid: 4630f42cb267ad640b4bde74bfc3ec26, type: 2}
+  - {fileID: 11400000, guid: 5383c9cf8e6412149b5e6b8dd13ed82d, type: 2}
+  - {fileID: 11400000, guid: 93f224e2f1db3f24a8c66986f342a9a8, type: 2}
+  - {fileID: 11400000, guid: c10295ed20c161d499a42eb88f780113, type: 2}
+  - {fileID: 11400000, guid: 39fad4589f681974895e8e86113e851f, type: 2}
+  - {fileID: 11400000, guid: 6a620d13e31405d419303c1c3740f95b, type: 2}
   commonColor: {r: 1, g: 1, b: 1, a: 1}
   rareColor: {r: 0.014198542, g: 1, b: 0, a: 1}
   epicColor: {r: 0.934319, g: 0, b: 1, a: 1}
@@ -69,7 +77,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6aff44e5d9b2c4543adea9ab1c38472b, type: 2}
   - {fileID: 11400000, guid: 4a794a44f2347b74486146164d7f9ed2, type: 2}
   - {fileID: 11400000, guid: 09490405d67abae4db3441dfcade5b01, type: 2}
-  - {fileID: 11400000, guid: c4620efce1d53354aa30cf0019e96bc5, type: 2}
+  - {fileID: 11400000, guid: 850b76195c97d9a42a6770edf277a122, type: 2}
+  - {fileID: 11400000, guid: 4630f42cb267ad640b4bde74bfc3ec26, type: 2}
+  - {fileID: 11400000, guid: 5383c9cf8e6412149b5e6b8dd13ed82d, type: 2}
+  - {fileID: 11400000, guid: c10295ed20c161d499a42eb88f780113, type: 2}
+  - {fileID: 11400000, guid: 39fad4589f681974895e8e86113e851f, type: 2}
+  - {fileID: 11400000, guid: 6a620d13e31405d419303c1c3740f95b, type: 2}
   commonItems:
   - {fileID: 11400000, guid: 57df328e90faa214a9055072c55e6805, type: 2}
   - {fileID: 11400000, guid: 47b7469bfb5d6a84d96a60b2c02af775, type: 2}
@@ -96,6 +109,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6aff44e5d9b2c4543adea9ab1c38472b, type: 2}
   - {fileID: 11400000, guid: 4a794a44f2347b74486146164d7f9ed2, type: 2}
   - {fileID: 11400000, guid: 0420411d4f001f64eb242ec31e2c2eba, type: 2}
+  - {fileID: 11400000, guid: 850b76195c97d9a42a6770edf277a122, type: 2}
   rareItems:
   - {fileID: 11400000, guid: 8f4b86123f36dbd45b362a97802ee45f, type: 2}
   - {fileID: 11400000, guid: b411421207e760f4a9e58e3a59b59b18, type: 2}
@@ -105,8 +119,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9afa03065ccb8194ab48b73245e7fe96, type: 2}
   - {fileID: 11400000, guid: 09490405d67abae4db3441dfcade5b01, type: 2}
   - {fileID: 11400000, guid: c4620efce1d53354aa30cf0019e96bc5, type: 2}
+  - {fileID: 11400000, guid: 8aaff72907f8e184babaca9ba5fa7355, type: 2}
+  - {fileID: 11400000, guid: 4630f42cb267ad640b4bde74bfc3ec26, type: 2}
+  - {fileID: 11400000, guid: 93f224e2f1db3f24a8c66986f342a9a8, type: 2}
+  - {fileID: 11400000, guid: c10295ed20c161d499a42eb88f780113, type: 2}
+  - {fileID: 11400000, guid: 39fad4589f681974895e8e86113e851f, type: 2}
+  - {fileID: 11400000, guid: 6a620d13e31405d419303c1c3740f95b, type: 2}
   epicItems:
   - {fileID: 11400000, guid: 24ebaf79fe4dac6419ed1756f4aa4468, type: 2}
+  - {fileID: 11400000, guid: 5383c9cf8e6412149b5e6b8dd13ed82d, type: 2}
   legendaryItems:
   - {fileID: 11400000, guid: 3ee30bd49d1103d44bdeaf35e3043350, type: 2}
   uniqueItems: []

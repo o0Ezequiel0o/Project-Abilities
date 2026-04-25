@@ -19,9 +19,13 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
-        public override void Initialize() { }
-
-        public override void OnRemoved() { }
+        public override void OnRemoved()
+        {
+            if (source.TryGetComponent(out EntityMove entityMove))
+            {
+                entityMove.MoveSpeed.ApplyFlatModifier(-flatModifier);
+            }
+        }
 
         public override void OnStacksAdded(int amount)
         {
@@ -40,8 +44,7 @@ namespace Zeke.Items
                 float oldFlatModifier = flatModifier;
                 flatModifier = data.ExtraMoveSpeed.GetValue(stacks);
 
-                entityMove.MoveSpeed.ApplyFlatModifier(-oldFlatModifier);
-                entityMove.MoveSpeed.ApplyFlatModifier(flatModifier);
+                entityMove.MoveSpeed.ApplyFlatModifier(-oldFlatModifier, flatModifier);
             }
         }
     }
