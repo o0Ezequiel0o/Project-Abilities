@@ -62,9 +62,12 @@ public class Stat
         RecalculateMultiplierValue();
     }
 
-    public void ApplyFlatModifier(float increase)
+    public void ApplyFlatModifier(params float[] increase)
     {
-        flatModifier += increase;
+        for (int i = 0; i < increase.Length; i++)
+        {
+            flatModifier += increase[i];
+        }
     }
 
     public void Upgrade()

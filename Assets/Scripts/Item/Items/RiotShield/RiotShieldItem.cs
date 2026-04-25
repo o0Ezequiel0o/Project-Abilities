@@ -42,20 +42,14 @@ namespace Zeke.Items
         {
             float oldFlatModifier = regenFlatModifier;
             regenFlatModifier = data.ExtraShieldRegen.GetValue(stacks);
-            UpdateDamageableStat(damageable, oldFlatModifier, regenFlatModifier);
+            damageable.ShieldRegen.ApplyFlatModifier(-oldFlatModifier, regenFlatModifier);
         }
 
         private void UpdateShieldValue(Damageable damageable)
         {
             float oldFlatModifier = shieldFlatModifier;
             shieldFlatModifier = data.ExtraShield.GetValue(stacks);
-            UpdateDamageableStat(damageable, oldFlatModifier, shieldFlatModifier);
-        }
-
-        private void UpdateDamageableStat(Damageable damageable, float old, float @new)
-        {
-            damageable.MaxShield.ApplyFlatModifier(-old);
-            damageable.MaxShield.ApplyFlatModifier(@new);
+            damageable.MaxShield.ApplyFlatModifier(-oldFlatModifier, shieldFlatModifier);
         }
     }
 }
