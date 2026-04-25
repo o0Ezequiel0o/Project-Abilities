@@ -120,7 +120,7 @@ public class Stat
 
         public void UpdateMultiplier(float newMultiplierValue)
         {
-            if (Value != newMultiplierValue)
+            if (Value != newMultiplierValue && linkedStat != null)
             {
                 Value = newMultiplierValue;
                 linkedStat.RecalculateMultiplierValue();
