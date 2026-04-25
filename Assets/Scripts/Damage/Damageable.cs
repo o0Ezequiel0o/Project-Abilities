@@ -106,7 +106,7 @@ public class Damageable : MonoBehaviour, IUpgradable
         return healingEvent;
     }
 
-    public void GiveShields(float shields, GameObject sourceUser, GameObject sourceObject)
+    public void GiveShield(float shields, GameObject sourceUser, GameObject sourceObject)
     {
         ReceiveShield(shields);
     }
@@ -228,11 +228,11 @@ public class Damageable : MonoBehaviour, IUpgradable
         {
             if (Health < MaxHealth.Value)
             {
-                ReceiveHealing(HealthRegen.Value * settings.RegenInterval);
+                ReceiveHealing(HealthRegen.Value * regenTimer);
             }
             else
             {
-                ReceiveShield(ShieldRegen.Value * settings.RegenInterval);
+                ReceiveShield(ShieldRegen.Value * regenTimer);
             }
 
             regenTimer = 0f;
