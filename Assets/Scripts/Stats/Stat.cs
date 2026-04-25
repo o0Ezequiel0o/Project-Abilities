@@ -11,15 +11,16 @@ public class Stat
 
     public static Stat Zero => new(0f, 0f, 0f, 0f);
 
-    private float flatModifier = 0f;
-    private float multiplier = 1f;
-
     public float Value => Mathf.Clamp((baseValue + flatModifier) * multiplier, valueLimits.Min, valueLimits.Max);
     public int ValueInt => Mathf.FloorToInt(Value);
 
     public float ExtraValue => (Value - baseValue);
 
     public int Level { get; private set; }
+    public Action<StatUpdate> onStatUpdated;
+
+    private float flatModifier = 0f;
+    private float multiplier = 1f;
 
     public Stat() { }
 
@@ -64,9 +65,22 @@ public class Stat
 
     public void ApplyFlatModifier(params float[] increase)
     {
+        float oldValue = Value;
+        bool updated = false;
+
         for (int i = 0; i < increase.Length; i++)
         {
             flatModifier += increase[i];
+
+            if (flatModifier != 0f)
+            {
+                updated = true;
+            }
+        }
+
+        if (updated)
+        {
+            onStatUpdated?.Invoke(new StatUpdate(oldValue));
         }
     }
 
@@ -78,12 +92,16 @@ public class Stat
 
     private void RecalculateMultiplierValue()
     {
+        float oldValue = Value;
+
         multiplier = 1f;
 
         for (int i = 0; i < multipliers.Count; i++)
         {
             multiplier *= multipliers[i].Value;
         }
+
+        onStatUpdated?.Invoke(new StatUpdate(oldValue));
     }
 
     public Stat(Stat original)
@@ -128,6 +146,16 @@ public class Stat
                 Value = newMultiplierValue;
                 linkedStat.RecalculateMultiplierValue();
             }
+        }
+    }
+
+    public readonly struct StatUpdate
+    {
+        public readonly float oldValue;
+
+        public StatUpdate(float oldValue)
+        {
+            this.oldValue = oldValue;
         }
     }
 }
