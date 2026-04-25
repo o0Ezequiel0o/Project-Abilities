@@ -239,11 +239,18 @@ public class Damageable : MonoBehaviour, IUpgradable
         float healthRatio = Mathf.Clamp01(Health / statUpdate.oldValue);
         float change = MaxHealth.Value - statUpdate.oldValue;
 
+        if (change == 0f) return;
+
         if (change > 0f)
         {
             Health += change * healthRatio;
-            onAnyHealthUpdate?.Invoke();
         }
+        else if (change < 0f && _health > MaxHealth.Value)
+        {
+            _health = MaxHealth.Value;
+        }
+
+        onAnyHealthUpdate?.Invoke();
     }
 
     private void UpdateRegeneration()
