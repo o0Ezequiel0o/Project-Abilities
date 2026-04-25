@@ -7,7 +7,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15e9bf2e3531db1409d9281434644ffa, type: 3}
   m_Name: Item Settings
@@ -39,6 +39,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f23377b59e3633d4baa908e4a8acd76d, type: 2}
   - {fileID: 11400000, guid: 42ee459ee6f210d4c8da86145a02b618, type: 2}
   - {fileID: 11400000, guid: 041e5bd571ea93d43a2a7b8d6b3062aa, type: 2}
+  - {fileID: 11400000, guid: 7cbd1841c48e5af41a7410a865a2b79f, type: 2}
+  - {fileID: 11400000, guid: bd12a73122ee7e84787eaafb43c65f89, type: 2}
+  - {fileID: 11400000, guid: 6ef08440732f0d746af3ded5b8b6961b, type: 2}
+  - {fileID: 11400000, guid: 24ebaf79fe4dac6419ed1756f4aa4468, type: 2}
+  - {fileID: 11400000, guid: 9afa03065ccb8194ab48b73245e7fe96, type: 2}
+  - {fileID: 11400000, guid: 6aff44e5d9b2c4543adea9ab1c38472b, type: 2}
+  - {fileID: 11400000, guid: 4a794a44f2347b74486146164d7f9ed2, type: 2}
+  - {fileID: 11400000, guid: 09490405d67abae4db3441dfcade5b01, type: 2}
+  - {fileID: 11400000, guid: 0420411d4f001f64eb242ec31e2c2eba, type: 2}
+  - {fileID: 11400000, guid: c4620efce1d53354aa30cf0019e96bc5, type: 2}
   commonColor: {r: 1, g: 1, b: 1, a: 1}
   rareColor: {r: 0.014198542, g: 1, b: 0, a: 1}
   epicColor: {r: 0.934319, g: 0, b: 1, a: 1}
@@ -51,9 +61,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3ee30bd49d1103d44bdeaf35e3043350, type: 2}
   - {fileID: 11400000, guid: 667d37b58c04ab5449cea3bc00894ee4, type: 2}
   - {fileID: 11400000, guid: 445d191049d37854dbc1da35dcac82d7, type: 2}
-  - {fileID: 11400000, guid: f23377b59e3633d4baa908e4a8acd76d, type: 2}
   - {fileID: 11400000, guid: 42ee459ee6f210d4c8da86145a02b618, type: 2}
   - {fileID: 11400000, guid: 041e5bd571ea93d43a2a7b8d6b3062aa, type: 2}
+  - {fileID: 11400000, guid: 7cbd1841c48e5af41a7410a865a2b79f, type: 2}
+  - {fileID: 11400000, guid: bd12a73122ee7e84787eaafb43c65f89, type: 2}
+  - {fileID: 11400000, guid: 6ef08440732f0d746af3ded5b8b6961b, type: 2}
+  - {fileID: 11400000, guid: 6aff44e5d9b2c4543adea9ab1c38472b, type: 2}
+  - {fileID: 11400000, guid: 4a794a44f2347b74486146164d7f9ed2, type: 2}
+  - {fileID: 11400000, guid: 09490405d67abae4db3441dfcade5b01, type: 2}
+  - {fileID: 11400000, guid: c4620efce1d53354aa30cf0019e96bc5, type: 2}
   commonItems:
   - {fileID: 11400000, guid: 57df328e90faa214a9055072c55e6805, type: 2}
   - {fileID: 11400000, guid: 47b7469bfb5d6a84d96a60b2c02af775, type: 2}
@@ -76,11 +92,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f23377b59e3633d4baa908e4a8acd76d, type: 2}
   - {fileID: 11400000, guid: 42ee459ee6f210d4c8da86145a02b618, type: 2}
   - {fileID: 11400000, guid: 041e5bd571ea93d43a2a7b8d6b3062aa, type: 2}
+  - {fileID: 11400000, guid: 7cbd1841c48e5af41a7410a865a2b79f, type: 2}
+  - {fileID: 11400000, guid: 6aff44e5d9b2c4543adea9ab1c38472b, type: 2}
+  - {fileID: 11400000, guid: 4a794a44f2347b74486146164d7f9ed2, type: 2}
+  - {fileID: 11400000, guid: 0420411d4f001f64eb242ec31e2c2eba, type: 2}
   rareItems:
   - {fileID: 11400000, guid: 8f4b86123f36dbd45b362a97802ee45f, type: 2}
   - {fileID: 11400000, guid: b411421207e760f4a9e58e3a59b59b18, type: 2}
   - {fileID: 11400000, guid: d608bfabef1ba08429d7c3fc720e6e49, type: 2}
-  epicItems: []
+  - {fileID: 11400000, guid: bd12a73122ee7e84787eaafb43c65f89, type: 2}
+  - {fileID: 11400000, guid: 6ef08440732f0d746af3ded5b8b6961b, type: 2}
+  - {fileID: 11400000, guid: 9afa03065ccb8194ab48b73245e7fe96, type: 2}
+  - {fileID: 11400000, guid: 09490405d67abae4db3441dfcade5b01, type: 2}
+  - {fileID: 11400000, guid: c4620efce1d53354aa30cf0019e96bc5, type: 2}
+  epicItems:
+  - {fileID: 11400000, guid: 24ebaf79fe4dac6419ed1756f4aa4468, type: 2}
   legendaryItems:
   - {fileID: 11400000, guid: 3ee30bd49d1103d44bdeaf35e3043350, type: 2}
   uniqueItems: []

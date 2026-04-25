@@ -9,24 +9,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77dc8cba9aaecc479408c2a5b710ad6, type: 3}
-  m_Name: Glass Shards
-  m_EditorClassIdentifier: Assembly-CSharp::GlassShardsItemData
+  m_Script: {fileID: 11500000, guid: e464d4dc955c43e4c82ee0bbfe34426f, type: 3}
+  m_Name: Paycheck
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Items.PaycheckItemData
   settings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   worldPrefab: {fileID: 3753182464441508134, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: Glass Shards
-  <Description>k__BackingField: Makes hits have a chance to cause bleeding.
-  <Rarity>k__BackingField: 0
-  <StatusEffect>k__BackingField: {fileID: 11400000, guid: 6a23c38cf1531774184c1ad484ce7c57, type: 2}
-  <ProcChance>k__BackingField:
-    rid: 2308102863504277870
+  <Name>k__BackingField: Paycheck
+  <Description>k__BackingField: 
+  <Rarity>k__BackingField: 1
+  <GoldRequiredForStack>k__BackingField: 10
+  <DamageMultPerStack>k__BackingField:
+    rid: 2308103083634196560
+  <DamageMultCap>k__BackingField:
+    rid: 2308103083634196561
   references:
     version: 2
     RefIds:
-    - rid: 2308102863504277870
+    - rid: 2308103083634196560
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 0
-        increase: 10
+        increase: 0.1
+    - rid: 2308103083634196561
+      type: {class: LinearStat, ns: , asm: Assembly-CSharp}
+      data:
+        startValue: 1
+        increase: 0.25

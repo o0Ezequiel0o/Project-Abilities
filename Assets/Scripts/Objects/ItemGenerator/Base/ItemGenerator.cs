@@ -116,6 +116,7 @@ namespace Zeke.Items
 
             optionWindowInstance.TryGetElement<Image>("Image").sprite = generatedItem.item.Icon;
             optionWindowInstance.TryGetElement<TextMeshProUGUI>("Name").text = generatedItem.item.Name;
+            optionWindowInstance.TryGetElement<TextMeshProUGUI>("Description").text = generatedItem.item.Description;
             optionWindowInstance.TryGetElement<Image>("Border").color = itemSettings.GetRarityColor(generatedItem.item.Rarity);
 
             Button button = optionWindowInstance.TryGetElement<Button>("Button");

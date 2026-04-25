@@ -9,24 +9,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77dc8cba9aaecc479408c2a5b710ad6, type: 3}
-  m_Name: Glass Shards
-  m_EditorClassIdentifier: Assembly-CSharp::GlassShardsItemData
+  m_Script: {fileID: 11500000, guid: 83f56c82a48b58542a3e4a153d13d630, type: 3}
+  m_Name: Thief Boots
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Items.ThiefBootsItemData
   settings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   worldPrefab: {fileID: 3753182464441508134, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: Glass Shards
-  <Description>k__BackingField: Makes hits have a chance to cause bleeding.
-  <Rarity>k__BackingField: 0
-  <StatusEffect>k__BackingField: {fileID: 11400000, guid: 6a23c38cf1531774184c1ad484ce7c57, type: 2}
-  <ProcChance>k__BackingField:
-    rid: 2308102863504277870
+  <Name>k__BackingField: Thief Boots
+  <Description>k__BackingField: Increases move speed when there aren't any close
+    enemies after certain time.
+  <Rarity>k__BackingField: 1
+  <HitLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 256
+  <RequiredRadius>k__BackingField: 5
+  <RequiredTime>k__BackingField: 3
+  <SpeedMultiplier>k__BackingField:
+    rid: 2308103074910306386
   references:
     version: 2
     RefIds:
-    - rid: 2308102863504277870
+    - rid: 2308103074910306386
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
-        startValue: 0
-        increase: 10
+        startValue: 1
+        increase: 0.15

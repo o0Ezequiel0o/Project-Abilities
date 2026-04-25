@@ -93,6 +93,11 @@ namespace Zeke.Items
 
         private bool CanTarget(GameObject target)
         {
+            if (target == source)
+            {
+                return false;
+            }
+
             if (procTargets.Contains(target.transform))
             {
                 return false;
