@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zeke.Collections;
 using Zeke.Items;
+using static Stat;
 
 public class Damageable : MonoBehaviour, IUpgradable
 {
@@ -20,8 +21,17 @@ public class Damageable : MonoBehaviour, IUpgradable
     [field: SerializeField] public Stat HealingReceivedMultiplier { get; private set; }
     [field: SerializeField] public Stat ShieldReceivedMultiplier { get; private set; }
 
-    public float Health { get; private set; }
-    public float Shield { get; private set; }
+    public float Health
+    {
+        get => _health;
+        set => _health = Mathf.Clamp(value, 0f, MaxHealth.Value);
+    }
+
+    public float Shield
+    {
+        get => _shield;
+        set => _shield = Mathf.Clamp(value, 0f, MaxShield.Value);
+    }
 
     public float CombinedHealth => Health + Shield;
 
@@ -44,6 +54,9 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     public bool Immune => immunitySources.Count > 0;
     private readonly HashSet<int> immunitySources = new HashSet<int>();
+
+    private float _health = 0f;
+    private float _shield = 0f;
 
     private float regenTimer = 0f;
 
@@ -213,11 +226,24 @@ public class Damageable : MonoBehaviour, IUpgradable
         IsAlive = true;
 
         MarkedForDeath = false;
+        MaxHealth.onStatUpdated += SyncHealth;
     }
 
     private void Update()
     {
         UpdateRegeneration();
+    }
+
+    private void SyncHealth(StatUpdate statUpdate)
+    {
+        float healthRatio = Mathf.Clamp01(Health / statUpdate.oldValue);
+        float change = MaxHealth.Value - statUpdate.oldValue;
+
+        if (change > 0f)
+        {
+            Health += change * healthRatio;
+            onAnyHealthUpdate?.Invoke();
+        }
     }
 
     private void UpdateRegeneration()
@@ -228,11 +254,12 @@ public class Damageable : MonoBehaviour, IUpgradable
         {
             if (Health < MaxHealth.Value)
             {
-                ReceiveHealing(HealthRegen.Value * regenTimer);
+                Health += HealthRegen.Value * regenTimer;
+                onAnyHealthUpdate?.Invoke();
             }
             else
             {
-                ReceiveShield(ShieldRegen.Value * regenTimer);
+                Shield += ShieldRegen.Value * regenTimer;
             }
 
             regenTimer = 0f;
