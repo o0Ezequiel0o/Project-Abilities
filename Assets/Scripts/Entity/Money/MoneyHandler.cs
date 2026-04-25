@@ -8,6 +8,9 @@ public class MoneyHandler : MonoBehaviour
     public int Money { get; private set; }
 
     public OrderedAction<int> onReceiveMoney = new OrderedAction<int>();
+    public OrderedAction<int> onReceivedMoney = new OrderedAction<int>();
+
+    public OrderedAction<int> onUsedMoney = new OrderedAction<int>();
 
     public void GiveMoney(int money)
     {
@@ -23,10 +26,13 @@ public class MoneyHandler : MonoBehaviour
         onReceiveMoney?.Invoke(money);
 
         Money += Mathf.FloorToInt(money * GoldMultiplier.Value);
+
+        onReceivedMoney?.Invoke(money);
     }
 
     public void UseMoney(int money)
     {
         Money = Mathf.Max(Money - money, 0);
+        onUsedMoney?.Invoke(money);
     }
 }
