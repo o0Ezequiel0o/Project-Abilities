@@ -29,12 +29,13 @@ namespace Zeke.Items
         }
 
         private void OnHit(DamageEvent damageEvent)
-        {
+        { 
             if (damageEvent.Receiver.gameObject == source) return;
 
             if (damageEvent.Receiver.TryGetComponent(out Physics physics))
             {
-                physics.AddForce(damageEvent.Direction * data.Knockback.GetValue(stacks));
+                float damageRatio = damageEvent.Damage / damageEvent.Receiver.MaxHealth.Value;
+                physics.AddForce(damageEvent.Direction * (data.Knockback.GetValue(stacks) * damageRatio));
             }
         }
     }

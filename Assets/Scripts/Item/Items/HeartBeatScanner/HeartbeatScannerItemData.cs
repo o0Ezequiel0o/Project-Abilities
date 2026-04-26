@@ -6,7 +6,7 @@ namespace Zeke.Items
     public class HeartbeatScannerItemData : ItemData
     {
         [field: SerializeField] public float MissingHealthRatioForStack { get; private set; }
-        [field: SerializeReferenceDropdown, SerializeReference] public float DamageMultiplierPerStack { get; private set; }
+        [field: SerializeReferenceDropdown, SerializeReference] public IStackStat DamageMultPerStack { get; private set; }
 
         public override Item CreateItem(ItemHandler itemHandler, GameObject source)
         {

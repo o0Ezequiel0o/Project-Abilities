@@ -34,7 +34,7 @@ namespace Zeke.Items
             float missingHealthRatio = 1f - (damageEvent.Receiver.Health / damageEvent.Receiver.MaxHealth.Value);
 
             int effectStacks = Mathf.FloorToInt(missingHealthRatio / data.MissingHealthRatioForStack);
-            damageEvent.Multiplier.Multiply(1f + (effectStacks * data.DamageMultiplierPerStack));
+            damageEvent.Multiplier.Multiply(1f + (effectStacks * data.DamageMultPerStack.GetValue(stacks)));
         }
     }
 }
