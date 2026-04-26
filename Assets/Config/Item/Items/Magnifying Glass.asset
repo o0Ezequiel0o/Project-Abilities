@@ -17,7 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 92086293866280538, guid: 6bba9cfa306935447b942680fcc104fe, type: 3}
   <Outline>k__BackingField: {fileID: -630506825, guid: 6bba9cfa306935447b942680fcc104fe, type: 3}
   <Name>k__BackingField: Magnifying Glass
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Deal 10% (+10% per stack) damage to enemies closer
+    than 4 meters.
   <Rarity>k__BackingField: 0
   <MinDistance>k__BackingField: 4
   <DamageMult>k__BackingField:

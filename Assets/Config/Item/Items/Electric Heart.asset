@@ -17,8 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Electric Heart
-  <Description>k__BackingField: Increases health regen when at max shield based on
-    your health shield ratio.
+  <Description>k__BackingField: If your shield is full you gain 10 (+10 per stack)
+    health regen, scales with health / shield ratio.
   <Rarity>k__BackingField: 1
   <HealthRegen>k__BackingField:
     rid: 2308103083634196571

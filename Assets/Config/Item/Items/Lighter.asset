@@ -17,7 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: -5627184776069937675, guid: 2a9df458f9469b14b8403f582feb3a13, type: 3}
   <Outline>k__BackingField: {fileID: 5969526306296210063, guid: 2a9df458f9469b14b8403f582feb3a13, type: 3}
   <Name>k__BackingField: Lighter
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Kills light enemies 1 (+1 per stack) meters around
+    it on fire.
   <Rarity>k__BackingField: 0
   <Radius>k__BackingField:
     rid: 2308102863504277872

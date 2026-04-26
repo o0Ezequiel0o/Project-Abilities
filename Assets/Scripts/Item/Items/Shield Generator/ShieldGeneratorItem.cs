@@ -42,7 +42,7 @@ namespace Zeke.Items
             if (source.TryGetComponent(out Damageable damageable))
             {
                 float oldFlatModifier = flatModifier;
-                flatModifier = data.ExtraShieldGeneration.GetValue(stacks);
+                flatModifier = data.ExtraShieldRegen.GetValue(stacks);
 
                 damageable.ShieldRegen.ApplyFlatModifier(-oldFlatModifier, flatModifier);
             }

@@ -17,7 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Emergency Generator
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Regenerate 1 (+1 per stack) shield every second even
+    when not at max health.
   <Rarity>k__BackingField: 0
   <Interval>k__BackingField: 1
   <Amount>k__BackingField:

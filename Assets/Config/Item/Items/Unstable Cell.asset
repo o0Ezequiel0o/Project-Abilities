@@ -17,7 +17,9 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Unstable Cell
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Increase shield by 18 (+18 per stack) and every 5
+    seconds when shield breaks knock enemies in a 3 meter radius away. Stacks lower
+    cooldown.
   <Rarity>k__BackingField: 2
   <ExtraShield>k__BackingField:
     rid: 2308103072427540560

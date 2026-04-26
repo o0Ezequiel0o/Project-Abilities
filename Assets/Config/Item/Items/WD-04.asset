@@ -17,7 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: WD-04
-  <Description>k__BackingField: Increases aim speed and movement speed.
+  <Description>k__BackingField: "Increases move speed by 0.15 (+0.15 per stack) and
+    aim speed by 60\xB0 (+60\xB0 per stack)."
   <Rarity>k__BackingField: 0
   <ExtraMoveSpeed>k__BackingField:
     rid: 2308103074910306383

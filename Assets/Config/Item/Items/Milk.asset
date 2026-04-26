@@ -17,7 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Milk
-  <Description>k__BackingField: Keep those bones healthy... unless you are a robot...
+  <Description>k__BackingField: Hits deal 2% (+2% per stack) more damage based on
+    your health ratio.
   <Rarity>k__BackingField: 0
   DamageFlatMult:
     rid: 2308103044736483409

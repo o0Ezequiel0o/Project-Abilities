@@ -17,8 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Blood Tank
-  <Description>k__BackingField: A part of the damage you take is reduced by an invisible
-    health pool that uses your health regen.
+  <Description>k__BackingField: 25% of damage taken is absorbed by a second damage
+    pool equal to 15% (+15% per stack) of your max health.
   <Rarity>k__BackingField: 3
   <DamageReductionRatio>k__BackingField: 0.25
   <HealthInheritRatio>k__BackingField:

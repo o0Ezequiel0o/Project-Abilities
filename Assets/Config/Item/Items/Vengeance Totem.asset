@@ -17,7 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: -5526905303279678722, guid: 263c59f857c95a44fbc226be66a709fc, type: 3}
   <Outline>k__BackingField: {fileID: -1042015122476481078, guid: 263c59f857c95a44fbc226be66a709fc, type: 3}
   <Name>k__BackingField: Vengeance Totem
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Taking damage deals 8 (+8 per stack) damage back.
   <Rarity>k__BackingField: 0
   <Damage>k__BackingField:
     rid: 2308102863504277878

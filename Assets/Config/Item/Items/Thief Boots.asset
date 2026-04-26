@@ -17,8 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Thief Boots
-  <Description>k__BackingField: Increases move speed when there aren't any close
-    enemies after certain time.
+  <Description>k__BackingField: 'Increases move speed by 15% (+15% per stack) after
+    being 5 meters away from enemies for 3 seconds. '
   <Rarity>k__BackingField: 1
   <HitLayers>k__BackingField:
     serializedVersion: 2

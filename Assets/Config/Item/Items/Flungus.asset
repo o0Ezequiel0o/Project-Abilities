@@ -17,7 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: -1130577112789112938, guid: e5f71359257a23e468f09ecd6b6f8962, type: 3}
   <Outline>k__BackingField: {fileID: 7933047657225129039, guid: e5f71359257a23e468f09ecd6b6f8962, type: 3}
   <Name>k__BackingField: Flungus
-  <Description>k__BackingField: FLUNGUS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  <Description>k__BackingField: 'Standing still spawn a healing area below that heals
+    all allies 1 (+1 per stack) health in a 0.5 (+0.1 per stack) radius. '
   <Rarity>k__BackingField: 0
   <HealCooldown>k__BackingField: 0.25
   <ActivateDelay>k__BackingField: 0
@@ -40,5 +41,5 @@ MonoBehaviour:
     - rid: 2308102863504277869
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
-        startValue: 0.5
+        startValue: 0.4
         increase: 0.1

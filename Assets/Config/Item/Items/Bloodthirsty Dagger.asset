@@ -17,7 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Bloodthirsty Dagger
-  <Description>k__BackingField: Deal more damage when the enemy has low health.
+  <Description>k__BackingField: Deal 30% (+30% per stack) damage to enemies lower
+    than 25% health.
   <Rarity>k__BackingField: 2
   <HealthRatioRequired>k__BackingField: 0.25
   <DamageMultiplier>k__BackingField:

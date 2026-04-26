@@ -17,7 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Boxing Glove
-  <Description>k__BackingField: Boxing Glove
+  <Description>k__BackingField: Hits knock the enemies back, knockback force scales
+    with stacks and damage health ratio.
   <Rarity>k__BackingField: 0
   <Knockback>k__BackingField:
     rid: 2308103063999873103
@@ -28,4 +29,4 @@ MonoBehaviour:
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 0
-        increase: 10
+        increase: 30

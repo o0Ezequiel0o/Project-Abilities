@@ -17,7 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Bullet
-  <Description>k__BackingField: 1% more bullet per bullet.
+  <Description>k__BackingField: Hits deal 1 (+1 per stack) more damage.
   <Rarity>k__BackingField: 0
   <FlatDamage>k__BackingField:
     rid: 2308103044736483407

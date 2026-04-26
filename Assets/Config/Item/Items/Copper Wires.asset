@@ -17,7 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Copper Wires
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Hits have a 25% chance to spread to the closest 3
+    (+1 per stack) targets in a 4 (+2 per stack) meters radius.
   <Rarity>k__BackingField: 1
   <ProcChance>k__BackingField: 25
   <ProcCoefficient>k__BackingField: 0.5

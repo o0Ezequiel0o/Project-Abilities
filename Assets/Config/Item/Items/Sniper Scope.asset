@@ -17,7 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Sniper Scope
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Hits deal 1% (+1% per stack) for every 1 meter away
+    from the enemy.
   <Rarity>k__BackingField: 0
   <BaseDamageMultValue>k__BackingField: 1
   <DamageMultIncreasePerMeter>k__BackingField:

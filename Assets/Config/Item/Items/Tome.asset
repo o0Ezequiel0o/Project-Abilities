@@ -17,7 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Tome
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Experience gained is increased by 3% (+3% per stack).
   <Rarity>k__BackingField: 0
   <XPFlatMult>k__BackingField:
     rid: 2308102934331129856
