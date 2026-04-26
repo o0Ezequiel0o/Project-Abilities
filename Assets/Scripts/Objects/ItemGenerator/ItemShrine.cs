@@ -19,7 +19,7 @@ public class ItemShrine : ItemGenerator
 
     public override bool CanInteract(GameObject source)
     {
-        return source.TryGetComponent(out MoneyHandler wallet) && wallet.Money >= ScaledCost && rewards < maxRewards;
+        return source.TryGetComponent(out MoneyHandler wallet) && wallet.Money >= cost && rewards < maxRewards;
     }
 
     public override bool Interact(GameObject source)
@@ -39,9 +39,10 @@ public class ItemShrine : ItemGenerator
     {
         bool giveReward = Random.Range(1, 100) > rollNothingChange;
 
+        wallet.UseMoney(cost);
+
         if (giveReward)
         {
-            wallet.UseMoney(ScaledCost);
             GenerateOptions(source, options);
             rewards += 1;
         }
