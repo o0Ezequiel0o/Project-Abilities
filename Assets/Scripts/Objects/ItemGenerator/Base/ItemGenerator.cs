@@ -14,13 +14,14 @@ namespace Zeke.Items
 
         [field: Header("Visual - Object")]
         [field: SerializeField] public Sprite InteractOverlay { get; private set; }
+        [SerializeField] private string interactName;
 
         [field: Header("Visual - UI")]
         [SerializeField] private UIWindow itemSelectionWindow;
         [SerializeField] private UIWindow itemOptionWindow;
 
         [Header("Settings")]
-        [SerializeField] protected int cost;
+        [SerializeField] protected int baseCost;
 
         [Header("Selection")]
         [SerializeField] protected int options = 3;
@@ -28,20 +29,9 @@ namespace Zeke.Items
         public static OrderedActionDictionary<GameObject, List<ItemGenerationData>> onOptionsGenerated = new OrderedActionDictionary<GameObject, List<ItemGenerationData>>();
         public static OrderedActionDictionary<GameObject, ItemGenerationData> onItemSelected = new OrderedActionDictionary<GameObject, ItemGenerationData>();
 
-        public int ScaledCost
-        {
-            get
-            {
-                int newValue = Mathf.FloorToInt(cost * GameInstance.GoldMultiplier);
+        public string InteractTooltip => $"{interactName}\n$ {cost}";
 
-                if (cost >= 1 && newValue <= 0)
-                {
-                    return 1;
-                }
-
-                return newValue;
-            }
-        }
+        protected int cost = 0;
 
         private UIWindow windowInstance;
 
@@ -61,11 +51,38 @@ namespace Zeke.Items
             return RollItem();
         }
 
+        protected virtual void Start()
+        {
+            int newValue = Mathf.FloorToInt(baseCost * GameInstance.GoldMultiplier);
+
+            if (baseCost >= 1 && newValue <= 0)
+            {
+                newValue = 0;
+            }
+
+            cost = newValue;
+        }
+
         protected void GenerateOptions(GameObject source, int amount)
         {
             List<ItemGenerationData> generatedItems = RollItems(amount);
             onOptionsGenerated?.Invoke(source, generatedItems);
             CreateOptionsUIWindow(generatedItems, source);
+        }
+
+        protected void DisableColliders()
+        {
+            Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
+
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                colliders[i].enabled = false;
+            }
+        }
+
+        protected void DestroyObject()
+        {
+            Destroy(gameObject);
         }
 
         private void OnOptionSelected(GameObject source, ItemGenerationData generatedItem)
@@ -121,21 +138,6 @@ namespace Zeke.Items
 
             Button button = optionWindowInstance.TryGetElement<Button>("Button");
             button.onClick.AddListener(() => OnOptionSelected(source, generatedItem));
-        }
-
-        protected void DisableColliders()
-        {
-            Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
-
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                colliders[i].enabled = false;
-            }
-        }
-
-        protected void DestroyObject()
-        {
-            Destroy(gameObject);
         }
 
         public class ItemGenerationData
