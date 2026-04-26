@@ -16,7 +16,7 @@ MonoBehaviour:
   worldPrefab: {fileID: 3753182464441508134, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: Monster Fnags
+  <Name>k__BackingField: Monster Fangs
   <Description>k__BackingField: Kills increase your max health by 1 (+1 per stack)
     up to 100 (+100 per stack) times.
   <Rarity>k__BackingField: 1

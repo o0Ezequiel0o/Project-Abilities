@@ -17,9 +17,9 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Warp Clock
-  <Description>k__BackingField: Damage taken is stored for 3 seconds, after not taking
-    damage for 4 seconds heal 3 times every second equal to 5% (+5% per stack) of
-    the stored damage.
+  <Description>k__BackingField: Damage taken is stored, after not taking damage for
+    4 seconds heal 3 times every second equal to 5% (+5% per stack) of the stored
+    damage.
   <Rarity>k__BackingField: 1
   <StoreTime>k__BackingField: 3
   <TriggerTimeRequired>k__BackingField: 4
