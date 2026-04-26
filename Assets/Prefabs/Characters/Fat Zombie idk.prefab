@@ -155,9 +155,9 @@ GameObject:
   - component: {fileID: -1916451124747499836}
   - component: {fileID: 1295819619765179186}
   - component: {fileID: 842629725209027823}
-  - component: {fileID: 3531111079805404579}
+  - component: {fileID: 4757503293696331254}
   m_Layer: 8
-  m_Name: Zombie
+  m_Name: Fat Zombie idk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,7 +173,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.08, y: 3.25, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8676611903346260605}
@@ -427,8 +427,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Settings>k__BackingField: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
   <MaxHealth>k__BackingField:
-    baseValue: 100
-    increase: 10
+    baseValue: 300
+    increase: 30
     valueLimits:
       min: 0
       max: Infinity
@@ -518,7 +518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawn: {fileID: 7698722109331752331}
   setAbilities:
-  - {fileID: 11400000, guid: 3923edd6f174e124f9ffeeb3b19ef382, type: 2}
+  - {fileID: 11400000, guid: 0b94182b4d4927a4aa42c8f55f3d2dad, type: 2}
 --- !u!114 &451946761675307707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,7 +667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeathRewards
   deathRewardsData: {fileID: 11400000, guid: 5151aec341520f8408a90e295d81fcb9, type: 2}
---- !u!114 &3531111079805404579
+--- !u!114 &4757503293696331254
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -679,7 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa51f28770c6ba449982e32a80dd5a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityTypeIdentifier
-  type: 0
+  type: 2
 --- !u!1 &5232573915153245470
 GameObject:
   m_ObjectHideFlags: 0

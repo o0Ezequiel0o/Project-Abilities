@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
-  m_Name: Zombie Attack
+  m_Name: Elite Zombie Attack
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <AbilityType>k__BackingField: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
   modules:
   - rid: 3611678573724172373
   - rid: 3611678692085071967
-  <IndicatorData>k__BackingField: {fileID: 11400000, guid: 5b82ca4d54283ad449c2d2f5223c44c2, type: 2}
+  <IndicatorData>k__BackingField: {fileID: 11400000, guid: ed766428b81af5b4f872c315d466115a, type: 2}
   references:
     version: 2
     RefIds:
@@ -72,4 +72,4 @@ MonoBehaviour:
     - rid: 3611678692085071970
       type: {class: BoxOverlap, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        size: {x: 1.5, y: 1}
+        size: {x: 3, y: 2}

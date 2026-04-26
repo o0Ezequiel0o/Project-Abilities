@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ca23a91d20aadb4581074d30f87b4cc, type: 3}
-  m_Name: Zombie Attack Indicator
+  m_Name: Elite Zombie Attack Indicator
   m_EditorClassIdentifier: Assembly-CSharp::AbilityIndicatorData
   settings: {fileID: 11400000, guid: 5e5ea81a5f739924dafa4ae2008e931d, type: 2}
   modules:
   - attackIndicator:
       sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-      size: {x: 1.5, y: 1}
+      size: {x: 3, y: 2}
       fillMethod: 1
     spawnPosition: 0
-    offset: {x: 0, y: 0.5}
+    offset: {x: 0, y: 1}
     angleOffset: 0
     showTime: 0
     hideTime: 1
