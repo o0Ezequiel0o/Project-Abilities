@@ -160,8 +160,6 @@ MonoBehaviour:
     transform: {fileID: 7183042244788256241}
     entity: {fileID: 0}
   <InteractOverlay>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <CanInteractOverlayColor>k__BackingField: {r: 1, g: 1, b: 1, a: 0.14901961}
-  <CantInteractOverlayColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0.14901961}
   damageable: {fileID: 1735273188120366476}
   statusEffectHandler: {fileID: 8409502478468267525}
   itemHandler: {fileID: 4618987774257041068}
@@ -185,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e810a262e810dbd4187a6b07b89d52b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
+  <Settings>k__BackingField: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
   <MaxHealth>k__BackingField:
     baseValue: 300
     increase: 0
@@ -227,6 +225,12 @@ MonoBehaviour:
     increase: 0
     valueLimits:
       min: 0
+      max: Infinity
+  <ShieldReceivedMultiplier>k__BackingField:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: -Infinity
       max: Infinity
 --- !u!114 &8988160911524051868
 MonoBehaviour:

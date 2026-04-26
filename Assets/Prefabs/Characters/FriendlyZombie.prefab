@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e810a262e810dbd4187a6b07b89d52b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
+  <Settings>k__BackingField: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
   <MaxHealth>k__BackingField:
     baseValue: 100
     increase: 0
@@ -432,6 +432,12 @@ MonoBehaviour:
     increase: 0
     valueLimits:
       min: 0
+      max: Infinity
+  <ShieldReceivedMultiplier>k__BackingField:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: -Infinity
       max: Infinity
 --- !u!114 &9203767495548847107
 MonoBehaviour:
@@ -550,6 +556,7 @@ MonoBehaviour:
   yStart: 0.5
   yLowest: -0.5
   yLower: 0.3
+  xRandom: 0.15
 --- !u!114 &996631278811080682
 MonoBehaviour:
   m_ObjectHideFlags: 0
