@@ -54,11 +54,11 @@ MonoBehaviour:
       type: {class: BasicAttack, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         damage:
-          baseValue: 15
+          baseValue: 30
           increase: 0
           valueLimits:
-            min: -Infinity
-            max: Infinity
+            min: 0
+            max: 10
         armorPenetration: 0
         procCoefficient: 1
         knockback: 5

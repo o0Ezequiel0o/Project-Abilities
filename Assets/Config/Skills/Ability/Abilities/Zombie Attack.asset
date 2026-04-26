@@ -55,9 +55,9 @@ MonoBehaviour:
       data:
         damage:
           baseValue: 15
-          increase: 0
+          increase: 5
           valueLimits:
-            min: -Infinity
+            min: 0
             max: Infinity
         armorPenetration: 0
         procCoefficient: 1
