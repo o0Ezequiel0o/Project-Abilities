@@ -7,8 +7,8 @@ using static Stat;
 
 public class Damageable : MonoBehaviour, IUpgradable
 {
-    [Header("Global Settings")]
-    [SerializeField] private DamageableSettings settings;
+    [field: Header("Global Settings")]
+    [field: SerializeField] public DamageableSettings Settings { get; private set; }
 
     [field: Header("Stats")]
     [field: SerializeField] public Stat MaxHealth { get; private set; }
@@ -130,6 +130,11 @@ public class Damageable : MonoBehaviour, IUpgradable
         return damage * (1 - damageReduction) * DamageReceivedMultiplier.Value;
     }
 
+    public float CalculateHealing(float healing)
+    {
+        return healing * HealingReceivedMultiplier.Value;
+    }
+
     public void AddImmunitySource(int ID)
     {
         immunitySources.Add(ID);
@@ -163,7 +168,8 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     private float CalculateHealing(HealEvent healingEvent)
     {
-        return Mathf.Max(0, healingEvent.Healing * HealingReceivedMultiplier.Value);
+        float healing = Mathf.Max(0, (healingEvent.Healing + healingEvent.FlatAccumulator) * healingEvent.Multiplier.Value);
+        return CalculateHealing(healing);
     }
 
     private float TakeDamage(float damage, bool lethal)
@@ -257,7 +263,7 @@ public class Damageable : MonoBehaviour, IUpgradable
     {
         regenTimer += Time.deltaTime;
 
-        if (regenTimer >= settings.RegenInterval)
+        if (regenTimer >= Settings.RegenInterval)
         {
             if (Health < MaxHealth.Value)
             {
@@ -448,7 +454,8 @@ public class Damageable : MonoBehaviour, IUpgradable
         public GameObject SourceUser { get; private set; }
         public GameObject SourceObject { get; private set; }
 
-        public float healingMultiplier = 1f;
+        public float FlatAccumulator { get; set; }
+        public Stat Multiplier { get; private set; }
 
         public HealEvent(float healing, Damageable receiver, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
         {
@@ -460,6 +467,7 @@ public class Damageable : MonoBehaviour, IUpgradable
             SourceObject = sourceObject;
 
             ProcChainBranch = procChain;
+            Multiplier = new Stat(1f, 0f, 0f, float.PositiveInfinity);
         }
 
         public void ExecuteEventFlow()
@@ -478,8 +486,6 @@ public class Damageable : MonoBehaviour, IUpgradable
 
         private void HandleHealing()
         {
-            Healing *= healingMultiplier;
-
             Healing = Receiver.CalculateHealing(this);
             HealthHealed = Receiver.ReceiveHealing(Healing);
 
