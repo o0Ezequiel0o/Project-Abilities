@@ -3,7 +3,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class Stat
+public class Stat : IUpgradable
 {
     [SerializeField] private float baseValue = 1f;
     [SerializeField] private float increase = 0f;
@@ -86,8 +86,14 @@ public class Stat
 
     public void Upgrade()
     {
+        float oldValue = Value;
         baseValue += increase;
         Level += 1;
+
+        if (increase != 0f)
+        {
+            onStatUpdated?.Invoke(new StatUpdate(oldValue));
+        }
     }
 
     private void RecalculateMultiplierValue()
