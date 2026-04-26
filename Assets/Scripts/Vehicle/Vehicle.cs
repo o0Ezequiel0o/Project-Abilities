@@ -9,6 +9,7 @@ public abstract class Vehicle : MonoBehaviour, IInteractable
 
     [field: Header("Visual")]
     [field: SerializeField] public Sprite InteractOverlay { get; private set; }
+    [field: SerializeField] public string InteractTooltip { get; private set; }
 
     public GameObject Driver => driverSeat.entity;
 

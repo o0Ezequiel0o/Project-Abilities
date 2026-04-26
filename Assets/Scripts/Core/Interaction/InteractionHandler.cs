@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Zeke.Collections;
+using Zeke.UI;
+using TMPro;
 
 public class InteractionHandler : MonoBehaviour
 {
@@ -22,6 +24,8 @@ public class InteractionHandler : MonoBehaviour
 
     private float scanSurroundingsTimer = 0f;
 
+    private UIWindow overlayWindow;
+
     private readonly List<RaycastHit2D> hits = new List<RaycastHit2D>(16);
 
     public void TryInteractWithClose()
@@ -31,13 +35,14 @@ public class InteractionHandler : MonoBehaviour
         if (currentInteractable != null)
         {
             bool success = currentInteractable.interactable.Interact(gameObject);
-            onInteraction?.Invoke(new InteractionResult());
+            onInteraction?.Invoke(new InteractionResult(currentInteractable.gameObject, success));
         }
     }
 
     private void Awake()
     {
         overlayObjectInstance = Instantiate(overlayPrefab, transform.position, transform.rotation);
+        overlayWindow = overlayObjectInstance.GetComponent<UIWindow>();
         overlayObjectInstance.SetActive(false);
     }
 
@@ -87,7 +92,7 @@ public class InteractionHandler : MonoBehaviour
 
             if (hits[i].collider.TryGetComponent(out IInteractable interactable) && interactable.CanSelect(gameObject))
             {
-                return new InteractableData(interactable, hits[i].collider.gameObject);
+                return new InteractableData(interactable, hits[i].collider.gameObject, overlayWindow);
             }
         }
 
@@ -140,6 +145,12 @@ public class InteractionHandler : MonoBehaviour
             }
         }
 
+        string toolTip = interactableData.interactable.InteractTooltip;
+
+        if (string.IsNullOrEmpty(toolTip)) toolTip = "";
+
+        interactableData.window.TryGetElement<TextMeshProUGUI>("Tooltip").text = toolTip;
+
         overlayObjectInstance.transform.SetPositionAndRotation(
             interactableData.gameObject.transform.position,
             interactableData.gameObject.transform.rotation);
@@ -159,11 +170,13 @@ public class InteractionHandler : MonoBehaviour
     {
         public IInteractable interactable;
         public GameObject gameObject;
+        public UIWindow window;
 
-        public InteractableData(IInteractable interactable, GameObject gameObject)
+        public InteractableData(IInteractable interactable, GameObject gameObject, UIWindow window)
         {
             this.interactable = interactable;
             this.gameObject = gameObject;
+            this.window = window;
         }
     }
 }
