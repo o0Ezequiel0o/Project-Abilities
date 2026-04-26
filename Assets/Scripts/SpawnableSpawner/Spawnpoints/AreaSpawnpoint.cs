@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using Zeke.TeamSystem;
 
 public class AreaSpawnpoint : Spawnpoint
 {
@@ -8,6 +9,21 @@ public class AreaSpawnpoint : Spawnpoint
 
     private float RandomXinBounds => Random.Range(-bounds.x * .5f, bounds.x * .5f);
     private float RandomYinBounds => Random.Range(-bounds.y * .5f, bounds.y * .5f);
+
+    protected override bool IsBlocked(ContactFilter2D contactFilter)
+    {
+        Physics2D.OverlapBox(transform.position, bounds, Quaternion.identity.eulerAngles.z, contactFilter, hits);
+
+        for (int i = 0; i < hits.Count; i++)
+        {
+            if (TeamManager.IsEnemy(team, hits[i].gameObject))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public override GameObject Spawn(GameObject prefab)
     {

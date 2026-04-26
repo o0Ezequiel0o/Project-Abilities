@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using Zeke.TeamSystem;
 
 public class CircleSpawnpoint : Spawnpoint
 {
@@ -8,6 +9,21 @@ public class CircleSpawnpoint : Spawnpoint
 
     private Vector3 RandomDirection => new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
     private float RandomDistanceFromCenter => Random.Range(0f, radius);
+
+    protected override bool IsBlocked(ContactFilter2D contactFilter)
+    {
+        Physics2D.OverlapCircle(transform.position, radius, contactFilter, hits);
+
+        for (int i = 0; i < hits.Count; i++)
+        {
+            if (TeamManager.IsEnemy(team, hits[i].gameObject))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public override GameObject Spawn(GameObject prefab)
     {

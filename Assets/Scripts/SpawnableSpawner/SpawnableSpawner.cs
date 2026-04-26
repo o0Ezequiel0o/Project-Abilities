@@ -22,6 +22,8 @@ public class SpawnableSpawner : MonoBehaviour
     private readonly List<CachedSpawnableData> cachedSpawnables = new List<CachedSpawnableData>();
     private readonly List<GameObject> aliveSpawnables = new List<GameObject>();
 
+    private readonly List<Spawnpoint> tempSpawnpoints = new List<Spawnpoint>();
+
     private float currentPoints = 0;
 
     private void Awake()
@@ -71,7 +73,32 @@ public class SpawnableSpawner : MonoBehaviour
 
     private void SpawnSpawnable(CachedSpawnableData cachedSpawnable)
     {
-        Spawnpoint spawnPoint = WeightedSelect.SelectElement(cachedSpawnable.spawnpoints);
+        tempSpawnpoints.Clear();
+        tempSpawnpoints.AddRange(cachedSpawnable.spawnpoints);
+
+        Spawnpoint spawnPoint = null;
+
+        while (tempSpawnpoints.Count > 0)
+        {
+            spawnPoint = WeightedSelect.SelectElement(tempSpawnpoints);
+
+            if (!spawnPoint.IsBlocked())
+            {
+                break;
+            }
+            else
+            {
+                tempSpawnpoints.Remove(spawnPoint);
+                spawnPoint = null;
+            }
+        }
+
+        if (spawnPoint == null)
+        {
+            Debug.LogWarning("All spawnpoints are blocked by enemy entities, consider adding more");
+            return;
+        }
+
         GameObject spawnableInstance = spawnPoint.Spawn(cachedSpawnable.prefab);
 
         if (!spawnableInstance.TryGetComponent(out DestroyEventTracker destroyEventTracker))
