@@ -427,7 +427,7 @@ MonoBehaviour:
   <Settings>k__BackingField: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
   <MaxHealth>k__BackingField:
     baseValue: 100
-    increase: 0
+    increase: 10
     valueLimits:
       min: 0
       max: Infinity
@@ -441,7 +441,7 @@ MonoBehaviour:
     baseValue: 0
     increase: 0
     valueLimits:
-      min: -Infinity
+      min: 0
       max: Infinity
   <ShieldRegen>k__BackingField:
     baseValue: 0
@@ -621,7 +621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelHandler: {fileID: 5832264677408755591}
-  experiencePerDifficulty: 20
+  experiencePerDifficulty: 500
 --- !u!114 &-1916451124747499836
 MonoBehaviour:
   m_ObjectHideFlags: 0

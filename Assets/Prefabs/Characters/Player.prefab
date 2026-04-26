@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 1263257551977199966}
   - component: {fileID: 3336023691050110098}
   - component: {fileID: 7245188018465221074}
+  - component: {fileID: 5498967705651383887}
   - component: {fileID: 5379934569254923749}
   - component: {fileID: 1445715788866165582}
   - component: {fileID: 2688288251930177549}
@@ -454,9 +455,9 @@ MonoBehaviour:
       max: Infinity
   <HealthRegen>k__BackingField:
     baseValue: 1
-    increase: 0
+    increase: 0.2
     valueLimits:
-      min: -Infinity
+      min: 0
       max: Infinity
   <ShieldRegen>k__BackingField:
     baseValue: 1
@@ -544,6 +545,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interfacePrefab: {fileID: 4658496468204813169, guid: e0a9a20500f69ca47b7f0f8cf07813f9, type: 3}
+--- !u!114 &5498967705651383887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218312312708394220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1817788627ae654382acb5f489047f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoneyAndLevelRenderer
+  moneyHandler: {fileID: 3333061981324723736}
+  levelHandler: {fileID: 108859267500074294}
+  windowPrefab: {fileID: 5987010915847803300, guid: 5dc4fd87518db5e4b8e203cdbd7e98c3, type: 3}
 --- !u!114 &5379934569254923749
 MonoBehaviour:
   m_ObjectHideFlags: 0
