@@ -37,6 +37,8 @@ public class GameInstance : Singleton<GameInstance>
 
     private static Vector3 mouseWorldPosition = Vector3.zero;
 
+    private static float difficultyRamp = 0f;
+
     private static int currentID = int.MinValue;
 
     public static void AddPlayer(Player player)
@@ -69,7 +71,10 @@ public class GameInstance : Singleton<GameInstance>
     private void Update()
     {
         UpdateMouseWorldPosition();
-        Difficulty += difficulty.DifficultyScaleRate * Time.deltaTime;
+
+        difficultyRamp += difficulty.DifficultyRampUp * Time.deltaTime;
+        Difficulty += (difficulty.DifficultyScaleRate + difficultyRamp) * Time.deltaTime;
+
         GoldMultiplier += difficulty.PriceScalePerSecond * Time.deltaTime;
     }
 
