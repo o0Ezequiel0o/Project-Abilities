@@ -22,9 +22,12 @@ MonoBehaviour:
   <Rarity>k__BackingField: 1
   <MissingHealthRatioForStack>k__BackingField: 0.05
   <DamageMultPerStack>k__BackingField:
-    rid: -2
+    rid: 2308103117131219023
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 2308103117131219023
+      type: {class: LinearStat, ns: , asm: Assembly-CSharp}
+      data:
+        startValue: 0
+        increase: 0.03
