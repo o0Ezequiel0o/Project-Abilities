@@ -29,7 +29,7 @@ namespace Zeke.Items
 
         private void OnHit(Damageable.DamageEvent damageEvent)
         {
-            if (!RollProc(data.ProcChance.GetValue(stacks), damageEvent.ProcCoefficient, itemHandler.Luck)) return;
+            if (!RollProc(data.ProcChance.GetValue(stacks), damageEvent.ProcCoefficient, itemHandler.Luck.ValueInt)) return;
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
 
             if (damageEvent.Receiver.TryGetComponent(out StatusEffectHandler statusEffectHandler))

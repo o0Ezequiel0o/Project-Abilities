@@ -10,7 +10,7 @@ namespace Zeke.Items
         [SerializeField] private ItemSettings itemSettings;
 
         [field: Header("Settings")]
-        [field: SerializeField] public int Luck { get; private set; }
+        [field: SerializeField] public Stat Luck { get; private set; } = new Stat(0f, 0f, float.NegativeInfinity, float.PositiveInfinity);
 
         public List<Item> Items => items;
         public List<ItemData> ItemsData => itemsData;
