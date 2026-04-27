@@ -12,6 +12,7 @@ namespace Zeke.TeamSystem
         public void ChangeTeam(Teams team)
         {
             TeamManager.ChangeTeams(gameObject, team);
+            this.team = team;
         }
 
         private void OnEnable()
