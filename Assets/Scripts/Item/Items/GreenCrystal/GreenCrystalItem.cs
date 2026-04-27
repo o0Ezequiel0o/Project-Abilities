@@ -19,6 +19,14 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
+        public override void OnRemoved()
+        {
+            if (source.TryGetComponent(out Damageable damageable))
+            {
+                damageable.MaxHealth.ApplyFlatModifier(-flatModifier);
+            }
+        }
+
         public override void OnStacksAdded(int amount)
         {
             UpdateHealthValue();
@@ -36,8 +44,7 @@ namespace Zeke.Items
                 float oldFlatModifier = flatModifier;
                 flatModifier = data.ExtraHealth.GetValue(stacks);
 
-                damageable.MaxHealth.ApplyFlatModifier(-oldFlatModifier);
-                damageable.MaxHealth.ApplyFlatModifier(flatModifier);
+                damageable.MaxHealth.ApplyFlatModifier(-oldFlatModifier, flatModifier);
             }
         }
     }
