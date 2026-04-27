@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Item Trigger Order
   m_EditorClassIdentifier: 
   <Order>k__BackingField:
+  - {fileID: 11400000, guid: 5244f16f63637ab45b077d97ee40914b, type: 2}
   - {fileID: 11400000, guid: 594df2625200b6444bfd537e33060d6b, type: 2}
   - {fileID: 11400000, guid: ef4116a51c1a8e049b3a7e53a4c9ed18, type: 2}
   - {fileID: 11400000, guid: d608bfabef1ba08429d7c3fc720e6e49, type: 2}
@@ -30,6 +31,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7e2e2b95b977c664598a909325565f3a, type: 2}
   - {fileID: 11400000, guid: c171ef39e735d8c4aa4e422a8ef8f862, type: 2}
   - {fileID: 11400000, guid: 939aec0778a46134aa2d3ed39e68a35b, type: 2}
+  - {fileID: 11400000, guid: 487bebf15dfafbe4aaa3319a0686b1af, type: 2}
   - {fileID: 11400000, guid: 8aaff72907f8e184babaca9ba5fa7355, type: 2}
   - {fileID: 11400000, guid: 8f4b86123f36dbd45b362a97802ee45f, type: 2}
   - {fileID: 11400000, guid: 75cb0156910bf114f97dc2f2c4aac23e, type: 2}
@@ -39,5 +41,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 642969e38a514e44980eca75ce38da28, type: 2}
   - {fileID: 11400000, guid: 6a620d13e31405d419303c1c3740f95b, type: 2}
   - {fileID: 11400000, guid: 3e7bd03202498744b829c7b4eec02319, type: 2}
+  - {fileID: 11400000, guid: 1c1f8f4379499644a9a2b0ec31430d08, type: 2}
   - {fileID: 11400000, guid: 9a7cb73b80ac28b44be91cb12d8b4561, type: 2}
   - {fileID: 11400000, guid: 93f224e2f1db3f24a8c66986f342a9a8, type: 2}
