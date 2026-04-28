@@ -1595,7 +1595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856acb5343b13494ab243b4e1a69b861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2102329657}
   threshold: {x: 8, y: 4}
 --- !u!1001 &793615766
 PrefabInstance:
@@ -3140,6 +3139,10 @@ MonoBehaviour:
   include: []
   fillInclude: 1
   <Weight>k__BackingField: 100
+  team: 0
+  blockLayers:
+    serializedVersion: 2
+    m_Bits: 0
   radius: 2
 --- !u!1001 &1762876349
 PrefabInstance:
@@ -3831,11 +3834,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
---- !u!4 &2102329657 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4369443556788299361, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-  m_PrefabInstance: {fileID: 2102329655}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2109412293
 PrefabInstance:
   m_ObjectHideFlags: 0

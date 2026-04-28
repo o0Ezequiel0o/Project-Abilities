@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class PlayerCameraController : MonoBehaviour
 {
-    [Header("Camera Aim")]
-    [SerializeField] private Transform target;
     [SerializeField] private Vector2 threshold;
+
+    private Transform target = null;
 
     public void SetTarget(Transform target)
     {

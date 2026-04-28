@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 4867269373459583256}
   - component: {fileID: 8265923583279707991}
   - component: {fileID: 4944555292566857165}
+  - component: {fileID: 2278308551691039682}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -588,7 +589,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSettings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
-  <Luck>k__BackingField: 0
+  <Luck>k__BackingField:
+    baseValue: 0
+    increase: 0
+    valueLimits:
+      min: -Infinity
+      max: Infinity
 --- !u!114 &2688288251930177549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -752,3 +758,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
+--- !u!114 &2278308551691039682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218312312708394220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4a8356527b5e594faa0bf48ea69eaac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SetAsCameraControllerTarget
