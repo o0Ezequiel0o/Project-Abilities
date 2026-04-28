@@ -17,4 +17,17 @@ public class Spawnable : ScriptableObject, IWeighted
 
     [field: SerializeField, Min(1)] public int Weight { get; private set; } = 50;
     [field: SerializeField, Min(1)] public int Cost { get; private set; } = 4;
+
+    public void LoadSpawnable(Spawnable spawnable)
+    {
+        Icon = spawnable.Icon;
+
+        Prefab = spawnable.Prefab;
+
+        MinDifficulty = spawnable.MinDifficulty;
+        MaxDifficulty = spawnable.MaxDifficulty;
+
+        Weight = spawnable.Weight;
+        Cost = spawnable.Cost;
+    }
 }

@@ -65,22 +65,33 @@ public class GameInstance : Singleton<GameInstance>
     protected override void OnInitialization()
     {
         UpdateMouseWorldPosition();
-        Difficulty = difficulty.StartingDifficulty;
+        ResetValuesToDefault();
     }
 
     private void Update()
     {
         UpdateMouseWorldPosition();
-
-        difficultyRamp += difficulty.DifficultyRampUp * Time.deltaTime;
-        Difficulty += (difficulty.DifficultyScaleRate + difficultyRamp) * Time.deltaTime;
-
-        GoldMultiplier += difficulty.PriceScalePerSecond * Time.deltaTime;
+        UpdateDifficulty();
     }
 
     private void UpdateMouseWorldPosition()
     {
         mouseWorldPosition = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         mouseWorldPosition.z = 0;
+    }
+
+    private void UpdateDifficulty()
+    {
+        difficultyRamp += difficulty.DifficultyRampUp * Time.deltaTime;
+        Difficulty += (difficulty.DifficultyScaleRate + difficultyRamp) * Time.deltaTime;
+
+        GoldMultiplier += difficulty.PriceScalePerSecond * Time.deltaTime;
+    }
+
+    private void ResetValuesToDefault()
+    {
+        Difficulty = difficulty.StartingDifficulty;
+        difficultyRamp = 0f;
+        GoldMultiplier = 1;
     }
 }
