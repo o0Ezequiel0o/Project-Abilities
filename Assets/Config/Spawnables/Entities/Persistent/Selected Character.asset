@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77f7f6eb3c69c5d44aa5fc6af4598fd6, type: 3}
-  m_Name: Selected Player
+  m_Name: Selected Character
   m_EditorClassIdentifier: Assembly-CSharp::Spawnable
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Prefab>k__BackingField: {fileID: 3025409579336626117, guid: 11e5a1ed8f215244889b12c10b7a320c, type: 3}

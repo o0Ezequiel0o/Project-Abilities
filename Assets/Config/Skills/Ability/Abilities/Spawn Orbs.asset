@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Spawn Orbs
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: 
+  <Description>k__BackingField: Spawn 3 (+1 per level) orbs around you that deal
+    10 damage and home onto the closest enemy to their relative direction.
   <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 1

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7032162585817088809
+--- !u!1001 &4308892088041870526
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,26 +8,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2582979104109749263, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: setAbilities.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: 'setAbilities.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 230ac335eff6e0543a0039d224ce2bf9, type: 2}
-    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-      propertyPath: 'setAbilities.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: cae99c8b9d3aebe45a6ccceccece6757, type: 2}
-    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-      propertyPath: 'setAbilities.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 542a9efba95d18f4eb221ee65f85f477, type: 2}
-    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
-      propertyPath: 'setAbilities.Array.data[3]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 5f31e64124b5af7448150b8c628ce657, type: 2}
+      objectReference: {fileID: 11400000, guid: 3923edd6f174e124f9ffeeb3b19ef382, type: 2}
+    - target: {fileID: 3494898662879718562, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <MoveSpeed>k__BackingField.baseValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <HealthRegen>k__BackingField.increase
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <HealthRegen>k__BackingField.baseValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <ShieldRegen>k__BackingField.baseValue
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4369443556788299361, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -70,10 +78,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5218312312708394220, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: m_Name
-      value: Orb Master
+      value: Zombie
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4944555292566857165, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

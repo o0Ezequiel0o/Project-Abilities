@@ -12,6 +12,7 @@ namespace Zeke.Abilities
         [SerializeField] private List<AbilityData> setAbilities;
 
         public Transform Spawn => spawn;
+        public List<AbilityData> SpawnAbilities => setAbilities;
 
         public readonly Dictionary<AbilityType, Stat> cooldownMultiplier = new Dictionary<AbilityType, Stat>
         {

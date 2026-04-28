@@ -3,7 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Spawnable", menuName = "ScriptableObjects/Spawnable", order = 1)]
 public class Spawnable : ScriptableObject, IWeighted
 {
+    [field: Header("Display")]
     [field: SerializeField] public Sprite Icon { get; private set; }
+    [field: SerializeField] public string Name { get; private set; }
 
     [field: Header("Settings")]
     [field: SerializeField] public GameObject Prefab { get; private set; }
