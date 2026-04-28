@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Zeke.TeamSystem;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Physics))]
@@ -14,7 +13,13 @@ public class EntitySeparation : MonoBehaviour
 
     [Min(0f), SerializeField] private float separationDistance = 0.6f;
     [Min(0f), SerializeField] private float separationForce = 1f;
-    [SerializeField] private LayerMask layers;
+
+    [Space]
+
+    [SerializeField] private LayerMask entityLayer;
+    [SerializeField] private LayerMask objectLayer;
+
+    private LayerMask Layers => entityLayer | objectLayer;
 
     private readonly List<Collider2D> hits = new List<Collider2D>(4);
 
@@ -25,17 +30,14 @@ public class EntitySeparation : MonoBehaviour
 
         hits.Clear();
 
-        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = layers, useLayerMask = true };
+        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = Layers, useLayerMask = true };
         Physics2D.OverlapCircle(transform.position, separationDistance, contactFilter, hits);
 
         Vector3 averageDirection = Vector3.zero;
 
         for (int i = 0; i < hits.Count; i++)
         {
-            if (TeamManager.IsAlly(gameObject, hits[i].gameObject))
-            {
-                averageDirection += (transform.position - hits[i].transform.position).normalized;
-            }
+            averageDirection += (transform.position - hits[i].transform.position).normalized;
         }
 
         if (averageDirection != Vector3.zero)
@@ -43,5 +45,10 @@ public class EntitySeparation : MonoBehaviour
             averageDirection = (averageDirection + (Vector3)physics.MoveForces).normalized;
             physics.AddForce(separationForce, averageDirection);
         }
+    }
+
+    private bool IsLayer(GameObject target, int layerValue)
+    {
+        return 1 << target.layer == layerValue;
     }
 }
