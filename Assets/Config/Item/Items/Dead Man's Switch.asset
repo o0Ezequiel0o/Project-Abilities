@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0065be3c6f69d464da30fb272af2492e, type: 3}
+  m_Name: Dead Man's Switch
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Items.DeadMansSwitchItemData
+  settings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
+  worldPrefab: {fileID: 3753182464441508134, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Dead Man's Switch
+  <Description>k__BackingField: 'Killing an enemy deals damage in a 3 (+3 per stack)
+    meter radius around it equal to the overflow damage, minimum 25 (+12 per stack)
+    damage. '
+  <Rarity>k__BackingField: 2
+  <ArmorPenetration>k__BackingField: 0
+  <ProcCoefficient>k__BackingField: 1
+  <MinDamage>k__BackingField:
+    rid: 2308103122480005199
+  <HitLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 256
+  <BlockLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 128
+  <Radius>k__BackingField:
+    rid: 2308103122480005200
+  references:
+    version: 2
+    RefIds:
+    - rid: 2308103122480005199
+      type: {class: LinearStat, ns: , asm: Assembly-CSharp}
+      data:
+        startValue: 13
+        increase: 12
+    - rid: 2308103122480005200
+      type: {class: LinearStat, ns: , asm: Assembly-CSharp}
+      data:
+        startValue: 0
+        increase: 2

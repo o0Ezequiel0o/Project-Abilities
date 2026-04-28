@@ -66,6 +66,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 487bebf15dfafbe4aaa3319a0686b1af, type: 2}
   - {fileID: 11400000, guid: 5244f16f63637ab45b077d97ee40914b, type: 2}
   - {fileID: 11400000, guid: daa29dc85c0f9864792a8cb6fb876eb2, type: 2}
+  - {fileID: 11400000, guid: 40b6aad7ff34a0a48a97dc617fae88a2, type: 2}
   - {fileID: 11400000, guid: e05d98ac47b399844a1ab6c4c733f24c, type: 2}
   - {fileID: 11400000, guid: 1c1f8f4379499644a9a2b0ec31430d08, type: 2}
   commonColor: {r: 1, g: 1, b: 1, a: 1}
@@ -97,7 +98,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fce21976e94f1604ab0ff70b3bc40179, type: 2}
   - {fileID: 11400000, guid: daa29dc85c0f9864792a8cb6fb876eb2, type: 2}
   - {fileID: 11400000, guid: e05d98ac47b399844a1ab6c4c733f24c, type: 2}
-  - {fileID: 11400000, guid: 1c1f8f4379499644a9a2b0ec31430d08, type: 2}
   commonItems:
   - {fileID: 11400000, guid: 57df328e90faa214a9055072c55e6805, type: 2}
   - {fileID: 11400000, guid: 47b7469bfb5d6a84d96a60b2c02af775, type: 2}
@@ -151,6 +151,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5383c9cf8e6412149b5e6b8dd13ed82d, type: 2}
   - {fileID: 11400000, guid: 3e7bd03202498744b829c7b4eec02319, type: 2}
   - {fileID: 11400000, guid: cc71ad9922b77144aa65dd5c70c236a6, type: 2}
+  - {fileID: 11400000, guid: 40b6aad7ff34a0a48a97dc617fae88a2, type: 2}
   legendaryItems:
   - {fileID: 11400000, guid: 3ee30bd49d1103d44bdeaf35e3043350, type: 2}
   - {fileID: 11400000, guid: 2c4b80ea10f9d0848b6d0ce9449466d0, type: 2}
