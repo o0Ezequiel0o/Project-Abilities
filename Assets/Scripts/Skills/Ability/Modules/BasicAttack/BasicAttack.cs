@@ -73,7 +73,7 @@ namespace Zeke.Abilities.Modules
                 position = source.transform.position + (castOffset * spawn.up);
             }
 
-            List<Collider2D> hits = shape.GetHits(position, spawn.rotation.eulerAngles.z + 90f, hitLayers);
+            List<Collider2D> hits = shape.GetHits(position, spawn.rotation.eulerAngles.z, hitLayers);
 
             for (int i = 0; i < hits.Count; i++)
             {

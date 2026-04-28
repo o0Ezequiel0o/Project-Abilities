@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Elite Zombie Attack
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: 
+  <Description>k__BackingField: 
   <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
@@ -67,7 +69,7 @@ MonoBehaviour:
         hitLayers:
           serializedVersion: 2
           m_Bits: 256
-        castOffset: 0.5
+        castOffset: 1
         castAtSourceCenter: 0
     - rid: 3611678692085071970
       type: {class: BoxOverlap, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}

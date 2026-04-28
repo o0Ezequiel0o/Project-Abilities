@@ -21,13 +21,11 @@ public class DummyScript : MonoBehaviour
     [SerializeField] private float minDistance;
     [SerializeField] private float speed;
 
-    private int currentIndex = 0;
-
     private readonly List<RaycastHit2D> hits = new List<RaycastHit2D>();
 
     private const float DISTANCE_MULT = 10f;
 
-    private NavMeshPath path;
+    //private NavMeshPath path;
 
     private void FixedUpdate()
     {
