@@ -113,7 +113,7 @@ public class MapGenerator : MonoBehaviour
     private struct MapSpawnable : IWeighted
     {
         public Spawnable spawnable;
-        public Vector2Int area;
+        public Vector2 area;
 
         public int Weight => spawnable.Weight;
     }

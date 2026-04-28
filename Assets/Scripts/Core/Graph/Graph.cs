@@ -68,23 +68,34 @@ namespace Zeke.Graph
             }
         }
 
-        public List<Area> GetValidAreas(Vector2Int size)
+        public List<Area> GetValidAreas(Vector2 size)
+        {
+            Vector2Int gridSize = new Vector2Int()
+            {
+                x = Mathf.CeilToInt(size.x / nodeDiameter),
+                y = Mathf.CeilToInt(size.y / nodeDiameter)
+            };
+
+            return GetValidAreas(gridSize);
+        }
+
+        public List<Area> GetValidAreas(Vector2Int gridSize)
         {
             List<Area> areas = new List<Area>();
 
-            for (int x = 0; x < gridSize.x; x++)
+            for (int x = 0; x < this.gridSize.x; x++)
             {
-                for (int y = 0; y < gridSize.y; y++)
+                for (int y = 0; y < this.gridSize.y; y++)
                 {
                     Vector2Int gridPosition = new Vector2Int(x, y);
 
-                    if (!IsAreaValid(gridPosition, size))
+                    if (!IsAreaValid(gridPosition, gridSize))
                     {
                         continue;
                     }
                     else
                     {
-                        areas.Add(GetArea(gridPosition, size));
+                        areas.Add(GetArea(gridPosition, gridSize));
                     }
                 }
             }
