@@ -35,7 +35,7 @@ namespace Zeke.Items
             {
                 if (string.IsNullOrEmpty(interactName))
                 {
-                    return $"{cost}";
+                    return $"$ {cost}";
                 }
                 else
                 {
