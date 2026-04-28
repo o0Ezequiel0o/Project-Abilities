@@ -1,18 +1,13 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Zeke.Graph;
+using System;
 
 public class MapGenerator : MonoBehaviour
 {
     [Header("Generation")]
     [SerializeField] private int spawnCredits;
-    [SerializeField] private int spawnDistance;
-
-    [Space]
-
-    [SerializeField] private List<Spawnable> spawnables;
+    [SerializeField] private List<MapSpawnable> spawnables;
     [SerializeField] private List<RequiredSpawnable> requiredSpawnables;
 
     [Header("Grid Dimentions")]
@@ -31,54 +26,48 @@ public class MapGenerator : MonoBehaviour
 
     private int currentSpawnCredits = 0;
 
-    private readonly List<Spawnable> affordableSpawnables = new List<Spawnable>();
-    private readonly List<Node> unoccupiedNodes = new List<Node>();
+    private readonly List<MapSpawnable> affordableSpawnables = new List<MapSpawnable>();
 
     private void Awake()
     {
         currentSpawnCredits = spawnCredits;
 
-        CreateGraph(transform.position);
-        graph.GetValidNodes(unoccupiedNodes);
-
+        CreateGraph();
         GenerateLoot();
     }
 
     private void GenerateLoot()
     {
-        //should update the nodes overlap around the element spawned to see how much space it took etc etc
-
         affordableSpawnables.AddRange(spawnables);
 
         SpawnRequiredSpawnables();
-        UpdateAffordableSpawnables();
 
-        while (affordableSpawnables.Count > 0 && unoccupiedNodes.Count > 0)
+        while (affordableSpawnables.Count > 0)
         {
             SpawnRandomSpawnable();
-            UpdateAffordableSpawnables();
-        }
-    }
-
-    private void UpdateAffordableSpawnables()
-    {
-        for (int i = affordableSpawnables.Count - 1; i >= 0; i--)
-        {
-            if (affordableSpawnables[i].Cost > currentSpawnCredits)
-            {
-                affordableSpawnables.RemoveAt(i);
-            }
         }
     }
 
     private void SpawnRandomSpawnable()
     {
-        Node node = GetRandomSpawnNode();
+        MapSpawnable mapSpawnable = WeightedSelect.SelectElement(affordableSpawnables);
 
-        Spawnable spawnable = WeightedSelect.SelectElement(affordableSpawnables);
+        if (mapSpawnable.spawnable.Cost > currentSpawnCredits)
+        {
+            affordableSpawnables.Remove(mapSpawnable);
+            return;
+        }
 
-        Instantiate(spawnable.Prefab, node.position, Quaternion.identity, transform);
-        currentSpawnCredits -= spawnable.Cost;
+        List<Graph.Area> areas = graph.GetValidAreas(mapSpawnable.area);
+        
+        if (areas.Count <= 0)
+        {
+            affordableSpawnables.Remove(mapSpawnable);
+            return;
+        }
+
+        Graph.Area area = areas[UnityEngine.Random.Range(0, areas.Count)];
+        SpawnSpawnable(area, mapSpawnable);
     }
 
     private void SpawnRequiredSpawnables()
@@ -87,29 +76,31 @@ public class MapGenerator : MonoBehaviour
         {
             for (int j = 0; j < requiredSpawnables[i].amount; j++)
             {
-                Node node = GetRandomSpawnNode();
-                Spawnable spawnable = requiredSpawnables[i].spawnable;
-                Instantiate(spawnable.Prefab, node.position, Quaternion.identity, transform);
+                MapSpawnable mapSpawnable = requiredSpawnables[i].mapSpawnable;
+                List<Graph.Area> areas = graph.GetValidAreas(mapSpawnable.area);
+
+                if (areas.Count <= 0)
+                {
+                    Debug.LogWarning($"Can't spawn required spawnable {mapSpawnable.spawnable.name}", mapSpawnable.spawnable);
+                    return;
+                }
+
+                Graph.Area area = areas[UnityEngine.Random.Range(0, areas.Count)];
+                SpawnSpawnable(area, mapSpawnable);
             }
         }
     }
 
-    private void CreateGraph(Vector3 worldPosition)
+    private void SpawnSpawnable(Graph.Area area, MapSpawnable mapSpawnable)
     {
-        graph = new Graph(worldPosition, blockLayer, boundsLayer, erosionIterations, gridWorldSize, nodeDiameter);
+        Instantiate(mapSpawnable.spawnable.Prefab, area.center, Quaternion.identity, transform);
+        currentSpawnCredits -= mapSpawnable.spawnable.Cost;
+        graph.BlockArea(area);
     }
 
-    private Node GetRandomSpawnNode()
+    private void CreateGraph()
     {
-        Node node = unoccupiedNodes[UnityEngine.Random.Range(0, unoccupiedNodes.Count)];
-        List<Node> blockedNodes = graph.BlockNode(node, spawnDistance);
-
-        for (int i = 0; i < blockedNodes.Count; i++)
-        {
-            unoccupiedNodes.Remove(blockedNodes[i]);
-        }
-
-        return node;
+        graph = new Graph(transform.position, blockLayer, boundsLayer, erosionIterations, gridWorldSize, nodeDiameter);
     }
 
     private void OnDrawGizmosSelected()
@@ -119,9 +110,18 @@ public class MapGenerator : MonoBehaviour
     }
 
     [Serializable]
-    private struct RequiredSpawnable
+    private struct MapSpawnable : IWeighted
     {
         public Spawnable spawnable;
+        public Vector2Int area;
+
+        public int Weight => spawnable.Weight;
+    }
+
+    [Serializable]
+    private struct RequiredSpawnable
+    {
+        public MapSpawnable mapSpawnable;
         public int amount;
     }
 }

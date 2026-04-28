@@ -164,10 +164,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridCreator
   spawnCredits: 120
-  spawnDistance: 1
   spawnables:
-  - {fileID: 11400000, guid: 108fa9b1ae5571744a1d46fc3e47ab9b, type: 2}
-  requiredSpawnables: []
+  - spawnable: {fileID: 11400000, guid: 108fa9b1ae5571744a1d46fc3e47ab9b, type: 2}
+    area: {x: 3, y: 3}
+  requiredSpawnables:
+  - mapSpawnable:
+      spawnable: {fileID: 11400000, guid: 108fa9b1ae5571744a1d46fc3e47ab9b, type: 2}
+      area: {x: 3, y: 3}
+    amount: 500
   gridWorldSize: {x: 130, y: 80}
   nodeDiameter: 1
   blockLayer:

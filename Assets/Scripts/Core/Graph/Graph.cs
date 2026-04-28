@@ -56,6 +56,50 @@ namespace Zeke.Graph
             CalculateErosion();
         }
 
+        public struct Area
+        {
+            public List<Node> nodes;
+            public Vector2 center;
+
+            public Area(List<Node> nodes, Vector2 center)
+            {
+                this.nodes = nodes;
+                this.center = center;
+            }
+        }
+
+        public List<Area> GetValidAreas(Vector2Int size)
+        {
+            List<Area> areas = new List<Area>();
+
+            for (int x = 0; x < gridSize.x; x++)
+            {
+                for (int y = 0; y < gridSize.y; y++)
+                {
+                    Vector2Int gridPosition = new Vector2Int(x, y);
+
+                    if (!IsAreaValid(gridPosition, size))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        areas.Add(GetArea(gridPosition, size));
+                    }
+                }
+            }
+
+            return areas;
+        }
+
+        public void BlockArea(Area area)
+        {
+            for (int i = 0; i < area.nodes.Count; i++)
+            {
+                BlockNode(area.nodes[i]);
+            }
+        }
+
         public List<Node> GetValidNodes()
         {
             List<Node> validNodes = new List<Node>();
@@ -275,6 +319,53 @@ namespace Zeke.Graph
             }
 
             return false;
+        }
+
+        private Area GetArea(Vector2Int corner, Vector2Int size)
+        {
+            List<Node> nodes = new List<Node>();
+
+            for (int x = 0; x < size.x; x++)
+            {
+                for (int y = 0; y < size.y; y++)
+                {
+                    nodes.Add(grid[corner.x + x, corner.y + y]);
+                }
+            }
+
+            Vector3 cornerPosition = grid[corner.x, corner.y].position;
+
+            Vector2 centerOffset = new Vector2()
+            {
+                x = ((nodeDiameter * size.x) * 0.5f) - nodeRadius,
+                y = ((nodeDiameter * size.y) * 0.5f) - nodeRadius
+            };
+
+            Vector2 center = new Vector2()
+            {
+                x = cornerPosition.x + centerOffset.x,
+                y = cornerPosition.y + centerOffset.y
+            };
+
+            return new Area(nodes, center);
+        }
+
+        private bool IsAreaValid(Vector2Int corner, Vector2Int size)
+        {
+            for (int x = 0; x < size.x; x++)
+            {
+                for (int y = 0; y < size.y; y++)
+                {
+                    Vector2Int gridPosition = new Vector2Int(corner.x + x, corner.y + y);
+
+                    if (!NodeInBounds(gridPosition.x, gridPosition.y) || grid[gridPosition.x, gridPosition.y].blocked)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }
