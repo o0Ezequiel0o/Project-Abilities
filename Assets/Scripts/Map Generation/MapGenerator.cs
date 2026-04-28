@@ -1,13 +1,19 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Zeke.Graph;
 
-public class LootGenerator : MonoBehaviour
+public class MapGenerator : MonoBehaviour
 {
     [Header("Generation")]
     [SerializeField] private int spawnCredits;
     [SerializeField] private int spawnDistance;
+
+    [Space]
+
     [SerializeField] private List<Spawnable> spawnables;
+    [SerializeField] private List<RequiredSpawnable> requiredSpawnables;
 
     [Header("Grid Dimentions")]
     public Vector2 gridWorldSize;
@@ -44,6 +50,7 @@ public class LootGenerator : MonoBehaviour
 
         affordableSpawnables.AddRange(spawnables);
 
+        SpawnRequiredSpawnables();
         UpdateAffordableSpawnables();
 
         while (affordableSpawnables.Count > 0 && unoccupiedNodes.Count > 0)
@@ -66,19 +73,25 @@ public class LootGenerator : MonoBehaviour
 
     private void SpawnRandomSpawnable()
     {
-        Node node = unoccupiedNodes[Random.Range(0, unoccupiedNodes.Count)];
-        List<Node> blockedNodes = graph.BlockNode(node, spawnDistance);
+        Node node = GetRandomSpawnNode();
 
-        for (int i = 0; i < blockedNodes.Count; i++)
-        {
-            unoccupiedNodes.Remove(blockedNodes[i]);
-        }
-
-        Vector3 position = node.position;
         Spawnable spawnable = WeightedSelect.SelectElement(affordableSpawnables);
 
-        Instantiate(spawnable.Prefab, position, Quaternion.identity, transform);
+        Instantiate(spawnable.Prefab, node.position, Quaternion.identity, transform);
         currentSpawnCredits -= spawnable.Cost;
+    }
+
+    private void SpawnRequiredSpawnables()
+    {
+        for (int i = 0; i < requiredSpawnables.Count; i++)
+        {
+            for (int j = 0; j < requiredSpawnables[i].amount; j++)
+            {
+                Node node = GetRandomSpawnNode();
+                Spawnable spawnable = requiredSpawnables[i].spawnable;
+                Instantiate(spawnable.Prefab, node.position, Quaternion.identity, transform);
+            }
+        }
     }
 
     private void CreateGraph(Vector3 worldPosition)
@@ -86,9 +99,29 @@ public class LootGenerator : MonoBehaviour
         graph = new Graph(worldPosition, blockLayer, boundsLayer, erosionIterations, gridWorldSize, nodeDiameter);
     }
 
+    private Node GetRandomSpawnNode()
+    {
+        Node node = unoccupiedNodes[UnityEngine.Random.Range(0, unoccupiedNodes.Count)];
+        List<Node> blockedNodes = graph.BlockNode(node, spawnDistance);
+
+        for (int i = 0; i < blockedNodes.Count; i++)
+        {
+            unoccupiedNodes.Remove(blockedNodes[i]);
+        }
+
+        return node;
+    }
+
     private void OnDrawGizmosSelected()
     {
         if (!drawGizmos || !Application.isPlaying) return;
         graph.DrawGizmos();
+    }
+
+    [Serializable]
+    private struct RequiredSpawnable
+    {
+        public Spawnable spawnable;
+        public int amount;
     }
 }

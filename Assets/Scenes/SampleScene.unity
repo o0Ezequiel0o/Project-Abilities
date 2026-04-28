@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 35329034}
   - component: {fileID: 35329035}
   m_Layer: 0
-  m_Name: Loot Generator
+  m_Name: Map Generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,6 +167,7 @@ MonoBehaviour:
   spawnDistance: 1
   spawnables:
   - {fileID: 11400000, guid: 108fa9b1ae5571744a1d46fc3e47ab9b, type: 2}
+  requiredSpawnables: []
   gridWorldSize: {x: 130, y: 80}
   nodeDiameter: 1
   blockLayer:
