@@ -29,7 +29,20 @@ namespace Zeke.Items
         public static OrderedActionDictionary<GameObject, List<ItemGenerationData>> onOptionsGenerated = new OrderedActionDictionary<GameObject, List<ItemGenerationData>>();
         public static OrderedActionDictionary<GameObject, ItemGenerationData> onItemSelected = new OrderedActionDictionary<GameObject, ItemGenerationData>();
 
-        public string InteractTooltip => $"{interactName}\n$ {cost}";
+        public string InteractTooltip
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(interactName))
+                {
+                    return $"{cost}";
+                }
+                else
+                {
+                    return $"{interactName}\n$ {cost}";
+                }
+            }
+        }
 
         protected int cost = 0;
 

@@ -154,7 +154,7 @@ MonoBehaviour:
   itemSettings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   drops: {fileID: 11400000, guid: dbdc7ca8d8345a14c9e896a8898da446, type: 2}
   <InteractOverlay>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  interactName: Greed Shrine
+  interactName: 
   itemSelectionWindow: {fileID: 5283664177091368193, guid: 15b69a7c7671b5f43bdee276a4731e4a, type: 3}
   itemOptionWindow: {fileID: 6831720364878063803, guid: 089f68913f42ad848ba1bde62a68f74d, type: 3}
   baseCost: 25
