@@ -4,10 +4,10 @@ using System;
 using System.Reflection;
 using Object = UnityEngine.Object;
 
-[CustomEditor(typeof(WaveSpawnable))]
-public class WaveSpawnableIconDisplay : Editor
+[CustomEditor(typeof(Spawnable))]
+public class SpawnableIconDisplay : Editor
 {
-    private WaveSpawnable Item { get { return target as WaveSpawnable; } }
+    private Spawnable Item { get { return target as Spawnable; } }
 
     public override Texture2D RenderStaticPreview(string assetPath, Object[] subAssets, int width, int height)
     {

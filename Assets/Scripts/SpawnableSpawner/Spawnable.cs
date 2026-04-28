@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Wave Spawnable", menuName = "ScriptableObjects/Spawnable", order = 1)]
-public class WaveSpawnable : ScriptableObject
+[CreateAssetMenu(fileName = "Spawnable", menuName = "ScriptableObjects/Spawnable", order = 1)]
+public class Spawnable : ScriptableObject, IWeighted
 {
     [field: SerializeField] public Sprite Icon { get; private set; }
 

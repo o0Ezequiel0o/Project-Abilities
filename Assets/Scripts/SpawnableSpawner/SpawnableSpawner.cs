@@ -14,11 +14,11 @@ public class SpawnableSpawner : MonoBehaviour
     [Header("Spawning")]
     [SerializeField] private int maxAliveSpawnables = 1000;
     [SerializeField] private List<Spawnpoint> spawnpoints;
-    [SerializeField] private List<WaveSpawnable> spawnables;
+    [SerializeField] private List<Spawnable> spawnables;
 
     public static OrderedAction<GameObject> onSpawnableSpawned = new OrderedAction<GameObject>();
 
-    private readonly Dictionary<CachedSpawnableData, WaveSpawnable> cachedSpawnablesRef = new Dictionary<CachedSpawnableData, WaveSpawnable>();
+    private readonly Dictionary<CachedSpawnableData, Spawnable> cachedSpawnablesRef = new Dictionary<CachedSpawnableData, Spawnable>();
     private readonly List<CachedSpawnableData> cachedSpawnables = new List<CachedSpawnableData>();
     private readonly List<GameObject> aliveSpawnables = new List<GameObject>();
 
@@ -142,7 +142,7 @@ public class SpawnableSpawner : MonoBehaviour
         }
     }
 
-    private void CreateCachedSpawnable(WaveSpawnable spawnable)
+    private void CreateCachedSpawnable(Spawnable spawnable)
     {
         List<Spawnpoint> avaibleSpawnpoints = new List<Spawnpoint>();
 
@@ -175,7 +175,7 @@ public class SpawnableSpawner : MonoBehaviour
     private class CachedSpawnableData : IWeighted
     {
         public readonly GameObject prefab;
-        public readonly WaveSpawnable spawnableRef;
+        public readonly Spawnable spawnableRef;
         public readonly List<Spawnpoint> spawnpoints;
 
         public int Weight => weight;
@@ -188,7 +188,7 @@ public class SpawnableSpawner : MonoBehaviour
 
         private int maxSpawnRollWeight;
 
-        public CachedSpawnableData(WaveSpawnable waveSpawnable, List<Spawnpoint> spawnpoints)
+        public CachedSpawnableData(Spawnable waveSpawnable, List<Spawnpoint> spawnpoints)
         {
             prefab = waveSpawnable.Prefab;
             spawnableRef = waveSpawnable;

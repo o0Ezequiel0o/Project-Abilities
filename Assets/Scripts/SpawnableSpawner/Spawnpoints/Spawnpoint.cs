@@ -5,8 +5,8 @@ using Zeke.TeamSystem;
 public abstract class Spawnpoint : MonoBehaviour, IWeighted
 {
     [Header("Filter")]
-    [SerializeField] private List<WaveSpawnable> exclude;
-    [SerializeField] private List<WaveSpawnable> include;
+    [SerializeField] private List<Spawnable> exclude;
+    [SerializeField] private List<Spawnable> include;
     [SerializeField] private bool fillInclude = true;
 
     [field: Header("Settings")]
@@ -29,12 +29,12 @@ public abstract class Spawnpoint : MonoBehaviour, IWeighted
 
     protected abstract bool IsBlocked(ContactFilter2D contactFIlter);
 
-    public bool Includes(WaveSpawnable waveSpawnable)
+    public bool Includes(Spawnable waveSpawnable)
     {
         return fillInclude && !exclude.Contains(waveSpawnable) || !fillInclude && include.Contains(waveSpawnable);
     }
 
-    public bool Excludes(WaveSpawnable waveSpawnable)
+    public bool Excludes(Spawnable waveSpawnable)
     {
         return !Includes(waveSpawnable);
     }
