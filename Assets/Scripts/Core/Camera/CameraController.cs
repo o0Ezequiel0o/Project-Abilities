@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
         this.target = target;
     }
 
-    void Update()
+    private void Update()
     {
         if (target != null && GameInstance.MainCamera != null)
         {
@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void Follow()
+    private void Follow()
     {
         Vector3 targetPos = (target.position + GameInstance.MouseWorldPosition) / 2;
 
