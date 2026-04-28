@@ -19,7 +19,7 @@ MonoBehaviour:
   <Name>k__BackingField: Cursed Skull
   <Description>k__BackingField: Kills have a 10% chance to spawn a zombie. Stacks
     increase zombie level by 1 (+1 per stack).
-  <Rarity>k__BackingField: 0
+  <Rarity>k__BackingField: 1
   <Chance>k__BackingField: 10
   <Prefab>k__BackingField: {fileID: 4726983824376574871, guid: cde4720e96923bc4882fc6c129d95433, type: 3}
   <ExtraLevels>k__BackingField:
