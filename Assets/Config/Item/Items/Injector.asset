@@ -17,8 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Injector
-  <Description>k__BackingField: Increases primary skill charge speed by 5% (+5% per
-    stack).
+  <Description>k__BackingField: Increases primary skill charge speed by 7.5% (+7.5%
+    per stack).
   <Rarity>k__BackingField: 0
   <AbilityType>k__BackingField: 0
   <ExtraChargeSpeed>k__BackingField:
@@ -30,4 +30,4 @@ MonoBehaviour:
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 0
-        increase: 0.05
+        increase: 0.075

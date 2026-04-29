@@ -17,7 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Shield Generator
-  <Description>k__BackingField: Increases shield regen by 2 (+2 per stack).
+  <Description>k__BackingField: Increases shield regen by 3 (+3 per stack).
   <Rarity>k__BackingField: 0
   <ExtraShieldRegen>k__BackingField:
     rid: 2308103107532554332
@@ -28,4 +28,4 @@ MonoBehaviour:
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 0
-        increase: 2
+        increase: 3

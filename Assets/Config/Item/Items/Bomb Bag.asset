@@ -18,7 +18,7 @@ MonoBehaviour:
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Bomb Bag
   <Description>k__BackingField: Every 5 seconds, after you use your utility skill
-    spawn a bomb that deals 50 damage (50 per stack).
+    spawn a bomb that deals 50 (+50 per stack) damage.
   <Rarity>k__BackingField: 0
   <BombPrefab>k__BackingField: {fileID: 3012280798003382207, guid: 24cc4553fc09c72439f258ea3c21f634, type: 3}
   <AbilityType>k__BackingField: 2

@@ -17,8 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Riot Shield
-  <Description>k__BackingField: Increases shield by 10 (+3 per stack) and shield
-    regen by 5 (+5% per stack).
+  <Description>k__BackingField: Increases shield by 10 (+5 per stack) and shield
+    regen by 5 (+5 per stack).
   <Rarity>k__BackingField: 1
   <ExtraShield>k__BackingField:
     rid: 2308103069819469904
@@ -30,8 +30,8 @@ MonoBehaviour:
     - rid: 2308103069819469904
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
-        startValue: 7
-        increase: 3
+        startValue: 5
+        increase: 5
     - rid: 2308103069819469905
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:

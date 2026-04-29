@@ -17,7 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Coffee
-  <Description>k__BackingField: 'Increases primary skill charge speed by 3% (+3%
+  <Description>k__BackingField: 'Increases primary skill charge speed by 4% (+4%
     per stack) and move speed by 0.1 (+0.1 per stack). '
   <Rarity>k__BackingField: 0
   <AbilityType>k__BackingField: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 0
-        increase: 0.03
+        increase: 0.04
     - rid: 2308103117131219035
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:

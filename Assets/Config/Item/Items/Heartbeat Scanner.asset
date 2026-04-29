@@ -17,10 +17,10 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Heartbeat Scanner
-  <Description>k__BackingField: 'When dealing damage, for every 5% health the target
-    is missing, deal 3% (+3% per stack) more damage. '
+  <Description>k__BackingField: 'When dealing damage, for every 10% health the target
+    is missing, deal 5% (+5% per stack) more damage. '
   <Rarity>k__BackingField: 1
-  <MissingHealthRatioForStack>k__BackingField: 0.05
+  <MissingHealthRatioForStack>k__BackingField: 0.1
   <DamageMultPerStack>k__BackingField:
     rid: 2308103117131219023
   references:
@@ -30,4 +30,4 @@ MonoBehaviour:
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 0
-        increase: 0.03
+        increase: 0.05

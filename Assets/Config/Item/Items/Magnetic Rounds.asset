@@ -17,7 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Magnetic Rounds
-  <Description>k__BackingField: Deal 5% (+5% per stack) damage to enemies with shield.
+  <Description>k__BackingField: Deal 10% (+10% per stack) damage to enemies with
+    shield.
   <Rarity>k__BackingField: 0
   <DamageMultiplier>k__BackingField:
     rid: 2308103063999873106
@@ -28,4 +29,4 @@ MonoBehaviour:
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 1
-        increase: 0.05
+        increase: 0.1

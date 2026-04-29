@@ -17,7 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Unstable Cell
-  <Description>k__BackingField: Increase shield by 18 (+18 per stack) and every 5
+  <Description>k__BackingField: Increase shield by 35 (+35 per stack) and every 5
     seconds when shield breaks knock enemies in a 3 meter radius away.
   <Rarity>k__BackingField: 2
   <ExtraShield>k__BackingField:
@@ -39,7 +39,7 @@ MonoBehaviour:
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 0
-        increase: 18
+        increase: 35
     - rid: 2308103072427540563
       type: {class: ReciprocalStat, ns: , asm: Assembly-CSharp}
       data:

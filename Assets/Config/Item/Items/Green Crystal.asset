@@ -17,7 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 3033002214300068697, guid: 63ba551e5bf0f6f4ca8d98daedcaad04, type: 3}
   <Outline>k__BackingField: {fileID: 6457688428541797764, guid: 63ba551e5bf0f6f4ca8d98daedcaad04, type: 3}
   <Name>k__BackingField: Green Crystal
-  <Description>k__BackingField: Increases max health by 15 (+15% per stack).
+  <Description>k__BackingField: Increases max health by 17 (+17 per stack).
   <Rarity>k__BackingField: 0
   <ExtraHealth>k__BackingField:
     rid: 2308102863504277871
@@ -28,4 +28,4 @@ MonoBehaviour:
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 0
-        increase: 15
+        increase: 17

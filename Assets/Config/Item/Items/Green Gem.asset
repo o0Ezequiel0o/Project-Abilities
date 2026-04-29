@@ -17,7 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Green Gem
-  <Description>k__BackingField: Increases max health by 30 (+30 per stack) and health
+  <Description>k__BackingField: Increases max health by 40 (+40 per stack) and health
     regen by 1 (+1 per stack).
   <Rarity>k__BackingField: 1
   <ExtraHealth>k__BackingField:
@@ -31,7 +31,7 @@ MonoBehaviour:
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 0
-        increase: 30
+        increase: 40
     - rid: 2308103083634196565
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:

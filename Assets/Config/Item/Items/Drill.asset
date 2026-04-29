@@ -18,7 +18,7 @@ MonoBehaviour:
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Drill
   <Description>k__BackingField: Hits against the same enemy increases damage against
-    it by 0.5% (+0.5% per stack).
+    it by 1% (+1% per stack).
   <Rarity>k__BackingField: 0
   <FlatMultDamage>k__BackingField:
     rid: 2308103063999873104
@@ -29,4 +29,4 @@ MonoBehaviour:
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 0
-        increase: 0.005
+        increase: 0.01

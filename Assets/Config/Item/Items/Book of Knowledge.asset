@@ -17,8 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Book of Knowledge
-  <Description>k__BackingField: Receive 40% (+40% per stack) more experience and
-    (+2%) for every tome.
+  <Description>k__BackingField: Receive 50% (+50% per stack) more experience and
+    (+3%) for every tome.
   <Rarity>k__BackingField: 3
   <XPMult>k__BackingField:
     rid: 2308102863504277867
@@ -32,9 +32,9 @@ MonoBehaviour:
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 0
-        increase: 0.02
+        increase: 0.03
     - rid: 2308102863504277867
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
         startValue: 1
-        increase: 0.4
+        increase: 0.5

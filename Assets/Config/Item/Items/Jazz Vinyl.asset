@@ -17,7 +17,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Jazz Vinyl
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Hits have a 10% (+10% per stack) chance to slow down
+    target by 25%.
   <Rarity>k__BackingField: 0
   <StatusEffect>k__BackingField: {fileID: 11400000, guid: b0d4eabeef0c7f541b5d97d233512206, type: 2}
   <ProcChance>k__BackingField:
