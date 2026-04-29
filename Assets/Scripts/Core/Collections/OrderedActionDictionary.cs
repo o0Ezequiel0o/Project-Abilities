@@ -12,6 +12,11 @@ namespace Zeke.Collections
             subscribers = new Dictionary<TSubKey, OrderedAction<TCallBack>>();
         }
 
+        public OrderedActionDictionary(int capacity)
+        {
+            subscribers = new Dictionary<TSubKey, OrderedAction<TCallBack>>(capacity);
+        }
+
         public void Invoke(TSubKey key, TCallBack output)
         {
             if (key == null) return;

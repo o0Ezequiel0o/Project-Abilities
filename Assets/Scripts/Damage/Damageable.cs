@@ -281,10 +281,10 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     public class DamageEvent
     {
-        public static readonly OrderedActionDictionary<GameObject, DamageEvent> onDamageDealt = new OrderedActionDictionary<GameObject, DamageEvent>();
-        public static readonly OrderedActionDictionary<GameObject, DamageEvent> onDealDamage = new OrderedActionDictionary<GameObject, DamageEvent>();
-        public static readonly OrderedActionDictionary<GameObject, DamageEvent> onKill = new OrderedActionDictionary<GameObject, DamageEvent>();
-        public static readonly OrderedActionDictionary<GameObject, DamageEvent> onHit = new OrderedActionDictionary<GameObject, DamageEvent>();
+        public static readonly OrderedActionDictionary<GameObject, DamageEvent> onDamageDealt = new OrderedActionDictionary<GameObject, DamageEvent>(128);
+        public static readonly OrderedActionDictionary<GameObject, DamageEvent> onDealDamage = new OrderedActionDictionary<GameObject, DamageEvent>(128);
+        public static readonly OrderedActionDictionary<GameObject, DamageEvent> onKill = new OrderedActionDictionary<GameObject, DamageEvent>(128);
+        public static readonly OrderedActionDictionary<GameObject, DamageEvent> onHit = new OrderedActionDictionary<GameObject, DamageEvent>(128);
 
         public float Damage { get; private set; }
         public float BaseDamage { get; private set; }
@@ -437,8 +437,8 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     public class HealEvent
     {
-        public static readonly ActionDictionary<GameObject, HealEvent> onHealHealth = new ActionDictionary<GameObject, HealEvent>();
-        public static readonly ActionDictionary<GameObject, HealEvent> onHealthHealed = new ActionDictionary<GameObject, HealEvent>();
+        public static readonly OrderedActionDictionary<GameObject, HealEvent> onHealHealth = new OrderedActionDictionary<GameObject, HealEvent>(128);
+        public static readonly OrderedActionDictionary<GameObject, HealEvent> onHealthHealed = new OrderedActionDictionary<GameObject, HealEvent>(128);
 
         public float Healing { get; private set; }
         public float BaseHealing {  get; private set; }
