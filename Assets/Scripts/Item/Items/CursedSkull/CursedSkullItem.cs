@@ -49,6 +49,16 @@ namespace Zeke.Items
                 {
                     levelHandler.GiveExperience(levelHandler.ExperienceRequired);
                 }
+
+                if (source.TryGetComponent(out LevelHandler sourceLevelHandler))
+                {
+                    levelHandler.onReceiveExperience.Subscribe(sourceLevelHandler.GiveExperience);
+                }
+            }
+
+            if (summon.TryGetComponent(out MoneyHandler wallet) && source.TryGetComponent(out MoneyHandler sourceWallet))
+            {
+                wallet.onReceiveMoney.Subscribe(sourceWallet.GiveMoney);
             }
         }
     }
