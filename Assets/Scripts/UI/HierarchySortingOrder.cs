@@ -8,4 +8,13 @@ public class HierarchySortingOrder : MonoBehaviour
     {
         transform.SetSiblingIndex(sortingOrder);
     }
+
+    private void Update()
+    {
+        if (transform.parent != null && transform.parent.hasChanged)
+        {
+            transform.SetSiblingIndex(sortingOrder);
+            transform.parent.hasChanged = false;
+        }
+    }
 }

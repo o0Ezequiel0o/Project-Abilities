@@ -1642,10 +1642,13 @@ MonoBehaviour:
   toggleGroup: {fileID: 442227355}
   optionPrefab: {fileID: 6222565408447437796, guid: cf72788ebe38c744c9f5d0c98b58af33, type: 3}
   root: {fileID: 442227349}
-  defaultDifficulty: {fileID: 11400000, guid: 7db4dbee71bfee14298e1f19d9361108, type: 2}
+  defaultDifficulty: {fileID: 11400000, guid: 67720e54542256346a8eac0485f3acd7, type: 2}
   difficulties:
   - {fileID: 11400000, guid: 852cab525c0f7de4695cbd3b0c241eb8, type: 2}
   - {fileID: 11400000, guid: 7db4dbee71bfee14298e1f19d9361108, type: 2}
+  - {fileID: 11400000, guid: 67720e54542256346a8eac0485f3acd7, type: 2}
+  - {fileID: 11400000, guid: 5bf9b45565d167f46b4429ef75f784da, type: 2}
+  - {fileID: 11400000, guid: 2ef4599dd27d6bc418f25b0db9bfa21d, type: 2}
 --- !u!1 &1451325853
 GameObject:
   m_ObjectHideFlags: 0
