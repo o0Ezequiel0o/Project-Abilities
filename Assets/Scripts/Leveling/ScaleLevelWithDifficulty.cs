@@ -4,9 +4,7 @@ public class ScaleLevelWithDifficulty : MonoBehaviour
 {
     [Header("Dependency")]
     [SerializeField] private LevelHandler levelHandler;
-
-    [Header("Settings")]
-    [SerializeField] private int experiencePerDifficulty = 20;
+    [SerializeField] private ScaleLevelWithDifficultySettings settings;
 
     private void Reset()
     {
@@ -15,7 +13,11 @@ public class ScaleLevelWithDifficulty : MonoBehaviour
 
     private void Start()
     {
-        int experience = Mathf.FloorToInt(experiencePerDifficulty * GameInstance.Difficulty);
-        levelHandler.GiveExperience(experience);
+        int levels = Mathf.FloorToInt(settings.LevelPerDifficulty * GameInstance.Difficulty);
+
+        for (int i = 0; i < levels; i++)
+        {
+            levelHandler.GiveExperience(levelHandler.ExperienceRequired);
+        }
     }
 }

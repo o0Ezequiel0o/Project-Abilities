@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8e62384147eae458987b2764a058be, type: 3}
   m_Name: Easy
   m_EditorClassIdentifier: Assembly-CSharp::GameDifficulty
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Easy
   <StartingDifficulty>k__BackingField: 0
-  <DifficultyScaleRate>k__BackingField: 0.05
-  <DifficultyRampUp>k__BackingField: 0.00025
+  <DifficultyScaleRate>k__BackingField: 0.0375
+  <DifficultyRampUp>k__BackingField: 0.0001875
   <PriceScalePerSecond>k__BackingField: 0

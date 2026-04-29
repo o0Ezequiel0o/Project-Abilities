@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8e62384147eae458987b2764a058be, type: 3}
   m_Name: No Scaling
   m_EditorClassIdentifier: Assembly-CSharp::GameDifficulty
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: No Scaling
   <StartingDifficulty>k__BackingField: 0
   <DifficultyScaleRate>k__BackingField: 0

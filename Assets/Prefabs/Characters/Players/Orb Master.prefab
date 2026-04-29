@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: 'setAbilities.Array.data[3]'
       value: 
       objectReference: {fileID: 11400000, guid: 5f31e64124b5af7448150b8c628ce657, type: 2}
+    - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <MaxHealth>k__BackingField.increase
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3787346725820631185, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: setPassives.Array.size
       value: 2

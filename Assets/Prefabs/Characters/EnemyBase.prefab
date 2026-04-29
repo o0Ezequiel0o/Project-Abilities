@@ -511,7 +511,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSettings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
-  <Luck>k__BackingField: 0
+  <Luck>k__BackingField:
+    baseValue: 0
+    increase: 0
+    valueLimits:
+      min: -Infinity
+      max: Infinity
 --- !u!114 &6484100423389945961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,7 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelHandler: {fileID: 5832264677408755591}
-  experiencePerDifficulty: 20
+  settings: {fileID: 11400000, guid: 801fe73c4db35514bb50cde10a196968, type: 2}
 --- !u!114 &1295819619765179186
 MonoBehaviour:
   m_ObjectHideFlags: 0

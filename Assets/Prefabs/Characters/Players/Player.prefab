@@ -443,7 +443,7 @@ MonoBehaviour:
   <Settings>k__BackingField: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
   <MaxHealth>k__BackingField:
     baseValue: 100
-    increase: 10
+    increase: 25
     valueLimits:
       min: 0
       max: Infinity

@@ -428,7 +428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Settings>k__BackingField: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
   <MaxHealth>k__BackingField:
-    baseValue: 100
+    baseValue: 70
     increase: 10
     valueLimits:
       min: 0
@@ -628,7 +628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelHandler: {fileID: 5832264677408755591}
-  experiencePerDifficulty: 500
+  settings: {fileID: 11400000, guid: 801fe73c4db35514bb50cde10a196968, type: 2}
 --- !u!114 &-1916451124747499836
 MonoBehaviour:
   m_ObjectHideFlags: 0
