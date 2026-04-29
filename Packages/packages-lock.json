@@ -7,7 +7,7 @@
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.2.0"
       },
-      "hash": "7cf843ddcefaa4a9d0b68beff50878d82f61c68f"
+      "hash": "6b83e9a3c62d6799a986ae12c6bd6cd10676feed"
     },
     "com.h8man.2d.navmeshplus": {
       "version": "https://github.com/h8man/NavMeshPlus.git",

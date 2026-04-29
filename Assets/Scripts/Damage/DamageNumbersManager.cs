@@ -29,10 +29,26 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
         DisplayDamageNumber(position, receiver, value, size, Vector2.zero);
     }
 
+    public static void DisplayHealNumber(Vector3 position, GameObject receiver, float value, float size)
+    {
+        DisplayHealNumber(position, receiver, value, size, Vector2.zero);
+    }
+
     public static void DisplayDamageNumber(Vector3 position, GameObject receiver, float value, float size, Vector2 offset)
     {
+        DisplayNumber(position, receiver, value, size, offset, Instance.config.DefaultDamageColor);
+    }
+
+    public static void DisplayHealNumber(Vector3 position, GameObject receiver, float value, float size, Vector2 offset)
+    {
+        DisplayNumber(position, receiver, value, size, offset, Instance.config.DefaultHealColor);
+    }
+
+    private static void DisplayNumber(Vector3 position, GameObject receiver, float value, float size, Vector2 offset, Color color)
+    {
         DamageNumber damageNumber = GetDamageNumber();
-        InitializeDamageNumber(position, damageNumber, value, size);
+
+        InitializeDamageNumber(position, damageNumber, value, size, color);
         ActivateDamageNumber(damageNumber, receiver, offset);
     }
 
@@ -77,9 +93,9 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
         damageNumber.gameObject.SetActive(true);
     }
 
-    private static void InitializeDamageNumber(Vector3 position, DamageNumber damageNumber, float damage, float size)
+    private static void InitializeDamageNumber(Vector3 position, DamageNumber damageNumber, float damage, float size, Color color)
     {
-        damageNumber.Initialize(damage, size, Instance.config.DefaultColor);
+        damageNumber.Initialize(damage, size, color);
         damageNumber.UpdateAlpha(Instance.config.StartAlpha);
         damageNumber.transform.position = position;
     }

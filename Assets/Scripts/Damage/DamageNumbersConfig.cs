@@ -4,7 +4,8 @@ using UnityEngine;
 public class DamageNumbersConfig : ScriptableObject
 {
     [field: Header("Settings")]
-    [field: SerializeField] public Color DefaultColor { get; private set; } = Color.red;
+    [field: SerializeField] public Color DefaultDamageColor { get; private set; } = Color.red;
+    [field: SerializeField] public Color DefaultHealColor { get; private set; } = Color.red;
 
     [field: Header("Despawning")]
     [field: SerializeField, Range(0f, 1f)] public float AlphaStartTime { get; private set; } = 0.7f;

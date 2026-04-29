@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Damageable;
 
 public class DamageableNumbers : MonoBehaviour
 {
@@ -41,14 +42,23 @@ public class DamageableNumbers : MonoBehaviour
         if (TryGetComponent(out Damageable damageable))
         {
             damageable.onTakenDamage.Subscribe(DisplayDamageNumber);
+            damageable.onReceivedHealth.Subscribe(DisplayHealNumber);
         }
     }
 
-    private void DisplayDamageNumber(Damageable.DamageEvent damageEvent)
+    private void DisplayDamageNumber(DamageEvent damageEvent)
     {
         Vector2 spawnOffset = new Vector2(Random.Range(-xRandom, xRandom), currentYoffset);
 
         DamageNumbersManager.DisplayDamageNumber(transform.position, gameObject, damageEvent.UncappedDamageDealt, displaySize, spawnOffset);
+        UpdateCurrentOffset(currentYoffset - yLower);
+    }
+
+    private void DisplayHealNumber(HealEvent healEvent)
+    {
+        Vector2 spawnOffset = new Vector2(Random.Range(-xRandom, xRandom), currentYoffset);
+
+        DamageNumbersManager.DisplayHealNumber(transform.position, gameObject, healEvent.UncappedHealing, displaySize, spawnOffset);
         UpdateCurrentOffset(currentYoffset - yLower);
     }
 
