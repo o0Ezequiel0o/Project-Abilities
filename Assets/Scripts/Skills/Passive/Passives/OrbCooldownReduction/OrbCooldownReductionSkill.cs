@@ -76,7 +76,10 @@ public class OrbCooldownReductionSkill : PassiveBase
         {
             IAbility ability = abilityController.Abilities[i];
 
-            ability.SetCooldownTimer(ability.CooldownTimer + flatCooldownDecrease.Value);
+            if (!ability.DurationActive)
+            {
+                ability.SetCooldownTimer(ability.CooldownTimer + flatCooldownDecrease.Value);
+            }
         }
     }
 }
