@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 842629725209027823}
   - component: {fileID: 4757503293696331254}
   m_Layer: 8
-  m_Name: Fat Zombie idk
+  m_Name: Elite Zombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d46c8f5c187947b44b9a6d2705371cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeathRewards
-  deathRewardsData: {fileID: 11400000, guid: 5151aec341520f8408a90e295d81fcb9, type: 2}
+  deathRewardsData: {fileID: 11400000, guid: eb1d367d7865eb347bc7bf5390eab135, type: 2}
 --- !u!114 &4757503293696331254
 MonoBehaviour:
   m_ObjectHideFlags: 0

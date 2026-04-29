@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e2b7524c091294abed32a5d17a34a1, type: 3}
   m_Name: Orb Extra Damage
   m_EditorClassIdentifier: Assembly-CSharp::OrbExtraDamageSkillData
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Orb Mastery
+  <Description>k__BackingField: Your orbs deal 1 <i><color=#5A5A5A>(+1 per level)</color></i>
+    extra damage.
   extraDamage:
-    baseValue: 2
-    increase: 2
+    baseValue: 1
+    increase: 1
     valueLimits:
       min: 0
       max: Infinity

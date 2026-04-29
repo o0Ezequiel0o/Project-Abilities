@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Elite Zombie Attack
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
+  <Name>k__BackingField: Maul (Elite)
+  <Description>k__BackingField: Deal 15 <i><color=#5A5A5A>(+4.5 per level)</color></i>
+    damage in a big area in front of you.
   <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
@@ -56,14 +57,14 @@ MonoBehaviour:
       type: {class: BasicAttack, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         damage:
-          baseValue: 30
-          increase: 0
+          baseValue: 15
+          increase: 4.5
           valueLimits:
             min: 0
-            max: 10
+            max: Infinity
         armorPenetration: 0
         procCoefficient: 1
-        knockback: 5
+        knockback: 30
         shape:
           rid: 3611678692085071970
         hitLayers:

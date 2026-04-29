@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: Fire Giant Orb
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Supercritical Orb
+  <Description>k__BackingField: Fire a giant orb that spawns smaller homing orbs.
+    The giant orb pierces through enemies and deals 100 <i><color=#5A5A5A>(+10 per
+    level)</color></i> damage and the smaller orbs deal 5 <i><color=#5A5A5A>(+1 per
+    level)</color></i> damage.
   <AbilityType>k__BackingField: 3
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
   cooldownTime:
-    baseValue: 5
+    baseValue: 45
     increase: 0
     valueLimits:
       min: 0
@@ -77,13 +82,13 @@ MonoBehaviour:
         prefab: {fileID: 1995363315318189085, guid: b1700eae23f047845bb158ec1d9ed1df, type: 3}
         damage:
           baseValue: 100
-          increase: 0
+          increase: 10
           valueLimits:
             min: -Infinity
             max: Infinity
         smallOrbDamage:
           baseValue: 5
-          increase: 0
+          increase: 1
           valueLimits:
             min: -Infinity
             max: Infinity

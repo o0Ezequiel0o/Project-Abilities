@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ca23a91d20aadb4581074d30f87b4cc, type: 3}
-  m_Name: Zombie Attack Indicator 1
+  m_Name: Zombie Attack Indicator
   m_EditorClassIdentifier: Assembly-CSharp::AbilityIndicatorData
   settings: {fileID: 11400000, guid: 5e5ea81a5f739924dafa4ae2008e931d, type: 2}
   modules:

@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Orb Cooldown Reduction", menuName = "ScriptableObjects/Passives/OrbCooldownReduction", order = 1)]
 public class OrbCooldownReductionSkillData : PassiveData
 {
+    [Space]
+
     [SerializeField] private Stat flatCooldownReduction;
 
     private Stat FlatCooldownReduction => flatCooldownReduction.DeepCopy();

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Zombie Attack
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Maul
+  <Description>k__BackingField: Deal 10 <i><color=#5A5A5A>(+3 per level)</color></i>
+    damage in an area in front of you.
   <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
@@ -54,8 +57,8 @@ MonoBehaviour:
       type: {class: BasicAttack, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         damage:
-          baseValue: 15
-          increase: 5
+          baseValue: 10
+          increase: 3
           valueLimits:
             min: 0
             max: Infinity

@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Upgrade Orb Passive
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Unlimited Power
+  <Description>k__BackingField: Upgrade "Orb Mastery" passive 1 level.
   <AbilityType>k__BackingField: 2
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
   cooldownTime:
-    baseValue: 5
+    baseValue: 45
     increase: 0
     valueLimits:
       min: 0
