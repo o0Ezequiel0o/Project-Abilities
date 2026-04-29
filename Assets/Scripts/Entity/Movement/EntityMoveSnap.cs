@@ -7,7 +7,7 @@ public class EntityMoveSnap : EntityMove
 
     protected override void UpdateMovementInternal(Vector2 desiredMoveDirection)
     {
-        physics.AddMoveForce(GetForceForDesiredMoveSpeed(MoveSpeed.Value * desiredMoveDirection.normalized));
+        physics.AddMoveForce(GetForceForDesiredMoveSpeed(MoveSpeed.Value * desiredMoveDirection));
         moveDirection = desiredMoveDirection;
     }
 

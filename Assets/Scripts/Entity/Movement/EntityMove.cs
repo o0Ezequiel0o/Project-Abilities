@@ -15,7 +15,7 @@ public abstract class EntityMove : MonoBehaviour, IUpgradable
 
     public void MoveTowards(Vector2 desiredDirection)
     {
-        desiredMoveDirection = desiredDirection;
+        desiredMoveDirection = desiredDirection.normalized;
     }
 
     public void StopMoving()

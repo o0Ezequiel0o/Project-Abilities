@@ -7,12 +7,12 @@ public class Physics : MonoBehaviour
     [Header("Dependency")]
     [SerializeField] protected Rigidbody2D rigidBody;
 
-    [Header("Settings")]
-    [SerializeField] protected float forceReceivedMultiplier = 1f;
+    [field: Header("Settings")]
+    [SerializeField, Min(0)] protected float forceReceivedMultiplier = 1f;
 
     [Space]
 
-    [SerializeField] protected float linearDamping = 0.15f;
+    [SerializeField, Min(0)] protected float linearDamping = 0.15f;
 
     public float Rotation => rigidBody.rotation;
 
@@ -68,20 +68,10 @@ public class Physics : MonoBehaviour
         rigidBody = GetComponentInChildren<Rigidbody2D>();
     }
 
-    private void OnValidate()
-    {
-        ClampValues();
-    }
-
     private void FixedUpdate()
     {
         UpdateVelocity();
         UpdateForces();
-    }
-
-    private void ClampValues()
-    {
-        linearDamping = Mathf.Max(0, linearDamping);
     }
 
     protected virtual void OnDisable()
