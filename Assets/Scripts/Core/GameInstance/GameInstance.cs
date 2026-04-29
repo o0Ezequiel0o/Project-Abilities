@@ -34,6 +34,7 @@ public class GameInstance : Singleton<GameInstance>
     public static Action onResume;
 
     public static bool IsPaused => pauseIDs.Count > 0;
+    public static float RunTimer { get; private set; }
 
     public static Camera MainCamera => Instance.mainCamera;
     public static Vector3 MouseWorldPosition => mouseWorldPosition;
@@ -44,6 +45,7 @@ public class GameInstance : Singleton<GameInstance>
     private static Vector3 mouseWorldPosition = Vector3.zero;
 
     private static float difficultyRamp = 0f;
+
     private static int currentID = int.MinValue;
 
     private readonly static List<GameSpeedModifier> timeScaleModifiers = new List<GameSpeedModifier>();
@@ -164,6 +166,7 @@ public class GameInstance : Singleton<GameInstance>
 
     private void Update()
     {
+        RunTimer += Time.deltaTime;
         UpdateMouseWorldPosition();
         UpdateDifficulty();
     }
@@ -187,5 +190,6 @@ public class GameInstance : Singleton<GameInstance>
         Difficulty = difficulty.StartingDifficulty;
         difficultyRamp = 0f;
         GoldMultiplier = 1;
+        RunTimer = 0f;
     }
 }

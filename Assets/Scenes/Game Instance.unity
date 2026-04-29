@@ -2286,6 +2286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1967376055}
   - component: {fileID: 1967376056}
+  - component: {fileID: 1967376057}
   m_Layer: 0
   m_Name: GameInstance
   m_TagString: Untagged
@@ -2324,6 +2325,19 @@ MonoBehaviour:
   screenCanvas: {fileID: 8001973668159243074}
   worldCanvas: {fileID: 193892494}
   difficulty: {fileID: 11400000, guid: 2bcb72fbb37161149a2d082d89bddba8, type: 2}
+--- !u!114 &1967376057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967376054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0b546364080c749ae7fad9f3c2db9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultyAndTimeScreenRenderer
+  windowPrefab: {fileID: 8928900267537467683, guid: aa4956a2fc9766a4b909a11fd780cfde, type: 3}
 --- !u!1 &2055124220
 GameObject:
   m_ObjectHideFlags: 0
