@@ -13,6 +13,8 @@ public class PlayerCameraController : MonoBehaviour
 
     private void Update()
     {
+        if (GameInstance.IsPaused) return;
+
         if (target != null && GameInstance.MainCamera != null)
         {
             Follow();
