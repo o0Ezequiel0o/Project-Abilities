@@ -16,7 +16,7 @@ public class Stat : IUpgradable
 
     public float ExtraValue => (Value - baseValue);
 
-    public int Level { get; private set; }
+    public int Level { get; private set; } = 1;
     public Action<StatUpdate> onStatUpdated;
 
     private float flatModifier = 0f;

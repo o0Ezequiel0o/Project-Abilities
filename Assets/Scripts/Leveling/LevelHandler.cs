@@ -5,7 +5,7 @@ public class LevelHandler : MonoBehaviour
 {
     [field: SerializeField] public Stat ExperienceMultiplier { get; private set; }
 
-    public int Level { get; private set; }
+    public int Level { get; private set; } = 1;
 
     public int Experience => experience;
     public int ExperienceRequired => experienceRequired;
@@ -33,7 +33,6 @@ public class LevelHandler : MonoBehaviour
 
     private void Awake()
     {
-        Level = 1;
         CalculateNextLevelExperience();
         upgradableComponents = GetComponentsInChildren<IUpgradable>();
     }
