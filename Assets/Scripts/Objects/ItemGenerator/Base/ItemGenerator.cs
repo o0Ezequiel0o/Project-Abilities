@@ -48,6 +48,8 @@ namespace Zeke.Items
 
         private UIWindow windowInstance;
 
+        private readonly GameInstance.PauseID pauseID = new();
+
         public abstract bool CanSelect(GameObject source);
 
         public abstract bool CanInteract(GameObject source);
@@ -98,18 +100,6 @@ namespace Zeke.Items
             Destroy(gameObject);
         }
 
-        private void OnOptionSelected(GameObject source, ItemGenerationData generatedItem)
-        {
-            if (source.TryGetComponent(out ItemHandler itemHandler))
-            {
-                itemHandler.AddItem(generatedItem.item);
-            }
-
-            windowInstance.DestroyWindow();
-
-            onItemSelected?.Invoke(source, generatedItem);
-        }
-
         private List<ItemGenerationData> RollItems(int amount)
         {
             List<ItemGenerationData> generatedItems = new List<ItemGenerationData>(amount);
@@ -138,6 +128,8 @@ namespace Zeke.Items
             {
                 CreateItemOptionUIWindow(layoutGroupRoot.transform, generatedItems[i], source);
             }
+
+            GameInstance.Pause(pauseID);
         }
 
         private void CreateItemOptionUIWindow(Transform root, ItemGenerationData generatedItem, GameObject source)
@@ -151,6 +143,20 @@ namespace Zeke.Items
 
             Button button = optionWindowInstance.TryGetElement<Button>("Button");
             button.onClick.AddListener(() => OnOptionSelected(source, generatedItem));
+        }
+
+        private void OnOptionSelected(GameObject source, ItemGenerationData generatedItem)
+        {
+            if (source.TryGetComponent(out ItemHandler itemHandler))
+            {
+                itemHandler.AddItem(generatedItem.item);
+            }
+
+            windowInstance.DestroyWindow();
+
+            onItemSelected?.Invoke(source, generatedItem);
+
+            GameInstance.Unpause(pauseID);
         }
 
         public class ItemGenerationData

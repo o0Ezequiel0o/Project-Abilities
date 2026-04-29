@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     private AbilityInput utilityAbilityInput;
     private AbilityInput ultimateAbilityInput;
 
-    private Camera mainCam;
+    private bool inputEnabled = false;
 
     private void Reset()
     {
@@ -61,6 +61,71 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnEnable()
+    {
+        if (!GameInstance.IsPaused)
+        {
+            EnableInput();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (!GameInstance.IsPaused)
+        {
+            DisableInput();
+        }
+    }
+
+    private void Awake()
+    {
+        primaryAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Primary);
+        secondaryAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Secondary);
+        utilityAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Utility);
+        ultimateAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Ultimate);
+
+        GameInstance.onPause += OnPaused;
+        GameInstance.onResume += OnResumed;
+    }
+
+    private readonly GameInstance.PauseID pauseID = new GameInstance.PauseID();
+
+    private void Update()
+    {
+        if (!inputEnabled) return;
+
+        UpdateAimDirection();
+        UpdateAbilityInputs();
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            if (!GameInstance.IsPaused)
+            {
+                GameInstance.Pause(pauseID);
+            }
+            else
+            {
+                GameInstance.Unpause(pauseID);
+            }
+        }
+    }
+
+    private void OnPaused()
+    {
+        if (enabled)
+        {
+            DisableInput();
+        }
+    }
+
+    private void OnResumed()
+    {
+        if (enabled)
+        {
+            EnableInput();
+        }
+    }
+
+    private void EnableInput()
     {
         moveInput.action.performed += OnMovementInputPerformed;
         moveInput.action.canceled += OnMovementInputCanceled;
@@ -79,9 +144,11 @@ public class PlayerController : MonoBehaviour
         exitVehicleInput.action.performed += OnExitVehicleInputPerformed;
 
         toggleItemsMenuInput.action.performed += OnToggleItemsMenuInputPerformed;
+
+        inputEnabled = true;
     }
 
-    private void OnDisable()
+    private void DisableInput()
     {
         moveInput.action.performed -= OnMovementInputPerformed;
         moveInput.action.canceled -= OnMovementInputCanceled;
@@ -100,22 +167,9 @@ public class PlayerController : MonoBehaviour
         exitVehicleInput.action.performed -= OnExitVehicleInputPerformed;
 
         toggleItemsMenuInput.action.performed -= OnToggleItemsMenuInputPerformed;
-    }
 
-    private void Awake()
-    {
-        mainCam = Camera.main;
-
-        primaryAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Primary);
-        secondaryAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Secondary);
-        utilityAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Utility);
-        ultimateAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Ultimate);
-}
-
-    private void Update()
-    {
-        UpdateAimDirection();
-        UpdateAbilityInputs();
+        entityMove.StopMoving();
+        inputEnabled = false;
     }
 
     private void UpdateAimDirection()

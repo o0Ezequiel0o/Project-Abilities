@@ -38,7 +38,7 @@ public class DynamicPlayerController : MonoBehaviour
     private AbilityInput utilityAbilityInput;
     private AbilityInput ultimateAbilityInput;
 
-    private Camera mainCam;
+    private bool inputEnabled = false;
 
     private void Reset()
     {
@@ -46,6 +46,67 @@ public class DynamicPlayerController : MonoBehaviour
     }
 
     private void OnEnable()
+    {
+        EnableInput();
+    }
+
+    private void OnDisable()
+    {
+        DisableInput();
+    }
+
+    private void Awake()
+    {
+        entityMove = GetComponentInChildren<EntityMove>();
+        entityAim = GetComponentInChildren<EntityAim>();
+
+        abilityController = GetComponentInChildren<AbilityController>();
+        interactionHandler = GetComponentInChildren<InteractionHandler>();
+
+        vehicleHandler = GetComponentInChildren<VehicleHandler>();
+        itemsRenderer = GetComponentInChildren<ItemsScreenRenderer>();
+
+        primaryAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Primary);
+        secondaryAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Secondary);
+        utilityAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Utility);
+        ultimateAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Ultimate);
+
+        GameInstance.onPause += OnPaused;
+        GameInstance.onResume += OnResumed;
+    }
+
+    private void Update()
+    {
+        if (!inputEnabled) return;
+
+        if (entityAim != null)
+        {
+            UpdateAimDirection();
+        }
+
+        if (abilityController != null)
+        {
+            UpdateAbilityInputs();
+        }
+    }
+
+    private void OnPaused()
+    {
+        if (enabled)
+        {
+            DisableInput();
+        }
+    }
+
+    private void OnResumed()
+    {
+        if (enabled)
+        {
+            EnableInput();
+        }
+    }
+
+    private void EnableInput()
     {
         if (entityMove != null)
         {
@@ -76,18 +137,22 @@ public class DynamicPlayerController : MonoBehaviour
             exitVehicleInput.action.performed += OnExitVehicleInputPerformed;
         }
 
-        if (itemsRenderer  != null)
+        if (itemsRenderer != null)
         {
             toggleItemsMenuInput.action.performed += OnToggleItemsMenuInputPerformed;
         }
+
+        inputEnabled = true;
     }
 
-    private void OnDisable()
+    private void DisableInput()
     {
         if (entityMove != null)
         {
             moveInput.action.performed -= OnMovementInputPerformed;
             moveInput.action.canceled -= OnMovementInputCanceled;
+
+            entityMove.StopMoving();
         }
 
         if (abilityController != null)
@@ -107,7 +172,7 @@ public class DynamicPlayerController : MonoBehaviour
         {
             interactInput.action.started -= OnInteractionInputPerformed;
         }
-        
+
         if (vehicleHandler != null)
         {
             exitVehicleInput.action.performed -= OnExitVehicleInputPerformed;
@@ -117,38 +182,8 @@ public class DynamicPlayerController : MonoBehaviour
         {
             toggleItemsMenuInput.action.performed -= OnToggleItemsMenuInputPerformed;
         }
-    }
 
-    private void Awake()
-    {
-        mainCam = Camera.main;
-
-        entityMove = GetComponentInChildren<EntityMove>();
-        entityAim = GetComponentInChildren<EntityAim>();
-
-        abilityController = GetComponentInChildren<AbilityController>();
-        interactionHandler = GetComponentInChildren<InteractionHandler>();
-
-        vehicleHandler = GetComponentInChildren<VehicleHandler>();
-        itemsRenderer = GetComponentInChildren<ItemsScreenRenderer>();
-
-        primaryAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Primary);
-        secondaryAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Secondary);
-        utilityAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Utility);
-        ultimateAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Ultimate);
-    }
-
-    private void Update()
-    {
-        if (entityAim != null)
-        {
-            UpdateAimDirection();
-        }
-
-        if (abilityController != null)
-        {
-            UpdateAbilityInputs();
-        }
+        inputEnabled = false;
     }
 
     private void UpdateAimDirection()

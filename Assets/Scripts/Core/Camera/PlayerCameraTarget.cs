@@ -6,7 +6,7 @@ public class PlayerCameraTarget : MonoBehaviour
     {
         PlayerCameraController cameraController = FindFirstObjectByType<PlayerCameraController>();
 
-        if (cameraController != null )
+        if (cameraController != null)
         {
             cameraController.SetTarget(transform);
         }

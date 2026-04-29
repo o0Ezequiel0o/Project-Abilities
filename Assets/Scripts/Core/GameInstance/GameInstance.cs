@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using System;
 
 public class GameInstance : Singleton<GameInstance>
 {
@@ -24,10 +25,15 @@ public class GameInstance : Singleton<GameInstance>
             if (players.Count <= 0) return null;
             else
             {
-                return players[Random.Range(0, players.Count)];
+                return players[UnityEngine.Random.Range(0, players.Count)];
             }
         }
     }
+
+    public static Action onPause;
+    public static Action onResume;
+
+    public static bool IsPaused => pauseIDs.Count > 0;
 
     public static Camera MainCamera => Instance.mainCamera;
     public static Vector3 MouseWorldPosition => mouseWorldPosition;
@@ -38,8 +44,22 @@ public class GameInstance : Singleton<GameInstance>
     private static Vector3 mouseWorldPosition = Vector3.zero;
 
     private static float difficultyRamp = 0f;
-
     private static int currentID = int.MinValue;
+
+    private readonly static List<GameSpeedModifier> timeScaleModifiers = new List<GameSpeedModifier>();
+    private readonly static HashSet<PauseID> pauseIDs = new HashSet<PauseID>();
+
+    public class PauseID { }
+
+    public class GameSpeedModifier
+    {
+        public float Modifier { get; private set; }
+
+        public GameSpeedModifier(float modifier)
+        {
+            Modifier = modifier;
+        }
+    }
 
     public static void AddPlayer(Player player)
     {
@@ -62,10 +82,84 @@ public class GameInstance : Singleton<GameInstance>
         return uniqueID;
     }
 
+    public static void Pause(PauseID pauseID)
+    {
+        if (pauseID == null) return;
+        if (pauseIDs.Contains(pauseID)) return;
+
+        pauseIDs.Add(pauseID);
+        UpdateTimeScale();
+
+        if (pauseIDs.Count == 1)
+        {
+            onPause?.Invoke();
+        }
+    }
+
+    public static void Unpause(PauseID pauseID)
+    {
+        if (pauseID == null) return;
+        if (!pauseIDs.Contains(pauseID)) return;
+
+        pauseIDs.Remove(pauseID);
+        UpdateTimeScale();
+
+        if (pauseIDs.Count == 0)
+        {
+            onResume?.Invoke();
+        }
+    }
+
+    public static void AddTimeScaleModifier(GameSpeedModifier modifier)
+    {
+        timeScaleModifiers.Add(modifier);
+        UpdateTimeScale();
+    }
+
+    public static void RemoveTimeScaleModifier(GameSpeedModifier modifier)
+    {
+        timeScaleModifiers.Remove(modifier);
+        UpdateTimeScale();
+    }
+
+    private static void ClearTimeScaleModifiers()
+    {
+        timeScaleModifiers.Clear();
+        UpdateTimeScale();
+    }
+
+    private static void ClearPauseIDs()
+    {
+        pauseIDs.Clear();
+        UpdateTimeScale();
+    }
+
+    private static void UpdateTimeScale()
+    {
+        float timeScale = 1f;
+
+        if (pauseIDs.Count <= 0)
+        {
+            for (int i = 0; i < timeScaleModifiers.Count; i++)
+            {
+                timeScale *= timeScaleModifiers[i].Modifier;
+            }
+        }
+        else
+        {
+            timeScale = 0f;
+        }
+
+        Time.timeScale = timeScale;
+    }
+
     protected override void OnInitialization()
     {
         UpdateMouseWorldPosition();
         ResetValuesToDefault();
+
+        ClearPauseIDs();
+        ClearTimeScaleModifiers();
     }
 
     private void Update()
