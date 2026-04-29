@@ -87,26 +87,12 @@ public class PlayerController : MonoBehaviour
         GameInstance.onResume += OnResumed;
     }
 
-    private readonly GameInstance.PauseID pauseID = new GameInstance.PauseID();
-
     private void Update()
     {
         if (!inputEnabled) return;
 
         UpdateAimDirection();
         UpdateAbilityInputs();
-
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            if (!GameInstance.IsPaused)
-            {
-                GameInstance.Pause(pauseID);
-            }
-            else
-            {
-                GameInstance.Unpause(pauseID);
-            }
-        }
     }
 
     private void OnPaused()
