@@ -11,7 +11,7 @@ public class ScaleLevelWithDifficulty : MonoBehaviour
         levelHandler = GetComponentInChildren<LevelHandler>();
     }
 
-    private void Start()
+    private void Awake()
     {
         int levels = Mathf.FloorToInt(settings.LevelPerDifficulty * GameInstance.Difficulty);
 
