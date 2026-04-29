@@ -115,6 +115,7 @@ public class DebugEnemyViewer : MonoBehaviour
         Damageable damageable = currentObj.GetComponent<Damageable>();
         EntityMove entityMove = currentObj.GetComponent<EntityMove>();
         ItemHandler itemHandler = currentObj.GetComponent<ItemHandler>();
+        LevelHandler levelHandler = currentObj.GetComponent<LevelHandler>();
         AbilityController abilityController = currentObj.GetComponent<AbilityController>();
         StatusEffectHandler statusEffectHandler = currentObj.GetComponent<StatusEffectHandler>();
 
@@ -123,8 +124,10 @@ public class DebugEnemyViewer : MonoBehaviour
         if (damageable != null)
         {
             windowInstance.TryGetElement<TextMeshProUGUI>("Max Health").text = damageable.MaxHealth.ToString();
+            windowInstance.TryGetElement<TextMeshProUGUI>("Max Shield").text = damageable.MaxShield.ToString();
             windowInstance.TryGetElement<TextMeshProUGUI>("Health").text = damageable.Health.ToString();
-            windowInstance.TryGetElement<TextMeshProUGUI>("Regen").text = damageable.HealthRegen.ToString();
+            windowInstance.TryGetElement<TextMeshProUGUI>("Shield").text = damageable.Shield.ToString();
+            windowInstance.TryGetElement<TextMeshProUGUI>("Health Regen").text = damageable.HealthRegen.ToString();
             windowInstance.TryGetElement<TextMeshProUGUI>("Armor").text = damageable.Armor.ToString();
 
             string damageReductionText = (Damageable.CalculateDamageReduction(damageable.Armor.Value) * 100f).ToString() + "%";
@@ -139,6 +142,11 @@ public class DebugEnemyViewer : MonoBehaviour
         if (itemHandler != null)
         {
             windowInstance.TryGetElement<TextMeshProUGUI>("Luck").text = itemHandler.Luck.ToString();
+        }
+
+        if (levelHandler != null)
+        {
+            windowInstance.TryGetElement<TextMeshProUGUI>("Level").text = levelHandler.Level.ToString();
         }
 
         if (statusEffectHandler != null)

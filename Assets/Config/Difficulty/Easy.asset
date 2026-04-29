@@ -15,6 +15,6 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Easy
   <StartingDifficulty>k__BackingField: 0
-  <DifficultyScaleRate>k__BackingField: 0.0375
-  <DifficultyRampUp>k__BackingField: 0.0001875
+  <DifficultyScaleRate>k__BackingField: 0.015
+  <DifficultyRampUp>k__BackingField: 0
   <PriceScalePerSecond>k__BackingField: 0
