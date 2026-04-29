@@ -5,6 +5,8 @@ public class PassiveController : MonoBehaviour, IUpgradable
 {
     [SerializeField] private List<PassiveData> setPassives;
 
+    public List<PassiveData> DefaultPassives => setPassives;
+
     private readonly List<IPassive> passives = new List<IPassive>();
 
     public void AddPassive(PassiveData passiveData)
@@ -61,7 +63,7 @@ public class PassiveController : MonoBehaviour, IUpgradable
         }
     }
 
-    void Update()
+    private void Update()
     {
         UpdatePassives();
     }
@@ -71,7 +73,7 @@ public class PassiveController : MonoBehaviour, IUpgradable
         RemovePassives();
     }
 
-    void UpdatePassives()
+    private void UpdatePassives()
     {
         for (int i = 0; i < passives.Count; i++)
         {
@@ -79,7 +81,7 @@ public class PassiveController : MonoBehaviour, IUpgradable
         }
     }
 
-    void RemovePassives()
+    private void RemovePassives()
     {
         for (int i = passives.Count - 1; i >= 0; i--)
         {
@@ -88,7 +90,7 @@ public class PassiveController : MonoBehaviour, IUpgradable
         }
     }
 
-    bool HasPassive(PassiveData passiveData)
+    private bool HasPassive(PassiveData passiveData)
     {
         for (int i = 0; i < passives.Count; i++)
         {

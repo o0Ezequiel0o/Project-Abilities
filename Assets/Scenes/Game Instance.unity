@@ -2322,7 +2322,7 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   screenCanvas: {fileID: 8001973668159243074}
   worldCanvas: {fileID: 193892494}
-  difficulty: {fileID: 11400000, guid: 7db4dbee71bfee14298e1f19d9361108, type: 2}
+  difficulty: {fileID: 11400000, guid: 2bcb72fbb37161149a2d082d89bddba8, type: 2}
 --- !u!1 &2055124220
 GameObject:
   m_ObjectHideFlags: 0

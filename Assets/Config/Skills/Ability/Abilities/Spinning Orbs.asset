@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Spinning Orbs
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Spinning Orbs
+  <Description>k__BackingField: Spawn 3 (+1 per level) orbs that spin around you
+    for 5 seconds and deal 5 (+1 per level) damage. Leveling up also increases the
+    spinning speed.
   <AbilityType>k__BackingField: 1
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
@@ -68,13 +72,13 @@ MonoBehaviour:
             max: Infinity
         speed:
           baseValue: 180
-          increase: 0
+          increase: 15
           valueLimits:
-            min: -Infinity
-            max: Infinity
+            min: 0
+            max: 360
         damage:
           baseValue: 5
-          increase: 0
+          increase: 1
           valueLimits:
             min: -Infinity
             max: Infinity

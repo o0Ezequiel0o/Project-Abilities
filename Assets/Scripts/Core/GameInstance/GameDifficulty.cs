@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameDifficulty : ScriptableObject
 {
     [field: Header("Display")]
+    [field: SerializeField] public Sprite Icon { get; private set; }
     [field: SerializeField] public string Name { get; private set; }
 
     [field: Header("Enemies")]
@@ -17,6 +18,7 @@ public class GameDifficulty : ScriptableObject
     public void LoadDifficulty(GameDifficulty difficulty)
     {
         Name = difficulty.Name;
+        Icon = difficulty.Icon;
 
         StartingDifficulty = difficulty.StartingDifficulty;
         DifficultyScaleRate = difficulty.DifficultyScaleRate;

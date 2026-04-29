@@ -28,6 +28,18 @@ PrefabInstance:
       propertyPath: 'setAbilities.Array.data[3]'
       value: 
       objectReference: {fileID: 11400000, guid: 5f31e64124b5af7448150b8c628ce657, type: 2}
+    - target: {fileID: 3787346725820631185, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: setPassives.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787346725820631185, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: 'setPassives.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 898bb47ddb6690c408e6a60ca6d37508, type: 2}
+    - target: {fileID: 3787346725820631185, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: 'setPassives.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: abf678b73e6688a45a1f226022f45888, type: 2}
     - target: {fileID: 4369443556788299361, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

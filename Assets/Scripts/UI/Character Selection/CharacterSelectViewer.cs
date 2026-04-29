@@ -32,6 +32,13 @@ public class CharacterSelectViewer : MonoBehaviour
                 CreateAbilityWindow(abilityController.SpawnAbilities[i]);
             }
         }
+        if (spawnable.Prefab.TryGetComponent(out PassiveController passiveController))
+        {
+            for (int i = 0; i < passiveController.DefaultPassives.Count; i++)
+            {
+                CreatePassiveWindow(passiveController.DefaultPassives[i], i);
+            }
+        }
     }
 
     private void CreateAbilityWindow(AbilityData abilityData)
@@ -39,9 +46,26 @@ public class CharacterSelectViewer : MonoBehaviour
         UIWindow abilityWindow = Instantiate(abilityWindowPrefab, root);
 
         abilityWindow.TryGetElement<Image>("Icon").sprite = abilityData.Icon;
+        abilityWindow.TryGetElement<TextMeshProUGUI>("Name").text = abilityData.Name;
+        abilityWindow.TryGetElement<TextMeshProUGUI>("Description").text = abilityData.Description;
+
         abilityWindow.TryGetElement<TextMeshProUGUI>("Type").text = abilityData.AbilityType.ToString();
-        abilityWindow.TryGetElement<TextMeshProUGUI>("Name").text = abilityData.Name.ToString();
-        abilityWindow.TryGetElement<TextMeshProUGUI>("Description").text = abilityData.Description.ToString();
+
+        string cooldownText = $"[CD: {abilityData.CooldownTime:0.##}s]".Replace(",", ".");
+        abilityWindow.TryGetElement<TextMeshProUGUI>("Cooldown").text = cooldownText;
+    }
+
+    private void CreatePassiveWindow(PassiveData passiveData, int index)
+    {
+        UIWindow abilityWindow = Instantiate(abilityWindowPrefab, root);
+
+        abilityWindow.TryGetElement<Image>("Icon").sprite = passiveData.Icon;
+        abilityWindow.TryGetElement<TextMeshProUGUI>("Name").text = passiveData.Name;
+        abilityWindow.TryGetElement<TextMeshProUGUI>("Description").text = passiveData.Description;
+
+        abilityWindow.TryGetElement<TextMeshProUGUI>("Type").text = $"Passive {index + 1}";
+
+        abilityWindow.TryGetElement<TextMeshProUGUI>("Cooldown").text = "";
     }
 
     private void ClearRootElements()

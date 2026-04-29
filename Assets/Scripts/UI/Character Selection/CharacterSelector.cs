@@ -8,6 +8,9 @@ public class CharacterSelector : MonoBehaviour
 {
     [Tooltip("Where the selected spawnable will be saved (for persistent data)")]
     [SerializeField] private Spawnable selectedSave;
+
+    [Space]
+
     [SerializeField] private UIWindow optionPrefab;
     [SerializeField] private RectTransform root;
 

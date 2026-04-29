@@ -35,6 +35,8 @@ namespace Zeke.Abilities
         [field: Header("Optional - AI")]
         [field: SerializeField] public AbilityIndicatorData IndicatorData { get; private set; }
 
+        public float CooldownTime => cooldownTime.Value;
+
         public Ability CreateModularAbility(AbilityController controller, Transform spawn, GameObject source)
         {
             Ability modularAbility = new Ability(source, this, controller, spawn, cooldownTime, duration, charges);

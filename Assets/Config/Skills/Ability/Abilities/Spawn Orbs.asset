@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Spawn Orbs
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: 
+  <Name>k__BackingField: Homing Orbs
   <Description>k__BackingField: Spawn 3 (+1 per level) orbs around you that deal
-    10 damage and home onto the closest enemy to their relative direction.
+    10 (+2 per level) damage and home onto the closest enemy to their relative direction.
+    Leveling it up also decreases the fire cooldown between orbs.
   <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 1
@@ -67,7 +68,7 @@ MonoBehaviour:
             max: Infinity
         damage:
           baseValue: 10
-          increase: 0
+          increase: 2
           valueLimits:
             min: -Infinity
             max: Infinity
