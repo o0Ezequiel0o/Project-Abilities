@@ -15,7 +15,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Elite Zombie
   <Prefab>k__BackingField: {fileID: 3581127942586707295, guid: b34b208478bb3a541af38e26cdbc713c, type: 3}
-  <MinDifficulty>k__BackingField: 15
+  <MinDifficulty>k__BackingField: 8
   <MaxDifficulty>k__BackingField: Infinity
   <Weight>k__BackingField: 5
   <Cost>k__BackingField: 8

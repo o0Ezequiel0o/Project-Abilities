@@ -15,7 +15,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Zombie Swordsman
   <Prefab>k__BackingField: {fileID: 3581127942586707295, guid: d71d8f0d632f91a41a0088e555d2f8e8, type: 3}
-  <MinDifficulty>k__BackingField: 9
+  <MinDifficulty>k__BackingField: 5
   <MaxDifficulty>k__BackingField: Infinity
   <Weight>k__BackingField: 20
   <Cost>k__BackingField: 6
