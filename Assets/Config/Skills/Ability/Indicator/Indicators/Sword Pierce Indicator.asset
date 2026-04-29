@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ca23a91d20aadb4581074d30f87b4cc, type: 3}
+  m_Name: Sword Pierce Indicator
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityIndicatorData
+  settings: {fileID: 11400000, guid: 5e5ea81a5f739924dafa4ae2008e931d, type: 2}
+  modules:
+  - attackIndicator:
+      sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+      size: {x: 1, y: 4}
+      fillMethod: 1
+    spawnPosition: 0
+    offset: {x: 0, y: 2}
+    angleOffset: 0
+    showTime: 0
+    hideTime: 0.75

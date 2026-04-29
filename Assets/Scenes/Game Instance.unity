@@ -465,6 +465,7 @@ MonoBehaviour:
   spawnables:
   - {fileID: 11400000, guid: 3338b2e8a0a6e8d43b433a4d67347372, type: 2}
   - {fileID: 11400000, guid: 0130a2bd164b1ac46a027e08fb0449b1, type: 2}
+  - {fileID: 11400000, guid: bc88a756af04f3540b838903d3e092ec, type: 2}
 --- !u!1 &396445348
 GameObject:
   m_ObjectHideFlags: 0
