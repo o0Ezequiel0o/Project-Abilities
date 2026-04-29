@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Zombie
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Zombie
   <Prefab>k__BackingField: {fileID: 3581127942586707295, guid: ed1307dcb18aad14f89d0b588ceda6b3, type: 3}
   <MinDifficulty>k__BackingField: 0
   <MaxDifficulty>k__BackingField: Infinity
