@@ -451,7 +451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   startingPoints: 10
   basePointGeneration: 0.75
-  pointGenerationDifficultyRatio: 0.02
+  pointGenerationDifficultyRatio: 0.04
   maxAliveSpawnables: 1000
   spawnpoints:
   - {fileID: 1706324768}

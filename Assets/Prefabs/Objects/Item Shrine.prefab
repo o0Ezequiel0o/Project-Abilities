@@ -157,7 +157,7 @@ MonoBehaviour:
   interactName: 
   itemSelectionWindow: {fileID: 5283664177091368193, guid: 15b69a7c7671b5f43bdee276a4731e4a, type: 3}
   itemOptionWindow: {fileID: 6831720364878063803, guid: 089f68913f42ad848ba1bde62a68f74d, type: 3}
-  baseCost: 25
+  baseCost: 10
   options: 1
   maxRewards: 3
   rollNothingChange: 60
