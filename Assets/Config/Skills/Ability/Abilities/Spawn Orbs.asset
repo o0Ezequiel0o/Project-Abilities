@@ -15,7 +15,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Homing Orbs
   <Description>k__BackingField: Spawn 3 <i><color=#5A5A5A>(+1 per level)</color></i>
-    orbs around you that deal 10 <i><color=#5A5A5A>(+2 per level)</color></i> damage
+    orbs around you that deal 12 <i><color=#5A5A5A>(+3 per level)</color></i> damage
     and home onto the closest enemy to their relative direction. Leveling it up also
     decreases the fire cooldown between orbs.
   <AbilityType>k__BackingField: 0
@@ -68,8 +68,8 @@ MonoBehaviour:
             min: -Infinity
             max: Infinity
         damage:
-          baseValue: 10
-          increase: 2
+          baseValue: 12
+          increase: 3
           valueLimits:
             min: -Infinity
             max: Infinity
