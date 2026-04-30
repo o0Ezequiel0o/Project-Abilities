@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemGeneratorDrops
   <RaritySlots>k__BackingField:
   - rarity: 0
-    weight: 1000
+    weight: 34
   - rarity: 1
-    weight: 100
+    weight: 34
+  - rarity: 2
+    weight: 10
   - rarity: 3
-    weight: 1
+    weight: 2

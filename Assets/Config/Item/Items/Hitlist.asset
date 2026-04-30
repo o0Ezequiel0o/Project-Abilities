@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f3c317f24aa107439f29b56ce777d71, type: 3}
+  m_Name: Hitlist
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Items.HitlistItemData
+  settings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
+  worldPrefab: {fileID: 3753182464441508134, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Hitlist
+  <Description>k__BackingField: Every 15 seconds a random target is marked, the marked
+    target takes 25% (+25% per stack) damage.
+  <Rarity>k__BackingField: 0
+  <TargetVisual>k__BackingField: {fileID: 4275795746958274497, guid: bda097904f161c44981dd6aa7f05cb14, type: 3}
+  <SearchRadius>k__BackingField: 20
+  <TargetLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 256
+  <ValidTypes>k__BackingField: 0000000002000000
+  <Duration>k__BackingField: 15
+  <DamageMultiplier>k__BackingField:
+    rid: 2308103184254763088
+  references:
+    version: 2
+    RefIds:
+    - rid: 2308103184254763088
+      type: {class: LinearStat, ns: , asm: Assembly-CSharp}
+      data:
+        startValue: 1
+        increase: 0.25
