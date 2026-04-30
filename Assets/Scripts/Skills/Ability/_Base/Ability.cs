@@ -215,7 +215,7 @@ namespace Zeke.Abilities
 
         public bool CanActivate()
         {
-            if (CooldownTimer < CooldownTime)
+            if (CooldownTimer < CooldownTime && Charges == 0)
             {
                 return false;
             }

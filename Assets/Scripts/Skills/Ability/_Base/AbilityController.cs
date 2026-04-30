@@ -254,13 +254,10 @@ namespace Zeke.Abilities
 
         private void UseAbility(IAbility ability, AbilityType abilityType, bool holding)
         {
-            if (CanUseAbility(ability))
+            if (ability.TryActivate(holding))
             {
-                if (ability.TryActivate(holding))
-                {
-                    onAbilityUsed?.Invoke(ability);
-                }   
-            }
+                onAbilityUsed?.Invoke(ability);
+            }   
         }
 
         private void RemoveAbilities()
