@@ -167,6 +167,8 @@ MonoBehaviour:
   spawnables:
   - spawnable: {fileID: 11400000, guid: 108fa9b1ae5571744a1d46fc3e47ab9b, type: 2}
     area: {x: 3, y: 3}
+  - spawnable: {fileID: 11400000, guid: f7e104c6eeae0f54199cd1511fda290f, type: 2}
+    area: {x: 3, y: 3}
   requiredSpawnables: []
   gridWorldSize: {x: 130, y: 80}
   nodeDiameter: 1
