@@ -7,7 +7,7 @@ using Zeke.PoolableGameObjects;
 public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
 {
     [Header("Collision")]
-    [SerializeField] private float hitRadius;
+    [SerializeField, Min(0.0001f)] private float hitRadius;
     [SerializeField] private float tipDistance;
 
     [Space]

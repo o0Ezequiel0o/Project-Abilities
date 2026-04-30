@@ -4,9 +4,9 @@ using Zeke.TeamSystem;
 public abstract class DamageProjectileBase : Projectile
 {
     [Header("Impact")]
-    [SerializeField] protected float armorPenetration = 0f;
-    [SerializeField] protected float procCoefficient = 1f;
-    [SerializeField] protected float knockback = 1f;
+    [SerializeField, Min(0f)] protected float armorPenetration = 0f;
+    [SerializeField, Min(0f)] protected float procCoefficient = 1f;
+    [SerializeField, Min(0f)] protected float knockback = 1f;
 
     public float Damage { get; private set; }
 
