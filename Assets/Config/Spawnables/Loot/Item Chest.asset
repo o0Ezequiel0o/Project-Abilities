@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Item Chest
   m_EditorClassIdentifier: Assembly-CSharp::Spawnable
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Item Chest
   <Prefab>k__BackingField: {fileID: 7905305877887029434, guid: 157dba167c3ce2e46af7d9cbb537e618, type: 3}
   <MinDifficulty>k__BackingField: 0
   <MaxDifficulty>k__BackingField: Infinity
