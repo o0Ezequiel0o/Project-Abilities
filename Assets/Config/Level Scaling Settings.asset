@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240e8b5b1c6ea8e42957d1dbdf02eb5c, type: 3}
   m_Name: Level Scaling Settings
   m_EditorClassIdentifier: Assembly-CSharp::ScaleLevelWithDifficultySettings
-  <LevelPerDifficulty>k__BackingField: 2
-  <ExperiencePerLevel>k__BackingField: 0
+  <LevelPerDifficulty>k__BackingField: 1
