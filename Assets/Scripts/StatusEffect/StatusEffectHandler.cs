@@ -5,7 +5,7 @@ using Zeke.Collections;
 public class StatusEffectHandler : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private List<StatusEffectData> statusEffectsImmunityConfig = new List<StatusEffectData>();
+    [SerializeField] private List<StatusEffectData> immunity;
 
     public bool Immune => immunitySources.Count > 0;
 
@@ -19,9 +19,7 @@ public class StatusEffectHandler : MonoBehaviour
     public OrderedAction<StatusEffect> onEffectRemoved = new OrderedAction<StatusEffect>();
     public OrderedAction<StatusEffect> onStacksRemoved = new OrderedAction<StatusEffect>();
 
-    private readonly HashSet<StatusEffectData> statusEffectsImmunity = new HashSet<StatusEffectData>();
     private readonly List<StatusEffect> statusEffects = new List<StatusEffect>();
-
     private readonly HashSet<int> immunitySources = new HashSet<int>();
 
     public void ApplyEffect(StatusEffectData statusEffectData, GameObject source)
@@ -33,7 +31,7 @@ public class StatusEffectHandler : MonoBehaviour
     {
         onApplyEffect?.Invoke(new EffectApplyInfo(statusEffectData, source, stacks));
 
-        if (statusEffectsImmunity.Contains(statusEffectData) || Immune) return;
+        if (immunity.Contains(statusEffectData) || Immune) return;
 
         if (TryGetActiveStatusEffect(statusEffectData, out StatusEffect statusEffect))
         {
@@ -116,7 +114,12 @@ public class StatusEffectHandler : MonoBehaviour
 
     public void ApplyImmunityToStatusEffect(StatusEffectData statusEffect)
     {
-        statusEffectsImmunity.Add(statusEffect);
+        immunity.Add(statusEffect);
+    }
+
+    public void RemoveImmunityToStatusEffect(StatusEffectData statusEffect)
+    {
+        immunity.Remove(statusEffect);
     }
 
     public void AddImmunitySource(int ID)
@@ -131,9 +134,9 @@ public class StatusEffectHandler : MonoBehaviour
 
     private void Awake()
     {
-        for (int i = 0; i < statusEffectsImmunityConfig.Count; i++)
+        for (int i = 0; i < immunity.Count; i++)
         {
-            ApplyImmunityToStatusEffect(statusEffectsImmunityConfig[i]);
+            ApplyImmunityToStatusEffect(immunity[i]);
         }
     }
 
