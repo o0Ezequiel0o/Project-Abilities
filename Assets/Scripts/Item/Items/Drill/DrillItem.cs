@@ -42,15 +42,15 @@ namespace Zeke.Items
             else
             {
                 increasedDamage.Add(damageEvent.Receiver, data.FlatMultDamage.GetValue(stacks));
-                damageEvent.Receiver.onDeath.Subscribe(OnDamageableDeath);
+                damageEvent.Receiver.onDespawn += OnDamageableDeath;
             }
 
             damageEvent.Multiplier.ApplyFlatModifier(increasedDamage[damageEvent.Receiver]);
         }
 
-        private void OnDamageableDeath(DamageEvent damageEvent)
+        private void OnDamageableDeath(Damageable damageable)
         {
-            increasedDamage.Remove(damageEvent.Receiver);
+            increasedDamage.Remove(damageable);
         }
     }
 }

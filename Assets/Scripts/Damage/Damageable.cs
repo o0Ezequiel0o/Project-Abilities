@@ -50,6 +50,7 @@ public class Damageable : MonoBehaviour, IUpgradable
     public OrderedAction<DamageEvent> onHitTaken = new OrderedAction<DamageEvent>();
     public OrderedAction<DamageEvent> onDeath = new OrderedAction<DamageEvent>();
 
+    public Action<Damageable> onDespawn;
     public Action onAnyHealthUpdate;
 
     public bool Immune => immunitySources.Count > 0;
@@ -238,6 +239,11 @@ public class Damageable : MonoBehaviour, IUpgradable
     private void Update()
     {
         UpdateRegeneration();
+    }
+
+    private void OnDestroy()
+    {
+        onDespawn?.Invoke(this);
     }
 
     private void SyncHealth(StatUpdate statUpdate)
