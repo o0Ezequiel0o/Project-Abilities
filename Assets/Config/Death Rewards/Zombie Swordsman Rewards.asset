@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd8ebf8d1ced37047b367902e75925db, type: 3}
-  m_Name: Elite Zombie Rewards
+  m_Name: Zombie Swordsman Rewards
   m_EditorClassIdentifier: Assembly-CSharp::DeathRewardsData
   rewards:
   - rid: 2308102816636862546
@@ -21,8 +21,8 @@ MonoBehaviour:
     - rid: 2308102816636862546
       type: {class: XPDeathReward, ns: , asm: Assembly-CSharp}
       data:
-        experience: 45
+        experience: 8
     - rid: 2308103065204424785
       type: {class: GoldDeathReward, ns: , asm: Assembly-CSharp}
       data:
-        gold: 18
+        gold: 12
