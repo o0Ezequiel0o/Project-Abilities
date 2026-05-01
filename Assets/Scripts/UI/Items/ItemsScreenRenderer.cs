@@ -49,6 +49,12 @@ namespace Zeke.Items
             itemsInterface.RefreshAllItems(itemHandler);
         }
 
+        private void OnDestroy()
+        {
+            if (itemsInterface == null) return;
+            Destroy(itemsInterface.gameObject);
+        }
+
         private void SpawnInterfacesInCanvas()
         {
             itemsInterface = Instantiate(itemsInterfacePrefab, GameInstance.ScreenCanvas.transform);
