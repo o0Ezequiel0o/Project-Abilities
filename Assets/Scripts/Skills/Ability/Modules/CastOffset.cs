@@ -10,6 +10,8 @@ namespace Zeke.Abilities.Modules
         [SerializeField] private float angle;
         [SerializeReference, SerializeReferenceDropdown] public AbilityModule module;
 
+        private Transform newSpawn;
+
         public CastOffset() { }
 
         public CastOffset(CastOffset original)
@@ -24,7 +26,7 @@ namespace Zeke.Abilities.Modules
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
-            Transform newSpawn = new GameObject("castPosition").transform;
+            newSpawn = new GameObject("castPosition").transform;
             newSpawn.parent = spawn.transform;
 
             newSpawn.SetLocalPositionAndRotation(offset, Quaternion.Euler(0f, 0f, angle));
@@ -81,6 +83,7 @@ namespace Zeke.Abilities.Modules
         public override void Destroy()
         {
             module?.Destroy();
+            GameObject.Destroy(newSpawn.gameObject);
         }
     }
 }
