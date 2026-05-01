@@ -24,6 +24,8 @@ namespace Zeke.Items
         private readonly List<Item> items = new List<Item>();
         private readonly List<ItemData> itemsData = new List<ItemData>();
 
+        private readonly Dictionary<ItemData, object> storedItemData = new Dictionary<ItemData, object>();
+
         public void AddItems(List<ItemData> itemsData)
         {
             for (int i = 0; i < itemsData.Count; i++)
@@ -92,6 +94,11 @@ namespace Zeke.Items
             }
 
             return false;
+        }
+
+        public void StoreData(ItemData itemData, object data)
+        {
+            storedItemData.Add(itemData, data);
         }
 
         private void Update()
