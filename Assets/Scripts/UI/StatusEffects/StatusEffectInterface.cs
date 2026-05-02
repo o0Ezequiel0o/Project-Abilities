@@ -11,7 +11,7 @@ public class StatusEffectInterface : MonoBehaviour
     [SerializeField] private Transform statusEffectDisplaySlotsRoot;
     [SerializeField] private int spawnAmount;
 
-    private readonly List<StatusEffectDisplaySlot> statusEffectDisplaySlots = new List<StatusEffectDisplaySlot>();
+    private readonly Stack<StatusEffectDisplaySlot> statusEffectDisplaySlots = new Stack<StatusEffectDisplaySlot>();
     private readonly Dictionary<StatusEffect, StatusEffectDisplaySlot> usedStatusEffectDisplaySlots = new Dictionary<StatusEffect, StatusEffectDisplaySlot>();
 
     private void Awake()
@@ -46,9 +46,9 @@ public class StatusEffectInterface : MonoBehaviour
     public void AddStatusEffectSlot(StatusEffect statusEffect)
     {
         if (usedStatusEffectDisplaySlots.ContainsKey(statusEffect)) return;
-        if (usedStatusEffectDisplaySlots.Count >= statusEffectDisplaySlots.Count) return;
+        if (statusEffectDisplaySlots.Count == 0) return;
 
-        usedStatusEffectDisplaySlots.Add(statusEffect, statusEffectDisplaySlots[usedStatusEffectDisplaySlots.Count]);
+        usedStatusEffectDisplaySlots.Add(statusEffect, statusEffectDisplaySlots.Pop());
         StatusEffectDisplaySlot statusEffectDisplaySlot = usedStatusEffectDisplaySlots[statusEffect];
 
         InitializeStatusEffectSlotData(statusEffectDisplaySlot, statusEffect);
@@ -61,6 +61,7 @@ public class StatusEffectInterface : MonoBehaviour
         {
             statusEffectDisplaySlot.gameObject.SetActive(false);
             usedStatusEffectDisplaySlots.Remove(statusEffect);
+            statusEffectDisplaySlots.Push(statusEffectDisplaySlot);
         }
     }
 
@@ -73,8 +74,9 @@ public class StatusEffectInterface : MonoBehaviour
     {
         for (int i = 0; i < spawnAmount; i++)
         {
-            statusEffectDisplaySlots.Add(Instantiate(statusEffectDisplaySlotPrefab, statusEffectDisplaySlotsRoot));
-            statusEffectDisplaySlots[^1].gameObject.SetActive(false);
+            StatusEffectDisplaySlot slot = Instantiate(statusEffectDisplaySlotPrefab, statusEffectDisplaySlotsRoot);
+            statusEffectDisplaySlots.Push(slot);
+            slot.gameObject.SetActive(false);
         }
     }
 
