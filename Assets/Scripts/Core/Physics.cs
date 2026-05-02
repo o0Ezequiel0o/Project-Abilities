@@ -15,6 +15,7 @@ public class Physics : MonoBehaviour
     [SerializeField, Min(0)] protected float linearDamping = 0.15f;
 
     public float Rotation => rigidBody.rotation;
+    public float Mass => rigidBody.mass;
 
     public Vector2 Velocity => rigidBody.linearVelocity;
     public Vector2 Forces => forces;

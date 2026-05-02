@@ -523,7 +523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawn: {fileID: 7698722109331752331}
   setAbilities:
-  - {fileID: 11400000, guid: 0b94182b4d4927a4aa42c8f55f3d2dad, type: 2}
+  - {fileID: 11400000, guid: 5dba9bdd785d90c4eb98f6edb524e126, type: 2}
 --- !u!114 &451946761675307707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,7 +643,7 @@ MonoBehaviour:
   physics: {fileID: -347636825108832765}
   entityMove: {fileID: 1874662572334693021}
   separationDistance: 1.5
-  separationForce: 1.2
+  separationForce: 7
   entityLayer:
     serializedVersion: 2
     m_Bits: 256
