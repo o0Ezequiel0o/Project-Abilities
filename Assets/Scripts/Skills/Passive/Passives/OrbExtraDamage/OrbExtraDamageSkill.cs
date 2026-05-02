@@ -27,7 +27,7 @@ public class OrbExtraDamageSkill : PassiveBase
         Damageable.DamageEvent.onDamageDealt.Unsubscribe(source, OnDamageDealt);
     }
 
-    public override void UpgradeInternal()
+    protected override void UpgradeInternal()
     {
         extraDamage.Upgrade();
     }

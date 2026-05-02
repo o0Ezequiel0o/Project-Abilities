@@ -40,7 +40,7 @@ public class OrbCooldownReductionSkill : PassiveBase
         }
     }
 
-    public override void UpgradeInternal()
+    protected override void UpgradeInternal()
     {
         flatCooldownDecrease.Upgrade();
     }

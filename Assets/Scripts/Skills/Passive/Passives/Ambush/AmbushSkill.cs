@@ -7,43 +7,83 @@ public class AmbushSkill : PassiveBase
 
     private readonly GameObject source;
 
+    private StatusEffectHandler statusEffectHandler;
+
+    private bool ready = false;
     private float timer = 0f;
 
-    public AmbushSkill(GameObject source, PassiveController passiveController, AmbushSkillData data) : base(passiveController)
+    private readonly Stat damageMultiplier;
+
+    public AmbushSkill(GameObject source, PassiveController passiveController, AmbushSkillData data, Stat damageMultiplier) : base(passiveController)
     {
         this.source = source;
         this.data = data;
+
+        this.damageMultiplier = damageMultiplier;
     }
 
     public override void Awake()
     {
-        Damageable.DamageEvent.onDamageDealt.Subscribe(source, OnDamageDealt);
         Damageable.DamageEvent.onDealDamage.Subscribe(source, OnDealDamage);
+
+        statusEffectHandler = source.GetComponent<StatusEffectHandler>();
     }
 
     public override void Update()
     {
+        if (ready) return;
+
         timer += Time.deltaTime;
+
+        if (timer >= data.TimeToActivate)
+        {
+            ready = true;
+            ShowVisual();
+        }
     }
 
     public override void OnRemove()
     {
-        Damageable.DamageEvent.onDamageDealt.Unsubscribe(source, OnDamageDealt);
         Damageable.DamageEvent.onDealDamage.Unsubscribe(source, OnDealDamage);
+
+        if (statusEffectHandler != null)
+        {
+            statusEffectHandler.RemoveEffect(data.ActiveIndicator);
+        }
     }
 
-    private void OnDamageDealt(Damageable.DamageEvent _)
+    protected override void UpgradeInternal()
     {
-        timer = 0f;
+        damageMultiplier.Upgrade();
     }
 
     private void OnDealDamage(Damageable.DamageEvent damageEvent)
     {
-        if (timer >= data.TimeToActivate)
-        {
-            damageEvent.Multiplier.Multiply(data.DamageMultiplier);
-        }
+        if (damageEvent.SourceObject == null) return;
 
-        timer = 0f;
+        if (damageEvent.SourceObject.TryGetComponent(out SniperProjectileIdentifier _))
+        {
+            if (ready)
+            {
+                damageEvent.Multiplier.Multiply(damageMultiplier.Value);
+
+                ready = false;
+                HideVisual();
+            }
+
+            timer = 0f;
+        }
+    }
+
+    private void ShowVisual()
+    {
+        if (statusEffectHandler == null) return;
+        statusEffectHandler.ApplyEffect(data.ActiveIndicator, source);
+    }
+
+    private void HideVisual()
+    {
+        if (statusEffectHandler == null) return;
+        statusEffectHandler.RemoveEffect(data.ActiveIndicator);
     }
 }

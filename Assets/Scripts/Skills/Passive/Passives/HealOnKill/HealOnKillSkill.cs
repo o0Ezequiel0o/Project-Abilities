@@ -31,7 +31,7 @@ public class HealOnKillSkill : PassiveBase
         Damageable.DamageEvent.onKill.Unsubscribe(source, OnKill);
     }
 
-    public override void UpgradeInternal()
+    protected override void UpgradeInternal()
     {
         healAmount.Upgrade();
     }

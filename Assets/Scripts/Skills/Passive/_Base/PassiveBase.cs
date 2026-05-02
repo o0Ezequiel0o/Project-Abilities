@@ -28,5 +28,5 @@ public abstract class PassiveBase : IPassive
         UpgradeInternal();
     }
 
-    public virtual void UpgradeInternal() { }
+    protected virtual void UpgradeInternal() { }
 }

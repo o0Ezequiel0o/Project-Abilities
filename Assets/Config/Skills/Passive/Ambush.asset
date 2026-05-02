@@ -12,5 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff13e32653594dc4bb316d3e8a607b7f, type: 3}
   m_Name: Ambush
   m_EditorClassIdentifier: Assembly-CSharp::AmbushSkillData
-  <DamageMultiplier>k__BackingField: 2
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Ambush
+  <Description>k__BackingField: After not dealing damage with a sniper projectile
+    for 5 seconds it deals 50% <i><color=#5A5A5A>(+5% per level)</color></i> more
+    damage.
+  damageMultiplier:
+    baseValue: 1.5
+    increase: 0.05
+    valueLimits:
+      min: 0
+      max: Infinity
   <TimeToActivate>k__BackingField: 5
+  <ActiveIndicator>k__BackingField: {fileID: 11400000, guid: d60bc7f54c7a5a84fbc09c75114115d0, type: 2}

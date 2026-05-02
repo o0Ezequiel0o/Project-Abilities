@@ -27,7 +27,7 @@ public class PassiveTemplate : PassiveBase
 
     public override void OnRemove() { }
 
-    public override void UpgradeInternal() { }
+    protected override void UpgradeInternal() { }
 
     void LookForComponents()
     {
