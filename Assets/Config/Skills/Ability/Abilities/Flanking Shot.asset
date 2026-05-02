@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Flanking Shot
-  <Description>k__BackingField: Fire a percing bullet that deals 300 <i><color=#5A5A5A>(+50
+  <Description>k__BackingField: Fire a percing bullet that deals 200 <i><color=#5A5A5A>(+30
     per level)</color></i> damage, has 3 proc coefficient, 50% armor penetration
     and pierces through all targets but for each target pierced damage is reduced
     by half.
@@ -43,6 +43,8 @@ MonoBehaviour:
   - rid: 1633592854447128656
   - rid: 1633592854447128657
   - rid: 1633592854447128659
+  - rid: 1633592866767634432
+  - rid: 1633592866767634433
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
@@ -91,8 +93,8 @@ MonoBehaviour:
       data:
         prefab: {fileID: -692222091897632210, guid: 2fe495e94eaefd94ba37009ae1b17339, type: 3}
         damage:
-          baseValue: 300
-          increase: 50
+          baseValue: 200
+          increase: 30
           valueLimits:
             min: 0
             max: Infinity
@@ -102,3 +104,23 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
+    - rid: 1633592866767634432
+      type: {class: GiveStatusEffect, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        statusEffect: {fileID: 11400000, guid: 5c9643285c932a14e8b186f1be5da7e9, type: 2}
+        stacks:
+          baseValue: 1
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 1633592866767634433
+      type: {class: Recoil, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        force:
+          baseValue: 100
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+        direction: {x: 0, y: -1}

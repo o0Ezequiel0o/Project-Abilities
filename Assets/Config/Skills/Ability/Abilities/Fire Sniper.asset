@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Fire Sniper
-  <Description>k__BackingField: Fire a percing bullet that deals 75 <i><color=#5A5A5A>(+25
+  <Description>k__BackingField: Fire a percing bullet that deals 50 <i><color=#5A5A5A>(+15
     per level)</color></i> damage, has 2 proc coefficient, 25% armor penetration
     and can pierce up to 1 target <i><color=#5A5A5A>(+1 per level)</color></i>.
   <AbilityType>k__BackingField: 0
@@ -90,8 +90,8 @@ MonoBehaviour:
       data:
         prefab: {fileID: 3338510750006898018, guid: d9080148ae01be14b9874cc11ca85fd0, type: 3}
         damage:
-          baseValue: 75
-          increase: 25
+          baseValue: 50
+          increase: 15
           valueLimits:
             min: -Infinity
             max: Infinity
