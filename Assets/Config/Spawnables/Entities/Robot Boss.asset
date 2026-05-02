@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77f7f6eb3c69c5d44aa5fc6af4598fd6, type: 3}
-  m_Name: Boss Zombie
+  m_Name: Robot Boss
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: Boss Zombie
+  <Name>k__BackingField: Robot Boss
   <Prefab>k__BackingField: {fileID: 3581127942586707295, guid: 3be26d6399c9cfa468ad81f99d8ae2d6, type: 3}
   <MinDifficulty>k__BackingField: 0
   <MaxDifficulty>k__BackingField: Infinity

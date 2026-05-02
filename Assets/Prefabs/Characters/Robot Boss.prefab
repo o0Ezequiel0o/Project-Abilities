@@ -150,14 +150,14 @@ GameObject:
   - component: {fileID: 5359202114343581178}
   - component: {fileID: 9060203667453175804}
   - component: {fileID: 3488604664206737772}
-  - component: {fileID: 2850728051695421839}
+  - component: {fileID: -9069038551997549202}
   - component: {fileID: 3637401574649249139}
   - component: {fileID: -1916451124747499836}
   - component: {fileID: 1295819619765179186}
   - component: {fileID: 842629725209027823}
   - component: {fileID: 4757503293696331254}
   m_Layer: 8
-  m_Name: Boss Zombie
+  m_Name: Robot Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -389,7 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   physics: {fileID: -347636825108832765}
   <MoveSpeed>k__BackingField:
-    baseValue: 5
+    baseValue: 3
     increase: 0
     valueLimits:
       min: -Infinity
@@ -524,6 +524,7 @@ MonoBehaviour:
   spawn: {fileID: 7698722109331752331}
   setAbilities:
   - {fileID: 11400000, guid: 0b94182b4d4927a4aa42c8f55f3d2dad, type: 2}
+  - {fileID: 11400000, guid: e04ebf88d84778d41b7a90be941ac088, type: 2}
 --- !u!114 &451946761675307707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,7 +601,7 @@ MonoBehaviour:
   yLowest: -0.5
   yLower: 0.3
   xRandom: 0.15
---- !u!114 &2850728051695421839
+--- !u!114 &-9069038551997549202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -609,10 +610,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3581127942586707295}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbb12607bdcb7a34690c94b5e5881d2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f3aaf7be8a08f644b87a202e2b992c9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 46f414e026c2b3241a69aae28182c84e, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::RobotBossAI
+  settings: {fileID: 11400000, guid: d6effa20ab3144f48a3f6a9810817296, type: 2}
   attackIndicatorSpawn: {fileID: 7698722109331752331}
 --- !u!114 &3637401574649249139
 MonoBehaviour:

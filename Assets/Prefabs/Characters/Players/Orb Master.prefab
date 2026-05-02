@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: 'setAbilities.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 230ac335eff6e0543a0039d224ce2bf9, type: 2}
+      objectReference: {fileID: 11400000, guid: e04ebf88d84778d41b7a90be941ac088, type: 2}
     - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: 'setAbilities.Array.data[1]'
       value: 
