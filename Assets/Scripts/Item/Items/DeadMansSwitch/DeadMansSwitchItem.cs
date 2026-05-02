@@ -35,10 +35,12 @@ namespace Zeke.Items
         private void OnKill(DamageEvent damageEvent)
         {
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
+            if (damageEvent.ProcChainBranch.Contains(data)) return;
 
             hits.Clear();
 
             float damage = Mathf.Max(data.MinDamage.GetValue(stacks), damageEvent.OverflowDamage);
+            List<ItemData> newProcChainBranch = new List<ItemData>(damageEvent.ProcChainBranch) { data };
 
             Vector3 position = damageEvent.Receiver.transform.position;
 
@@ -56,7 +58,7 @@ namespace Zeke.Items
                     {
                         direction = (hits[i].transform.position - damageEvent.Receiver.transform.position).normalized
                     };
-                    damageable.DealDamage(damageInfo, source, null);
+                    damageable.DealDamage(damageInfo, source, null, newProcChainBranch);
                 }
             }
         }
