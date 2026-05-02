@@ -527,6 +527,10 @@ MonoBehaviour:
       spawnable: {fileID: 11400000, guid: a7f16595c57a4e54ca04752f871bc18e, type: 2}
       area: {x: 5, y: 5}
     amount: 1
+  - mapSpawnable:
+      spawnable: {fileID: 11400000, guid: bfc21c729f57014449f4d2b25865b10c, type: 2}
+      area: {x: 2, y: 2}
+    amount: 1
   gridWorldSize: {x: 130, y: 80}
   nodeDiameter: 1
   blockLayer:

@@ -68,7 +68,7 @@ namespace Zeke.Items
 
         protected virtual void Start()
         {
-            int newValue = Mathf.FloorToInt(baseCost * GameInstance.GoldMultiplier);
+            int newValue = Mathf.FloorToInt(baseCost * GameInstance.CostMultiplier);
 
             if (baseCost >= 1 && newValue <= 0)
             {

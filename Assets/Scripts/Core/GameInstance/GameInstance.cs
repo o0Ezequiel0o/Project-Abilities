@@ -14,8 +14,9 @@ public class GameInstance : Singleton<GameInstance>
 
     [SerializeField] private GameDifficulty difficulty;
 
-    public static float Difficulty { get; private set; } = 0f;
-    public static float GoldMultiplier { get; private set; } = 1f;
+    public static int Level { get; set; } = 0;
+    public static float Difficulty { get; set; } = 0f;
+    public static float CostMultiplier { get; set; } = 1f;
 
     public static List<Player> players = new List<Player>();
     public static Player RandomPlayer
@@ -32,6 +33,8 @@ public class GameInstance : Singleton<GameInstance>
 
     public static Action onPause;
     public static Action onResume;
+
+    public static Action<Player> onPlayerSpawned;
 
     public static bool IsPaused => pauseIDs.Count > 0;
     public static float RunTimer { get; private set; }
@@ -68,6 +71,7 @@ public class GameInstance : Singleton<GameInstance>
         if (!players.Contains(player))
         {
             players.Add(player);
+            onPlayerSpawned?.Invoke(player);
         }
     }
 
@@ -182,14 +186,14 @@ public class GameInstance : Singleton<GameInstance>
         difficultyRamp += difficulty.DifficultyRampUp * Time.deltaTime;
         Difficulty += (difficulty.DifficultyScaleRate + difficultyRamp) * Time.deltaTime;
 
-        GoldMultiplier += difficulty.PriceScalePerSecond * Time.deltaTime;
+        CostMultiplier += difficulty.PriceScalePerSecond * Time.deltaTime;
     }
 
     private void ResetValuesToDefault()
     {
         Difficulty = difficulty.StartingDifficulty;
         difficultyRamp = 0f;
-        GoldMultiplier = 1;
+        CostMultiplier = 1;
         RunTimer = 0f;
     }
 }

@@ -40,7 +40,7 @@ namespace Zeke.Items
         {
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
 
-            int effectStacks = Mathf.FloorToInt(moneyHandler.Money / (data.GoldRequiredForStack * GameInstance.GoldMultiplier));
+            int effectStacks = Mathf.FloorToInt(moneyHandler.Money / (data.GoldRequiredForStack * GameInstance.CostMultiplier));
             float damageMultiplier = 1f + Mathf.Min(data.DamageMultCap.GetValue(stacks), data.DamageMultPerStack.GetValue(stacks) * effectStacks);
             damageEvent.Multiplier.Multiply(damageMultiplier);
         }

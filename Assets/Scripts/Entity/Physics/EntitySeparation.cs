@@ -42,7 +42,7 @@ public class EntitySeparation : MonoBehaviour
 
         if (averageDirection != Vector3.zero)
         {
-            averageDirection = (averageDirection + (Vector3)physics.MoveForces).normalized;
+            averageDirection = (averageDirection + (Vector3)physics.MoveForces.normalized).normalized;
             physics.AddForce(separationForce, averageDirection);
         }
     }

@@ -1,38 +1,83 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameLevelHandler : MonoBehaviour
 {
+    [SerializeField] private float difficultyPerLevel = 3f;
     [SerializeField] private List<GameLevel> randomStartLevel;
 
     private GameLevel currentLevel;
     private GameObject levelInstance;
 
+    private int levelEndFrame = -1;
+
     private void Awake()
     {
-        GlobalEventBus.Subscribe<BossSpawner.LevelBossDeathEvent>(OnLevelBossDeath);
+        GameInstance.Level = 0;
+        GlobalEventBus.Subscribe<LevelEndEvent>(OnLevelEnd);
 
-        currentLevel = randomStartLevel[Random.Range(0, randomStartLevel.Count)];
-        levelInstance = Instantiate(currentLevel.Prefab, Vector3.zero, Quaternion.identity);
+        GameLevel startLevel = randomStartLevel[Random.Range(0, randomStartLevel.Count)];
+        LoadLevel(startLevel);
     }
 
-    private void OnLevelBossDeath(BossSpawner.LevelBossDeathEvent levelBossDeathEvent)
+    private void OnLevelEnd(LevelEndEvent onLevelEnd)
     {
-        NextLevel();
+        if (levelEndFrame == Time.frameCount) return;
+
+        levelEndFrame = Time.frameCount;
+
+        GameLevel nextLevel = currentLevel.GetNextLevel();
+
+        UnloadLevel(levelInstance);
+        LoadLevel(nextLevel);
     }
 
-    private void NextLevel()
+    private void UnloadLevel(GameObject level)
     {
-        GlobalEventBus.Invoke(new LevelEndEvent());
+        DestroyLevelSpawnables();
+        Destroy(level);
+        ClearMinions();
+    }
 
-        Destroy(levelInstance);
+    private void LoadLevel(GameLevel level)
+    {
+        GameInstance.Difficulty += difficultyPerLevel * GameInstance.Level;
+        levelInstance = Instantiate(level.Prefab, Vector3.zero, Quaternion.identity);
 
-        currentLevel = currentLevel.GetNextLevel();
-        levelInstance = Instantiate(currentLevel.Prefab, Vector3.zero, Quaternion.identity);
+        GameInstance.Level += 1;
+        currentLevel = level;
 
         GlobalEventBus.Invoke(new LevelStartEvent());
     }
 
-    private class LevelEndEvent : IGlobalEvent { }
-    private class LevelStartEvent : IGlobalEvent { }
+    private void ClearMinions()
+    {
+        EntityTypeIdentifier[] entities = FindObjectsByType<EntityTypeIdentifier>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+        for (int i = 0; i < entities.Length; i++)
+        {
+            if (entities[i].Type == EntityType.Minion)
+            {
+                Destroy(entities[i].gameObject);
+            }
+        }
+    }
+
+    private void DestroyLevelSpawnables()
+    {
+        SpawnableSpawner[] spawners = levelInstance.GetComponentsInChildren<SpawnableSpawner>();
+
+        for (int i = 0; i < spawners.Length; i++)
+        {
+            spawners[i].DestroySpawnedSpawnables();
+        }
+    }
+
+    public class LevelEndEvent : IGlobalEvent
+    {
+        //forced level parameter
+    }
+
+    public class LevelStartEvent : IGlobalEvent { }
 }
