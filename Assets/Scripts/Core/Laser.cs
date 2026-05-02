@@ -99,6 +99,7 @@ public abstract class Laser : MonoBehaviour
         transform.SetPositionAndRotation(position + direction * (distance * 0.5f), rotation);
 
         impactInstance.transform.position = position + (distance * direction);
+        impactInstance.transform.localScale = 2.5f * radius * Vector2.one;
     }
 
     private void Awake()
