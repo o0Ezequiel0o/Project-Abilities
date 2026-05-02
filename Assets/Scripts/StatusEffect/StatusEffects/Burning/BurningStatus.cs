@@ -61,7 +61,8 @@ public class BurningStatus : StatusEffect
 
         if (timer >= effectData.TickTime)
         {
-            DamageInfo damageInfo = new DamageInfo(effectData.Damage, 0f, 0f) { hit = false };
+            float damage = effectData.Damage * (1 + GameInstance.Difficulty);
+            DamageInfo damageInfo = new DamageInfo(damage, 0f, 0f) { hit = false };
             damageable.DealDamage(damageInfo, source, null);
             UpdateTicks();
         }
