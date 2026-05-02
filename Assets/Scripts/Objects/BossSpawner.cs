@@ -39,5 +39,6 @@ public class BossSpawner : MonoBehaviour, IInteractable
     private void OnBossDeath(DamageEvent damageEvent)
     {
         Instantiate(portalPrefab, portalSpawn.position, Quaternion.identity);
+        GlobalEventBus.Invoke(new GameLevelHandler.LevelEndEvent());
     }
 }

@@ -777,6 +777,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4736051394512132753}
   - component: {fileID: 7442223091645058771}
+  - component: {fileID: 5493016601663801215}
   m_Layer: 0
   m_Name: Enemy Spawner
   m_TagString: Untagged
@@ -830,6 +831,42 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3338b2e8a0a6e8d43b433a4d67347372, type: 2}
   - {fileID: 11400000, guid: 0130a2bd164b1ac46a027e08fb0449b1, type: 2}
   - {fileID: 11400000, guid: bc88a756af04f3540b838903d3e092ec, type: 2}
+--- !u!114 &5493016601663801215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4932997174711742955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d1b0e8f664c37469fb333584e968c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameLevelEventListener
+  onLevelLoaded:
+    m_PersistentCalls:
+      m_Calls: []
+  onLevelUnloaded:
+    m_PersistentCalls:
+      m_Calls: []
+  onLevelStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onLevelEnded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7442223091645058771}
+        m_TargetAssemblyTypeName: SpawnableSpawner, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5349752414571042728
 GameObject:
   m_ObjectHideFlags: 0

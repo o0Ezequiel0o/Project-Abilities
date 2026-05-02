@@ -12,7 +12,8 @@ public class Portal : MonoBehaviour, IInteractable
 
     public bool Interact(GameObject source)
     {
-        GlobalEventBus.Invoke(new GameLevelHandler.LevelEndEvent());
+        GlobalEventBus.Invoke(new GameLevelHandler.LoadNextLevelEvent());
+
         Destroy(gameObject);
         activated = true;
 

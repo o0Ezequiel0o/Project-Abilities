@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameLevelHandler : MonoBehaviour
@@ -10,27 +9,26 @@ public class GameLevelHandler : MonoBehaviour
     private GameLevel currentLevel;
     private GameObject levelInstance;
 
-    private int levelEndFrame = -1;
+    private int loadLevelFrame = -1;
 
     private void Awake()
     {
         GameInstance.Level = 0;
-        GlobalEventBus.Subscribe<LevelEndEvent>(OnLevelEnd);
+
+        GlobalEventBus.Subscribe<LoadLevelEvent>(@event => LoadNewLevel(@event.Level));
+        GlobalEventBus.Subscribe<LoadNextLevelEvent>(_ => LoadNewLevel(currentLevel.GetNextLevel()));
 
         GameLevel startLevel = randomStartLevel[Random.Range(0, randomStartLevel.Count)];
         LoadLevel(startLevel);
     }
 
-    private void OnLevelEnd(LevelEndEvent onLevelEnd)
+    private void LoadNewLevel(GameLevel newLevel)
     {
-        if (levelEndFrame == Time.frameCount) return;
+        if (loadLevelFrame == Time.frameCount) return;
 
-        levelEndFrame = Time.frameCount;
-
-        GameLevel nextLevel = currentLevel.GetNextLevel();
-
+        loadLevelFrame = Time.frameCount;
         UnloadLevel(levelInstance);
-        LoadLevel(nextLevel);
+        LoadLevel(newLevel);
     }
 
     private void UnloadLevel(GameObject level)
@@ -38,6 +36,8 @@ public class GameLevelHandler : MonoBehaviour
         DestroyLevelSpawnables();
         Destroy(level);
         ClearMinions();
+
+        GlobalEventBus.Invoke(new LevelUnloadedEvent());
     }
 
     private void LoadLevel(GameLevel level)
@@ -48,6 +48,7 @@ public class GameLevelHandler : MonoBehaviour
         GameInstance.Level += 1;
         currentLevel = level;
 
+        GlobalEventBus.Invoke(new LevelLoadedEvent());
         GlobalEventBus.Invoke(new LevelStartEvent());
     }
 
@@ -74,10 +75,23 @@ public class GameLevelHandler : MonoBehaviour
         }
     }
 
-    public class LevelEndEvent : IGlobalEvent
+    public struct LoadNextLevelEvent : IGlobalEvent { }
+
+    public struct LoadLevelEvent : IGlobalEvent
     {
-        //forced level parameter
+        public GameLevel Level { get; private set; }
+
+        public LoadLevelEvent(GameLevel level)
+        {
+            Level = level;
+        }
     }
 
-    public class LevelStartEvent : IGlobalEvent { }
+    public struct LevelEndEvent : IGlobalEvent { }
+
+    public struct LevelStartEvent : IGlobalEvent { }
+
+    public struct LevelLoadedEvent : IGlobalEvent { }
+
+    public struct LevelUnloadedEvent : IGlobalEvent { }
 }
