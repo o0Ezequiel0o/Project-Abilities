@@ -5,7 +5,6 @@ namespace Zeke.Items
 {
     public class HollowPointItem : Item
     {
-        //Template
         public override ItemData Data => data;
         private readonly HollowPointItemData data;
 
@@ -22,17 +21,25 @@ namespace Zeke.Items
         public override void Initialize()
         {
             DamageEvent.onDealDamage.Subscribe(source, OnDealDamage, data.TriggerOrder);
+            DamageEvent.onHit.Subscribe(source, OnHit, data.TriggerOrder);
         }
 
         public override void OnRemoved()
         {
             DamageEvent.onDealDamage.Unsubscribe(source, OnDealDamage);
+            DamageEvent.onHit.Unsubscribe(source, OnHit);
         }
 
         public void OnDealDamage(DamageEvent damageEvent)
         {
             if (damageEvent.Receiver.gameObject == source) return;
             damageEvent.Multiplier.ApplyFlatModifier(data.FlatMultDamage.GetValue(stacks));
+        }
+
+        private void OnHit(DamageEvent damageEvent)
+        {
+            if (damageEvent.Receiver.gameObject == source) return;
+            damageEvent.FlatAccumulator += data.FlatDamage.GetValue(stacks);
         }
     }
 }

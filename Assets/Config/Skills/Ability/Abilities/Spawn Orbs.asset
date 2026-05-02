@@ -91,7 +91,7 @@ MonoBehaviour:
           valueLimits:
             min: 0.01
             max: Infinity
-        detectRadius: 10
+        detectRadius: 5
         hitLayers:
           serializedVersion: 2
           m_Bits: 256

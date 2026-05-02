@@ -20,7 +20,7 @@ MonoBehaviour:
   <Description>k__BackingField: Deal 10% (+10% per stack) damage to enemies closer
     than 4 meters.
   <Rarity>k__BackingField: 0
-  <MinDistance>k__BackingField: 4
+  <MinDistance>k__BackingField: 2
   <DamageMult>k__BackingField:
     rid: 2308102863504277875
   references:
