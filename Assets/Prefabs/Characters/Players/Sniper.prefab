@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: setAbilities.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: 'setAbilities.Array.data[0]'
@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: 'setAbilities.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: a6cb18e37d3264d48bdf78326fcc239f, type: 2}
+    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: 'setAbilities.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: bc1219a18a5cde04f8178eb77f32a331, type: 2}
     - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: <MaxHealth>k__BackingField.increase
       value: 15

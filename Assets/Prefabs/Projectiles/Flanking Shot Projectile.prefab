@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3327861551317221268}
   - component: {fileID: 2563235962043948822}
-  - component: {fileID: 4095476445108489073}
+  - component: {fileID: -692222091897632210}
   - component: {fileID: 5788994866812147587}
   - component: {fileID: 8648474393055868890}
   m_Layer: 0
-  m_Name: Sniper Ultimate Projectile
+  m_Name: Flanking Shot Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &4095476445108489073
+--- !u!114 &-692222091897632210
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,9 +104,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3777845839141210170}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6980e1e2f49dbcc46b7b3a51600e0873, type: 3}
+  m_Script: {fileID: 11500000, guid: ab56ef8394927354f9b30d3e1e900fbc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlankingShotProjectile
   hitRadius: 0.0625
   tipDistance: 0.2
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
@@ -117,11 +117,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   despawnAction: 1
-  despawnWithSource: 0
-  direction: {x: 0, y: 0, z: 0}
-  armorPenetration: 0.3
-  procCoefficient: 2
-  knockback: 10
+  armorPenetration: 0.5
+  procCoefficient: 3
+  knockback: 30
+  pierce: -1
+  pierceDamageMultiplier: 0.5
 --- !u!114 &5788994866812147587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b640a9d43c55f1443a2893329c2d1dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkDisabled: 1
 --- !u!1 &6146678642423173682
 GameObject:
   m_ObjectHideFlags: 0

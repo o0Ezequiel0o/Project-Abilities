@@ -14,6 +14,8 @@ public class PiercingProjectile : DamageProjectileBase
         Launch(position, speed, direction, maxRange, damage, source, team);
     }
 
+    protected virtual void OnHit(GameObject receiver) { }
+
     protected override void OnLaunch(Vector3 startPosition, float speed, Vector2 direction, float maxRange)
     {
         currentHits = 0;
@@ -40,8 +42,11 @@ public class PiercingProjectile : DamageProjectileBase
 
         bool damageRejected = DealDamage(receiver);
 
-        if (damageRejected) return;
+        if (damageRejected)
+        {
+            ApplyKnockback(receiver, Direction);
+        }
 
-        ApplyKnockback(receiver, Direction);
+        OnHit(receiver);
     }
 }

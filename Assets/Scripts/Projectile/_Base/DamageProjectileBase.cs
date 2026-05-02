@@ -8,7 +8,7 @@ public abstract class DamageProjectileBase : Projectile
     [SerializeField, Min(0f)] protected float procCoefficient = 1f;
     [SerializeField, Min(0f)] protected float knockback = 1f;
 
-    public float Damage { get; private set; }
+    public float Damage { get; protected set; }
 
     public GameObject SourceUser { get; protected set; }
     public Teams Team { get; private set; }
