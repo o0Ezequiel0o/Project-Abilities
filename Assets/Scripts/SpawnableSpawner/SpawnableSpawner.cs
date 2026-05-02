@@ -26,6 +26,16 @@ public class SpawnableSpawner : MonoBehaviour
 
     private float currentPoints = 0;
 
+    public void DestroySpawnedSpawnables()
+    {
+        for (int i = 0; i < aliveSpawnables.Count; i++)
+        {
+            Destroy(aliveSpawnables[i]);
+        }
+
+        aliveSpawnables.Clear();
+    }
+
     private void Awake()
     {
         FilterSpawnablesByDifficulty();
