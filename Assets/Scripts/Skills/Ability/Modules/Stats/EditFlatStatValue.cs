@@ -47,5 +47,10 @@ namespace Zeke.Abilities.Modules.Stats
             if (statReference == null || permanent) return;
             statReference.ApplyFlatModifier(-changedAmount);
         }
+
+        public override void Upgrade()
+        {
+            amount.Upgrade();
+        }
     }
 }
