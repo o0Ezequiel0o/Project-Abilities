@@ -29,6 +29,7 @@ namespace Zeke.Abilities.Indicators
         {
             offset = original.offset;
             angleOffset = original.angleOffset;
+            spawnPosition = original.spawnPosition;
 
             showTime = original.showTime;
             hideTime = original.hideTime;
