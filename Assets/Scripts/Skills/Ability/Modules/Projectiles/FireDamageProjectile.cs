@@ -1,9 +1,11 @@
 using UnityEngine;
 using Zeke.PoolableGameObjects;
 using Zeke.TeamSystem;
+using System;
 
 namespace Zeke.Abilities.Modules.Projectiles
 {
+    [Serializable]
     public abstract class FireDamageProjectile<T> : FireProjectileType where T : DamageProjectileBase
     {
         [SerializeField] protected T prefab;

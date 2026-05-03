@@ -1,7 +1,9 @@
 using UnityEngine;
+using System;
 
 namespace Zeke.Abilities.Modules.Projectiles
 {
+    [Serializable]
     public abstract class FireProjectileType
     {
         public abstract FireProjectileType DeepCopy();

@@ -1,7 +1,9 @@
 using UnityEngine;
+using System;
 
 namespace Zeke.Abilities.Modules.Summoning
 {
+    [Serializable]
     public class ShareMoneyWithSource : SummonModule
     {
         public override SummonModule DeepCopy() => new ShareMoneyWithSource();
