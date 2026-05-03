@@ -524,7 +524,7 @@ MonoBehaviour:
   spawn: {fileID: 7698722109331752331}
   setAbilities:
   - {fileID: 11400000, guid: 0b94182b4d4927a4aa42c8f55f3d2dad, type: 2}
-  - {fileID: 11400000, guid: e04ebf88d84778d41b7a90be941ac088, type: 2}
+  - {fileID: 11400000, guid: 48c8554cac08c7540919c339f49cf03f, type: 2}
 --- !u!114 &451946761675307707
 MonoBehaviour:
   m_ObjectHideFlags: 0
