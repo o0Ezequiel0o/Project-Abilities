@@ -43,13 +43,10 @@ MonoBehaviour:
   - rid: 1633592866767634514
   - rid: 1633592866767634516
   - rid: 1633592866767634518
-  - rid: -2
   <IndicatorData>k__BackingField: {fileID: 11400000, guid: 502d5784e0bf7bb4fb2f545e50f48f03, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 1633592866767634513
       type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
