@@ -4,7 +4,7 @@ public class PlayerCameraTarget : MonoBehaviour
 {
     private void Awake()
     {
-        PlayerCameraController cameraController = FindFirstObjectByType<PlayerCameraController>();
+        PlayerCameraController cameraController = FindAnyObjectByType<PlayerCameraController>();
 
         if (cameraController != null)
         {

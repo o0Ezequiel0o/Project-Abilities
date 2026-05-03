@@ -4,7 +4,7 @@ public class PlayerStart : MonoBehaviour
 {
     private void Start()
     {
-        Player[] players = FindObjectsByType<Player>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        Player[] players = FindObjectsByType<Player>(FindObjectsInactive.Include);
 
         for (int i = 0; i < players.Length; i++)
         {

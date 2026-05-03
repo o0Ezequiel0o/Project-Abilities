@@ -54,7 +54,7 @@ public class GameLevelHandler : MonoBehaviour
 
     private void ClearMinions()
     {
-        EntityTypeIdentifier[] entities = FindObjectsByType<EntityTypeIdentifier>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        EntityTypeIdentifier[] entities = FindObjectsByType<EntityTypeIdentifier>(FindObjectsInactive.Include);
 
         for (int i = 0; i < entities.Length; i++)
         {
