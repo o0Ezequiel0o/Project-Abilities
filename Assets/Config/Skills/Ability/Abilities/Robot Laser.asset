@@ -81,7 +81,7 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
-        radius: 0.15
+        radius: 0.22
         pierce: 9999
         damageCooldown:
           baseValue: 0.2
