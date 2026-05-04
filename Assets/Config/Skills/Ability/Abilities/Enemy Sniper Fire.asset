@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
+  m_Name: Enemy Sniper Fire
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Enemy Sniper Fire
+  <Description>k__BackingField: 
+  <AbilityType>k__BackingField: 0
+  <CanManuallyDeactivate>k__BackingField: 0
+  <CanHold>k__BackingField: 0
+  cooldownTime:
+    baseValue: 5
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  duration:
+    baseValue: 0
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  charges:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: 1
+      max: Infinity
+  modules:
+  - rid: 1633592908717752757
+  - rid: 1633592908717752758
+  - rid: 1633592908717752763
+  <IndicatorData>k__BackingField: {fileID: 11400000, guid: ba73861ccb5d4924bba50bca83f55c93, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 1633592908717752757
+      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        updateMode: 0
+        type:
+          rid: 1633592908717752759
+    - rid: 1633592908717752758
+      type: {class: BaseCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        cooldown:
+          baseValue: 0.05
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+    - rid: 1633592908717752759
+      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 1633592908717752763
+      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        fireDistance: 0
+        spread:
+          min: 0
+          max: 0
+        projectile:
+          rid: 1633592908717752764
+        speed:
+          baseValue: 10
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        maxRange:
+          baseValue: 10
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 1633592908717752764
+      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        prefab: {fileID: 4095476445108489073, guid: b1365237f0f32364da66cfb41dd328e1, type: 3}
+        damage:
+          baseValue: 13
+          increase: 5
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        armorPenetration: 0
+        procCoefficient: 1
+        knockback: 15
