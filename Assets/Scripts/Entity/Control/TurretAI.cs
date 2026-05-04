@@ -175,7 +175,7 @@ public class TurretAttackState : State<TurretStateContext>
         {
             entityAim.AimTowards((context.Target.position - transform.position).normalized);
 
-            if (TargetAwareness.AnyTargetInLineOfSight(transform.position, entityAim.AimDirection, context.ai.Range, context.ai.TargetLayers, IsEnemy))
+            if (TargetAwareness.AnyTargetInLineOfSight(transform.position, entityAim.AimDirection, context.ai.Range, context.ai.TargetLayers, IsEnemy, false))
             {
                 Attack(context);
             }

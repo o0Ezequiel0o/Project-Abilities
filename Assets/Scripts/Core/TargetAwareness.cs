@@ -65,10 +65,15 @@ public static class TargetAwareness
 
     public static bool AnyTargetInLineOfSight(Vector3 position, Vector2 direction, float range, LayerMask targetLayers)
     {
-        return AnyTargetInLineOfSight(position, direction, range, targetLayers, _ => true);
+        return AnyTargetInLineOfSight(position, direction, range, targetLayers, _ => true, true);
     }
 
     public static bool AnyTargetInLineOfSight(Vector3 position, Vector2 direction, float range, LayerMask targetLayers, Predicate<GameObject> filter)
+    {
+        return AnyTargetInLineOfSight(position, direction, range, targetLayers, filter, true);
+    }
+
+    public static bool AnyTargetInLineOfSight(Vector3 position, Vector2 direction, float range, LayerMask targetLayers, Predicate<GameObject> filter, bool stopAtFirst)
     {
         rayHits.Clear();
 
@@ -78,7 +83,21 @@ public static class TargetAwareness
         for (int i = 0; i < rayHits.Count; i++)
         {
             if (rayHits[i].transform.position == position) continue;
-            return filter(rayHits[i].transform.gameObject);
+
+            bool filterPass = filter(rayHits[i].transform.gameObject);
+
+            if (!filterPass)
+            {
+                if (stopAtFirst)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
+
         }
 
         return false;
