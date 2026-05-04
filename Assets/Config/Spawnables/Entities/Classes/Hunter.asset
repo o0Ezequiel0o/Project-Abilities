@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77f7f6eb3c69c5d44aa5fc6af4598fd6, type: 3}
-  m_Name: Sniper
+  m_Name: Hunter
   m_EditorClassIdentifier: Assembly-CSharp::Spawnable
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: Sniper
+  <Name>k__BackingField: Hunter
   <Prefab>k__BackingField: {fileID: 3497793791732653242, guid: ca115c90a6dd5bc4aaf2c83fe46ef586, type: 3}
   <MinDifficulty>k__BackingField: 0
   <MaxDifficulty>k__BackingField: Infinity

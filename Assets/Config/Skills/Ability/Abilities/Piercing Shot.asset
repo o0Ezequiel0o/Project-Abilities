@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Piercing Shot
-  <Description>k__BackingField: Fire a percing bullet that deals 50 <i><color=#5A5A5A>(+15
+  <Description>k__BackingField: Fire a piercing bullet that deals 50 <i><color=#5A5A5A>(+15
     per level)</color></i> damage, has 2 proc coefficient, 25% armor penetration
     and can pierce up to 1 target <i><color=#5A5A5A>(+1 per level)</color></i>.
   <AbilityType>k__BackingField: 0
