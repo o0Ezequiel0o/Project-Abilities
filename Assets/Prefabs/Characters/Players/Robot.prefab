@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2582979104109749263, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: m_Mass
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: setAbilities.Array.size
       value: 2
@@ -20,6 +24,46 @@ PrefabInstance:
       propertyPath: 'setAbilities.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: cf8375b8acee8ae4a9df10e6137f84d4, type: 2}
+    - target: {fileID: 3494898662879718562, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <MoveSpeed>k__BackingField.baseValue
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <Armor>k__BackingField.baseValue
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <MaxHealth>k__BackingField.increase
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <MaxShield>k__BackingField.increase
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <MaxHealth>k__BackingField.baseValue
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <MaxShield>k__BackingField.baseValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <HealthRegen>k__BackingField.increase
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <ShieldRegen>k__BackingField.increase
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <HealthRegen>k__BackingField.baseValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571629176375247297, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <ShieldRegen>k__BackingField.baseValue
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4369443556788299361, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
