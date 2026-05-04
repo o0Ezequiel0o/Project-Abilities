@@ -82,3 +82,9 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
+        pierce:
+          baseValue: -1
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
