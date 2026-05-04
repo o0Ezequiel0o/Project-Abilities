@@ -10,12 +10,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: setAbilities.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: 'setAbilities.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: e04ebf88d84778d41b7a90be941ac088, type: 2}
+    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: 'setAbilities.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: cf8375b8acee8ae4a9df10e6137f84d4, type: 2}
     - target: {fileID: 4369443556788299361, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

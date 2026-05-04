@@ -1,0 +1,220 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
+  m_Name: Robot Missiles
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Missiles
+  <Description>k__BackingField: Fire 4 missiles, each one deals 20 <i><color=#5A5A5A>(+5
+    per level)</color></i> damage.
+  <AbilityType>k__BackingField: 1
+  <CanManuallyDeactivate>k__BackingField: 0
+  <CanHold>k__BackingField: 0
+  cooldownTime:
+    baseValue: 8
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  duration:
+    baseValue: 0
+    increase: 0
+    valueLimits:
+      min: 0
+      max: Infinity
+  charges:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: 1
+      max: Infinity
+  modules:
+  - rid: 1633592908717752570
+  - rid: 1633592908717752571
+  - rid: 1633592908717752573
+  - rid: 1633592908717752591
+  - rid: 1633592908717752576
+  - rid: 1633592908717752596
+  <IndicatorData>k__BackingField: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 1633592908717752570
+      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        updateMode: 0
+        type:
+          rid: 1633592908717752572
+    - rid: 1633592908717752571
+      type: {class: BaseCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        cooldown:
+          baseValue: 0.05
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+    - rid: 1633592908717752572
+      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 1633592908717752573
+      type: {class: CastOffset, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        offset: {x: -0.3, y: 0}
+        angle: 0
+        module:
+          rid: 1633592908717752574
+    - rid: 1633592908717752574
+      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        fireDistance: 0
+        spread:
+          min: 0
+          max: 0
+        projectile:
+          rid: 1633592908717752575
+        speed:
+          baseValue: 5
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        maxRange:
+          baseValue: 20
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 1633592908717752575
+      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        prefab: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
+        damage:
+          baseValue: 20
+          increase: 5
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 1633592908717752576
+      type: {class: CastOffset, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        offset: {x: 0.3, y: 0}
+        angle: 0
+        module:
+          rid: 1633592908717752579
+    - rid: 1633592908717752579
+      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        fireDistance: 0
+        spread:
+          min: 0
+          max: 0
+        projectile:
+          rid: 1633592908717752580
+        speed:
+          baseValue: 5
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        maxRange:
+          baseValue: 20
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 1633592908717752580
+      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        prefab: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
+        damage:
+          baseValue: 20
+          increase: 5
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 1633592908717752591
+      type: {class: CastOffset, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        offset: {x: -0.3, y: 0}
+        angle: 45
+        module:
+          rid: 1633592908717752594
+    - rid: 1633592908717752594
+      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        fireDistance: 0
+        spread:
+          min: 0
+          max: 0
+        projectile:
+          rid: 1633592908717752595
+        speed:
+          baseValue: 5
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        maxRange:
+          baseValue: 20
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 1633592908717752595
+      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        prefab: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
+        damage:
+          baseValue: 20
+          increase: 5
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 1633592908717752596
+      type: {class: CastOffset, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        offset: {x: 0.3, y: 0}
+        angle: -45
+        module:
+          rid: 1633592908717752599
+    - rid: 1633592908717752599
+      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        fireDistance: 0
+        spread:
+          min: 0
+          max: 0
+        projectile:
+          rid: 1633592908717752600
+        speed:
+          baseValue: 5
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        maxRange:
+          baseValue: 20
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 1633592908717752600
+      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        prefab: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
+        damage:
+          baseValue: 20
+          increase: 5
+          valueLimits:
+            min: -Infinity
+            max: Infinity
