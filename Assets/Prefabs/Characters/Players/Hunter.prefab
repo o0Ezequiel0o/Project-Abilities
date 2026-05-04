@@ -98,7 +98,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5218312312708394220, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: m_Name
-      value: Sniper
+      value: Hunter
+      objectReference: {fileID: 0}
+    - target: {fileID: 6656351697229743751, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <RotationSpeed>k__BackingField.baseValue
+      value: 420
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
