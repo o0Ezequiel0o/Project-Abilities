@@ -1,10 +1,8 @@
 using UnityEngine;
 using Zeke.TeamSystem;
 
-public class HomingOrbProjectile : DamageProjectileBase
+public class HomingOrbProjectile : PiercingProjectile
 {
-    [SerializeField] protected bool allyCollision;
-
     [Header("Track settings")]
     [SerializeField] private float speedIncreaseRate;
     [SerializeField] private float speedCap;
@@ -14,10 +12,6 @@ public class HomingOrbProjectile : DamageProjectileBase
     [SerializeField] private float startRotationSpeed;
     [SerializeField] private float rotationSpeedIncreaseRate;
 
-    [Space]
-
-    [SerializeField] private int pierce = -1;
-
     public bool ColliderEnabled { get; set; } = true;
 
     private Vector3 lastTargetPosition;
@@ -25,8 +19,6 @@ public class HomingOrbProjectile : DamageProjectileBase
 
     private float currentRotationSpeed = 0f;
     private float targetAngle = 0f;
-
-    private int currentHits = 0;
 
     public override void OnRetrievedFromPool()
     {
@@ -48,21 +40,15 @@ public class HomingOrbProjectile : DamageProjectileBase
         }
     }
 
-    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, int pierce, GameObject source, Teams team)
-    {
-        Launch(position, speed, direction, maxRange, damage, pierce, null, source, team);
-    }
-
     public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, int pierce, Transform target, GameObject source, Teams team)
     {
-        this.pierce = pierce;
         SetTarget(target);
-        Launch(position, speed, direction, maxRange, damage, source, team);
+        Launch(position, speed, direction, maxRange, damage, pierce, source, team);
     }
 
     protected override void OnLaunch(Vector3 startPosition, float speed, Vector2 direction, float maxRange)
     {
-        currentHits = 0;
+        base.OnLaunch(startPosition, speed, direction, maxRange);
         currentRotationSpeed = startRotationSpeed;
     }
 
@@ -80,32 +66,7 @@ public class HomingOrbProjectile : DamageProjectileBase
     protected override void OnCollision(RaycastHit2D hit)
     {
         if (!ColliderEnabled) return;
-
-        GameObject receiver = hit.collider.gameObject;
-
-        if (hit.collider.gameObject == SourceUser) return;
-        if (objectsNotExited.Contains(hit.collider.gameObject)) return;
-
-        if (TeamManager.IsEnemy(Team, receiver) || allyCollision)
-        {
-            Hit(hit.transform.gameObject);
-        }
-    }
-
-    protected void Hit(GameObject receiver)
-    {
-        currentHits += 1;
-
-        if (pierce >= 0 && currentHits > pierce)
-        {
-            Despawn();
-        }
-
-        bool damageRejected = DealDamage(receiver);
-
-        if (damageRejected) return;
-
-        ApplyKnockback(receiver, Direction);
+        base.OnCollision(hit);
     }
 
     private void UpdateTrackingState(Vector3 targetPos)

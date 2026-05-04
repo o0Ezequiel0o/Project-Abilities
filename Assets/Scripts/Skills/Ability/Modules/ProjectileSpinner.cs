@@ -9,12 +9,14 @@ namespace Zeke.Abilities.Modules
     public class ProjectileSpinner : GenericSpinner<SpinnerProjectile>
     {
         [SerializeField] private Stat damage;
+        [SerializeField] private Stat pierce;
 
         public ProjectileSpinner() { }
 
         public ProjectileSpinner(ProjectileSpinner original) : base(original)
         {
             damage = original.damage.DeepCopy();
+            pierce = original.pierce.DeepCopy();
         }
 
         public override AbilityModule DeepCopy() => new ProjectileSpinner(this);
@@ -38,13 +40,14 @@ namespace Zeke.Abilities.Modules
         {
             base.Upgrade();
             damage.Upgrade();
+            pierce.Upgrade();
         }
 
         protected override void OnSpinnerInitialization(List<SpinnerProjectile> spawnedObjects)
         {
             for (int i = 0; i < spawnedObjects.Count; i++)
             {
-                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damage.Value, source, TeamManager.GetTeam(source));
+                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damage.Value, pierce.ValueInt, source, TeamManager.GetTeam(source));
             }
         }
     }

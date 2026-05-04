@@ -5,9 +5,7 @@ public class PiercingProjectile : DamageProjectileBase
 {
     [SerializeField] private bool allyCollision;
 
-    [Header("Piercing")]
-    [SerializeField] private int pierce = -1;
-
+    private int pierce = -1;
     private int currentHits = 0;
 
     public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, int pierce, GameObject source, Teams team)
@@ -53,7 +51,7 @@ public class PiercingProjectile : DamageProjectileBase
     {
         bool damageRejected = DealDamage(receiver);
 
-        if (damageRejected)
+        if (!damageRejected)
         {
             ApplyKnockback(receiver, Direction);
         }
