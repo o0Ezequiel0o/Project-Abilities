@@ -5,6 +5,8 @@ using Zeke.TeamSystem;
 
 public class GiantOrbProjectile : DamageProjectileBase
 {
+    [SerializeField] protected bool allyCollision;
+
     [Header("Homing Projectiles")]
     [SerializeField] private HomingOrbProjectile homingOrbPrefab;
     [SerializeField] private float fireHomingOrbCooldown = 0.25f;
@@ -38,12 +40,12 @@ public class GiantOrbProjectile : DamageProjectileBase
 
     protected override void OnCollision(RaycastHit2D hit)
     {
-        GameObject hitObject = hit.transform.gameObject;
+        GameObject receiver = hit.transform.gameObject;
 
-        if (hitObject == SourceUser) return;
-        if (objectsNotExited.Contains(hitObject)) return;
+        if (receiver == SourceUser) return;
+        if (objectsNotExited.Contains(receiver)) return;
 
-        Hit(hitObject);
+        Hit(receiver);
     }
 
     protected override void Update()

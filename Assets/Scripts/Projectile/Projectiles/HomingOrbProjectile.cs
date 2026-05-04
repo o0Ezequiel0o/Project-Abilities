@@ -3,6 +3,8 @@ using Zeke.TeamSystem;
 
 public class HomingOrbProjectile : DamageProjectileBase
 {
+    [SerializeField] protected bool allyCollision;
+
     [Header("Track settings")]
     [SerializeField] private float speedIncreaseRate;
     [SerializeField] private float speedCap;
@@ -79,16 +81,19 @@ public class HomingOrbProjectile : DamageProjectileBase
     {
         if (!ColliderEnabled) return;
 
+        GameObject receiver = hit.collider.gameObject;
+
         if (hit.collider.gameObject == SourceUser) return;
         if (objectsNotExited.Contains(hit.collider.gameObject)) return;
 
-        Hit(hit.transform.gameObject);
+        if (TeamManager.IsEnemy(Team, receiver) || allyCollision)
+        {
+            Hit(hit.transform.gameObject);
+        }
     }
 
     protected void Hit(GameObject receiver)
     {
-        if (TeamManager.IsAlly(Team, receiver)) return;
-
         currentHits += 1;
 
         if (pierce >= 0 && currentHits > pierce)

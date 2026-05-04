@@ -3,6 +3,8 @@ using Zeke.TeamSystem;
 
 public class PiercingProjectile : DamageProjectileBase
 {
+    [SerializeField] private bool allyCollision;
+
     [Header("Piercing")]
     [SerializeField] private int pierce = -1;
 
@@ -23,23 +25,32 @@ public class PiercingProjectile : DamageProjectileBase
 
     protected override void OnCollision(RaycastHit2D hit)
     {
-        if (hit.collider.gameObject == SourceUser) return;
+        GameObject receiver = hit.collider.gameObject;
+
+        if (receiver == SourceUser) return;
         if (objectsNotExited.Contains(hit.collider.gameObject)) return;
 
-        Hit(hit.transform.gameObject);
+        if (TeamManager.IsEnemy(Team, receiver))
+        {
+            Hit(hit.transform.gameObject);
+        }
+        else if (!allyCollision) return;
+
+        UpdatePiercing();
     }
 
-    protected virtual void Hit(GameObject receiver)
+    protected virtual void UpdatePiercing()
     {
-        if (TeamManager.IsAlly(Team, receiver)) return;
-
         currentHits += 1;
 
         if (pierce >= 0 && currentHits > pierce)
         {
             Despawn();
         }
+    }
 
+    protected virtual void Hit(GameObject receiver)
+    {
         bool damageRejected = DealDamage(receiver);
 
         if (damageRejected)

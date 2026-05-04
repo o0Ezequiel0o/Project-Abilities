@@ -4,6 +4,8 @@ using Zeke.TeamSystem;
 
 public class LightingBoltProjectile : DamageProjectileBase
 {
+    [SerializeField] private bool allyCollision;
+
     [Header("Lighting Bolt | Spread")]
     [SerializeField] private float spreadMaxRadius = 3f;
 
@@ -26,18 +28,22 @@ public class LightingBoltProjectile : DamageProjectileBase
 
     protected override void OnCollision(RaycastHit2D hit)
     {
-        if (hit.collider.gameObject == SourceUser) return;
+        GameObject receiver = hit.collider.gameObject;
 
-        Hit(hit.transform.gameObject);
+        if (receiver == SourceUser) return;
+
+        if (TeamManager.IsEnemy(Team, receiver))
+        {
+            Hit(hit.transform.gameObject);
+        }
+        else if (!allyCollision) return;
+
         TeleportToHitPoint(hit.point);
-
         Despawn();
     }
 
     private void Hit(GameObject receiver)
     {
-        if (TeamManager.IsAlly(Team, receiver)) return;
-
         bool damageRejected = DealDamage(receiver);
 
         if (damageRejected) return;

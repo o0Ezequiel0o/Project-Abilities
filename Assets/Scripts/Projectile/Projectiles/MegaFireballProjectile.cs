@@ -5,6 +5,8 @@ using Zeke.TeamSystem;
 
 public class MegaFireballProjectile : DamageProjectileBase
 {
+    [SerializeField] private bool allyCollision;
+
     [Header("Mega Fireball | Settings")]
     [SerializeField] public StatusEffectData statusEffectToApply;
     [SerializeField] private GameObject fireballsPrefab;
@@ -31,11 +33,16 @@ public class MegaFireballProjectile : DamageProjectileBase
 
     protected override void OnCollision(RaycastHit2D hit)
     {
-        if (hit.collider.gameObject == SourceUser) return;
+        GameObject receiver = hit.collider.gameObject;
 
-        TeleportToHitPoint(hit.point);
-        StopLoopingHits();
-        Explode();
+        if (receiver == SourceUser) return;
+
+        if (TeamManager.IsEnemy(Team, receiver))
+        {
+            TeleportToHitPoint(hit.point);
+            Explode();
+        }
+        else if (!allyCollision) return;
     }
 
     protected override void OnMaxDistanceReached()
@@ -57,7 +64,10 @@ public class MegaFireballProjectile : DamageProjectileBase
 
         for (int i = 0; i < hits.Count; i++)
         {
-            Hit(hits[i].gameObject);
+            if (TeamManager.IsEnemy(Team, hits[i].gameObject))
+            {
+                Hit(hits[i].gameObject);
+            }
         }
 
         SpawnFireballs();
@@ -66,8 +76,6 @@ public class MegaFireballProjectile : DamageProjectileBase
 
     private void Hit(GameObject receiver)
     {
-        if (TeamManager.IsAlly(Team, receiver)) return;
-
         if (Physics2D.Linecast(TipPosition, receiver.transform.position, blockLayer)) return;
 
         bool damageRejected = DealDamage(receiver);

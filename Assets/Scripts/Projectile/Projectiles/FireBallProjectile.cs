@@ -4,6 +4,8 @@ using Zeke.TeamSystem;
 
 public class FireBallProjectile : DamageProjectileBase
 {
+    [SerializeField] protected bool allyCollision;
+
     [Header("Fireball Settings")]
     public StatusEffectData statusEffectToApply;
 
@@ -18,11 +20,16 @@ public class FireBallProjectile : DamageProjectileBase
 
     protected override void OnCollision(RaycastHit2D hit)
     {
-        if (hit.collider.gameObject == SourceUser) return;
+        GameObject receiver = hit.collider.gameObject;
 
-        TeleportToHitPoint(hit.point);
-        StopLoopingHits();
-        Explode();
+        if (receiver == SourceUser) return;
+
+        if (TeamManager.IsEnemy(Team, receiver) || allyCollision)
+        {
+            TeleportToHitPoint(hit.point);
+            StopLoopingHits();
+            Explode();
+        }
     }
 
     protected override void OnMaxDistanceReached()

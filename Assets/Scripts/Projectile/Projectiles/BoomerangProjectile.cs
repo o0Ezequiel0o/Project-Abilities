@@ -65,9 +65,9 @@ public class BoomerangProjectile : DamageProjectileBase
 
     protected override void OnCollision(RaycastHit2D hit)
     {
-        GameObject hitObject = hit.collider.gameObject;
+        GameObject receiver = hit.collider.gameObject;
 
-        if (hitObject == SourceUser)
+        if (receiver == SourceUser)
         {
             if (state == BoomerangState.Returning)
             {
@@ -79,12 +79,15 @@ public class BoomerangProjectile : DamageProjectileBase
             }
         }
 
-        if (objectsNotExited.Contains(hitObject))
+        if (objectsNotExited.Contains(receiver))
         {
             return;
         }
 
-        Hit(hitObject);
+        if (TeamManager.IsEnemy(Team, receiver))
+        {
+            Hit(receiver);
+        }
     }
 
     protected override void OnMaxDistanceReached()
@@ -99,8 +102,6 @@ public class BoomerangProjectile : DamageProjectileBase
         {
             state = BoomerangState.Slowing;
         }
-
-        if (TeamManager.IsAlly(Team, receiver)) return;
 
         bool damageRejected = DealDamage(receiver);
 

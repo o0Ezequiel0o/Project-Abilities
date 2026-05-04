@@ -3,6 +3,8 @@ using Zeke.TeamSystem;
 
 public class SpinnerProjectile : DamageProjectileBase
 {
+    [SerializeField] private bool allyCollision;
+
     [Header("Spinner Projectile Settings")]
     [SerializeField] private int maxHits = -1;
 
@@ -15,23 +17,32 @@ public class SpinnerProjectile : DamageProjectileBase
 
     protected override void OnCollision(RaycastHit2D hit)
     {
-        if (hit.collider.gameObject == SourceUser) return;
+        GameObject receiver = hit.collider.gameObject;
+
+        if (receiver == SourceUser) return;
         if (objectsNotExited.Contains(hit.collider.gameObject)) return;
 
-        Hit(hit.transform.gameObject);
+        if (TeamManager.IsEnemy(Team, receiver))
+        {
+            Hit(hit.transform.gameObject);
+        }
+        else if (!allyCollision) return;
+
+        UpdatePiercing();
     }
 
-    protected void Hit(GameObject receiver)
+    protected void UpdatePiercing()
     {
-        if (TeamManager.IsAlly(Team, receiver)) return;
-
         currentHits += 1;
 
         if (maxHits >= 0 && currentHits >= maxHits)
         {
             Despawn();
         }
+    }
 
+    protected void Hit(GameObject receiver)
+    {
         bool damageRejected = DealDamage(receiver);
 
         if (damageRejected) return;

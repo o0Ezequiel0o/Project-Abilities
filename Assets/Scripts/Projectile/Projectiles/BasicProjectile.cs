@@ -3,20 +3,27 @@ using Zeke.TeamSystem;
 
 public class BasicProjectile : DamageProjectileBase
 {
+    [SerializeField] protected bool allyCollision;
+    [SerializeField] protected bool allyDamage;
+
     protected override void OnCollision(RaycastHit2D hit)
     {
-        if (hit.collider.gameObject == SourceUser) return;
+        GameObject receiver = hit.collider.gameObject;
 
-        Hit(hit.transform.gameObject);
-        TeleportToHitPoint(hit.point);
+        if (receiver == SourceUser) return;
+
+        if (TeamManager.IsEnemy(Team, receiver) || allyDamage)
+        {
+            Hit(receiver);
+            TeleportToHitPoint(hit.point);
+        }
+        else if (!allyCollision) return;
 
         Despawn();
     }
     
     protected virtual void Hit(GameObject receiver)
     {
-        if (TeamManager.IsAlly(Team, receiver)) return;
-
         bool damageRejected = DealDamage(receiver);
 
         if (!damageRejected)

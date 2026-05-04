@@ -22,8 +22,6 @@ public class MissileItemProjectile : Missile
 
     protected override void Hit(GameObject receiver)
     {
-        if (TeamManager.IsAlly(Team, receiver)) return;
-
         bool damageRejected = false;
 
         if (receiver.TryGetComponent(out Damageable damageable))
