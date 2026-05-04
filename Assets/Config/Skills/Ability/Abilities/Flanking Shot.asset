@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Flanking Shot
-  <Description>k__BackingField: Fire a percing bullet that deals 200 <i><color=#5A5A5A>(+30
+  <Description>k__BackingField: Fire a piercing bullet that deals 200 <i><color=#5A5A5A>(+30
     per level)</color></i> damage, has 3 proc coefficient, 50% armor penetration
     and pierces through all targets but for each target pierced damage is reduced
     by half.
