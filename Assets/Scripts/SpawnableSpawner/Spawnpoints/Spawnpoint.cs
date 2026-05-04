@@ -14,7 +14,7 @@ public abstract class Spawnpoint : MonoBehaviour, IWeighted
 
     [Header("Spawning")]
     [SerializeField] protected Teams team;
-    [SerializeField] private LayerMask blockLayers;
+    [SerializeField] protected LayerMask blockLayers;
 
     protected readonly List<Collider2D> hits = new List<Collider2D>();
 
@@ -22,12 +22,11 @@ public abstract class Spawnpoint : MonoBehaviour, IWeighted
 
     public bool IsBlocked()
     {
-        hits.Clear();
         ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = blockLayers, useLayerMask = true };
         return IsBlocked(contactFilter);
     }
 
-    protected abstract bool IsBlocked(ContactFilter2D contactFIlter);
+    protected abstract bool IsBlocked(ContactFilter2D contactFilter);
 
     public bool Includes(Spawnable waveSpawnable)
     {

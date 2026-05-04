@@ -22,7 +22,13 @@ public class MapGenerator : MonoBehaviour
     [Header("Grid Debug")]
     public bool drawGizmos;
 
+    public Graph Graph => graph;
+    public bool LootGenerated => generated;
+
+    public Action onLootGenerated;
+
     private Graph graph;
+    private bool generated;
 
     private int currentSpawnCredits = 0;
 
@@ -46,6 +52,9 @@ public class MapGenerator : MonoBehaviour
         {
             SpawnRandomSpawnable();
         }
+
+        generated = true;
+        onLootGenerated?.Invoke();
     }
 
     private void SpawnRandomSpawnable()
