@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Missiles
-  <Description>k__BackingField: Fire 4 missiles, each one deals 30 <i><color=#5A5A5A>(+7
+  <Description>k__BackingField: Fire 4 homing missiles, each one deals 30 <i><color=#5A5A5A>(+7
     per level)</color></i> damage.
   <AbilityType>k__BackingField: 1
   <CanManuallyDeactivate>k__BackingField: 0
@@ -104,6 +104,9 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
+        armorPenetration: 0
+        procCoefficient: 1
+        knockback: 1
     - rid: 1633592908717752576
       type: {class: CastOffset, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
@@ -142,6 +145,9 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
+        armorPenetration: 0
+        procCoefficient: 1
+        knockback: 1
     - rid: 1633592908717752591
       type: {class: CastOffset, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
@@ -180,6 +186,9 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
+        armorPenetration: 0
+        procCoefficient: 1
+        knockback: 1
     - rid: 1633592908717752596
       type: {class: CastOffset, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
@@ -218,3 +227,6 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
+        armorPenetration: 0
+        procCoefficient: 1
+        knockback: 1
