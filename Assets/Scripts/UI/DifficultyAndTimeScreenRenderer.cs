@@ -18,8 +18,8 @@ public class DifficultyAndTimeScreenRenderer : MonoBehaviour
         int minutes = Mathf.FloorToInt(GameInstance.RunTimer / 60F);
         int seconds = Mathf.FloorToInt(GameInstance.RunTimer - minutes * 60);
 
-        window.TryGetElement<TextMeshProUGUI>("Time").text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        window.TryGetElement<TextMeshProUGUI>("Difficulty").text = Mathf.FloorToInt(GameInstance.Difficulty).ToString();
+        window.TryGetElement<TextMeshProUGUI>("Time").SetText(string.Format("{0:00}:{1:00}", minutes, seconds));
+        window.TryGetElement<TextMeshProUGUI>("Difficulty").SetText(Mathf.FloorToInt(GameInstance.Difficulty).ToString());
     }
 
     private void OnDestroy()
