@@ -70,7 +70,7 @@ MonoBehaviour:
       data:
         prefab: {fileID: 843782506186080318, guid: b31156720078cb34689a8bb54207a090, type: 3}
         damage:
-          baseValue: 2
+          baseValue: 3
           increase: 1
           valueLimits:
             min: -Infinity
