@@ -148,6 +148,7 @@ public class RobotBossStateMachine : StateMachine<RobotBossStateContext>
     {
         followState.DestroyState(context);
         primaryAttackState.DestroyState(context);
+        secondaryAttackState.DestroyState(context);
         idleState.DestroyState(context);
     }
 }
