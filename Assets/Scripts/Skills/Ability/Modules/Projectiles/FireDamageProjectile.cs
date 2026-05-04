@@ -28,6 +28,7 @@ namespace Zeke.Abilities.Modules.Projectiles
 
             armorPenetration = original.armorPenetration;
             procCoefficient = original.procCoefficient;
+            knockback = original.knockback;
 
             damage = original.damage.DeepCopy();
         }
