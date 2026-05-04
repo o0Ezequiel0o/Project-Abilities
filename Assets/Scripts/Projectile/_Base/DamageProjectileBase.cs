@@ -44,6 +44,8 @@ public abstract class DamageProjectileBase : Projectile
         armorPenetration = damageData.armorPenetration;
         procCoefficient = damageData.procCoefficient;
 
+        this.knockback = knockback;
+
         Launch(position, speed, direction, maxRange);
         OnLaunch(position, speed, direction, maxRange, damageData, knockback, source, team);
     }
