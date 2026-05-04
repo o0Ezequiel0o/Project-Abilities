@@ -40,10 +40,10 @@ public class HomingOrbProjectile : PiercingProjectile
         }
     }
 
-    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, int pierce, Transform target, GameObject source, Teams team)
+    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, DamageData damageData, float knockback, int pierce, Transform target, GameObject source, Teams team)
     {
         SetTarget(target);
-        Launch(position, speed, direction, maxRange, damage, pierce, source, team);
+        Launch(position, speed, direction, maxRange, damageData, knockback, pierce, source, team);
     }
 
     protected override void OnLaunch(Vector3 startPosition, float speed, Vector2 direction, float maxRange)

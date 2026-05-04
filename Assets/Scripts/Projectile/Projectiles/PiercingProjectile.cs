@@ -8,10 +8,10 @@ public class PiercingProjectile : DamageProjectileBase
     private int pierce = -1;
     private int currentHits = 0;
 
-    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, int pierce, GameObject source, Teams team)
+    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, DamageData damageData, float knockback, int pierce, GameObject source, Teams team)
     {
         this.pierce = pierce;
-        Launch(position, speed, direction, maxRange, damage, source, team);
+        Launch(position, speed, direction, maxRange, damageData, knockback, source, team);
     }
 
     protected virtual void OnHit(GameObject receiver) { }

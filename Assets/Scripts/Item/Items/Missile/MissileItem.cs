@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zeke.PoolableGameObjects;
 using Zeke.TeamSystem;
+using static DamageProjectileBase;
 
 namespace Zeke.Items
 {
@@ -45,7 +46,8 @@ namespace Zeke.Items
             List<ItemData> newProcChainBranch = new List<ItemData>(damageEvent.ProcChainBranch) { Data };
 
             MissileItemProjectile missile = missilePool.Get(data.MissilePrefab);
-            missile.Launch(source.transform.position, data.Speed, direction, data.MaxRange, damage, source, TeamManager.GetTeam(source), newProcChainBranch);
+            DamageData damageData = new DamageData(damage, data.ArmorPenetration, data.ProcCoefficient);
+            missile.Launch(source.transform.position, data.Speed, direction, data.MaxRange, damageData, data.Knockback, source, TeamManager.GetTeam(source), newProcChainBranch);
 
             missile.gameObject.SetActive(true);
         }

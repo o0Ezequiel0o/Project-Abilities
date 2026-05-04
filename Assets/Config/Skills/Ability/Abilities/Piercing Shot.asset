@@ -95,6 +95,9 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
+        armorPenetration: 0.25
+        procCoefficient: 2
+        knockback: 40
         pierce:
           baseValue: 1
           increase: 1

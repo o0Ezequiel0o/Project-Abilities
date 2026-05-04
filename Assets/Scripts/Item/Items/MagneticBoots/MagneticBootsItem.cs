@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zeke.PoolableGameObjects;
 using Zeke.TeamSystem;
+using static DamageProjectileBase;
 
 namespace Zeke.Items
 {
@@ -53,7 +54,8 @@ namespace Zeke.Items
         private void FireHomingOrb()
         {
             HomingOrbProjectile homingOrb = homingOrbs.Get(data.Prefab);
-            homingOrb.Launch(source.transform.position, data.OrbSpeed, -source.transform.up, data.OrbRange, data.OrbDamage.GetValue(stacks), data.OrbPierce, source, TeamManager.GetTeam(source));
+            DamageData damageData = new DamageData(data.OrbDamage.GetValue(stacks), data.ArmorPenetration, data.ProcCoefficient);
+            homingOrb.Launch(source.transform.position, data.OrbSpeed, -source.transform.up, data.OrbRange, damageData, data.OrbPierce, source, TeamManager.GetTeam(source));
 
             ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.TargetLayers, useLayerMask = true };
 

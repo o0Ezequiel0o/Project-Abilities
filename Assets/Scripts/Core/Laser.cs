@@ -10,9 +10,8 @@ public abstract class Laser : MonoBehaviour
     [SerializeField] protected LayerMask hitLayers;
     [SerializeField] protected LayerMask blockLayers;
 
-    [Header("Stats")]
-    [SerializeField] protected float armorPenetration;
-    [SerializeField] protected float procCoefficient;
+    protected float armorPenetration;
+    protected float procCoefficient;
 
     protected float damage = 0f;
     protected int maxPierce = 0;
@@ -25,10 +24,13 @@ public abstract class Laser : MonoBehaviour
 
     private readonly List<RaycastHit2D> hits = new List<RaycastHit2D>();
 
-    public void SetLaserValues(GameObject source, float damage, int maxPierce, float damageCooldown)
+    public void SetLaserValues(GameObject source, float damage, int maxPierce, float damageCooldown, float armorPenetration, float procCoefficient)
     {
         this.source = source;
         this.damage = damage;
+
+        this.armorPenetration = armorPenetration;
+        this.procCoefficient = procCoefficient;
 
         this.maxPierce = maxPierce;
         this.damageCooldown = damageCooldown;

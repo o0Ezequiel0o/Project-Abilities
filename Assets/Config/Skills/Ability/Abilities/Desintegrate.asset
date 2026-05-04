@@ -15,8 +15,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Desintegrate
   <Description>k__BackingField: Fire a laser that deals 2 <i><color=#5A5A5A>(+1 per
-    level)</color></i> every 0.2 seconds with infinite pierce but slows your aiming
-    speed by 50%.
+    level)</color></i> every 0.2 seconds with infinite pierce and 100% armor penetration
+    but slows your aiming speed by 50%.
   <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 1
   <CanHold>k__BackingField: 0
@@ -89,6 +89,8 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
+        armorPenetration: 1
+        procCoefficient: 1
     - rid: 1633592866767634518
       type: {class: EditMultiplierStatValue, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
       data:

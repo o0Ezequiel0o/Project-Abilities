@@ -14,10 +14,10 @@ public class MissileItemProjectile : Missile
         procChain.Clear();
     }
 
-    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, GameObject source, Teams team, List<ItemData> procChain)
+    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, DamageData damageData, float knockback, GameObject source, Teams team, List<ItemData> procChain)
     {
         this.procChain.AddRange(procChain);
-        Launch(position, speed, direction, maxRange, damage, source, team);
+        Launch(position, speed, direction, maxRange, damageData, knockback, source, team);
     }
 
     protected override void Hit(GameObject receiver)
@@ -26,7 +26,7 @@ public class MissileItemProjectile : Missile
 
         if (receiver.TryGetComponent(out Damageable damageable))
         {
-            DamageInfo damageInfo = new DamageInfo(Damage, armorPenetration, procCoefficient)
+            global::DamageInfo damageInfo = new global::DamageInfo(Damage, armorPenetration, procCoefficient)
             {
                 direction = GetHitDirection(receiver)
             };

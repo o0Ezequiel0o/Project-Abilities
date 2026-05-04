@@ -12,10 +12,10 @@ public class FireBallProjectile : DamageProjectileBase
     private float damageRadius;
     private readonly List<Collider2D> hits = new List<Collider2D>();
 
-    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, float damageRadius, GameObject source, Teams team)
+    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, DamageData damageData, float knockback, float damageRadius, GameObject source, Teams team)
     {
         this.damageRadius = damageRadius;
-        Launch(position, speed, direction, maxRange, damage, source, team);
+        Launch(position, speed, direction, maxRange, damageData, knockback, source, team);
     }
 
     protected override void OnCollision(RaycastHit2D hit)

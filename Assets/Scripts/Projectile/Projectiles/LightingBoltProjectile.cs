@@ -20,10 +20,10 @@ public class LightingBoltProjectile : DamageProjectileBase
         ignoreTargets.Clear();
     }
 
-    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, float spreadTargets, GameObject source, Teams team)
+    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, DamageData damageData, float knockback, float spreadTargets, GameObject source, Teams team)
     {
         this.spreadTargets = spreadTargets;
-        Launch(position, speed, direction, maxRange, damage, source, team);
+        Launch(position, speed, direction, maxRange, damageData, knockback, source, team);
     }
 
     protected override void OnCollision(RaycastHit2D hit)

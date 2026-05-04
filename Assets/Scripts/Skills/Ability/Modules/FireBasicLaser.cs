@@ -19,6 +19,11 @@ namespace Zeke.Abilities.Modules
         [SerializeField] private int pierce;
         [SerializeField] private Stat damageCooldown;
 
+        [Space]
+
+        [SerializeField] private float armorPenetration = 0f;
+        [SerializeField] private float procCoefficient = 1f;
+
         private Transform spawn;
         private GameObject source;
 
@@ -31,6 +36,9 @@ namespace Zeke.Abilities.Modules
             prefab = original.prefab;
             radius = original.radius;
             pierce = original.pierce;
+
+            armorPenetration = original.armorPenetration;
+            procCoefficient = original.procCoefficient;
 
             damage = original.damage.DeepCopy();
             maxRange = original.maxRange.DeepCopy();
@@ -48,7 +56,7 @@ namespace Zeke.Abilities.Modules
 
             if (laserGOInstance.TryGetComponent(out laserInstance))
             {
-                laserInstance.SetLaserValues(source, damage.Value, pierce, damageCooldown.Value);
+                laserInstance.SetLaserValues(source, damage.Value, pierce, damageCooldown.Value, armorPenetration, procCoefficient);
             }
 
             laserGOInstance.SetActive(false);
@@ -92,7 +100,7 @@ namespace Zeke.Abilities.Modules
 
             if (laserInstance != null)
             {
-                laserInstance.SetLaserValues(source, damage.Value, pierce, damageCooldown.Value);
+                laserInstance.SetLaserValues(source, damage.Value, pierce, damageCooldown.Value, armorPenetration, procCoefficient);
             }
         }
 

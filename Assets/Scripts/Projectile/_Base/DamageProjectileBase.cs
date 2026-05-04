@@ -3,15 +3,29 @@ using Zeke.TeamSystem;
 
 public abstract class DamageProjectileBase : Projectile
 {
-    [Header("Impact")]
-    [SerializeField, Min(0f)] protected float armorPenetration = 0f;
-    [SerializeField, Min(0f)] protected float procCoefficient = 1f;
-    [SerializeField, Min(0f)] protected float knockback = 1f;
-
     public float Damage { get; protected set; }
 
     public GameObject SourceUser { get; protected set; }
     public Teams Team { get; private set; }
+
+    protected float armorPenetration = 0f;
+    protected float procCoefficient = 1f;
+
+    protected float knockback = 0f;
+
+    public readonly struct DamageData
+    {
+        public readonly float armorPenetration;
+        public readonly float procCoefficient;
+        public readonly float damage;
+
+        public DamageData(float damage, float armorPenetration, float procCoefficient)
+        {
+            this.damage = damage;
+            this.armorPenetration = armorPenetration;
+            this.procCoefficient = procCoefficient;
+        }
+    }
 
     public override void OnRetrievedFromPool()
     {
@@ -22,16 +36,19 @@ public abstract class DamageProjectileBase : Projectile
         Team = Teams.IgnoreTeam;
     }
 
-    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, GameObject source, Teams team)
+    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, DamageData damageData, float knockback, GameObject source, Teams team)
     {
         Team = team;
-        Damage = damage;
         SourceUser = source;
+        Damage = damageData.damage;
+        armorPenetration = damageData.armorPenetration;
+        procCoefficient = damageData.procCoefficient;
+
         Launch(position, speed, direction, maxRange);
-        OnLaunch(position, speed, direction, maxRange, damage, source, team);
+        OnLaunch(position, speed, direction, maxRange, damageData, knockback, source, team);
     }
 
-    public virtual void OnLaunch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, GameObject source, Teams team) { }
+    public virtual void OnLaunch(Vector3 position, float speed, Vector2 direction, float maxRange, DamageData damageData, float knockback, GameObject source, Teams team) { }
 
     protected bool DealDamage(GameObject receiver)
     {

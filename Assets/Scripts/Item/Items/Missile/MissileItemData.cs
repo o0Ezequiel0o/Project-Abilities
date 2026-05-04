@@ -17,6 +17,12 @@ namespace Zeke.Items
         [field: SerializeField] public float MaxRange { get; private set; }
         [field: SerializeField] public float Speed { get; private set; }
 
+        [field: Space]
+
+        [field: SerializeField] public float ArmorPenetration { get; private set; } = 0f;
+        [field: SerializeField] public float ProcCoefficient { get; private set; } = 1f;
+        [field: SerializeField] public float Knockback { get; private set; } = 1f;
+
         public override Item CreateItem(ItemHandler itemHandler, GameObject source)
         {
             return new MissileItem(this, itemHandler, source);

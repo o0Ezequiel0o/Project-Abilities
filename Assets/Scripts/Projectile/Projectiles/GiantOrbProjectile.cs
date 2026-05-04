@@ -28,14 +28,14 @@ public class GiantOrbProjectile : DamageProjectileBase
 
     private readonly List<RaycastHit2D> closeTargets = new List<RaycastHit2D>();
 
-    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, float smallOrbDamage, float smallOrbSpeed, float smallOrbRange, int smallOrbPierce, GameObject source, Teams team)
+    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, DamageData damageData, float knockback, float smallOrbDamage, float smallOrbSpeed, float smallOrbRange, int smallOrbPierce, GameObject source, Teams team)
     {
         homingOrbDamage = smallOrbDamage;
         homingOrbSpeed = smallOrbSpeed;
         homingOrbRange = smallOrbRange;
         homingOrbPierce = smallOrbPierce;
 
-        Launch(position, speed, direction, maxRange, damage, source, team);
+        Launch(position, speed, direction, maxRange, damageData, knockback, source, team);
     }
 
     protected override void OnCollision(RaycastHit2D hit)
@@ -85,7 +85,8 @@ public class GiantOrbProjectile : DamageProjectileBase
         HomingOrbProjectile homingOrb = homingOrbs.Get(homingOrbPrefab);
         Transform target = GetClosestTarget(homingOrb.transform.position, launchDirection);
 
-        homingOrb.Launch(transform.position, homingOrbSpeed, launchDirection, homingOrbRange, homingOrbDamage, homingOrbPierce, target, SourceUser, Team);
+        DamageData homingOrbDamageData = new DamageData(homingOrbDamage, armorPenetration, procCoefficient);
+        homingOrb.Launch(transform.position, homingOrbSpeed, launchDirection, homingOrbRange, homingOrbDamageData, knockback, homingOrbPierce, target, SourceUser, Team);
         homingOrb.gameObject.SetActive(true);
     }
 

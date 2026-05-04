@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Zeke.TeamSystem;
+using static DamageProjectileBase;
 
 namespace Zeke.Abilities.Modules
 {
@@ -15,10 +16,16 @@ namespace Zeke.Abilities.Modules
 
         [Header("Homing Orbs")]
         [SerializeField] protected Stat amount;
-        [SerializeField] protected Stat damage;
         [SerializeField] protected Stat maxRange;
         [SerializeField] protected Stat pierce;
+        [SerializeField] protected Stat damage;
         [SerializeField] protected Stat fireCooldown;
+
+        [Space]
+
+        [SerializeField] protected float armorPenetration = 0f;
+        [SerializeField] protected float procCoefficient = 1f;
+        [SerializeField] protected float knockback = 1f;
 
         [Header("Targeting")]
         [SerializeField] private float detectRadius;
@@ -56,6 +63,10 @@ namespace Zeke.Abilities.Modules
             detectRadius = original.detectRadius;
             blockLayers = original.blockLayers;
             hitLayers = original.hitLayers;
+
+            armorPenetration = original.armorPenetration;
+            procCoefficient = original.procCoefficient;
+            knockback = original.knockback;
 
             warmUp = original.warmUp;
 
@@ -128,7 +139,8 @@ namespace Zeke.Abilities.Modules
         {
             for (int i = 0; i < spawnedObjects.Count; i++)
             {
-                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damage.Value, source, TeamManager.GetTeam(source));
+                DamageData damageData = new DamageData(damage.Value, armorPenetration, procCoefficient);
+                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damageData, knockback, source, TeamManager.GetTeam(source));
                 spawnedObjects[i].ColliderEnabled = false;
             }
 
@@ -235,7 +247,8 @@ namespace Zeke.Abilities.Modules
             homingOrbs.Remove(homingOrb);
             spinnerInstance.RemoveFromPivot(homingOrb.transform);
 
-            homingOrb.Launch(homingOrb.transform.position, 5f, direction, maxRange.Value, damage.Value, pierce.ValueInt, source, TeamManager.GetTeam(source));
+            DamageProjectileBase.DamageData damageData = new DamageProjectileBase.DamageData(damage.Value, armorPenetration, procCoefficient);
+            homingOrb.Launch(homingOrb.transform.position, 5f, direction, maxRange.Value, damageData, pierce.ValueInt, source, TeamManager.GetTeam(source));
 
             homingOrb.SetTarget(target);
             homingOrb.ColliderEnabled = true;

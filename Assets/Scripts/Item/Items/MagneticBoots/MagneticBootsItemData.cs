@@ -18,6 +18,11 @@ namespace Zeke.Items
         [field: SerializeField] public float OrbRange { get; private set; }
 
         [field: Space]
+
+        [field: SerializeField] public float ArmorPenetration { get; private set; } = 0f;
+        [field: SerializeField] public float ProcCoefficient { get; private set; } = 1f;
+
+        [field: Space]
         [field: SerializeField] public LayerMask TargetLayers { get; private set; }
         [field: SerializeField] public float FindTargetRange { get; private set; }
 

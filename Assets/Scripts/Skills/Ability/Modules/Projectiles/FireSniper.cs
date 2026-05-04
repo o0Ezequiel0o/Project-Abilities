@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using Zeke.TeamSystem;
+using static DamageProjectileBase;
 
 namespace Zeke.Abilities.Modules.Projectiles
 {
@@ -18,16 +19,16 @@ namespace Zeke.Abilities.Modules.Projectiles
 
         public override FireProjectileType DeepCopy() => new FireSniper(this);
 
-        public override void LaunchProjectile(Vector3 position, Vector3 direction, float damage, float speed, float maxRange, GameObject source, Teams team)
+        public override void LaunchProjectile(Vector3 position, Vector3 direction, DamageData damageData, float knockback, float speed, float maxRange, GameObject source, Teams team)
         {
             float randomNum = UnityEngine.Random.Range(0, 99);
 
             if (randomNum < doubleDamageChance.ValueInt)
             {
-                damage *= 2;
+                damageData = new DamageData(damageData.damage * 2f, damageData.armorPenetration, damageData.procCoefficient);
             }
 
-            base.LaunchProjectile(position, direction, damage, speed, maxRange, source, team);
+            base.LaunchProjectile(position, direction, damageData, knockback, speed, maxRange, source, team);
         }
 
         public override void Upgrade()

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Zeke.TeamSystem;
+using static DamageProjectileBase;
 
 namespace Zeke.Abilities.Modules
 {
@@ -11,10 +12,18 @@ namespace Zeke.Abilities.Modules
         [SerializeField] private Stat damage;
         [SerializeField] private Stat pierce;
 
+        [Space]
+
+        [SerializeField] private float armorPenetration = 0f;
+        [SerializeField] private float procCoefficient = 1f;
+
         public ProjectileSpinner() { }
 
         public ProjectileSpinner(ProjectileSpinner original) : base(original)
         {
+            armorPenetration = original.armorPenetration;
+            procCoefficient = original.procCoefficient;
+
             damage = original.damage.DeepCopy();
             pierce = original.pierce.DeepCopy();
         }
@@ -47,7 +56,8 @@ namespace Zeke.Abilities.Modules
         {
             for (int i = 0; i < spawnedObjects.Count; i++)
             {
-                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damage.Value, pierce.ValueInt, source, TeamManager.GetTeam(source));
+                DamageData damageData = new DamageData(damage.Value, armorPenetration, procCoefficient);
+                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damageData, pierce.ValueInt, source, TeamManager.GetTeam(source));
             }
         }
     }

@@ -22,13 +22,13 @@ public class MegaFireballProjectile : DamageProjectileBase
     private readonly GameObjectPool fireballsPool = new GameObjectPool();
     private readonly HashSet<Projectile> activeFireballs = new HashSet<Projectile>();
 
-    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, float damage, float damageRadius, int fireballsAmount, GameObject source, Teams team)
+    public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, DamageData damageData, float knockback, float damageRadius, int fireballsAmount, GameObject source, Teams team)
     {
         this.damageRadius = damageRadius;
         this.fireballsAmount = fireballsAmount;
 
         anglePerFireball = 360 / Mathf.Max(1, fireballsAmount);
-        Launch(position, speed, direction, maxRange, damage, source, team);
+        Launch(position, speed, direction, maxRange, damageData, knockback, source, team);
     }
 
     protected override void OnCollision(RaycastHit2D hit)
@@ -101,7 +101,8 @@ public class MegaFireballProjectile : DamageProjectileBase
 
             if (fireball.TryGetComponent(out FireBallProjectile fireballProjectile))
             {
-                fireballProjectile.Launch(TipPosition, Speed * .5f, direction, MaxRange * .5f, Damage * .5f, damageRadius * .5f, SourceUser, Team);
+                DamageData fireballProjectileDamageData = new DamageData(Damage * 5f, armorPenetration, procCoefficient);
+                fireballProjectile.Launch(TipPosition, Speed * .5f, direction, MaxRange * .5f, fireballProjectileDamageData, damageRadius * .5f, SourceUser, Team);
                 fireballProjectile.onDespawn += RemoveFromActiveFireballs;
                 activeFireballs.Add(fireballProjectile);
             }

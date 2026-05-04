@@ -86,6 +86,9 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
+        armorPenetration: 0
+        procCoefficient: 1
+        knockback: 25
         smallOrbDamage:
           baseValue: 5
           increase: 1
