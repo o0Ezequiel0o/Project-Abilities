@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
-  m_Name: Boss Zombie Attack
+  m_Name: Maul (Elite)
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Maul (Elite)
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Deal 15 <i><color=#5A5A5A>(+4.5 per level)</color></i>
+    damage in a big area in front of you.
   <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
@@ -39,34 +40,10 @@ MonoBehaviour:
   modules:
   - rid: 3611678573724172373
   - rid: 3611678692085071967
-  - rid: 1633592841571139673
-  <IndicatorData>k__BackingField: {fileID: 11400000, guid: a484a2d282b23504ea78dcd90d4f8e59, type: 2}
+  <IndicatorData>k__BackingField: {fileID: 11400000, guid: ed766428b81af5b4f872c315d466115a, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 1633592841571139666
-      type: {class: BoxOverlap, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        size: {x: 8, y: 4}
-    - rid: 1633592841571139673
-      type: {class: AreaDamage, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        radius:
-          baseValue: 3
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        damage:
-          baseValue: 10
-          increase: 3
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        knockback: 0
-        hitLayers:
-          serializedVersion: 2
-          m_Bits: 256
     - rid: 3611678573724172373
       type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
@@ -80,18 +57,22 @@ MonoBehaviour:
       type: {class: BasicAttack, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         damage:
-          baseValue: 18
-          increase: 6
+          baseValue: 15
+          increase: 4.5
           valueLimits:
             min: 0
             max: Infinity
         armorPenetration: 0
         procCoefficient: 1
-        knockback: 50
+        knockback: 30
         shape:
-          rid: 1633592841571139666
+          rid: 3611678692085071970
         hitLayers:
           serializedVersion: 2
           m_Bits: 256
-        castOffset: 2
+        castOffset: 1
         castAtSourceCenter: 0
+    - rid: 3611678692085071970
+      type: {class: BoxOverlap, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        size: {x: 3, y: 2}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Missiles
-  <Description>k__BackingField: Fire 4 missiles, each one deals 20 <i><color=#5A5A5A>(+5
+  <Description>k__BackingField: Fire 4 missiles, each one deals 30 <i><color=#5A5A5A>(+7
     per level)</color></i> damage.
   <AbilityType>k__BackingField: 1
   <CanManuallyDeactivate>k__BackingField: 0
@@ -99,8 +99,8 @@ MonoBehaviour:
       data:
         prefab: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
         damage:
-          baseValue: 20
-          increase: 5
+          baseValue: 30
+          increase: 7
           valueLimits:
             min: -Infinity
             max: Infinity
@@ -137,8 +137,8 @@ MonoBehaviour:
       data:
         prefab: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
         damage:
-          baseValue: 20
-          increase: 5
+          baseValue: 30
+          increase: 7
           valueLimits:
             min: -Infinity
             max: Infinity
@@ -175,8 +175,8 @@ MonoBehaviour:
       data:
         prefab: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
         damage:
-          baseValue: 20
-          increase: 5
+          baseValue: 30
+          increase: 7
           valueLimits:
             min: -Infinity
             max: Infinity
@@ -213,8 +213,8 @@ MonoBehaviour:
       data:
         prefab: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
         damage:
-          baseValue: 20
-          increase: 5
+          baseValue: 30
+          increase: 7
           valueLimits:
             min: -Infinity
             max: Infinity

@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
-  m_Name: Spinning Orbs
+  m_Name: Piercing Bullet
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: Orb Ring
-  <Description>k__BackingField: Spawn 3 <i><color=#5A5A5A>(+1 per level)</color></i>
-    orbs that spin around you for 5 seconds and deal 3 <i><color=#5A5A5A>(+1 per
-    level)</color></i> damage. Leveling up also increases the spinning speed.
-  <AbilityType>k__BackingField: 1
+  <Name>k__BackingField: Piercing Bullet
+  <Description>k__BackingField: Fire a percing bullet that deals 50 <i><color=#5A5A5A>(+15
+    per level)</color></i> damage, has 2 proc coefficient, 25% armor penetration
+    and can pierce up to 1 target <i><color=#5A5A5A>(+1 per level)</color></i>.
+  <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
   cooldownTime:
-    baseValue: 5
+    baseValue: 3
     increase: 0
     valueLimits:
       min: 0
       max: Infinity
   duration:
-    baseValue: 5
+    baseValue: 0
     increase: 0
     valueLimits:
       min: 0
@@ -39,52 +39,65 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 2308102682624393323
-  - rid: 2308102682624393325
+  - rid: 2308103201695203407
+  - rid: 2308103201695203408
+  - rid: 2308103201695203410
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 2308102682624393323
+    - rid: 2308103201695203407
       type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         updateMode: 0
         type:
-          rid: 2308102682624393324
-    - rid: 2308102682624393324
+          rid: 2308103201695203409
+    - rid: 2308103201695203408
+      type: {class: BaseCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        cooldown:
+          baseValue: 0.05
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+    - rid: 2308103201695203409
       type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data: 
-    - rid: 2308102682624393325
-      type: {class: ProjectileSpinner, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 2308103201695203410
+      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
-        prefab: {fileID: 5071053083290797565, guid: 4c810d6170641d54988cdfe555307cee, type: 3}
-        distance:
-          baseValue: 1.8
+        fireDistance: 0
+        spread:
+          min: 0
+          max: 0
+        projectile:
+          rid: 2308103201695203411
+        speed:
+          baseValue: 30
           increase: 0
           valueLimits:
             min: -Infinity
             max: Infinity
-        amount:
-          baseValue: 3
-          increase: 1
+        maxRange:
+          baseValue: 20
+          increase: 0
           valueLimits:
             min: -Infinity
             max: Infinity
-        speed:
-          baseValue: 180
-          increase: 15
-          valueLimits:
-            min: 0
-            max: 360
+    - rid: 2308103201695203411
+      type: {class: FirePiercingProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        prefab: {fileID: 3338510750006898018, guid: d9080148ae01be14b9874cc11ca85fd0, type: 3}
         damage:
-          baseValue: 3
-          increase: 1
+          baseValue: 50
+          increase: 15
           valueLimits:
             min: -Infinity
             max: Infinity
         pierce:
-          baseValue: -1
-          increase: 0
+          baseValue: 1
+          increase: 1
           valueLimits:
             min: -Infinity
             max: Infinity
