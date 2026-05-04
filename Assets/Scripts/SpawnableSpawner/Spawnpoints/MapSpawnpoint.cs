@@ -51,6 +51,7 @@ public class MapSpawnpoint : Spawnpoint
             if (avaibleNodes.Count == 0 && blockedNodesStored.Count > 0)
             {
                 avaibleNodes.AddRange(blockedNodesStored);
+                blockedNodesStored.Clear();
             }
 
             if (avaibleNodes.Count == 0)
