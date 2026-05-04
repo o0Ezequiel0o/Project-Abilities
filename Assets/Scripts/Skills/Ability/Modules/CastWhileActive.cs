@@ -6,7 +6,7 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class CastWhileActive : AbilityModule
     {
-        [SerializeField] private Stat unactiveLength;
+        [SerializeField] private Stat inactiveLength;
         [SerializeField] private Stat activeLength;
         [SerializeField] private InternalLoopState startState;
         [SerializeReferenceDropdown, SerializeReference] private AbilityModule module;
@@ -21,7 +21,7 @@ namespace Zeke.Abilities.Modules
         {
             startState = original.startState;
 
-            unactiveLength = original.unactiveLength.DeepCopy();
+            inactiveLength = original.inactiveLength.DeepCopy();
             activeLength = original.activeLength.DeepCopy();
             module = original.module.DeepCopy();
         }
@@ -69,14 +69,14 @@ namespace Zeke.Abilities.Modules
                 float oldTimerValue = timer;
                 timer += Time.deltaTime;
 
-                if (unactiveLength.Value > 0f && oldTimerValue <= 0f)
+                if (inactiveLength.Value > 0f && oldTimerValue <= 0f)
                 {
                     module.UpdateUnactive();
                 }
 
                 if (!module.CanActivate()) return;
 
-                if (timer > unactiveLength.Value)
+                if (timer > inactiveLength.Value)
                 {
                     module.Activate(false);
 
@@ -105,7 +105,7 @@ namespace Zeke.Abilities.Modules
                 {
                     module.Deactivate();
 
-                    if (unactiveLength.Value <= 0f && activeLength.Value > 0f)
+                    if (inactiveLength.Value <= 0f && activeLength.Value > 0f)
                     {
                         module.Activate(false);
                     }
@@ -121,7 +121,7 @@ namespace Zeke.Abilities.Modules
 
         public override void Upgrade()
         {
-            unactiveLength.Upgrade();
+            inactiveLength.Upgrade();
             module.Upgrade();
         }
 

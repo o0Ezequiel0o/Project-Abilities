@@ -17,7 +17,7 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
     public static float Duration => Duration;
 
     private readonly GameObjectPool<DamageNumber> damageNumbersPool = new GameObjectPool<DamageNumber>();
-    private readonly Stack<DamageNumberData> unactiveDamageNumbers = new Stack<DamageNumberData>();
+    private readonly Stack<DamageNumberData> inactiveDamageNumbers = new Stack<DamageNumberData>();
     private readonly List<DamageNumberData> activeDamageNumbers = new List<DamageNumberData>();
 
     private Canvas worldCanvas;
@@ -77,13 +77,13 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
     {
         DamageNumberData damageNumberData;
 
-        if (Instance.unactiveDamageNumbers.Count <= 0)
+        if (Instance.inactiveDamageNumbers.Count <= 0)
         {
             damageNumberData = new DamageNumberData(damageNumber, receiver, Instance.currentTime, Instance.duration, offset);
         }
         else
         {
-            damageNumberData = Instance.unactiveDamageNumbers.Pop();
+            damageNumberData = Instance.inactiveDamageNumbers.Pop();
             damageNumberData.Initialize(damageNumber, receiver, Instance.currentTime, Instance.duration, offset);
         }
 
@@ -125,7 +125,7 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
             if (currentTime > damageNumberData.despawnTime)
             {
                 damageNumberData.number.gameObject.SetActive(false);
-                unactiveDamageNumbers.Push(damageNumberData);
+                inactiveDamageNumbers.Push(damageNumberData);
                 activeDamageNumbers.RemoveAt(i);
             }
         }

@@ -14,7 +14,7 @@ namespace Zeke.Items
         [SerializeField] private float duration = 2;
 
         private readonly Dictionary<ItemData, SlotData> activeSlots = new Dictionary<ItemData, SlotData>();
-        private readonly Stack<SlotData> unactiveSlots = new Stack<SlotData>();
+        private readonly Stack<SlotData> inactiveSlots = new Stack<SlotData>();
 
         private readonly List<SlotData> deactivateSlots = new List<SlotData>();
 
@@ -63,7 +63,7 @@ namespace Zeke.Items
             {
                 UpdateSlot(slotData, stackUpdate.amount);
             }
-            else if (unactiveSlots.Count > 0)
+            else if (inactiveSlots.Count > 0)
             {
                 AddUnactiveSlot(stackUpdate.itemData, stackUpdate.amount);
             }
@@ -79,7 +79,7 @@ namespace Zeke.Items
             {
                 UpdateSlot(slotData, -stackUpdate.amount);
             }
-            else if (unactiveSlots.Count > 0)
+            else if (inactiveSlots.Count > 0)
             {
                 AddUnactiveSlot(stackUpdate.itemData, -stackUpdate.amount);
             }
@@ -102,7 +102,7 @@ namespace Zeke.Items
 
         private void AddUnactiveSlot(ItemData itemData, int stacksUpdate)
         {
-            SlotData slotData = unactiveSlots.Pop();
+            SlotData slotData = inactiveSlots.Pop();
 
             slotData.timer = 0f;
             slotData.itemData = itemData;
@@ -129,7 +129,7 @@ namespace Zeke.Items
         {
             activeSlots.Remove(slotData.itemData);
             slotData.slot.gameObject.SetActive(false);
-            unactiveSlots.Push(slotData);
+            inactiveSlots.Push(slotData);
         }
 
         private class SlotData
