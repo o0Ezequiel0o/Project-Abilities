@@ -43,9 +43,9 @@ namespace Zeke.Abilities.Modules
             reload.UpdateActive(controller);
         }
 
-        public override void UpdateUnactive()
+        public override void UpdateInactive()
         {
-            reload.UpdateUnactive(controller);
+            reload.UpdateInactive(controller);
         }
 
         public override void Upgrade()
@@ -70,7 +70,7 @@ namespace Zeke.Abilities.Modules
             public abstract void Activate(AbilityController controller);
             public abstract void Deactivate(AbilityController controller);
             public abstract void UpdateActive(AbilityController controller);
-            public abstract void UpdateUnactive(AbilityController controller);
+            public abstract void UpdateInactive(AbilityController controller);
 
             public virtual void Upgrade(AbilityController controller)
             {
@@ -92,7 +92,7 @@ namespace Zeke.Abilities.Modules
 
             public override void Deactivate(AbilityController controller) { }
             public override void UpdateActive(AbilityController controller) { }
-            public override void UpdateUnactive(AbilityController controller) { }
+            public override void UpdateInactive(AbilityController controller) { }
         }
 
         [Serializable]
@@ -110,7 +110,7 @@ namespace Zeke.Abilities.Modules
             }
 
             public override void UpdateActive(AbilityController controller) { }
-            public override void UpdateUnactive(AbilityController controller) { }
+            public override void UpdateInactive(AbilityController controller) { }
         }
 
         [Serializable]
@@ -148,7 +148,7 @@ namespace Zeke.Abilities.Modules
                 }
             }
 
-            public override void UpdateUnactive(AbilityController controller) { }
+            public override void UpdateInactive(AbilityController controller) { }
         }
     }
 }

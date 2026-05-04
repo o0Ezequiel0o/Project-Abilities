@@ -201,7 +201,7 @@ namespace Zeke.Abilities
             }
             else
             {
-                UpdateUnactive();
+                UpdateInactive();
             }
         }
 
@@ -286,11 +286,11 @@ namespace Zeke.Abilities
             }
         }
 
-        private void UpdateUnactive()
+        private void UpdateInactive()
         {
             for (int i = 0; i < modules.Count; i++)
             {
-                modules[i].UpdateUnactive();
+                modules[i].UpdateInactive();
             }
         }
 

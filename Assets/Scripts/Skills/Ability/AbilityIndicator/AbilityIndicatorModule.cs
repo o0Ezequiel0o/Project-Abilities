@@ -1,5 +1,5 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 namespace Zeke.Abilities.Indicators
 {
@@ -59,7 +59,7 @@ namespace Zeke.Abilities.Indicators
                 }
                 else
                 {
-                    UpdateUnactive(currentTime);
+                    UpdateInactive(currentTime);
                 }
             }
         }
@@ -98,7 +98,7 @@ namespace Zeke.Abilities.Indicators
             attackIndicatorInstance.UpdateFill(GetTimePercentage(currentTime));
         }
 
-        private void UpdateUnactive(float currentTime)
+        private void UpdateInactive(float currentTime)
         {
             if (attackIndicatorInstance.gameObject.activeSelf)
             {

@@ -65,7 +65,7 @@ namespace Zeke.Items
             }
             else if (inactiveSlots.Count > 0)
             {
-                AddUnactiveSlot(stackUpdate.itemData, stackUpdate.amount);
+                AddInactiveSlot(stackUpdate.itemData, stackUpdate.amount);
             }
             else
             {
@@ -81,7 +81,7 @@ namespace Zeke.Items
             }
             else if (inactiveSlots.Count > 0)
             {
-                AddUnactiveSlot(stackUpdate.itemData, -stackUpdate.amount);
+                AddInactiveSlot(stackUpdate.itemData, -stackUpdate.amount);
             }
             else
             {
@@ -100,7 +100,7 @@ namespace Zeke.Items
             activeSlots.Add(itemData, slotData);
         }
 
-        private void AddUnactiveSlot(ItemData itemData, int stacksUpdate)
+        private void AddInactiveSlot(ItemData itemData, int stacksUpdate)
         {
             SlotData slotData = inactiveSlots.Pop();
 

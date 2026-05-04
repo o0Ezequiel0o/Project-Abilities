@@ -28,7 +28,7 @@ namespace Zeke.Abilities.Modules
         public override void Update() { }
 
         public override void UpdateActive() { }
-        public override void UpdateUnactive() { }
+        public override void UpdateInactive() { }
 
         public override void LateUpdate() { }
 

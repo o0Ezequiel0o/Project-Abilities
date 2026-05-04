@@ -89,11 +89,11 @@ namespace Zeke.Abilities.Modules
             }
         }
 
-        public override void UpdateUnactive()
+        public override void UpdateInactive()
         {
             for (int i = 0; i < modules.Count; i++)
             {
-                modules[i].UpdateUnactive();
+                modules[i].UpdateInactive();
             }
         }
 

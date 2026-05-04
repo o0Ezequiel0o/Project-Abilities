@@ -65,9 +65,9 @@ namespace Zeke.Abilities.Modules
             module?.UpdateActive();
         }
 
-        public override void UpdateUnactive()
+        public override void UpdateInactive()
         {
-            module?.UpdateUnactive();
+            module?.UpdateInactive();
         }
 
         public override void LateUpdate()

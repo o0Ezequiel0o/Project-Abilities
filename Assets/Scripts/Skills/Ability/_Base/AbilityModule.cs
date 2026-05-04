@@ -17,7 +17,7 @@ namespace Zeke.Abilities
         public abstract bool CanUpgrade();
 
         public virtual void UpdateActive() { }
-        public virtual void UpdateUnactive() { }
+        public virtual void UpdateInactive() { }
 
         public virtual void Update() { }
         public virtual void LateUpdate() { }

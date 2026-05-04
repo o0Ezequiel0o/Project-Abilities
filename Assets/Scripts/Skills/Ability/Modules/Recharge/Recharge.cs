@@ -31,7 +31,7 @@ namespace Zeke.Abilities.Modules
         {
             switch (updateMode)
             {
-                case UpdateMode.Unactive:
+                case UpdateMode.Inactive:
                     type.Deactivate();
                     break;
 
@@ -48,7 +48,7 @@ namespace Zeke.Abilities.Modules
         {
             switch (updateMode)
             {
-                case UpdateMode.Unactive:
+                case UpdateMode.Inactive:
                     type.Activate();
                     break;
 
@@ -69,9 +69,9 @@ namespace Zeke.Abilities.Modules
             }
         }
 
-        public override void UpdateUnactive()
+        public override void UpdateInactive()
         {
-            if (updateMode == UpdateMode.Unactive)
+            if (updateMode == UpdateMode.Inactive)
             {
                 type.UpdateDuration();
             }
@@ -89,7 +89,7 @@ namespace Zeke.Abilities.Modules
 
         public enum UpdateMode
         {
-            Unactive,
+            Inactive,
             Active
         }
     }

@@ -11,7 +11,7 @@ namespace Zeke.Abilities.Modules
         [SerializeField] private InternalLoopState startState;
         [SerializeReferenceDropdown, SerializeReference] private AbilityModule module;
 
-        private InternalLoopState loopState = InternalLoopState.Unactive;
+        private InternalLoopState loopState = InternalLoopState.Inactive;
 
         private float timer = 0f;
 
@@ -64,14 +64,14 @@ namespace Zeke.Abilities.Modules
 
         public override void UpdateActive()
         {
-            if (loopState == InternalLoopState.Unactive)
+            if (loopState == InternalLoopState.Inactive)
             {
                 float oldTimerValue = timer;
                 timer += Time.deltaTime;
 
                 if (inactiveLength.Value > 0f && oldTimerValue <= 0f)
                 {
-                    module.UpdateUnactive();
+                    module.UpdateInactive();
                 }
 
                 if (!module.CanActivate()) return;
@@ -111,7 +111,7 @@ namespace Zeke.Abilities.Modules
                     }
                     else
                     {
-                        loopState = InternalLoopState.Unactive;
+                        loopState = InternalLoopState.Inactive;
                     }
 
                     timer = 0f;
@@ -133,7 +133,7 @@ namespace Zeke.Abilities.Modules
         private enum InternalLoopState
         {
             Active,
-            Unactive
+            Inactive
         }
     }
 }
