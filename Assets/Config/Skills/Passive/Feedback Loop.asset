@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 532605ef56671af4b9c88110b6997520, type: 3}
-  m_Name: Orb Cooldown Reduction
+  m_Name: Feedback Loop
   m_EditorClassIdentifier: Assembly-CSharp::OrbCooldownReductionSkillData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Feedback Loop
