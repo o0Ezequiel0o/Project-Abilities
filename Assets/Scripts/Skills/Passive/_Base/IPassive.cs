@@ -8,6 +8,8 @@ public interface IPassive
 
     public void Update();
 
+    public void LateUpdate();
+
     public void OnRemove();
 
     public void Upgrade();

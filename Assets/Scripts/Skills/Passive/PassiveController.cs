@@ -65,20 +65,23 @@ public class PassiveController : MonoBehaviour, IUpgradable
 
     private void Update()
     {
-        UpdatePassives();
+        for (int i = 0; i < passives.Count; i++)
+        {
+            passives[i].Update();
+        }
+    }
+
+    private void LateUpdate()
+    {
+        for (int i = 0; i < passives.Count; i++)
+        {
+            passives[i].LateUpdate();
+        }
     }
 
     private void OnDestroy()
     {
         RemovePassives();
-    }
-
-    private void UpdatePassives()
-    {
-        for (int i = 0; i < passives.Count; i++)
-        {
-            passives[i].Update();
-        }
     }
 
     private void RemovePassives()

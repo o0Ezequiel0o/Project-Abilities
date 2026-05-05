@@ -22,6 +22,8 @@ public abstract class PassiveBase : IPassive
 
     public virtual void Update() { }
 
+    public virtual void LateUpdate() { }
+
     public void Upgrade()
     {
         Level += 1;
