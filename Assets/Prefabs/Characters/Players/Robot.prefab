@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: setAbilities.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: 'setAbilities.Array.data[0]'
@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: 'setAbilities.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: cf8375b8acee8ae4a9df10e6137f84d4, type: 2}
+    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: 'setAbilities.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 90f20c28d3a512e4292f1895c917e9a7, type: 2}
     - target: {fileID: 3494898662879718562, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: <MoveSpeed>k__BackingField.baseValue
       value: 3.5
@@ -74,6 +78,10 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 9fd7cb298affc5743bf79eac3fd82f5f, type: 2}
     - target: {fileID: 3787346725820631185, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: 'setPassives.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 4ac602d559a74914585b48f26e7041c7, type: 2}
+    - target: {fileID: 3787346725820631185, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: 'setPassives.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: 4ac602d559a74914585b48f26e7041c7, type: 2}
     - target: {fileID: 4369443556788299361, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
