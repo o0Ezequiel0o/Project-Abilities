@@ -5,7 +5,7 @@ using Zeke.Collections;
 public class StatusEffectHandler : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private List<StatusEffectData> immunity;
+    private readonly List<StatusEffectData> immunity = new List<StatusEffectData>();
 
     public bool Immune => immunitySources.Count > 0;
 
@@ -130,14 +130,6 @@ public class StatusEffectHandler : MonoBehaviour
     public void RemoveImmunitySource(int ID)
     {
         immunitySources.Remove(ID);
-    }
-
-    private void Awake()
-    {
-        for (int i = 0; i < immunity.Count; i++)
-        {
-            ApplyImmunityToStatusEffect(immunity[i]);
-        }
     }
 
     private void Update()
