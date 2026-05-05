@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DefenseSystemSkillData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Defense System
-  <Description>k__BackingField: 'Entities inside a 1  <i><color=#5A5A5A>(+0.1 per
+  <Description>k__BackingField: 'Entities inside a 1 <i><color=#5A5A5A>(+0.1 per
     level)</color></i> meter radius from the player take damage equal to 1% <color=#5A5A5A>(min
     1)</color> of max shield 4 times per second. '
   <AreaVisual>k__BackingField: {fileID: 7971024379341305370, guid: e6266fd7881e3014bbcdf474adc1648a, type: 3}
