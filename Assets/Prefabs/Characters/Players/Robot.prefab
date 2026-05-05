@@ -64,6 +64,14 @@ PrefabInstance:
       propertyPath: <ShieldRegen>k__BackingField.baseValue
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3787346725820631185, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: setPassives.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787346725820631185, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: 'setPassives.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9fd7cb298affc5743bf79eac3fd82f5f, type: 2}
     - target: {fileID: 4369443556788299361, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

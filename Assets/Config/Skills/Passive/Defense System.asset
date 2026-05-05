@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e495a91724492ac48b79f0c1dbf03531, type: 3}
+  m_Name: Defense System
+  m_EditorClassIdentifier: Assembly-CSharp::DefenseSystemSkillData
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Defense System
+  <Description>k__BackingField: 'Entities inside a 1  <i><color=#5A5A5A>(+0.1 per
+    level)</color></i> meter radius from the player take damage equal to 1% <color=#5A5A5A>(min
+    1)</color> of max shield 4 times per second. '
+  <AreaVisual>k__BackingField: {fileID: 7971024379341305370, guid: e6266fd7881e3014bbcdf474adc1648a, type: 3}
+  <HitLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 256
+  <DamageInterval>k__BackingField: 0.25
+  <MaxShieldDamageRatio>k__BackingField: 0.01
+  <MinDamage>k__BackingField: 1
+  radius:
+    baseValue: 1
+    increase: 0.1
+    valueLimits:
+      min: -Infinity
+      max: Infinity
+  <ArmorPenetration>k__BackingField: 0
+  <ProcCoefficient>k__BackingField: 0.2
