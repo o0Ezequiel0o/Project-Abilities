@@ -13,7 +13,7 @@ public class MapSpawnpoint : Spawnpoint
 
     private Node selectedNode = null;
 
-    private void Start()
+    private void Awake()
     {
         if (mapGenerator == null) return;
 
@@ -57,6 +57,9 @@ public class MapSpawnpoint : Spawnpoint
             if (avaibleNodes.Count == 0)
             {
                 avaibleNodes.AddRange(blockedNodesNow);
+
+                blockedNodesStored.AddRange(blockedNodesNow);
+                blockedNodesNow.Clear();
                 return true;
             }
 
@@ -74,9 +77,6 @@ public class MapSpawnpoint : Spawnpoint
                 selectedNode = randomNode;
             }
         }
-
-        blockedNodesStored.AddRange(blockedNodesNow);
-        blockedNodesNow.Clear();
 
         return false;
     }
