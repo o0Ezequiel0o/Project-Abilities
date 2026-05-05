@@ -36,7 +36,7 @@ namespace Zeke.Items
 
         private void OnTakenDamage(DamageEvent damageEvent)
         {
-            if (damageEvent.SourceUser != null && damageEvent.SourceUser == source) return;
+            if (damageEvent.SourceUser == null || damageEvent.SourceUser == source) return;
 
             if (damageEvent.SourceUser.TryGetComponent(out StatusEffectHandler statusEffectHandler))
             {

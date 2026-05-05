@@ -36,7 +36,6 @@ namespace Zeke.Items
 
         private void OnTakeDamage(DamageEvent damageEvent)
         {
-            if (damageEvent.SourceUser != null && damageEvent.SourceUser == source) return;
             damageEvent.FlatAccumulator -= data.FlatDamageReduction.GetValue(stacks);
         }
     }
