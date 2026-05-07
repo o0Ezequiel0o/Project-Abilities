@@ -140,7 +140,7 @@ namespace Zeke.Abilities.Modules
             for (int i = 0; i < spawnedObjects.Count; i++)
             {
                 DamageData damageData = new DamageData(damage.Value, armorPenetration, procCoefficient);
-                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damageData, knockback, source, TeamManager.GetTeam(source));
+                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damageData, knockback, pierce.ValueInt, source, TeamManager.GetTeam(source));
                 spawnedObjects[i].ColliderEnabled = false;
             }
 
