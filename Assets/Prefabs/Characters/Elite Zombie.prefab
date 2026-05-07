@@ -428,13 +428,13 @@ MonoBehaviour:
   <Settings>k__BackingField: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
   <MaxHealth>k__BackingField:
     baseValue: 300
-    increase: 70
+    increase: 75
     valueLimits:
       min: 0
       max: Infinity
   <MaxShield>k__BackingField:
-    baseValue: 0
-    increase: 0
+    baseValue: 100
+    increase: 25
     valueLimits:
       min: -Infinity
       max: Infinity
@@ -445,8 +445,8 @@ MonoBehaviour:
       min: 0
       max: Infinity
   <ShieldRegen>k__BackingField:
-    baseValue: 0
-    increase: 0
+    baseValue: 1
+    increase: 0.25
     valueLimits:
       min: -Infinity
       max: Infinity
@@ -549,7 +549,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ecac57559e8f541a8efaaa020f5a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  immunity: []
 --- !u!114 &5359202114343581178
 MonoBehaviour:
   m_ObjectHideFlags: 0
