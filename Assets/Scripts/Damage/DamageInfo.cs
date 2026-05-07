@@ -6,6 +6,7 @@ public struct DamageInfo
     public float procCoefficient;
     public float armorPenetration;
 
+    public bool ignoresShield;
     public bool lethal;
     public bool hit;
 
@@ -17,6 +18,7 @@ public struct DamageInfo
         procCoefficient = damageEvent.ProcCoefficient;
         armorPenetration = damageEvent.ArmorPenetration;
 
+        ignoresShield = damageEvent.IgnoresShield;
         lethal = damageEvent.IsLethal;
         hit = damageEvent.IsHit;
 
@@ -29,21 +31,10 @@ public struct DamageInfo
         this.armorPenetration = armorPenetration;
         this.procCoefficient = procCoefficient;
 
+        ignoresShield = false;
         lethal = true;
         hit = true;
 
         direction = Vector3.zero;
-    }
-
-    public static DamageInfo Zero
-    {
-        get
-        {
-            return new DamageInfo(0f, 0f, 0f)
-            {
-                lethal = false,
-                hit = false,
-            };
-        }
     }
 }

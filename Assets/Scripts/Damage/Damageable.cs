@@ -173,19 +173,35 @@ public class Damageable : MonoBehaviour, IUpgradable
         return CalculateHealing(healing);
     }
 
-    private float TakeDamage(float damage, bool lethal)
+    private float TakeDamage(float damage, bool lethal, bool ignoresShield)
     {
-        float damageTaken = Mathf.Min(CombinedHealth, damage);
+        float damageTaken;
 
-        if (!lethal && damageTaken >= CombinedHealth)
+        if (!ignoresShield)
         {
-            damageTaken -= 0.01f;
+            damageTaken = Mathf.Min(CombinedHealth, damage);
+
+            if (!lethal && damageTaken >= CombinedHealth)
+            {
+                damageTaken *= 0.999f;
+            }
+
+            float overflow = GetOverflow(damageTaken, Shield);
+
+            Shield -= damageTaken - overflow;
+            Health -= overflow;
         }
+        else
+        {
+            damageTaken = Mathf.Min(Health, damage);
 
-        float overflow = GetOverflow(damageTaken, Shield);
+            if (!lethal && damageTaken >= Health)
+            {
+                damageTaken *= 0.999f;
+            }
 
-        Shield -= damageTaken - overflow;
-        Health -= overflow;
+            Health -= damageTaken;
+        }
 
         if (damageTaken > 0)
         {
@@ -301,6 +317,8 @@ public class Damageable : MonoBehaviour, IUpgradable
 
         public bool DestroyedShield { get; private set; }
         public bool DeathBlow { get; private set; }
+
+        public bool IgnoresShield { get; private set; }
         public bool IsLethal { get; private set; }
         public bool IsHit { get; private set; }
 
@@ -335,6 +353,8 @@ public class Damageable : MonoBehaviour, IUpgradable
         {
             IsHit = damageInfo.hit;
             IsLethal = damageInfo.lethal;
+            IgnoresShield = damageInfo.ignoresShield;
+
             ProcChainBranch = procChain;
 
             Damage = damageInfo.baseDamage;
@@ -403,7 +423,7 @@ public class Damageable : MonoBehaviour, IUpgradable
             bool hadShield = Receiver.Shield > 0;
 
             Damage = Receiver.CalculateDamage(this);
-            DamageDealt = Receiver.TakeDamage(Damage, IsLethal);
+            DamageDealt = Receiver.TakeDamage(Damage, IsLethal, IgnoresShield);
 
             OverflowDamage = Mathf.Max(0f, Damage - DamageDealt);
 
