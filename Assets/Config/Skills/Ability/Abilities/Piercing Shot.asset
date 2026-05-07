@@ -19,7 +19,7 @@ MonoBehaviour:
     and can pierce up to 1 target <i><color=#5A5A5A>(+1 per level)</color></i>.
   <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
-  <CanHold>k__BackingField: 0
+  <CanHold>k__BackingField: 1
   cooldownTime:
     baseValue: 3
     increase: 0
