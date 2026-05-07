@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Data;
 
 namespace Zeke.Items
 {
@@ -99,6 +100,19 @@ namespace Zeke.Items
         public void StoreData(ItemData itemData, object data)
         {
             storedItemData.Add(itemData, data);
+        }
+
+        public bool GetStoredData<T>(ItemData itemData, out T data)
+        {
+            data = default;
+
+            if (storedItemData.TryGetValue(itemData, out object value))
+            {
+                data = (T)value;
+                return true;
+            }
+
+            return false;
         }
 
         private void Update()
