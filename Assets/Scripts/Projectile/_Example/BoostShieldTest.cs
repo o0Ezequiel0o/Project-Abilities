@@ -22,13 +22,13 @@ public class BoostShieldTest : MonoBehaviour, IProjectileTrigger
         }
 
 
-        projectile.onDespawn += RemoveProjectile;
+        projectile.OnDespawn.AddListener(RemoveProjectile);
         projectilesSpeedChangeAmount.Add(projectile, projectile.Speed - oldSpeed);
     }
 
     public void OnProjectileExit(Projectile projectile)
     {
-        projectile.onDespawn -= RemoveProjectile;
+        projectile.OnDespawn.RemoveListener(RemoveProjectile);
 
         projectile.Speed -= projectilesSpeedChangeAmount[projectile];
         projectilesSpeedChangeAmount.Remove(projectile);

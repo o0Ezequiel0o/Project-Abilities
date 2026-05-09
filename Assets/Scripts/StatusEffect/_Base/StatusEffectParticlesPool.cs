@@ -7,21 +7,21 @@ public class StatusEffectParticlesPool : Singleton<StatusEffectParticlesPool>
 {
     [SerializeField] private List<PreparedEffects> preparedEffects;
 
-    private readonly Dictionary<GameObject, GameObjectPool> particlePools = new Dictionary<GameObject, GameObjectPool>();
+    private readonly Dictionary<GameObject, GameObjectPool<ParticleController>> particlePools = new Dictionary<GameObject, GameObjectPool<ParticleController>>();
 
-    public static GameObject Get(GameObject prefab)
+    public static ParticleController Get(ParticleController controller)
     {
-        return Get(prefab, null);
+        return Get(controller, null);
     }
 
-    public static GameObject Get(GameObject prefab, Transform parent)
+    public static ParticleController Get(ParticleController controller, Transform parent)
     {
-        if (!Instance.particlePools.TryGetValue(prefab, out GameObjectPool pool))
+        if (!Instance.particlePools.TryGetValue(controller.gameObject, out GameObjectPool<ParticleController> pool))
         {
-            Instance.particlePools.Add(prefab, new GameObjectPool());
+            Instance.particlePools.Add(controller.gameObject, new GameObjectPool<ParticleController>());
         }
 
-        return Instance.particlePools[prefab].Get(prefab, parent);
+        return Instance.particlePools[controller.gameObject].Get(controller, parent);
     }
 
     protected override void OnInitialization()
@@ -31,13 +31,13 @@ public class StatusEffectParticlesPool : Singleton<StatusEffectParticlesPool>
             if (preparedEffects[i].prefab == null) continue;
             if (preparedEffects[i].amount <= 0) continue;
 
-            particlePools.Add(preparedEffects[i].prefab, new GameObjectPool());
+            particlePools.Add(preparedEffects[i].prefab.gameObject, new GameObjectPool<ParticleController>());
 
             for (int j = 0; j < preparedEffects[i].amount; j++)
             {
-                GameObject goInstance = Instantiate(preparedEffects[i].prefab);
-                particlePools[preparedEffects[i].prefab].Add(goInstance);
-                goInstance.SetActive(false);
+                ParticleController controller = Instantiate(preparedEffects[i].prefab);
+                particlePools[preparedEffects[i].prefab.gameObject].Add(controller);
+                controller.gameObject.SetActive(false);
             }
         }
 
@@ -62,7 +62,7 @@ public class StatusEffectParticlesPool : Singleton<StatusEffectParticlesPool>
     [Serializable]
     private struct PreparedEffects
     {
-        public GameObject prefab;
+        public ParticleController prefab;
         public int amount;
     }
 }

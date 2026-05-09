@@ -11,10 +11,10 @@ public class Stat : IUpgradable
 
     public static Stat Zero => new(0f, 0f, 0f, 0f);
 
-    public float Value => Mathf.Clamp((baseValue + flatModifier) * multiplier, valueLimits.Min, valueLimits.Max);
+    public float Value => Mathf.Clamp((ScaledBaseValue + flatModifier) * multiplier, valueLimits.Min, valueLimits.Max);
     public int ValueInt => Mathf.FloorToInt(Value);
 
-    public float ExtraValue => (Value - baseValue);
+    public float ExtraValue => (Value - ScaledBaseValue);
 
     public int Level { get; private set; } = 1;
     public Action<StatUpdate> onStatUpdated;
@@ -22,9 +22,11 @@ public class Stat : IUpgradable
     private float flatModifier = 0f;
     private float multiplier = 1f;
 
-    public Stat() { }
+    private float ScaledBaseValue => baseValue + (increase * (Level - 1));
 
     private readonly List<Multiplier> multipliers = new List<Multiplier>();
+
+    public Stat() { }
 
     public Stat(float baseValue, float increase, float min, float max)
     {
@@ -87,13 +89,21 @@ public class Stat : IUpgradable
     public void Upgrade()
     {
         float oldValue = Value;
-        baseValue += increase;
         Level += 1;
 
         if (increase != 0f)
         {
             onStatUpdated?.Invoke(new StatUpdate(oldValue));
         }
+    }
+
+    public void Reset()
+    {
+        onStatUpdated = null;
+        multipliers.Clear();
+        flatModifier = 0f;
+        multiplier = 1f;
+        Level = 1;
     }
 
     private void RecalculateMultiplierValue()

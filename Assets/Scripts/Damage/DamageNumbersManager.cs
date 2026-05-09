@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Zeke.PoolableGameObjects;
 
 public class DamageNumbersManager : Singleton<DamageNumbersManager>
 {
     [Header("Settings")]
-    [SerializeField] private GameObject damageNumberPrefab;
+    [SerializeField] private DamageNumber damageNumberPrefab;
     [SerializeField] private int preWarmAmount = 10;
     [SerializeField] private float duration = 1.5f;
 
@@ -16,11 +15,8 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
 
     public static float Duration => Duration;
 
-    private readonly GameObjectPool<DamageNumber> damageNumbersPool = new GameObjectPool<DamageNumber>();
     private readonly Stack<DamageNumberData> inactiveDamageNumbers = new Stack<DamageNumberData>();
     private readonly List<DamageNumberData> activeDamageNumbers = new List<DamageNumberData>();
-
-    private Canvas worldCanvas;
 
     private float currentTime = 0f;
 
@@ -46,19 +42,30 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
 
     private static void DisplayNumber(Vector3 position, GameObject receiver, float value, float size, Vector2 offset, Color color)
     {
-        DamageNumber damageNumber = GetDamageNumber();
+        DamageNumberData damageNumber;
 
-        InitializeDamageNumber(position, damageNumber, value, size, color);
+        if (Instance.inactiveDamageNumbers.Count <= 0)
+        {
+            damageNumber = new DamageNumberData(CreateDamageNumber());
+
+        }
+        else
+        {
+            damageNumber = Instance.inactiveDamageNumbers.Pop();
+        }
+
+        InitializeDamageNumber(damageNumber.number, position, value, size, color);
         ActivateDamageNumber(damageNumber, receiver, offset);
     }
 
     private void Start()
     {
-        worldCanvas = GameInstance.WorldCanvas;
-
         for (int i = 0; i < preWarmAmount; i++)
         {
-            GetDamageNumber().gameObject.SetActive(false);
+            DamageNumber damageNumber = CreateDamageNumber();
+            damageNumber.gameObject.SetActive(false);
+
+            inactiveDamageNumbers.Push(new DamageNumberData(damageNumber));
         }
     }
 
@@ -68,32 +75,22 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
         UpdateAndRemoveActiveNumbers();
     }
 
-    private static DamageNumber GetDamageNumber()
+    private static DamageNumber CreateDamageNumber()
     {
-        return Instance.damageNumbersPool.Get(Instance.damageNumberPrefab, Instance.worldCanvas.transform);
+        return Instantiate(Instance.damageNumberPrefab, GameInstance.WorldCanvas.transform);
     }
 
-    private static void ActivateDamageNumber(DamageNumber damageNumber, GameObject receiver, Vector2 offset)
+    private static void ActivateDamageNumber(DamageNumberData damageNumberData, GameObject receiver, Vector2 offset)
     {
-        DamageNumberData damageNumberData;
+        damageNumberData.Initialize(receiver, Instance.currentTime, Instance.duration, offset);
 
-        if (Instance.inactiveDamageNumbers.Count <= 0)
-        {
-            damageNumberData = new DamageNumberData(damageNumber, receiver, Instance.currentTime, Instance.duration, offset);
-        }
-        else
-        {
-            damageNumberData = Instance.inactiveDamageNumbers.Pop();
-            damageNumberData.Initialize(damageNumber, receiver, Instance.currentTime, Instance.duration, offset);
-        }
+        damageNumberData.number.gameObject.transform.SetAsLastSibling();
+        damageNumberData.number.gameObject.SetActive(true);
 
         Instance.activeDamageNumbers.Add(damageNumberData);
-
-        damageNumber.gameObject.transform.SetAsLastSibling();
-        damageNumber.gameObject.SetActive(true);
     }
 
-    private static void InitializeDamageNumber(Vector3 position, DamageNumber damageNumber, float damage, float size, Color color)
+    private static void InitializeDamageNumber(DamageNumber damageNumber, Vector3 position, float damage, float size, Color color)
     {
         damageNumber.Initialize(damage, size, color);
         damageNumber.UpdateAlpha(Instance.config.StartAlpha);
@@ -156,14 +153,13 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
 
         public Vector3 offset;
 
-        public DamageNumberData(DamageNumber number, GameObject receiver, float spawnTime, float duration, Vector3 offset)
-        {
-            Initialize(number, receiver, spawnTime, duration, offset);
-        }
-
-        public void Initialize(DamageNumber number, GameObject receiver, float spawnTime, float duration, Vector3 offset)
+        public DamageNumberData(DamageNumber number)
         {
             this.number = number;
+        }
+
+        public void Initialize(GameObject receiver, float spawnTime, float duration, Vector3 offset)
+        {
             this.receiver = receiver;
             this.spawnTime = spawnTime;
             this.offset = offset;

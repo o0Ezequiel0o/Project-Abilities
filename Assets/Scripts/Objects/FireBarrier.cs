@@ -3,7 +3,9 @@ using UnityEngine;
 using Zeke.PoolableGameObjects;
 using Zeke.TeamSystem;
 
-public class FireBarrier : MonoBehaviour, IPoolableGameObjectConfirmator
+//POOL
+
+public class FireBarrier : MonoBehaviour//, IPoolableGameObjectConfirmator
 {
     [Header("Settings")]
     [SerializeField] private LayerMask hitLayer;
@@ -13,7 +15,7 @@ public class FireBarrier : MonoBehaviour, IPoolableGameObjectConfirmator
     [Space]
     [SerializeField] private DespawnAction despawnAction;
 
-    public bool CanGetPoolable => true;
+    //public bool CanGetPoolable => true;
 
     private GameObject source;
     private float duration;
@@ -27,11 +29,11 @@ public class FireBarrier : MonoBehaviour, IPoolableGameObjectConfirmator
     private readonly HashSet<GameObject> ignoreGameObjects = new HashSet<GameObject>();
     private readonly List<Collider2D> hits = new List<Collider2D>();
 
-    public void OnRetrievedFromPool()
-    { 
-        ignoreGameObjects.Clear();
-        despawnTimer = 0f;
-    }
+    //public void OnRetrievedFromPool()
+    //{ 
+    //    ignoreGameObjects.Clear();
+    //    despawnTimer = 0f;
+    //}
 
     public void SetValues(Vector3 position, GameObject source, Vector2 direction, Vector2 size, float duration)
     {

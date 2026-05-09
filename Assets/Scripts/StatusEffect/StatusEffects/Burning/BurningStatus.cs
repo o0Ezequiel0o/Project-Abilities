@@ -15,7 +15,8 @@ public class BurningStatus : StatusEffect
     private int currentTicks = 0;
     private float timer = 0f;
 
-    private GameObject particles;
+    private ParticleController particles;
+    private ParticleController trailParticles;
 
     private readonly Stat.Multiplier damageReceivedMultiplier = new Stat.Multiplier(1);
 
@@ -41,8 +42,16 @@ public class BurningStatus : StatusEffect
         }
 
         particles = StatusEffectParticlesPool.Get(effectData.Particles);
+        trailParticles = StatusEffectParticlesPool.Get(effectData.TrailParticles);
+
         particles.transform.position = Vector3.zero;
-        particles.SetActive(true);
+        trailParticles.transform.position = Vector3.zero;
+
+        particles.gameObject.SetActive(true);
+        trailParticles.gameObject.SetActive(true);
+
+        particles.TriggerParticles();
+        trailParticles.TriggerParticles();
     }
 
     public override void OnStacksApplied(int stacks)
@@ -70,21 +79,43 @@ public class BurningStatus : StatusEffect
 
     public override void OnLateUpdate()
     {
-        if (particles == null) return;
-        particles.transform.position = receiver.transform.position;
+        if (particles != null)
+        {
+            particles.transform.position = receiver.transform.position;
+        }
+
+        if (trailParticles != null)
+        {
+            trailParticles.transform.position = receiver.transform.position;
+        }
     }
 
     public override void OnRemove()
     {
-        if (particles == null) return;
-        particles.SetActive(false);
+        if (particles != null)
+        {
+            particles.StopParticles();
+        }
+        if (trailParticles != null)
+        {
+            trailParticles.StopParticles();
+        }
+
         damageable.DamageReceivedMultiplier.RemoveMultiplier(damageReceivedMultiplier);
     }
 
     public override void OnDestroy()
     {
-        if (particles == null) return;
-        particles.SetActive(false);
+        if (particles != null)
+        {
+            particles.StopParticles();
+        }
+
+        if (trailParticles != null)
+        {
+            trailParticles.StopParticles();
+        }
+
         damageable.DamageReceivedMultiplier.RemoveMultiplier(damageReceivedMultiplier);
     }
 

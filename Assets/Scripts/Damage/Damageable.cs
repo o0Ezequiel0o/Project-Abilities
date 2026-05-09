@@ -242,6 +242,35 @@ public class Damageable : MonoBehaviour, IUpgradable
         return Mathf.Max(0f, damage - health);
     }
 
+    //call when object is disabled from poolableGameObject.cs
+
+    private void ResetValuesToDefault()
+    {
+        //make sure onDespawn is called so stuff unsubscribes
+        //also a lot of stuff doesn't unsubscribe from these events so check that
+
+        MaxHealth.Reset();
+        MaxShield.Reset();
+        HealthRegen.Reset();
+        ShieldRegen.Reset();
+        Armor.Reset();
+
+        DamageReceivedMultiplier.Reset();
+        HealingReceivedMultiplier.Reset();
+        ShieldReceivedMultiplier.Reset();
+
+        Health = MaxHealth.Value;
+        Shield = MaxShield.Value;
+
+        immunitySources.Clear();
+        regenTimer = 0f;
+
+        //for when revived
+
+        //IsAlive = true;
+        //MarkedForDeath = false;
+    }
+
     private void Awake()
     {
         Health = MaxHealth.Value;

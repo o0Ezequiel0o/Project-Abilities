@@ -37,7 +37,11 @@ namespace Zeke.Abilities.Modules
 
         public override void Deactivate()
         {
-            spinnerInstance.DisablePivotChildren();
+            for (int i = 0; i < spinnerInstance.Pool.BusyCount; i++)
+            {
+                SpinnerProjectile projectile = spinnerInstance.Pool.GetActive(i);
+                projectile.Despawn();
+            }
         }
 
         public override void UpdateActive()

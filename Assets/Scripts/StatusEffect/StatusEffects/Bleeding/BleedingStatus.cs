@@ -60,9 +60,10 @@ public class BleedingStatus : StatusEffect
 
     private void SpawnBloodStain()
     {
-        GameObject newBloodStain = StatusEffectParticlesPool.Get(effectData.StainParticles);
+        ParticleController newBloodStain = StatusEffectParticlesPool.Get(effectData.StainParticles);
         newBloodStain.transform.position = receiver.transform.position;
-        newBloodStain.SetActive(true);
+        newBloodStain.gameObject.SetActive(true);
+        newBloodStain.TriggerParticles();
     }
 
     private void UpdateTicks()

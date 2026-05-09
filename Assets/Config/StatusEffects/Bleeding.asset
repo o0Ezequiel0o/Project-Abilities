@@ -21,7 +21,7 @@ MonoBehaviour:
     rid: 2308102863504277879
   <MaxDamage>k__BackingField:
     rid: 2308102863504277880
-  <StainParticles>k__BackingField: {fileID: 4495174346934379719, guid: 77fe2d29d7a41ef41b5b4526d625fd10, type: 3}
+  <StainParticles>k__BackingField: {fileID: 1479305423941275842, guid: 77fe2d29d7a41ef41b5b4526d625fd10, type: 3}
   references:
     version: 2
     RefIds:

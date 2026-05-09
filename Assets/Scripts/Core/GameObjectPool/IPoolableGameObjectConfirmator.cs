@@ -1,8 +1,13 @@
+using System;
+
 namespace Zeke.PoolableGameObjects
 {
     public interface IPoolableGameObjectConfirmator
     {
-        public bool CanGetPoolable { get; }
+        public Action<IPoolableGameObjectConfirmator> PoolableReady { get; set; }
+        public Action<IPoolableGameObjectConfirmator> PoolableBusy { get; set; }
+
+        public void OnSentToPool();
 
         public void OnRetrievedFromPool();
     }

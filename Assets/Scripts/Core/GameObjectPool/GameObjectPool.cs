@@ -1,105 +1,55 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 namespace Zeke.PoolableGameObjects
 {
-    public class GameObjectPool
+    public interface IGameObjectPool
     {
-        private readonly List<PoolableGameObject> poolableGameObjects = new List<PoolableGameObject>();
+        public abstract void Release(PoolableGameObject poolable);
 
-        public GameObject Get()
-        {
-            for (int i = 0; i < poolableGameObjects.Count; i++)
-            {
-                if (poolableGameObjects[i].CanRetrieve())
-                {
-                    poolableGameObjects[i].OnRetrievedFromPool();
-                    return poolableGameObjects[i].gameObject;
-                }
-            }
-
-            return null;
-        }
-
-        public GameObject Get(GameObject prefab)
-        {
-            return Get(prefab, null);
-        }
-
-        public GameObject Get(GameObject prefab, Transform parent)
-        {
-            GameObject poolObject = Get();
-
-            if (poolObject != null)
-            {
-                poolObject.transform.SetParent(parent);
-                return poolObject;
-            }
-
-            poolObject = UnityEngine.Object.Instantiate(prefab, parent);
-
-            if (Add(poolObject)) return poolObject;
-
-            throw new NullReferenceException(prefab.name + " is not a PoolableGameObject");
-        }
-
-        public bool Add(GameObject gameObject)
-        {
-            if (gameObject.TryGetComponent(out PoolableGameObject poolableGameObject))
-            {
-                poolableGameObjects.Add(poolableGameObject);
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool Remove(GameObject gameObject)
-        {
-            return Remove(gameObject, false);
-        }
-
-        public bool Remove(GameObject gameObject, bool destroy)
-        {
-            if (!gameObject.TryGetComponent(out PoolableGameObject poolableGameObject)) return false;
-
-            for (int i = 0; i < poolableGameObjects.Count; i++)
-            {
-                if (poolableGameObjects[i] == poolableGameObject)
-                {
-                    if (destroy) UnityEngine.Object.Destroy(poolableGameObjects[i].gameObject);
-
-                    poolableGameObjects.RemoveAt(i);
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public void Clear()
-        {
-            for (int i = 0; i < poolableGameObjects.Count; i++)
-            {
-                if (poolableGameObjects[i]== null) continue;
-                poolableGameObjects[i].OnPoolDestroyed();
-            }
-            poolableGameObjects.Clear();
-        }
+        public abstract void Remove(PoolableGameObject poolable);
     }
 
-    public class GameObjectPool<T> where T : Component
+    public class GameObjectPool<T> : IGameObjectPool where T : Component
     {
-        private readonly List<ComponentGameObjectLink> poolableGameObjects = new List<ComponentGameObjectLink>();
+        private readonly Stack<ComponentGameObjectLink> free = new Stack<ComponentGameObjectLink>();
+        private readonly List<ComponentGameObjectLink> busy = new List<ComponentGameObjectLink>();
 
-        public int Count => poolableGameObjects.Count;
+        public int BusyCount => busy.Count;
+        public int FreeCount => free.Count;
 
-        public T this[int index]
+        public T GetActive(int index) => busy[index].component;
+
+        public void Release(PoolableGameObject poolable)
         {
-            get
+            for (int i = 0; i < busy.Count; i++)
             {
-                return poolableGameObjects[index].component;
+                if (busy[i].poolableGameObject == poolable)
+                {
+                    free.Push(busy[i]);
+                    busy.RemoveAt(i);
+
+                    poolable.OnReleased();
+
+                    break;
+                }
+            }
+        }
+
+        public void Remove(PoolableGameObject poolable)
+        {
+            for (int i = 0; i < busy.Count; i++)
+            {
+                if (busy[i].poolableGameObject == poolable)
+                {
+                    busy.RemoveAt(i);
+
+                    poolable.onRelease -= Release;
+                    poolable.onDestroy -= Remove;
+
+                    break;
+                }
             }
         }
 
@@ -108,16 +58,14 @@ namespace Zeke.PoolableGameObjects
         /// </summary>
         public T Get()
         {
-            for (int i = 0; i < poolableGameObjects.Count; i++)
-            {
-                if (poolableGameObjects[i].poolableGameObject.CanRetrieve())
-                {
-                    poolableGameObjects[i].poolableGameObject.OnRetrievedFromPool();
-                    return poolableGameObjects[i].component;
-                }
-            }
+            if (free.Count == 0) return null;
 
-            return null;
+            ComponentGameObjectLink linkedGO = free.Pop();
+
+            linkedGO.poolableGameObject.OnRetrievedFromPool();
+            busy.Add(linkedGO);
+
+            return linkedGO.component;
         }
 
         /// <summary>
@@ -163,7 +111,7 @@ namespace Zeke.PoolableGameObjects
 
             GameObject gameObject = UnityEngine.Object.Instantiate(prefab, parent);
 
-            if (Add(gameObject)) return poolableGameObjects[^1].component;
+            if (Add(gameObject)) return Get();
 
             throw new NullReferenceException(prefab.name + " is not a PoolableGameObject or contains component of type " + typeof(T));
         }
@@ -177,31 +125,12 @@ namespace Zeke.PoolableGameObjects
         {
             if (gameObject.TryGetComponent(out PoolableGameObject poolableGameObject) && gameObject.TryGetComponent(out T component))
             {
-                poolableGameObjects.Add(new ComponentGameObjectLink(component, poolableGameObject));
+                free.Push(new ComponentGameObjectLink(component, poolableGameObject));
+
+                poolableGameObject.onRelease += Release;
+                poolableGameObject.onDestroy += Remove;
+
                 return true;
-            }
-
-            return false;
-        }
-
-        public bool Remove(GameObject gameObject)
-        {
-            return Remove(gameObject, false);
-        }
-
-        public bool Remove(GameObject gameObject, bool destroy)
-        {
-            if (!gameObject.TryGetComponent(out PoolableGameObject poolableGameObject)) return false;
-
-            for (int i = 0; i < poolableGameObjects.Count; i++)
-            {
-                if (poolableGameObjects[i].poolableGameObject == poolableGameObject)
-                {
-                    if (destroy) UnityEngine.Object.Destroy(poolableGameObjects[i].poolableGameObject.gameObject);
-
-                    poolableGameObjects.RemoveAt(i);
-                    return true;
-                }
             }
 
             return false;
@@ -209,12 +138,29 @@ namespace Zeke.PoolableGameObjects
 
         public void Clear()
         {
-            for (int i = 0; i < poolableGameObjects.Count; i++)
+            while (free.Count > 0)
             {
-                if (poolableGameObjects[i].poolableGameObject == null) continue;
-                poolableGameObjects[i].poolableGameObject.OnPoolDestroyed();
+                ComponentGameObjectLink linkedGO = free.Pop();
+                if (linkedGO.poolableGameObject == null) continue;
+
+                linkedGO.poolableGameObject.onDestroy -= Remove;
+                linkedGO.poolableGameObject.onRelease -= Release;
+
+                linkedGO.poolableGameObject.OnPoolDestroyed();
             }
-            poolableGameObjects.Clear();
+
+            for (int i = 0; i < busy.Count; i++)
+            {
+                if (busy[i].poolableGameObject == null) continue;
+
+                busy[i].poolableGameObject.onDestroy -= Remove;
+                busy[i].poolableGameObject.onRelease -= Release;
+
+                busy[i].poolableGameObject.OnPoolDestroyed();
+            }
+
+            free.Clear();
+            busy.Clear();
         }
 
         private readonly struct ComponentGameObjectLink

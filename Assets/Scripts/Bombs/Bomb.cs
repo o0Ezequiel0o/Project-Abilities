@@ -1,12 +1,13 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Zeke.PoolableGameObjects;
 using Zeke.TeamSystem;
 
 public abstract class Bomb : MonoBehaviour, IPoolableGameObjectConfirmator
 {
     [SerializeField] private LayerMask hitLayers;
-    [SerializeField] private DespawnAction despawnAction;
 
     [Space]
 
@@ -14,7 +15,11 @@ public abstract class Bomb : MonoBehaviour, IPoolableGameObjectConfirmator
     [SerializeField] protected float armorPenetration;
     [SerializeField] protected float procCoefficient;
 
-    public bool CanGetPoolable => true;
+    [field: Header("Events")]
+    [field: SerializeField] public UnityEvent<Bomb> OnDespawn { get; private set; }
+
+    public Action<IPoolableGameObjectConfirmator> PoolableReady { get; set; }
+    public Action<IPoolableGameObjectConfirmator> PoolableBusy { get; set; }
 
     protected GameObject source;
     protected Teams team;
@@ -26,11 +31,13 @@ public abstract class Bomb : MonoBehaviour, IPoolableGameObjectConfirmator
     private bool fuseStarted = false;
     private float fuseTimer = 0f;
 
-    public virtual void OnRetrievedFromPool()
+    public virtual void OnSentToPool()
     {
         fuseStarted = false;
         fuseTimer = 0f;
     }
+
+    public virtual void OnRetrievedFromPool() { }
 
     public void StartFuse(float duration, float damage, float radius, GameObject source, Teams team)
     {
@@ -88,15 +95,7 @@ public abstract class Bomb : MonoBehaviour, IPoolableGameObjectConfirmator
 
     private void Despawn()
     {
-        switch (despawnAction)
-        {
-            case DespawnAction.Destroy:
-                Destroy(gameObject);
-                break;
-
-            case DespawnAction.Disable:
-                gameObject.SetActive(false);
-                break;
-        }
+        OnDespawn?.Invoke(this);
+        PoolableReady?.Invoke(this);
     }
 }

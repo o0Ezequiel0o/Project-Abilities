@@ -15,7 +15,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 21300000, guid: b6de3ee85f6ce3e4b881f3d453623b3c, type: 3}
   <MaxStacks>k__BackingField: 100
   <StatusEffectType>k__BackingField: 2
-  <Particles>k__BackingField: {fileID: 5858856877039675562, guid: b19a0e4ade462874898bdf4be3107fa0, type: 3}
+  <Particles>k__BackingField: {fileID: 2908079372951929220, guid: b19a0e4ade462874898bdf4be3107fa0, type: 3}
+  <TrailParticles>k__BackingField: {fileID: 7869868662664362209, guid: b91fed7bc354bd74c8918088fd7399bb, type: 3}
   <Damage>k__BackingField: 3
   <TickTime>k__BackingField: 1
   <Ticks>k__BackingField: 5

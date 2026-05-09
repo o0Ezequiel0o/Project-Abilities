@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zeke.PoolableGameObjects;
 
@@ -5,11 +6,17 @@ public class SoundInstance : MonoBehaviour, IPoolableGameObjectConfirmator
 {
     [SerializeField] private AudioSource audioSource;
 
+    public Action<IPoolableGameObjectConfirmator> PoolableReady { get; set; }
+    public Action<IPoolableGameObjectConfirmator> PoolableBusy { get; set; }
+
     private bool startedPlaying = false;
 
-    public bool CanGetPoolable => startedPlaying && !audioSource.isPlaying;
-
     public void OnRetrievedFromPool() { }
+
+    public void OnSentToPool()
+    {
+        startedPlaying = false;
+    }
 
     private void Update()
     {
@@ -17,12 +24,14 @@ public class SoundInstance : MonoBehaviour, IPoolableGameObjectConfirmator
         {
             if (!startedPlaying)
             {
+                PoolableBusy.Invoke(this);
                 startedPlaying = true;
             }
         }
         else if (startedPlaying)
         {
-            gameObject.SetActive(false);
+            PoolableReady?.Invoke(this);
+            startedPlaying = false;
         }
     }
 }

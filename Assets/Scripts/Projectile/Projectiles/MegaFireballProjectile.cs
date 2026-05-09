@@ -9,9 +9,7 @@ public class MegaFireballProjectile : DamageProjectileBase
 
     [Header("Mega Fireball | Settings")]
     [SerializeField] public StatusEffectData statusEffectToApply;
-    [SerializeField] private GameObject fireballsPrefab;
-
-    public override bool CanGetPoolable => base.CanGetPoolable && activeFireballs.Count == 0;
+    [SerializeField] private FireBallProjectile fireballsPrefab;
 
     private float damageRadius;
 
@@ -19,7 +17,7 @@ public class MegaFireballProjectile : DamageProjectileBase
     private float anglePerFireball;
 
     private readonly List<Collider2D> hits = new List<Collider2D>();
-    private readonly GameObjectPool fireballsPool = new GameObjectPool();
+    private readonly GameObjectPool<FireBallProjectile> fireballsPool = new GameObjectPool<FireBallProjectile>();
     private readonly HashSet<Projectile> activeFireballs = new HashSet<Projectile>();
 
     public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange, DamageData damageData, float knockback, float damageRadius, int fireballsAmount, GameObject source, Teams team)
@@ -30,6 +28,8 @@ public class MegaFireballProjectile : DamageProjectileBase
         anglePerFireball = 360 / Mathf.Max(1, fireballsAmount);
         Launch(position, speed, direction, maxRange, damageData, knockback, source, team);
     }
+
+    protected override void OnDespawned() { }
 
     protected override void OnCollision(RaycastHit2D hit)
     {
@@ -94,26 +94,23 @@ public class MegaFireballProjectile : DamageProjectileBase
     {
         for (int i = 0; i < fireballsAmount; i++)
         {
-            GameObject fireball = GetNewFireballProjectile();
+            FireBallProjectile fireball = GetNewFireballProjectile();
 
             float theta = (i + 1) * anglePerFireball * Mathf.PI / 180;
             Vector2 direction = new Vector2(Mathf.Cos(theta), Mathf.Sin(theta));
 
-            if (fireball.TryGetComponent(out FireBallProjectile fireballProjectile))
-            {
-                DamageData fireballProjectileDamageData = new DamageData(Damage * 5f, armorPenetration, procCoefficient);
-                fireballProjectile.Launch(TipPosition, Speed * .5f, direction, MaxRange * .5f, fireballProjectileDamageData, damageRadius * .5f, SourceUser, Team);
-                fireballProjectile.onDespawn += RemoveFromActiveFireballs;
-                activeFireballs.Add(fireballProjectile);
-            }
+            DamageData fireballProjectileDamageData = new DamageData(Damage * 5f, armorPenetration, procCoefficient);
+            fireball.Launch(TipPosition, Speed * .5f, direction, MaxRange * .5f, fireballProjectileDamageData, damageRadius * .5f, SourceUser, Team);
+            fireball.OnDespawn.AddListener(RemoveFromActiveFireballs);
+            activeFireballs.Add(fireball);
 
-            fireball.SetActive(true);
+            fireball.gameObject.SetActive(true);
         }
     }
 
-    private GameObject GetNewFireballProjectile()
+    private FireBallProjectile GetNewFireballProjectile()
     {
-        GameObject fireball = fireballsPool.Get();
+        FireBallProjectile fireball = fireballsPool.Get();
 
         if (fireball == null)
         {
@@ -126,7 +123,12 @@ public class MegaFireballProjectile : DamageProjectileBase
 
     private void RemoveFromActiveFireballs(Projectile projectile)
     {
-        projectile.onDespawn -= RemoveFromActiveFireballs;
+        projectile.OnDespawn.RemoveListener(RemoveFromActiveFireballs);
         activeFireballs.Remove(projectile);
+
+        if (activeFireballs.Count <= 0)
+        {
+            PoolableReady?.Invoke(this);
+        }
     }
 }

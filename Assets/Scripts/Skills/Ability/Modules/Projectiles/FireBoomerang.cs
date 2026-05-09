@@ -29,7 +29,7 @@ namespace Zeke.Abilities.Modules.Projectiles
             projectile.Launch(position, speed, direction, maxRange, damageData, knockback, source, team);
             projectile.gameObject.SetActive(true);
 
-            projectile.onDespawn += OnProjectileDespawn;
+            projectile.OnDespawn.AddListener(OnProjectileDespawn);
             currentProjectiles += 1;
         }
 
@@ -41,7 +41,7 @@ namespace Zeke.Abilities.Modules.Projectiles
 
         private void OnProjectileDespawn(Projectile projectile)
         {
-            projectile.onDespawn -= OnProjectileDespawn;
+            projectile.OnDespawn.RemoveListener(OnProjectileDespawn);
             currentProjectiles -= 1;
         }
     }

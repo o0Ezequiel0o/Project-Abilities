@@ -9,6 +9,8 @@ public class Spinner<T> where T : Component
     public Transform Pivot { get; private set; }
 
     public Action<List<T>> onInitialization;
+    public GameObjectPool<T> Pool => objectPool;
+
     private readonly GameObjectPool<T> objectPool = new GameObjectPool<T>();
 
     public void InitializeSpinner(Transform pivotParent, T prefab, float distance, float speed, int amount)

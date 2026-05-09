@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 using Zeke.PoolableGameObjects;
+using UnityEngine.Events;
 
 public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
 {
@@ -20,10 +21,7 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
     [SerializeField] protected LayerMask blockLayer;
 
     [Header("Despawn")]
-
-    [SerializeField] private DespawnAction despawnAction;
-
-    public virtual bool CanGetPoolable => true;
+    [field: SerializeField] public UnityEvent<Projectile> OnDespawn { get; private set; }
 
     public float Speed { get; set; }
     public float MaxRange { get; set; }
@@ -35,7 +33,8 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
 
     public virtual Vector3 Direction { get; protected set; }
 
-    public Action<Projectile> onDespawn;
+    public Action<IPoolableGameObjectConfirmator> PoolableReady { get; set; }
+    public Action<IPoolableGameObjectConfirmator> PoolableBusy { get; set; }
 
     protected readonly QuickLookupList<GameObject, IProjectileTrigger> objectsNotExited = new QuickLookupList<GameObject, IProjectileTrigger>();
     protected readonly HashSet<GameObject> objectsHit = new HashSet<GameObject>();
@@ -55,6 +54,8 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
     private bool stopLoopingHits = false;
     private bool despawnThisFrame = false;
 
+    private bool despawned = false;
+
     private readonly List<RaycastHit2D> hits = new List<RaycastHit2D>();
 
     private LayerMask CollideLayers
@@ -64,6 +65,8 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
             return hitLayer | blockLayer;
         }
     }
+
+    public virtual void OnSentToPool() { }
 
     public virtual void OnRetrievedFromPool()
     {
@@ -79,6 +82,8 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
 
         objectsHit.Clear();
         objectsNotExited.Clear();
+
+        despawned = false;
     }
 
     public void Launch(Vector3 position, float speed, Vector2 direction, float maxRange)
@@ -90,6 +95,15 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
 
         ResetPositionAndRotation(position, GetRotation(direction));
         OnLaunch(position, speed, direction, maxRange);
+    }
+
+    public void Despawn()
+    {
+        if (despawned) return;
+
+        StopLoopingHits();
+        despawnCanceled = false;
+        despawnThisFrame = true;
     }
 
     public void Teleport(Vector3 newPosition)
@@ -105,7 +119,10 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
         despawnCanceled = true;
     }
 
-    protected virtual void OnDespawn() { }
+    protected virtual void OnDespawned()
+    {
+        PoolableReady?.Invoke(this);
+    }
 
     protected virtual void OnMaxDistanceReached()
     {
@@ -120,7 +137,7 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
     {
         if (despawnCalled) return;
         TriggerAllProjectilesExit();
-        onDespawn?.Invoke(this);
+        OnDespawn?.Invoke(this);
     }
 
     protected bool InLayerMask(GameObject hit, LayerMask layerMask)
@@ -160,13 +177,6 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
         transform.position = position;
     }
 
-    protected void Despawn()
-    {
-        StopLoopingHits();
-        despawnCanceled = false;
-        despawnThisFrame = true;
-    }
-
     private void ProccessDespawn()
     {
         despawnThisFrame = false;
@@ -179,20 +189,12 @@ public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
 
         TriggerAllProjectilesExit();
 
-        switch (despawnAction)
-        {
-            case DespawnAction.Destroy:
-                Destroy(gameObject);
-                break;
-
-            case DespawnAction.Disable:
-                gameObject.SetActive(false);
-                break;
-        }
-
-        onDespawn?.Invoke(this);
         despawnCalled = true;
-        OnDespawn();
+
+        OnDespawn?.Invoke(this);
+        OnDespawned();
+
+        despawned = true;
     }
 
     protected virtual void Update()

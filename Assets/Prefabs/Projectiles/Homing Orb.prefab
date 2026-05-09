@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6408636530417600141}
   - component: {fileID: 7762828720704906864}
   - component: {fileID: -1221922450799852821}
-  - component: {fileID: -8700968646960033094}
   - component: {fileID: -7814550754681179852}
   - component: {fileID: 5869921756541245705}
+  - component: {fileID: -2132641392141199914}
   m_Layer: 0
   m_Name: Homing Orb
   m_TagString: Untagged
@@ -116,31 +116,50 @@ MonoBehaviour:
   blockLayer:
     serializedVersion: 2
     m_Bits: 128
-  despawnAction: 1
-  armorPenetration: 0
-  procCoefficient: 1
-  knockback: 1
+  <OnDespawn>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7762828720704906864}
+        m_TargetAssemblyTypeName: UnityEngine.SpriteRenderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -1221922450799852821}
+        m_TargetAssemblyTypeName: HomingOrbProjectile, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -2132641392141199914}
+        m_TargetAssemblyTypeName: ParticleController, Assembly-CSharp
+        m_MethodName: TriggerParticles
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  allyCollision: 0
   speedIncreaseRate: 6
   speedCap: 20
   startRotationSpeed: 90
   rotationSpeedIncreaseRate: 180
-  pierce: -1
---- !u!114 &-8700968646960033094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5071053083290797565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b554641d3d0dea54a960bcc78c8a5880, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ParticleHandler
-  particles: {fileID: 1188340974147852463, guid: f49eb439a17d5684c86f682305b1dd60, type: 3}
-  offset: {x: 0, y: 0, z: 0}
-  start: 2
-  stop: 4
 --- !u!114 &-7814550754681179852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,7 +172,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b640a9d43c55f1443a2893329c2d1dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoolableGameObject
-  checkDisabled: 1
+  onRetrieved:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7762828720704906864}
+        m_TargetAssemblyTypeName: UnityEngine.SpriteRenderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: -1221922450799852821}
+        m_TargetAssemblyTypeName: HomingOrbProjectile, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onReleased:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5869921756541245705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,3 +214,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d72da4f93a17f448a177653c387d823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrbIdentifier
+--- !u!114 &-2132641392141199914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5071053083290797565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b554641d3d0dea54a960bcc78c8a5880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleController
+  particlesPrefab: {fileID: 1188340974147852463, guid: f49eb439a17d5684c86f682305b1dd60, type: 3}
+  offset: {x: 0, y: 0, z: 0}
+  follow: 0

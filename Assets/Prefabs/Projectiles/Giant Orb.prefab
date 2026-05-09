@@ -115,10 +115,34 @@ MonoBehaviour:
   blockLayer:
     serializedVersion: 2
     m_Bits: 128
-  despawnAction: 1
-  armorPenetration: 0
-  procCoefficient: 1
-  knockback: 25
+  <OnDespawn>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5016731470959257842}
+        m_TargetAssemblyTypeName: UnityEngine.SpriteRenderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1995363315318189085}
+        m_TargetAssemblyTypeName: GiantOrbProjectile, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  allyCollision: 0
   homingOrbPrefab: {fileID: -1221922450799852821, guid: a67f971b497c47d47b6375ef17ade2b6, type: 3}
   fireHomingOrbCooldown: 0.15
   findTargetRadius: 10
@@ -140,7 +164,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b640a9d43c55f1443a2893329c2d1dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoolableGameObject
-  checkDisabled: 1
+  onRetrieved:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5016731470959257842}
+        m_TargetAssemblyTypeName: UnityEngine.SpriteRenderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1995363315318189085}
+        m_TargetAssemblyTypeName: GiantOrbProjectile, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onReleased:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-6168006881204661724
 MonoBehaviour:
   m_ObjectHideFlags: 0

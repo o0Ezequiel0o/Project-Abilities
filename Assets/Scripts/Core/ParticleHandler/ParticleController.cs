@@ -1,111 +1,87 @@
+using System;
 using UnityEngine;
 using Zeke.PoolableGameObjects;
 
 public class ParticleController : MonoBehaviour, IPoolableGameObjectConfirmator
 {
-    [SerializeField] private ParticleSystem particles;
+    [SerializeField] private ParticleSystem particlesPrefab;
     [SerializeField] private Vector3 offset;
 
     [Space]
 
-    [SerializeField] private StartTrigger start = StartTrigger.OnEnable;
-    [SerializeField] private StopTrigger stop = StopTrigger.Finished;
+    [SerializeField] private bool follow;
 
-    public bool CanGetPoolable
-    {
-        get
-        {
-            if (particleInstance == null)
-            {
-                return true;
-            }
-
-            return !particleInstance.IsAlive();
-        }
-    }
+    public Action<IPoolableGameObjectConfirmator> PoolableReady { get; set; }
+    public Action<IPoolableGameObjectConfirmator> PoolableBusy { get; set; }
 
     private ParticleSystem particleInstance;
+    private bool isRunning = false;
 
     public void OnRetrievedFromPool() { }
 
+    public void OnSentToPool() { }
+
+    public void TriggerParticles()
+    {
+        if (particleInstance == null) return;
+
+        particleInstance.transform.position = gameObject.transform.position;
+        particleInstance.gameObject.SetActive(true);
+        particleInstance.Play();
+        isRunning = true;
+
+        PoolableBusy?.Invoke(this);
+    }
+
+    public void StopParticles()
+    {
+        if (particleInstance == null) return;
+
+        particleInstance.gameObject.SetActive(false);
+        particleInstance.Stop();
+        isRunning = false;
+
+        PoolableReady?.Invoke(this);
+    }
+
     private void Awake()
     {
-        particleInstance = Instantiate(particles);
+        particleInstance = Instantiate(particlesPrefab);
         particleInstance.gameObject.SetActive(false);
 
         ParticleSystem.MainModule main = particleInstance.main;
         main.stopAction = ParticleSystemStopAction.Disable;
     }
 
-    private void Start()
+    private void Update()
     {
-        if (particleInstance == null) return;
-        TriggerStartEvent(StartTrigger.Start);
-        TriggerStopEvent(StopTrigger.Start);
+        if (!isRunning || particleInstance.IsAlive()) return;
+
+        particleInstance.gameObject.SetActive(false);
+        particleInstance.Stop();
+        isRunning = false;
+
+        PoolableReady?.Invoke(this);
     }
 
-    private void OnEnable()
+    private void LateUpdate()
     {
-        if (particleInstance == null) return;
-        TriggerStartEvent(StartTrigger.OnEnable);
-        TriggerStopEvent(StopTrigger.OnEnable);
-    }
-
-    private void OnDisable()
-    {
-        if (particleInstance == null) return;
-        TriggerStartEvent(StartTrigger.OnDisable);
-        TriggerStopEvent(StopTrigger.OnDisable);
+        if (particleInstance == null && isRunning && follow) return;
+        particleInstance.transform.position = transform.position + offset;
     }
 
     private void OnDestroy()
     {
         if (particleInstance == null) return;
-        TriggerStartEvent(StartTrigger.OnDestroy);
-        TriggerStopEvent(StopTrigger.OnDestroy);
 
-        ParticleSystem.MainModule main = particleInstance.main;
-        main.stopAction = ParticleSystemStopAction.Destroy;
-    }
-
-    private void LateUpdate()
-    {
-        if (particleInstance == null) return;
-        particleInstance.transform.position = transform.position + offset;
-    }
-
-    private void TriggerStartEvent(StartTrigger eventType)
-    {
-        if (start == eventType)
+        if (particleInstance.isPlaying)
         {
-            particleInstance.gameObject.SetActive(true);
-            particleInstance.Play();
+            ParticleSystem.MainModule main = particleInstance.main;
+            main.stopAction = ParticleSystemStopAction.Destroy;
         }
-    }
-
-    private void TriggerStopEvent(StopTrigger eventType)
-    {
-        if (stop == eventType)
+        else
         {
-            particleInstance.Stop();
-            particleInstance.gameObject.SetActive(false);
+            Destroy(particleInstance.gameObject);
         }
-    }
-
-    private enum StartTrigger
-    {
-        Start,
-        OnEnable,
-        OnDisable,
-        OnDestroy,
-    }
-
-    private enum StopTrigger
-    {
-        Start,
-        OnEnable,
-        OnDisable,
-        OnDestroy,
-        Finished
     }
 }

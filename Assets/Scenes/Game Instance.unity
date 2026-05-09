@@ -458,6 +458,8 @@ MonoBehaviour:
     amount: 50
   - prefab: {fileID: 4495174346934379719, guid: 77fe2d29d7a41ef41b5b4526d625fd10, type: 3}
     amount: 50
+  - prefab: {fileID: 7869868662664362209, guid: b91fed7bc354bd74c8918088fd7399bb, type: 3}
+    amount: 50
 --- !u!1 &1287713664
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,7 +787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6da7fb7793ad274895f3e75755de58d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageNumberPrefab: {fileID: 2116738366424433878, guid: afa099423fe26634a81eb4dbb2e08978, type: 3}
+  damageNumberPrefab: {fileID: 4213150253408556074, guid: afa099423fe26634a81eb4dbb2e08978, type: 3}
   preWarmAmount: 50
   duration: 0.8
   config: {fileID: 11400000, guid: a330fcacc9b18ef4ba3f998e819efd4e, type: 2}
