@@ -15,31 +15,36 @@ public static class NumberFormatter
 
     public static string FormatNumber(float number)
     {
+        return FormatNumber(number, DEFAULT_MAX_LENGTH);
+    }
+
+    public static string FormatNumber(float number, int maxLength)
+    {
         text.Clear();
 
         if (number < Thousand)
         {
             text.Append(number);
-            return CapLength(text).ToString();
+            return CapLength(text, maxLength).ToString();
         }
         else if (number < Million)
         {
             text.Append(number / Thousand);
-            return CapLength(text).Append("k").ToString();
+            return CapLength(text, maxLength).Append("k").ToString();
         }
         else if (number < Billion)
         {
             text.Append(number / Million);
-            return CapLength(text).Append("m").ToString();
+            return CapLength(text, maxLength).Append("m").ToString();
         }
         else
         {
             text.Append(number / Billion);
-            return CapLength(text).Append("b").ToString();
+            return CapLength(text, maxLength).Append("b").ToString();
         }
     }
 
-    private static StringBuilder CapLength(StringBuilder stringBuilder)
+    private static StringBuilder CapLength(StringBuilder stringBuilder, int maxLength)
     {
         cappedText.Clear();
         commaText.Clear();
@@ -47,7 +52,7 @@ public static class NumberFormatter
         bool commaValue = false;
         bool commaValuesZero = true;
 
-        int maxLoops = DEFAULT_MAX_LENGTH;
+        int maxLoops = maxLength;
 
         for (int i = 0; i < stringBuilder.Length; i++)
         {
