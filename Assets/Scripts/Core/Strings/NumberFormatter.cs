@@ -2,9 +2,9 @@ using System.Text;
 
 public static class NumberFormatter
 {
-    private static StringBuilder cappedText = new StringBuilder(16);
-    private static StringBuilder commaText = new StringBuilder(16);
-    private static StringBuilder text = new StringBuilder(16);
+    private static readonly StringBuilder cappedText = new StringBuilder(16);
+    private static readonly StringBuilder commaText = new StringBuilder(16);
+    private static readonly StringBuilder text = new StringBuilder(16);
 
     private static float Hundred => 100f;
     private static float Thousand => 1000f;
