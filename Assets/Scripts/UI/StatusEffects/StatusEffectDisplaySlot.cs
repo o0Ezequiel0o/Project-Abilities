@@ -24,11 +24,11 @@ public class StatusEffectDisplaySlot : MonoBehaviour
     {
         if (stacks == 1)
         {
-            stacksText.text = string.Empty;
+            stacksText.SetText(string.Empty);
         }
         else
         {
-            stacksText.text = stacks.ToString();
+            stacksText.SetText(NumberFormatter.FormatNumber(stacks));
         }
     }
 }
