@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 7452562510971966217}
   - component: {fileID: -7882419045995171510}
   - component: {fileID: 108859267500074294}
+  - component: {fileID: -5244294688078608144}
   - component: {fileID: 7648585092559927398}
   - component: {fileID: 3494898662879718562}
   - component: {fileID: 6656351697229743751}
@@ -377,6 +378,21 @@ MonoBehaviour:
     valueLimits:
       min: -Infinity
       max: Infinity
+--- !u!114 &-5244294688078608144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218312312708394220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a1c7784f7bcd74da77abb1631b8d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExperienceDecay
+  levelHandler: {fileID: 108859267500074294}
+  startTime: 30
+  decay: 0.001
 --- !u!114 &7648585092559927398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,7 +681,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ecac57559e8f541a8efaaa020f5a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statusEffectsImmunityConfig: []
 --- !u!114 &3333061981324723736
 MonoBehaviour:
   m_ObjectHideFlags: 0
