@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Turret Fire
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Turret Fire
+  <Description>k__BackingField: 
   <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
-  <CanHold>k__BackingField: 0
+  <CanHold>k__BackingField: 1
   cooldownTime:
-    baseValue: 0.2
+    baseValue: 0.15
     increase: 0
     valueLimits:
       min: 0
@@ -36,11 +38,21 @@ MonoBehaviour:
       max: Infinity
   modules:
   - rid: 3611678573724172371
+  - rid: 1633593028087644236
   - rid: 3611678669646069864
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
+    - rid: 1633593028087644236
+      type: {class: DynamicCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        cooldown:
+          baseValue: 0.05
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
     - rid: 3611678573724172371
       type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
@@ -55,8 +67,8 @@ MonoBehaviour:
       data:
         fireDistance: 0
         spread:
-          min: 0
-          max: 0
+          min: -1
+          max: 1
         projectile:
           rid: 3611678669646069865
         speed:
@@ -81,3 +93,6 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
+        armorPenetration: 0
+        procCoefficient: 1
+        knockback: 1
