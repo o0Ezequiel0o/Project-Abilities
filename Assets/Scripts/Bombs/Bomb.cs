@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using Zeke.PoolableGameObjects;
 using Zeke.TeamSystem;
 
-public abstract class Bomb : MonoBehaviour, IPoolableGameObjectConfirmator
+public abstract class Bomb : MonoBehaviour, IPoolableGameObjectConfirmator, IPoolableGameObjectListener
 {
     [SerializeField] private LayerMask hitLayers;
 
