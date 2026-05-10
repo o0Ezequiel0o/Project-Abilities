@@ -23,6 +23,7 @@ MonoBehaviour:
   <DamageReductionRatio>k__BackingField: 0.25
   <HealthInheritRatio>k__BackingField:
     rid: 2308103107532554321
+  <IndicatorEffect>k__BackingField: {fileID: 11400000, guid: 74aaed03e341bff4bbdb0f598319c83e, type: 2}
   references:
     version: 2
     RefIds:
