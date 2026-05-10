@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zeke.PoolableGameObjects;
 
-public class SoundInstance : MonoBehaviour, IPoolableGameObjectConfirmator
+public class SoundInstance : MonoBehaviour, IPoolableGameObjectConfirmator, IPoolableGameObjectListener
 {
     [SerializeField] private AudioSource audioSource;
 

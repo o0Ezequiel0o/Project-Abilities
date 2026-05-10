@@ -17,10 +17,6 @@ public class ParticleController : MonoBehaviour, IPoolableGameObjectConfirmator
     private ParticleSystem particleInstance;
     private bool isRunning = false;
 
-    public void OnRetrievedFromPool() { }
-
-    public void OnSentToPool() { }
-
     public void TriggerParticles()
     {
         if (particleInstance == null) return;

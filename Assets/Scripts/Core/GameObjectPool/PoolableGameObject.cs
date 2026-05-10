@@ -15,6 +15,7 @@ namespace Zeke.PoolableGameObjects
         public Action<PoolableGameObject> onDestroy;
 
         private PoolableConfirmator[] confirmators;
+        private IPoolableGameObjectListener[] listeners;
 
         private bool ready = false;
         private int timesRetrieved = 0;
@@ -39,7 +40,11 @@ namespace Zeke.PoolableGameObjects
             for (int i = 0; i < confirmators.Length; i++)
             {
                 OnPoolableStateUpdate(new PoolableConfirmatorUpdate(confirmators[i].confirmator, false));
-                confirmators[i].confirmator.OnRetrievedFromPool();
+            }
+
+            for (int i = 0; i < listeners.Length; i++)
+            {
+                listeners[i].OnRetrievedFromPool();
             }
 
             onRetrieved?.Invoke();
@@ -47,9 +52,9 @@ namespace Zeke.PoolableGameObjects
 
         public void OnReleased()
         {
-            for (int i = 0; i < confirmators.Length; i++)
+            for (int i = 0; i < listeners.Length; i++)
             {
-                confirmators[i].confirmator.OnSentToPool();
+                listeners[i].OnSentToPool();
             }
 
             onReleased?.Invoke();
@@ -69,6 +74,8 @@ namespace Zeke.PoolableGameObjects
         private void Awake()
         {
             IPoolableGameObjectConfirmator[] poolableConfirmators = GetComponentsInChildren<IPoolableGameObjectConfirmator>();
+
+            listeners = GetComponentsInChildren<IPoolableGameObjectListener>();
             confirmators = new PoolableConfirmator[poolableConfirmators.Length];
 
             for (int i = 0; i < poolableConfirmators.Length; i++)

@@ -6,9 +6,5 @@ namespace Zeke.PoolableGameObjects
     {
         public Action<IPoolableGameObjectConfirmator> PoolableReady { get; set; }
         public Action<IPoolableGameObjectConfirmator> PoolableBusy { get; set; }
-
-        public void OnSentToPool();
-
-        public void OnRetrievedFromPool();
     }
 }

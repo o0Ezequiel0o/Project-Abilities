@@ -5,7 +5,7 @@ using System;
 using Zeke.PoolableGameObjects;
 using UnityEngine.Events;
 
-public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator
+public class Projectile : MonoBehaviour, IPoolableGameObjectConfirmator, IPoolableGameObjectListener
 {
     [Header("Collision")]
     [SerializeField, Min(0.0001f)] private float hitRadius;
