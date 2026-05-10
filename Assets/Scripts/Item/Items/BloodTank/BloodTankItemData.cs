@@ -10,6 +10,9 @@ namespace Zeke.Items
         [field: SerializeField] public float DamageReductionRatio { get; private set; }
         [field: SerializeReferenceDropdown, SerializeReference] public IStackStat HealthInheritRatio { get; private set; }
 
+        [field: Header("Visual")]
+        [field: SerializeField] public StatusEffectData IndicatorEffect { get; private set; }
+
         public override Item CreateItem(ItemHandler itemHandler, GameObject source)
         {
             return new BloodTankItem(this, itemHandler, source);

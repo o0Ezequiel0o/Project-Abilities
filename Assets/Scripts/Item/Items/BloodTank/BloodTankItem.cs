@@ -13,6 +13,7 @@ namespace Zeke.Items
         private readonly GameObject source;
 
         private Damageable damageable;
+        private StatusEffectHandler statusEffectHandler;
 
         private float reserveHealth = 0f;
         private float reserveHealthCap = 0f;
@@ -37,22 +38,31 @@ namespace Zeke.Items
                 damageable.MaxHealth.onStatUpdated += OnHealthStatChanged;
                 damageable.onTakeDamage.Subscribe(OnTakeDamage, data.TriggerOrder);
             }
+
+            statusEffectHandler = source.GetComponent<StatusEffectHandler>();
         }
 
         public override void OnRemoved()
         {
             if (!hasRequiredComponents) return;
             damageable.onTakeDamage.Unsubscribe(OnTakeDamage);
+
+            if (statusEffectHandler != null)
+            {
+                statusEffectHandler.RemoveEffect(data.IndicatorEffect);
+            }
         }
 
         public override void OnStacksAdded(int amount)
         {
             UpdateReserveHealthCap();
+            UpdateDisplayer();
         }
 
         public override void OnStacksRemoved(int amount)
         {
             UpdateReserveHealthCap();
+            UpdateDisplayer();
         }
 
         public override void OnUpdate()
@@ -67,6 +77,7 @@ namespace Zeke.Items
                 reserveHealth = Mathf.Min(reserveHealth + regen, reserveHealthCap);
 
                 timer = 0f;
+                UpdateDisplayer();
             }
         }
 
@@ -79,6 +90,8 @@ namespace Zeke.Items
 
             damageEvent.Multiplier.Multiply(1 - reducedDamageRatio);
             reserveHealth -= reducedDamage;
+
+            UpdateDisplayer();
         }
 
         private void OnHealthStatChanged(StatUpdate statUpdate)
@@ -90,6 +103,33 @@ namespace Zeke.Items
         {
             reserveHealthCap = damageable.MaxHealth.Value * data.HealthInheritRatio.GetValue(stacks);
             reserveHealth = Mathf.Min(reserveHealth, reserveHealthCap);
+            UpdateDisplayer();
+        }
+
+        private void UpdateDisplayer()
+        {
+            if (statusEffectHandler == null) return;
+
+            if (!statusEffectHandler.TryGetActiveStatusEffect(data.IndicatorEffect, out StatusEffect statusEffect))
+            {
+                if (reserveHealth == 0f) return;
+
+                statusEffect = statusEffectHandler.ApplyEffect(data.IndicatorEffect, source, 1);
+            }
+
+            int stacks = statusEffect.stacks;
+            int targetStacks = Mathf.CeilToInt(reserveHealth);
+
+            int changeTarget = targetStacks - stacks;
+
+            if (changeTarget > 0)
+            {
+                statusEffectHandler.ApplyEffect(data.IndicatorEffect, source, Mathf.Abs(changeTarget));
+            }
+            else if (changeTarget < 0)
+            {
+                statusEffectHandler.RemoveEffect(data.IndicatorEffect, Mathf.Abs(changeTarget));
+            }
         }
     }
 }

@@ -59,6 +59,8 @@ public class StatusEffectInterface : MonoBehaviour
     {
         if (usedStatusEffectDisplaySlots.TryGetValue(statusEffect, out StatusEffectDisplaySlot statusEffectDisplaySlot))
         {
+            if (statusEffectDisplaySlot == null) return;
+
             statusEffectDisplaySlot.gameObject.SetActive(false);
             usedStatusEffectDisplaySlots.Remove(statusEffect);
             statusEffectDisplaySlots.Push(statusEffectDisplaySlot);

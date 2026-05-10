@@ -22,16 +22,16 @@ public class StatusEffectHandler : MonoBehaviour
     private readonly List<StatusEffect> statusEffects = new List<StatusEffect>();
     private readonly HashSet<int> immunitySources = new HashSet<int>();
 
-    public void ApplyEffect(StatusEffectData statusEffectData, GameObject source)
+    public StatusEffect ApplyEffect(StatusEffectData statusEffectData, GameObject source)
     {
-        ApplyEffect(statusEffectData, source, 1);
+        return ApplyEffect(statusEffectData, source, 1);
     }
 
-    public void ApplyEffect(StatusEffectData statusEffectData, GameObject source, int stacks)
+    public StatusEffect ApplyEffect(StatusEffectData statusEffectData, GameObject source, int stacks)
     {
         onApplyEffect?.Invoke(new EffectApplyInfo(statusEffectData, source, stacks));
 
-        if (immunity.Contains(statusEffectData) || Immune) return;
+        if (immunity.Contains(statusEffectData) || Immune) return null;
 
         if (TryGetActiveStatusEffect(statusEffectData, out StatusEffect statusEffect))
         {
@@ -39,8 +39,10 @@ public class StatusEffectHandler : MonoBehaviour
         }
         else
         {
-            AddNewStatusEffect(statusEffectData, source, stacks);
+            statusEffect = AddNewStatusEffect(statusEffectData, source, stacks);
         }
+
+        return statusEffect;
     }
 
     public void RemoveEffect(StatusEffectData statusEffectData)
