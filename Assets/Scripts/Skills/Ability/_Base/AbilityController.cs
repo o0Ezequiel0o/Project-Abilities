@@ -59,6 +59,8 @@ namespace Zeke.Abilities
             {AbilityType.Ultimate, new HashSet<AbilityLock>()}
         };
 
+        private int level = 1;
+
         public bool IsLocked(AbilityType abilityType)
         {
             return abilityLocks[abilityType].Count > 0;
@@ -180,6 +182,8 @@ namespace Zeke.Abilities
             {
                 abilityList[i].QueueUpgrade();
             }
+
+            level += 1;
         }
 
         private void Reset()
@@ -249,6 +253,12 @@ namespace Zeke.Abilities
                 abilities[abilityType] = ability;
 
                 onAbilityAdded?.Invoke(ability);
+
+                while (ability.Level < level)
+                {
+                    ability.QueueUpgrade();
+                    Debug.Log($"{ability.Data.Name} is underleveled, leveling up!");
+                }
             }
         }
 
