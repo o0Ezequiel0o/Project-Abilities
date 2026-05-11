@@ -41,5 +41,5 @@ MonoBehaviour:
     - rid: 2308102863504277869
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
-        startValue: 0.4
+        startValue: 0.8
         increase: 0.1

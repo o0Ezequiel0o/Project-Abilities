@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Zeke.TeamSystem;
 
@@ -18,6 +19,8 @@ namespace Zeke.Items
         private float healTimer = 0f;
 
         private bool active = false;
+
+        private readonly List<Collider2D> hits = new List<Collider2D>();
 
         public FlungusItem(FlungusItemData data, ItemHandler itemHandler, GameObject source)
         {
@@ -85,11 +88,10 @@ namespace Zeke.Items
 
             if (healTimer > data.HealCooldown)
             {
-                Collider2D[] hits = Physics2D.OverlapCircleAll(source.transform.position, data.Radius.GetValue(stacks), data.HitLayers);
-
                 float healing = data.Healing.GetValue(stacks);
 
-                for (int i = 0; i < hits.Length; i++)
+                ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.HitLayers, useLayerMask = true };
+                for (int i = 0; i < Physics2D.OverlapCircle(source.transform.position, data.Radius.GetValue(stacks), contactFilter, hits); i++)
                 {
                     if (TeamManager.IsEnemy(hits[i].gameObject, source)) continue;
 
