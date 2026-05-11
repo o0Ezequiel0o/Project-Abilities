@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
-  m_Name: Turret Fire
-  m_EditorClassIdentifier: Assembly-CSharp::AbilityData
+  m_Name: Machine Gun
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: Turret Fire
+  <Name>k__BackingField: Machine Gun
   <Description>k__BackingField: 
   <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 1
   cooldownTime:
-    baseValue: 0.15
+    baseValue: 1
     increase: 0
     valueLimits:
       min: 0
@@ -31,68 +31,68 @@ MonoBehaviour:
       min: 0
       max: Infinity
   charges:
-    baseValue: 1
+    baseValue: 100
     increase: 0
     valueLimits:
       min: 1
       max: Infinity
   modules:
-  - rid: 3611678573724172371
-  - rid: 1633593028087644236
-  - rid: 3611678669646069864
+  - rid: 1633593052354314240
+  - rid: 1633593052354314243
+  - rid: 1633593052354314244
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 1633593028087644236
-      type: {class: DynamicCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        cooldown:
-          baseValue: 0.05
-          increase: 0
-          valueLimits:
-            min: 0
-            max: Infinity
-    - rid: 3611678573724172371
+    - rid: 1633593052354314240
       type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         updateMode: 0
         type:
-          rid: 3611678573724172372
-    - rid: 3611678573724172372
+          rid: 1633593052354314242
+    - rid: 1633593052354314242
       type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data: 
-    - rid: 3611678669646069864
+    - rid: 1633593052354314243
+      type: {class: DynamicCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        cooldown:
+          baseValue: 0.1
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+    - rid: 1633593052354314244
       type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
         fireDistance: 0
         spread:
-          min: -1
-          max: 1
+          min: -3
+          max: 3
         projectile:
-          rid: 3611678669646069865
+          rid: 1633593052354314245
         speed:
-          baseValue: 8
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        maxRange:
           baseValue: 10
           increase: 0
           valueLimits:
             min: -Infinity
             max: Infinity
-    - rid: 3611678669646069865
+        maxRange:
+          baseValue: 8.5
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 1633593052354314245
       type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
         prefab: {fileID: 4095476445108489073, guid: 6f6ff7d6431d08444bf5c913843b393e, type: 3}
         damage:
-          baseValue: 7
-          increase: 2
+          baseValue: 5
+          increase: 1.5
           valueLimits:
             min: -Infinity
             max: Infinity
         armorPenetration: 0
-        procCoefficient: 1
-        knockback: 1
+        procCoefficient: 0.5
+        knockback: 0
