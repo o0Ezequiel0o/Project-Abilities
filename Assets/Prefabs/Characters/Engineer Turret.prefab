@@ -319,8 +319,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Settings>k__BackingField: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
   <MaxHealth>k__BackingField:
-    baseValue: 30
-    increase: 0
+    baseValue: 50
+    increase: 10
     valueLimits:
       min: -Infinity
       max: Infinity
@@ -332,7 +332,7 @@ MonoBehaviour:
       max: Infinity
   <HealthRegen>k__BackingField:
     baseValue: 1
-    increase: 0
+    increase: 0.2
     valueLimits:
       min: -Infinity
       max: Infinity
