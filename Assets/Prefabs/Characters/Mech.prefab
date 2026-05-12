@@ -184,7 +184,7 @@ MonoBehaviour:
   statusEffectHandler: {fileID: 8409502478468267525}
   itemHandler: {fileID: 4618987774257041068}
   suitAbilities:
-  - {fileID: 11400000, guid: bdf1878392de0d84fb563504b09188ac, type: 2}
+  - {fileID: 11400000, guid: 58a2ac7f0276c654085da7e59258168e, type: 2}
   abilityLocks:
   - abilityType: 1
   - abilityType: 2
