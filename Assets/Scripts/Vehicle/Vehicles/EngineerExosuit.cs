@@ -26,7 +26,6 @@ public class EngineerExosuit : Exosuit
     protected override void OnEnterVehicle(GameObject source)
     {
         ApplyExoBuffs(source);
-        InheritItems(source);
         AddSuitSkills(source);
         LockAbilities(source);
         base.OnEnterVehicle(source);
@@ -35,7 +34,6 @@ public class EngineerExosuit : Exosuit
     protected override void OnExitVehicle(GameObject source)
     {
         RemoveExoBuffs(source);
-        RemoveInheritedItems(source);
         RemoveSuitSkills(source);
         UnlockAbilities(source);
         base.OnExitVehicle(source);
@@ -67,14 +65,6 @@ public class EngineerExosuit : Exosuit
         }
 
         Damageable.DamageEvent.onDealDamage.Unsubscribe(source, IncreaseDamage);
-    }
-
-    private void InheritItems(GameObject source)
-    {
-        if (source.TryGetComponent(out ItemHandler itemHandler))
-        {
-            this.itemHandler.AddItems(itemHandler.ItemsData);
-        }
     }
 
     private void AddSuitSkills(GameObject source)
@@ -128,11 +118,6 @@ public class EngineerExosuit : Exosuit
                 abilityController.RemoveAbilityLock(abilityLocks[i]);
             }
         }
-    }
-
-    private void RemoveInheritedItems(GameObject source)
-    {
-        itemHandler.RemoveItems();
     }
 
     private void IncreaseDamage(Damageable.DamageEvent damageEvent)

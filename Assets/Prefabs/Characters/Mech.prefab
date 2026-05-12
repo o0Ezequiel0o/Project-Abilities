@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 1735273188120366476}
   - component: {fileID: 8988160911524051868}
   - component: {fileID: 8409502478468267525}
-  - component: {fileID: 4618987774257041068}
   - component: {fileID: 5980032697336887873}
   m_Layer: 11
   m_Name: Mech
@@ -182,7 +181,7 @@ MonoBehaviour:
   <InteractTooltip>k__BackingField: Wear
   damageable: {fileID: 1735273188120366476}
   statusEffectHandler: {fileID: 8409502478468267525}
-  itemHandler: {fileID: 4618987774257041068}
+  itemHandler: {fileID: 0}
   suitAbilities:
   - {fileID: 11400000, guid: 58a2ac7f0276c654085da7e59258168e, type: 2}
   abilityLocks:
@@ -283,25 +282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ecac57559e8f541a8efaaa020f5a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4618987774257041068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6867714498176877325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d4f8dcf818b9c4a9b9f4b506699670, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemSettings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
-  <Luck>k__BackingField:
-    baseValue: 0
-    increase: 0
-    valueLimits:
-      min: -Infinity
-      max: Infinity
 --- !u!114 &5980032697336887873
 MonoBehaviour:
   m_ObjectHideFlags: 0
