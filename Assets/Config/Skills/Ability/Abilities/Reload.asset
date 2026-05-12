@@ -20,7 +20,7 @@ MonoBehaviour:
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
   cooldownTime:
-    baseValue: 10
+    baseValue: 15
     increase: 0
     valueLimits:
       min: 0

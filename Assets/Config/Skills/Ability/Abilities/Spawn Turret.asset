@@ -73,6 +73,7 @@ MonoBehaviour:
         - rid: 1633593052354314342
         - rid: 1633593052354314341
         - rid: 1633593052354314343
+        - rid: 1633593090558394476
         maxSummons:
           baseValue: 3
           increase: 0
@@ -96,4 +97,7 @@ MonoBehaviour:
       data: 
     - rid: 1633593052354314343
       type: {class: InheritSourceItems, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+      data: 
+    - rid: 1633593090558394476
+      type: {class: SetSourceLevel, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
       data: 
