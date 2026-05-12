@@ -45,10 +45,7 @@ namespace Zeke.Items
 
             if (summon.TryGetComponent(out LevelHandler levelHandler))
             {
-                for (int i = 0; i < extraLevels; i++)
-                {
-                    levelHandler.GiveExperience(levelHandler.ExperienceRequired);
-                }
+                levelHandler.IncreaseLevel(extraLevels);
 
                 if (source.TryGetComponent(out LevelHandler sourceLevelHandler))
                 {

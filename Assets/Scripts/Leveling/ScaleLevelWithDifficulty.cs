@@ -21,21 +21,12 @@ public class ScaleLevelWithDifficulty : MonoBehaviour, IPoolableGameObjectListen
 
     private void Awake()
     {
-        int levels = Mathf.FloorToInt(settings.LevelPerDifficulty * GameInstance.Difficulty);
-
-        for (int i = 0; i < levels; i++)
-        {
-            levelHandler.GiveExperience(levelHandler.ExperienceRequired);
-        }
+        ScaleLevel();
     }
 
     private void ScaleLevel()
     {
         int levels = Mathf.FloorToInt(settings.LevelPerDifficulty * GameInstance.Difficulty);
-
-        for (int i = 0; i < levels; i++)
-        {
-            levelHandler.GiveExperience(levelHandler.ExperienceRequired);
-        }
+        levelHandler.IncreaseLevel(levels);
     }
 }

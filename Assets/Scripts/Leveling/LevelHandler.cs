@@ -28,7 +28,20 @@ public class LevelHandler : MonoBehaviour
         while (experience >= experienceRequired)
         {
             LevelUp();
+            HandleOverflowXP();
         }
+    }
+
+    public void IncreaseLevel(int levels)
+    {
+        for (int i = 0; i < levels; i++)
+        {
+            Level += 1;
+            UpgradeComponents();
+            onLevelUp?.Invoke(Level);
+        }
+
+        CalculateNextLevelExperience();
     }
 
     private void Awake()
@@ -39,13 +52,12 @@ public class LevelHandler : MonoBehaviour
 
     private void LevelUp()
     {
-        Level += 1;
-        UpgradeComponents();
+        IncreaseLevel(1);
+    }
 
-        onLevelUp?.Invoke(Level);
+    private void HandleOverflowXP()
+    {
         experience -= experienceRequired;
-
-        CalculateNextLevelExperience();
     }
 
     private void UpgradeComponents()
