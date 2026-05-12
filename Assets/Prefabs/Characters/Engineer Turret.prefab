@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 7673138500625142514}
   - component: {fileID: 6323631814065473988}
   - component: {fileID: 4670485228891248934}
+  - component: {fileID: 6212890924530946275}
   m_Layer: 8
   m_Name: Engineer Turret
   m_TagString: Untagged
@@ -526,6 +527,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5f76439480cfe4cb6d557aaae48071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6212890924530946275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647093461853523306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa51f28770c6ba449982e32a80dd5a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityTypeIdentifier
+  type: 1
 --- !u!1 &8496455079109391439
 GameObject:
   m_ObjectHideFlags: 0

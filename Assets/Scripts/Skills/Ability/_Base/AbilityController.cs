@@ -257,7 +257,6 @@ namespace Zeke.Abilities
                 while (ability.Level < level)
                 {
                     ability.QueueUpgrade();
-                    Debug.Log($"{ability.Data.Name} is underleveled, leveling up!");
                 }
             }
         }

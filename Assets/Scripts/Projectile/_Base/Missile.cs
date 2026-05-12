@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Zeke.TeamSystem;
 
 public class Missile : BasicProjectile
 {
@@ -30,7 +31,7 @@ public class Missile : BasicProjectile
 
     protected void Awake()
     {
-        filter = target => TargetAwareness.HasLineOfSight(transform.position, target.transform, blockLayer);
+        filter = target => TeamManager.IsEnemy(SourceUser, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform, blockLayer);
     }
 
     public override void OnRetrievedFromPool()

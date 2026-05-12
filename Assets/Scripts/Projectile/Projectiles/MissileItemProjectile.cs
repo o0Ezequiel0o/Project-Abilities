@@ -26,7 +26,7 @@ public class MissileItemProjectile : Missile
 
         if (receiver.TryGetComponent(out Damageable damageable))
         {
-            global::DamageInfo damageInfo = new global::DamageInfo(Damage, armorPenetration, procCoefficient)
+            DamageInfo damageInfo = new DamageInfo(Damage, armorPenetration, procCoefficient)
             {
                 direction = GetHitDirection(receiver)
             };
