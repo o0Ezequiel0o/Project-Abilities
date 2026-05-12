@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Reload
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Reload your primary ability 100 charges after the
+    duration ends but it can't be used until it's over.
   <AbilityType>k__BackingField: 1
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0

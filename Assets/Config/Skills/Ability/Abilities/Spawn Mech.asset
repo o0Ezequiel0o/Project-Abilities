@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Summon Mech
-  <Description>k__BackingField: 
+  <Description>k__BackingField: Spawn an exosuit that boosts your stats and takes
+    damage and debuffs for you, exosuit stats scale with summoner level when spawned.
   <AbilityType>k__BackingField: 3
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
