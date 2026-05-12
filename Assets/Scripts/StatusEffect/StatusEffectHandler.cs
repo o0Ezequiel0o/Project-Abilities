@@ -31,7 +31,7 @@ public class StatusEffectHandler : MonoBehaviour
     {
         onApplyEffect?.Invoke(new EffectApplyInfo(statusEffectData, source, stacks));
 
-        if (immunity.Contains(statusEffectData) || Immune) return null;
+        if (immunity.Contains(statusEffectData) || Immune && !statusEffectData.AlwaysApply) return null;
 
         if (TryGetActiveStatusEffect(statusEffectData, out StatusEffect statusEffect))
         {

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Blood Tank Health
   m_EditorClassIdentifier: Assembly-CSharp::ItemStatusIndicatorData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <AlwaysApply>k__BackingField: 1
   <MaxStacks>k__BackingField: 2147483647
   <StatusEffectType>k__BackingField: 0

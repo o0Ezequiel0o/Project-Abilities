@@ -61,7 +61,7 @@ public class Exosuit : Vehicle
 
     private void RedirectStatusEffect(StatusEffectHandler.EffectApplyInfo effectInfo)
     {
-        if (statusEffectHandler == null) return;
+        if (statusEffectHandler == null || effectInfo.data.AlwaysApply) return;
         statusEffectHandler.ApplyEffect(effectInfo.data, effectInfo.source, effectInfo.stacks);
     }
 

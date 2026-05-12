@@ -6,6 +6,7 @@ public abstract class StatusEffectData : ScriptableObject
     [field: SerializeField] public Sprite Icon { get; private set; }
 
     [field: Header("Data")]
+    [field: SerializeField] public bool AlwaysApply { get; private set; }
     [field: SerializeField, Min(1)] public int MaxStacks {private set; get;} = 1;
     [field: SerializeField] public StatusEffectType StatusEffectType {private set; get;}
 
