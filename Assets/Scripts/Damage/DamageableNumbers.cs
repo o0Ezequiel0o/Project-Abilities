@@ -4,7 +4,7 @@ using static Damageable;
 public class DamageableNumbers : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float displaySize;
+    [SerializeField] private float displaySize = 1f;
 
     [Space]
 
