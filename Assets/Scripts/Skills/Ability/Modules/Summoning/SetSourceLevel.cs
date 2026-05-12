@@ -16,7 +16,9 @@ namespace Zeke.Abilities.Modules.Summoning
         {
             if (source.TryGetComponent(out LevelHandler sourceLevelHandler) && summon.TryGetComponent(out LevelHandler summonLevelHandler))
             {
-                for (int i = summonLevelHandler.Level; summonLevelHandler.Level < sourceLevelHandler.Level; i++)
+                int targetLevel = sourceLevelHandler.Level;
+
+                for (int i = summonLevelHandler.Level; summonLevelHandler.Level < targetLevel; i++)
                 {
                     summonLevelHandler.GiveExperience(summonLevelHandler.ExperienceRequired);
                 }
