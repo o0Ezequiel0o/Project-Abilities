@@ -135,12 +135,15 @@ GameObject:
   - component: {fileID: 4448657880497516374}
   - component: {fileID: 910714640205103168}
   - component: {fileID: 485676028982003992}
+  - component: {fileID: 6071420938375230477}
   - component: {fileID: 9207376675633253813}
   - component: {fileID: 3258373292319498312}
   - component: {fileID: 3220386045857683405}
-  - component: {fileID: 6071420938375230477}
   - component: {fileID: -5557187522757985236}
   - component: {fileID: 8500224788475130761}
+  - component: {fileID: 8685083603443480438}
+  - component: {fileID: -8508255119667561172}
+  - component: {fileID: 3772842588570690128}
   - component: {fileID: 3685242802834864705}
   - component: {fileID: 7673138500625142514}
   - component: {fileID: 6323631814065473988}
@@ -273,6 +276,24 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6071420938375230477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647093461853523306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741714ba6d48f74fa8665ce76686ce3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ExperienceMultiplier>k__BackingField:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: -Infinity
+      max: Infinity
 --- !u!114 &9207376675633253813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,24 +387,6 @@ MonoBehaviour:
     valueLimits:
       min: -Infinity
       max: Infinity
---- !u!114 &6071420938375230477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5647093461853523306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e741714ba6d48f74fa8665ce76686ce3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ExperienceMultiplier>k__BackingField:
-    baseValue: 1
-    increase: 0
-    valueLimits:
-      min: -Infinity
-      max: Infinity
 --- !u!114 &-5557187522757985236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +424,50 @@ MonoBehaviour:
     valueLimits:
       min: -Infinity
       max: Infinity
+--- !u!114 &8685083603443480438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647093461853523306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ecac57559e8f541a8efaaa020f5a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectHandler
+--- !u!114 &-8508255119667561172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647093461853523306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8491efab7295c1e419e899b892c0d54b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageableNumbers
+  displaySize: 0
+  yStart: 0.5
+  yLowest: -0.5
+  yLower: 0.3
+  xRandom: 0.15
+--- !u!114 &3772842588570690128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647093461853523306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03c67c1188d6534aba7fa14c14325a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectRenderer
+  interfacePrefab: {fileID: 8360619127707872843, guid: 230ca6748d0aaf44aa028a0ea78945f8, type: 3}
+  follow: {fileID: 4448657880497516374}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &3685242802834864705
 MonoBehaviour:
   m_ObjectHideFlags: 0
