@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a9a29ed6c540274eadf4f8d03b2cc74, type: 3}
+  m_Name: Hack
+  m_EditorClassIdentifier: Assembly-CSharp::HackItemGeneratorsSkillData
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: Hack
+  <Description>k__BackingField: 
+  <Radius>k__BackingField: 3
+  <CheckLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 2048
+  <TimeRequired>k__BackingField: 15
+  chargeSpeed:
+    baseValue: 1
+    increase: 0.1
+    valueLimits:
+      min: 0
+      max: Infinity
+  <ProgressBarPrefab>k__BackingField: {fileID: 4371050694383553311, guid: 501e51b3bcf545141b3a1b6767ec8fd9, type: 3}
