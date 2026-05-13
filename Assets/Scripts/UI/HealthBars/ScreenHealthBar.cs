@@ -9,12 +9,7 @@ public class ScreenHealthBar : HealthBar
 
     public void UpdateBar(float health, float maxHealth, float shield, float maxShield, float combinedHealth)
     {
-        UpdateBar(health / maxHealth, shield / maxShield, combinedHealth);
-    }
-
-    public void UpdateBar(float healthRatio, float shieldRatio, float combinedHealth)
-    {
-        UpdateBar(healthRatio, shieldRatio);
+        UpdateBar(health, maxHealth, shield, maxShield);
         amount.text = NumberFormatter.FormatNumber(Mathf.Ceil(combinedHealth));
     }
 }

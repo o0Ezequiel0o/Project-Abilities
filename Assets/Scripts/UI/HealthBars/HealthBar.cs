@@ -1,39 +1,42 @@
 using UnityEngine;
 
-public class HealthBar : MonoBehaviour
+public class HealthBar : ModularBar
 {
-    [SerializeField] private StatusBar health;
-    [SerializeField] private StatusBar shield;
+    [SerializeField] private HealthBarSettings settings;
     [SerializeField] private StatusBar chip;
-
-    [Space]
-
-    [SerializeField] private float chipTime;
 
     private float chipStartFill = 1f;
     private float chipTimer = 0f;
 
     private bool chipping;
 
-    public void UpdateBar(float health, float maxHealth, float shield, float maxShield)
+    private readonly BarID healthBarID = new BarID();
+    private readonly BarID shieldBarID = new BarID();
+
+    public override void UpdateBar(BarID id, float current, float max)
     {
-        UpdateBar(health / maxHealth, shield / maxShield);
+        float combinedOldValue = GetCombinedValue();
+
+        base.UpdateBar(id, current, max);
+
+        float combinedNewValue = GetCombinedValue();
+
+        if (!chipping && combinedOldValue > combinedNewValue)
+        {
+            StartChipping(combinedOldValue / GetCombinedMaxValue());
+        }
     }
 
-    public void UpdateBar(float healthRatio, float shieldRatio)
+    public void UpdateBar(float health, float maxHealth, float shield, float maxShield)
     {
-        if (IsInfiniteOrUndefined(shieldRatio))
-        {
-            shieldRatio = 0f;
-        }
+        UpdateBar(healthBarID, health, maxHealth);
+        UpdateBar(shieldBarID, shield, maxShield);
+    }
 
-        if (!chipping && healthRatio < 1f)
-        {
-            StartChipping(health.Fill);
-        }
-
-        health.UpdateBar(healthRatio);
-        shield.UpdateBar(shieldRatio);
+    private void Awake()
+    {
+        AddBar(healthBarID, settings.HealthColor);
+        AddBar(shieldBarID, settings.ShieldColor);
     }
 
     private void Update()
@@ -59,16 +62,14 @@ public class HealthBar : MonoBehaviour
 
     protected void UpdateChipBarFill()
     {
-        chip.UpdateBar(Mathf.Lerp(chipStartFill, health.Fill, chipTimer / chipTime));
+        float combinedValue = GetCombinedValue();
+        float targetFill = combinedValue / GetCombinedMaxValue();
 
-        if (chip.Fill == health.Fill)
+        chip.UpdateBar(Mathf.Lerp(chipStartFill, targetFill, chipTimer / settings.ChipTime));
+
+        if (chip.Fill == targetFill)
         {
             StopChipping();
         }
-    }
-
-    protected bool IsInfiniteOrUndefined(float value)
-    {
-        return float.IsNaN(value) || float.IsInfinity(value);
     }
 }

@@ -83,10 +83,10 @@ public class HealthBarRenderer : MonoBehaviour
     {
         if (healthBar == null) return;
 
-        float healthRatio = damageable.Health / damageable.MaxHealth.Value;
-        float shieldRatio = damageable.Shield / damageable.MaxShield.Value;
-
-        healthBar.UpdateBar(healthRatio, shieldRatio);
+        healthBar.UpdateBar (
+            damageable.Health, damageable.MaxHealth.Value,
+            damageable.Shield, damageable.MaxShield.Value
+            );
     }
 
     private void HealthBarFollowTargetPosition()
