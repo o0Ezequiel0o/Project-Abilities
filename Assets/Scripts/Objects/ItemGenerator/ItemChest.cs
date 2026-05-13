@@ -18,6 +18,11 @@ public class ItemChest : ItemGenerator
         return source.TryGetComponent(out MoneyHandler wallet) && wallet.Money >= cost && !used;
     }
 
+    public override bool CanHack(GameObject source)
+    {
+        return !used;
+    }
+
     public override bool Interact(GameObject source)
     {
         if (used) return false;

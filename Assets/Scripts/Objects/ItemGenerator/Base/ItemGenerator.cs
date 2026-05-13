@@ -54,6 +54,8 @@ namespace Zeke.Items
 
         public abstract bool CanInteract(GameObject source);
 
+        public abstract bool CanHack(GameObject source);
+
         public abstract bool Interact(GameObject source);
 
         public abstract bool Hack(GameObject source);

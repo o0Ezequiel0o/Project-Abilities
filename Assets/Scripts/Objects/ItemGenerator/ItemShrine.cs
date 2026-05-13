@@ -22,6 +22,11 @@ public class ItemShrine : ItemGenerator
         return source.TryGetComponent(out MoneyHandler wallet) && wallet.Money >= cost && rewards < maxRewards;
     }
 
+    public override bool CanHack(GameObject source)
+    {
+        return rewards < maxRewards;
+    }
+
     public override bool Interact(GameObject source)
     {
         if (rewards > maxRewards) return false;
