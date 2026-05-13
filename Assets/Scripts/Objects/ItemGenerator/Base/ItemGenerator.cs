@@ -56,6 +56,8 @@ namespace Zeke.Items
 
         public abstract bool Interact(GameObject source);
 
+        public abstract bool Hack(GameObject source);
+
         public List<ItemGenerationData> GetRandomItems(int amount)
         {
             return RollItems(amount);

@@ -24,20 +24,34 @@ public class ItemChest : ItemGenerator
 
         if (CanInteract(source) && source.TryGetComponent(out MoneyHandler wallet))
         {
-            Purchase(source, wallet);
-
+            Purchase(wallet);
+            Use(source);
             Disappear();
+
             return true;
         }
 
         return false;
     }
 
-    private void Purchase(GameObject source, MoneyHandler wallet)
+    public override bool Hack(GameObject source)
+    {
+        if (used) return false;
+
+        Use(source);
+        Disappear();
+
+        return true;
+    }
+
+    private void Purchase(MoneyHandler wallet)
     {
         wallet.UseMoney(cost);
-        GenerateOptions(source, options);
+    }
 
+    private void Use(GameObject source)
+    {
+        GenerateOptions(source, options);
         used = true;
     }
 

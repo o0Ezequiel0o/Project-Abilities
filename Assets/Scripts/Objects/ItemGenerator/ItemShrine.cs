@@ -28,18 +28,31 @@ public class ItemShrine : ItemGenerator
 
         if (CanInteract(source) && source.TryGetComponent(out MoneyHandler wallet))
         {
-            Purchase(source, wallet);
+            Purchase(wallet);
+            Use(source);
+
             return true;
         }
 
         return false;
     }
 
-    private void Purchase(GameObject source, MoneyHandler wallet)
+    public override bool Hack(GameObject source)
+    {
+        if (rewards > maxRewards) return false;
+
+        Use(source);
+        return true;
+    }
+
+    private void Purchase(MoneyHandler wallet)
+    {
+        wallet.UseMoney(cost);
+    }
+
+    private void Use(GameObject source)
     {
         bool giveReward = Random.Range(1, 100) > rollNothingChange;
-
-        wallet.UseMoney(cost);
 
         if (giveReward)
         {
