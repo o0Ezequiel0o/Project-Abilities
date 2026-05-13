@@ -15,15 +15,15 @@ public class HealthBar : ModularBar
 
     public override void UpdateBar(BarID id, float current, float max)
     {
-        float combinedOldValue = GetCombinedValue();
+        float combinedOldValue = CombinedValue;
 
         base.UpdateBar(id, current, max);
 
-        float combinedNewValue = GetCombinedValue();
+        float combinedNewValue = CombinedValue;
 
         if (!chipping && combinedOldValue > combinedNewValue)
         {
-            StartChipping(combinedOldValue / GetCombinedMaxValue());
+            StartChipping(combinedOldValue / CombinedMaxValue);
         }
     }
 
@@ -62,8 +62,8 @@ public class HealthBar : ModularBar
 
     protected void UpdateChipBarFill()
     {
-        float combinedValue = GetCombinedValue();
-        float targetFill = combinedValue / GetCombinedMaxValue();
+        float combinedValue = CombinedValue;
+        float targetFill = combinedValue / CombinedMaxValue;
 
         chip.UpdateBar(Mathf.Lerp(chipStartFill, targetFill, chipTimer / settings.ChipTime));
 

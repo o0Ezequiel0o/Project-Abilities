@@ -6,6 +6,12 @@ public class ModularBar : MonoBehaviour
 {
     [SerializeField] protected RectTransform root;
 
+    public float CombinedValue => combinedValue;
+    public float CombinedMaxValue => combinedMaxValue;
+
+    private float combinedValue = 0f;
+    private float combinedMaxValue = 0f;
+
     private readonly List<BarIDPair> bars = new List<BarIDPair>();
 
     public class BarID { }
@@ -77,6 +83,9 @@ public class ModularBar : MonoBehaviour
         Bar bar = new Bar(values, rectTransform);
         bars.Add(new BarIDPair(id, bar));
 
+        combinedMaxValue += max;
+        combinedValue += current;
+
         return this;
     }
 
@@ -84,34 +93,17 @@ public class ModularBar : MonoBehaviour
     {
         if (TryGetBar(id, out Bar bar))
         {
+            StatusBarValue oldValues = bar.values;
             bar.values = new StatusBarValue(current, max);
+
+            float currentDifference = current - oldValues.value;
+            float maxDifference = max - oldValues.maxValue;
+
+            combinedValue += currentDifference;
+            combinedMaxValue += maxDifference;
         }
 
         UpdateBarRendering();
-    }
-
-    public float GetCombinedMaxValue()
-    {
-        float combinedMaxValue = 0f;
-
-        for (int i = 0; i < bars.Count; i++)
-        {
-            combinedMaxValue += bars[i].bar.values.maxValue;
-        }
-
-        return combinedMaxValue;
-    }
-
-    public float GetCombinedValue()
-    {
-        float combinedValue = 0f;
-
-        for (int i = 0; i < bars.Count; i++)
-        {
-            combinedValue += bars[i].bar.values.value;
-        }
-
-        return combinedValue;
     }
 
     protected bool TryGetBar(BarID id, out Bar bar)
@@ -131,8 +123,6 @@ public class ModularBar : MonoBehaviour
 
     protected void UpdateBarRendering()
     {
-        float combinedMaxValue = GetCombinedMaxValue();
-
         for (int i = 0; i < bars.Count; i++)
         {
             float width = root.rect.width * bars[i].bar.values.Percentage * (bars[i].bar.values.maxValue / combinedMaxValue);
