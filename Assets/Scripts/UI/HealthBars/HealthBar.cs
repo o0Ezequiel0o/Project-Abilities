@@ -16,14 +16,19 @@ public class HealthBar : ModularBar
     public override void UpdateBar(BarID id, float current, float max)
     {
         float combinedOldValue = CombinedValue;
+        float combinedOldMaxValue = CombinedMaxValue;
 
         base.UpdateBar(id, current, max);
 
-        float combinedNewValue = CombinedValue;
+        if (chipping) return;
 
-        if (!chipping && combinedOldValue > combinedNewValue)
+        if (combinedOldValue > CombinedValue)
         {
             StartChipping(combinedOldValue / CombinedMaxValue);
+        }
+        else if (CombinedMaxValue > combinedOldMaxValue)
+        {
+            chip.UpdateBar(CombinedValue / CombinedMaxValue);
         }
     }
 

@@ -279,6 +279,7 @@ public class Damageable : MonoBehaviour, IUpgradable
 
         MarkedForDeath = false;
         MaxHealth.onStatUpdated += SyncHealth;
+        MaxShield.onStatUpdated += SyncShield;
     }
 
     private void Update()
@@ -306,6 +307,15 @@ public class Damageable : MonoBehaviour, IUpgradable
         {
             _health = MaxHealth.Value;
         }
+
+        onAnyHealthUpdate?.Invoke();
+    }
+
+    private void SyncShield(StatUpdate statUpdate)
+    {
+        float change = MaxHealth.Value - statUpdate.oldValue;
+
+        if (change == 0f) return;
 
         onAnyHealthUpdate?.Invoke();
     }
