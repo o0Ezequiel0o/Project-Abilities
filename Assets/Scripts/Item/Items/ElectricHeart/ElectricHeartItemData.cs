@@ -6,6 +6,8 @@ namespace Zeke.Items
     public class ElectricHeartItemData : ItemData
     {
         [field: SerializeReferenceDropdown, SerializeReference] public IStackStat HealthRegen { get; private set; }
+        [field: SerializeReferenceDropdown, SerializeReference] public IStackStat ShieldRegen { get; private set; }
+        [field: SerializeField] public float ShieldRegenInterval { get; private set; }
 
         public override Item CreateItem(ItemHandler itemHandler, GameObject source)
         {

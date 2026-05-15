@@ -37,7 +37,12 @@ namespace Zeke.Items
 
             if (increasedDamage.ContainsKey(damageEvent.Receiver))
             {
-                increasedDamage[damageEvent.Receiver] += data.FlatMultDamage.GetValue(stacks);
+                float flatMultDamage = data.FlatMultDamage.GetValue(stacks);
+                float maxFlatMult = data.MaxStacks.GetValue(stacks) * flatMultDamage;
+
+                float newValue = increasedDamage[damageEvent.Receiver] + flatMultDamage;
+
+                increasedDamage[damageEvent.Receiver] = Mathf.Min(maxFlatMult, newValue);
             }
             else
             {

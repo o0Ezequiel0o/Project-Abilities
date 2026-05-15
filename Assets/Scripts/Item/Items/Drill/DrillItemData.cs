@@ -6,6 +6,7 @@ namespace Zeke.Items
     public class DrillItemData : ItemData
     {
         [field: SerializeReferenceDropdown, SerializeReference] public IStackStat FlatMultDamage { get; private set; }
+        [field: SerializeReferenceDropdown, SerializeReference] public IStackStat MaxStacks { get; private set; }
 
         public override Item CreateItem(ItemHandler itemHandler, GameObject source)
         {

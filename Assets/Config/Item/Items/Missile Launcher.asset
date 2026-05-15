@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e43936437176ce5408d1167581721b84, type: 3}
-  m_Name: Missile
+  m_Name: Missile Launcher
   m_EditorClassIdentifier: Assembly-CSharp::MissileItemData
   settings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   worldPrefab: {fileID: 3753182464441508134, guid: 8744b93346d0e894eae6b0e73da7314b, type: 3}
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: Missile
+  <Name>k__BackingField: Missile Launcher
   <Description>k__BackingField: Hits have a 10% chance to spawn a missile that deals
     300% (+100% per stack) base damage.
   <Rarity>k__BackingField: 1
@@ -27,6 +27,9 @@ MonoBehaviour:
     rid: 2308102863504277876
   <MaxRange>k__BackingField: 30
   <Speed>k__BackingField: 8
+  <ArmorPenetration>k__BackingField: 0
+  <ProcCoefficient>k__BackingField: 1
+  <Knockback>k__BackingField: 1
   references:
     version: 2
     RefIds:

@@ -13,6 +13,8 @@ namespace Zeke.Items
         private Damageable damageable;
         private float regenFlatModifier = 0f;
 
+        private float timer = 0f;
+
         private bool hasRequiredComponents = false;
 
         public ElectricHeartItem(ElectricHeartItemData data, ItemHandler itemHandler, GameObject source)
@@ -36,6 +38,8 @@ namespace Zeke.Items
         public override void OnUpdate()
         {
             if (!hasRequiredComponents) return;
+
+            UpdateShieldRegen();
             UpdateRegenValue();
         }
 
@@ -53,6 +57,17 @@ namespace Zeke.Items
             regenFlatModifier = healthRegen;
 
             damageable.HealthRegen.ApplyFlatModifier(-oldFlatModifier, regenFlatModifier);
+        }
+
+        private void UpdateShieldRegen()
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= data.ShieldRegenInterval)
+            {
+                damageable.GiveShield(data.ShieldRegen.GetValue(stacks), source, source);
+                timer = 0f;
+            }
         }
     }
 }
