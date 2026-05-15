@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Damageable;
 
 namespace Zeke.Items
 {
@@ -11,6 +12,8 @@ namespace Zeke.Items
         private readonly GameObject source;
 
         private Damageable damageable;
+
+        private readonly Stat.Multiplier multiplier = new Stat.Multiplier(1f);
 
         private float timer = 0f;
 
@@ -26,6 +29,12 @@ namespace Zeke.Items
         public override void Initialize()
         {
             hasRequiredComponents = source.TryGetComponent(out damageable);
+
+            if (hasRequiredComponents)
+            {
+                damageable.onTakenDamage.Subscribe(OnTakenDamage);
+                damageable.HealingReceivedMultiplier.AddMultiplier(multiplier);
+            }
         }
 
         public override void OnUpdate()
@@ -40,6 +49,14 @@ namespace Zeke.Items
 
                 timer = 0f;
             }
+        }
+
+        private void OnTakenDamage(DamageEvent damageEvent)
+        {
+            float missingHealthRatio = 1f - (damageable.Health / damageable.MaxHealth.Value);
+            int effectStacks = Mathf.FloorToInt(missingHealthRatio / data.MissingHealthRatioForStack);
+
+            multiplier.UpdateMultiplier(1f + (data.HealReceivedExtraMultPerStack.GetValue(stacks) * effectStacks));
         }
     }
 }

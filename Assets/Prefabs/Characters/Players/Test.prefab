@@ -98,4 +98,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Items.AddItems
   items:
-  - {fileID: 11400000, guid: d265974e1b21d8145ae1fa0874271694, type: 2}
+  - {fileID: 11400000, guid: c10295ed20c161d499a42eb88f780113, type: 2}
