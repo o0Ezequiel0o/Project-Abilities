@@ -28,7 +28,7 @@ public class BossSpawner : MonoBehaviour, IInteractable
 
         if (boss.TryGetComponent(out Damageable damageable))
         {
-            damageable.onDeath.Subscribe(OnBossDeath);
+            damageable.onDespawn += OnBossDeath;
         }
 
         activated = true;
@@ -36,7 +36,7 @@ public class BossSpawner : MonoBehaviour, IInteractable
         return true;
     }
 
-    private void OnBossDeath(DamageEvent damageEvent)
+    private void OnBossDeath(Damageable _)
     {
         Instantiate(portalPrefab, portalSpawn.position, Quaternion.identity);
         GlobalEventBus.Invoke(new GameLevelHandler.LevelEndEvent());
