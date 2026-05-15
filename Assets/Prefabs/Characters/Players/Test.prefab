@@ -75,5 +75,27 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5218312312708394220, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4201099071849167728}
   m_SourcePrefab: {fileID: 100100000, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+--- !u!1 &6408410254461780945 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5218312312708394220, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+  m_PrefabInstance: {fileID: 1190098513186107197}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4201099071849167728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6408410254461780945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee1796d0b6a7815489a4c7916d40c148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Items.AddItems
+  items:
+  - {fileID: 11400000, guid: d265974e1b21d8145ae1fa0874271694, type: 2}
