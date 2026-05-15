@@ -123,8 +123,12 @@ public class ModularBar : MonoBehaviour
 
     protected void UpdateBarRendering()
     {
+        if (root.gameObject == null) return;
+
         for (int i = 0; i < bars.Count; i++)
         {
+            if (bars[i].bar.rectTransform.gameObject == null) continue;
+
             float width = root.rect.width * bars[i].bar.values.Percentage * (bars[i].bar.values.maxValue / combinedMaxValue);
             bars[i].bar.rectTransform.sizeDelta = new Vector2(width, root.rect.height);
         }
