@@ -54,12 +54,16 @@ public class Damageable : MonoBehaviour, IUpgradable
     public Action onAnyHealthUpdate;
 
     public bool Immune => immunitySources.Count > 0;
-    private readonly HashSet<int> immunitySources = new HashSet<int>();
+
+    private readonly HashSet<ImmunitySourceID> immunitySources = new HashSet<ImmunitySourceID>();
+    private readonly Queue<DamageEvent> queuedDamageEvents = new Queue<DamageEvent>();
 
     private float _health = 0f;
     private float _shield = 0f;
 
     private float regenTimer = 0f;
+
+    public class ImmunitySourceID { }
 
     public static float CalculateDamageReduction(float armorValue)
     {
@@ -90,7 +94,13 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     public DamageEvent DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
     {
-        return DealDamage(new DamageEvent(damageInfo, this, sourceUser, sourceObject, procChain));
+        return DealDamage(new DamageEvent(damageInfo, this, sourceUser, sourceObject, procChain, OnDamageEventFinished));
+    }
+
+    private void OnDamageEventFinished(DamageEvent damageEvent)
+    {
+        if (queuedDamageEvents.Count <= 0) return;
+        DealDamage(queuedDamageEvents.Dequeue());
     }
 
     public DamageEvent DealDamage(DamageEvent damageEvent)
@@ -136,14 +146,14 @@ public class Damageable : MonoBehaviour, IUpgradable
         return healing * HealingReceivedMultiplier.Value;
     }
 
-    public void AddImmunitySource(int ID)
+    public void AddImmunitySource(ImmunitySourceID id)
     {
-        immunitySources.Add(ID);
+        immunitySources.Add(id);
     }
 
-    public void RemoveImmunitySource(int ID)
+    public void RemoveImmunitySource(ImmunitySourceID id)
     {
-        immunitySources.Remove(ID);
+        immunitySources.Remove(id);
     }
 
     public void Upgrade()
@@ -262,6 +272,7 @@ public class Damageable : MonoBehaviour, IUpgradable
         Health = MaxHealth.Value;
         Shield = MaxShield.Value;
 
+        queuedDamageEvents.Clear();
         immunitySources.Clear();
         regenTimer = 0f;
 
@@ -388,7 +399,9 @@ public class Damageable : MonoBehaviour, IUpgradable
             }
         }
 
-        public DamageEvent(DamageInfo damageInfo, Damageable receiver, GameObject userSource, GameObject sourceObject, List<ItemData> procChain)
+        private readonly Action<DamageEvent> callback;
+
+        public DamageEvent(DamageInfo damageInfo, Damageable receiver, GameObject userSource, GameObject sourceObject, List<ItemData> procChain, Action<DamageEvent> callback)
         {
             IsHit = damageInfo.hit;
             IsLethal = damageInfo.lethal;
@@ -408,32 +421,59 @@ public class Damageable : MonoBehaviour, IUpgradable
             SourceObject = sourceObject;
 
             Multiplier = new Stat(1f, 0f, 0f, float.PositiveInfinity);
+
+            this.callback = callback;
+        }
+
+        private void EndDamageEvent()
+        {
+            callback?.Invoke(this);
         }
 
         public void ExecuteEventFlow()
         {
-            if (!Receiver.IsAlive || Receiver.MarkedForDeath) return;
+            if (!Receiver.IsAlive || Receiver.MarkedForDeath)
+            {
+                EndDamageEvent();
+                return;
+            }
 
             Receiver.onDamageEvent?.Invoke(this);
 
             HandleImmunityState();
 
-            if (damageRejected) return;
+            if (damageRejected)
+            {
+                EndDamageEvent();
+                return;
+            }
 
             if (IsHit)
             {
                 HandleOnHitEvents();
             }
 
-            if (damageRejected) return;
+            if (damageRejected)
+            {
+                EndDamageEvent();
+                return;
+            }
 
             HandlePreDamageEvents();
 
-            if (damageRejected || Damage <= 0) return;
+            if (damageRejected || Damage <= 0)
+            {
+                EndDamageEvent();
+                return;
+            }
 
             HandleDamage();
 
-            if (DamageDealt <= 0) return;
+            if (DamageDealt <= 0)
+            {
+                EndDamageEvent();
+                return;
+            }
 
             if (!Receiver.MarkedForDeath && Receiver.Health <= 0)
             {
@@ -443,7 +483,11 @@ public class Damageable : MonoBehaviour, IUpgradable
 
             HandlePostDamageEvents();
 
-            if (!Receiver.MarkedForDeath || !Receiver.IsAlive) return;
+            if (!Receiver.MarkedForDeath || !Receiver.IsAlive)
+            {
+                EndDamageEvent();
+                return;
+            }
 
             Receiver.IsAlive = false;
             HandleDeathEvents();

@@ -20,7 +20,9 @@ public class StatusEffectHandler : MonoBehaviour
     public OrderedAction<StatusEffect> onStacksRemoved = new OrderedAction<StatusEffect>();
 
     private readonly List<StatusEffect> statusEffects = new List<StatusEffect>();
-    private readonly HashSet<int> immunitySources = new HashSet<int>();
+    private readonly HashSet<ImmunitySourceID> immunitySources = new HashSet<ImmunitySourceID>();
+
+    public class ImmunitySourceID { }
 
     public StatusEffect ApplyEffect(StatusEffectData statusEffectData, GameObject source)
     {
@@ -124,14 +126,14 @@ public class StatusEffectHandler : MonoBehaviour
         immunity.Remove(statusEffect);
     }
 
-    public void AddImmunitySource(int ID)
+    public void AddImmunitySource(ImmunitySourceID id)
     {
-        immunitySources.Add(ID);
+        immunitySources.Add(id);
     }
 
-    public void RemoveImmunitySource(int ID)
+    public void RemoveImmunitySource(ImmunitySourceID id)
     {
-        immunitySources.Remove(ID);
+        immunitySources.Remove(id);
     }
 
     private void Update()

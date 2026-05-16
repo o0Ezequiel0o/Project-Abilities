@@ -6,7 +6,8 @@ public class Exosuit : Vehicle
     [SerializeField] private Damageable damageable;
     [SerializeField] private StatusEffectHandler statusEffectHandler;
 
-    private readonly int immunityID = GameInstance.GetUniqueID();
+    private readonly StatusEffectHandler.ImmunitySourceID statusImmunityID = new StatusEffectHandler.ImmunitySourceID();
+    private readonly Damageable.ImmunitySourceID damageImmunityID = new Damageable.ImmunitySourceID();
 
     protected override void OnEnterVehicle(GameObject source)
     {
@@ -28,12 +29,12 @@ public class Exosuit : Vehicle
     {
         if (source.TryGetComponent(out Damageable damageable))
         {
-            damageable.AddImmunitySource(immunityID);
+            damageable.AddImmunitySource(damageImmunityID);
             damageable.onDamageEvent.Subscribe(RedirectDamage);
         }
         if (source.TryGetComponent(out StatusEffectHandler statusEffectHandler))
         {
-            statusEffectHandler.AddImmunitySource(immunityID);
+            statusEffectHandler.AddImmunitySource(statusImmunityID);
             statusEffectHandler.onApplyEffect.Subscribe(RedirectStatusEffect);
         }
     }
@@ -42,12 +43,12 @@ public class Exosuit : Vehicle
     {
         if (source.TryGetComponent(out Damageable damageable))
         {
-            damageable.RemoveImmunitySource(immunityID);
+            damageable.RemoveImmunitySource(damageImmunityID);
             damageable.onDamageEvent.Subscribe(RedirectDamage);
         }
         if (source.TryGetComponent(out StatusEffectHandler statusEffectHandler))
         {
-            statusEffectHandler.RemoveImmunitySource(immunityID);
+            statusEffectHandler.RemoveImmunitySource(statusImmunityID);
             statusEffectHandler.onApplyEffect.Unsubscribe(RedirectStatusEffect);
         }
     }
