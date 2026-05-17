@@ -13,6 +13,12 @@ namespace Zeke.Items
         [field: Space]
 
         [field: SerializeReferenceDropdown, SerializeReference] public IStackStat Damage { get; private set; }
+        [field: SerializeField] public float ArmorPenetration { get; private set; }
+        [field: SerializeField] public float ProcCoefficient { get ; private set; }
+        [field: SerializeField] public float Knockback { get; private set; }
+
+        [field: Space]
+
         [field: SerializeField] public float Cooldown { get; private set; }
         [field: SerializeField] public float Radius { get; private set; }
         [field: SerializeField] public float Fuse { get; private set; }

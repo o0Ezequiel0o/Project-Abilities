@@ -2,6 +2,7 @@ using UnityEngine;
 using Zeke.Abilities;
 using Zeke.PoolableGameObjects;
 using Zeke.TeamSystem;
+using static Bomb;
 
 namespace Zeke.Items
 {
@@ -62,7 +63,9 @@ namespace Zeke.Items
             BombItemBomb bomb = bombs.Get(data.BombPrefab);
 
             bomb.transform.SetPositionAndRotation(source.transform.position, Quaternion.identity);
-            bomb.StartFuse(data.Fuse, damage, data.Radius, source, TeamManager.GetTeam(source));
+
+            DamageData damageData = new DamageData(damage, data.ArmorPenetration, data.ProcCoefficient);
+            bomb.StartFuse(data.Fuse, data.Radius, damageData, data.Knockback, source, TeamManager.GetTeam(source));
 
             bomb.gameObject.SetActive(true);
         }
