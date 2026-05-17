@@ -24,6 +24,9 @@ MonoBehaviour:
   <AbilityType>k__BackingField: 2
   <Damage>k__BackingField:
     rid: 2308103044736483411
+  <ArmorPenetration>k__BackingField: 0
+  <ProcCoefficient>k__BackingField: 1
+  <Knockback>k__BackingField: 30
   <Cooldown>k__BackingField: 5
   <Radius>k__BackingField: 2
   <Fuse>k__BackingField: 1
