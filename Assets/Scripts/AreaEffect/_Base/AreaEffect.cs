@@ -14,9 +14,6 @@ public abstract class AreaEffect : MonoBehaviour, IPoolableGameObjectConfirmator
     public Action<IPoolableGameObjectConfirmator> PoolableReady { get; set; }
     public Action<IPoolableGameObjectConfirmator> PoolableBusy { get; set; }
 
-    protected float armorPenetration = 0f;
-    protected float procCoefficient = 0f;
-
     protected float tickInterval = 0f;
     protected int currentTick = 0;
     protected int ticks = 0;
@@ -29,9 +26,11 @@ public abstract class AreaEffect : MonoBehaviour, IPoolableGameObjectConfirmator
 
     public virtual void OnSentToPool() { }
 
-    public virtual void OnRetrievedFromPool() { }
+    public virtual void OnRetrievedFromPool()
+    {
+        hits.Clear();
+    }
 
-    //DamageData damageData, GameObject source, Teams team
     public void CreateAreaEffect(int ticks, float tickInterval, float radius)
     {
         this.ticks = ticks;
