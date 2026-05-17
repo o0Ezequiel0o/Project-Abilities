@@ -58,6 +58,8 @@ public class Damageable : MonoBehaviour, IUpgradable
     private readonly HashSet<ImmunitySourceID> immunitySources = new HashSet<ImmunitySourceID>();
     private readonly Queue<DamageEvent> queuedDamageEvents = new Queue<DamageEvent>();
 
+    private bool processingDamageEvent = false;
+
     private float _health = 0f;
     private float _shield = 0f;
 
@@ -82,31 +84,44 @@ public class Damageable : MonoBehaviour, IUpgradable
         return damageReduction;
     }
 
-    public DamageEvent DealDamage(DamageInfo damageInfo)
+    public void DealDamage(DamageInfo damageInfo)
     {
-        return DealDamage(damageInfo, null, null, new List<ItemData>());
+        DealDamage(damageInfo, null, null, new List<ItemData>(), null);
     }
 
-    public DamageEvent DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject)
+    public void DealDamage(DamageInfo damageInfo, Action<DamageEvent> callback)
     {
-        return DealDamage(damageInfo, sourceUser, sourceObject, new List<ItemData>());
+        DealDamage(damageInfo, null, null, new List<ItemData>(), callback);
     }
 
-    public DamageEvent DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
+    public void DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject)
     {
-        return DealDamage(new DamageEvent(damageInfo, this, sourceUser, sourceObject, procChain, OnDamageEventFinished));
+        DealDamage(damageInfo, sourceUser, sourceObject, new List<ItemData>(), null);
     }
 
-    private void OnDamageEventFinished(DamageEvent damageEvent)
+    public void DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject, Action<DamageEvent> callback)
     {
-        if (queuedDamageEvents.Count <= 0) return;
-        DealDamage(queuedDamageEvents.Dequeue());
+        DealDamage(damageInfo, sourceUser, sourceObject, new List<ItemData>(), callback);
     }
 
-    public DamageEvent DealDamage(DamageEvent damageEvent)
+    public void DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
     {
-        damageEvent.ExecuteEventFlow();
-        return damageEvent;
+        DealDamage(damageInfo, sourceUser, sourceObject, procChain, null);
+    }
+
+    public void DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain, Action<DamageEvent> callback)
+    {
+        DealDamage(new DamageEvent(damageInfo, this, sourceUser, sourceObject, procChain, callback));
+    }
+
+    public void DealDamage(DamageEvent damageEvent)
+    {
+        queuedDamageEvents.Enqueue(damageEvent);
+
+        if (!processingDamageEvent)
+        {
+            RunNextQueuedEvent();
+        }
     }
 
     public HealEvent GiveHealing(float healing)
@@ -169,6 +184,19 @@ public class Damageable : MonoBehaviour, IUpgradable
         DamageReceivedMultiplier.Upgrade();
         HealingReceivedMultiplier.Upgrade();
         ShieldReceivedMultiplier.Upgrade();
+    }
+
+    private void RunNextQueuedEvent()
+    {
+        if (queuedDamageEvents.Count <= 0) return;
+        ExecuteDamageEvent(queuedDamageEvents.Dequeue());
+    }
+
+    private void ExecuteDamageEvent(DamageEvent damageEvent)
+    {
+        processingDamageEvent = true;
+        damageEvent.ExecuteEventFlow();
+        processingDamageEvent = false;
     }
 
     private float CalculateDamage(DamageEvent damageEvent)
@@ -351,7 +379,12 @@ public class Damageable : MonoBehaviour, IUpgradable
         }
     }
 
-    public class DamageEvent
+    public interface IDamageableEvent
+    {
+        public void ExecuteEventFlow();
+    }
+
+    public class DamageEvent : IDamageableEvent
     {
         public static readonly OrderedActionDictionary<GameObject, DamageEvent> onDamageDealt = new OrderedActionDictionary<GameObject, DamageEvent>(128);
         public static readonly OrderedActionDictionary<GameObject, DamageEvent> onDealDamage = new OrderedActionDictionary<GameObject, DamageEvent>(128);
@@ -428,6 +461,7 @@ public class Damageable : MonoBehaviour, IUpgradable
         private void EndDamageEvent()
         {
             callback?.Invoke(this);
+            Receiver.RunNextQueuedEvent();
         }
 
         public void ExecuteEventFlow()
@@ -544,7 +578,7 @@ public class Damageable : MonoBehaviour, IUpgradable
         }
     }
 
-    public class HealEvent
+    public class HealEvent : IDamageableEvent
     {
         public static readonly OrderedActionDictionary<GameObject, HealEvent> onHealHealth = new OrderedActionDictionary<GameObject, HealEvent>(128);
         public static readonly OrderedActionDictionary<GameObject, HealEvent> onHealthHealed = new OrderedActionDictionary<GameObject, HealEvent>(128);

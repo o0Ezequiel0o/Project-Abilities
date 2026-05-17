@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Zeke.TeamSystem;
+using static Damageable;
 
 namespace Zeke.Abilities.Modules
 {
@@ -48,25 +49,33 @@ namespace Zeke.Abilities.Modules
 
             for (int i = 0; i < hits.Count; i++)
             {
-                bool damageRejected = false;
-
                 if (hits[i].gameObject == source) continue;
 
                 if (TeamManager.IsAlly(hits[i].gameObject, source)) continue;
 
                 if (hits[i].TryGetComponent(out Damageable damageable))
                 {
-                    damageRejected = damageable.DealDamage(new DamageInfo(damage.Value, 0f, 1f), source, source).damageRejected;
+                    Vector3 direction = (damageable.transform.position - source.transform.position).normalized;
+                    DamageInfo damageInfo = new DamageInfo(damage.Value, 0f, 1f) { direction = direction };
+                    damageable.DealDamage(damageInfo, source, source, OnDamageDealt);
                 }
+            }
+        }
 
-                if (damageRejected) continue;
+        private void OnDamageDealt(DamageEvent damageEvent)
+        {
+            if (damageEvent.damageRejected) return;
 
-                Vector3 knockBackDirection = (hits[i].transform.position - source.transform.position).normalized;
+            GameObject receiver = damageEvent.Receiver.gameObject;
 
-                if (hits[i].TryGetComponent(out Physics physics))
-                {
-                    physics.AddForce(knockback * knockBackDirection);
-                }
+            ApplyKnockback(receiver, damageEvent.Direction);
+        }
+
+        private void ApplyKnockback(GameObject receiver, Vector2 direction)
+        {
+            if (receiver.TryGetComponent(out Physics physics))
+            {
+                physics.AddForce(knockback * direction);
             }
         }
 

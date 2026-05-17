@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using Zeke.TeamSystem;
+using static Damageable;
 
 public abstract class DamageProjectileBase : Projectile
 {
@@ -52,20 +54,30 @@ public abstract class DamageProjectileBase : Projectile
 
     public virtual void OnLaunch(Vector3 position, float speed, Vector2 direction, float maxRange, DamageData damageData, float knockback, GameObject source, Teams team) { }
 
-    protected bool DealDamage(GameObject receiver)
+    protected void DealDamage(GameObject receiver)
+    {
+        DealDamage(receiver, OnDamageDealt);
+    }
+
+    protected void DealDamage(GameObject receiver, Action<DamageEvent> callback)
     {
         if (receiver.TryGetComponent(out Damageable damageable))
         {
-            DamageInfo damageInfo = new DamageInfo(Damage, armorPenetration, procCoefficient) 
+            DamageInfo damageInfo = new DamageInfo(Damage, armorPenetration, procCoefficient)
             {
-                direction = GetHitDirection(receiver),
+                direction = Direction,
             };
 
-            Damageable.DamageEvent damageEvent = damageable.DealDamage(damageInfo, SourceUser, gameObject);
-            return damageEvent.damageRejected;
+            damageable.DealDamage(damageInfo, SourceUser, gameObject, callback);
         }
+    }
 
-        return true;
+    private void OnDamageDealt(DamageEvent damageEvent)
+    {
+        if (!damageEvent.damageRejected)
+        {
+            ApplyKnockback(damageEvent.Receiver.gameObject, damageEvent.Direction);
+        }
     }
 
     protected void ApplyKnockback(GameObject receiver, Vector2 direction)

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Zeke.TeamSystem;
+using static Damageable;
 
 public class BasicProjectile : DamageProjectileBase
 {
@@ -24,11 +25,14 @@ public class BasicProjectile : DamageProjectileBase
     
     protected virtual void Hit(GameObject receiver)
     {
-        bool damageRejected = DealDamage(receiver);
+        DealDamage(receiver, OnDamageDealt);
+    }
 
-        if (!damageRejected)
+    protected virtual void OnDamageDealt(DamageEvent damageEvent)
+    {
+        if (!damageEvent.damageRejected)
         {
-            ApplyKnockback(receiver, Direction);
+            ApplyKnockback(damageEvent.Receiver.gameObject, damageEvent.Direction);
         }
     }
 }

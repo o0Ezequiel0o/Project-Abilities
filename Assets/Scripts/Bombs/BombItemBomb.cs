@@ -1,13 +1,12 @@
 using UnityEngine;
 using Zeke.TeamSystem;
+using static Damageable;
 
 public class BombItemBomb : Bomb
 {
     protected override void Hit(Collider2D hit)
     {
         if (TeamManager.IsAlly(team, hit.gameObject)) return;
-
-        bool damageRejected = false;
 
         Vector2 direction = (hit.transform.position - transform.position).normalized;
 
@@ -19,12 +18,15 @@ public class BombItemBomb : Bomb
                 hit = true
             };
 
-            damageRejected = damageable.DealDamage(damageInfo, source, gameObject).damageRejected;
+            damageable.DealDamage(damageInfo, source, gameObject, OnDamageDealt);
         }
+    }
 
-        if (!damageRejected)
+    private void OnDamageDealt(DamageEvent damageEvent)
+    {
+        if (!damageEvent.damageRejected)
         {
-            ApplyKnockback(hit.gameObject, direction);
+            ApplyKnockback(damageEvent.Receiver.gameObject, damageEvent.Direction);
         }
     }
 }

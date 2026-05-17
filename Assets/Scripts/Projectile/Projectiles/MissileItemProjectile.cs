@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Zeke.TeamSystem;
 using Zeke.Items;
+using Zeke.TeamSystem;
 
 public class MissileItemProjectile : Missile
 {
@@ -22,8 +22,6 @@ public class MissileItemProjectile : Missile
 
     protected override void Hit(GameObject receiver)
     {
-        bool damageRejected = false;
-
         if (receiver.TryGetComponent(out Damageable damageable))
         {
             DamageInfo damageInfo = new DamageInfo(Damage, armorPenetration, procCoefficient)
@@ -31,12 +29,7 @@ public class MissileItemProjectile : Missile
                 direction = GetHitDirection(receiver)
             };
 
-            damageRejected = damageable.DealDamage(damageInfo, SourceUser, gameObject, ProcChainCopy).damageRejected;
-        }
-
-        if (!damageRejected)
-        {
-            ApplyKnockback(receiver, Direction);
+            damageable.DealDamage(damageInfo, SourceUser, gameObject, ProcChainCopy, OnDamageDealt);
         }
     }
 }

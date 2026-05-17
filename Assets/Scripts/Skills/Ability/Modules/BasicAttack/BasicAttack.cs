@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Zeke.TeamSystem;
+using static Damageable;
 
 namespace Zeke.Abilities.Modules
 {
@@ -58,8 +59,6 @@ namespace Zeke.Abilities.Modules
             PerformAttack(damage.Value);
         }
 
-        protected virtual void OnDamageDealt(GameObject source, AbilityController controller, Collider2D hit) { }
-
         private void PerformAttack(float damage)
         {
             Vector2 position;
@@ -77,15 +76,11 @@ namespace Zeke.Abilities.Modules
 
             for (int i = 0; i < hits.Count; i++)
             {
-                if (TryDealDamage(source, hits[i], damage))
-                {
-                    OnDamageDealt(source, controller, hits[i]);
-                    ApplyKnockBack(hits[i], spawn.up);
-                }
+                TryDealDamage(source, hits[i], damage);
             }
         }
 
-        private bool TryDealDamage(GameObject source, Collider2D target, float damage)
+        private void TryDealDamage(GameObject source, Collider2D target, float damage)
         {
             if (TeamManager.IsEnemy(source, target.gameObject))
             {
@@ -96,19 +91,17 @@ namespace Zeke.Abilities.Modules
                         direction = (damageable.transform.position - source.transform.position).normalized
                     };
 
-                    Damageable.DamageEvent damageEvent = damageable.DealDamage(damageInfo, source, source);
-
-                    if (damageEvent.DamageDealt > 0f && !damageEvent.damageRejected)
-                    {
-                        return true;
-                    }
+                    damageable.DealDamage(damageInfo, source, source, OnDamageDealt);
                 }
             }
-
-            return false;
         }
 
-        private void ApplyKnockBack(Collider2D target, Vector2 direction)
+        private void OnDamageDealt(DamageEvent damageEvent)
+        {
+            ApplyKnockBack(damageEvent.Receiver.gameObject, spawn.up);
+        }
+
+        private void ApplyKnockBack(GameObject target, Vector2 direction)
         {
             if (target.TryGetComponent(out Physics physics))
             {
