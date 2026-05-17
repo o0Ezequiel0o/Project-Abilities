@@ -247,7 +247,7 @@ namespace Zeke.Abilities.Modules
             homingOrbs.Remove(homingOrb);
             spinnerInstance.RemoveFromPivot(homingOrb.transform);
 
-            DamageProjectileBase.DamageData damageData = new DamageProjectileBase.DamageData(damage.Value, armorPenetration, procCoefficient);
+            DamageData damageData = new DamageData(damage.Value, armorPenetration, procCoefficient);
             homingOrb.Launch(homingOrb.transform.position, 5f, direction, maxRange.Value, damageData, pierce.ValueInt, source, TeamManager.GetTeam(source));
 
             homingOrb.SetTarget(target);

@@ -9,17 +9,15 @@ public abstract class Bomb : MonoBehaviour, IPoolableGameObjectConfirmator, IPoo
 {
     [SerializeField] private LayerMask hitLayers;
 
-    [Space]
-
-    [SerializeField] protected float knockback;
-    [SerializeField] protected float armorPenetration;
-    [SerializeField] protected float procCoefficient;
-
     [field: Header("Events")]
     [field: SerializeField] public UnityEvent<Bomb> OnDespawn { get; private set; }
 
     public Action<IPoolableGameObjectConfirmator> PoolableReady { get; set; }
     public Action<IPoolableGameObjectConfirmator> PoolableBusy { get; set; }
+
+    protected float knockback = 0f;
+    protected float armorPenetration = 0f;
+    protected float procCoefficient = 0f;
 
     protected GameObject source;
     protected Teams team;
@@ -39,12 +37,18 @@ public abstract class Bomb : MonoBehaviour, IPoolableGameObjectConfirmator, IPoo
 
     public virtual void OnRetrievedFromPool() { }
 
-    public void StartFuse(float duration, float damage, float radius, GameObject source, Teams team)
+    public void StartFuse(float duration, float radius, DamageData damageData, float knockback, GameObject source, Teams team)
     {
         if (fuseStarted) return;
 
         fuseTime = duration;
-        this.damage = damage;
+
+        damage = damageData.damage;
+        armorPenetration = damageData.armorPenetration;
+        procCoefficient = damageData.procCoefficient;
+
+        this.knockback = knockback;
+
         this.radius = radius;
         this.source = source;
         this.team = team;

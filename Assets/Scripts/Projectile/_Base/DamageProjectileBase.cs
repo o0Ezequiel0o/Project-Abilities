@@ -13,20 +13,6 @@ public abstract class DamageProjectileBase : Projectile
 
     protected float knockback = 0f;
 
-    public readonly struct DamageData
-    {
-        public readonly float armorPenetration;
-        public readonly float procCoefficient;
-        public readonly float damage;
-
-        public DamageData(float damage, float armorPenetration, float procCoefficient)
-        {
-            this.damage = damage;
-            this.armorPenetration = armorPenetration;
-            this.procCoefficient = procCoefficient;
-        }
-    }
-
     public override void OnRetrievedFromPool()
     {
         base.OnRetrievedFromPool();
