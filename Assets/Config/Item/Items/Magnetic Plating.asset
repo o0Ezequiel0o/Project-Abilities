@@ -18,7 +18,7 @@ MonoBehaviour:
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Magnetic Plating
   <Description>k__BackingField: While you have at least 10% of your max shield you
-    have 40 armor (+40 per stack) and gain 15 (+5 per stack) shield.
+    have 40 armor (+40 per stack) and gain 40 (+10 per stack) shield.
   <Rarity>k__BackingField: 2
   <ExtraShield>k__BackingField:
     rid: 1633593162037461068
@@ -31,8 +31,8 @@ MonoBehaviour:
     - rid: 1633593162037461068
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
-        startValue: 10
-        increase: 5
+        startValue: 30
+        increase: 10
     - rid: 1633593162037461069
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
