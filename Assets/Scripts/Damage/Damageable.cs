@@ -56,7 +56,6 @@ public class Damageable : MonoBehaviour, IUpgradable
     public bool Immune => immunitySources.Count > 0;
 
     private readonly HashSet<ImmunitySourceID> immunitySources = new HashSet<ImmunitySourceID>();
-    private readonly Queue<DamageEvent> queuedDamageEvents = new Queue<DamageEvent>();
 
     private float _health = 0f;
     private float _shield = 0f;
@@ -94,13 +93,7 @@ public class Damageable : MonoBehaviour, IUpgradable
 
     public DamageEvent DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
     {
-        return DealDamage(new DamageEvent(damageInfo, this, sourceUser, sourceObject, procChain, OnDamageEventFinished));
-    }
-
-    private void OnDamageEventFinished(DamageEvent damageEvent)
-    {
-        if (queuedDamageEvents.Count <= 0) return;
-        DealDamage(queuedDamageEvents.Dequeue());
+        return DealDamage(new DamageEvent(damageInfo, this, sourceUser, sourceObject, procChain));
     }
 
     public DamageEvent DealDamage(DamageEvent damageEvent)
@@ -272,7 +265,6 @@ public class Damageable : MonoBehaviour, IUpgradable
         Health = MaxHealth.Value;
         Shield = MaxShield.Value;
 
-        queuedDamageEvents.Clear();
         immunitySources.Clear();
         regenTimer = 0f;
 
@@ -399,9 +391,7 @@ public class Damageable : MonoBehaviour, IUpgradable
             }
         }
 
-        private readonly Action<DamageEvent> callback;
-
-        public DamageEvent(DamageInfo damageInfo, Damageable receiver, GameObject userSource, GameObject sourceObject, List<ItemData> procChain, Action<DamageEvent> callback)
+        public DamageEvent(DamageInfo damageInfo, Damageable receiver, GameObject userSource, GameObject sourceObject, List<ItemData> procChain)
         {
             IsHit = damageInfo.hit;
             IsLethal = damageInfo.lethal;
@@ -421,14 +411,9 @@ public class Damageable : MonoBehaviour, IUpgradable
             SourceObject = sourceObject;
 
             Multiplier = new Stat(1f, 0f, 0f, float.PositiveInfinity);
-
-            this.callback = callback;
         }
 
-        private void EndDamageEvent()
-        {
-            callback?.Invoke(this);
-        }
+        private void EndDamageEvent() { }
 
         public void ExecuteEventFlow()
         {
