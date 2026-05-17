@@ -29,6 +29,8 @@ public abstract class AreaEffect : MonoBehaviour, IPoolableGameObjectConfirmator
     public virtual void OnRetrievedFromPool()
     {
         hits.Clear();
+        timer = 0f;
+        currentTick = 0;
     }
 
     public void CreateAreaEffect(int ticks, float tickInterval, float radius)

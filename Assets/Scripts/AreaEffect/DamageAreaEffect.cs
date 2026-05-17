@@ -28,7 +28,12 @@ public class DamageAreaEffect : AreaEffect
     {
         for (int i = 0; i < count; i++)
         {
-            if (hits[i].TryGetComponent(out Damageable damageable))
+            GameObject receiver = hits[i].gameObject;
+
+            if (receiver == source) continue;
+            if (TeamManager.IsAlly(source, receiver)) continue;
+
+            if (receiver.TryGetComponent(out Damageable damageable))
             {
                 DamageInfo damageInfo = new DamageInfo(damage, armorPenetration, procCoefficient)
                 {
