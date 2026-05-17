@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Zeke.TeamSystem;
-using static Damageable;
 
 public class FireBallProjectile : DamageProjectileBase
 {
@@ -53,20 +52,15 @@ public class FireBallProjectile : DamageProjectileBase
         Despawn();
     }
 
-    private void Hit(GameObject receiver)
+    void Hit(GameObject receiver)
     {
         if (TeamManager.IsAlly(Team, receiver)) return;
 
         if (Physics2D.Linecast(TipPosition, receiver.transform.position, blockLayer)) return;
 
-        DealDamage(receiver, OnDamageDealt);
-    }
+        bool damageRejected = DealDamage(receiver);
 
-    private void OnDamageDealt(DamageEvent damageEvent)
-    {
-        if (damageEvent.damageRejected) return;
-
-        GameObject receiver = damageEvent.Receiver.gameObject;
+        if (damageRejected) return;
 
         if (receiver.TryGetComponent(out StatusEffectHandler statusEffectHandler))
         {

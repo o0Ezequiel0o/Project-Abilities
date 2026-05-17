@@ -103,7 +103,11 @@ public class BoomerangProjectile : DamageProjectileBase
             state = BoomerangState.Slowing;
         }
 
-        DealDamage(receiver);
+        bool damageRejected = DealDamage(receiver);
+
+        if (damageRejected) return;
+
+        ApplyKnockback(receiver, Direction);
     }
 
     private void UpdateSlowDownState()

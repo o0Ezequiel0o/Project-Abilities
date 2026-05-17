@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Zeke.TeamSystem;
-using static Damageable;
 
 public class LightingBoltProjectile : DamageProjectileBase
 {
@@ -45,14 +44,9 @@ public class LightingBoltProjectile : DamageProjectileBase
 
     private void Hit(GameObject receiver)
     {
-        DealDamage(receiver, OnDamageDealt);
-    }
+        bool damageRejected = DealDamage(receiver);
 
-    private void OnDamageDealt(DamageEvent damageEvent)
-    {
-        if (damageEvent.damageRejected) return;
-
-        GameObject receiver = damageEvent.Receiver.gameObject;
+        if (damageRejected) return;
 
         ApplyKnockback(receiver, Direction);
 

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zeke.PoolableGameObjects;
 using Zeke.TeamSystem;
-using static Damageable;
 
 public class MegaFireballProjectile : DamageProjectileBase
 {
@@ -79,14 +78,9 @@ public class MegaFireballProjectile : DamageProjectileBase
     {
         if (Physics2D.Linecast(TipPosition, receiver.transform.position, blockLayer)) return;
 
-        DealDamage(receiver, OnDamageDealt);
-    }
+        bool damageRejected = DealDamage(receiver);
 
-    private void OnDamageDealt(DamageEvent damageEvent)
-    {
-        if (damageEvent.damageRejected) return;
-
-        GameObject receiver = damageEvent.Receiver.gameObject;
+        if (damageRejected) return;
 
         if (receiver.TryGetComponent(out StatusEffectHandler statusEffectHandler))
         {

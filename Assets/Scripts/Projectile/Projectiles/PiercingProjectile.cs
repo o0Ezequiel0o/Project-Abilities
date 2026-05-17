@@ -1,6 +1,5 @@
 using UnityEngine;
 using Zeke.TeamSystem;
-using static Damageable;
 
 public class PiercingProjectile : DamageProjectileBase
 {
@@ -50,14 +49,9 @@ public class PiercingProjectile : DamageProjectileBase
 
     protected virtual void Hit(GameObject receiver)
     {
-        DealDamage(receiver, OnDamageDealt);
-    }
+        bool damageRejected = DealDamage(receiver);
 
-    private void OnDamageDealt(DamageEvent damageEvent)
-    {
-        GameObject receiver = damageEvent.Receiver.gameObject;
-
-        if (!damageEvent.damageRejected)
+        if (!damageRejected)
         {
             ApplyKnockback(receiver, Direction);
         }

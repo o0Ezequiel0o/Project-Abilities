@@ -1,18 +1,12 @@
 using UnityEngine;
-using static Damageable;
 
 public class SpinnerProjectile : PiercingProjectile
 {
     protected override void Hit(GameObject receiver)
     {
-        DealDamage(receiver, OnDamageDealt);
-    }
+        bool damageRejected = DealDamage(receiver);
 
-    private void OnDamageDealt(DamageEvent damageEvent)
-    {
-        if (damageEvent.damageRejected) return;
-
-        GameObject receiver = damageEvent.Receiver.gameObject;
+        if (damageRejected) return;
 
         if (SourceUser != null)
         {

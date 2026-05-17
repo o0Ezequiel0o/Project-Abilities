@@ -65,7 +65,11 @@ public class GiantOrbProjectile : DamageProjectileBase
     {
         if (TeamManager.IsAlly(Team, receiver)) return;
 
-        DealDamage(receiver);
+        bool damageRejected = DealDamage(receiver);
+
+        if (damageRejected) return;
+
+        ApplyKnockback(receiver, Direction);
     }
 
     private void FireHomingOrbs()
