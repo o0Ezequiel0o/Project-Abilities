@@ -17,24 +17,26 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Facility Mushroom
-  <Description>k__BackingField: 
-  <Rarity>k__BackingField: 0
+  <Description>k__BackingField: Using an ability with more than 1 second of cooldown
+    has a 10% of chance to spawn a spores cloud that scales in damage, radius and
+    ticks with the ability base cooldown time.
+  <Rarity>k__BackingField: 1
   <Prefab>k__BackingField: {fileID: -2497321183487775535, guid: 151913c5139187948bc52ef62017c52e, type: 3}
+  <MinCooldownRequired>k__BackingField: 1
   <ProcChance>k__BackingField:
     rid: 1633593202607128652
   <DamageMultiplier>k__BackingField:
     rid: 1633593202607128653
   <ArmorPenetration>k__BackingField: 0
   <ProcCoefficient>k__BackingField: 1
-  <TickInterval>k__BackingField: 1
-  <Ticks>k__BackingField: 3
+  <TickInterval>k__BackingField: 0.25
   references:
     version: 2
     RefIds:
     - rid: 1633593202607128652
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
-        startValue: 1
+        startValue: 10
         increase: 0
     - rid: 1633593202607128653
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}

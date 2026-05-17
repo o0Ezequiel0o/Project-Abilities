@@ -8,6 +8,10 @@ namespace Zeke.Items
         [field: Space]
 
         [field: SerializeField] public DamageAreaEffect Prefab { get; private set; }
+
+        [field: Space]
+
+        [field: SerializeField] public float MinCooldownRequired { get; private set; } = 1f;
         [field: SerializeReferenceDropdown, SerializeReference] public IStackStat ProcChance { get; private set; }
 
         [field: Space]
@@ -19,7 +23,6 @@ namespace Zeke.Items
         [field: Space]
 
         [field: SerializeField] public float TickInterval { get; private set; } = 1f;
-        [field: SerializeField] public int Ticks { get; private set; } = 3;
 
         public override Item CreateItem(ItemHandler itemHandler, GameObject source)
         {
