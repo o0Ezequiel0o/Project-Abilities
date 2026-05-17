@@ -21,6 +21,7 @@ public class DamageAreaEffect : AreaEffect
         this.team = team;
 
         CreateAreaEffect(ticks, tickInterval, radius);
+        transform.localScale = 2f * radius * Vector3.one;
     }
 
     protected override void OnTick(List<Collider2D> hits, int count)
