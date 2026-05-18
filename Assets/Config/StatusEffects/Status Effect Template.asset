@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5702cd8a9007c6478fd3d84eb36212e, type: 3}
   m_Name: Status Effect Template
   m_EditorClassIdentifier: 
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <AlwaysApply>k__BackingField: 0
   <MaxStacks>k__BackingField: 1
   <StatusEffectType>k__BackingField: 0
   <TemplateVar>k__BackingField: 0
