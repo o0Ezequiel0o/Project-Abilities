@@ -20,6 +20,15 @@ namespace Zeke.Items
             this.itemHandler = itemHandler;
         }
 
+        public override void OnRemoved()
+        {
+            if (source.TryGetComponent(out Damageable damageable))
+            {
+                damageable.HealthRegen.ApplyFlatModifier(-regenFlatModifier);
+                damageable.MaxHealth.ApplyFlatModifier(-healthFlatModifier);
+            }
+        }
+
         public override void OnStacksAdded(int amount)
         {
             if (source.TryGetComponent(out Damageable damageable))

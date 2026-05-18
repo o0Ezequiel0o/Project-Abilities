@@ -11,6 +11,8 @@ namespace Zeke.Items
         private readonly ItemHandler itemHandler;
         private readonly GameObject source;
 
+        private float regenFlatModifier = 0;
+
         public ThornsItem(ThornsItemData data, ItemHandler itemHandler, GameObject source)
         {
             this.data = data;
@@ -31,6 +33,23 @@ namespace Zeke.Items
             if (source.TryGetComponent(out Damageable damageable))
             {
                 damageable.onTakenDamage.Unsubscribe(OnTakenDamage);
+                damageable.HealthRegen.ApplyFlatModifier(-regenFlatModifier);
+            }
+        }
+
+        public override void OnStacksAdded(int amount)
+        {
+            if (source.TryGetComponent(out Damageable damageable))
+            {
+                UpdateHealthRegenValue(damageable);
+            }
+        }
+
+        public override void OnStacksRemoved(int amount)
+        {
+            if (source.TryGetComponent(out Damageable damageable))
+            {
+                UpdateHealthRegenValue(damageable);
             }
         }
 
@@ -42,6 +61,13 @@ namespace Zeke.Items
             {
                 statusEffectHandler.ApplyEffect(data.Effect, source, Mathf.FloorToInt(data.Stacks.GetValue(stacks)));
             }
+        }
+
+        private void UpdateHealthRegenValue(Damageable damageable)
+        {
+            float oldFlatModifier = regenFlatModifier;
+            regenFlatModifier = data.ExtraHealthRegen.GetValue(stacks);
+            damageable.HealthRegen.ApplyFlatModifier(-oldFlatModifier, regenFlatModifier);
         }
     }
 }

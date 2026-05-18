@@ -9,6 +9,7 @@ namespace Zeke.Items
 
         [field: SerializeField] public StatusEffectData Effect { get; private set; }
         [field: SerializeReferenceDropdown, SerializeReference] public IStackStat Stacks { get; private set; }
+        [field: SerializeReferenceDropdown, SerializeReference] public IStackStat ExtraHealthRegen { get; private set; }
 
         public override Item CreateItem(ItemHandler itemHandler, GameObject source)
         {

@@ -17,15 +17,22 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Thorns
-  <Description>k__BackingField: Taking damage applies 1 (+1 per stack) bleeding to
-    the enemy.
+  <Description>k__BackingField: Increase health regen by 3 (+3 per stack) and taking
+    damage applies 1 (+1 per stack) weaker bleeding to the enemy.
   <Rarity>k__BackingField: 1
-  <Effect>k__BackingField: {fileID: 11400000, guid: 6a23c38cf1531774184c1ad484ce7c57, type: 2}
+  <Effect>k__BackingField: {fileID: 11400000, guid: 67c94c0163d9a9c45bf33481a2de7bd4, type: 2}
   <Stacks>k__BackingField:
     rid: 2308103066509115392
+  <ExtraHealthRegen>k__BackingField:
+    rid: 1633593232497049676
   references:
     version: 2
     RefIds:
+    - rid: 1633593232497049676
+      type: {class: LinearStat, ns: , asm: Assembly-CSharp}
+      data:
+        startValue: 0
+        increase: 3
     - rid: 2308103066509115392
       type: {class: LinearStat, ns: , asm: Assembly-CSharp}
       data:
