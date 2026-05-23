@@ -39,7 +39,8 @@ namespace Zeke.Items
 
             if (accumulatedDistance > data.DistanceRequired)
             {
-                damageable.GiveHealing(data.Healing.GetValue(stacks), source, source);
+                HealInfo heal = new HealInfo(data.Healing.GetValue(stacks), data.ProcCoefficient);
+                damageable.GiveHealing(heal, source, source);
                 accumulatedDistance = 0f;
             }
 

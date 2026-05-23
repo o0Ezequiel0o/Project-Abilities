@@ -37,7 +37,8 @@ namespace Zeke.Abilities.Modules
 
                 if (hits[i].TryGetComponent(out Damageable damageable))
                 {
-                    damageable.GiveHealing(amount.Value, source, source);
+                    HealInfo heal = new HealInfo(amount.Value, procCoefficient);
+                    damageable.GiveHealing(heal, source, source);
                 }
             }
         }

@@ -13,6 +13,7 @@ namespace Zeke.Items
         [field: Space]
 
         [field: SerializeReferenceDropdown, SerializeReference] public IStackStat DamageHealRatio { get; private set; }
+        [field: SerializeField] public float ProcCoefficient { get; private set; } = 1f;
         [field: SerializeField] public float HealTickTime { get; private set; }
         [field: SerializeField, Min(1)] public int HealTicks { get; private set; }
 

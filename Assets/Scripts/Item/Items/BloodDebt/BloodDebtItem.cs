@@ -43,7 +43,8 @@ namespace Zeke.Items
             if (damageEvent.ProcChainBranch.Contains(data)) return;
 
             List<ItemData> newProcChainBranch = new List<ItemData>(damageEvent.ProcChainBranch) { Data };
-            damageable.GiveHealing(data.Healing.GetValue(stacks), source, source, newProcChainBranch);
+            HealInfo heal = new HealInfo(data.Healing.GetValue(stacks), data.ProcCoefficient);
+            damageable.GiveHealing(heal, source, source, newProcChainBranch);
         }
     }
 }

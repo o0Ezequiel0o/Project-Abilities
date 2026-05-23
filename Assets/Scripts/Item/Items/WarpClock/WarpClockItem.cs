@@ -118,7 +118,8 @@ namespace Zeke.Items
             if (tickTimer > data.HealTickTime)
             {
                 float healing = damageStored * data.DamageHealRatio.GetValue(stacks);
-                damageable.GiveHealing(healing, source, source);
+                HealInfo heal = new HealInfo(healing, data.ProcCoefficient);
+                damageable.GiveHealing(heal, source, source);
 
                 tickTimer = 0f;
                 currentTick += 1;

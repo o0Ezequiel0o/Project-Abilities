@@ -9,6 +9,7 @@ namespace Zeke.Items
 
         [field: SerializeField] public float DistanceRequired { get; private set; }
         [field: SerializeReferenceDropdown, SerializeReference] public IStackStat Healing { get; private set; }
+        [field: SerializeField] public float ProcCoefficient { get; private set; } = 1f;
 
         public override Item CreateItem(ItemHandler itemHandler, GameObject source)
         {

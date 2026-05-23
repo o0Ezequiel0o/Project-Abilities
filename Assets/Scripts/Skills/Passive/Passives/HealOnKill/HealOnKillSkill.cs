@@ -44,6 +44,7 @@ public class HealOnKillSkill : PassiveBase
     private void OnKill(Damageable.DamageEvent _)
     {
         if (!hasRequiredComponents) return;
-        damageable.GiveHealing(healAmount.Value, source, null);
+        HealInfo heal = new HealInfo(healAmount.Value, data.ProcCoefficient);
+        damageable.GiveHealing(heal, source, null);
     }
 }

@@ -97,7 +97,8 @@ namespace Zeke.Items
 
                     if (hits[i].TryGetComponent(out Damageable damageable))
                     {
-                        damageable.GiveHealing(healing, source, source);
+                        HealInfo heal = new HealInfo(healing, data.ProcCoefficient);
+                        damageable.GiveHealing(heal, source, source);
                     }
                 }
 

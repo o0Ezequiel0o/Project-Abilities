@@ -45,7 +45,8 @@ namespace Zeke.Items
 
             if (timer > data.Cooldown)
             {
-                damageable.GiveHealing(data.Healing.GetValue(stacks), source, source);
+                HealInfo heal = new HealInfo(data.Healing.GetValue(stacks), data.ProcCoefficient);
+                damageable.GiveHealing(heal, source, source);
 
                 timer = 0f;
             }

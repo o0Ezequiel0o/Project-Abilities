@@ -7,6 +7,7 @@ namespace Zeke.Abilities.Modules
     public class Heal : AbilityModule
     {
         [SerializeField] protected Stat amount;
+        [SerializeField] protected float procCoefficient;
 
         protected GameObject source;
         private Damageable damageable;
@@ -16,6 +17,7 @@ namespace Zeke.Abilities.Modules
         public Heal(Heal original)
         {
             amount = original.amount.DeepCopy();
+            procCoefficient = original.procCoefficient;
         }
 
         public override AbilityModule DeepCopy() => new Heal(this);
@@ -33,7 +35,8 @@ namespace Zeke.Abilities.Modules
         {
             if (damageable != null)
             {
-                damageable.GiveHealing(amount.Value, source, source);
+                HealInfo heal = new HealInfo(amount.Value, procCoefficient);
+                damageable.GiveHealing(heal, source, source);
             }
         }
 

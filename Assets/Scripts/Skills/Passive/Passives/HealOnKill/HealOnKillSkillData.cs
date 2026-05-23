@@ -4,6 +4,7 @@ using UnityEngine;
 public class HealOnKillSkillData : PassiveData
 {
     [SerializeField] private Stat healAmount;
+    [field: SerializeField] public float ProcCoefficient { get; private set; }  = 1f;
 
     private Stat HealAmount => healAmount.DeepCopy();
 

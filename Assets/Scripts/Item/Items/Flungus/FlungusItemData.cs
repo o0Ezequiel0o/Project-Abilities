@@ -12,6 +12,7 @@ namespace Zeke.Items
         [field: SerializeField] public LayerMask HitLayers { get; private set; }
         [field: SerializeReferenceDropdown, SerializeReference] public IStackStat Healing { get; private set; }
         [field: SerializeReferenceDropdown, SerializeReference] public IStackStat Radius { get; private set; }
+        [field: SerializeField] public float ProcCoefficient { get; private set; } = 0.25f;
 
         public override Item CreateItem(ItemHandler itemHandler, GameObject source)
         {

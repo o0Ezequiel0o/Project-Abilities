@@ -44,7 +44,8 @@ namespace Zeke.Items
             List<ItemData> newProcChainBranch = new List<ItemData>(damageEvent.ProcChainBranch) { Data };
             float healing = damageEvent.Damage * data.DamageHealRatio.GetValue(stacks);
 
-            damageable.GiveHealing(healing, source, source, newProcChainBranch);
+            HealInfo heal = new HealInfo(healing, data.ProcCoefficient);
+            damageable.GiveHealing(heal, source, source, newProcChainBranch);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Zeke.Abilities.Modules
         [Space]
 
         [SerializeField] private Stat healingPerStack;
+        [SerializeField] private float procCoefficient;
         [SerializeField] private Stat radius;
 
         private GameObject source;
@@ -27,6 +28,7 @@ namespace Zeke.Abilities.Modules
 
         public HealWithNearbyEffects(HealWithNearbyEffects original)
         {
+            procCoefficient = original.procCoefficient;
             consumesEffects = original.consumesEffects;
             hitLayers = original.hitLayers;
 
@@ -74,7 +76,8 @@ namespace Zeke.Abilities.Modules
                 }
             }
 
-            damageable.GiveHealing(healingToReceive, source, source);
+            HealInfo heal = new HealInfo(healingToReceive, procCoefficient);
+            damageable.GiveHealing(heal, source, source);
         }
 
         public override void Upgrade()

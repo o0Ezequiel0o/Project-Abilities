@@ -102,19 +102,19 @@ public class Damageable : MonoBehaviour, IUpgradable
         return damageEvent;
     }
 
-    public HealEvent GiveHealing(float healing)
+    public HealEvent GiveHealing(HealInfo healInfo)
     {
-        return GiveHealing(healing, null, null);
+        return GiveHealing(healInfo, null, null);
     }
 
-    public HealEvent GiveHealing(float healing, GameObject sourceUser, GameObject sourceObject)
+    public HealEvent GiveHealing(HealInfo healInfo, GameObject sourceUser, GameObject sourceObject)
     {
-        return GiveHealing(new HealEvent(healing, this, sourceUser, sourceObject, new List<ItemData>()));
+        return GiveHealing(new HealEvent(healInfo, this, sourceUser, sourceObject, new List<ItemData>()));
     }
 
-    public HealEvent GiveHealing(float healing, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
+    public HealEvent GiveHealing(HealInfo healInfo, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
     {
-        return GiveHealing(new HealEvent(healing, this, sourceUser, sourceObject, procChain));
+        return GiveHealing(new HealEvent(healInfo, this, sourceUser, sourceObject, procChain));
     }
 
     public HealEvent GiveHealing(HealEvent healingEvent)
@@ -548,13 +548,19 @@ public class Damageable : MonoBehaviour, IUpgradable
         public GameObject SourceUser { get; private set; }
         public GameObject SourceObject { get; private set; }
 
+        public bool IsHit { get; private set; }
+        public Vector2 Direction { get; private set; }
+
         public float FlatAccumulator { get; set; }
         public Stat Multiplier { get; private set; }
 
-        public HealEvent(float healing, Damageable receiver, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
+        public HealEvent(HealInfo healInfo, Damageable receiver, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
         {
-            Healing = healing;
-            BaseHealing = Healing;
+            IsHit = healInfo.hit;
+            Direction = healInfo.direction;
+
+            Healing = healInfo.baseHealing;
+            BaseHealing = healInfo.baseHealing;
 
             Receiver = receiver;
             SourceUser = sourceUser;

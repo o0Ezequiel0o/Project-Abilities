@@ -6,6 +6,7 @@ namespace Zeke.Items
     public class LeechItemData : ItemData
     {
         [field: SerializeReferenceDropdown, SerializeReference] public IStackStat DamageHealRatio { get; private set; }
+        [field: SerializeField] public float ProcCoefficient { get; private set; } = 1f;
 
         public override Item CreateItem(ItemHandler itemHandler, GameObject source)
         {
