@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 1106370790754955010}
   - component: {fileID: 9205517173161987729}
   - component: {fileID: 4857083452892335611}
-  - component: {fileID: 7322931542042914259}
+  - component: {fileID: 1535124157133606916}
   - component: {fileID: 2341835819306136100}
   - component: {fileID: 4898625653222785418}
   - component: {fileID: 409449635143560389}
@@ -557,7 +557,7 @@ MonoBehaviour:
   rigidBody: {fileID: 1123809005591388205}
   forceReceivedMultiplier: 1
   linearDamping: 0.15
---- !u!114 &7322931542042914259
+--- !u!114 &1535124157133606916
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -566,9 +566,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8699636803288472025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a89e7223a48902c4eb431ed3ddae936b, type: 3}
+  m_Script: {fileID: 11500000, guid: 649323b1c2cf12d4eacc5f9b5c2a0ae2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityMove
   physics: {fileID: 4857083452892335611}
   <MoveSpeed>k__BackingField:
     baseValue: 2

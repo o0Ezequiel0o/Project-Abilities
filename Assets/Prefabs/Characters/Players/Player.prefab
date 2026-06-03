@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 108859267500074294}
   - component: {fileID: -5244294688078608144}
   - component: {fileID: 7648585092559927398}
-  - component: {fileID: 3494898662879718562}
+  - component: {fileID: -8166282205792901740}
   - component: {fileID: 6656351697229743751}
   - component: {fileID: 3571629176375247297}
   - component: {fileID: 1194936845695977804}
@@ -404,7 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
---- !u!114 &3494898662879718562
+--- !u!114 &-8166282205792901740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -413,18 +413,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 5218312312708394220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a89e7223a48902c4eb431ed3ddae936b, type: 3}
+  m_Script: {fileID: 11500000, guid: 649323b1c2cf12d4eacc5f9b5c2a0ae2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityMove
   physics: {fileID: -7882419045995171510}
   <MoveSpeed>k__BackingField:
-    baseValue: 5
+    baseValue: 4
     increase: 0
     valueLimits:
-      min: 0
+      min: -Infinity
       max: Infinity
-  accelerationRatio: 3
-  brakingRatio: 2
+  accelerationRatio: 4
+  brakingRatio: 2.5
 --- !u!114 &6656351697229743751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,7 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b1d99d3a6e6a84ab93f9ffb87ba49c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  entityMove: {fileID: 3494898662879718562}
+  entityMove: {fileID: -8166282205792901740}
   entityAim: {fileID: 6656351697229743751}
   abilityController: {fileID: 2688288251930177549}
   interactionHandler: {fileID: 3315950687603881688}

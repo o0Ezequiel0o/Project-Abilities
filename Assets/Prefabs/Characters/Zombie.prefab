@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 5832264677408755591}
   - component: {fileID: 6180469951032781243}
   - component: {fileID: -347636825108832765}
-  - component: {fileID: 1874662572334693021}
+  - component: {fileID: 560146304392565846}
   - component: {fileID: 2847648351830069612}
   - component: {fileID: 1417673509132216369}
   - component: {fileID: 2288504394844029370}
@@ -374,7 +374,7 @@ MonoBehaviour:
   rigidBody: {fileID: 6869314029301337046}
   forceReceivedMultiplier: 1
   linearDamping: 0.15
---- !u!114 &1874662572334693021
+--- !u!114 &560146304392565846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -383,9 +383,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3581127942586707295}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a89e7223a48902c4eb431ed3ddae936b, type: 3}
+  m_Script: {fileID: 11500000, guid: 649323b1c2cf12d4eacc5f9b5c2a0ae2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityMove
   physics: {fileID: -347636825108832765}
   <MoveSpeed>k__BackingField:
     baseValue: 1
@@ -641,7 +641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AvoidanceTest
   physics: {fileID: -347636825108832765}
-  entityMove: {fileID: 1874662572334693021}
+  entityMove: {fileID: 560146304392565846}
   separationDistance: 0.75
   separationForce: 1.2
   entityLayer:
