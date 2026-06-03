@@ -539,7 +539,7 @@ public class Damageable : MonoBehaviour, IUpgradable
         public float HealthHealed { get; private set; }
         public float OverflowHealing { get; private set; }
 
-        public float UncappedHealing => Healing + OverflowHealing;
+        public float UncappedHealing => HealthHealed + OverflowHealing;
 
         public float ProcCoefficient { get; private set; }
         public List<ItemData> ProcChainBranch { get; private set; }
