@@ -374,7 +374,6 @@ MonoBehaviour:
   rigidBody: {fileID: 6869314029301337046}
   forceReceivedMultiplier: 1
   linearDamping: 0.15
-  moveForceDamping: 0.15
 --- !u!114 &1874662572334693021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,6 +393,8 @@ MonoBehaviour:
     valueLimits:
       min: -Infinity
       max: Infinity
+  accelerationRatio: 1
+  brakingRatio: 20
 --- !u!114 &2847648351830069612
 MonoBehaviour:
   m_ObjectHideFlags: 0

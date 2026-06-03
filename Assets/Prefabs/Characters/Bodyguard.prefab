@@ -557,7 +557,6 @@ MonoBehaviour:
   rigidBody: {fileID: 1123809005591388205}
   forceReceivedMultiplier: 1
   linearDamping: 0.15
-  moveForceDamping: 0.15
 --- !u!114 &7322931542042914259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,6 +576,8 @@ MonoBehaviour:
     valueLimits:
       min: -Infinity
       max: Infinity
+  accelerationRatio: 1
+  brakingRatio: 20
 --- !u!114 &2341835819306136100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,7 +751,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ecac57559e8f541a8efaaa020f5a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statusEffectsImmunityConfig: []
 --- !u!114 &2176903744366949419
 MonoBehaviour:
   m_ObjectHideFlags: 0

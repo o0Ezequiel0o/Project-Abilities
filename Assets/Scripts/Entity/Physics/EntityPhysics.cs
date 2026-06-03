@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class EntityPhysics : Physics
 {
-    [SerializeField] private float moveForceDamping = 0.15f;
-
     public Vector2 MoveForces => moveForces;
 
     private Vector2 moveForces;
@@ -16,8 +14,6 @@ public class EntityPhysics : Physics
     protected override void UpdateForces()
     {
         base.UpdateForces();
-
-        moveForces /= 1 + moveForceDamping;
 
         if (Mathf.Abs(moveForces.x) <= forceStopThreshold && Mathf.Abs(moveForces.y) <= forceStopThreshold)
         {

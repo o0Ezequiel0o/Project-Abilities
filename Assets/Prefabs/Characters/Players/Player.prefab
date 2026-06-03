@@ -359,7 +359,6 @@ MonoBehaviour:
   rigidBody: {fileID: 2582979104109749263}
   forceReceivedMultiplier: 1
   linearDamping: 0.15
-  moveForceDamping: 0.15
 --- !u!114 &108859267500074294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,7 +390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExperienceDecay
   levelHandler: {fileID: 108859267500074294}
-  startTime: 30
   decay: 0.001
 --- !u!114 &7648585092559927398
 MonoBehaviour:
@@ -425,6 +423,8 @@ MonoBehaviour:
     valueLimits:
       min: 0
       max: Infinity
+  accelerationRatio: 3
+  brakingRatio: 2
 --- !u!114 &6656351697229743751
 MonoBehaviour:
   m_ObjectHideFlags: 0
