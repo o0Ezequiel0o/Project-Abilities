@@ -393,7 +393,7 @@ MonoBehaviour:
     valueLimits:
       min: -Infinity
       max: Infinity
-  accelerationRatio: 1
+  accelerationRatio: 10
   brakingRatio: 20
 --- !u!114 &2847648351830069612
 MonoBehaviour:
