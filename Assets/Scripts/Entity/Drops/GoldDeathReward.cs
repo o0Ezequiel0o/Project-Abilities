@@ -12,7 +12,7 @@ public class GoldDeathReward : DeathReward
 
         if (deathEvent.SourceUser.TryGetComponent(out MoneyHandler wallet))
         {
-            wallet.GiveMoney(Mathf.FloorToInt(gold * GameInstance.CostMultiplier));
+            wallet.GiveMoney(Mathf.FloorToInt(gold));
         }
     }
 }

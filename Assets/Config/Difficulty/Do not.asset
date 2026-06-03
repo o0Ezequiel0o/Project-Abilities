@@ -17,4 +17,4 @@ MonoBehaviour:
   <StartingDifficulty>k__BackingField: 0
   <DifficultyScaleRate>k__BackingField: 0.075
   <DifficultyRampUp>k__BackingField: 0
-  <PriceScalePerSecond>k__BackingField: 0
+  <PriceScalePerSecond>k__BackingField: 0.008
