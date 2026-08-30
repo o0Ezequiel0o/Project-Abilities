@@ -6,34 +6,22 @@ namespace Zeke.Abilities.Modules.Projectiles
     [Serializable]
     public class FireProjectile : AbilityModule
     {
-        [Header("Casting")]
-        [SerializeField] private float fireDistance;
-        [SerializeField] private Limits spread = Limits.Zero;
+        private readonly FireProjectileData data;
+        private readonly FireProjectileType projectile;
 
-        [Space]
-
-        [SerializeReferenceDropdown, SerializeReference] private FireProjectileType projectile;
-
-        [SerializeField] private Stat speed;
-        [SerializeField] private Stat maxRange;
+        private readonly Stat speed;
+        private readonly Stat maxRange;
 
         private Transform spawn;
         private GameObject source;
 
-        public FireProjectile() { }
-
-        public FireProjectile(FireProjectile original)
+        public FireProjectile(FireProjectileData data, FireProjectileType projectile, Stat speed, Stat maxRange)
         {
-            fireDistance = original.fireDistance;
-
-            speed = original.speed.DeepCopy();
-            maxRange = original.maxRange.DeepCopy();
-            projectile = original.projectile.DeepCopy();
-
-            spread = new Limits(original.spread.Min, original.spread.Max);
+            this.projectile = projectile;
+            this.speed = speed;
+            this.maxRange = maxRange;
+            this.data = data;
         }
-
-        public override AbilityModule DeepCopy() => new FireProjectile(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -64,7 +52,7 @@ namespace Zeke.Abilities.Modules.Projectiles
 
         private void LaunchProjectile(Vector3 position, Vector3 direction, float speed, float maxRange, GameObject source)
         {
-            position += fireDistance * direction;
+            position += data.FireDistance * direction;
             direction = ApplySpreadToDirection(direction);
             projectile.LaunchProjectile(position, direction, speed, maxRange, source);
         }
@@ -76,7 +64,7 @@ namespace Zeke.Abilities.Modules.Projectiles
 
         private float GetRandomSpreadAngle()
         {
-            return UnityEngine.Random.Range(spread.Min, spread.Max);
+            return UnityEngine.Random.Range(data.Spread.Min, data.Spread.Max);
         }
 
         private Vector2 ApplySpreadToDirection(Vector2 direction)

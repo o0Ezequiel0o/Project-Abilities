@@ -6,7 +6,7 @@ namespace Zeke.Abilities.Modules.Projectiles
     [Serializable]
     public abstract class FireProjectileType
     {
-        public abstract FireProjectileType DeepCopy();
+        public virtual FireProjectileType DeepCopy() { return null; } //TODO: Remove this
 
         public abstract bool CanLaunchProjectile();
 

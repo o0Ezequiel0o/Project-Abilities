@@ -1,23 +1,20 @@
 using UnityEngine;
 using System;
 using Zeke.TeamSystem;
-using static DamageProjectileBase;
 
 namespace Zeke.Abilities.Modules.Projectiles
 {
     [Serializable]
     public class FireSniper : FireBasicProjectile
     {
-        [SerializeField] private Stat doubleDamageChance;
+        private readonly FireSniperData data;
+        private readonly Stat doubleDamageChance;
 
-        public FireSniper() { }
-
-        public FireSniper(FireSniper original) : base(original)
+        public FireSniper(FireSniperData data, Stat damage, Stat doubleDamageChance) : base(data, damage)
         {
-            doubleDamageChance = original.doubleDamageChance.DeepCopy();
+            this.data = data;
+            this.doubleDamageChance = doubleDamageChance;
         }
-
-        public override FireProjectileType DeepCopy() => new FireSniper(this);
 
         public override void LaunchProjectile(Vector3 position, Vector3 direction, DamageData damageData, float knockback, float speed, float maxRange, GameObject source, Teams team)
         {
