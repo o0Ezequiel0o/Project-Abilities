@@ -6,22 +6,19 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public partial class RechargeWithDistance : RechargeType
     {
-        [SerializeField] private ValueType valueType;
-        [SerializeField] private Stat amount;
-        [SerializeField] private Stat distanceForAmount;
+        private readonly RechargeWithDistanceData data;
+
+        private readonly Stat amount;
+        private readonly Stat distanceForAmount;
 
         private Vector3 lastPosition = Vector3.zero;
 
-        public RechargeWithDistance() { }
-
-        public RechargeWithDistance(RechargeWithDistance original)
+        public RechargeWithDistance(RechargeWithDistanceData data, Stat amount, Stat distanceForAmount)
         {
-            valueType = original.valueType;
-            amount = original.amount.DeepCopy();
-            distanceForAmount = original.distanceForAmount.DeepCopy();
+            this.data = data;
+            this.amount = amount;
+            this.distanceForAmount = distanceForAmount;
         }
-
-        public override RechargeType DeepCopy() => new RechargeWithDistance(this);
 
         public override void OnInitialization(AbilityController controller, GameObject source, Ability ability)
         {
@@ -42,7 +39,7 @@ namespace Zeke.Abilities.Modules
                 value = distanceTravelled / distanceForAmount.Value;
             }
 
-            UpdateCooldown(value * amount.Value, valueType);
+            UpdateCooldown(value * amount.Value, data.ValueType);
             lastPosition = source.transform.position;
         }
 

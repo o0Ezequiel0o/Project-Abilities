@@ -20,10 +20,6 @@ namespace Zeke.Abilities.Modules
             this.controller = controller;
         }
 
-        public RechargeType() { }
-
-        public abstract RechargeType DeepCopy();
-
         public virtual void Activate() { }
         public virtual void Deactivate() { }
 

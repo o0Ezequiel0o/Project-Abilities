@@ -6,18 +6,14 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class Recharge : AbilityModule
     {
-        [SerializeField] private UpdateMode updateMode;
-        [SerializeReferenceDropdown, SerializeReference] private RechargeType type = new RechargeWithTime();
+        private readonly RechargeData data;
+        private readonly RechargeType type;
 
-        public Recharge() { }
-
-        public Recharge(Recharge original)
+        public Recharge(RechargeData data, RechargeType type)
         {
-            updateMode = original.updateMode;
-            type = original.type.DeepCopy();
+            this.data = data;
+            this.type = type;
         }
-
-        public override AbilityModule DeepCopy() => new Recharge(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -29,7 +25,7 @@ namespace Zeke.Abilities.Modules
 
         public override void Activate(bool holding)
         {
-            switch (updateMode)
+            switch (data.UpdateMode)
             {
                 case UpdateMode.Inactive:
                     type.Deactivate();
@@ -46,7 +42,7 @@ namespace Zeke.Abilities.Modules
 
         public override void Deactivate()
         {
-            switch (updateMode)
+            switch (data.UpdateMode)
             {
                 case UpdateMode.Inactive:
                     type.Activate();
@@ -63,7 +59,7 @@ namespace Zeke.Abilities.Modules
 
         public override void UpdateActive()
         {
-            if (updateMode == UpdateMode.Active)
+            if (data.UpdateMode == UpdateMode.Active)
             {
                 type.UpdateDuration();
             }
@@ -71,7 +67,7 @@ namespace Zeke.Abilities.Modules
 
         public override void UpdateInactive()
         {
-            if (updateMode == UpdateMode.Inactive)
+            if (data.UpdateMode == UpdateMode.Inactive)
             {
                 type.UpdateDuration();
             }

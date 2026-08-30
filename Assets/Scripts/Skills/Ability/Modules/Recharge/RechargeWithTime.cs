@@ -8,8 +8,6 @@ namespace Zeke.Abilities.Modules
     {
         public RechargeWithTime() { }
 
-        public override RechargeType DeepCopy() => new RechargeWithTime();
-
         public override bool CanActivate() => true;
         public override bool CanUpgrade() => true;
 

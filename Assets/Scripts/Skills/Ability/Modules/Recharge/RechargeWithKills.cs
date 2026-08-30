@@ -6,18 +6,15 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public partial class RechargeWithKills : RechargeType
     {
-        [SerializeField] private ValueType valueType;
-        [SerializeField] private Stat amount;
+        private readonly RechargeWithKillsData data;
 
-        public RechargeWithKills() { }
+        private readonly Stat amount;
 
-        public RechargeWithKills(RechargeWithKills original)
+        public RechargeWithKills(RechargeWithKillsData data, Stat amount)
         {
-            valueType = original.valueType;
-            amount = original.amount.DeepCopy();
+            this.data = data;
+            this.amount = amount;
         }
-
-        public override RechargeType DeepCopy() => new RechargeWithKills(this);
 
         public override void OnInitialization(AbilityController controller, GameObject source, Ability ability)
         {
@@ -49,7 +46,7 @@ namespace Zeke.Abilities.Modules
 
         private void OnKill(Damageable.DamageEvent damageEvent)
         {
-            UpdateCooldown(amount.Value, valueType);
+            UpdateCooldown(amount.Value, data.ValueType);
         }
     }
 }
