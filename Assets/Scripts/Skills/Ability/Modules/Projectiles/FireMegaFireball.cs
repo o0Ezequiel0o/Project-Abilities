@@ -1,32 +1,28 @@
 using UnityEngine;
 using System;
 using Zeke.TeamSystem;
-using static DamageProjectileBase;
 
 namespace Zeke.Abilities.Modules.Projectiles
 {
     [Serializable]
     public class FireMegaFireball : FireDamageProjectile<MegaFireballProjectile>
     {
-        [SerializeField] private Stat fireballsAmount;
-        [SerializeField] private float explosionRadius;
+        private readonly FireMegaFireballData data;
 
-        public FireMegaFireball() { }
+        private readonly Stat fireballsAmount;
 
-        public FireMegaFireball(FireMegaFireball original) : base(original)
+        public FireMegaFireball(FireMegaFireballData data, Stat damage, Stat fireballsAmount) : base(data, damage)
         {
-            explosionRadius = original.explosionRadius;
-            fireballsAmount = original.fireballsAmount.DeepCopy();
+            this.data = data;
+            this.fireballsAmount = fireballsAmount;
         }
-
-        public override FireProjectileType DeepCopy() => new FireMegaFireball(this);
 
         public override bool CanLaunchProjectile() => true;
 
         public override void LaunchProjectile(Vector3 position, Vector3 direction, DamageData damageData, float knockback, float speed, float maxRange, GameObject source, Teams team)
         {
-            MegaFireballProjectile projectile = projectilePool.Get(prefab);
-            projectile.Launch(position, speed, direction, maxRange, damageData, knockback, explosionRadius, fireballsAmount.ValueInt, source, team);
+            MegaFireballProjectile projectile = projectilePool.Get(data.Prefab);
+            projectile.Launch(position, speed, direction, maxRange, damageData, knockback, data.ExplosionRadius, fireballsAmount.ValueInt, source, team);
             projectile.gameObject.SetActive(true);
         }
 

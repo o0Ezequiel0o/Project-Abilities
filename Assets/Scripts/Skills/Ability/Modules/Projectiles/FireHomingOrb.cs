@@ -1,39 +1,29 @@
 using UnityEngine;
 using System;
 using Zeke.TeamSystem;
-using static DamageProjectileBase;
 
 namespace Zeke.Abilities.Modules.Projectiles
 {
     [Serializable]
     public class FireHomingOrb : FireDamageProjectile<HomingOrbProjectile>
     {
-        [SerializeField] private Stat pierce;
+        private readonly FireHomingOrbData data;
 
-        [Header("Find Target")]
-        [SerializeField] private float targetRange;
-        [SerializeField] private LayerMask targetLayer;
-        [SerializeField] private LayerMask blockLayer;
+        private readonly Stat pierce;
 
-        public FireHomingOrb() { }
-
-        public FireHomingOrb(FireHomingOrb original) : base(original)
+        public FireHomingOrb(FireHomingOrbData data, Stat damage, Stat pierce) : base(data, damage)
         {
-            targetRange = original.targetRange;
-            targetLayer = original.targetLayer;
-            blockLayer = original.blockLayer;
-            pierce = original.pierce.DeepCopy();
+            this.data = data;
+            this.pierce = pierce;
         }
-
-        public override FireProjectileType DeepCopy() => new FireHomingOrb(this);
 
         public override bool CanLaunchProjectile() => true;
 
         public override void LaunchProjectile(Vector3 position, Vector3 direction, DamageData damageData, float knockback, float speed, float maxRange, GameObject source, Teams team)
         {
-            Transform target = TargetAwareness.GetClosestTargetToDirection(position, direction, targetRange, targetLayer, blockLayer,
-                target => TeamManager.IsEnemy(source, target) && TargetAwareness.HasLineOfSight(position, target.transform.position, blockLayer));
-            HomingOrbProjectile projectile = projectilePool.Get(prefab);
+            Transform target = TargetAwareness.GetClosestTargetToDirection(position, direction, data.TargetRange, data.TargetLayer, data.BlockLayer,
+                target => TeamManager.IsEnemy(source, target) && TargetAwareness.HasLineOfSight(position, target.transform.position, data.BlockLayer));
+            HomingOrbProjectile projectile = projectilePool.Get(data.Prefab);
             projectile.Launch(position, speed, direction, maxRange, damageData, knockback, pierce.ValueInt, target, source, team);
             projectile.gameObject.SetActive(true);
         }

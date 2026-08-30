@@ -1,31 +1,29 @@
 using UnityEngine;
 using System;
 using Zeke.TeamSystem;
-using static DamageProjectileBase;
 
 namespace Zeke.Abilities.Modules.Projectiles
 {
     [Serializable]
     public class FireBoomerang : FireDamageProjectile<BoomerangProjectile>
     {
-        [SerializeField] private Stat maxBoomerangs;
+        private readonly FireBoomerangData data;
+
+        private readonly Stat maxBoomerangs;
 
         private int currentProjectiles = 0;
 
-        public FireBoomerang() { }
-
-        public FireBoomerang(FireBoomerang original) : base(original)
+        public FireBoomerang(FireBoomerangData data, Stat damage, Stat maxBoomerangs) : base(data, damage)
         {
-            maxBoomerangs = original.maxBoomerangs.DeepCopy();
+            this.data = data;
+            this.maxBoomerangs = maxBoomerangs;
         }
-
-        public override FireProjectileType DeepCopy() => new FireBoomerang(this);
 
         public override bool CanLaunchProjectile() => currentProjectiles < maxBoomerangs.Value;
 
         public override void LaunchProjectile(Vector3 position, Vector3 direction, DamageData damageData, float knockback, float speed, float maxRange, GameObject source, Teams team)
         {
-            BoomerangProjectile projectile = projectilePool.Get(prefab);
+            BoomerangProjectile projectile = projectilePool.Get(data.Prefab);
             projectile.Launch(position, speed, direction, maxRange, damageData, knockback, source, team);
             projectile.gameObject.SetActive(true);
 

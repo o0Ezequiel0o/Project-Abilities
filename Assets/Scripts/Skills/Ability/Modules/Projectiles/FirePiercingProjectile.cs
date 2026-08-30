@@ -1,29 +1,27 @@
 using System;
 using UnityEngine;
 using Zeke.TeamSystem;
-using static DamageProjectileBase;
 
 namespace Zeke.Abilities.Modules.Projectiles
 {
     [Serializable]
     public class FirePiercingProjectile : FireDamageProjectile<PiercingProjectile>
     {
-        [SerializeField] private Stat pierce;
+        private readonly FirePiercingProjectileData data;
 
-        public FirePiercingProjectile() { }
+        private readonly Stat pierce;
 
-        public FirePiercingProjectile(FirePiercingProjectile original) : base(original)
+        public FirePiercingProjectile(FirePiercingProjectileData data, Stat damage, Stat pierce) : base(data, damage)
         {
-            pierce = original.pierce.DeepCopy();
+            this.data = data;
+            this.pierce = pierce;
         }
-
-        public override FireProjectileType DeepCopy() => new FirePiercingProjectile(this);
 
         public override bool CanLaunchProjectile() => true;
 
         public override void LaunchProjectile(Vector3 position, Vector3 direction, DamageData damageData, float knockback, float speed, float maxRange, GameObject source, Teams team)
         {
-            PiercingProjectile projectile = projectilePool.Get(prefab);
+            PiercingProjectile projectile = projectilePool.Get(data.Prefab);
             projectile.Launch(position, speed, direction, maxRange, damageData, knockback, pierce.ValueInt, source, team);
             projectile.gameObject.SetActive(true);
         }
