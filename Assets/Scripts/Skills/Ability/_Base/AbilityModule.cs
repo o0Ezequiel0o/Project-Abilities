@@ -6,9 +6,8 @@ namespace Zeke.Abilities
     [Serializable]
     public abstract class AbilityModule
     {
+        //add a default implementation for Initialize and move OnInitialization after this
         public abstract void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability);
-
-        public abstract AbilityModule DeepCopy();
 
         public abstract void Activate(bool holding);
         public virtual void Deactivate() { }

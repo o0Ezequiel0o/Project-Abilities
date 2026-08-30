@@ -95,14 +95,6 @@ namespace Zeke.Abilities
             modules.Add(newModule);
         }
 
-        public void AddModules(List<AbilityModule> modules)
-        {
-            for (int i = 0; i < modules.Count; i++)
-            {
-                AddModule(modules[i]);
-            }
-        }
-
         public void SetCharges(int amount)
         {
             int previousChargesAmount = Charges;

@@ -26,10 +26,10 @@ namespace Zeke.Abilities
 
         [Header("Modules")]
         [SerializeReferenceDropdown, SerializeReference]
-        private List<AbilityModule> modules = new List<AbilityModule>
+        private List<AbilityModuleData> modules = new List<AbilityModuleData>
         {
-            new Recharge(),
-            new BaseCastCooldown()
+            //new Recharge(),
+            //new BaseCastCooldown()
         };
 
         [field: Header("Optional - AI")]
@@ -40,7 +40,12 @@ namespace Zeke.Abilities
         public Ability CreateModularAbility(AbilityController controller, Transform spawn, GameObject source)
         {
             Ability modularAbility = new Ability(source, this, controller, spawn, cooldownTime, duration, charges);
-            modularAbility.AddModules(modules);
+
+            for (int i = 0; i < modules.Count; i++)
+            {
+                modularAbility.AddModule(modules[i].CreateModule());
+            }
+
             return modularAbility;
         }
     }

@@ -36,56 +36,8 @@ MonoBehaviour:
     valueLimits:
       min: 1
       max: Infinity
-  modules:
-  - rid: 2308102658494038109
-  - rid: 2308102658494038111
+  modules: []
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
-    RefIds:
-    - rid: 2308102658494038109
-      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        updateMode: 0
-        type:
-          rid: 2308102658494038110
-    - rid: 2308102658494038110
-      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data: 
-    - rid: 2308102658494038111
-      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
-      data:
-        fireDistance: 0.2
-        spread:
-          min: 0
-          max: 0
-        projectile:
-          rid: 2308102658494038112
-        speed:
-          baseValue: 8
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        maxRange:
-          baseValue: 10
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-    - rid: 2308102658494038112
-      type: {class: FireFireball, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
-      data:
-        prefab: {fileID: 437356665002056714, guid: 6c1002edcf6b99e47a629e10d9afb5f0, type: 3}
-        damage:
-          baseValue: 15
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        damageRadius:
-          baseValue: 0.25
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
+    RefIds: []

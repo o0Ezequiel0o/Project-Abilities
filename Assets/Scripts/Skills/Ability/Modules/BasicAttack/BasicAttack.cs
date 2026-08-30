@@ -8,40 +8,21 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class BasicAttack : AbilityModule
     {
-        [SerializeField] private Stat damage;
-        [SerializeField] private float armorPenetration;
-        [SerializeField] private float procCoefficient;
-        [SerializeField] private float knockback;
+        private readonly BasicAttackData data;
 
-        [Space]
-
-        [SerializeReferenceDropdown, SerializeReference] private OverlapShape shape;
-        [SerializeField] private LayerMask hitLayers;
-        [SerializeField] private float castOffset;
-        [SerializeField] private bool castAtSourceCenter;
+        private readonly Stat damage;
+        private readonly OverlapShape shape;
 
         private AbilityController controller;
         private GameObject source;
         private Transform spawn;
 
-        public BasicAttack() { }
-
-        public BasicAttack(BasicAttack original)
+        public BasicAttack(BasicAttackData data, Stat damage, OverlapShape shape)
         {
-            castOffset = original.castOffset;
-
-            knockback = original.knockback;
-            armorPenetration = original.armorPenetration;
-            procCoefficient = original.procCoefficient;
-
-            hitLayers = original.hitLayers;
-            castAtSourceCenter = original.castAtSourceCenter;
-
-            damage = original.damage.DeepCopy();
-            shape = original.shape.DeepCopy();
+            this.data = data;
+            this.damage = damage;
+            this.shape = shape;
         }
-
-        public override AbilityModule DeepCopy() => new BasicAttack(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -64,16 +45,16 @@ namespace Zeke.Abilities.Modules
         {
             Vector2 position;
 
-            if (!castAtSourceCenter)
+            if (!data.CastAtSourceCenter)
             {
-                position = spawn.position + (castOffset * spawn.up);
+                position = spawn.position + (data.CastOffset * spawn.up);
             }
             else
             {
-                position = source.transform.position + (castOffset * spawn.up);
+                position = source.transform.position + (data.CastOffset * spawn.up);
             }
 
-            List<Collider2D> hits = shape.GetHits(position, spawn.rotation.eulerAngles.z, hitLayers);
+            List<Collider2D> hits = shape.GetHits(position, spawn.rotation.eulerAngles.z, data.HitLayers);
 
             for (int i = 0; i < hits.Count; i++)
             {
@@ -91,7 +72,7 @@ namespace Zeke.Abilities.Modules
             {
                 if (target.TryGetComponent(out Damageable damageable))
                 {
-                    DamageInfo damageInfo = new DamageInfo(damage, armorPenetration, procCoefficient)
+                    DamageInfo damageInfo = new DamageInfo(damage, data.ArmorPenetration, data.ProcCoefficient)
                     {
                         direction = (damageable.transform.position - source.transform.position).normalized
                     };
@@ -112,7 +93,7 @@ namespace Zeke.Abilities.Modules
         {
             if (target.TryGetComponent(out Physics physics))
             {
-                physics.AddForce(knockback, direction);
+                physics.AddForce(data.Knockback, direction);
             }
         }
 
