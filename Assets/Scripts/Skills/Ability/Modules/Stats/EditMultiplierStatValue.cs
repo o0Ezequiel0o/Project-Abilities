@@ -6,25 +6,21 @@ namespace Zeke.Abilities.Modules.Stats
     [Serializable]
     public class EditMultiplierStatValue : AbilityModule
     {
-        [SerializeField] private bool permanent = false;
-        [SerializeField] private Stat amount;
-        [SerializeReferenceDropdown, SerializeReference] private GetStatStrategy stat;
+        private readonly EditMultiplierStatValueData data;
+
+        private readonly Stat amount;
+        private readonly GetStatStrategy stat;
 
         private Stat statReference;
 
         private Stat.Multiplier multiplier;
 
-        public EditMultiplierStatValue() { }
-
-        public EditMultiplierStatValue(EditMultiplierStatValue original)
+        public EditMultiplierStatValue(EditMultiplierStatValueData data, GetStatStrategy stat, Stat amount)
         {
-            permanent = original.permanent;
-
-            amount = original.amount.DeepCopy();
-            stat = original.stat.DeepCopy();
+            this.data = data;
+            this.stat = stat;
+            this.amount = amount;
         }
-
-        public override AbilityModule DeepCopy() => new EditMultiplierStatValue(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -48,7 +44,7 @@ namespace Zeke.Abilities.Modules.Stats
 
         public override void Deactivate()
         {
-            if (statReference == null || permanent) return;
+            if (statReference == null || data.Permanent) return;
             statReference.RemoveMultiplier(multiplier);
         }
 

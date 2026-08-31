@@ -6,9 +6,12 @@ namespace Zeke.Abilities.Modules.Stats
     [Serializable]
     public class GetRotationSpeedStat : GetStatStrategy
     {
-        public GetRotationSpeedStat() { }
+        private readonly GetRotationSpeedStatData data;
 
-        public override GetStatStrategy DeepCopy() => new GetRotationSpeedStat();
+        public GetRotationSpeedStat(GetRotationSpeedStatData data)
+        {
+            this.data = data;
+        }
 
         public override Stat GetStat(GameObject source)
         {

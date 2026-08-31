@@ -6,9 +6,12 @@ namespace Zeke.Abilities.Modules.Stats
     [Serializable]
     public class GetHealingReceivedMultiplierStat : GetStatStrategy
     {
-        public GetHealingReceivedMultiplierStat() { }
+        private readonly GetHealingReceivedMultiplierStatData data;
 
-        public override GetStatStrategy DeepCopy() => new GetHealingReceivedMultiplierStat();
+        public GetHealingReceivedMultiplierStat(GetHealingReceivedMultiplierStatData data)
+        {
+            this.data = data;
+        }
 
         public override Stat GetStat(GameObject source)
         {

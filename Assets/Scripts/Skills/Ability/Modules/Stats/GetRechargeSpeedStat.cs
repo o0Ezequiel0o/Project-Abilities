@@ -6,16 +6,12 @@ namespace Zeke.Abilities.Modules.Stats
     [Serializable]
     public class GetRechargeSpeedStat : GetStatStrategy
     {
-        [SerializeField] private AbilityType abilityType;
+        private readonly GetRechargeSpeedStatData data;
 
-        public GetRechargeSpeedStat() { }
-
-        public GetRechargeSpeedStat(GetRechargeSpeedStat original)
+        public GetRechargeSpeedStat(GetRechargeSpeedStatData data)
         {
-            abilityType = original.abilityType;
+            this.data = data;
         }
-
-        public override GetStatStrategy DeepCopy() => new GetRechargeSpeedStat(this);
 
         public override Stat GetStat(GameObject source)
         {
@@ -23,7 +19,7 @@ namespace Zeke.Abilities.Modules.Stats
 
             if (source.TryGetComponent(out AbilityController abilityController))
             {
-                stat = abilityController.rechargeSpeed[abilityType];
+                stat = abilityController.rechargeSpeed[data.AbilityType];
             }
 
             return stat;

@@ -6,9 +6,12 @@ namespace Zeke.Abilities.Modules.Stats
     [Serializable]
     public class GetArmorStat : GetStatStrategy
     {
-        public GetArmorStat() { }
+        private readonly GetArmorStatData data;
 
-        public override GetStatStrategy DeepCopy() => new GetArmorStat();
+        public GetArmorStat(GetArmorStatData data)
+        {
+            this.data = data;
+        }
 
         public override Stat GetStat(GameObject source)
         {

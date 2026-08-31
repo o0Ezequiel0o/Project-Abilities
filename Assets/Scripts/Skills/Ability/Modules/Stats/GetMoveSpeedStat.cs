@@ -6,9 +6,12 @@ namespace Zeke.Abilities.Modules.Stats
     [Serializable]
     public class GetMoveSpeedStat : GetStatStrategy
     {
-        public GetMoveSpeedStat() { }
+        private readonly GetMoveSpeedStatData data;
 
-        public override GetStatStrategy DeepCopy() => new GetMoveSpeedStat();
+        public GetMoveSpeedStat(GetMoveSpeedStatData data)
+        {
+            this.data = data;
+        }
 
         public override Stat GetStat(GameObject source)
         {

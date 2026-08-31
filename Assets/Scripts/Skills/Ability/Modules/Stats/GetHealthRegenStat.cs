@@ -6,9 +6,12 @@ namespace Zeke.Abilities.Modules.Stats
     [Serializable]
     public class GetHealthRegenStat : GetStatStrategy
     {
-        public GetHealthRegenStat() { }
+        private readonly GetHealthRegenStatData data;
 
-        public override GetStatStrategy DeepCopy() => new GetHealthRegenStat();
+        public GetHealthRegenStat(GetHealthRegenStatData data)
+        {
+            this.data = data;
+        }
 
         public override Stat GetStat(GameObject source)
         {

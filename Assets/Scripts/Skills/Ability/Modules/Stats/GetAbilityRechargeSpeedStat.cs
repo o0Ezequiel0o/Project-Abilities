@@ -4,18 +4,14 @@ using System;
 namespace Zeke.Abilities.Modules.Stats
 {
     [Serializable]
-    public class GetRecha : GetStatStrategy
+    public class GetAbilityRechargeSpeedStat : GetStatStrategy
     {
-        [SerializeField] private AbilityType abilityType;
+        private GetAbilityRechargeSpeedStatData data;
 
-        public GetRecha() { }
-
-        public GetRecha(GetRecha original)
+        public GetAbilityRechargeSpeedStat(GetAbilityRechargeSpeedStatData data)
         {
-            abilityType = original.abilityType;
+            this.data = data;
         }
-
-        public override GetStatStrategy DeepCopy() => new GetRecha(this);
 
         public override Stat GetStat(GameObject source)
         {
@@ -23,7 +19,7 @@ namespace Zeke.Abilities.Modules.Stats
 
             if (source.TryGetComponent(out AbilityController abilityController))
             {
-                stat = abilityController.rechargeSpeed[abilityType];
+                stat = abilityController.rechargeSpeed[data.AbilityType];
             }
 
             return stat;

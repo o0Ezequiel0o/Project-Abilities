@@ -6,16 +6,12 @@ namespace Zeke.Abilities.Modules.Stats
     [Serializable]
     public class GetCooldownMultiplierStat : GetStatStrategy
     {
-        [SerializeField] private AbilityType abilityType;
+        private readonly GetCooldownMultiplierStatData data;
 
-        public GetCooldownMultiplierStat() { }
-
-        public GetCooldownMultiplierStat(GetCooldownMultiplierStat original)
+        public GetCooldownMultiplierStat(GetCooldownMultiplierStatData data)
         {
-            abilityType = original.abilityType;
+            this.data = data;
         }
-
-        public override GetStatStrategy DeepCopy() => new GetCooldownMultiplierStat(this);
 
         public override Stat GetStat(GameObject source)
         {
@@ -23,7 +19,7 @@ namespace Zeke.Abilities.Modules.Stats
 
             if (source.TryGetComponent(out AbilityController abilityController))
             {
-                stat = abilityController.cooldownMultiplier[abilityType];
+                stat = abilityController.cooldownMultiplier[data.AbilityType];
             }
 
             return stat;
