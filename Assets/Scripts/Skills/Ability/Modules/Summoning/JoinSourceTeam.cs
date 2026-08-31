@@ -7,7 +7,12 @@ namespace Zeke.Abilities.Modules.Summoning
     [Serializable]
     public class JoinSourceTeam : SummonModule
     {
-        public override SummonModule DeepCopy() => new JoinSourceTeam();
+        private readonly JoinSourceTeamData data;
+
+        public JoinSourceTeam(JoinSourceTeamData data)
+        {
+            this.data = data;
+        }
 
         public override void OnSummonSpawn(GameObject summon, GameObject source)
         {

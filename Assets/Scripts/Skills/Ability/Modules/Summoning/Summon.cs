@@ -7,19 +7,10 @@ namespace Zeke.Abilities.Modules.Summoning
     [Serializable]
     public class Summon : AbilityModule
     {
-        [Header("Summon")]
-        [SerializeField] private GameObject summon;
-        [SerializeReferenceDropdown, SerializeReference] private List<SummonModule> modules = new List<SummonModule>() { new JoinSourceTeam() };
+        private readonly SummonData data;
 
-        [Header("Spawning")]
-        [SerializeField] private Stat maxSummons;
-
-        [Space]
-
-        [SerializeField] private bool fixedRotation;
-        [SerializeField] private float spawnBlockRadius;
-        [SerializeField] private float spawnDistance;
-        [SerializeField] private LayerMask spawnBlockLayers;
+        private readonly List<SummonModule> modules;
+        private readonly Stat maxSummons;
 
         private Transform spawn;
         private GameObject source; 
@@ -27,31 +18,16 @@ namespace Zeke.Abilities.Modules.Summoning
         private readonly List<GameObject> summons = new List<GameObject>();
         private readonly List<Collider2D> hits = new List<Collider2D>();
 
-        private Vector3 WorldSpawnPosition => spawn.position + (spawnDistance * spawn.up);
+        private Vector3 WorldSpawnPosition => spawn.position + (data.SpawnDistance * spawn.up);
 
-        public Summon() { }
-
-        public Summon(Summon original)
+        public Summon(SummonData data, List<SummonModule> modules, Stat maxSummons)
         {
-            summon = original.summon;
-            fixedRotation = original.fixedRotation;
-            spawnDistance = original.spawnDistance;
-            spawnBlockRadius = original.spawnBlockRadius;
-            spawnBlockLayers = original.spawnBlockLayers;
-
-            maxSummons = original.maxSummons.DeepCopy();
-
-            modules = new List<SummonModule>();
-
-            for (int i = 0; i < original.modules.Count; i++)
-            {
-                modules.Add(original.modules[i].DeepCopy());
-            }
+            this.data = data;
+            this.modules = modules;
+            this.maxSummons = maxSummons;
         }
 
-        public override AbilityModule DeepCopy() => new Summon(this);
-
-        public override bool CanActivate() => !IsBlocked(WorldSpawnPosition, spawnBlockRadius, spawnBlockLayers);
+        public override bool CanActivate() => !IsBlocked(WorldSpawnPosition, data.SpawnBlockRadius, data.SpawnBlockLayers);
 
         public override bool CanUpgrade() => true;
 
@@ -91,8 +67,8 @@ namespace Zeke.Abilities.Modules.Summoning
 
         private void SpawnSummon(Vector3 position, Quaternion rotation)
         {
-            if (fixedRotation) rotation = Quaternion.identity;
-            GameObject summonInstance = GameObject.Instantiate(summon, position, rotation);
+            if (data.FixedRotation) rotation = Quaternion.identity;
+            GameObject summonInstance = GameObject.Instantiate(data.Summon, position, rotation);
 
             for (int i = 0; i < modules.Count; i++)
             {

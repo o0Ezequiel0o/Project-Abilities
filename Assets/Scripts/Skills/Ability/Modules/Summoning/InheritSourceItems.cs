@@ -7,7 +7,12 @@ namespace Zeke.Abilities.Modules.Summoning
     [Serializable]
     public class InheritSourceItems : SummonModule
     {
-        public override SummonModule DeepCopy() => new InheritSourceItems();
+        private readonly InheritSourceItemsData data;
+
+        public InheritSourceItems(InheritSourceItemsData data)
+        {
+            this.data = data;
+        }
 
         public override void OnSummonSpawn(GameObject summon, GameObject source)
         {

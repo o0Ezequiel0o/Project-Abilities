@@ -6,7 +6,12 @@ namespace Zeke.Abilities.Modules.Summoning
     [Serializable]
     public class ShareExperienceWithSource : SummonModule
     {
-        public override SummonModule DeepCopy() => new ShareExperienceWithSource();
+        private readonly ShareExperienceWithSourceData data;
+
+        public ShareExperienceWithSource(ShareExperienceWithSourceData data)
+        {
+            this.data = data;
+        }
 
         public override void OnSummonSpawn(GameObject summon, GameObject source)
         {

@@ -6,11 +6,12 @@ namespace Zeke.Abilities.Modules.Summoning
     [Serializable]
     public class SetSourceLevel : SummonModule
     {
-        public SetSourceLevel() { }
+        private readonly SetSourceLevelData data;
 
-        public SetSourceLevel(SetSourceLevel original) { }
-
-        public override SummonModule DeepCopy() => new SetSourceLevel(this);
+        public SetSourceLevel(SetSourceLevelData data)
+        {
+            this.data = data;
+        }
 
         public override void OnSummonSpawn(GameObject summon, GameObject source)
         {

@@ -6,7 +6,12 @@ namespace Zeke.Abilities.Modules.Summoning
     [Serializable]
     public class ShareMoneyWithSource : SummonModule
     {
-        public override SummonModule DeepCopy() => new ShareMoneyWithSource();
+        private readonly ShareMoneyWithSourceData data;
+
+        public ShareMoneyWithSource(ShareMoneyWithSourceData data)
+        {
+            this.data = data;
+        }
 
         public override void OnSummonSpawn(GameObject summon, GameObject source)
         {
