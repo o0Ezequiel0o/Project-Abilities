@@ -21,11 +21,9 @@ namespace Zeke.Abilities.Modules.Summoning
         [field: SerializeField] public float SpawnDistance { get; private set; }
         [field: SerializeField] public LayerMask SpawnBlockLayers { get; private set; }
 
-        private readonly List<SummonModule> instanceModules = new List<SummonModule>();
-
         public override AbilityModule CreateModule()
         {
-            instanceModules.Clear();
+            List<SummonModule> instanceModules = new List<SummonModule>();
 
             for (int i = 0; i < modules.Count; i++)
             {
