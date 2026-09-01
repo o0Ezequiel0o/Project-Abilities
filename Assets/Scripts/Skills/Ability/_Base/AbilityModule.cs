@@ -23,7 +23,5 @@ namespace Zeke.Abilities
 
         public virtual void Upgrade() { }
         public virtual void Destroy() { }
-
-        public virtual AbilityModule DeepCopy() { return null; }  //TODO: remove this
     }
 }

@@ -28,8 +28,8 @@ namespace Zeke.Abilities
         [SerializeReferenceDropdown, SerializeReference]
         private List<AbilityModuleData> modules = new List<AbilityModuleData>
         {
-            //new Recharge(),
-            //new BaseCastCooldown()
+            new RechargeData(),
+            new BaseCastCooldownData()
         };
 
         [field: Header("Optional - AI")]

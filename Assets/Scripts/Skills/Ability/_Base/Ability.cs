@@ -90,9 +90,8 @@ namespace Zeke.Abilities
 
         public void AddModule(AbilityModule module)
         {
-            AbilityModule newModule = module.DeepCopy();
-            newModule.OnInitialization(controller, spawn, source, this);
-            modules.Add(newModule);
+            module.OnInitialization(controller, spawn, source, this);
+            modules.Add(module);
         }
 
         public void SetCharges(int amount)
