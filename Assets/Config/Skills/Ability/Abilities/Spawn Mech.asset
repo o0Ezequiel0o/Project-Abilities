@@ -68,7 +68,7 @@ MonoBehaviour:
       data:
         <Summon>k__BackingField: {fileID: 6867714498176877325, guid: f2031a5b738703d4b9f1fac0dff80e28, type: 3}
         modules:
-        - rid: 9133315464761704686
+        - rid: 9133315464761704947
         maxSummons:
           baseValue: 1
           increase: 0
@@ -81,6 +81,6 @@ MonoBehaviour:
         <SpawnBlockLayers>k__BackingField:
           serializedVersion: 2
           m_Bits: 0
-    - rid: 9133315464761704686
-      type: {class: JoinSourceTeamData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+    - rid: 9133315464761704947
+      type: {class: SetSourceLevelData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
       data: 
