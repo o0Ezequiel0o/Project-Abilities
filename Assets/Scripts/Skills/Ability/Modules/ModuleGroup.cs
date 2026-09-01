@@ -7,21 +7,15 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class ModuleGroup : AbilityModule
     {
-        [SerializeReference, SerializeReferenceDropdown] private List<AbilityModule> modules;
+        private readonly ModuleGroupData data;
 
-        public ModuleGroup() { }
+        private readonly List<AbilityModule> modules;
 
-        public ModuleGroup(ModuleGroup original)
+        public ModuleGroup(ModuleGroupData data, List<AbilityModule> modules)
         {
-            modules = new List<AbilityModule>();
-
-            for (int i = 0; i < original.modules.Count; i++)
-            {
-                modules.Add(original.modules[i].DeepCopy());
-            }
+            this.data = data;
+            this.modules = modules;
         }
-
-        public override AbilityModule DeepCopy() => new ModuleGroup(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {

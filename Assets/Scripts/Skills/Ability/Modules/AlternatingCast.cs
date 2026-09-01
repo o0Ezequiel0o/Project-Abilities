@@ -7,27 +7,19 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class AlternatingCast : AbilityModule
     {
-        [SerializeField] private TravelType travelType = TravelType.Ascending;
-        [SerializeReference, SerializeReferenceDropdown] public List<AbilityModule> modules;
+        private readonly AlternatingCastData data;
+
+        private readonly List<AbilityModule> modules;
 
         private AbilityModule selectedModule;
         private int indexTravelDirection = 1;
         private int currentIndex = 0;
 
-        public AlternatingCast() { }
-
-        public AlternatingCast(AlternatingCast original)
+        public AlternatingCast(AlternatingCastData data, List<AbilityModule> modules)
         {
-            travelType = original.travelType;
-            modules = new List<AbilityModule>();
-
-            for (int i = 0; i < original.modules.Count; i++)
-            {
-                modules.Add(original.modules[i]?.DeepCopy());
-            }
+            this.data = data;
+            this.modules = modules;
         }
-
-        public override AbilityModule DeepCopy() => new AlternatingCast(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -119,7 +111,7 @@ namespace Zeke.Abilities.Modules
 
         private void OnIndexReachedZero()
         {
-            if (travelType == TravelType.Alternating)
+            if (data.TravelType == TravelType.Alternating)
             {
                 if (indexTravelDirection == -1)
                 {
@@ -131,7 +123,7 @@ namespace Zeke.Abilities.Modules
 
         private void OnIndexReachedCount()
         {
-            if (travelType == TravelType.Alternating)
+            if (data.TravelType == TravelType.Alternating)
             {
                 if (indexTravelDirection == 1)
                 {
@@ -145,7 +137,7 @@ namespace Zeke.Abilities.Modules
             }
         }
 
-        private enum TravelType
+        public enum TravelType
         {
             Ascending,
             Alternating

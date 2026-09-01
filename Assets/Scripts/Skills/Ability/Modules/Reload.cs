@@ -1,23 +1,23 @@
 using UnityEngine;
 using System;
 
+using static Zeke.Abilities.Modules.ReloadData;
+
 namespace Zeke.Abilities.Modules
 {
-    [Serializable]
     public class Reload : AbilityModule
     {
-        [SerializeReferenceDropdown, SerializeReference] private ReloadStrategy reload;
+        private readonly ReloadData data;
+
+        private readonly ReloadStrategy strategy;
 
         private AbilityController controller;
 
-        public Reload() { }
-
-        public Reload(Reload original)
+        public Reload(ReloadData data, ReloadStrategy strategy)
         {
-            reload = original.reload.CreateDeepCopy();
+            this.data = data;
+            this.strategy = strategy;
         }
-
-        public override AbilityModule DeepCopy() => new Reload(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -30,42 +30,42 @@ namespace Zeke.Abilities.Modules
 
         public override void Activate(bool holding)
         {
-            reload.Activate(controller);
+            strategy.Activate(controller);
         }
 
         public override void Deactivate()
         {
-            reload.Deactivate(controller);
+            strategy.Deactivate(controller);
         }
 
         public override void UpdateActive()
         {
-            reload.UpdateActive(controller);
+            strategy.UpdateActive(controller);
         }
 
         public override void UpdateInactive()
         {
-            reload.UpdateInactive(controller);
+            strategy.UpdateInactive(controller);
         }
 
         public override void Upgrade()
         {
-            reload.Upgrade(controller);
+            strategy.Upgrade(controller);
         }
 
-        [Serializable]
-        private abstract class ReloadStrategy
+        public abstract class ReloadStrategy
         {
-            [SerializeReferenceDropdown, SerializeReference] protected GetAbilityStrategy strategy = new GetAbilityType();
-            [SerializeField] protected Stat chargesAmount;
+            private readonly ReloadStrategyData data;
 
-            public ReloadStrategy(ReloadStrategy original)
+            protected readonly GetAbilityStrategy strategy;
+            protected readonly Stat chargesAmount;
+
+            public ReloadStrategy(ReloadStrategyData data, GetAbilityStrategy strategy, Stat chargesAmount)
             {
-                chargesAmount = original.chargesAmount.DeepCopy();
-                strategy = original.strategy.GetDeepCopy();
+                this.data = data;
+                this.strategy = strategy;
+                this.chargesAmount = chargesAmount;
             }
-
-            public abstract ReloadStrategy CreateDeepCopy();
 
             public abstract void Activate(AbilityController controller);
             public abstract void Deactivate(AbilityController controller);
@@ -78,11 +78,14 @@ namespace Zeke.Abilities.Modules
             }
         }
 
-        [Serializable]
-        private class OnCast : ReloadStrategy
+        public class OnCast : ReloadStrategy
         {
-            public OnCast(ReloadStrategy original) : base(original) { }
-            public override ReloadStrategy CreateDeepCopy() => new OnCast(this);
+            private readonly OnCastData data;
+
+            public OnCast(OnCastData data, GetAbilityStrategy strategy, Stat chargesAmount) : base(data, strategy, chargesAmount)
+            {
+                this.data = data;
+            }
 
             public override void Activate(AbilityController controller)
             {
@@ -95,11 +98,14 @@ namespace Zeke.Abilities.Modules
             public override void UpdateInactive(AbilityController controller) { }
         }
 
-        [Serializable]
-        private class OnDurationEnd : ReloadStrategy
+        public class OnDurationEnd : ReloadStrategy
         {
-            public OnDurationEnd(ReloadStrategy original) : base(original) { }
-            public override ReloadStrategy CreateDeepCopy() => new OnDurationEnd(this);
+            private readonly OnDurationEndData data;
+
+            public OnDurationEnd(OnDurationEndData data, GetAbilityStrategy strategy, Stat chargesAmount) : base(data, strategy, chargesAmount)
+            {
+                this.data = data;
+            }
 
             public override void Activate(AbilityController controller) { }
 
@@ -113,14 +119,17 @@ namespace Zeke.Abilities.Modules
             public override void UpdateInactive(AbilityController controller) { }
         }
 
-        [Serializable]
-        private class WhileActive : ReloadStrategy //TODO test
+        public class WhileActive : ReloadStrategy //TODO test
         {
+            private readonly WhileActiveData data;
+
+            public WhileActive(WhileActiveData data, GetAbilityStrategy strategy, Stat chargesAmount) : base(data, strategy, chargesAmount)
+            {
+                this.data = data;
+            }
+
             private float timePerCharge = 0f;
             private float timer = 0f;
-
-            public WhileActive(ReloadStrategy original) : base(original) { }
-            public override ReloadStrategy CreateDeepCopy() => new WhileActive(this);
 
             public override void Activate(AbilityController controller)
             {

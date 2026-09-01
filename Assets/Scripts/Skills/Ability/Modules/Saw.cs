@@ -8,31 +8,12 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class Saw : AbilityModule
     {
-        [SerializeField] private GameObject prefab;
-        [SerializeField] private float castDistance;
-        [SerializeField] private float damageRadius;
+        private readonly SawData data;
 
-        [Space]
+        private readonly Stat damage;
+        private readonly Stat damageCooldown;
 
-        [SerializeField] private float procCoefficient;
-        [SerializeField] private float armorPenetration;
-
-        [Space]
-
-        [SerializeField] private LayerMask hitLayers;
-        [SerializeField] private LayerMask blockLayers;
-
-        [Space]
-
-        [SerializeField] private Stat damage;
-        [SerializeField] private Stat damageCooldown;
-
-        [Space]
-
-        [SerializeField] private StatusEffectData effect;
-        [SerializeField] private int effectProcChance;
-
-        private Vector3 CastPosition => spawn.position + (spawn.up * castDistance);
+        private Vector3 CastPosition => spawn.position + (spawn.up * data.CastDistance);
 
         private Transform spawn;
         private GameObject source;
@@ -42,37 +23,21 @@ namespace Zeke.Abilities.Modules
 
         private readonly List<Collider2D> hits = new List<Collider2D>();
 
-        public Saw() { }
-
-        public Saw(Saw original)
+        public Saw(SawData data, Stat damage, Stat damageCooldown)
         {
-            prefab = original.prefab;
-            castDistance = original.castDistance;
-            damageRadius = original.damageRadius;
-
-            procCoefficient = original.procCoefficient;
-            armorPenetration = original.armorPenetration;
-
-            hitLayers = original.hitLayers;
-            blockLayers = original.blockLayers;
-
-            effect = original.effect;
-            effectProcChance = original.effectProcChance;
-
-            damage = original.damage.DeepCopy();
-            damageCooldown = original.damageCooldown.DeepCopy();
+            this.data = data;
+            this.damage = damage;
+            this.damageCooldown = damageCooldown;
         }
-
-        public override AbilityModule DeepCopy() => new Saw(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
             this.spawn = spawn;
             this.source = source;
 
-            if (prefab != null)
+            if (data.Prefab != null)
             {
-                sawInstance = GameObject.Instantiate(prefab, source.transform.position, Quaternion.identity);
+                sawInstance = GameObject.Instantiate(data.Prefab, source.transform.position, Quaternion.identity);
                 sawInstance.SetActive(false);
             }
         }
@@ -133,8 +98,8 @@ namespace Zeke.Abilities.Modules
         {
             hits.Clear();
 
-            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers, useLayerMask = true };
-            Physics2D.OverlapCircle(CastPosition, damageRadius, contactFilter, hits);
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.HitLayers, useLayerMask = true };
+            Physics2D.OverlapCircle(CastPosition, data.DamageRadius, contactFilter, hits);
 
             for (int i = 0; i < hits.Count; i++)
             {
@@ -149,7 +114,7 @@ namespace Zeke.Abilities.Modules
 
         private bool IsBlockedByObstacle(Vector3 start, Vector3 end)
         {
-            return Physics2D.Linecast(start, end, blockLayers);
+            return Physics2D.Linecast(start, end, data.BlockLayers);
         }
 
         private void OnHit(GameObject gameObject)
@@ -158,7 +123,7 @@ namespace Zeke.Abilities.Modules
 
             if (gameObject.TryGetComponent(out Damageable damageable))
             {
-                DamageInfo damageInfo = new DamageInfo(damage.Value, armorPenetration, procCoefficient)
+                DamageInfo damageInfo = new DamageInfo(damage.Value, data.ArmorPenetration, data.ProcCoefficient)
                 {
                     direction = (damageable.transform.position - source.transform.position).normalized
                 };
@@ -166,11 +131,11 @@ namespace Zeke.Abilities.Modules
                 damageable.DealDamage(damageInfo, source, source);
             }
 
-            bool statusEffectRollSuccess = effectProcChance > UnityEngine.Random.Range(0, 100);
+            bool statusEffectRollSuccess = data.EffectProcChance > UnityEngine.Random.Range(0, 100);
 
             if (statusEffectRollSuccess && gameObject.TryGetComponent(out StatusEffectHandler statusEffectHandler))
             {
-                statusEffectHandler.ApplyEffect(effect, source);
+                statusEffectHandler.ApplyEffect(data.Effect, source);
             }
         }
     }

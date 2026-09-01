@@ -7,13 +7,11 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class GenericSpinner<T> : AbilityModule where T : Component
     {
-        [SerializeField] private GameObject prefab;
+        private readonly GenericSpinnerData<T> data;
 
-        [Space]
-
-        [SerializeField] protected Stat distance;
-        [SerializeField] protected Stat amount;
-        [SerializeField] protected Stat speed;
+        protected readonly Stat distance;
+        protected readonly Stat amount;
+        protected readonly Stat speed;
 
         protected GameObject source;
         protected Ability ability;
@@ -21,20 +19,15 @@ namespace Zeke.Abilities.Modules
 
         protected Spinner<T> spinnerInstance;
 
-        public GenericSpinner() { }
-
-        public GenericSpinner(GenericSpinner<T> original)
+        public GenericSpinner(GenericSpinnerData<T> data, Stat distance, Stat amount, Stat speed)
         {
-            prefab = original.prefab;
-
-            distance = original.distance.DeepCopy();
-            amount = original.amount.DeepCopy();
-            speed = original.speed.DeepCopy();
+            this.data = data;
+            this.distance = distance;
+            this.amount = amount;
+            this.speed = speed;
         }
 
         protected virtual void OnSpinnerInitialization(List<T> spawnedObjects) { }
-
-        public override AbilityModule DeepCopy() => new GenericSpinner<T>(this);
 
         public override bool CanActivate() => true;
         public override bool CanUpgrade() => true;
@@ -53,7 +46,7 @@ namespace Zeke.Abilities.Modules
 
         protected void InitializeSpinner(float distance, float speed, int amount)
         {
-            if (prefab.TryGetComponent(out T prefabComponent))
+            if (data.Prefab.TryGetComponent(out T prefabComponent))
             {
                 spinnerInstance.InitializeSpinner(null, prefabComponent, distance, speed, amount);
             }

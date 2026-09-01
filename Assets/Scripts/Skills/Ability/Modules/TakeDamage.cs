@@ -6,29 +6,19 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class TakeDamage : AbilityModule
     {
-        [SerializeField] private Stat damage;
-        [SerializeField] private ValueType valueType;
-        [SerializeField] private float armorPenetration;
+        private readonly TakeDamageData data;
 
-        [SerializeField] private bool lethal = true;
-        [SerializeField] private bool ignoresShield = false;
+        private readonly Stat damage;
 
         private GameObject source;
         private Damageable damageable;
 
         private bool hasRequiredComponents = true;
 
-        public TakeDamage() { }
-
-        public TakeDamage(TakeDamage original)
+        public TakeDamage(TakeDamageData data, Stat damage)
         {
-            valueType = original.valueType;
-            armorPenetration = original.armorPenetration;
-
-            lethal = original.lethal;
-            ignoresShield = original.ignoresShield;
-
-            damage = original.damage.DeepCopy();
+            this.data = data;
+            this.damage = damage;
         }
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
@@ -37,8 +27,6 @@ namespace Zeke.Abilities.Modules
             if (!source.TryGetComponent(out damageable)) hasRequiredComponents = false;
         }
 
-        public override AbilityModule DeepCopy() => new TakeDamage(this);
-
         public override bool CanActivate() => true;
 
         public override bool CanUpgrade() => true;
@@ -46,13 +34,13 @@ namespace Zeke.Abilities.Modules
         public override void Activate(bool holding)
         {
             if (!hasRequiredComponents) return;
-            float damageLocal = GetDamage(damage.Value, valueType);
+            float damageLocal = GetDamage(damage.Value, data.ValueType);
 
-            DamageInfo damageInfo = new DamageInfo(damageLocal, armorPenetration, 0f) 
+            DamageInfo damageInfo = new DamageInfo(damageLocal, data.ArmorPenetration, 0f) 
             { 
                 hit = false, 
-                lethal = lethal,
-                ignoresShield = ignoresShield
+                lethal = data.Lethal,
+                ignoresShield = data.IgnoresShield
             };
             damageable.DealDamage(damageInfo, source, source);
         }

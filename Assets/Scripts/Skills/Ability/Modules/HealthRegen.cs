@@ -6,25 +6,22 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class HealthRegen : AbilityModule
     {
-        [SerializeField] protected Stat amount;
-        [SerializeField] protected Stat interval;
-        [SerializeField] protected float procCoefficient;
+        private readonly HealthRegenData data;
+
+        protected readonly Stat amount;
+        protected readonly Stat interval;
 
         protected GameObject source;
         private Damageable damageable;
 
         private float timer = 0f;
 
-        public HealthRegen() { }
-
-        public HealthRegen(HealthRegen original)
+        public HealthRegen(HealthRegenData data, Stat amount, Stat interval)
         {
-            amount = original.amount.DeepCopy();
-            interval = original.interval.DeepCopy();
-            procCoefficient = original.procCoefficient;
+            this.data = data;
+            this.amount = amount;
+            this.interval = interval;
         }
-
-        public override AbilityModule DeepCopy() => new HealthRegen(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -52,7 +49,7 @@ namespace Zeke.Abilities.Modules
         {
             if (damageable != null)
             {
-                HealInfo heal = new HealInfo(amount.Value, procCoefficient);
+                HealInfo heal = new HealInfo(amount.Value, data.ProcCoefficient);
                 damageable.GiveHealing(heal, source, source);
             }
         }

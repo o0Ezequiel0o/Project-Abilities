@@ -6,57 +6,35 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class FireBasicLaser : AbilityModule
     {
-        [SerializeField] private GameObject prefab;
+        private readonly FireBasicLaserData data;
 
-        [Space]
-
-        [SerializeField] private Stat damage;
-        [SerializeField] private Stat maxRange;
-
-        [Space]
-
-        [SerializeField] private float radius;
-        [SerializeField] private int pierce;
-        [SerializeField] private Stat damageCooldown;
-
-        [Space]
-
-        [SerializeField] private float armorPenetration = 0f;
-        [SerializeField] private float procCoefficient = 1f;
+        private readonly Stat damage;
+        private readonly Stat maxRange;
+        private readonly Stat damageCooldown;
 
         private Transform spawn;
         private GameObject source;
 
         private Laser laserInstance = null;
 
-        public FireBasicLaser() { }
-
-        public FireBasicLaser(FireBasicLaser original)
+        public FireBasicLaser(FireBasicLaserData data, Stat damage, Stat maxRange, Stat damageCooldown)
         {
-            prefab = original.prefab;
-            radius = original.radius;
-            pierce = original.pierce;
-
-            armorPenetration = original.armorPenetration;
-            procCoefficient = original.procCoefficient;
-
-            damage = original.damage.DeepCopy();
-            maxRange = original.maxRange.DeepCopy();
-            damageCooldown = original.damageCooldown.DeepCopy();
+            this.data = data;
+            this.damage = damage;
+            this.maxRange = maxRange;
+            this.damageCooldown = damageCooldown;
         }
-
-        public override AbilityModule DeepCopy() => new FireBasicLaser(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
             this.spawn = spawn;
             this.source = source;
 
-            GameObject laserGOInstance = GameObject.Instantiate(prefab, source.transform.position, Quaternion.identity);
+            GameObject laserGOInstance = GameObject.Instantiate(data.Prefab, source.transform.position, Quaternion.identity);
 
             if (laserGOInstance.TryGetComponent(out laserInstance))
             {
-                laserInstance.SetLaserValues(source, damage.Value, pierce, damageCooldown.Value, armorPenetration, procCoefficient);
+                laserInstance.SetLaserValues(source, damage.Value, data.Pierce, damageCooldown.Value, data.ArmorPenetration, data.ProcCoefficient);
             }
 
             laserGOInstance.SetActive(false);
@@ -89,7 +67,7 @@ namespace Zeke.Abilities.Modules
         {
             if (laserInstance == null) return;
 
-            laserInstance.UpdateLaser(spawn.position, spawn.rotation, spawn.up, radius, maxRange.Value);
+            laserInstance.UpdateLaser(spawn.position, spawn.rotation, spawn.up, data.Radius, maxRange.Value);
         }
 
         public override void Upgrade()
@@ -100,7 +78,7 @@ namespace Zeke.Abilities.Modules
 
             if (laserInstance != null)
             {
-                laserInstance.SetLaserValues(source, damage.Value, pierce, damageCooldown.Value, armorPenetration, procCoefficient);
+                laserInstance.SetLaserValues(source, damage.Value, data.Pierce, damageCooldown.Value, data.ArmorPenetration, data.ProcCoefficient);
             }
         }
 

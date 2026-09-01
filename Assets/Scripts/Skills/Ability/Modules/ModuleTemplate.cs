@@ -6,16 +6,15 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class ModuleTemplate : AbilityModule
     {
-        [SerializeField] private Stat value;
+        private readonly ModuleTemplateData data;
 
-        public ModuleTemplate() { } //empty constructor for unity's inspector default parameters
+        private readonly Stat value;
 
-        public ModuleTemplate(ModuleTemplate original) //constructor for deep copy
+        public ModuleTemplate(ModuleTemplateData data, Stat value)
         {
-            value = original.value.DeepCopy();
+            this.data = data;
+            this.value = value;
         }
-
-        public override AbilityModule DeepCopy() => new ModuleTemplate(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability) { }
 

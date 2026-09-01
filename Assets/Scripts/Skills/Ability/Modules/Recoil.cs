@@ -6,23 +6,20 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class Recoil : AbilityModule
     {
-        [SerializeField] private Stat force;
-        [SerializeField] private Vector2 direction;
+        private readonly RecoilData data;
+
+        private readonly Stat force;
 
         private Physics physics;
         private EntityAim entityAim;
 
         private bool hasRequiredComponents = true;
 
-        public Recoil() { }
-
-        public Recoil(Recoil original)
+        public Recoil(RecoilData data, Stat force)
         {
-            direction = original.direction;
-            force = original.force.DeepCopy();
+            this.data = data;
+            this.force = force;
         }
-
-        public override AbilityModule DeepCopy() => new Recoil(this);
 
         public override bool CanActivate() => true;
         public override bool CanUpgrade() => true;
@@ -36,7 +33,7 @@ namespace Zeke.Abilities.Modules
         public override void Activate(bool holding)
         {
             if (!hasRequiredComponents) return;
-            physics.AddForce(force.Value, GetRelativeDirection(direction.normalized, entityAim.AimDirection));
+            physics.AddForce(force.Value, GetRelativeDirection(data.Direction.normalized, entityAim.AimDirection));
         }
 
         public override void Upgrade()

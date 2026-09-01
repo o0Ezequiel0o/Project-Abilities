@@ -6,23 +6,17 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class Dash : AbilityModule
     {
-        [SerializeField] private float jumpForce;
-        [SerializeField] private Vector2 direction;
+        private readonly DashData data;
 
         private Physics physics;
         private EntityAim entityAim;
 
         private bool hasRequiredComponents = true;
 
-        public Dash() { }
-
-        public Dash(Dash original)
+        public Dash(DashData data)
         {
-            jumpForce = original.jumpForce;
-            direction = original.direction;
+            this.data = data;
         }
-
-        public override AbilityModule DeepCopy() => new Dash(this);
 
         public override bool CanActivate() => true;
         public override bool CanUpgrade() => true;
@@ -36,7 +30,7 @@ namespace Zeke.Abilities.Modules
         public override void Activate(bool holding)
         {
             if (!hasRequiredComponents) return;
-            physics.AddForce(jumpForce, GetRelativeDirection(direction.normalized, entityAim.AimDirection));
+            physics.AddForce(data.JumpForce, GetRelativeDirection(data.Direction.normalized, entityAim.AimDirection));
         }
 
         public Vector2 GetRelativeDirection(Vector2 direction, Vector2 relativeTo)

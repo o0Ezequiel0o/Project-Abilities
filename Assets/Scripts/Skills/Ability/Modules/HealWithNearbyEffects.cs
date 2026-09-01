@@ -7,15 +7,10 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class HealWithNearbyEffects : AbilityModule
     {
-        [SerializeField] private LayerMask hitLayers;
-        [SerializeField] private bool consumesEffects = true;
-        [SerializeField] private List<StatusEffectData> effects;
+        private readonly HealWithNearbyEffectsData data;
 
-        [Space]
-
-        [SerializeField] private Stat healingPerStack;
-        [SerializeField] private float procCoefficient;
-        [SerializeField] private Stat radius;
+        private readonly Stat healingPerStack;
+        private readonly Stat radius;
 
         private GameObject source;
         private Damageable damageable;
@@ -24,21 +19,12 @@ namespace Zeke.Abilities.Modules
 
         private readonly List<Collider2D> hits = new List<Collider2D>();
 
-        public HealWithNearbyEffects() { }
-
-        public HealWithNearbyEffects(HealWithNearbyEffects original)
+        public HealWithNearbyEffects(HealWithNearbyEffectsData data, Stat healingPerStack, Stat radius)
         {
-            procCoefficient = original.procCoefficient;
-            consumesEffects = original.consumesEffects;
-            hitLayers = original.hitLayers;
-
-            effects = new List<StatusEffectData>(original.effects);
-
-            healingPerStack = original.healingPerStack.DeepCopy();
-            radius = original.radius.DeepCopy();
+            this.data = data;
+            this.healingPerStack = healingPerStack;
+            this.radius = radius;
         }
-
-        public override AbilityModule DeepCopy() => new HealWithNearbyEffects(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -55,7 +41,7 @@ namespace Zeke.Abilities.Modules
 
             hits.Clear();
 
-            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers, useLayerMask = true };
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.HitLayers, useLayerMask = true };
             Physics2D.OverlapCircle(source.transform.position, radius.Value, contactFilter, hits);
 
             float healingToReceive = 0f;
@@ -64,19 +50,19 @@ namespace Zeke.Abilities.Modules
             {
                 if (hits[i].TryGetComponent(out StatusEffectHandler statusEffectHandler))
                 {
-                    for (int x = 0; x < effects.Count; x++)
+                    for (int x = 0; x < data.Effects.Count; x++)
                     {
-                        if (statusEffectHandler.TryGetActiveStatusEffect(effects[x], out StatusEffect statusEffect))
+                        if (statusEffectHandler.TryGetActiveStatusEffect(data.Effects[x], out StatusEffect statusEffect))
                         {
                             healingToReceive += healingPerStack.Value * statusEffect.stacks;
 
-                            if (consumesEffects) statusEffectHandler.RemoveEffect(statusEffect);
+                            if (data.ConsumesEffects) statusEffectHandler.RemoveEffect(statusEffect);
                         }
                     }
                 }
             }
 
-            HealInfo heal = new HealInfo(healingToReceive, procCoefficient);
+            HealInfo heal = new HealInfo(healingToReceive, data.ProcCoefficient);
             damageable.GiveHealing(heal, source, source);
         }
 

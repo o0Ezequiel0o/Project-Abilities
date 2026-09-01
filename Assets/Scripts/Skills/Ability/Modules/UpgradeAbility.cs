@@ -6,20 +6,17 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class UpgradeAbility : AbilityModule
     {
-        [SerializeReference, SerializeReferenceDropdown] private GetAbilityStrategy strategy = new GetAbilityType();
-        [SerializeField] private int levels;
+        private readonly UpgradeAbilityData data;
+
+        private readonly GetAbilityStrategy strategy;
 
         private AbilityController controller;
 
-        public UpgradeAbility() { }
-
-        public UpgradeAbility(UpgradeAbility original)
+        public UpgradeAbility(UpgradeAbilityData data, GetAbilityStrategy strategy)
         {
-            levels = original.levels;
-            strategy = original.strategy.GetDeepCopy();
+            this.data = data;
+            this.strategy = strategy;
         }
-
-        public override AbilityModule DeepCopy() => new UpgradeAbility(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -32,7 +29,7 @@ namespace Zeke.Abilities.Modules
 
         public override void Activate(bool holding)
         {
-            for (int i = 0; i < levels; i++)
+            for (int i = 0; i < data.Levels; i++)
             {
                 strategy.GetAbility(controller)?.QueueUpgrade();
             }

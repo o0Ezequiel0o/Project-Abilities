@@ -7,23 +7,17 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class WeightedCast : AbilityModule
     {
-        [SerializeField] private List<ModuleInfo> choices;
+        private readonly WeightedCastData data;
+
+        private readonly List<ModuleInfo> choices;
 
         private AbilityModule selectedModule;
 
-        public WeightedCast() { }
-
-        public WeightedCast(WeightedCast original)
+        public WeightedCast(WeightedCastData data, List<ModuleInfo> choices)
         {
-            choices = new List<ModuleInfo>();
-
-            for (int i = 0; i < original.choices.Count; i++)
-            {
-                choices.Add(original.choices[i].DeepCopy());
-            }
+            this.data = data;
+            this.choices = choices;
         }
-
-        public override AbilityModule DeepCopy() => new WeightedCast(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -79,21 +73,18 @@ namespace Zeke.Abilities.Modules
             }
         }
 
-        [Serializable]
-        private class ModuleInfo : IWeighted
+        public readonly struct ModuleInfo : IWeighted
         {
-            [field: SerializeField] public int Weight { get; set; } = 1;
-            [field: SerializeReferenceDropdown, SerializeReference] public AbilityModule module;
+            public readonly int Weight => Weight;
 
-            public ModuleInfo() { }
+            public readonly int weight;
+            public readonly AbilityModule module;
 
-            public ModuleInfo(ModuleInfo original)
+            public ModuleInfo(int weight, AbilityModule module)
             {
-                Weight = original.Weight;
-                module = original.module?.DeepCopy();
+                this.weight = weight;
+                this.module = module;
             }
-
-            public ModuleInfo DeepCopy() => new ModuleInfo(this);
         }
     }
 }

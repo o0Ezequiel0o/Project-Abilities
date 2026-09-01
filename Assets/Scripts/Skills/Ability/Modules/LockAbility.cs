@@ -6,20 +6,19 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class LockAbility : AbilityModule
     {
-        [SerializeReference, SerializeReferenceDropdown] private GetAbilityStrategy strategy = new GetAbilityType();
+        private readonly LockAbilityData data;
+
+        private readonly GetAbilityStrategy strategy;
 
         private AbilityController controller;
 
         private readonly AbilityLock abilityLock = new AbilityLock();
 
-        public LockAbility() { }
-
-        public LockAbility(LockAbility original)
+        public LockAbility(LockAbilityData data, GetAbilityStrategy strategy)
         {
-            strategy = original.strategy;
+            this.data = data;
+            this.strategy = strategy;
         }
-
-        public override AbilityModule DeepCopy() => new LockAbility(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {

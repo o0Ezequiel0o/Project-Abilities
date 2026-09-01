@@ -2,38 +2,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Zeke.TeamSystem;
-using static DamageProjectileBase;
 
 namespace Zeke.Abilities.Modules
 {
     [Serializable]
     public class SpawnHomingOrbs : AbilityModule
     {
-        [Header("Spawning")]
-        [SerializeField] private HomingOrbProjectile prefab;
-        [SerializeField] private float distance;
-        [SerializeField] private float spinSpeed;
+        private readonly SpawnHomingOrbsData data;
 
-        [Header("Homing Orbs")]
-        [SerializeField] protected Stat amount;
-        [SerializeField] protected Stat maxRange;
-        [SerializeField] protected Stat pierce;
-        [SerializeField] protected Stat damage;
-        [SerializeField] protected Stat fireCooldown;
-
-        [Space]
-
-        [SerializeField] protected float armorPenetration = 0f;
-        [SerializeField] protected float procCoefficient = 1f;
-        [SerializeField] protected float knockback = 1f;
-
-        [Header("Targeting")]
-        [SerializeField] private float detectRadius;
-        [SerializeField] private LayerMask hitLayers;
-        [SerializeField] private LayerMask blockLayers;
-
-        [Header("Other")]
-        [SerializeField] private float warmUp;
+        protected readonly Stat amount;
+        protected readonly Stat maxRange;
+        protected readonly Stat pierce;
+        protected readonly Stat damage;
+        protected readonly Stat fireCooldown;
 
         private GameObject source;
 
@@ -52,33 +33,15 @@ namespace Zeke.Abilities.Modules
         private readonly List<RaycastHit2D> targetsInLaunchPath = new List<RaycastHit2D>();
         private readonly List<Collider2D> unfilteredTargetsInRange = new List<Collider2D>();
 
-        public SpawnHomingOrbs() { }
-
-        public SpawnHomingOrbs(SpawnHomingOrbs original)
+        public SpawnHomingOrbs(SpawnHomingOrbsData data, Stat amount, Stat maxRange, Stat pierce, Stat damage, Stat fireCooldown)
         {
-            prefab = original.prefab;
-            distance = original.distance;
-            spinSpeed = original.spinSpeed;
-
-            detectRadius = original.detectRadius;
-            blockLayers = original.blockLayers;
-            hitLayers = original.hitLayers;
-
-            armorPenetration = original.armorPenetration;
-            procCoefficient = original.procCoefficient;
-            knockback = original.knockback;
-
-            warmUp = original.warmUp;
-
-            amount = original.amount.DeepCopy();
-            damage = original.damage.DeepCopy();
-            pierce = original.pierce.DeepCopy();
-            maxRange = original.maxRange.DeepCopy();
-
-            fireCooldown = original.fireCooldown.DeepCopy();
+            this.data = data;
+            this.amount = amount;
+            this.maxRange = maxRange;
+            this.pierce = pierce;
+            this.damage = damage;
+            this.fireCooldown = fireCooldown;
         }
-
-        public override AbilityModule DeepCopy() => new SpawnHomingOrbs(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -95,7 +58,7 @@ namespace Zeke.Abilities.Modules
         public override void Activate(bool holding)
         {
             spinnerInstance.DisablePivotChildren();
-            spinnerInstance.InitializeSpinner(null, prefab, distance, spinSpeed, Mathf.FloorToInt(amount.Value));
+            spinnerInstance.InitializeSpinner(null, data.Prefab, data.Distance, data.SpinSpeed, Mathf.FloorToInt(amount.Value));
         }
 
         public override void Update()
@@ -139,8 +102,8 @@ namespace Zeke.Abilities.Modules
         {
             for (int i = 0; i < spawnedObjects.Count; i++)
             {
-                DamageData damageData = new DamageData(damage.Value, armorPenetration, procCoefficient);
-                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damageData, knockback, pierce.ValueInt, source, TeamManager.GetTeam(source));
+                DamageData damageData = new DamageData(damage.Value, data.ArmorPenetration, data.ProcCoefficient);
+                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damageData, data.Knockback, pierce.ValueInt, source, TeamManager.GetTeam(source));
                 spawnedObjects[i].ColliderEnabled = false;
             }
 
@@ -159,7 +122,7 @@ namespace Zeke.Abilities.Modules
         {
             if (warmUpFinished) return;
 
-            if (warmUpTimer >= warmUp)
+            if (warmUpTimer >= data.WarmUp)
             {
                 warmUpFinished = true;
             }
@@ -182,15 +145,15 @@ namespace Zeke.Abilities.Modules
             fireCooldownTimer = 0f;
 
             UpdateTargetsInRange();
-            TryFireClosestOrbToTargets(targetsInRange, source, hitLayers, blockLayers);
+            TryFireClosestOrbToTargets(targetsInRange, source, data.HitLayers, data.BlockLayers);
         }
 
         private void UpdateTargetsInRange()
         {
             targetsInRange.Clear();
 
-            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers, useLayerMask = true };
-            Physics2D.OverlapCircle(source.transform.position, detectRadius, contactFilter, unfilteredTargetsInRange);
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.HitLayers, useLayerMask = true };
+            Physics2D.OverlapCircle(source.transform.position, data.DetectRadius, contactFilter, unfilteredTargetsInRange);
 
             for (int i = 0; i < unfilteredTargetsInRange.Count; i++)
             {
@@ -247,7 +210,7 @@ namespace Zeke.Abilities.Modules
             homingOrbs.Remove(homingOrb);
             spinnerInstance.RemoveFromPivot(homingOrb.transform);
 
-            DamageData damageData = new DamageData(damage.Value, armorPenetration, procCoefficient);
+            DamageData damageData = new DamageData(damage.Value, data.ArmorPenetration, data.ProcCoefficient);
             homingOrb.Launch(homingOrb.transform.position, 5f, direction, maxRange.Value, damageData, pierce.ValueInt, source, TeamManager.GetTeam(source));
 
             homingOrb.SetTarget(target);

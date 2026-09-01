@@ -1,4 +1,3 @@
-using UnityEngine;
 using System;
 
 namespace Zeke.Abilities
@@ -6,22 +5,18 @@ namespace Zeke.Abilities
     [Serializable]
     public class GetAbilityReference : GetAbilityStrategy
     {
-        [SerializeField] private AbilityData reference;
+        private readonly GetAbilityReferenceData data;
 
-        public GetAbilityReference() { }
-
-        public GetAbilityReference(GetAbilityReference original)
+        public GetAbilityReference(GetAbilityReferenceData data)
         {
-            reference = original.reference;
+            this.data = data;
         }
-
-        public override GetAbilityStrategy GetDeepCopy() => new GetAbilityReference(this);
 
         public override IAbility GetAbility(AbilityController controller)
         {
-            if (controller.TryGetAbility(reference.AbilityType, out IAbility ability))
+            if (controller.TryGetAbility(data.Reference.AbilityType, out IAbility ability))
             {
-                if (ability.Data == reference)
+                if (ability.Data == data.Reference)
                 {
                     return ability;
                 }

@@ -6,22 +6,16 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class UpgradePassive: AbilityModule
     {
-        [SerializeReference] private PassiveData passive;
-        [SerializeField] private int levels;
+        private readonly UpgradePassiveData data;
 
         private PassiveController passiveController;
 
         private bool hasRequiredComponents = true;
 
-        public UpgradePassive() { }
-
-        public UpgradePassive(UpgradePassive original)
+        public UpgradePassive(UpgradePassiveData data)
         {
-            passive = original.passive;
-            levels = original.levels;
+            this.data = data;
         }
-
-        public override AbilityModule DeepCopy() => new UpgradePassive(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -36,9 +30,9 @@ namespace Zeke.Abilities.Modules
         {
             if (!hasRequiredComponents) return;
 
-            if (passiveController.TryGetPassive(passive, out IPassive passiveInstance))
+            if (passiveController.TryGetPassive(data.Passive, out IPassive passiveInstance))
             {
-                for (int i = 0; i < levels; i++)
+                for (int i = 0; i < data.Levels; i++)
                 {
                     passiveInstance.Upgrade();
                 }

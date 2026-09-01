@@ -8,52 +8,46 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class AreaGiveStatusEffect : GiveStatusEffect
     {
-        [SerializeField] private Stat radius;
-        [SerializeField] private LayerMask hitLayers;
-        [SerializeField] private TargetingType targeting;
+        private readonly AreaGiveStatusEffectData data;
+
+        private readonly Stat radius;
 
         private readonly List<Collider2D> hits = new List<Collider2D>();
 
-        public AreaGiveStatusEffect() { }
-
-        public AreaGiveStatusEffect(AreaGiveStatusEffect original) : base(original)
+        public AreaGiveStatusEffect(AreaGiveStatusEffectData data, Stat stacks, Stat radius) : base(data, stacks)
         {
-            hitLayers = original.hitLayers;
-            targeting = original.targeting;
-
-            radius = original.radius.DeepCopy();
+            this.data = data;
+            this.radius = radius;
         }
-
-        public override AbilityModule DeepCopy() => new AreaGiveStatusEffect(this);
 
         public override bool CanActivate() => true;
         public override bool CanUpgrade() => true;
 
         public override void Activate(bool holding)
         {
-            if (targeting == TargetingType.Allies)
+            if (data.Targeting == TargetingType.Allies)
             {
                 base.Activate(holding);
             }
 
             hits.Clear();
-            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers, useLayerMask = true };
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.HitLayers, useLayerMask = true };
             Physics2D.OverlapCircle(source.transform.position, radius.Value, contactFilter, hits);
 
             for (int i = 0; i < hits.Count; i++)
             {
-                if (targeting == TargetingType.Allies)
+                if (data.Targeting == TargetingType.Allies)
                 {
                     if (TeamManager.IsEnemy(source, hits[i].gameObject)) continue;
                 }
-                else if (targeting == TargetingType.Enemies)
+                else if (data.Targeting == TargetingType.Enemies)
                 {
                     if (TeamManager.IsAlly(source, hits[i].gameObject)) continue;
                 }
 
                 if (hits[i].TryGetComponent(out StatusEffectHandler statusEffectHandler))
                 {
-                    statusEffectHandler.ApplyEffect(statusEffect, source, stacks.ValueInt);
+                    statusEffectHandler.ApplyEffect(data.StatusEffect, source, stacks.ValueInt);
                 }
             }
         }
@@ -64,7 +58,7 @@ namespace Zeke.Abilities.Modules
             radius.Upgrade();
         }
 
-        private enum TargetingType
+        public enum TargetingType
         {
             Enemies,
             Allies

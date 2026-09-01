@@ -8,33 +8,26 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class AreaDamage : AbilityModule
     {
-        [SerializeField] private Stat radius;
-        [SerializeField] private Stat damage;
+        private readonly AreaDamageData data;
 
-        [SerializeField] private float knockback;
-        [SerializeField] private LayerMask hitLayers;
+        private readonly Stat radius;
+        private readonly Stat damage;
 
         private GameObject source;
 
         private readonly List<Collider2D> hits = new List<Collider2D>();
 
-        public AreaDamage() { }
-
-        public AreaDamage(AreaDamage original)
+        public AreaDamage(AreaDamageData data, Stat radius, Stat damage)
         {
-            radius = original.radius.DeepCopy();
-            damage = original.damage.DeepCopy();
-
-            knockback = original.knockback;
-            hitLayers = original.hitLayers;
+            this.data = data;
+            this.radius = radius;
+            this.damage = damage;
         }
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
             this.source = source;
         }
-
-        public override AbilityModule DeepCopy() => new AreaDamage(this);
 
         public override bool CanActivate() => true;
         public override bool CanUpgrade() => true;
@@ -43,7 +36,7 @@ namespace Zeke.Abilities.Modules
         {
             hits.Clear();
 
-            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers, useLayerMask = true };
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.HitLayers, useLayerMask = true };
             Physics2D.OverlapCircle(source.transform.position, radius.Value, contactFilter, hits);
 
             for (int i = 0; i < hits.Count; i++)
@@ -65,7 +58,7 @@ namespace Zeke.Abilities.Modules
 
                 if (hits[i].TryGetComponent(out Physics physics))
                 {
-                    physics.AddForce(knockback * knockBackDirection);
+                    physics.AddForce(data.Knockback * knockBackDirection);
                 }
             }
         }

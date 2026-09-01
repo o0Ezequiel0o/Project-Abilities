@@ -1,4 +1,3 @@
-using UnityEngine;
 using System;
 
 namespace Zeke.Abilities
@@ -6,20 +5,16 @@ namespace Zeke.Abilities
     [Serializable]
     public class GetAbilityType : GetAbilityStrategy
     {
-        [SerializeField] private AbilityType type;
+        private readonly GetAbilityTypeData data;
 
-        public GetAbilityType() { }
-
-        public GetAbilityType(GetAbilityType original)
+        public GetAbilityType(GetAbilityTypeData data)
         {
-            type = original.type;
+            this.data = data;
         }
-
-        public override GetAbilityStrategy GetDeepCopy() => new GetAbilityType(this);
 
         public override IAbility GetAbility(AbilityController controller)
         {
-            if (controller.TryGetAbility(type, out IAbility ability))
+            if (controller.TryGetAbility(data.Type, out IAbility ability))
             {
                 return ability;
             }

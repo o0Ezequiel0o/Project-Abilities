@@ -6,22 +6,18 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class GiveStatusEffect : AbilityModule
     {
-        [SerializeField] protected StatusEffectData statusEffect;
-        [SerializeField] protected Stat stacks;
+        private readonly GiveStatusEffectData data;
 
+        protected readonly Stat stacks;
         protected GameObject source;
 
         private StatusEffectHandler statusEffectHandler;
 
-        public GiveStatusEffect() { }
-
-        public GiveStatusEffect(GiveStatusEffect original)
+        public GiveStatusEffect(GiveStatusEffectData data, Stat stacks)
         {
-            statusEffect = original.statusEffect;
-            stacks = original.stacks.DeepCopy();
+            this.data = data;
+            this.stacks = stacks;
         }
-
-        public override AbilityModule DeepCopy() => new GiveStatusEffect(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -35,7 +31,7 @@ namespace Zeke.Abilities.Modules
         public override void Activate(bool holding)
         {
             if (statusEffectHandler == null) return;
-            statusEffectHandler.ApplyEffect(statusEffect, source, stacks.ValueInt);
+            statusEffectHandler.ApplyEffect(data.StatusEffect, source, stacks.ValueInt);
         }
 
         public override void Upgrade()

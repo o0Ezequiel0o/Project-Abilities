@@ -6,27 +6,23 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class CastWhileActive : AbilityModule
     {
-        [SerializeField] private Stat inactiveLength;
-        [SerializeField] private Stat activeLength;
-        [SerializeField] private InternalLoopState startState;
-        [SerializeReferenceDropdown, SerializeReference] private AbilityModule module;
+        private readonly CastWhileActiveData data;
+
+        private readonly Stat inactiveLength;
+        private readonly Stat activeLength;
+        private readonly AbilityModule module;
 
         private InternalLoopState loopState = InternalLoopState.Inactive;
 
         private float timer = 0f;
 
-        public CastWhileActive() { }
-
-        public CastWhileActive(CastWhileActive original)
+        public CastWhileActive(CastWhileActiveData data, Stat inactiveLength, Stat activeLength, AbilityModule module)
         {
-            startState = original.startState;
-
-            inactiveLength = original.inactiveLength.DeepCopy();
-            activeLength = original.activeLength.DeepCopy();
-            module = original.module.DeepCopy();
+            this.data = data;
+            this.inactiveLength = inactiveLength;
+            this.activeLength = activeLength;
+            this.module = module;
         }
-
-        public override AbilityModule DeepCopy() => new CastWhileActive(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -38,10 +34,10 @@ namespace Zeke.Abilities.Modules
 
         public override void Activate(bool holding)
         {
-            loopState = startState;
+            loopState = data.StartState;
             timer = 0f;
 
-            if (startState == InternalLoopState.Active)
+            if (data.StartState == InternalLoopState.Active)
             {
                 module.Activate(holding);
             }
@@ -130,7 +126,7 @@ namespace Zeke.Abilities.Modules
             module.Destroy();
         }
 
-        private enum InternalLoopState
+        public enum InternalLoopState
         {
             Active,
             Inactive

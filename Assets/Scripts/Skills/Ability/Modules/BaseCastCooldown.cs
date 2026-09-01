@@ -6,23 +6,22 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class BaseCastCooldown : AbilityModule
     {
-        [SerializeField] private Stat cooldown = new Stat(0.05f, 0f, 0f, float.PositiveInfinity);
+        private readonly BaseCastCooldownData data;
+
+        private readonly Stat cooldown;
 
         private float timer = 0f;
 
-        public BaseCastCooldown() { }
-
-        public BaseCastCooldown(BaseCastCooldown original)
+        public BaseCastCooldown(BaseCastCooldownData data, Stat cooldown)
         {
-            cooldown = original.cooldown.DeepCopy();
+            this.data = data;
+            this.cooldown = cooldown;
         }
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
             timer = cooldown.Value;
         }
-
-        public override AbilityModule DeepCopy() => new BaseCastCooldown(this);
 
         public override bool CanActivate() => timer > cooldown.Value;
 

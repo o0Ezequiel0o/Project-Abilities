@@ -8,14 +8,10 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class CastTowardClosest : AbilityModule
     {
-        [SerializeReferenceDropdown, SerializeReference] private AbilityModule module;
-        [SerializeField] private bool alwaysCast;
-        [SerializeField] private Vector2 offset;
+        private readonly CastTowardClosestData data;
 
-        [Space]
-
-        [SerializeField] private LayerMask targetLayer;
-        [SerializeField] private Stat targetRadius;
+        private readonly AbilityModule module;
+        private readonly Stat targetRadius;
 
         private Transform pivot;
         private Transform newSpawn;
@@ -24,18 +20,12 @@ namespace Zeke.Abilities.Modules
 
         private readonly List<RaycastHit2D> hits = new List<RaycastHit2D>(8);
 
-        public CastTowardClosest() { }
-
-        public CastTowardClosest(CastTowardClosest original)
+        public CastTowardClosest(CastTowardClosestData data, AbilityModule module, Stat targetRadius)
         {
-            offset = original.offset;
-            targetLayer = original.targetLayer;
-
-            module = original.module.DeepCopy();
-            targetRadius = original.targetRadius.DeepCopy();
+            this.data = data;
+            this.module = module;
+            this.targetRadius = targetRadius;
         }
-
-        public override AbilityModule DeepCopy() => new CastTowardClosest(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -48,7 +38,7 @@ namespace Zeke.Abilities.Modules
             newSpawn.parent = pivot;
 
             pivot.localPosition = Vector3.zero;
-            newSpawn.localPosition = offset;
+            newSpawn.localPosition = data.Offset;
 
             module.OnInitialization(controller, newSpawn, source, ability);
         }
@@ -109,7 +99,7 @@ namespace Zeke.Abilities.Modules
 
         private void FaceTowardsTarget(Transform transform)
         {
-            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = targetLayer, useLayerMask = true };
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.TargetLayer, useLayerMask = true };
             for (int i = 0; i < Physics2D.CircleCast(transform.position, targetRadius.Value, Vector2.zero, contactFilter, hits, 0f); i++)
             {
                 GameObject receiver = hits[i].collider.gameObject;

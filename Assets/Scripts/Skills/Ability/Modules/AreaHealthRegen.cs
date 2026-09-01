@@ -8,27 +8,24 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class AreaHealthRegen : HealthRegen
     {
-        [SerializeField] private Stat radius;
-        [SerializeField] private LayerMask hitLayers;
+        private readonly AreaHealthRegenData data;
+
+        private readonly Stat radius;
 
         private readonly List<Collider2D> hits = new List<Collider2D>();
 
-        public AreaHealthRegen() { }
-
-        public AreaHealthRegen(AreaHealthRegen original) : base(original)
+        public AreaHealthRegen(AreaHealthRegenData data, Stat amount, Stat interval, Stat radius) : base(data, amount, interval)
         {
-            hitLayers = original.hitLayers;
-            radius = original.radius.DeepCopy();
+            this.data = data;
+            this.radius = radius;
         }
-
-        public override AbilityModule DeepCopy() => new AreaHealthRegen(this);
 
         public override void OnHealthRegenTick()
         {
             base.OnHealthRegenTick();
 
             hits.Clear();
-            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = hitLayers, useLayerMask = true };
+            ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.HitLayers, useLayerMask = true };
             Physics2D.OverlapCircle(source.transform.position, radius.Value, contactFilter, hits);
 
             for (int i = 0; i < hits.Count; i++)
@@ -37,7 +34,7 @@ namespace Zeke.Abilities.Modules
 
                 if (hits[i].TryGetComponent(out Damageable damageable))
                 {
-                    HealInfo heal = new HealInfo(amount.Value, procCoefficient);
+                    HealInfo heal = new HealInfo(amount.Value, data.ProcCoefficient);
                     damageable.GiveHealing(heal, source, source);
                 }
             }

@@ -6,30 +6,24 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class CastOffset : AbilityModule
     {
-        [SerializeField] private Vector2 offset;
-        [SerializeField] private float angle;
-        [SerializeReference, SerializeReferenceDropdown] public AbilityModule module;
+        private readonly CastOffsetData data;
+
+        private readonly AbilityModule module;
 
         private Transform newSpawn;
 
-        public CastOffset() { }
-
-        public CastOffset(CastOffset original)
+        public CastOffset(CastOffsetData data, AbilityModule module)
         {
-            offset = original.offset;
-            angle = original.angle;
-
-            module = original.module?.DeepCopy();
+            this.data = data;
+            this.module = module;
         }
-
-        public override AbilityModule DeepCopy() => new CastOffset(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
             newSpawn = new GameObject("castPosition").transform;
             newSpawn.parent = spawn.transform;
 
-            newSpawn.SetLocalPositionAndRotation(offset, Quaternion.Euler(0f, 0f, angle));
+            newSpawn.SetLocalPositionAndRotation(data.Offset, Quaternion.Euler(0f, 0f, data.Angle));
             module?.OnInitialization(controller, newSpawn, source, ability);
         }
 

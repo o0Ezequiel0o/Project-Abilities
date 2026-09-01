@@ -1,34 +1,24 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using Zeke.TeamSystem;
-using static DamageProjectileBase;
 
 namespace Zeke.Abilities.Modules
 {
     [Serializable]
     public class ProjectileSpinner : GenericSpinner<SpinnerProjectile>
     {
-        [SerializeField] private Stat damage;
-        [SerializeField] private Stat pierce;
+        private readonly ProjectileSpinnerData data;
 
-        [Space]
+        private readonly Stat damage;
+        private readonly Stat pierce;
 
-        [SerializeField] private float armorPenetration = 0f;
-        [SerializeField] private float procCoefficient = 1f;
-
-        public ProjectileSpinner() { }
-
-        public ProjectileSpinner(ProjectileSpinner original) : base(original)
+        public ProjectileSpinner(ProjectileSpinnerData data, Stat distance, Stat amount, Stat speed, Stat damage, Stat pierce) : base(data, distance, amount, speed)
         {
-            armorPenetration = original.armorPenetration;
-            procCoefficient = original.procCoefficient;
-
-            damage = original.damage.DeepCopy();
-            pierce = original.pierce.DeepCopy();
+            this.data = data;
+            this.damage = damage;
+            this.pierce = pierce;
         }
-
-        public override AbilityModule DeepCopy() => new ProjectileSpinner(this);
 
         public override void Activate(bool holding)
         {
@@ -60,7 +50,7 @@ namespace Zeke.Abilities.Modules
         {
             for (int i = 0; i < spawnedObjects.Count; i++)
             {
-                DamageData damageData = new DamageData(damage.Value, armorPenetration, procCoefficient);
+                DamageData damageData = new DamageData(damage.Value, data.ArmorPenetration, data.ProcCoefficient);
                 spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damageData, pierce.ValueInt, source, TeamManager.GetTeam(source));
             }
         }

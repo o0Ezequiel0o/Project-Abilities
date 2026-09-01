@@ -9,7 +9,7 @@ namespace Zeke.Abilities.Modules.Summoning
     {
         [field: Header("Summon")]
         [field: SerializeField] public GameObject Summon { get; private set; }
-        [SerializeReferenceDropdown, SerializeReference] private List<SummonModuleData> modules = new List<SummonModuleData>(); //{ new JoinSourceTeam() };
+        [SerializeReferenceDropdown, SerializeReference] private List<SummonModuleData> modules = new List<SummonModuleData>() { new JoinSourceTeamData() };
 
         [Header("Spawning")]
         [SerializeField] private Stat maxSummons;

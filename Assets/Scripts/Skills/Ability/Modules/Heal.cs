@@ -6,21 +6,18 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class Heal : AbilityModule
     {
-        [SerializeField] protected Stat amount;
-        [SerializeField] protected float procCoefficient;
+        private readonly HealData data;
+
+        protected readonly Stat amount;
 
         protected GameObject source;
         private Damageable damageable;
 
-        public Heal() { }
-
-        public Heal(Heal original)
+        public Heal(HealData data, Stat amount)
         {
-            amount = original.amount.DeepCopy();
-            procCoefficient = original.procCoefficient;
+            this.data = data;
+            this.amount = amount;
         }
-
-        public override AbilityModule DeepCopy() => new Heal(this);
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
@@ -35,7 +32,7 @@ namespace Zeke.Abilities.Modules
         {
             if (damageable != null)
             {
-                HealInfo heal = new HealInfo(amount.Value, procCoefficient);
+                HealInfo heal = new HealInfo(amount.Value, data.ProcCoefficient);
                 damageable.GiveHealing(heal, source, source);
             }
         }
