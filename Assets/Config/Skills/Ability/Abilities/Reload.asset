@@ -38,22 +38,25 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 1633593052354314322
-  - rid: 1633593052354314323
-  - rid: 1633593052354314333
-  - rid: 1633593052354314328
+  - rid: 9133315464761704664
+  - rid: 9133315464761704666
+  - rid: 9133315464761704667
+  - rid: 9133315464761704670
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 1633593052354314322
-      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704664
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        updateMode: 0
+        <UpdateMode>k__BackingField: 0
         type:
-          rid: 1633593052354314324
-    - rid: 1633593052354314323
-      type: {class: BaseCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+          rid: 9133315464761704665
+    - rid: 9133315464761704665
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 9133315464761704666
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         cooldown:
           baseValue: 0.05
@@ -61,35 +64,32 @@ MonoBehaviour:
           valueLimits:
             min: 0
             max: Infinity
-    - rid: 1633593052354314324
-      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data: 
-    - rid: 1633593052354314328
-      type: {class: LockAbility, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704667
+      type: {class: ReloadData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         strategy:
-          rid: 1633593052354314330
-    - rid: 1633593052354314330
-      type: {class: GetAbilityType, ns: Zeke.Abilities, asm: Assembly-CSharp}
-      data:
-        type: 0
-    - rid: 1633593052354314333
-      type: {class: Reload, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        reload:
-          rid: 1633593052354314334
-    - rid: 1633593052354314334
-      type: {class: Reload/OnDurationEnd, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+          rid: 9133315464761704668
+    - rid: 9133315464761704668
+      type: {class: ReloadData/OnDurationEndData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         strategy:
-          rid: 1633593052354314335
+          rid: 9133315464761704669
         chargesAmount:
           baseValue: 100
           increase: 0
           valueLimits:
             min: -Infinity
             max: Infinity
-    - rid: 1633593052354314335
-      type: {class: GetAbilityType, ns: Zeke.Abilities, asm: Assembly-CSharp}
+    - rid: 9133315464761704669
+      type: {class: GetAbilityTypeData, ns: Zeke.Abilities, asm: Assembly-CSharp}
       data:
-        type: 0
+        <Type>k__BackingField: 0
+    - rid: 9133315464761704670
+      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        strategy:
+          rid: 9133315464761704671
+    - rid: 9133315464761704671
+      type: {class: GetAbilityTypeData, ns: Zeke.Abilities, asm: Assembly-CSharp}
+      data:
+        <Type>k__BackingField: 0

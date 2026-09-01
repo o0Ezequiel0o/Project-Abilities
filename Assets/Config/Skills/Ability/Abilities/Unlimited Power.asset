@@ -37,23 +37,33 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 2308102682624393318
-  - rid: 2308102682624393322
+  - rid: 9133315464761704718
+  - rid: 9133315464761704720
+  - rid: 9133315464761704721
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 2308102682624393318
-      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704718
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        updateMode: 0
+        <UpdateMode>k__BackingField: 0
         type:
-          rid: 2308102682624393319
-    - rid: 2308102682624393319
-      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+          rid: 9133315464761704719
+    - rid: 9133315464761704719
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data: 
-    - rid: 2308102682624393322
-      type: {class: UpgradePassive, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704720
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        passive: {fileID: 11400000, guid: abf678b73e6688a45a1f226022f45888, type: 2}
-        levels: 1
+        cooldown:
+          baseValue: 0.05
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+    - rid: 9133315464761704721
+      type: {class: UpgradePassiveData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        <Passive>k__BackingField: {fileID: 11400000, guid: abf678b73e6688a45a1f226022f45888, type: 2}
+        <Levels>k__BackingField: 1

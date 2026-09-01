@@ -38,21 +38,24 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 1633593066335764556
-  - rid: 1633593066335764557
-  - rid: 1633593066335764559
+  - rid: 9133315464761704682
+  - rid: 9133315464761704684
+  - rid: 9133315464761704685
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 1633593066335764556
-      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704682
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        updateMode: 0
+        <UpdateMode>k__BackingField: 0
         type:
-          rid: 1633593066335764558
-    - rid: 1633593066335764557
-      type: {class: BaseCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+          rid: 9133315464761704683
+    - rid: 9133315464761704683
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 9133315464761704684
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         cooldown:
           baseValue: 0.05
@@ -60,27 +63,24 @@ MonoBehaviour:
           valueLimits:
             min: 0
             max: Infinity
-    - rid: 1633593066335764558
-      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data: 
-    - rid: 1633593066335764559
-      type: {class: Summon, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+    - rid: 9133315464761704685
+      type: {class: SummonData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
       data:
-        summon: {fileID: 6867714498176877325, guid: f2031a5b738703d4b9f1fac0dff80e28, type: 3}
+        <Summon>k__BackingField: {fileID: 6867714498176877325, guid: f2031a5b738703d4b9f1fac0dff80e28, type: 3}
         modules:
-        - rid: 1633593066335764566
+        - rid: 9133315464761704686
         maxSummons:
           baseValue: 1
           increase: 0
           valueLimits:
             min: -Infinity
             max: Infinity
-        fixedRotation: 1
-        spawnBlockRadius: 0
-        spawnDistance: 0
-        spawnBlockLayers:
+        <FixedRotation>k__BackingField: 1
+        <SpawnBlockRadius>k__BackingField: 0
+        <SpawnDistance>k__BackingField: 0
+        <SpawnBlockLayers>k__BackingField:
           serializedVersion: 2
           m_Bits: 0
-    - rid: 1633593066335764566
-      type: {class: SetSourceLevel, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+    - rid: 9133315464761704686
+      type: {class: JoinSourceTeamData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
       data: 

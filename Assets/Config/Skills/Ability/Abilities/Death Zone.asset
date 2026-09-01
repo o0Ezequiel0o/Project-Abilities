@@ -38,8 +38,103 @@ MonoBehaviour:
     valueLimits:
       min: 1
       max: Infinity
-  modules: []
+  modules:
+  - rid: 9133315464761704448
+  - rid: 9133315464761704450
+  - rid: 9133315464761704451
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 9133315464761704448
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        <UpdateMode>k__BackingField: 0
+        type:
+          rid: 9133315464761704449
+    - rid: 9133315464761704449
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 9133315464761704450
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        cooldown:
+          baseValue: 0.05
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+    - rid: 9133315464761704451
+      type: {class: CastWhileActiveData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        inactiveLength:
+          baseValue: 0.1
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        activeLength:
+          baseValue: 0
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        <StartState>k__BackingField: 0
+        module:
+          rid: 9133315464761704452
+    - rid: 9133315464761704452
+      type: {class: CastTowardClosestData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        module:
+          rid: 9133315464761704453
+        <AlwaysCast>k__BackingField: 0
+        <Offset>k__BackingField: {x: 0, y: 0}
+        <TargetLayer>k__BackingField:
+          serializedVersion: 2
+          m_Bits: 256
+        targetRadius:
+          baseValue: 6
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 9133315464761704453
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        <FireDistance>k__BackingField: 0
+        <Spread>k__BackingField:
+          min: 0
+          max: 0
+        projectile:
+          rid: 9133315464761704454
+        speed:
+          baseValue: 30
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        maxRange:
+          baseValue: 6.5
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 9133315464761704454
+      type: {class: FireLightingBoltData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        <Prefab>k__BackingField: {fileID: -1447006146907144590, guid: f11a0d30bd9a5e144be38d9e4247f991, type: 3}
+        <Damage>k__BackingField:
+          baseValue: 10
+          increase: 2
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        <ArmorPenetration>k__BackingField: 0
+        <ProcCoefficient>k__BackingField: 0.5
+        <Knockback>k__BackingField: 1
+        spreadTargets:
+          baseValue: 3
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity

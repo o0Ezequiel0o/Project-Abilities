@@ -39,8 +39,80 @@ MonoBehaviour:
     valueLimits:
       min: 1
       max: Infinity
-  modules: []
+  modules:
+  - rid: 9133315464761704494
+  - rid: 9133315464761704496
+  - rid: 9133315464761704497
+  - rid: 9133315464761704499
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 9133315464761704494
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        <UpdateMode>k__BackingField: 0
+        type:
+          rid: 9133315464761704495
+    - rid: 9133315464761704495
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 9133315464761704496
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        cooldown:
+          baseValue: 0.05
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+    - rid: 9133315464761704497
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        <FireDistance>k__BackingField: 0
+        <Spread>k__BackingField:
+          min: 0
+          max: 0
+        projectile:
+          rid: 9133315464761704498
+        speed:
+          baseValue: 50
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        maxRange:
+          baseValue: 30
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 9133315464761704498
+      type: {class: FirePiercingProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        <Prefab>k__BackingField: {fileID: 3338510750006898018, guid: d9080148ae01be14b9874cc11ca85fd0, type: 3}
+        <Damage>k__BackingField:
+          baseValue: 200
+          increase: 30
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        <ArmorPenetration>k__BackingField: 0.5
+        <ProcCoefficient>k__BackingField: 3
+        <Knockback>k__BackingField: 70
+        pierce:
+          baseValue: -1
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 9133315464761704499
+      type: {class: RecoilData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        force:
+          baseValue: 100
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        <Direction>k__BackingField: {x: 0, y: -1}

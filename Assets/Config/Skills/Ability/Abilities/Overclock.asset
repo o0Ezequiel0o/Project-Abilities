@@ -39,24 +39,27 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 1633592979825623116
-  - rid: 1633592979825623117
-  - rid: 1633592979825623119
-  - rid: 1633592979825623121
-  - rid: 1633592979825623123
-  - rid: 1633592979825623125
+  - rid: 9133315464761704643
+  - rid: 9133315464761704645
+  - rid: 9133315464761704646
+  - rid: 9133315464761704647
+  - rid: 9133315464761704649
+  - rid: 9133315464761704651
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 1633592979825623116
-      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704643
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        updateMode: 0
+        <UpdateMode>k__BackingField: 0
         type:
-          rid: 1633592979825623118
-    - rid: 1633592979825623117
-      type: {class: BaseCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+          rid: 9133315464761704644
+    - rid: 9133315464761704644
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 9133315464761704645
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         cooldown:
           baseValue: 0.05
@@ -64,11 +67,8 @@ MonoBehaviour:
           valueLimits:
             min: 0
             max: Infinity
-    - rid: 1633592979825623118
-      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data: 
-    - rid: 1633592979825623119
-      type: {class: TakeDamage, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704646
+      type: {class: TakeDamageData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         damage:
           baseValue: 0.25
@@ -76,14 +76,14 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
-        valueType: 1
-        armorPenetration: 1
-        lethal: 0
-        ignoresShield: 1
-    - rid: 1633592979825623121
-      type: {class: EditMultiplierStatValue, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
+        <ValueType>k__BackingField: 1
+        <ArmorPenetration>k__BackingField: 1
+        <Lethal>k__BackingField: 0
+        <IgnoresShield>k__BackingField: 1
+    - rid: 9133315464761704647
+      type: {class: EditMultiplierStatValueData, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
       data:
-        permanent: 0
+        <Permanent>k__BackingField: 0
         amount:
           baseValue: 1.5
           increase: 0
@@ -91,14 +91,14 @@ MonoBehaviour:
             min: -Infinity
             max: Infinity
         stat:
-          rid: 1633592979825623122
-    - rid: 1633592979825623122
-      type: {class: GetMoveSpeedStat, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
+          rid: 9133315464761704648
+    - rid: 9133315464761704648
+      type: {class: GetMoveSpeedStatData, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
       data: 
-    - rid: 1633592979825623123
-      type: {class: EditFlatStatValue, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
+    - rid: 9133315464761704649
+      type: {class: EditFlatStatValueData, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
       data:
-        permanent: 0
+        <Permanent>k__BackingField: 0
         amount:
           baseValue: 2
           increase: 0
@@ -106,15 +106,15 @@ MonoBehaviour:
             min: -Infinity
             max: Infinity
         stat:
-          rid: 1633592979825623124
-    - rid: 1633592979825623124
-      type: {class: GetRechargeSpeedStat, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
+          rid: 9133315464761704650
+    - rid: 9133315464761704650
+      type: {class: GetAbilityRechargeSpeedStatData, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
       data:
-        abilityType: 1
-    - rid: 1633592979825623125
-      type: {class: EditMultiplierStatValue, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
+        <AbilityType>k__BackingField: 1
+    - rid: 9133315464761704651
+      type: {class: EditMultiplierStatValueData, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
       data:
-        permanent: 0
+        <Permanent>k__BackingField: 0
         amount:
           baseValue: 1.5
           increase: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
             min: -Infinity
             max: Infinity
         stat:
-          rid: 1633592979825623126
-    - rid: 1633592979825623126
-      type: {class: GetDamageReceivedMultiplierStat, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
+          rid: 9133315464761704652
+    - rid: 9133315464761704652
+      type: {class: GetDamageReceivedMultiplierStatData, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
       data: 

@@ -38,23 +38,33 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 3611678573724172373
-  - rid: 3611678692085071967
+  - rid: 9133315464761704596
+  - rid: 9133315464761704598
+  - rid: 9133315464761704599
   <IndicatorData>k__BackingField: {fileID: 11400000, guid: 5b82ca4d54283ad449c2d2f5223c44c2, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 3611678573724172373
-      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704596
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        updateMode: 0
+        <UpdateMode>k__BackingField: 0
         type:
-          rid: 3611678573724172374
-    - rid: 3611678573724172374
-      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+          rid: 9133315464761704597
+    - rid: 9133315464761704597
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data: 
-    - rid: 3611678692085071967
-      type: {class: BasicAttack, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704598
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        cooldown:
+          baseValue: 0.05
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+    - rid: 9133315464761704599
+      type: {class: BasicAttackData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         damage:
           baseValue: 10
@@ -62,17 +72,17 @@ MonoBehaviour:
           valueLimits:
             min: 0
             max: Infinity
-        armorPenetration: 0
-        procCoefficient: 1
-        knockback: 5
+        <ArmorPenetration>k__BackingField: 0
+        <ProcCoefficient>k__BackingField: 1
+        <Knockback>k__BackingField: 5
         shape:
-          rid: 3611678692085071970
-        hitLayers:
+          rid: 9133315464761704600
+        <HitLayers>k__BackingField:
           serializedVersion: 2
           m_Bits: 256
-        castOffset: 0.5
-        castAtSourceCenter: 0
-    - rid: 3611678692085071970
+        <CastOffset>k__BackingField: 0.5
+        <CastAtSourceCenter>k__BackingField: 0
+    - rid: 9133315464761704600
       type: {class: BoxOverlap, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         size: {x: 1.5, y: 1}

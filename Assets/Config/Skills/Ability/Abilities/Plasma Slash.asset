@@ -38,43 +38,24 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 2308103201695203412
-  - rid: 2308103201695203419
-  - rid: 2308103201695203418
+  - rid: 9133315464761704658
+  - rid: 9133315464761704661
+  - rid: 9133315464761704662
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 2308103201695203412
-      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704658
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        updateMode: 0
+        <UpdateMode>k__BackingField: 0
         type:
-          rid: 2308103201695203414
-    - rid: 2308103201695203414
-      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+          rid: 9133315464761704659
+    - rid: 9133315464761704659
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data: 
-    - rid: 2308103201695203418
-      type: {class: BasicAttack, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        damage:
-          baseValue: 25
-          increase: 5
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        armorPenetration: 0
-        procCoefficient: 1
-        knockback: 10
-        shape:
-          rid: 2308103201695203420
-        hitLayers:
-          serializedVersion: 2
-          m_Bits: 256
-        castOffset: 0.5
-        castAtSourceCenter: 0
-    - rid: 2308103201695203419
-      type: {class: DynamicCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704661
+      type: {class: DynamicCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         cooldown:
           baseValue: 0.5
@@ -82,7 +63,26 @@ MonoBehaviour:
           valueLimits:
             min: 0
             max: Infinity
-    - rid: 2308103201695203420
+    - rid: 9133315464761704662
+      type: {class: BasicAttackData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        damage:
+          baseValue: 25
+          increase: 5
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        <ArmorPenetration>k__BackingField: 0
+        <ProcCoefficient>k__BackingField: 1
+        <Knockback>k__BackingField: 10
+        shape:
+          rid: 9133315464761704663
+        <HitLayers>k__BackingField:
+          serializedVersion: 2
+          m_Bits: 256
+        <CastOffset>k__BackingField: 0.5
+        <CastAtSourceCenter>k__BackingField: 0
+    - rid: 9133315464761704663
       type: {class: BoxOverlap, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         size: {x: 2.5, y: 1.5}

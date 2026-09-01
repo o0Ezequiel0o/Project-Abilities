@@ -39,21 +39,24 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 1633593052354314336
-  - rid: 1633593052354314337
-  - rid: 1633593052354314339
+  - rid: 9133315464761704687
+  - rid: 9133315464761704689
+  - rid: 9133315464761704690
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 1633593052354314336
-      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704687
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        updateMode: 0
+        <UpdateMode>k__BackingField: 0
         type:
-          rid: 1633593052354314338
-    - rid: 1633593052354314337
-      type: {class: BaseCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+          rid: 9133315464761704688
+    - rid: 9133315464761704688
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 9133315464761704689
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         cooldown:
           baseValue: 0.05
@@ -61,43 +64,40 @@ MonoBehaviour:
           valueLimits:
             min: 0
             max: Infinity
-    - rid: 1633593052354314338
-      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data: 
-    - rid: 1633593052354314339
-      type: {class: Summon, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+    - rid: 9133315464761704690
+      type: {class: SummonData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
       data:
-        summon: {fileID: 5647093461853523306, guid: fc767660a4dfee44ea2ee290c8a4a4ee, type: 3}
+        <Summon>k__BackingField: {fileID: 5647093461853523306, guid: fc767660a4dfee44ea2ee290c8a4a4ee, type: 3}
         modules:
-        - rid: 1633593052354314340
-        - rid: 1633593052354314342
-        - rid: 1633593052354314341
-        - rid: 1633593052354314343
-        - rid: 1633593090558394476
+        - rid: 9133315464761704691
+        - rid: 9133315464761704692
+        - rid: 9133315464761704693
+        - rid: 9133315464761704694
+        - rid: 9133315464761704695
         maxSummons:
           baseValue: 3
           increase: 0
           valueLimits:
             min: -Infinity
             max: Infinity
-        fixedRotation: 1
-        spawnBlockRadius: 0.5
-        spawnDistance: 1
-        spawnBlockLayers:
+        <FixedRotation>k__BackingField: 1
+        <SpawnBlockRadius>k__BackingField: 0.5
+        <SpawnDistance>k__BackingField: 1
+        <SpawnBlockLayers>k__BackingField:
           serializedVersion: 2
           m_Bits: 2432
-    - rid: 1633593052354314340
-      type: {class: JoinSourceTeam, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+    - rid: 9133315464761704691
+      type: {class: JoinSourceTeamData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
       data: 
-    - rid: 1633593052354314341
-      type: {class: ShareMoneyWithSource, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+    - rid: 9133315464761704692
+      type: {class: ShareExperienceWithSourceData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
       data: 
-    - rid: 1633593052354314342
-      type: {class: ShareExperienceWithSource, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+    - rid: 9133315464761704693
+      type: {class: ShareMoneyWithSourceData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
       data: 
-    - rid: 1633593052354314343
-      type: {class: InheritSourceItems, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+    - rid: 9133315464761704694
+      type: {class: InheritSourceItemsData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
       data: 
-    - rid: 1633593090558394476
-      type: {class: SetSourceLevel, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+    - rid: 9133315464761704695
+      type: {class: SetSourceLevelData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
       data: 

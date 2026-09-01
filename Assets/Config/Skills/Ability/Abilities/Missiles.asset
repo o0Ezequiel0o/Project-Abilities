@@ -38,24 +38,27 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 1633592908717752570
-  - rid: 1633592908717752571
-  - rid: 1633592908717752573
-  - rid: 1633592908717752591
-  - rid: 1633592908717752576
-  - rid: 1633592908717752596
+  - rid: 9133315464761704601
+  - rid: 9133315464761704603
+  - rid: 9133315464761704604
+  - rid: 9133315464761704611
+  - rid: 9133315464761704623
+  - rid: 9133315464761704635
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 1633592908717752570
-      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704601
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        updateMode: 0
+        <UpdateMode>k__BackingField: 0
         type:
-          rid: 1633592908717752572
-    - rid: 1633592908717752571
-      type: {class: BaseCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+          rid: 9133315464761704602
+    - rid: 9133315464761704602
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 9133315464761704603
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         cooldown:
           baseValue: 0.05
@@ -63,25 +66,22 @@ MonoBehaviour:
           valueLimits:
             min: 0
             max: Infinity
-    - rid: 1633592908717752572
-      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data: 
-    - rid: 1633592908717752573
-      type: {class: CastOffset, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704604
+      type: {class: CastOffsetData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        offset: {x: -0.3, y: 0}
-        angle: 0
+        <Offset>k__BackingField: {x: -0.3, y: 0}
+        <Angle>k__BackingField: 0
         module:
-          rid: 1633592908717752574
-    - rid: 1633592908717752574
-      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+          rid: 9133315464761704609
+    - rid: 9133315464761704609
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
-        fireDistance: 0
-        spread:
+        <FireDistance>k__BackingField: 0
+        <Spread>k__BackingField:
           min: 0
           max: 0
         projectile:
-          rid: 1633592908717752575
+          rid: 9133315464761704610
         speed:
           baseValue: 5
           increase: 0
@@ -94,35 +94,35 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
-    - rid: 1633592908717752575
-      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+    - rid: 9133315464761704610
+      type: {class: FireBasicProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
-        prefab: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
-        damage:
+        <Prefab>k__BackingField: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
+        <Damage>k__BackingField:
           baseValue: 30
           increase: 7
           valueLimits:
             min: -Infinity
             max: Infinity
-        armorPenetration: 0
-        procCoefficient: 1
-        knockback: 1
-    - rid: 1633592908717752576
-      type: {class: CastOffset, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+        <ArmorPenetration>k__BackingField: 0
+        <ProcCoefficient>k__BackingField: 1
+        <Knockback>k__BackingField: 1
+    - rid: 9133315464761704611
+      type: {class: CastOffsetData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        offset: {x: 0.3, y: 0}
-        angle: 0
+        <Offset>k__BackingField: {x: -0.3, y: 0}
+        <Angle>k__BackingField: 45
         module:
-          rid: 1633592908717752579
-    - rid: 1633592908717752579
-      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+          rid: 9133315464761704619
+    - rid: 9133315464761704619
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
-        fireDistance: 0
-        spread:
+        <FireDistance>k__BackingField: 0
+        <Spread>k__BackingField:
           min: 0
           max: 0
         projectile:
-          rid: 1633592908717752580
+          rid: 9133315464761704622
         speed:
           baseValue: 5
           increase: 0
@@ -135,35 +135,35 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
-    - rid: 1633592908717752580
-      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+    - rid: 9133315464761704622
+      type: {class: FireBasicProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
-        prefab: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
-        damage:
+        <Prefab>k__BackingField: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
+        <Damage>k__BackingField:
           baseValue: 30
           increase: 7
           valueLimits:
             min: -Infinity
             max: Infinity
-        armorPenetration: 0
-        procCoefficient: 1
-        knockback: 1
-    - rid: 1633592908717752591
-      type: {class: CastOffset, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+        <ArmorPenetration>k__BackingField: 0
+        <ProcCoefficient>k__BackingField: 1
+        <Knockback>k__BackingField: 1
+    - rid: 9133315464761704623
+      type: {class: CastOffsetData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        offset: {x: -0.3, y: 0}
-        angle: 45
+        <Offset>k__BackingField: {x: 0.3, y: 0}
+        <Angle>k__BackingField: 0
         module:
-          rid: 1633592908717752594
-    - rid: 1633592908717752594
-      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+          rid: 9133315464761704631
+    - rid: 9133315464761704631
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
-        fireDistance: 0
-        spread:
+        <FireDistance>k__BackingField: 0
+        <Spread>k__BackingField:
           min: 0
           max: 0
         projectile:
-          rid: 1633592908717752595
+          rid: 9133315464761704634
         speed:
           baseValue: 5
           increase: 0
@@ -176,35 +176,35 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
-    - rid: 1633592908717752595
-      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+    - rid: 9133315464761704634
+      type: {class: FireBasicProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
-        prefab: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
-        damage:
+        <Prefab>k__BackingField: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
+        <Damage>k__BackingField:
           baseValue: 30
           increase: 7
           valueLimits:
             min: -Infinity
             max: Infinity
-        armorPenetration: 0
-        procCoefficient: 1
-        knockback: 1
-    - rid: 1633592908717752596
-      type: {class: CastOffset, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+        <ArmorPenetration>k__BackingField: 0
+        <ProcCoefficient>k__BackingField: 1
+        <Knockback>k__BackingField: 1
+    - rid: 9133315464761704635
+      type: {class: CastOffsetData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        offset: {x: 0.3, y: 0}
-        angle: -45
+        <Offset>k__BackingField: {x: 0.3, y: 0}
+        <Angle>k__BackingField: -45
         module:
-          rid: 1633592908717752599
-    - rid: 1633592908717752599
-      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+          rid: 9133315464761704638
+    - rid: 9133315464761704638
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
-        fireDistance: 0
-        spread:
+        <FireDistance>k__BackingField: 0
+        <Spread>k__BackingField:
           min: 0
           max: 0
         projectile:
-          rid: 1633592908717752600
+          rid: 9133315464761704639
         speed:
           baseValue: 5
           increase: 0
@@ -217,16 +217,16 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
-    - rid: 1633592908717752600
-      type: {class: FireBasicProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+    - rid: 9133315464761704639
+      type: {class: FireBasicProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
-        prefab: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
-        damage:
+        <Prefab>k__BackingField: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
+        <Damage>k__BackingField:
           baseValue: 30
           increase: 7
           valueLimits:
             min: -Infinity
             max: Infinity
-        armorPenetration: 0
-        procCoefficient: 1
-        knockback: 1
+        <ArmorPenetration>k__BackingField: 0
+        <ProcCoefficient>k__BackingField: 1
+        <Knockback>k__BackingField: 1

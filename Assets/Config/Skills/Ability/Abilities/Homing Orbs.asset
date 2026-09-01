@@ -40,36 +40,40 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 2308102682624393309
-  - rid: 2308102682624393311
+  - rid: 9133315464761704500
+  - rid: 9133315464761704502
+  - rid: 9133315464761704503
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 2308102682624393309
-      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704500
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        updateMode: 0
+        <UpdateMode>k__BackingField: 0
         type:
-          rid: 2308102682624393310
-    - rid: 2308102682624393310
-      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+          rid: 9133315464761704501
+    - rid: 9133315464761704501
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data: 
-    - rid: 2308102682624393311
-      type: {class: SpawnHomingOrbs, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704502
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        prefab: {fileID: -1221922450799852821, guid: a67f971b497c47d47b6375ef17ade2b6, type: 3}
-        distance: 1
-        spinSpeed: 90
+        cooldown:
+          baseValue: 0.05
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+    - rid: 9133315464761704503
+      type: {class: SpawnHomingOrbsData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        <Prefab>k__BackingField: {fileID: -1221922450799852821, guid: a67f971b497c47d47b6375ef17ade2b6, type: 3}
+        <Distance>k__BackingField: 1
+        <SpinSpeed>k__BackingField: 90
         amount:
           baseValue: 3
           increase: 1
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        damage:
-          baseValue: 12
-          increase: 3
           valueLimits:
             min: -Infinity
             max: Infinity
@@ -85,17 +89,26 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
+        damage:
+          baseValue: 12
+          increase: 3
+          valueLimits:
+            min: -Infinity
+            max: Infinity
         fireCooldown:
           baseValue: 0.5
           increase: -0.05
           valueLimits:
             min: 0.01
             max: Infinity
-        detectRadius: 5
-        hitLayers:
+        <ArmorPenetration>k__BackingField: 0
+        <ProcCoefficient>k__BackingField: 1
+        <Knockback>k__BackingField: 1
+        <DetectRadius>k__BackingField: 5
+        <HitLayers>k__BackingField:
           serializedVersion: 2
           m_Bits: 256
-        blockLayers:
+        <BlockLayers>k__BackingField:
           serializedVersion: 2
           m_Bits: 128
-        warmUp: 1
+        <WarmUp>k__BackingField: 1

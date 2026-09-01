@@ -37,21 +37,24 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 1633592957572218956
-  - rid: 1633592957572218957
-  - rid: 1633592957572218959
+  - rid: 9133315464761704678
+  - rid: 9133315464761704680
+  - rid: 9133315464761704681
   <IndicatorData>k__BackingField: {fileID: 11400000, guid: f274165d68f806d4a8765c853fb3fae5, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 1633592957572218956
-      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704678
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        updateMode: 0
+        <UpdateMode>k__BackingField: 0
         type:
-          rid: 1633592957572218958
-    - rid: 1633592957572218957
-      type: {class: BaseCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+          rid: 9133315464761704679
+    - rid: 9133315464761704679
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 9133315464761704680
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         cooldown:
           baseValue: 0.05
@@ -59,11 +62,8 @@ MonoBehaviour:
           valueLimits:
             min: 0
             max: Infinity
-    - rid: 1633592957572218958
-      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data: 
-    - rid: 1633592957572218959
-      type: {class: AreaDamage, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704681
+      type: {class: AreaDamageData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         radius:
           baseValue: 1.5
@@ -77,7 +77,7 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
-        knockback: 50
-        hitLayers:
+        <Knockback>k__BackingField: 50
+        <HitLayers>k__BackingField:
           serializedVersion: 2
           m_Bits: 256

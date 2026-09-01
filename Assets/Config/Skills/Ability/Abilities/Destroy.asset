@@ -36,8 +36,48 @@ MonoBehaviour:
     valueLimits:
       min: 1
       max: Infinity
-  modules: []
+  modules:
+  - rid: 9133315464761704461
+  - rid: 9133315464761704463
+  - rid: 9133315464761704464
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 9133315464761704461
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        <UpdateMode>k__BackingField: 0
+        type:
+          rid: 9133315464761704462
+    - rid: 9133315464761704462
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 9133315464761704463
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        cooldown:
+          baseValue: 0.05
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+    - rid: 9133315464761704464
+      type: {class: AreaDamageData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        radius:
+          baseValue: 9999
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        damage:
+          baseValue: 99999
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        <Knockback>k__BackingField: 0
+        <HitLayers>k__BackingField:
+          serializedVersion: 2
+          m_Bits: 256

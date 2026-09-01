@@ -40,30 +40,40 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 2308102682624393312
-  - rid: 2308102682624393314
+  - rid: 9133315464761704696
+  - rid: 9133315464761704698
+  - rid: 9133315464761704699
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 2308102682624393312
-      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704696
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        updateMode: 0
+        <UpdateMode>k__BackingField: 0
         type:
-          rid: 2308102682624393313
-    - rid: 2308102682624393313
-      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+          rid: 9133315464761704697
+    - rid: 9133315464761704697
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data: 
-    - rid: 2308102682624393314
-      type: {class: FireProjectile, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+    - rid: 9133315464761704698
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        fireDistance: 0.5
-        spread:
+        cooldown:
+          baseValue: 0.05
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+    - rid: 9133315464761704699
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        <FireDistance>k__BackingField: 0.5
+        <Spread>k__BackingField:
           min: 0
           max: 0
         projectile:
-          rid: 2308102682624393315
+          rid: 9133315464761704700
         speed:
           baseValue: 15
           increase: 0
@@ -76,19 +86,19 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
-    - rid: 2308102682624393315
-      type: {class: FireGiantOrb, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+    - rid: 9133315464761704700
+      type: {class: FireGiantOrbData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
       data:
-        prefab: {fileID: 1995363315318189085, guid: b1700eae23f047845bb158ec1d9ed1df, type: 3}
-        damage:
+        <Prefab>k__BackingField: {fileID: 1995363315318189085, guid: b1700eae23f047845bb158ec1d9ed1df, type: 3}
+        <Damage>k__BackingField:
           baseValue: 100
           increase: 10
           valueLimits:
             min: -Infinity
             max: Infinity
-        armorPenetration: 0
-        procCoefficient: 1
-        knockback: 25
+        <ArmorPenetration>k__BackingField: 0
+        <ProcCoefficient>k__BackingField: 1
+        <Knockback>k__BackingField: 25
         smallOrbDamage:
           baseValue: 5
           increase: 1

@@ -36,8 +36,69 @@ MonoBehaviour:
     valueLimits:
       min: 1
       max: Infinity
-  modules: []
+  modules:
+  - rid: 9133315464761704489
+  - rid: 9133315464761704491
+  - rid: 9133315464761704492
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 9133315464761704489
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        <UpdateMode>k__BackingField: 0
+        type:
+          rid: 9133315464761704490
+    - rid: 9133315464761704490
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 9133315464761704491
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        cooldown:
+          baseValue: 0.05
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+    - rid: 9133315464761704492
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        <FireDistance>k__BackingField: 0.2
+        <Spread>k__BackingField:
+          min: 0
+          max: 0
+        projectile:
+          rid: 9133315464761704493
+        speed:
+          baseValue: 8
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        maxRange:
+          baseValue: 10
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+    - rid: 9133315464761704493
+      type: {class: FireFireballData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      data:
+        <Prefab>k__BackingField: {fileID: 437356665002056714, guid: 6c1002edcf6b99e47a629e10d9afb5f0, type: 3}
+        <Damage>k__BackingField:
+          baseValue: 15
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
+        <ArmorPenetration>k__BackingField: 0
+        <ProcCoefficient>k__BackingField: 1
+        <Knockback>k__BackingField: 1
+        damageRadius:
+          baseValue: 0.25
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity

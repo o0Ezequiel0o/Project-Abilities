@@ -37,22 +37,25 @@ MonoBehaviour:
       min: 1
       max: Infinity
   modules:
-  - rid: 2308103201695203422
-  - rid: 2308103201695203423
-  - rid: 2308103201695203425
-  - rid: 2308103201695203428
+  - rid: 9133315464761704706
+  - rid: 9133315464761704708
+  - rid: 9133315464761704709
+  - rid: 9133315464761704710
   <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 2308103201695203422
-      type: {class: Recharge, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704706
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        updateMode: 0
+        <UpdateMode>k__BackingField: 0
         type:
-          rid: 2308103201695203424
-    - rid: 2308103201695203423
-      type: {class: BaseCastCooldown, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+          rid: 9133315464761704707
+    - rid: 9133315464761704707
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data: 
+    - rid: 9133315464761704708
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         cooldown:
           baseValue: 0.05
@@ -60,31 +63,28 @@ MonoBehaviour:
           valueLimits:
             min: 0
             max: Infinity
-    - rid: 2308103201695203424
-      type: {class: RechargeWithTime, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data: 
-    - rid: 2308103201695203425
-      type: {class: Dash, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+    - rid: 9133315464761704709
+      type: {class: DashData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
-        jumpForce: 300
-        direction: {x: 0, y: -1}
-    - rid: 2308103201695203428
-      type: {class: Reload, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        reload:
-          rid: 2308103201695203429
-    - rid: 2308103201695203429
-      type: {class: Reload/OnCast, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+        <JumpForce>k__BackingField: 300
+        <Direction>k__BackingField: {x: 0, y: -1}
+    - rid: 9133315464761704710
+      type: {class: ReloadData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         strategy:
-          rid: 2308103201695203430
+          rid: 9133315464761704711
+    - rid: 9133315464761704711
+      type: {class: ReloadData/OnCastData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        strategy:
+          rid: 9133315464761704712
         chargesAmount:
           baseValue: 1
           increase: 0
           valueLimits:
             min: -Infinity
             max: Infinity
-    - rid: 2308103201695203430
-      type: {class: GetAbilityType, ns: Zeke.Abilities, asm: Assembly-CSharp}
+    - rid: 9133315464761704712
+      type: {class: GetAbilityTypeData, ns: Zeke.Abilities, asm: Assembly-CSharp}
       data:
-        type: 0
+        <Type>k__BackingField: 0
