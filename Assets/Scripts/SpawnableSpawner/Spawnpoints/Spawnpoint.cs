@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zeke.TeamSystem;
@@ -20,13 +21,13 @@ public abstract class Spawnpoint : MonoBehaviour, IWeighted
 
     public abstract GameObject Spawn(GameObject prefab);
 
-    public bool IsBlocked()
+    public void ProcessBlockedState(Action<bool> onFinishedProcessing)
     {
         ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = blockLayers, useLayerMask = true };
-        return IsBlocked(contactFilter);
+        ProcessBlockState(onFinishedProcessing, contactFilter);
     }
 
-    protected abstract bool IsBlocked(ContactFilter2D contactFilter);
+    protected abstract void ProcessBlockState(Action<bool> onFinishedProcessing, ContactFilter2D contactFilter);
 
     public bool Includes(Spawnable waveSpawnable)
     {

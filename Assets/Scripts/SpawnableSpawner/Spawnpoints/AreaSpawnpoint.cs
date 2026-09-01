@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 using Zeke.TeamSystem;
@@ -7,10 +8,10 @@ public class AreaSpawnpoint : Spawnpoint
     [Header("Bounds")]
     [SerializeField] private Vector2 bounds;
 
-    private float RandomXinBounds => Random.Range(-bounds.x * .5f, bounds.x * .5f);
-    private float RandomYinBounds => Random.Range(-bounds.y * .5f, bounds.y * .5f);
+    private float RandomXinBounds => UnityEngine.Random.Range(-bounds.x * .5f, bounds.x * .5f);
+    private float RandomYinBounds => UnityEngine.Random.Range(-bounds.y * .5f, bounds.y * .5f);
 
-    protected override bool IsBlocked(ContactFilter2D contactFilter)
+    protected override void ProcessBlockState(Action<bool> onFinishedProcessing, ContactFilter2D contactFilter)
     {
         Physics2D.OverlapBox(transform.position, bounds, Quaternion.identity.eulerAngles.z, contactFilter, hits);
 
@@ -18,11 +19,11 @@ public class AreaSpawnpoint : Spawnpoint
         {
             if (TeamManager.IsEnemy(team, hits[i].gameObject))
             {
-                return true;
+                onFinishedProcessing?.Invoke(true);
             }
         }
 
-        return false;
+        onFinishedProcessing?.Invoke(false);
     }
 
     public override GameObject Spawn(GameObject prefab)

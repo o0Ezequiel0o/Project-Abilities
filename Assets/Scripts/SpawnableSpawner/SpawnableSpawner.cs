@@ -24,6 +24,9 @@ public class SpawnableSpawner : MonoBehaviour
 
     private readonly List<Spawnpoint> tempSpawnpoints = new List<Spawnpoint>();
 
+    private bool processingSpawnpoints = false;
+    private CachedSpawnableData currentSpawnable;
+
     private float currentPoints = 0;
 
     public void DestroySpawnedSpawnables()
@@ -60,6 +63,7 @@ public class SpawnableSpawner : MonoBehaviour
 
     private void UpdateSpawning()
     {
+        if (processingSpawnpoints) return;
         if (aliveSpawnables.Count >= maxAliveSpawnables) return;
 
         float debt = Mathf.Max(currentPoints * -1f, 0f);
@@ -83,33 +87,54 @@ public class SpawnableSpawner : MonoBehaviour
 
     private void SpawnSpawnable(CachedSpawnableData cachedSpawnable)
     {
+        processingSpawnpoints = true;
+
         tempSpawnpoints.Clear();
         tempSpawnpoints.AddRange(cachedSpawnable.spawnpoints);
 
-        Spawnpoint spawnPoint = null;
+        ProcessNextSpawnpoint(cachedSpawnable);
+    }
 
-        while (tempSpawnpoints.Count > 0)
+    private void ProcessNextSpawnpoint(CachedSpawnableData spawnable)
+    {
+        Spawnpoint spawnpoint = WeightedSelect.SelectElement(tempSpawnpoints);
+
+        if (spawnpoint == null)
         {
-            spawnPoint = WeightedSelect.SelectElement(tempSpawnpoints);
+            Debug.LogWarning("There are no avaible spawnpoints");
+        }
+        else
+        {
+            spawnpoint.ProcessBlockedState((blocked) => OnSpawnPointProcessed(spawnable, spawnpoint, blocked));
+        }
+    }
 
-            if (!spawnPoint.IsBlocked())
+    private void OnSpawnPointProcessed(CachedSpawnableData spawnable, Spawnpoint spawnpoint, bool blocked)
+    {
+        tempSpawnpoints.Remove(spawnpoint);
+
+        if (blocked)
+        {
+            if (tempSpawnpoints.Count <= 0)
             {
-                break;
+                processingSpawnpoints = false;
+                Debug.LogWarning("All avaible spawnpoints are blocked, consider adding more or the map might be full...");
             }
             else
             {
-                tempSpawnpoints.Remove(spawnPoint);
-                spawnPoint = null;
+                ProcessNextSpawnpoint(spawnable);
             }
         }
-
-        if (spawnPoint == null)
+        else
         {
-            Debug.LogWarning("All spawnpoints are blocked by enemy entities, consider adding more");
-            return;
+            SpawnSpawnable(spawnable, spawnpoint);
+            processingSpawnpoints = false;
         }
+    }
 
-        GameObject spawnableInstance = spawnPoint.Spawn(cachedSpawnable.prefab);
+    private void SpawnSpawnable(CachedSpawnableData spawnable, Spawnpoint spawnpoint)
+    {
+        GameObject spawnableInstance = spawnpoint.Spawn(spawnable.prefab);
 
         if (!spawnableInstance.TryGetComponent(out DestroyEventTracker destroyEventTracker))
         {
@@ -118,7 +143,7 @@ public class SpawnableSpawner : MonoBehaviour
 
         destroyEventTracker.onDestroy += OnSpawnableDeath;
         aliveSpawnables.Add(spawnableInstance);
-        currentPoints -= cachedSpawnable.cost;
+        currentPoints -= spawnable.cost;
 
         onSpawnableSpawned?.Invoke(spawnableInstance);
     }
@@ -182,7 +207,7 @@ public class SpawnableSpawner : MonoBehaviour
         cachedSpawnables.Remove(cachedSpawnable);
     }
 
-    private class CachedSpawnableData : IWeighted
+    private class CachedSpawnableData : IWeighted //MAKE ALL just take spawnableRef data
     {
         public readonly GameObject prefab;
         public readonly Spawnable spawnableRef;
