@@ -11,7 +11,7 @@ namespace Zeke.Abilities.Modules
         [field: SerializeField] public float Distance { get; private set; }
         [field: SerializeField] public float SpinSpeed { get; private set; }
 
-        [Header("Homing Orbs")]
+        [field: Header("Homing Orbs")]
         [SerializeField] protected Stat amount;
         [SerializeField] protected Stat maxRange;
         [SerializeField] protected Stat pierce;
@@ -24,12 +24,12 @@ namespace Zeke.Abilities.Modules
         [field: SerializeField] public float ProcCoefficient { get; private set; } = 1f;
         [field: SerializeField] public float Knockback { get; private set; } = 1f;
 
-        [Header("Targeting")]
+        [field: Header("Targeting")]
         [field: SerializeField] public float DetectRadius { get; private set; }
         [field: SerializeField] public LayerMask HitLayers { get; private set; }
         [field: SerializeField] public LayerMask BlockLayers { get; private set; }
 
-        [Header("Other")]
+        [field: Header("Other")]
         [field: SerializeField] public float WarmUp { get; private set; }
 
         public override AbilityModule CreateModule()
