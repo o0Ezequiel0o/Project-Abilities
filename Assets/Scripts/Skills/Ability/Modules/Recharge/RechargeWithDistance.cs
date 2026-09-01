@@ -1,9 +1,7 @@
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities.Modules
 {
-    [Serializable]
     public partial class RechargeWithDistance : RechargeType
     {
         private readonly RechargeWithDistanceData data;

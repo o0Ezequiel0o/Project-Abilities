@@ -1,9 +1,7 @@
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities.Modules.Summoning
 {
-    [Serializable]
     public class SetSourceLevel : SummonModule
     {
         private readonly SetSourceLevelData data;

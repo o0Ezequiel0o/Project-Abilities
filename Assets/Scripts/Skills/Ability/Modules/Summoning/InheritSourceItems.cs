@@ -1,10 +1,8 @@
 using UnityEngine;
-using System;
 using Zeke.Items;
 
 namespace Zeke.Abilities.Modules.Summoning
 {
-    [Serializable]
     public class InheritSourceItems : SummonModule
     {
         private readonly InheritSourceItemsData data;

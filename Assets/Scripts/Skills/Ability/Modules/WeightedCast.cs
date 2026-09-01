@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities.Modules
 {
-    [Serializable]
     public class WeightedCast : AbilityModule
     {
         private readonly WeightedCastData data;

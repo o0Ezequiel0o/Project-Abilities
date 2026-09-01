@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules
 {
-    [Serializable]
     public class Saw : AbilityModule
     {
         private readonly SawData data;

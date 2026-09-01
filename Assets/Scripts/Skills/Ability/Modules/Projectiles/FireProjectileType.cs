@@ -1,9 +1,7 @@
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities.Modules.Projectiles
 {
-    [Serializable]
     public abstract class FireProjectileType
     {
         public virtual FireProjectileType DeepCopy() { return null; } //TODO: Remove this

@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities.Modules
 {
-    [Serializable]
     public class AlternatingCast : AbilityModule
     {
         private readonly AlternatingCastData data;

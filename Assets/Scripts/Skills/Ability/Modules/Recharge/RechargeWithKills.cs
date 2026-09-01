@@ -1,9 +1,7 @@
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities.Modules
 {
-    [Serializable]
     public partial class RechargeWithKills : RechargeType
     {
         private readonly RechargeWithKillsData data;

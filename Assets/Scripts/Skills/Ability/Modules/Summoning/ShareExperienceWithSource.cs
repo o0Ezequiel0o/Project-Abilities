@@ -1,9 +1,7 @@
-using System;
 using UnityEngine;
 
 namespace Zeke.Abilities.Modules.Summoning
 {
-    [Serializable]
     public class ShareExperienceWithSource : SummonModule
     {
         private readonly ShareExperienceWithSourceData data;

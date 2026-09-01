@@ -1,9 +1,7 @@
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities.Modules
 {
-    [Serializable]
     public class BaseCastCooldown : AbilityModule
     {
         private readonly BaseCastCooldownData data;

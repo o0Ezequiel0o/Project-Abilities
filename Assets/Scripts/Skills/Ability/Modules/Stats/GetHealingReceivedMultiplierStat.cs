@@ -1,9 +1,7 @@
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities.Modules.Stats
 {
-    [Serializable]
     public class GetHealingReceivedMultiplierStat : GetStatStrategy
     {
         private readonly GetHealingReceivedMultiplierStatData data;

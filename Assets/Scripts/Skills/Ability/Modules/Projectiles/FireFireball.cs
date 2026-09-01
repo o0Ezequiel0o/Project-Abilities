@@ -1,10 +1,8 @@
 using UnityEngine;
-using System;
 using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules.Projectiles
 {
-    [Serializable]
     public class FireFireball : FireDamageProjectile<FireBallProjectile>
     {
         private readonly FireFireballData data;

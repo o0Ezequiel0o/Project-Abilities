@@ -1,10 +1,8 @@
 using UnityEngine;
-using System;
 using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules.Summoning
 {
-    [Serializable]
     public class JoinSourceTeam : SummonModule
     {
         private readonly JoinSourceTeamData data;

@@ -1,9 +1,7 @@
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities.Modules.Projectiles
 {
-    [Serializable]
     public class FireProjectile : AbilityModule
     {
         private readonly FireProjectileData data;

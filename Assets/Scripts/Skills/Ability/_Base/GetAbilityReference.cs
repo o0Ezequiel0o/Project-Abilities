@@ -1,8 +1,5 @@
-using System;
-
 namespace Zeke.Abilities
 {
-    [Serializable]
     public class GetAbilityReference : GetAbilityStrategy
     {
         private readonly GetAbilityReferenceData data;

@@ -1,10 +1,8 @@
 using UnityEngine;
-using System;
 using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules.Projectiles
 {
-    [Serializable]
     public class FireSniper : FireBasicProjectile
     {
         private readonly FireSniperData data;

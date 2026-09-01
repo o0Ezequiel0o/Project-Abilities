@@ -1,9 +1,7 @@
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities
 {
-    [Serializable]
     public abstract class AbilityModule
     {
         //add a default implementation for Initialize and move OnInitialization after this

@@ -1,10 +1,8 @@
 using UnityEngine;
-using System;
 using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules.Projectiles
 {
-    [Serializable]
     public class FireGiantOrb : FireDamageProjectile<GiantOrbProjectile>
     {
         private readonly FireGiantOrbData data;

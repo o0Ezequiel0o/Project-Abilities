@@ -1,9 +1,7 @@
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities.Modules.Stats
 {
-    [Serializable]
     public class GetMoveSpeedStat : GetStatStrategy
     {
         private readonly GetMoveSpeedStatData data;

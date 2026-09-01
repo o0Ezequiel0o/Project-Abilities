@@ -1,9 +1,7 @@
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities.Modules.Summoning
 {
-    [Serializable]
     public abstract class SummonModule
     {
         public abstract void OnSummonSpawn(GameObject summon, GameObject source);

@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities.Modules.Summoning
 {
-    [Serializable]
     public class Summon : AbilityModule
     {
         private readonly SummonData data;

@@ -1,9 +1,7 @@
 using UnityEngine;
-using System;
 
 namespace Zeke.Abilities.Modules
 {
-    [Serializable]
     public class UpgradePassive: AbilityModule
     {
         private readonly UpgradePassiveData data;

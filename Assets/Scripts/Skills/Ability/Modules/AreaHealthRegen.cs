@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using Zeke.TeamSystem;
 
 namespace Zeke.Abilities.Modules
 {
-    [Serializable]
     public class AreaHealthRegen : HealthRegen
     {
         private readonly AreaHealthRegenData data;
