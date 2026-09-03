@@ -4,7 +4,7 @@ using Zeke.PoolableGameObjects;
 
 public class ParticleController : MonoBehaviour, IPoolableGameObjectConfirmator
 {
-    [SerializeField] private ParticleSystem particlesPrefab;
+    [SerializeField] private ParticleSystem particlePrefab;
     [SerializeField] private Vector3 offset;
 
     [Space]
@@ -42,7 +42,7 @@ public class ParticleController : MonoBehaviour, IPoolableGameObjectConfirmator
 
     private void Awake()
     {
-        particleInstance = Instantiate(particlesPrefab);
+        particleInstance = Instantiate(particlePrefab);
         particleInstance.gameObject.SetActive(false);
 
         ParticleSystem.MainModule main = particleInstance.main;

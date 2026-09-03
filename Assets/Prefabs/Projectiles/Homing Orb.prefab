@@ -38,7 +38,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7762828720704906864
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -95,6 +95,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!114 &-1221922450799852821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,6 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b554641d3d0dea54a960bcc78c8a5880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParticleController
-  particlesPrefab: {fileID: 1188340974147852463, guid: f49eb439a17d5684c86f682305b1dd60, type: 3}
+  particlePrefab: {fileID: 1188340974147852463, guid: f49eb439a17d5684c86f682305b1dd60, type: 3}
   offset: {x: 0, y: 0, z: 0}
   follow: 0
