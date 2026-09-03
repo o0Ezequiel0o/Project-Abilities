@@ -12,12 +12,12 @@ public class StatusEffectHandler : MonoBehaviour
     public List<StatusEffect> StatusEffects => statusEffects;
 
     /// <summary> Called before any effect is applied. Returns the data of the status effect, source and stacks to apply. </summary>
-    public OrderedAction<EffectApplyInfo> onApplyEffect = new OrderedAction<EffectApplyInfo>();
+    public readonly OrderedAction<EffectApplyInfo> onApplyEffect = new OrderedAction<EffectApplyInfo>();
 
-    public OrderedAction<StatusEffect> onEffectApplied = new OrderedAction<StatusEffect>();
-    public OrderedAction<StatusEffect> onStacksApplied = new OrderedAction<StatusEffect>();
-    public OrderedAction<StatusEffect> onEffectRemoved = new OrderedAction<StatusEffect>();
-    public OrderedAction<StatusEffect> onStacksRemoved = new OrderedAction<StatusEffect>();
+    public readonly OrderedAction<StatusEffect> onEffectApplied = new OrderedAction<StatusEffect>();
+    public readonly OrderedAction<StatusEffect> onStacksApplied = new OrderedAction<StatusEffect>();
+    public readonly OrderedAction<StatusEffect> onEffectRemoved = new OrderedAction<StatusEffect>();
+    public readonly OrderedAction<StatusEffect> onStacksRemoved = new OrderedAction<StatusEffect>();
 
     private readonly List<StatusEffect> statusEffects = new List<StatusEffect>();
     private readonly HashSet<ImmunitySourceID> immunitySources = new HashSet<ImmunitySourceID>();

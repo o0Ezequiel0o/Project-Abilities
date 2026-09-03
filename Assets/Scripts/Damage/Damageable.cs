@@ -38,17 +38,17 @@ public class Damageable : MonoBehaviour, IUpgradable
     public bool IsAlive { get; private set; }
     public bool MarkedForDeath { get; private set; }
 
-    public OrderedAction<HealEvent> onReceiveHealth = new OrderedAction<HealEvent>();
-    public OrderedAction<HealEvent> onReceivedHealth = new OrderedAction<HealEvent>();
+    public readonly OrderedAction<HealEvent> onReceiveHealth = new OrderedAction<HealEvent>();
+    public readonly OrderedAction<HealEvent> onReceivedHealth = new OrderedAction<HealEvent>();
 
     /// <summary> Called when hit, before any condition. </summary>
-    public OrderedAction<DamageEvent> onDamageEvent = new OrderedAction<DamageEvent>();
+    public readonly OrderedAction<DamageEvent> onDamageEvent = new OrderedAction<DamageEvent>();
     
-    public OrderedAction<DamageEvent> onTakeDamage = new OrderedAction<DamageEvent>();
-    public OrderedAction<DamageEvent> onTakenDamage = new OrderedAction<DamageEvent>();
+    public readonly OrderedAction<DamageEvent> onTakeDamage = new OrderedAction<DamageEvent>();
+    public readonly OrderedAction<DamageEvent> onTakenDamage = new OrderedAction<DamageEvent>();
 
-    public OrderedAction<DamageEvent> onHitTaken = new OrderedAction<DamageEvent>();
-    public OrderedAction<DamageEvent> onDeath = new OrderedAction<DamageEvent>();
+    public readonly OrderedAction<DamageEvent> onHitTaken = new OrderedAction<DamageEvent>();
+    public readonly OrderedAction<DamageEvent> onDeath = new OrderedAction<DamageEvent>();
 
     public Action<Damageable> onDespawn;
     public Action onAnyHealthUpdate;

@@ -13,8 +13,8 @@ namespace Zeke.Abilities
 
         public Transform Spawn => spawn;
 
-        public OrderedAction<IAbility, AbilityType> onAbilityUsed = new OrderedAction<IAbility, AbilityType>();
-        public OrderedAction<IAbility, AbilityType> onAbilityCharged = new OrderedAction<IAbility, AbilityType>();
+        public readonly OrderedAction<IAbility, AbilityType> onAbilityUsed = new OrderedAction<IAbility, AbilityType>();
+        public readonly OrderedAction<IAbility, AbilityType> onAbilityCharged = new OrderedAction<IAbility, AbilityType>();
 
         public Action<IAbility, AbilityType> onAbilityAdded;
         public Action<IAbility, AbilityType> onAbilityRemoved;

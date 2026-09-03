@@ -17,7 +17,7 @@ public class InteractionHandler : MonoBehaviour
     [SerializeField] private float checkInterval;
 
     public GameObject SelectedInteractable => currentInteractable?.gameObject;
-    public OrderedAction<InteractionResult> onInteraction = new OrderedAction<InteractionResult>();
+    public readonly OrderedAction<InteractionResult> onInteraction = new OrderedAction<InteractionResult>();
 
     private GameObject overlayObjectInstance;
     private InteractableData currentInteractable;

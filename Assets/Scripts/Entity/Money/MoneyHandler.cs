@@ -7,10 +7,10 @@ public class MoneyHandler : MonoBehaviour
 
     public int Money { get; private set; }
 
-    public OrderedAction<int> onReceiveMoney = new OrderedAction<int>();
-    public OrderedAction<int> onReceivedMoney = new OrderedAction<int>();
+    public readonly OrderedAction<int> onReceiveMoney = new OrderedAction<int>();
+    public readonly OrderedAction<int> onReceivedMoney = new OrderedAction<int>();
 
-    public OrderedAction<int> onUsedMoney = new OrderedAction<int>();
+    public readonly OrderedAction<int> onUsedMoney = new OrderedAction<int>();
 
     public void GiveMoney(int money)
     {
