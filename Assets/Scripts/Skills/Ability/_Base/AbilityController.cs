@@ -125,8 +125,6 @@ namespace Zeke.Abilities
         {
             IAbility oldAbility = Abilities[abilityType].Ability;
 
-            if (initialize) newAbility.Initialize();
-
             RemoveAbility(abilityType, false);
             AddAbility(newAbility, abilityType, initialize);
 
