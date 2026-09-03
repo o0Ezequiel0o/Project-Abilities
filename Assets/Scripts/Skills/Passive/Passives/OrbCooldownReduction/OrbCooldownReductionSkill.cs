@@ -72,9 +72,11 @@ public class OrbCooldownReductionSkill : PassiveBase
 
     private void ReduceCooldowns()
     {
-        for (int i = 0; i < abilityController.Abilities.Count; i++)
+        foreach(AbilityController.AbilitySlot abilitySlot in abilityController.Abilities.Values)
         {
-            IAbility ability = abilityController.Abilities[i];
+            IAbility ability = abilitySlot.Ability;
+
+            if (ability == null) continue;
 
             if (!ability.DurationActive)
             {

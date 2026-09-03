@@ -28,6 +28,38 @@ PrefabInstance:
       propertyPath: 'setAbilities.Array.data[3]'
       value: 
       objectReference: {fileID: 11400000, guid: 5f31e64124b5af7448150b8c628ce657, type: 2}
+    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <StartAbilities>k__BackingField.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <StartAbilities>k__BackingField.Array.data[1].key
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <StartAbilities>k__BackingField.Array.data[2].key
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <StartAbilities>k__BackingField.Array.data[3].key
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <StartAbilities>k__BackingField.Array.data[0].value
+      value: 
+      objectReference: {fileID: 11400000, guid: 230ac335eff6e0543a0039d224ce2bf9, type: 2}
+    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <StartAbilities>k__BackingField.Array.data[1].value
+      value: 
+      objectReference: {fileID: 11400000, guid: cae99c8b9d3aebe45a6ccceccece6757, type: 2}
+    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <StartAbilities>k__BackingField.Array.data[2].value
+      value: 
+      objectReference: {fileID: 11400000, guid: 542a9efba95d18f4eb221ee65f85f477, type: 2}
+    - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: <StartAbilities>k__BackingField.Array.data[3].value
+      value: 
+      objectReference: {fileID: 11400000, guid: 5f31e64124b5af7448150b8c628ce657, type: 2}
     - target: {fileID: 3494898662879718562, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: <MoveSpeed>k__BackingField.baseValue
       value: 4

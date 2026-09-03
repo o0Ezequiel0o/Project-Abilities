@@ -20,11 +20,12 @@ public class AbilityControllerInterface : MonoBehaviour
         SpawnAbilityDisplaySlots();
     }
 
-    public void LoadData(List<IAbility> abilities)
+    public void LoadData(Dictionary<AbilityType, AbilityController.AbilitySlot> abilities)
     {
-        for (int i = 0; i < abilities.Count; i++)
+        foreach (AbilityController.AbilitySlot abilitySlot in abilities.Values)
         {
-            AddAbilitySlot(abilities[i]);
+            if (abilitySlot.Ability == null) continue;
+            AddAbilitySlot(abilitySlot.Ability);
         }
     }
 

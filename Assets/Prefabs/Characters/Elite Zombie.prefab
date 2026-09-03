@@ -34,7 +34,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5782451048418697692
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -91,6 +91,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &1428459433691246543
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +247,7 @@ CircleCollider2D:
   m_Radius: 0.5
 --- !u!212 &5750615414019374036
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -303,6 +304,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!114 &374481338656721502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,8 +525,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawn: {fileID: 7698722109331752331}
-  setAbilities:
-  - {fileID: 11400000, guid: 5dba9bdd785d90c4eb98f6edb524e126, type: 2}
+  <StartAbilities>k__BackingField:
+  - key: 0
+    value: {fileID: 11400000, guid: 5dba9bdd785d90c4eb98f6edb524e126, type: 2}
 --- !u!114 &451946761675307707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,7 +726,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1614758132372178417
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -780,6 +783,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!210 &8813040126768044715
 SortingGroup:
   m_ObjectHideFlags: 0

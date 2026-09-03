@@ -40,9 +40,10 @@ public class AbilityControllerScreenRenderer : MonoBehaviour
 
     private void UpdateSkillsInterface()
     {
-        for (int i = 0; i < abilityController.Abilities.Count; i++)
+        foreach (AbilityController.AbilitySlot abilitySlot in abilityController.Abilities.Values)
         {
-            interfaceInstance.UpdateAbilitySlotRender(abilityController.Abilities[i]);
+            if (abilitySlot.Ability == null) continue;
+            interfaceInstance.UpdateAbilitySlotRender(abilitySlot.Ability);
         }
     }
 

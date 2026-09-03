@@ -24,7 +24,7 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out AbilityController abilityController))
             {
-                abilityController.rechargeSpeed[data.AbilityType].ApplyFlatModifier(-flatModifier);
+                abilityController.Abilities[data.AbilityType].RechargeSpeed.ApplyFlatModifier(-flatModifier);
             }
         }
 
@@ -45,7 +45,7 @@ namespace Zeke.Items
                 float oldFlatModifier = flatModifier;
                 flatModifier = data.ExtraChargeSpeed.GetValue(stacks);
 
-                abilityController.rechargeSpeed[data.AbilityType].ApplyFlatModifier(-oldFlatModifier, flatModifier);
+                abilityController.Abilities[data.AbilityType].RechargeSpeed.ApplyFlatModifier(-oldFlatModifier, flatModifier);
             }
         }
     }

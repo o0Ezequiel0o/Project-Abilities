@@ -27,9 +27,9 @@ public class CharacterSelectViewer : MonoBehaviour
 
         if (spawnable.Prefab.TryGetComponent(out AbilityController abilityController))
         {
-            for (int i = 0; i < abilityController.SpawnAbilities.Count; i++)
+            foreach (AbilityType abilityType in abilityController.StartAbilities.Keys)
             {
-                CreateAbilityWindow(abilityController.SpawnAbilities[i]);
+                CreateAbilityWindow(abilityController.StartAbilities[abilityType]);
             }
         }
         if (spawnable.Prefab.TryGetComponent(out PassiveController passiveController))
