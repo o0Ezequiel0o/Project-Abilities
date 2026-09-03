@@ -22,13 +22,7 @@ namespace Zeke.Abilities
         /// <summary> Called before ability is used. Returns AbilityType and if input is being held. </summary>
         public Action<AbilityType, bool> onUseAbility;
 
-        public Dictionary<AbilityType, AbilitySlot> Abilities { get; private set; }  = new Dictionary<AbilityType, AbilitySlot>
-        {
-            {AbilityType.Primary, new AbilitySlot()},
-            {AbilityType.Secondary, new AbilitySlot()},
-            {AbilityType.Utility, new AbilitySlot()},
-            {AbilityType.Ultimate, new AbilitySlot()}
-        };
+        public Dictionary<AbilityType, AbilitySlot> Abilities { get; private set; } = new Dictionary<AbilityType, AbilitySlot>();
 
         private readonly Dictionary<AbilityData, AbilityType> linkedAbilityData = new Dictionary<AbilityData, AbilityType>();
 
@@ -39,22 +33,22 @@ namespace Zeke.Abilities
             public AbilityData AbilityData { get; internal set; }
             public IAbility Ability { get; internal set; }
 
+            public AbilityType AbilityType { get; private set; }
+
             public Stat CooldownMultiplier { get; private set; } = new Stat(1f, 0f, 0f, float.PositiveInfinity);
             public Stat RechargeSpeed { get; private set; } = new Stat(1f, 0f, 0f, float.PositiveInfinity);
 
             public HashSet<AbilityLock> AbilityLocks { get; internal set; } = new HashSet<AbilityLock>();
+
+            public AbilitySlot(AbilityType abilityType)
+            {
+                AbilityType = abilityType;
+            }
         }
 
-        public AbilityType GetAbilityType(AbilityData abilityData)
+        public AbilitySlot GetAbilitySlot(AbilityType abilityType)
         {
-            if (linkedAbilityData.TryGetValue(abilityData, out AbilityType abilityType))
-            {
-                return abilityType;
-            }
-            else
-            {
-                throw new Exception($"{abilityData} is not linked to any ability slot inside");
-            }
+            return Abilities[abilityType];
         }
 
         public bool IsLocked(AbilityType abilityType)
@@ -101,7 +95,7 @@ namespace Zeke.Abilities
 
         public void AddAbility(AbilityData abilityData, AbilityType abilityType)
         {
-            AddAbility(abilityData.CreateModularAbility(this, spawn, gameObject), abilityType);
+            AddAbility(abilityData.CreateModularAbility(this, spawn, gameObject, abilityType), abilityType);
         }
 
         public void AddAbility(IAbility ability, AbilityType abilityType)
@@ -117,7 +111,7 @@ namespace Zeke.Abilities
         /// <summary> Returns the replaced ability by the new ability. </summary>
         public IAbility SwitchAbility(AbilityData abilityData, AbilityType abilityType)
         {
-            return SwitchAbility(abilityData.CreateModularAbility(this, spawn, gameObject), abilityType, true);
+            return SwitchAbility(abilityData.CreateModularAbility(this, spawn, gameObject, abilityType), abilityType, true);
         }
 
         /// <summary> Returns the replaced ability by the new ability. </summary>
@@ -191,6 +185,11 @@ namespace Zeke.Abilities
 
         private void Awake()
         {
+            foreach (AbilityType abilityType in Enum.GetValues(typeof(AbilityType)))
+            {
+                Abilities.Add(abilityType, new AbilitySlot(abilityType));
+            }
+
             foreach (AbilityType abilityType in StartAbilities.Keys)
             {
                 AddAbility(StartAbilities[abilityType], abilityType);

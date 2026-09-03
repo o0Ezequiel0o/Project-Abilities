@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using static Zeke.Abilities.AbilityController;
 using static Zeke.Abilities.Modules.ReloadData;
 
 namespace Zeke.Abilities.Modules
@@ -88,7 +88,7 @@ namespace Zeke.Abilities.Modules
 
             public override void Activate(AbilityController controller)
             {
-                IAbility ability = strategy.GetAbility(controller);
+                IAbility ability = strategy.GetAbilitySlot(controller).Ability;
                 ability?.SetCharges(ability.Charges + chargesAmount.ValueInt);
             }
 
@@ -110,7 +110,7 @@ namespace Zeke.Abilities.Modules
 
             public override void Deactivate(AbilityController controller)
             {
-                IAbility ability = strategy.GetAbility(controller);
+                IAbility ability = strategy.GetAbilitySlot(controller).Ability;
                 ability?.SetCharges(ability.Charges + chargesAmount.ValueInt);
             }
 
@@ -132,7 +132,7 @@ namespace Zeke.Abilities.Modules
 
             public override void Activate(AbilityController controller)
             {
-                IAbility ability = strategy.GetAbility(controller);
+                IAbility ability = strategy.GetAbilitySlot(controller).Ability;
 
                 if (ability != null)
                 {
@@ -150,7 +150,7 @@ namespace Zeke.Abilities.Modules
 
                 if (timer >= timePerCharge)
                 {
-                    IAbility ability = strategy.GetAbility(controller);
+                    IAbility ability = strategy.GetAbilitySlot(controller).Ability;
                     ability?.SetCharges(ability.Charges + chargesAmount.ValueInt);
                     timer = 0f;
                 }

@@ -46,6 +46,8 @@ namespace Zeke.Abilities
 
         public bool HasCharges => Charges > 0;
 
+        public AbilityType Type => type;
+
         private bool UsesDuration => DurationTime > 0f;
 
         private readonly AbilityController controller;
@@ -57,15 +59,19 @@ namespace Zeke.Abilities
         private readonly Transform spawn;
         private readonly GameObject source;
 
+        private readonly AbilityType type;
         private readonly AbilityData data;
+
         private readonly List<AbilityModule> modules;
 
-        private float CooldownMultiplier => controller.Abilities[controller.GetAbilityType(data)].CooldownMultiplier.Value;
+        private float CooldownMultiplier => controller.Abilities[type].CooldownMultiplier.Value;
 
         private int queuedUpgrades = 0;
 
-        public Ability(GameObject source, AbilityData data, AbilityController controller, Transform spawn, Stat cooldownTime, Stat durationTime, Stat maxCharges)
+        public Ability(GameObject source, AbilityData data, AbilityController controller, Transform spawn, AbilityType type, Stat cooldownTime, Stat durationTime, Stat maxCharges)
         {
+            this.type = type;
+
             this.data = data;
             this.spawn = spawn;
             this.source = source;
@@ -109,7 +115,7 @@ namespace Zeke.Abilities
 
             for (int i = 0; i < loops; i++)
             {
-                controller.onAbilityCharged?.Invoke(this, controller.GetAbilityType(data));
+                controller.onAbilityCharged?.Invoke(this, type);
             }
         }
 

@@ -1,3 +1,5 @@
+using static Zeke.Abilities.AbilityController;
+
 namespace Zeke.Abilities
 {
     public class GetAbilityType : GetAbilityStrategy
@@ -9,11 +11,11 @@ namespace Zeke.Abilities
             this.data = data;
         }
 
-        public override IAbility GetAbility(AbilityController controller)
+        public override AbilitySlot GetAbilitySlot(AbilityController controller)
         {
             if (controller.TryGetAbility(data.Type, out IAbility ability))
             {
-                return ability;
+                return controller.GetAbilitySlot(ability.Type);
             }
 
             return null;

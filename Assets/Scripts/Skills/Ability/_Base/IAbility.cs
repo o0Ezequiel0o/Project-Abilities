@@ -25,6 +25,8 @@ namespace Zeke.Abilities
 
         public bool HasCharges { get; }
 
+        public AbilityType Type { get; }
+
         public abstract void SetCooldownTimer(float amount);
 
         public abstract void SetCharges(int amount);

@@ -36,9 +36,9 @@ namespace Zeke.Abilities
 
         public float CooldownTime => cooldownTime.Value;
 
-        public Ability CreateModularAbility(AbilityController controller, Transform spawn, GameObject source)
+        public Ability CreateModularAbility(AbilityController controller, Transform spawn, GameObject source, AbilityType type)
         {
-            Ability modularAbility = new Ability(source, this, controller, spawn, cooldownTime, duration, charges);
+            Ability modularAbility = new Ability(source, this, controller, spawn, type, cooldownTime, duration, charges);
 
             for (int i = 0; i < modules.Count; i++)
             {
