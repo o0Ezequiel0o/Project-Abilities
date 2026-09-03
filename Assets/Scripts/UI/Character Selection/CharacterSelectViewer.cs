@@ -29,7 +29,7 @@ public class CharacterSelectViewer : MonoBehaviour
         {
             foreach (AbilityType abilityType in abilityController.StartAbilities.Keys)
             {
-                CreateAbilityWindow(abilityController.StartAbilities[abilityType]);
+                CreateAbilityWindow(abilityController.StartAbilities[abilityType], abilityType);
             }
         }
         if (spawnable.Prefab.TryGetComponent(out PassiveController passiveController))
@@ -41,7 +41,7 @@ public class CharacterSelectViewer : MonoBehaviour
         }
     }
 
-    private void CreateAbilityWindow(AbilityData abilityData)
+    private void CreateAbilityWindow(AbilityData abilityData, AbilityType abilityType)
     {
         UIWindow abilityWindow = Instantiate(abilityWindowPrefab, root);
 
@@ -49,7 +49,7 @@ public class CharacterSelectViewer : MonoBehaviour
         abilityWindow.TryGetElement<TextMeshProUGUI>("Name").text = abilityData.Name;
         abilityWindow.TryGetElement<TextMeshProUGUI>("Description").text = abilityData.Description;
 
-        abilityWindow.TryGetElement<TextMeshProUGUI>("Type").text = abilityData.AbilityType.ToString();
+        abilityWindow.TryGetElement<TextMeshProUGUI>("Type").text = abilityType.ToString();
 
         string cooldownText = $"[CD: {abilityData.CooldownTime:0.##}s]".Replace(",", ".");
         abilityWindow.TryGetElement<TextMeshProUGUI>("Cooldown").text = cooldownText;

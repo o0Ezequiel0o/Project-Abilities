@@ -13,11 +13,11 @@ namespace Zeke.Abilities
 
         public Transform Spawn => spawn;
 
-        public OrderedAction<IAbility> onAbilityUsed = new OrderedAction<IAbility>();
-        public OrderedAction<IAbility> onAbilityCharged = new OrderedAction<IAbility>();
+        public OrderedAction<IAbility, AbilityType> onAbilityUsed = new OrderedAction<IAbility, AbilityType>();
+        public OrderedAction<IAbility, AbilityType> onAbilityCharged = new OrderedAction<IAbility, AbilityType>();
 
-        public Action<IAbility> onAbilityAdded;
-        public Action<IAbility> onAbilityRemoved;
+        public Action<IAbility, AbilityType> onAbilityAdded;
+        public Action<IAbility, AbilityType> onAbilityRemoved;
 
         /// <summary> Called before ability is used. Returns AbilityType and if input is being held. </summary>
         public Action<AbilityType, bool> onUseAbility;
@@ -29,6 +29,8 @@ namespace Zeke.Abilities
             {AbilityType.Utility, new AbilitySlot()},
             {AbilityType.Ultimate, new AbilitySlot()}
         };
+
+        private readonly Dictionary<AbilityData, AbilityType> linkedAbilityData = new Dictionary<AbilityData, AbilityType>();
 
         private int level = 1;
 
@@ -43,9 +45,37 @@ namespace Zeke.Abilities
             public HashSet<AbilityLock> AbilityLocks { get; internal set; } = new HashSet<AbilityLock>();
         }
 
+        public AbilityType GetAbilityType(AbilityData abilityData)
+        {
+            if (linkedAbilityData.TryGetValue(abilityData, out AbilityType abilityType))
+            {
+                return abilityType;
+            }
+            else
+            {
+                throw new Exception($"{abilityData} is not linked to any ability slot inside");
+            }
+        }
+
         public bool IsLocked(AbilityType abilityType)
         {
             return Abilities[abilityType].AbilityLocks.Count > 0;
+        }
+
+        public bool TryGetAbility(AbilityData abilityData, out IAbility ability)
+        {
+            ability = null;
+
+            foreach(AbilitySlot abilitySlot in Abilities.Values)
+            {
+                if (abilitySlot.AbilityData == abilityData)
+                {
+                    ability = abilitySlot.Ability;
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool TryGetAbility(AbilityType abilityType, out IAbility ability)
@@ -69,14 +99,14 @@ namespace Zeke.Abilities
             return ability.CanActivate();
         }
 
-        public void AddAbility(AbilityData abilityData)
+        public void AddAbility(AbilityData abilityData, AbilityType abilityType)
         {
-            AddAbility(abilityData.CreateModularAbility(this, spawn, gameObject));
+            AddAbility(abilityData.CreateModularAbility(this, spawn, gameObject), abilityType);
         }
 
-        public void AddAbility(IAbility ability)
+        public void AddAbility(IAbility ability, AbilityType abilityType)
         {
-            AddAbility(ability, true);
+            AddAbility(ability, abilityType, true);
         }
 
         public void RemoveAbility(AbilityType abilityType)
@@ -85,34 +115,32 @@ namespace Zeke.Abilities
         }
 
         /// <summary> Returns the replaced ability by the new ability. </summary>
-        public IAbility SwitchAbility(AbilityData abilityData)
+        public IAbility SwitchAbility(AbilityData abilityData, AbilityType abilityType)
         {
-            return SwitchAbility(abilityData.CreateModularAbility(this, spawn, gameObject), true);
+            return SwitchAbility(abilityData.CreateModularAbility(this, spawn, gameObject), abilityType, true);
         }
 
         /// <summary> Returns the replaced ability by the new ability. </summary>
-        public IAbility SwitchAbility(IAbility newAbility, bool initialize)
+        public IAbility SwitchAbility(IAbility newAbility, AbilityType abilityType, bool initialize)
         {
-            AbilityType abilityType = newAbility.Data.AbilityType;
             IAbility oldAbility = Abilities[abilityType].Ability;
 
             if (initialize) newAbility.Initialize();
 
             RemoveAbility(abilityType, false);
-            AddAbility(newAbility, initialize);
+            AddAbility(newAbility, abilityType, initialize);
 
             return oldAbility;
         }
 
-        public void ReplaceAbility(IAbility newAbility)
+        public void ReplaceAbility(IAbility newAbility, AbilityType abilityType)
         {
-            AbilityType abilityType = newAbility.Data.AbilityType;
             IAbility oldAbility = Abilities[abilityType].Ability;
 
             if (oldAbility != null)
             {
                 RemoveAbility(abilityType, true);
-                AddAbility(newAbility, true);
+                AddAbility(newAbility, abilityType, true);
             }
         }
 
@@ -165,9 +193,9 @@ namespace Zeke.Abilities
 
         private void Awake()
         {
-            foreach (AbilityData abilityData in StartAbilities.Values)
+            foreach (AbilityType abilityType in StartAbilities.Keys)
             {
-                AddAbility(abilityData);
+                AddAbility(StartAbilities[abilityType], abilityType);
             }
         }
 
@@ -201,27 +229,36 @@ namespace Zeke.Abilities
         {
             if (ability == null) return;
 
-            Abilities[ability.Data.AbilityType].AbilityData = null;
-            Abilities[ability.Data.AbilityType].Ability = null;
+            foreach (AbilityType abilityType in Abilities.Keys)
+            {
+                if (Abilities[abilityType].Ability != ability) continue;
 
-            ability.TryDeactivate();
-            if (destroy) ability.Destroy();
+                linkedAbilityData.Remove(ability.Data);
 
-            onAbilityRemoved?.Invoke(ability);
+                Abilities[abilityType].AbilityData = null;
+                Abilities[abilityType].Ability = null;
+
+                ability.TryDeactivate();
+                if (destroy) ability.Destroy();
+
+                onAbilityRemoved?.Invoke(ability, abilityType);
+
+                break;
+            }
         }
 
-        private void AddAbility(IAbility ability, bool initialize)
+        private void AddAbility(IAbility ability, AbilityType abilityType, bool initialize)
         {
-            AbilityType abilityType = ability.Data.AbilityType;
-
             if (Abilities[abilityType].Ability == null)
             {
+                linkedAbilityData.Add(ability.Data, abilityType);
+
                 if (initialize) ability.Initialize();
 
                 Abilities[abilityType].AbilityData = ability.Data;
                 Abilities[abilityType].Ability = ability;
 
-                onAbilityAdded?.Invoke(ability);
+                onAbilityAdded?.Invoke(ability, abilityType);
 
                 while (ability.Level < level)
                 {
@@ -234,7 +271,7 @@ namespace Zeke.Abilities
         {
             if (ability.TryActivate(holding))
             {
-                onAbilityUsed?.Invoke(ability);
+                onAbilityUsed?.Invoke(ability, abilityType);
             }   
         }
 

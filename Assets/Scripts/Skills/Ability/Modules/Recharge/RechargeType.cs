@@ -7,7 +7,7 @@ namespace Zeke.Abilities.Modules
         protected GameObject source;
         protected AbilityController controller;
 
-        protected Stat CastSpeed => controller.Abilities[ability.Data.AbilityType].RechargeSpeed;
+        protected Stat CastSpeed => controller.Abilities[controller.GetAbilityType(ability.Data)].RechargeSpeed;
 
         private Ability ability;
 

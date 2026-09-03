@@ -38,7 +38,7 @@ namespace Zeke.Items
             }
         }
 
-        private void OnAbilityUsed(IAbility ability)
+        private void OnAbilityUsed(IAbility ability, AbilityType _)
         {
             if (ability.CooldownTime < data.MinCooldownRequired) return;
             if (!RollProc(data.ProcChance.GetValue(stacks), 1f, itemHandler.Luck.ValueInt)) return;

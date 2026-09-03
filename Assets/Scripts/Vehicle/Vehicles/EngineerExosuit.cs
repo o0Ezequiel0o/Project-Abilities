@@ -9,7 +9,7 @@ public class EngineerExosuit : Exosuit
     [SerializeField] private ItemHandler itemHandler;
 
     [Header("Abilities")]
-    [SerializeField] private List<AbilityData> suitAbilities;
+    [SerializeField] private Dictionary<AbilityType, AbilityData> suitAbilities;
     [SerializeField] private List<AbilityLock> abilityLocks;
 
     [Header("Stats")]
@@ -71,9 +71,9 @@ public class EngineerExosuit : Exosuit
     {
         if (source.TryGetComponent(out AbilityController abilityController))
         {
-            for (int i = 0; i < suitAbilities.Count; i++)
+            foreach (AbilityType abilityType in suitAbilities.Keys)
             {
-                switchedAbilities.Add(new SwitchedAbilityData(suitAbilities[i].AbilityType, abilityController.SwitchAbility(suitAbilities[i])));
+                switchedAbilities.Add(new SwitchedAbilityData(abilityType, abilityController.SwitchAbility(suitAbilities[abilityType], abilityType)));
             }
         }
     }
@@ -86,7 +86,7 @@ public class EngineerExosuit : Exosuit
             {
                 if (switchedAbilities[i].storedAbility != null)
                 {
-                    abilityController.SwitchAbility(switchedAbilities[i].storedAbility, false);
+                    abilityController.SwitchAbility(switchedAbilities[i].storedAbility, switchedAbilities[i].abilityType, false);
                 }
                 else
                 {

@@ -15,7 +15,6 @@ namespace Zeke.Abilities
         [field: SerializeField, TextArea(3, 3)] public string Description { get; private set; } 
 
         [field: Header("Toggling")]
-        [field: SerializeField] public AbilityType AbilityType { get; private set; }
         [field: SerializeField] public bool CanManuallyDeactivate { get; private set; }
         [field: SerializeField] public bool CanHold { get; private set; }
 

@@ -46,11 +46,11 @@ namespace Zeke.Items
             timer += Time.deltaTime;
         }
 
-        private void OnAbilityUsed(IAbility ability)
+        private void OnAbilityUsed(IAbility ability, AbilityType abilityType)
         {
             if (timer < data.Cooldown) return;
 
-            if (ability.Data.AbilityType == data.AbilityType)
+            if (abilityType == data.AbilityType)
             {
                 SpawnBomb();
                 timer = 0f;

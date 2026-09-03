@@ -22,10 +22,10 @@ public class AbilityControllerInterface : MonoBehaviour
 
     public void LoadData(Dictionary<AbilityType, AbilityController.AbilitySlot> abilities)
     {
-        foreach (AbilityController.AbilitySlot abilitySlot in abilities.Values)
+        foreach (AbilityType abilityType in abilities.Keys)
         {
-            if (abilitySlot.Ability == null) continue;
-            AddAbilitySlot(abilitySlot.Ability);
+            if (abilities[abilityType].Ability == null) continue;
+            AddAbilitySlot(abilities[abilityType].Ability, abilityType);
         }
     }
 
@@ -60,13 +60,13 @@ public class AbilityControllerInterface : MonoBehaviour
         }
     }
 
-    public void AddAbilitySlot(IAbility ability)
+    public void AddAbilitySlot(IAbility ability, AbilityType abilityType)
     {
         if (!usedAbilityDisplaySlots.ContainsKey(ability))
         {
             usedAbilityDisplaySlots.Add(ability, null);
             LayoutGroup layoutGroup = root.GetComponentInChildren<LayoutGroup>();
-            Transform obj = layoutGroup.transform.GetChild((int)ability.Data.AbilityType);
+            Transform obj = layoutGroup.transform.GetChild((int)abilityType);
 
             AbilityDisplaySlot slot = obj.GetComponent<AbilityDisplaySlot>();
 
@@ -77,7 +77,7 @@ public class AbilityControllerInterface : MonoBehaviour
         }
     }
 
-    public void RemoveAbilitySlot(IAbility ability)
+    public void RemoveAbilitySlot(IAbility ability, AbilityType _)
     {
         if (usedAbilityDisplaySlots.TryGetValue(ability, out AbilityDisplaySlot slot))
         {

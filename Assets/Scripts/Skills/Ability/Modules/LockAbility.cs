@@ -21,7 +21,7 @@ namespace Zeke.Abilities.Modules
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
             this.controller = controller;
-            abilityLock.abilityType = strategy.GetAbility(controller).Data.AbilityType;
+            abilityLock.abilityType = controller.GetAbilityType(strategy.GetAbility(controller).Data);
         }
 
         public override bool CanActivate() => true;
@@ -35,7 +35,7 @@ namespace Zeke.Abilities.Modules
 
             if (ability != null)
             {
-                abilityLock.abilityType = ability.Data.AbilityType;
+                abilityLock.abilityType = controller.GetAbilityType(ability.Data);
                 controller.AddAbilityLock(abilityLock);
             }
         }

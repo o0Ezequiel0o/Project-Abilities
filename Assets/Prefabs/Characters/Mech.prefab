@@ -41,7 +41,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1764715578512987409
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -98,6 +98,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!61 &1998769432423578950
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -183,7 +184,8 @@ MonoBehaviour:
   statusEffectHandler: {fileID: 8409502478468267525}
   itemHandler: {fileID: 0}
   suitAbilities:
-  - {fileID: 11400000, guid: 58a2ac7f0276c654085da7e59258168e, type: 2}
+  - key: 0
+    value: {fileID: 11400000, guid: 58a2ac7f0276c654085da7e59258168e, type: 2}
   abilityLocks:
   - abilityType: 1
   - abilityType: 2

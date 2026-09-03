@@ -8,8 +8,8 @@ namespace Zeke.Abilities.Modules
 
         private readonly Stat cooldown;
 
-        private float CooldownTime => cooldown.Value * controller.Abilities[ability.Data.AbilityType].CooldownMultiplier.Value;
-        private float RechargeSpeed => controller.Abilities[ability.Data.AbilityType].RechargeSpeed.Value;
+        private float CooldownTime => cooldown.Value * controller.Abilities[controller.GetAbilityType(ability.Data)].CooldownMultiplier.Value;
+        private float RechargeSpeed => controller.Abilities[controller.GetAbilityType(ability.Data)].RechargeSpeed.Value;
 
         private AbilityController controller;
         private Ability ability;
