@@ -3,6 +3,7 @@ using UnityEngine;
 using Zeke.Collections;
 using Zeke.UI;
 using TMPro;
+using System;
 
 public class InteractionHandler : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class InteractionHandler : MonoBehaviour
 
     public GameObject SelectedInteractable => currentInteractable?.gameObject;
     public readonly OrderedAction<InteractionResult> onInteraction = new OrderedAction<InteractionResult>();
+
+    public Action<GameObject> onInteractableSelected;
+    public Action<GameObject> onInteractableUnselected;
 
     private GameObject overlayObjectInstance;
     private InteractableData currentInteractable;
@@ -124,11 +128,15 @@ public class InteractionHandler : MonoBehaviour
 
         UpdateInteractableDisplay(interactableData);
         overlayObjectInstance.SetActive(true);
+
+        onInteractableSelected?.Invoke(interactableData.gameObject);
     }
 
     private void HideInteractableOverlay(InteractableData interactableData)
     {
         overlayObjectInstance.SetActive(false);
+
+        onInteractableUnselected?.Invoke(interactableData.gameObject);
     }
 
     private void UpdateInteractableDisplay(InteractableData interactableData)
@@ -144,12 +152,6 @@ public class InteractionHandler : MonoBehaviour
                 spriteRenderer.color = settings.CantInteractOverlayColor;
             }
         }
-
-        string toolTip = interactableData.interactable.InteractTooltip;
-
-        if (string.IsNullOrEmpty(toolTip)) toolTip = "";
-
-        interactableData.window.TryGetElement<TextMeshProUGUI>("Tooltip").text = toolTip;
 
         overlayObjectInstance.transform.SetPositionAndRotation(
             interactableData.gameObject.transform.position,

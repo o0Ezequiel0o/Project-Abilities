@@ -2,14 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public abstract class Vehicle : MonoBehaviour, IInteractable
+public abstract class Vehicle : MonoBehaviour, IInteractable, IInteractableTooltipRenderer
 {
     [Header("Settings")]
     [SerializeField] private Seat driverSeat;
 
     [field: Header("Visual")]
     [field: SerializeField] public Sprite InteractOverlay { get; private set; }
-    [field: SerializeField] public string InteractTooltip { get; private set; }
+    [field: SerializeField] public string Name { get; private set; }
+    [field: SerializeField, TextArea(4, 4)] public string Description { get; private set; }
+    [field: SerializeField] public Sprite Icon { get; private set; }
+
+    public string Cost => "No Cost";
 
     public GameObject Driver => driverSeat.entity;
 

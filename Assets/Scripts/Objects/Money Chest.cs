@@ -1,16 +1,20 @@
 using UnityEngine;
 
-public class MoneyChest : MonoBehaviour, IInteractable
+public class MoneyChest : MonoBehaviour, IInteractable, IInteractableTooltipRenderer
 {
     [Header("Settings")]
     [SerializeField] private int baseReward;
 
     [Header("Visual")]
     [field: SerializeField] public Sprite InteractOverlay { get; private set; }
-    [field: SerializeField] public string InteractTooltip { get; private set; }
+    [field: SerializeField] public string Name { get; private set; }
+    [field: SerializeField, TextArea(4, 4)] public string Description { get; private set; }
+    [field: SerializeField] public Sprite Icon { get; private set; }
 
     [Header("Despawn")]
     [SerializeField] private float fadeAwaySeconds;
+
+    public string Cost => "No Cost";
 
     private int reward = 0;
 

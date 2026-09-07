@@ -36,7 +36,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1280157062327994951
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,6 +93,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!58 &6544303911605842487
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -143,5 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MoneyChest
   baseReward: 50
   <InteractOverlay>k__BackingField: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  <InteractTooltip>k__BackingField: Open
+  <Name>k__BackingField: Money
+  <Description>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
   fadeAwaySeconds: 1

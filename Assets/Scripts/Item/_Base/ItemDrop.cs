@@ -10,9 +10,6 @@ namespace Zeke.Items
         [SerializeField] private SpriteRenderer iconRenderer;
         [SerializeField] private SpriteRenderer outlineRenderer;
 
-        [field: Header("Visual")]
-        [field: SerializeField] public string InteractTooltip { get; private set; }
-
         public Sprite InteractOverlay { get; private set; }
 
         private ItemData itemData;

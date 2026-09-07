@@ -36,7 +36,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &297529766577618813
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,6 +93,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!114 &4040053178625343732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +107,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Portal
   <InteractOverlay>k__BackingField: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  <InteractTooltip>k__BackingField: Enter Portal
+  <Name>k__BackingField: Portal
+  <Description>k__BackingField: A portal leading somewhere strange? Im a tooltip bro i don't know everything
+  <Icon>k__BackingField: {fileID: 0}
 --- !u!70 &8486543726795032092
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

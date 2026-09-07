@@ -7,18 +7,22 @@ using Zeke.Collections;
 
 namespace Zeke.Items
 {
-    public abstract class ItemGenerator : MonoBehaviour, IInteractable
+    public abstract class ItemGenerator : MonoBehaviour, IInteractable, IInteractableTooltipRenderer
     {
         [SerializeField] protected ItemSettings itemSettings;
         [SerializeField] protected ItemGeneratorDrops drops;
 
         [field: Header("Visual - Object")]
         [field: SerializeField] public Sprite InteractOverlay { get; private set; }
-        [SerializeField] private string interactName;
 
         [field: Header("Visual - UI")]
         [SerializeField] private UIWindow itemSelectionWindow;
         [SerializeField] private UIWindow itemOptionWindow;
+
+        [field: Header("Visual - Tooltip UI")]
+        [field: SerializeField] public string Name { get; private set; }
+        [field: SerializeField, TextArea(4, 4)] public string Description { get; private set; }
+        [field: SerializeField] public Sprite Icon { get; private set; }
 
         [Header("Settings")]
         [SerializeField] protected int baseCost;
@@ -29,20 +33,7 @@ namespace Zeke.Items
         public static OrderedActionDictionary<GameObject, List<ItemGenerationData>> onOptionsGenerated = new OrderedActionDictionary<GameObject, List<ItemGenerationData>>();
         public static OrderedActionDictionary<GameObject, ItemGenerationData> onItemSelected = new OrderedActionDictionary<GameObject, ItemGenerationData>();
 
-        public string InteractTooltip
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(interactName))
-                {
-                    return $"$ {cost}";
-                }
-                else
-                {
-                    return $"{interactName}\n$ {cost}";
-                }
-            }
-        }
+        public string Cost => $"{cost} gold";
 
         protected int cost = 0;
 

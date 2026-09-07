@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static Damageable;
 
-public class BossSpawner : MonoBehaviour, IInteractable
+public class BossSpawner : MonoBehaviour, IInteractable, IInteractableTooltipRenderer
 {
     [Header("Spawning")]
     [SerializeField] private Transform portalSpawn;
@@ -14,7 +13,11 @@ public class BossSpawner : MonoBehaviour, IInteractable
 
     [Header("Visual")]
     [field: SerializeField] public Sprite InteractOverlay { get; private set; }
-    [field: SerializeField] public string InteractTooltip { get; private set; }
+    [field: SerializeField] public string Name { get; private set; }
+    [field: SerializeField, TextArea(4,4)] public string Description { get; private set; }
+    [field: SerializeField] public Sprite Icon { get; private set; }
+
+    public string Cost => "No Cost";
 
     private bool activated = false;
 

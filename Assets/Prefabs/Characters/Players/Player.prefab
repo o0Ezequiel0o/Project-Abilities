@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 7245188018465221074}
   - component: {fileID: 5498967705651383887}
   - component: {fileID: 5379934569254923749}
+  - component: {fileID: 5724429136155617123}
   - component: {fileID: 1445715788866165582}
   - component: {fileID: 2688288251930177549}
   - component: {fileID: 3787346725820631185}
@@ -593,6 +594,20 @@ MonoBehaviour:
   itemsInterfacePrefab: {fileID: 2711525490271769255, guid: 2af3debb0e2103c45b03f0307a7de71b, type: 3}
   itemsInterfaceMenuPrefab: {fileID: 4442968359091310543, guid: 58a162b374754a54abede138ee783961, type: 3}
   itemNotificatorInterfacePrefab: {fileID: 5801491027282703636, guid: aea325e98050b734e9bfc57755c7c00b, type: 3}
+--- !u!114 &5724429136155617123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218312312708394220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43ea316ef7a46254085991d55b2dccb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractableTooltipScreenRenderer
+  handler: {fileID: 3315950687603881688}
+  windowPrefab: {fileID: 2747287667754971207, guid: 34e0f51f74f443d49832e3f1eb8b8a56, type: 3}
 --- !u!114 &1445715788866165582
 MonoBehaviour:
   m_ObjectHideFlags: 0

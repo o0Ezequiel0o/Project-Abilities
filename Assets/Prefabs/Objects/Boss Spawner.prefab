@@ -36,7 +36,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8166072040349176094
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,6 +93,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!114 &6113339518168293997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +111,9 @@ MonoBehaviour:
   pool:
   - {fileID: 11400000, guid: d54aa131f705bb3439dd1946d60821d0, type: 2}
   <InteractOverlay>k__BackingField: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  <InteractTooltip>k__BackingField: Spawn Boss
+  <Name>k__BackingField: Boss Beacon
+  <Description>k__BackingField: Summons the boss of the stage and stops enemies from spawning. Killing the boss opens the portal to the next stage.
+  <Icon>k__BackingField: {fileID: 0}
 --- !u!58 &-5880933079846257005
 CircleCollider2D:
   m_ObjectHideFlags: 0

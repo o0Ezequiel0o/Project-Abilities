@@ -36,7 +36,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1691618890576556303
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,6 +93,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!61 &8019046494479145763
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -154,9 +155,11 @@ MonoBehaviour:
   itemSettings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   drops: {fileID: 11400000, guid: dbdc7ca8d8345a14c9e896a8898da446, type: 2}
   <InteractOverlay>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  interactName: 
   itemSelectionWindow: {fileID: 5283664177091368193, guid: 15b69a7c7671b5f43bdee276a4731e4a, type: 3}
   itemOptionWindow: {fileID: 6831720364878063803, guid: 089f68913f42ad848ba1bde62a68f74d, type: 3}
+  <Name>k__BackingField: Item Shrine (Greed)
+  <Description>k__BackingField: A shrine where you can offer money in exchange for items. Hope for the gods to not be greedy on you.
+  <Icon>k__BackingField: {fileID: 0}
   baseCost: 10
   options: 1
   maxRewards: 3
