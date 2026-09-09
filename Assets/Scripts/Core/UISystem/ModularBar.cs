@@ -123,7 +123,7 @@ public class ModularBar : MonoBehaviour
 
     protected void UpdateBarRendering()
     {
-        if (root.gameObject == null) return;
+        if (root == null || root.gameObject == null) return;
 
         for (int i = 0; i < bars.Count; i++)
         {
