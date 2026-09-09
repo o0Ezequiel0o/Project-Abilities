@@ -17,5 +17,5 @@ MonoBehaviour:
   <Prefab>k__BackingField: {fileID: 6110884313897494609, guid: a493157aa6810eb439e64563c76e7369, type: 3}
   <MinDifficulty>k__BackingField: 0
   <MaxDifficulty>k__BackingField: Infinity
-  <Weight>k__BackingField: 2
+  <Weight>k__BackingField: 4
   <Cost>k__BackingField: 2
