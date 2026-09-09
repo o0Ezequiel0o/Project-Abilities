@@ -20,15 +20,15 @@ MonoBehaviour:
   - key: 1
     value:
       reward: {fileID: 11400000, guid: 40526e61bb2ba0743a720415581abe1b, type: 2}
-      stacks: 2
+      stacks: 3
   - key: 2
     value:
       reward: {fileID: 11400000, guid: 40526e61bb2ba0743a720415581abe1b, type: 2}
-      stacks: 4
+      stacks: 6
   - key: 3
     value:
       reward: {fileID: 11400000, guid: 40526e61bb2ba0743a720415581abe1b, type: 2}
-      stacks: 8
+      stacks: 10
   - key: 4
     value:
       reward: {fileID: 11400000, guid: 40526e61bb2ba0743a720415581abe1b, type: 2}
