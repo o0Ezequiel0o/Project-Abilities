@@ -39,8 +39,6 @@ public class Physics : MonoBehaviour
         float dotProduct = Vector2.Dot(direction, -normal);
         float forceMultiplier = Mathf.Max(0f, dotProduct - 0.5f) * 2f;
 
-        Debug.Log(forceMultiplier);
-
         AddForce(force * forceMultiplier, direction);
     }
 
