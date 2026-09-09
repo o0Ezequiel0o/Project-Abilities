@@ -7,7 +7,7 @@ namespace Zeke.Items
     {
         [SerializeField] private List<ItemData> items;
 
-        void Awake()
+        private void Start()
         {
             if (TryGetComponent(out ItemHandler itemHandler))
             {
