@@ -141,6 +141,8 @@ namespace Zeke.Items
 
         private void OnDismantleAll(GameObject source)
         {
+            if (selectedSlot == null) return;
+
             OnDismantle(source, selectedSlot.item.stacks);
         }
 
