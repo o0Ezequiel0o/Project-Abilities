@@ -35,6 +35,8 @@ namespace Zeke.Items
         private UIWindow windowInstance;
         private SlotData selectedSlot;
 
+        private readonly GameInstance.PauseID pauseID = new();
+
         private class SlotData
         {
             public readonly UIWindow window;
@@ -46,8 +48,6 @@ namespace Zeke.Items
                 this.item = item;
             }
         }
-
-        private readonly GameInstance.PauseID pauseID = new();
 
         public bool CanSelect(GameObject source)
         {
@@ -64,21 +64,6 @@ namespace Zeke.Items
             CreateMenu(source);
 
             return true;
-        }
-
-        protected void DisableColliders()
-        {
-            Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
-
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                colliders[i].enabled = false;
-            }
-        }
-
-        protected void DestroyObject()
-        {
-            Destroy(gameObject);
         }
 
         private void CreateMenu(GameObject source)
