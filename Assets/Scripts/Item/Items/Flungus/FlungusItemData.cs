@@ -13,6 +13,7 @@ namespace Zeke.Items
         [field: SerializeReferenceDropdown, SerializeReference] public IStackStat Healing { get; private set; }
         [field: SerializeReferenceDropdown, SerializeReference] public IStackStat Radius { get; private set; }
         [field: SerializeField] public float ProcCoefficient { get; private set; } = 0.25f;
+        [field: SerializeField] public float MoveSensitivity { get; private set; } = 0.001f;
 
         public override Item CreateItem(ItemHandler itemHandler, GameObject source)
         {

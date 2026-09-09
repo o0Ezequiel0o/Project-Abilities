@@ -49,7 +49,7 @@ namespace Zeke.Items
 
         public override void OnUpdate()
         {
-            if (lastPosition == source.transform.position)
+            if ((lastPosition - source.transform.position).sqrMagnitude < data.MoveSensitivity * Time.deltaTime)
             {
                 delayTimer += Time.deltaTime;
 
