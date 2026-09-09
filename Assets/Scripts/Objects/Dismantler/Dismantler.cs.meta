@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: bd3b453c9e525d94b9b819df0d2543e7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - itemSettings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
+  - rewards: {fileID: 11400000, guid: f0acac9cc62af014fa04f1e6dfc05a46, type: 2}
+  - disallowedItems: {fileID: 11400000, guid: 1452fc06b226dae4a806e1dec0603341, type: 2}
+  - <InteractOverlay>k__BackingField: {instanceID: 0}
+  - itemSelectionWindow: {instanceID: 0}
+  - ItemSlotWindow: {instanceID: 0}
+  - <Icon>k__BackingField: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
