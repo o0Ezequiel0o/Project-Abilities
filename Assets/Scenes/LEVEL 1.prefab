@@ -369,6 +369,8 @@ MonoBehaviour:
     area: {x: 1, y: 1}
   - spawnable: {fileID: 11400000, guid: 107600e7fb8006749a9bc05900aed2a0, type: 2}
     area: {x: 2, y: 1}
+  - spawnable: {fileID: 11400000, guid: 4315db3164c56dc46ac4278588fcd981, type: 2}
+    area: {x: 3, y: 2}
   requiredSpawnables:
   - mapSpawnable:
       spawnable: {fileID: 11400000, guid: a7f16595c57a4e54ca04752f871bc18e, type: 2}
