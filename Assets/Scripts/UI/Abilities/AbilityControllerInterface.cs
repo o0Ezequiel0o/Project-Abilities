@@ -1,13 +1,17 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 using Zeke.Abilities;
-using UnityEngine;
-using System;
+using Zeke.UI;
 
 public class AbilityControllerInterface : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private Transform root;
+    [SerializeField] private UIWindow descriptionWindow;
 
     [Header("Spawning")]
     [SerializeField] private AbilityDisplaySlot abilityDisplaySlotPrefab;
@@ -18,6 +22,7 @@ public class AbilityControllerInterface : MonoBehaviour
     private void Awake()
     {
         SpawnAbilityDisplaySlots();
+        descriptionWindow.gameObject.SetActive(false);
     }
 
     public void LoadData(Dictionary<AbilityType, AbilityController.AbilitySlot> abilities)
@@ -103,10 +108,36 @@ public class AbilityControllerInterface : MonoBehaviour
         for (int i = 0; i < list.Count; i++)
         {
             AbilityDisplaySlot slot = Instantiate(abilityDisplaySlotPrefab, abilityDisplaySlotsRoot);
+            slot.onPointerEnter += OnPointerEnterSlot;
+            slot.onPointerExit += OnPointerExitSlot;
             slot.gameObject.SetActive(false);
         }
     }
-    
+
+    private void OnPointerEnterSlot(AbilityDisplaySlot slot)
+    {
+        foreach (IAbility key in usedAbilityDisplaySlots.Keys)
+        {
+            if (usedAbilityDisplaySlots[key] == slot)
+            {
+                RefreshAbilityDescriptionMenu(key);
+                descriptionWindow.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    private void OnPointerExitSlot(AbilityDisplaySlot slot)
+    {
+        descriptionWindow.gameObject.SetActive(false);
+    }
+
+    private void RefreshAbilityDescriptionMenu(IAbility ability)
+    {
+        descriptionWindow.TryGetElement<TextMeshProUGUI>("Name").SetText(ability.Data.Name);
+        descriptionWindow.TryGetElement<TextMeshProUGUI>("Description").SetText(ability.Data.Description);
+        descriptionWindow.TryGetElement<TextMeshProUGUI>("Cooldown").SetText("[CD: " + ability.CooldownTime.ToString("F1", CultureInfo.InvariantCulture) + "]");
+    }
+
     private void OnDestroy()
     {
         if (root.gameObject == null) return;

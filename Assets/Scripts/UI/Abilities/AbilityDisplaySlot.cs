@@ -1,8 +1,10 @@
-using UnityEngine.UI;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using System;
 
-public class AbilityDisplaySlot : MonoBehaviour
+public class AbilityDisplaySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Dependency")]
     [SerializeField] private Image background;
@@ -17,6 +19,9 @@ public class AbilityDisplaySlot : MonoBehaviour
 
     [SerializeField] private StatusBar cooldownBar;
     [SerializeField] private StatusBar durationBar;
+
+    public Action<AbilityDisplaySlot> onPointerEnter;
+    public Action<AbilityDisplaySlot> onPointerExit;
 
     public Sprite Background
     {
@@ -90,5 +95,15 @@ public class AbilityDisplaySlot : MonoBehaviour
     public void ClearChargesText()
     {
         chargesText.text = null;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        onPointerEnter?.Invoke(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        onPointerExit?.Invoke(this);
     }
 }
