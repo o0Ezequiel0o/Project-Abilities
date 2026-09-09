@@ -96,6 +96,7 @@ namespace Zeke.Items
             }
 
             windowInstance.TryGetElement<Button>("Dismantle Button").onClick.AddListener(() => OnDismantle(source));
+            windowInstance.TryGetElement<Button>("Dismantle All Button").onClick.AddListener(() => OnDismantleAll(source));
         }
 
         private void GenerateMenuSlots(ItemHandler itemHandler, RectTransform root)
@@ -136,18 +137,26 @@ namespace Zeke.Items
 
         private void OnDismantle(GameObject source)
         {
-            if (selectedSlot == null) return;
+            OnDismantle(source, 1);
+        }
 
-            const int REMOVE_STACKS = 1;
+        private void OnDismantle(GameObject source, int stacks)
+        {
+            if (selectedSlot == null) return;
 
             if (source.TryGetComponent(out ItemHandler itemHandler))
             {
-                rewards.GiveRewards(selectedSlot.item.Data, itemHandler);
-                itemHandler.RemoveItem(selectedSlot.item.Data, REMOVE_STACKS);
+                rewards.GiveRewards(selectedSlot.item.Data, itemHandler, stacks);
+                itemHandler.RemoveItem(selectedSlot.item.Data, stacks);
                 UpdateSelectedSlot();
             }
 
             //check if there's any new item mb?
+        }
+
+        private void OnDismantleAll(GameObject source)
+        {
+            OnDismantle(source, selectedSlot.item.stacks);
         }
 
         private void UpdateSelectedSlot()

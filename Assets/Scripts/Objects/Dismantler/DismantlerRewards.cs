@@ -8,9 +8,9 @@ public class DismantlerRewards : ScriptableObject
 {
     [SerializeField] private Dictionary<ItemRarity, ResourceReward> rewards;
 
-    public void GiveRewards(ItemData itemData, ItemHandler itemHandler)
+    public void GiveRewards(ItemData itemData, ItemHandler itemHandler, int stacks)
     {
-        rewards[itemData.Rarity].GiveRewards(itemHandler);
+        rewards[itemData.Rarity].GiveRewards(itemHandler, stacks);
     }
 
     [Serializable]
@@ -19,9 +19,9 @@ public class DismantlerRewards : ScriptableObject
         [SerializeField] private ItemData reward;
         [SerializeField] private int stacks;
 
-        public void GiveRewards(ItemHandler itemHandler)
+        public void GiveRewards(ItemHandler itemHandler, int stacks)
         {
-            itemHandler.AddItem(reward, stacks);
+            itemHandler.AddItem(reward, this.stacks * stacks);
         }
     }
 }
