@@ -60,6 +60,7 @@ namespace Zeke.Items
         {
             if (itemDisplaySlots.TryGetValue(itemData, out ItemDisplaySlot itemDisplaySlot))
             {
+                itemDisplaySlots.Remove(itemData);
                 Destroy(itemDisplaySlot.gameObject);
             }
         }
