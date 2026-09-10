@@ -154,6 +154,8 @@ namespace Zeke.Items
                 items.Remove(item);
                 itemsData.Remove(item.Data);
                 onItemRemoved?.Invoke(item.Data);
+
+                item.OnRemoved();
             }
         }
 
