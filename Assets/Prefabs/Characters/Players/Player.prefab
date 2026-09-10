@@ -461,8 +461,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Settings>k__BackingField: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
   <MaxHealth>k__BackingField:
-    baseValue: 300
-    increase: 75
+    baseValue: 100
+    increase: 25
     valueLimits:
       min: 0
       max: Infinity
@@ -640,9 +640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawn: {fileID: 8263352429358299737}
-  <StartAbilities>k__BackingField:
-  - key: 0
-    value: {fileID: 11400000, guid: 36ebaaef637d05844a6897c2e9962a77, type: 2}
+  <StartAbilities>k__BackingField: []
 --- !u!114 &3787346725820631185
 MonoBehaviour:
   m_ObjectHideFlags: 0
