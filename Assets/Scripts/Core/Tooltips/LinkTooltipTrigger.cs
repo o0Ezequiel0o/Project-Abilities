@@ -1,0 +1,29 @@
+using UnityEngine;
+using Zeke.Tooltips;
+
+namespace Zeke.Abilities
+{
+    [RequireComponent(typeof(ILinkHoverEvents))]
+    public class LinkTooltipTrigger : MonoBehaviour
+    {
+        [SerializeField] private TooltipLinksDB tooltipLinksDB;
+
+        private void Awake()
+        {
+            ILinkHoverEvents linkHoverEvents = GetComponent<ILinkHoverEvents>();
+
+            linkHoverEvents.OnHoverEnterLink += OnHoverEnterLink;
+            linkHoverEvents.OnHoverExitLink += OnHoverExitLink;
+        }
+
+        private void OnHoverEnterLink(LinkHoverEventInfo linkHoverEventInfo)
+        {
+
+        }
+
+        private void OnHoverExitLink(LinkHoverEventInfo linkHoverEventInfo)
+        {
+
+        }
+    }
+}
