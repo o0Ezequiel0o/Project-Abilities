@@ -18,12 +18,15 @@ namespace Zeke.Abilities
 
         private void OnHoverEnterLink(LinkHoverEventInfo linkHoverEventInfo)
         {
-
+            if (tooltipLinksDB.TryGetValue(linkHoverEventInfo.id, out TooltipLinksDB.TooltipInfo toolTipInfo))
+            {
+                Tooltip.Show(toolTipInfo.description);
+            }
         }
 
         private void OnHoverExitLink(LinkHoverEventInfo linkHoverEventInfo)
         {
-
+            Tooltip.Hide();
         }
     }
 }

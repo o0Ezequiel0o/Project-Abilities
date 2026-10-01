@@ -14,5 +14,18 @@ namespace Zeke.Tooltips
         {
             [TextArea(5, 5)] public string description;
         }
+
+        public bool TryGetValue(string key, out TooltipInfo toolTipInfo)
+        {
+            return database.TryGetValue(key, out toolTipInfo);
+        }
+
+        public TooltipInfo this[string index]
+        {
+            get
+            {
+                return database[index];
+            }
+        }
     }
 }

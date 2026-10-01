@@ -1,2 +1,12 @@
 fileFormatVersion: 2
 guid: e503320eacc54fa47bc4b3e8e9b616d0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - tooltipLinksDB: {fileID: 11400000, guid: bae5a0dd95f22b849a39dedc7b0066ac, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
