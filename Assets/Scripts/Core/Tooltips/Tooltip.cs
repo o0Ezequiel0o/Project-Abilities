@@ -14,11 +14,6 @@ namespace Zeke.Tooltips
         [SerializeField] private float offsetX = 0;
         [SerializeField] private float offsetY = -15f;
 
-        [Space]
-
-        [SerializeField] private bool useOffsetX = false;
-        [SerializeField] private bool useOffsetY = true;
-
         [SerializeField] private float maxWidth = 400f;
         [SerializeField] private float maxHeight = 300f;
         [SerializeField] private Vector2 padding = new Vector2(20f, 10f);
@@ -90,30 +85,67 @@ namespace Zeke.Tooltips
 
         private void UpdatePosition(float scale)
         {
+            Vector2 mousePosition = Input.mousePosition;
+
             Vector2 offset = new Vector2(
-                useOffsetX ? offsetX * scale : 0f,
-                useOffsetY ? offsetY * scale : 0f
+                offsetX * scale,
+                offsetY * scale
             );
 
-            tooltipRect.position = (Vector2)Input.mousePosition + offset;
+            Vector2 size = tooltipRect.rect.size * scale;
+            Vector2 pivot = tooltipRect.pivot;
 
-            // Keep it inside the screen.
+            Vector2 position = mousePosition;
+
+            // X axis
+            //if (offset.x >= 0)
+            //{
+            //    // Offset is measured from the mouse to the LEFT edge.
+            //    position.x += offset.x + size.x * pivot.x;
+            //}
+            //else
+            //{
+            //    // Offset is measured from the mouse to the RIGHT edge.
+            //    position.x += offset.x - size.x * (1f - pivot.x);
+            //}
+
+            // Y axis
+            if (offset.y >= 0)
+            {
+                // Offset is measured from the mouse to the BOTTOM edge.
+                position.y += offset.y + size.y * pivot.y;
+            }
+            else
+            {
+                // Offset is measured from the mouse to the TOP edge.
+                position.y += offset.y - size.y * (1f - pivot.y);
+            }
+
+            tooltipRect.position = position;
+
+            // Keep the tooltip inside the screen.
             Vector3[] corners = new Vector3[4];
             tooltipRect.GetWorldCorners(corners);
 
-            Vector2 correction = Vector2.zero;
+            Vector3 correctedPosition = tooltipRect.position;
 
-            if (corners[0].x < 0)
-                correction.x = -corners[0].x;
-            else if (corners[2].x > Screen.width)
-                correction.x = Screen.width - corners[2].x;
+            // Left
+            //if (corners[0].x < 0)
+            //    correctedPosition.x += -corners[0].x;
 
+            // Right
+            //if (corners[2].x > Screen.width)
+            //    correctedPosition.x -= corners[2].x - Screen.width;
+
+            // Bottom
             if (corners[0].y < 0)
-                correction.y = -corners[0].y;
-            else if (corners[2].y > Screen.height)
-                correction.y = Screen.height - corners[2].y;
+                correctedPosition.y += -corners[0].y;
 
-            tooltipRect.position += (Vector3)correction;
+            // Top
+            if (corners[2].y > Screen.height)
+                correctedPosition.y -= corners[2].y - Screen.height;
+
+            tooltipRect.position = correctedPosition;
         }
 
         private void UpdateState()
