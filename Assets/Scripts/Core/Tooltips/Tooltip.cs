@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 namespace Zeke.Tooltips
 {
@@ -13,6 +13,11 @@ namespace Zeke.Tooltips
 
         [SerializeField] private float offsetX = 0;
         [SerializeField] private float offsetY = -15f;
+
+        [SerializeField] private OffsetType offsetTypeX;
+        [SerializeField] private OffsetType offsetTypeY;
+
+        [Space]
 
         [SerializeField] private float maxWidth = 400f;
         [SerializeField] private float maxHeight = 300f;
@@ -33,23 +38,25 @@ namespace Zeke.Tooltips
             Hide,
         }
 
+        private enum OffsetType
+        {
+            Center,
+            Border
+        }
+
         public static void SetText(string text)
         {
             Instance.tooltipText.text = text;
-
-            // Force TMP to update its measurements.
             Instance.tooltipText.ForceMeshUpdate();
+
+            Vector2 sizeDelta = Vector2.zero;
 
             Vector2 textSize = Instance.tooltipText.GetPreferredValues(text, Instance.maxWidth, Instance.maxHeight);
 
-            // Add padding for the tooltip background/box.
-            Vector2 finalSize = textSize + Instance.padding;
+            sizeDelta.x = Mathf.Clamp(textSize.x + Instance.padding.x, 0f, Instance.maxWidth);
+            sizeDelta.y = Mathf.Clamp(textSize.y + Instance.padding.y, 0f, Instance.maxHeight);
 
-            // Cap the size.
-            finalSize.x = Mathf.Min(finalSize.x, Instance.maxWidth);
-            finalSize.y = Mathf.Min(finalSize.y, Instance.maxHeight);
-
-            Instance.tooltipRect.sizeDelta = finalSize;
+            Instance.tooltipRect.sizeDelta = sizeDelta;
         }
 
         public static void Show(string text)
@@ -86,66 +93,64 @@ namespace Zeke.Tooltips
         private void UpdatePosition(float scale)
         {
             Vector2 mousePosition = Input.mousePosition;
+            tooltipRect.position = mousePosition + GetOffset(scale);
 
-            Vector2 offset = new Vector2(
-                offsetX * scale,
-                offsetY * scale
-            );
+            ClampToScreen(tooltipRect);
+        }
 
+        private void ClampToScreen(RectTransform rectTransform)
+        {
+            Vector2 size = Vector2.Scale(rectTransform.rect.size, rectTransform.lossyScale);
+
+            Vector3 position = rectTransform.position;
+            Vector2 pivot = rectTransform.pivot;
+
+            position.x = Mathf.Clamp(position.x, size.x * pivot.x, Screen.width - size.x * (1f - pivot.x));
+            position.y = Mathf.Clamp(position.y, size.y * pivot.y, Screen.height - size.y * (1f - pivot.y));
+
+            rectTransform.position = position;
+        }
+
+        private Vector2 GetOffset(float scale)
+        {
             Vector2 size = tooltipRect.rect.size * scale;
             Vector2 pivot = tooltipRect.pivot;
 
-            Vector2 position = mousePosition;
+            Vector2 offset = new Vector2(offsetX, offsetY) * scale;
 
-            // X axis
-            //if (offset.x >= 0)
-            //{
-            //    // Offset is measured from the mouse to the LEFT edge.
-            //    position.x += offset.x + size.x * pivot.x;
-            //}
-            //else
-            //{
-            //    // Offset is measured from the mouse to the RIGHT edge.
-            //    position.x += offset.x - size.x * (1f - pivot.x);
-            //}
-
-            // Y axis
-            if (offset.y >= 0)
+            if (offsetTypeX == OffsetType.Border)
             {
-                // Offset is measured from the mouse to the BOTTOM edge.
-                position.y += offset.y + size.y * pivot.y;
+                if (offsetX > 0f)
+                {
+                    offset.x += size.x * pivot.x;
+                }
+                else if (offsetX < 0f)
+                {
+                    offset.x -= size.x * (1f - pivot.x);
+                }
             }
-            else
+            else if (offsetTypeX == OffsetType.Center)
             {
-                // Offset is measured from the mouse to the TOP edge.
-                position.y += offset.y - size.y * (1f - pivot.y);
+                offset.x += size.x * (pivot.x - 0.5f);
             }
 
-            tooltipRect.position = position;
+            if (offsetTypeY == OffsetType.Border)
+            {
+                if (offsetY > 0f)
+                {
+                    offset.y += size.y * pivot.y;
+                }
+                else if (offsetY < 0f)
+                {
+                    offset.y -= size.y * (1f - pivot.y);
+                }
+            }
+            else if (offsetTypeY == OffsetType.Center)
+            {
+                offset.y += size.y * (pivot.y - 0.5f);
+            }
 
-            // Keep the tooltip inside the screen.
-            Vector3[] corners = new Vector3[4];
-            tooltipRect.GetWorldCorners(corners);
-
-            Vector3 correctedPosition = tooltipRect.position;
-
-            // Left
-            //if (corners[0].x < 0)
-            //    correctedPosition.x += -corners[0].x;
-
-            // Right
-            //if (corners[2].x > Screen.width)
-            //    correctedPosition.x -= corners[2].x - Screen.width;
-
-            // Bottom
-            if (corners[0].y < 0)
-                correctedPosition.y += -corners[0].y;
-
-            // Top
-            if (corners[2].y > Screen.height)
-                correctedPosition.y -= corners[2].y - Screen.height;
-
-            tooltipRect.position = correctedPosition;
+            return offset;
         }
 
         private void UpdateState()

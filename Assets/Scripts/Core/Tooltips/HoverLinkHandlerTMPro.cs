@@ -61,6 +61,11 @@ namespace Zeke.Tooltips
 
                 OnHoverStayLink?.Invoke(linkHoverEventInfo);
             }
+            else if (currentLinkIndex != -1)
+            {
+                currentLinkIndex = linkIndex;
+                OnHoverExitLink?.Invoke(linkHoverEventInfo);
+            }
         }
 
         private bool IsInsideRect(RectTransform rect, Vector2 mousePosition)
