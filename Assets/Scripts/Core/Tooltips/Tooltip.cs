@@ -5,23 +5,20 @@ namespace Zeke.Tooltips
 {
     public class Tooltip : Singleton<Tooltip>
     {
+        [Header("Dependency")]
         [SerializeField] private GameObject tooltipObject;
-        [SerializeField] private TMP_Text tooltipText;
         [SerializeField] private RectTransform tooltipRect;
+        [SerializeField] private TMP_Text tooltipText;
+
+        [Header("Tooltip")]
+        [SerializeField] private Vector2 offset = new Vector2(0f, -15f);
+
+        [SerializeField] private OffsetType offsetTypeX = OffsetType.Border;
+        [SerializeField] private OffsetType offsetTypeY = OffsetType.Border;
 
         [Space]
 
-        [SerializeField] private float offsetX = 0;
-        [SerializeField] private float offsetY = -15f;
-
-        [SerializeField] private OffsetType offsetTypeX;
-        [SerializeField] private OffsetType offsetTypeY;
-
-        [Space]
-
-        [SerializeField] private float maxWidth = 400f;
-        [SerializeField] private float maxHeight = 300f;
-        [SerializeField] private Vector2 padding = new Vector2(20f, 10f);
+        [SerializeField] private Vector2 maxSize = new Vector2(400f, 400f);
 
         [Space]
 
@@ -47,14 +44,12 @@ namespace Zeke.Tooltips
         public static void SetText(string text)
         {
             Instance.tooltipText.text = text;
-            Instance.tooltipText.ForceMeshUpdate();
-
             Vector2 sizeDelta = Vector2.zero;
 
-            Vector2 textSize = Instance.tooltipText.GetPreferredValues(text, Instance.maxWidth, Instance.maxHeight);
+            Vector2 textSize = Instance.tooltipText.GetPreferredValues(text, Instance.maxSize.x, Instance.maxSize.y);
 
-            sizeDelta.x = Mathf.Clamp(textSize.x + Instance.padding.x, 0f, Instance.maxWidth);
-            sizeDelta.y = Mathf.Clamp(textSize.y + Instance.padding.y, 0f, Instance.maxHeight);
+            sizeDelta.x = Mathf.Clamp(textSize.x, 0f, Instance.maxSize.x);
+            sizeDelta.y = Mathf.Clamp(textSize.y, 0f, Instance.maxSize.y);
 
             Instance.tooltipRect.sizeDelta = sizeDelta;
         }
@@ -82,12 +77,10 @@ namespace Zeke.Tooltips
         {
             UpdateState();
 
-            if (!tooltipObject.activeSelf)
-                return;
-
-            float scale = canvas.scaleFactor;
-
-            UpdatePosition(scale);
+            if (tooltipObject.activeSelf)
+            {
+                UpdatePosition(canvas.scaleFactor);
+            }
         }
 
         private void UpdatePosition(float scale)
@@ -116,41 +109,41 @@ namespace Zeke.Tooltips
             Vector2 size = tooltipRect.rect.size * scale;
             Vector2 pivot = tooltipRect.pivot;
 
-            Vector2 offset = new Vector2(offsetX, offsetY) * scale;
+            Vector2 newOffset = new Vector2(offset.x, offset.y) * scale;
 
             if (offsetTypeX == OffsetType.Border)
             {
-                if (offsetX > 0f)
+                if (offset.x > 0f)
                 {
-                    offset.x += size.x * pivot.x;
+                    newOffset.x += size.x * pivot.x;
                 }
-                else if (offsetX < 0f)
+                else if (offset.x < 0f)
                 {
-                    offset.x -= size.x * (1f - pivot.x);
+                    newOffset.x -= size.x * (1f - pivot.x);
                 }
             }
             else if (offsetTypeX == OffsetType.Center)
             {
-                offset.x += size.x * (pivot.x - 0.5f);
+                newOffset.x += size.x * (pivot.x - 0.5f);
             }
 
             if (offsetTypeY == OffsetType.Border)
             {
-                if (offsetY > 0f)
+                if (offset.y > 0f)
                 {
-                    offset.y += size.y * pivot.y;
+                    newOffset.y += size.y * pivot.y;
                 }
-                else if (offsetY < 0f)
+                else if (offset.y < 0f)
                 {
-                    offset.y -= size.y * (1f - pivot.y);
+                    newOffset.y -= size.y * (1f - pivot.y);
                 }
             }
             else if (offsetTypeY == OffsetType.Center)
             {
-                offset.y += size.y * (pivot.y - 0.5f);
+                newOffset.y += size.y * (pivot.y - 0.5f);
             }
 
-            return offset;
+            return newOffset;
         }
 
         private void UpdateState()
@@ -161,7 +154,7 @@ namespace Zeke.Tooltips
 
                 if (timer > showDelay)
                 {
-                    Instance.tooltipObject.SetActive(true);
+                    tooltipObject.SetActive(true);
                 }
             }
         }

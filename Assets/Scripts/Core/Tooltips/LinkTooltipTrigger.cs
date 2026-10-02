@@ -8,12 +8,23 @@ namespace Zeke.Abilities
     {
         [SerializeField] private TooltipLinksDB tooltipLinksDB;
 
+        private ILinkHoverEvents linkHoverEvents;
+
         private void Awake()
         {
-            ILinkHoverEvents linkHoverEvents = GetComponent<ILinkHoverEvents>();
+            linkHoverEvents = GetComponent<ILinkHoverEvents>();
+        }
 
+        private void OnEnable()
+        {
             linkHoverEvents.OnHoverEnterLink += OnHoverEnterLink;
             linkHoverEvents.OnHoverExitLink += OnHoverExitLink;
+        }
+
+        private void OnDisable()
+        {
+            linkHoverEvents.OnHoverEnterLink -= OnHoverEnterLink;
+            linkHoverEvents.OnHoverExitLink -= OnHoverExitLink;
         }
 
         private void OnHoverEnterLink(LinkHoverEventInfo linkHoverEventInfo)

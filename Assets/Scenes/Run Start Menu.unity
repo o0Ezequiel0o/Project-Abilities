@@ -921,13 +921,11 @@ MonoBehaviour:
   tooltipObject: {fileID: 2084186968}
   tooltipText: {fileID: 1247106893}
   tooltipRect: {fileID: 2084186969}
-  offsetX: 0
-  offsetY: -35
+  offset: {x: 0, y: -15}
   offsetTypeX: 1
   offsetTypeY: 1
-  maxWidth: 400
-  maxHeight: Infinity
-  padding: {x: 5, y: 5}
+  maxSize: {x: 400, y: Infinity}
+  padding: {x: 0, y: 0}
   showDelay: 0.5
 --- !u!1 &756106780
 GameObject:
@@ -1289,8 +1287,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50.415, y: 1.609}
-  m_SizeDelta: {x: 300.829, y: 46.782}
+  m_AnchoredPosition: {x: 252.21701, y: 1.609}
+  m_SizeDelta: {x: 704.433, y: 46.782}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1084637224
 MonoBehaviour:
@@ -1312,7 +1310,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text <link=Armor> Armor </link>
+  m_text: 'New Text <link=Armor>Armor</link> and ahem <link=Health>Health</link> '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2470,8 +2468,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2479,7 +2477,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 2
 --- !u!222 &2084186971
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -25,7 +25,13 @@ namespace Zeke.Tooltips
             rectTransform = GetComponent<RectTransform>();
             tmpText = GetComponent<TMP_Text>();
             canvas = GetComponentInParent<Canvas>();
-            camera = canvas.worldCamera;
+            camera = GetCamera(canvas);
+        }
+
+        private Camera GetCamera(Canvas canvas)
+        {
+            if (canvas.renderMode == RenderMode.ScreenSpaceOverlay) return null;
+            return canvas.worldCamera != null ? canvas.worldCamera : Camera.main;
         }
 
         private void Update()
@@ -63,8 +69,8 @@ namespace Zeke.Tooltips
             }
             else if (currentLinkIndex != -1)
             {
-                currentLinkIndex = linkIndex;
                 OnHoverExitLink?.Invoke(linkHoverEventInfo);
+                currentLinkIndex = linkIndex;
             }
         }
 

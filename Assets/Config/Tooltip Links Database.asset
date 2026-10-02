@@ -16,3 +16,6 @@ MonoBehaviour:
   - key: Armor
     value:
       description: Reduces the damage ok idk man this is an example
+  - key: Health
+    value:
+      description: When it reaches 0 you die.
