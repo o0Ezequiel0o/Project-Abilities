@@ -15,7 +15,43 @@ MonoBehaviour:
   database:
   - key: Armor
     value:
-      description: Reduces the damage ok idk man this is an example
+      description: Provides higher damage reduction the higher this value is, can be countered with armor penetration.
   - key: Health
     value:
-      description: When it reaches 0 you die.
+      description: Your life, when it reaches 0 you die.
+  - key: Shield
+    value:
+      description: A health bar that only generates after the user is at full health providing extra protection, but can also be gained by other means without being at max health. Usually has higher regen speed but does not benefit from healing effects.
+  - key: Health Regeneration
+    value:
+      description: Regenerates your health by that amount every second and is not affected by healing received.
+  - key: Shield Regeneration
+    value:
+      description: Regenerates your shield by that amount every second if your health is not less than your maximum health.
+  - key: Luck
+    value:
+      description: Makes procs reroll if they fail luck amount of times. If positive, reroll happens if proc fails, if negative reroll happens if proc succeeds.
+  - key: Hit
+    value:
+      description: When something is a direct hit. Status effects or extra damage is not a direct hit, this will make them not trigger hit events.
+  - key: Extra Damage
+    value:
+      description: A new instance of damage.
+  - key: Base Damage
+    value:
+      description: The base damage of the attack before any other external source affected it.
+  - key: Damage
+    value:
+      description: "The current damage at that step\u2019s calculation (on received, on dealt, on before receiving, etc)."
+  - key: Overflow Damage
+    value:
+      description: The damage not applied due to overflowing, for example taking more damage than health means some portion of the damage would overflow and the other portion would be the exact amount required to kill you.
+  - key: Experience
+    value:
+      description: Experience used for leveling up.
+  - key: Ability Cooldown
+    value:
+      description: What is the max cooldown of your ability. This affects how quickly it is ready indirectly unlike recharge speed.
+  - key: Recharge Speed
+    value:
+      description: 'Affects directly the speed your ability recharges at, affects both main modules: dynamic cast cooldown and recharge with time.'
