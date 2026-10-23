@@ -1,9 +1,12 @@
+using PrimeTween;
+using System;
 using System.Collections.Generic;
-using UnityEngine.UI;
-using UnityEngine;
-using Zeke.UI;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 using Zeke.Collections;
+using Zeke.UI;
+using static Unity.VisualScripting.Member;
 
 namespace Zeke.Items
 {
@@ -39,7 +42,11 @@ namespace Zeke.Items
 
         private UIWindow windowInstance;
 
+        private readonly List<UIWindow> spawnedOptionWindows = new List<UIWindow>();
+
         private readonly GameInstance.PauseID pauseID = new();
+
+        private bool interactionEnabled = true;
 
         public abstract bool CanSelect(GameObject source);
 
@@ -121,13 +128,15 @@ namespace Zeke.Items
 
             for (int i = 0; i < generatedItems.Count; i++)
             {
-                CreateItemOptionUIWindow(layoutGroupRoot.transform, generatedItems[i], source);
+                UIWindow window = CreateItemOptionUIWindow(layoutGroupRoot.transform, generatedItems[i], source);
+                PlayOptionAppearAnimation(window.gameObject, 0.25f * i);
+                spawnedOptionWindows.Add(window);
             }
 
             GameInstance.Pause(pauseID);
         }
 
-        private void CreateItemOptionUIWindow(Transform root, ItemGenerationData generatedItem, GameObject source)
+        private UIWindow CreateItemOptionUIWindow(Transform root, ItemGenerationData generatedItem, GameObject source)
         {
             UIWindow optionWindowInstance = Instantiate(itemOptionWindow, root);
 
@@ -137,19 +146,89 @@ namespace Zeke.Items
             optionWindowInstance.TryGetElement<Image>("Border").color = itemSettings.GetRarityColor(generatedItem.item.Rarity);
 
             Button button = optionWindowInstance.TryGetElement<Button>("Button");
-            button.onClick.AddListener(() => OnOptionSelected(source, generatedItem));
+            button.onClick.AddListener(() => OnOptionSelected(source, generatedItem, optionWindowInstance));
+
+            return optionWindowInstance;
         }
 
-        private void OnOptionSelected(GameObject source, ItemGenerationData generatedItem)
+        private void PlayOptionAppearAnimation(GameObject window, float delay)
         {
+            RectTransform rectTransform = window.GetComponent<RectTransform>();
+            CanvasGroup canvasGroup = window.GetComponent<CanvasGroup>();
+
+            rectTransform.localScale = Vector3.one * 0.1f;
+            canvasGroup.alpha = 0f;
+
+            Sequence.Create(useUnscaledTime: true)
+                .Group(Tween.Scale(rectTransform, startValue: Vector3.one * 0.1f, endValue: Vector3.one, duration: 0.25f, ease: Ease.OutBack, startDelay: delay))
+                .Group(Tween.Alpha(canvasGroup, startValue: 0f, endValue: 1f, duration: 0.15f, ease: Ease.OutSine, startDelay: delay));
+        }
+
+        private void PlayOptionDisappearAnimation(GameObject window)
+        {
+            RectTransform rectTransform = window.GetComponent<RectTransform>();
+            CanvasGroup canvasGroup = window.GetComponent<CanvasGroup>();
+
+            Sequence.Create(useUnscaledTime: true)
+                .Group(Tween.Scale(rectTransform, startValue: rectTransform.localScale, endValue: Vector3.zero, duration: 0.3f, ease: Ease.InBack))
+                .Group(Tween.Alpha(canvasGroup, startValue: canvasGroup.alpha, endValue: 0f, duration: 0.3f, ease: Ease.InSine));
+        }
+
+        private void PlayOptionSelectAnimation(GameObject window, Action onAnimationFinish)
+        {
+            RectTransform rectTransform = window.GetComponent<RectTransform>();
+            CanvasGroup canvasGroup = window.GetComponent<CanvasGroup>();
+
+            Sequence.Create(useUnscaledTime: true)
+                .Group(Tween.Scale(rectTransform, startValue: rectTransform.localScale, endValue: Vector3.one * 1.15f, duration: 0.25f, ease: Ease.OutBack))
+                .Group(Tween.Alpha(canvasGroup, startValue: canvasGroup.alpha, endValue: 1f, duration: 0.2f))
+
+                .ChainDelay(0.3f)
+
+                .Chain(Tween.Scale(rectTransform, startValue: Vector3.one * 1.15f, endValue: Vector3.zero, duration: 0.2f, ease: Ease.InBack))
+                .Group(Tween.Alpha(canvasGroup, startValue: 1f, endValue: 0f, duration: 0.15f, ease: Ease.InSine))
+
+                .ChainCallback(() => onAnimationFinish?.Invoke());
+        }
+
+        private void OnOptionSelected(GameObject source, ItemGenerationData generatedItem, UIWindow selectedWindow)
+        {
+            if (!interactionEnabled) return;
+
+            interactionEnabled = false;
+
             if (source.TryGetComponent(out ItemHandler itemHandler))
             {
                 itemHandler.AddItem(generatedItem.item);
             }
 
-            windowInstance.DestroyWindow();
+            for (int i = 0; i < spawnedOptionWindows.Count; i++)
+            {
+                UIWindow window = spawnedOptionWindows[i];
 
-            onItemSelected?.Invoke(source, generatedItem);
+                if (window == null) continue;
+
+                if (window == selectedWindow)
+                {
+                    PlayOptionSelectAnimation(window.gameObject, () =>
+                    {
+                        onItemSelected?.Invoke(source, generatedItem);
+                        CloseOptionsWindow();
+                    });
+                }
+                else
+                {
+                    PlayOptionDisappearAnimation(window.gameObject);
+                }
+            }
+        }
+
+        private void CloseOptionsWindow()
+        {
+            if (windowInstance != null)
+            {
+                windowInstance.DestroyWindow();
+            }
 
             GameInstance.Unpause(pauseID);
         }

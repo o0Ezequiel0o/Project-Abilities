@@ -66,8 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Generic Description that briefly explains how the item works but nobody
-    cares because the icon looks cool
+  m_text: Generic Description that briefly explains how the item works but nobody cares because the icon looks cool
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -117,7 +116,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -270,7 +269,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -434,6 +433,7 @@ GameObject:
   - component: {fileID: 5889209293132502484}
   - component: {fileID: 6831720364878063803}
   - component: {fileID: 8761373097284049578}
+  - component: {fileID: -3456030695934744397}
   m_Layer: 5
   m_Name: Item Option
   m_TagString: Untagged
@@ -527,6 +527,18 @@ MonoBehaviour:
   window: {fileID: 6831720364878063803}
   <Name>k__BackingField: Border
   <Element>k__BackingField: {fileID: 5889209293132502484}
+--- !u!225 &-3456030695934744397
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5043589560228477354}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5929166796290782073
 GameObject:
   m_ObjectHideFlags: 0
