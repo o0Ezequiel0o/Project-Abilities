@@ -61,6 +61,7 @@ public class HackItemGeneratorsSkill : PassiveBase
                 progressBarInstance.transform.position = itemGenerator.transform.position;
                 progressBarInstance.gameObject.SetActive(true);
                 currentItemGenerator = itemGenerator;
+                hackTimer = 0f;
                 break;
             }
         }
