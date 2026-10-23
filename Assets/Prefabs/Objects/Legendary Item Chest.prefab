@@ -116,6 +116,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 0}
   baseCost: 100
   options: 3
+  optionAppearDuration: 0.2
   fadeAwaySeconds: 1
 --- !u!61 &3627848488999911121
 BoxCollider2D:

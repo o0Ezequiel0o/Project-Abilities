@@ -162,6 +162,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 0}
   baseCost: 10
   options: 1
+  optionAppearDuration: 0.2
   maxRewards: 3
   rollNothingChange: 60
   fadeAwaySeconds: 1

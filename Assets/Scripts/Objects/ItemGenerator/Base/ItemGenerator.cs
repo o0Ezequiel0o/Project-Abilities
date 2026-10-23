@@ -32,6 +32,9 @@ namespace Zeke.Items
         [Header("Selection")]
         [SerializeField] protected int options = 3;
 
+        [Header("Animation")]
+        [SerializeField] private float optionAppearDuration = 0.2f;
+
         public static OrderedActionDictionary<GameObject, List<ItemGenerationData>> onOptionsGenerated = new OrderedActionDictionary<GameObject, List<ItemGenerationData>>();
         public static OrderedActionDictionary<GameObject, ItemGenerationData> onItemSelected = new OrderedActionDictionary<GameObject, ItemGenerationData>();
 
@@ -128,7 +131,7 @@ namespace Zeke.Items
             for (int i = 0; i < generatedItems.Count; i++)
             {
                 UIWindow window = CreateItemOptionUIWindow(layoutGroupRoot.transform, generatedItems[i], source);
-                PlayOptionAppearAnimation(window.gameObject, 0.25f * i);
+                PlayOptionAppearAnimation(window.gameObject, optionAppearDuration * i);
                 spawnedOptionWindows.Add(window);
             }
 
@@ -203,7 +206,7 @@ namespace Zeke.Items
             canvasGroup.alpha = 0f;
 
             Sequence.Create(useUnscaledTime: true)
-                .Group(Tween.Scale(rectTransform, startValue: Vector3.one * 0.1f, endValue: Vector3.one, duration: 0.25f, ease: Ease.OutBack, startDelay: delay))
+                .Group(Tween.Scale(rectTransform, startValue: Vector3.one * 0.1f, endValue: Vector3.one, duration: optionAppearDuration, ease: Ease.OutBack, startDelay: delay))
                 .Group(Tween.Alpha(canvasGroup, startValue: 0f, endValue: 1f, duration: 0.15f, ease: Ease.OutSine, startDelay: delay));
         }
 
