@@ -150,6 +150,50 @@ namespace Zeke.Items
             return optionWindowInstance;
         }
 
+        private void OnOptionSelected(GameObject source, ItemGenerationData generatedItem, UIWindow selectedWindow)
+        {
+            if (!interactionEnabled) return;
+
+            interactionEnabled = false;
+
+            if (source.TryGetComponent(out ItemHandler itemHandler))
+            {
+                itemHandler.AddItem(generatedItem.item);
+            }
+
+            for (int i = 0; i < spawnedOptionWindows.Count; i++)
+            {
+                UIWindow window = spawnedOptionWindows[i];
+
+                if (window == null) continue;
+
+                if (window == selectedWindow)
+                {
+                    onItemSelected?.Invoke(source, generatedItem);
+
+                    PlayOptionSelectAnimation(window.gameObject, () =>
+                    {
+                        PlayOptionDisappearAnimation(window.gameObject);
+                        PlayMenuPopOutAnimation(windowInstance.gameObject, CloseOptionsWindow);
+                    });
+                }
+                else
+                {
+                    PlayOptionDisappearAnimation(window.gameObject);
+                }
+            }
+        }
+
+        private void CloseOptionsWindow()
+        {
+            if (windowInstance != null)
+            {
+                windowInstance.DestroyWindow();
+            }
+
+            GameInstance.Unpause(pauseID);
+        }
+
         private void PlayOptionAppearAnimation(GameObject window, float delay)
         {
             RectTransform rectTransform = window.GetComponent<RectTransform>();
@@ -199,50 +243,6 @@ namespace Zeke.Items
                 .ChainDelay(0.3f)
 
                 .ChainCallback(() => onAnimationFinish?.Invoke());
-        }
-
-        private void OnOptionSelected(GameObject source, ItemGenerationData generatedItem, UIWindow selectedWindow)
-        {
-            if (!interactionEnabled) return;
-
-            interactionEnabled = false;
-
-            if (source.TryGetComponent(out ItemHandler itemHandler))
-            {
-                itemHandler.AddItem(generatedItem.item);
-            }
-
-            for (int i = 0; i < spawnedOptionWindows.Count; i++)
-            {
-                UIWindow window = spawnedOptionWindows[i];
-
-                if (window == null) continue;
-
-                if (window == selectedWindow)
-                {
-                    onItemSelected?.Invoke(source, generatedItem);
-
-                    PlayOptionSelectAnimation(window.gameObject, () =>
-                    {
-                        PlayOptionDisappearAnimation(window.gameObject);
-                        PlayMenuPopOutAnimation(windowInstance.gameObject, CloseOptionsWindow);
-                    });
-                }
-                else
-                {
-                    PlayOptionDisappearAnimation(window.gameObject);
-                }
-            }
-        }
-
-        private void CloseOptionsWindow()
-        {
-            if (windowInstance != null)
-            {
-                windowInstance.DestroyWindow();
-            }
-
-            GameInstance.Unpause(pauseID);
         }
 
         public class ItemGenerationData
