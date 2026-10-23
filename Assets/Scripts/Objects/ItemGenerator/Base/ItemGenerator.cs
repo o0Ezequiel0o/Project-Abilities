@@ -173,6 +173,20 @@ namespace Zeke.Items
                 .Group(Tween.Alpha(canvasGroup, startValue: canvasGroup.alpha, endValue: 0f, duration: 0.3f, ease: Ease.InSine));
         }
 
+        private void PlayMenuPopOutAnimation(GameObject window, Action onComplete)
+        {
+            RectTransform rectTransform = window.GetComponent<RectTransform>();
+            CanvasGroup canvasGroup = window.GetComponent<CanvasGroup>();
+
+            Sequence.Create(useUnscaledTime: true)
+                .Group(Tween.Scale(rectTransform, startValue: rectTransform.localScale, endValue: rectTransform.localScale * 1.05f, duration: 0.15f, ease: Ease.OutQuad))
+
+                .Chain(Tween.Scale(rectTransform, startValue: rectTransform.localScale * 1.05f, endValue: Vector3.zero, duration: 0.2f, ease: Ease.InBack))
+                .Group(Tween.Alpha(canvasGroup, startValue: canvasGroup.alpha, endValue: 0f, duration: 0.15f, ease: Ease.InSine))
+
+                .ChainCallback(() => onComplete?.Invoke());
+        }
+
         private void PlayOptionSelectAnimation(GameObject window, Action onAnimationFinish)
         {
             RectTransform rectTransform = window.GetComponent<RectTransform>();
@@ -183,9 +197,6 @@ namespace Zeke.Items
                 .Group(Tween.Alpha(canvasGroup, startValue: canvasGroup.alpha, endValue: 1f, duration: 0.2f))
 
                 .ChainDelay(0.3f)
-
-                .Chain(Tween.Scale(rectTransform, startValue: Vector3.one * 1.15f, endValue: Vector3.zero, duration: 0.2f, ease: Ease.InBack))
-                .Group(Tween.Alpha(canvasGroup, startValue: 1f, endValue: 0f, duration: 0.15f, ease: Ease.InSine))
 
                 .ChainCallback(() => onAnimationFinish?.Invoke());
         }
@@ -209,10 +220,12 @@ namespace Zeke.Items
 
                 if (window == selectedWindow)
                 {
+                    onItemSelected?.Invoke(source, generatedItem);
+
                     PlayOptionSelectAnimation(window.gameObject, () =>
                     {
-                        onItemSelected?.Invoke(source, generatedItem);
-                        CloseOptionsWindow();
+                        PlayOptionDisappearAnimation(window.gameObject);
+                        PlayMenuPopOutAnimation(windowInstance.gameObject, CloseOptionsWindow);
                     });
                 }
                 else
