@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zeke.Collections;
 using Zeke.UI;
-using static Unity.VisualScripting.Member;
 
 namespace Zeke.Items
 {
