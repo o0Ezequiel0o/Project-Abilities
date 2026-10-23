@@ -12,7 +12,7 @@ public class ItemGeneratorDrops : ScriptableObject
     public class ItemRaritySlot : IWeighted
     {
         public ItemRarity rarity;
-        public int weight;
+        [Min(1)] public int weight = 1;
 
         public int Weight => weight;
 
