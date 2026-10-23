@@ -1376,7 +1376,6 @@ GameObject:
   - component: {fileID: 1282781081}
   - component: {fileID: 1282781080}
   - component: {fileID: 1282781082}
-  - component: {fileID: 1282781083}
   m_Layer: 5
   m_Name: Info Display
   m_TagString: Untagged
@@ -1459,18 +1458,6 @@ MonoBehaviour:
   nameText: {fileID: 2142201701}
   root: {fileID: 1223617126}
   abilityWindowPrefab: {fileID: 6830580980071300890, guid: 61961298e4ae56948894c3a873ed82a3, type: 3}
---- !u!114 &1282781083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282781078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
 --- !u!1 &1311280204
 GameObject:
   m_ObjectHideFlags: 0

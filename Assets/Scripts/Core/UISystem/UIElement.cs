@@ -5,26 +5,58 @@ namespace Zeke.UI
     [DefaultExecutionOrder(-1)]
     public class UIElement : MonoBehaviour
     {
-        [SerializeField] private UIWindow window;
-
-        [field: Space]
-
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public Component Element { get; private set; }
+
+        [SerializeField, HideInInspector] private UIWindow window;
 
         public T GetElement<T>() where T : Component
         {
             return (T)Element;
         }
 
-        private void Reset()
+        private void OnValidate()
         {
-            window = GetComponentInParent<UIWindow>();
+            GetParentWindow();
+        }
+
+        private void OnTransformParentChanged()
+        {
+            UnregisterElement();
+            GetParentWindow();
+            RegisterElement();
         }
 
         private void Awake()
         {
+            if (window == null)
+            {
+                GetParentWindow();
+            }
+
+            RegisterElement();
+        }
+
+        private void OnDestroy()
+        {
+            UnregisterElement();
+        }
+
+        private void GetParentWindow()
+        {
+            window = GetComponentInParent<UIWindow>(true);
+        }
+
+        private void RegisterElement()
+        {
+            if (window == null) return;
             window.Add(this);
+        }
+
+        private void UnregisterElement()
+        {
+            if (window == null) return;
+            window.Remove(this);
         }
     }
 }
