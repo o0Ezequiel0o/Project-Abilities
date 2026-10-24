@@ -34,10 +34,11 @@ namespace Zeke.UI
         private void CreateTableHeader(UIWindow window)
         {
             EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
+
             GUILayout.Label("Key", EditorStyles.toolbarButton, GUILayout.Width(160));
             GUILayout.Label("UIElement", EditorStyles.toolbarButton);
-
             GUILayout.Label(window.Elements.Count.ToString(), EditorStyles.toolbarButton, GUILayout.Width(34));
+
             EditorGUILayout.EndHorizontal();
         }
 
@@ -85,12 +86,22 @@ namespace Zeke.UI
 
         private bool AreDictionariesEqual(IReadOnlyDictionary<string, UIElement> current, Dictionary<string, UIElement> upcoming)
         {
-            if (current.Count != upcoming.Count) return false;
+            if (current.Count != upcoming.Count)
+            {
+                return false;
+            }
 
             foreach (var kvp in upcoming)
             {
-                if (!current.TryGetValue(kvp.Key, out var existingElement)) return false;
-                if (existingElement != kvp.Value) return false;
+                if (!current.TryGetValue(kvp.Key, out UIElement existingElement))
+                {
+                    return false;
+                }
+
+                if (existingElement != kvp.Value)
+                {
+                    return false;
+                }
             }
 
             return true;
