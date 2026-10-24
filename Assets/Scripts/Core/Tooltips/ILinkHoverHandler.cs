@@ -2,7 +2,7 @@ using System;
 
 namespace Zeke.Tooltips
 {
-	public interface ILinkHoverEvents
+	public interface ILinkHoverHandler
     {
         public Action<LinkHoverEventInfo> OnHoverEnterLink { get; set; }
         public Action<LinkHoverEventInfo> OnHoverStayLink { get; set; }

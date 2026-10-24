@@ -6,7 +6,7 @@ using TMPro;
 namespace Zeke.Tooltips
 {
     [RequireComponent(typeof(TMP_Text))]
-    public class HoverLinkHandlerTMPro : MonoBehaviour, ILinkHoverEvents
+    public class HoverLinkHandlerTMPro : MonoBehaviour, ILinkHoverHandler
     {
         public Action<LinkHoverEventInfo> OnHoverEnterLink { get; set; }
         public Action<LinkHoverEventInfo> OnHoverStayLink { get; set; }

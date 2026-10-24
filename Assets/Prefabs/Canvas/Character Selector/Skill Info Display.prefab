@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1470886437740327654}
   - component: {fileID: 6830580980071300890}
   m_Layer: 5
-  m_Name: Ability Info Display
+  m_Name: Skill Info Display
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -546,6 +546,8 @@ GameObject:
   - component: {fileID: 2747231871440523085}
   - component: {fileID: 7441222705789148559}
   - component: {fileID: 1054896743015344641}
+  - component: {fileID: 4657647751521427739}
+  - component: {fileID: 5791427452276843344}
   m_Layer: 5
   m_Name: Description
   m_TagString: Untagged
@@ -687,6 +689,31 @@ MonoBehaviour:
   <Name>k__BackingField: Description
   <Element>k__BackingField: {fileID: 7441222705789148559}
   window: {fileID: 6830580980071300890}
+--- !u!114 &4657647751521427739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4735016858522247644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ccf10fbc127862468b2b6080b4eac36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Tooltips.HoverLinkHandlerTMPro
+--- !u!114 &5791427452276843344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4735016858522247644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e503320eacc54fa47bc4b3e8e9b616d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.LinkTooltipTrigger
+  tooltipLinksDB: {fileID: 11400000, guid: bae5a0dd95f22b849a39dedc7b0066ac, type: 2}
 --- !u!1 &5159943626673398772
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,16 +3,16 @@ using Zeke.Tooltips;
 
 namespace Zeke.Abilities
 {
-    [RequireComponent(typeof(ILinkHoverEvents))]
+    [RequireComponent(typeof(ILinkHoverHandler))]
     public class LinkTooltipTrigger : MonoBehaviour
     {
         [SerializeField] private TooltipLinksDB tooltipLinksDB;
 
-        private ILinkHoverEvents linkHoverEvents;
+        private ILinkHoverHandler linkHoverEvents;
 
         private void Awake()
         {
-            linkHoverEvents = GetComponent<ILinkHoverEvents>();
+            linkHoverEvents = GetComponent<ILinkHoverHandler>();
         }
 
         private void OnEnable()
