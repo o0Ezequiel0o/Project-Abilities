@@ -35,7 +35,8 @@ namespace Zeke.UI
         {
             EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
 
-            GUILayout.Label("Key", EditorStyles.toolbarButton, GUILayout.Width(160));
+            GUILayout.Label("Key", EditorStyles.toolbarButton, GUILayout.Width(129));
+            GUILayout.Label("Type", EditorStyles.toolbarButton, GUILayout.Width(133));
             GUILayout.Label("UIElement", EditorStyles.toolbarButton);
             GUILayout.Label(window.Elements.Count.ToString(), EditorStyles.toolbarButton, GUILayout.Width(34));
 
@@ -113,24 +114,61 @@ namespace Zeke.UI
 
             GUI.enabled = false;
 
-            EditorGUILayout.TextField(key, GUILayout.Width(150));
+            EditorGUILayout.TextField(key, GUILayout.Width(120));
+
+            DrawTypeField(element);
+
             EditorGUILayout.ObjectField(element != null ? element : null, typeof(UIElement), true);
 
             GUI.enabled = true;
 
             if (element != null)
             {
-                GUIContent locateIcon = EditorGUIUtility.IconContent("d_ViewToolZoom");
-                locateIcon.tooltip = "Ping object in hierarchy";
-
-                if (GUILayout.Button(locateIcon, GUILayout.Width(25), GUILayout.Height(18)))
-                {
-                    Selection.activeGameObject = element.gameObject;
-                    EditorGUIUtility.PingObject(element.gameObject);
-                }
+                DrawLocateButton(element);
             }
 
             EditorGUILayout.EndHorizontal();
+        }
+
+        private void DrawTypeField(UIElement element)
+        {
+            string typeName = "None";
+            Texture icon = null;
+
+            if (element != null && element.Element != null)
+            {
+                typeName = element.Element.GetType().Name;
+                icon = EditorGUIUtility.ObjectContent(element.Element, element.Element.GetType()).image;
+            }
+
+            Rect typeRect = EditorGUILayout.GetControlRect(false, 18, GUILayout.Width(130));
+
+            float iconSize = 14f;
+            float padding = 4f;
+
+            Rect iconRect = new Rect(typeRect.x + padding, typeRect.y + (typeRect.height - iconSize) * 0.5f, iconSize, iconSize);
+            Rect labelRect = new Rect(iconRect.xMax + padding, typeRect.y, typeRect.width - iconRect.width - (padding * 3), typeRect.height);
+
+            GUI.Box(typeRect, GUIContent.none, EditorStyles.helpBox);
+
+            if (icon != null)
+            {
+                GUI.DrawTexture(iconRect, icon);
+            }
+
+            EditorGUI.LabelField(labelRect, typeName, EditorStyles.miniLabel);
+        }
+
+        private void DrawLocateButton(UIElement element)
+        {
+            GUIContent locateIcon = EditorGUIUtility.IconContent("d_ViewToolZoom");
+            locateIcon.tooltip = "Ping object in hierarchy";
+
+            if (GUILayout.Button(locateIcon, GUILayout.Width(25), GUILayout.Height(18)))
+            {
+                Selection.activeGameObject = element.gameObject;
+                EditorGUIUtility.PingObject(element.gameObject);
+            }
         }
 
         private void GetNonNestedChildren(Transform rootWindowTransform, Transform currentParent, List<UIElement> results)
