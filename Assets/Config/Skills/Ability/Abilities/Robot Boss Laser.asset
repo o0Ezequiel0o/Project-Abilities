@@ -14,10 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Desintegrate
-  <Description>k__BackingField: Fire a huge laser that deals 2 <i><color=#5A5A5A>(+1
-    per level)</color></i> every 0.2 seconds with infinite pierce but slows your
-    aiming speed by 50%.
-  <AbilityType>k__BackingField: 1
+  <Description>k__BackingField: Fire a huge laser that deals 2 <style="Level Modifier">(+1 per level)</style> <style="Damage">Damage</style> every 0.2 seconds with infinite <style="Pierce">pierce</style> but slows your <style="Aiming Speed">aiming speed</style> by 50%.
   <CanManuallyDeactivate>k__BackingField: 1
   <CanHold>k__BackingField: 0
   cooldownTime:

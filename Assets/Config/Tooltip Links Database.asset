@@ -54,4 +54,33 @@ MonoBehaviour:
       description: What is the max cooldown of your ability. This affects how quickly it is ready indirectly unlike recharge speed.
   - key: Recharge Speed
     value:
-      description: 'Affects directly the speed your ability recharges at, affects both main modules: dynamic cast cooldown and recharge with time.'
+      description: Affects directly the speed your ability recharges at and the cooldown between charges uses in some abilities.
+  - key: Pierce
+    value:
+      description: How many targets can the projectile pierce before it despawns.
+  - key: Armor Penetration
+    value:
+      description: How much of the armor is ignored (0 = 0%, 0.5 = 50% and 1 = 100%); For example having 50% armor damage reduction and being hit with 50% (0.5) armor penetration would ignore 50% of the 50% armor damage reduction (which would result in 25% final damage reduction).
+  - key: Aiming Speed
+    value:
+      description: How quickly the character turns towards where it wants to aim.
+  - key: Proc Coefficient
+    value:
+      description: 'Multiplies the chances of an item or an effect to trigger. The higher it is above 100% (1) the more chance items and effects have to trigger and the lower it is from that value the less likely items and effects are to trigger.
+
+'
+  - key: Charges
+    value:
+      description: How many uses of the ability are stored.
+  - key: Max Health
+    value:
+      description: Your total health, health can be regenerated up to this value.
+  - key: Move Speed
+    value:
+      description: How quickly the character moves, in units, average movement speed is 4.
+  - key: Damage Received
+    value:
+      description: Multiplies your final damage received by the value.
+  - key: Max Charges
+    value:
+      description: How much uses an ability can store, default is 1.

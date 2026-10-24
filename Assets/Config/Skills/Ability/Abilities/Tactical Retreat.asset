@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Tactical Retreat
-  <Description>k__BackingField: Jump backwards and gain 1 primary ability charge.
-  <AbilityType>k__BackingField: 2
+  <Description>k__BackingField: Jump backwards and gain 1 primary ability <style="Charges">charge</style>.
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
   cooldownTime:

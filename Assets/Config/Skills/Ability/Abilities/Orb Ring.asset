@@ -14,10 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Orb Ring
-  <Description>k__BackingField: Spawn 3 <i><color=#5A5A5A>(+1 per level)</color></i>
-    orbs that spin around you for 5 seconds and deal 3 <i><color=#5A5A5A>(+1 per
-    level)</color></i> damage. Leveling up also increases the spinning speed.
-  <AbilityType>k__BackingField: 1
+  <Description>k__BackingField: Spawn 3 <style="Level Modifier">(+1 per level)</style> orbs that spin around you for 5 seconds and deal 3 <style="Level Modifier">(+1 per level)</style> <style="Damage">damage</style>. Leveling up also increases the spinning speed.
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
   cooldownTime:

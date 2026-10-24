@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -190,9 +190,9 @@ MonoBehaviour:
   tooltipRect: {fileID: 9075336900426329561}
   tooltipText: {fileID: 2239418429830935065}
   offset: {x: 0, y: -15}
-  offsetTypeX: 1
+  offsetTypeX: 0
   offsetTypeY: 1
-  maxSize: {x: 250, y: Infinity}
+  maxSize: {x: 400, y: Infinity}
   showDelay: 0.5
 --- !u!1 &6751503917814422975
 GameObject:

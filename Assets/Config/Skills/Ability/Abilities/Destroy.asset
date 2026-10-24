@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
   m_Name: Destroy
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: 
   <Description>k__BackingField: 
-  <AbilityType>k__BackingField: 0
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
   cooldownTime:
@@ -81,3 +80,5 @@ MonoBehaviour:
         <HitLayers>k__BackingField:
           serializedVersion: 2
           m_Bits: 256
+        <ArmorPenetration>k__BackingField: 0
+        <ProcCoefficient>k__BackingField: 1

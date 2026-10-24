@@ -14,10 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Overclock
-  <Description>k__BackingField: Take 25% of your max health as damage <i><color=#5A5A5A>(non-lethal)</color></i>
-    and increase move speed by 50%, secondary recharge speed by 50% but damage received
-    by 50% for 3 seconds.
-  <AbilityType>k__BackingField: 2
+  <Description>k__BackingField: Take 25% of your <style="Max Health">max health</style> as <style="Damage">damage</style> <style="Level Modifier">(non-lethal)</style> and increase <style="Move Speed">move speed</style> by 50%, secondary <style="Recharge Speed">recharge speed</style> by 50% but <style="Damage Received">damage received</style> by 50% for 3 seconds.
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
   cooldownTime:
