@@ -7,6 +7,8 @@ namespace Zeke.UI
     {
         private readonly Dictionary<string, UIElement> elements = new Dictionary<string, UIElement>();
 
+        public IReadOnlyDictionary<string, UIElement> Elements => elements;
+
         public UIElement TryGetElement(string name)
         {
             if (string.IsNullOrEmpty(name)) return null;
