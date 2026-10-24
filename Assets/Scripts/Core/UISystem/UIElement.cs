@@ -34,7 +34,10 @@ namespace Zeke.UI
                 GetParentWindow();
             }
 
-            RegisterElement();
+            if (!window.Contains(this))
+            {
+                RegisterElement();
+            }
         }
 
         private void OnDestroy()

@@ -90,6 +90,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
+  elements:
+  - key: Icon
+    value: {fileID: 4153080449870349362}
+  - key: Type
+    value: {fileID: 3707331655902965913}
+  - key: Name
+    value: {fileID: 2544604019579786080}
+  - key: Description
+    value: {fileID: 1054896743015344641}
+  - key: Cooldown
+    value: {fileID: 6609371403812789416}
 --- !u!1 &2215684207559624587
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +194,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15.15
+  m_fontSize: 13
   m_fontSizeBase: 21
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -206,7 +217,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -240,9 +251,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 6830580980071300890}
   <Name>k__BackingField: Cooldown
   <Element>k__BackingField: {fileID: 2290305727008334070}
+  window: {fileID: 6830580980071300890}
 --- !u!1 &2388248371172979542
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,9 +342,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 6830580980071300890}
   <Name>k__BackingField: Icon
   <Element>k__BackingField: {fileID: 7971938747459628629}
+  window: {fileID: 6830580980071300890}
 --- !u!1 &3771944007338295695
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +461,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -484,9 +495,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 6830580980071300890}
   <Name>k__BackingField: Type
   <Element>k__BackingField: {fileID: 5200470340579558585}
+  window: {fileID: 6830580980071300890}
 --- !u!1 &4094976561569696275
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,10 +600,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hello this is an epic ability description that describes very well how
-    the ability works and i like talking a lot really much about how complex this
-    ability is and deals 3 different types of damages that all have different proc
-    chances and make you die instantly if you...
+  m_text: Hello this is an epic ability description that describes very well how the ability works and i like talking a lot really much about how complex this ability is and deals 3 different types of damages that all have different proc chances and make you die instantly if you...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -642,7 +650,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -676,9 +684,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 6830580980071300890}
   <Name>k__BackingField: Description
   <Element>k__BackingField: {fileID: 7441222705789148559}
+  window: {fileID: 6830580980071300890}
 --- !u!1 &5159943626673398772
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +817,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21
+  m_fontSize: 13
   m_fontSizeBase: 21
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -832,7 +840,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -866,9 +874,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 6830580980071300890}
   <Name>k__BackingField: Name
   <Element>k__BackingField: {fileID: 7287861085313391543}
+  window: {fileID: 6830580980071300890}
 --- !u!1 &5967484803441900898
 GameObject:
   m_ObjectHideFlags: 0

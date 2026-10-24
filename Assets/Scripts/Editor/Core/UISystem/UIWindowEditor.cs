@@ -11,12 +11,14 @@ namespace Zeke.UI
 
         public override void OnInspectorGUI()
         {
-            DrawDefaultInspector();
+            UIWindow window = (UIWindow)target;
 
             if (!Application.isPlaying)
             {
-                CreateEditorHelpBox();
+                SyncEditorDictionary(window);
             }
+
+            DrawDefaultInspector();
 
             boxStyle ??= new GUIStyle(EditorStyles.helpBox);
 
@@ -24,44 +26,26 @@ namespace Zeke.UI
 
             EditorGUILayout.BeginVertical(boxStyle);
 
-            UIWindow window = (UIWindow)target;
-
-            if (Application.isPlaying)
-            {
-                CreateRuntimeTable(window);
-            }
-            else
-            {
-                CreateEditorTable(window);
-            }
+            CreateTableElements(window);
 
             EditorGUILayout.EndVertical();
-        }
-
-        private void CreateEditorHelpBox()
-        {
-            EditorGUILayout.Space(5);
-
-            EditorGUILayout.LabelField($"Editor Preview (Hierarchy Scan)", EditorStyles.helpBox);
-
-            EditorGUILayout.Space(5);
         }
 
         private void CreateTableHeader()
         {
             EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
-            GUILayout.Label("Key (String)", EditorStyles.toolbarButton, GUILayout.Width(150));
-            GUILayout.Label("UIElement GameObject", EditorStyles.toolbarButton);
+            GUILayout.Label("Key", EditorStyles.toolbarButton, GUILayout.Width(160));
+            GUILayout.Label("UIElement", EditorStyles.toolbarButton);
             EditorGUILayout.EndHorizontal();
         }
 
-        private void CreateRuntimeTable(UIWindow window)
+        private void CreateTableElements(UIWindow window)
         {
             IReadOnlyDictionary<string, UIElement> elementsDict = window.Elements;
 
-            if (elementsDict.Count == 0)
+            if (elementsDict == null || elementsDict.Count == 0)
             {
-                EditorGUILayout.HelpBox("No active UI Elements registered in dictionary.", MessageType.Info);
+                EditorGUILayout.HelpBox("No UI Elements found under this window.", MessageType.Info);
             }
             else
             {
@@ -72,24 +56,42 @@ namespace Zeke.UI
             }
         }
 
-        private void CreateEditorTable(UIWindow window)
+        private void SyncEditorDictionary(UIWindow window)
         {
+            Dictionary<string, UIElement> builtDictionary = new Dictionary<string, UIElement>();
             List<UIElement> elementsList = new List<UIElement>();
+
             GetNonNestedChildren(window.transform, window.transform, elementsList);
 
-            if (elementsList.Count == 0)
+            foreach (var element in elementsList)
             {
-                EditorGUILayout.HelpBox("No UI Elements found under this window.", MessageType.Info);
-            }
-            else
-            {
-                foreach (var element in elementsList)
+                if (element != null && !string.IsNullOrEmpty(element.Name))
                 {
-                    if (element == null) continue;
-                    string key = string.IsNullOrEmpty(element.Name) ? "(Unnamed)" : element.Name;
-                    DrawElementRow(key, element);
+                    if (!builtDictionary.ContainsKey(element.Name))
+                    {
+                        builtDictionary.Add(element.Name, element);
+                    }
                 }
             }
+
+            if (!AreDictionariesEqual(window.Elements, builtDictionary))
+            {
+                window.SetDictionary(builtDictionary);
+                EditorUtility.SetDirty(window);
+            }
+        }
+
+        private bool AreDictionariesEqual(IReadOnlyDictionary<string, UIElement> current, Dictionary<string, UIElement> upcoming)
+        {
+            if (current.Count != upcoming.Count) return false;
+
+            foreach (var kvp in upcoming)
+            {
+                if (!current.TryGetValue(kvp.Key, out var existingElement)) return false;
+                if (existingElement != kvp.Value) return false;
+            }
+
+            return true;
         }
 
         private void DrawElementRow(string key, UIElement element)
@@ -97,10 +99,23 @@ namespace Zeke.UI
             EditorGUILayout.BeginHorizontal();
 
             GUI.enabled = false;
+
             EditorGUILayout.TextField(key, GUILayout.Width(150));
+            EditorGUILayout.ObjectField(element != null ? element : null, typeof(UIElement), true);
 
             GUI.enabled = true;
-            EditorGUILayout.ObjectField(element != null ? element.gameObject : null, typeof(GameObject), true);
+
+            if (element != null)
+            {
+                GUIContent locateIcon = EditorGUIUtility.IconContent("d_ViewToolZoom");
+                locateIcon.tooltip = "Ping object in hierarchy";
+
+                if (GUILayout.Button(locateIcon, GUILayout.Width(25), GUILayout.Height(18)))
+                {
+                    Selection.activeGameObject = element.gameObject;
+                    EditorGUIUtility.PingObject(element.gameObject);
+                }
+            }
 
             EditorGUILayout.EndHorizontal();
         }

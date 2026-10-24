@@ -133,9 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 5255960016588262450}
   <Name>k__BackingField: Button
   <Element>k__BackingField: {fileID: 4142771828788434452}
+  window: {fileID: 5255960016588262450}
 --- !u!1 &4336245192143584364
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,3 +261,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
+  elements:
+  - key: Button
+    value: {fileID: 2917277507079781826}
