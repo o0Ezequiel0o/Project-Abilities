@@ -89,9 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 3991947798513114684}
   <Name>k__BackingField: Currency Icon Outline
   <Element>k__BackingField: {fileID: 8478736888275611090}
+  window: {fileID: 3991947798513114684}
 --- !u!1 &195187596238384570
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,9 +180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 3991947798513114684}
   <Name>k__BackingField: Cost Icon
   <Element>k__BackingField: {fileID: 3173826506629945973}
+  window: {fileID: 3991947798513114684}
 --- !u!1 &244621430899542221
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,9 +484,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 3991947798513114684}
   <Name>k__BackingField: Cost Icon Outline
   <Element>k__BackingField: {fileID: 89803681210948530}
+  window: {fileID: 3991947798513114684}
 --- !u!1 &917079191167668292
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,9 +826,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 3991947798513114684}
   <Name>k__BackingField: Currency Stacks
   <Element>k__BackingField: {fileID: 1809732348920364799}
+  window: {fileID: 3991947798513114684}
 --- !u!1 &2074425388656695389
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,6 +1095,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
+  elements:
+  - key: Currency Stacks
+    value: {fileID: 5214924708540714531}
+  - key: Currency Icon Outline
+    value: {fileID: 9161666779719607223}
+  - key: Currency Icon
+    value: {fileID: 5653970088648889989}
+  - key: Cost Icon Outline
+    value: {fileID: 185662929942402627}
+  - key: Cost Icon
+    value: {fileID: 7106375430635370204}
+  - key: Cost Stacks
+    value: {fileID: 3725190500815619835}
+  - key: Cost Item Name
+    value: {fileID: 2747498805812278669}
+  - key: Reward Icon Outline
+    value: {fileID: 7703744719075694765}
+  - key: Reward Icon
+    value: {fileID: 3544972612079424258}
+  - key: Reward Item Name
+    value: {fileID: 2212868653137742339}
+  - key: Craft Button
+    value: {fileID: 6502534959116177655}
+  - key: Dismantle All Button
+    value: {fileID: 3099342956692642478}
+  - key: Close Button
+    value: {fileID: 9157432236995773270}
 --- !u!222 &5918753347288064798
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1222,9 +1249,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 3991947798513114684}
   <Name>k__BackingField: Reward Icon Outline
   <Element>k__BackingField: {fileID: 7105644935538459251}
+  window: {fileID: 3991947798513114684}
 --- !u!1 &3517724430070541288
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,9 +1386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 3991947798513114684}
   <Name>k__BackingField: Craft Button
   <Element>k__BackingField: {fileID: 3955748423564030964}
+  window: {fileID: 3991947798513114684}
 --- !u!1 &3678419428976468897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,9 +1539,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 3991947798513114684}
   <Name>k__BackingField: Reward Item Name
   <Element>k__BackingField: {fileID: 2022751798383842966}
+  window: {fileID: 3991947798513114684}
 --- !u!1 &4953902166855263902
 GameObject:
   m_ObjectHideFlags: 0
@@ -1801,9 +1828,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 3991947798513114684}
   <Name>k__BackingField: Dismantle All Button
   <Element>k__BackingField: {fileID: 319362826495619793}
+  window: {fileID: 3991947798513114684}
 --- !u!1 &6448974905643671072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2107,9 +2134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 3991947798513114684}
   <Name>k__BackingField: Cost Item Name
   <Element>k__BackingField: {fileID: 6699041377057482826}
+  window: {fileID: 3991947798513114684}
 --- !u!1 &7103880012131690758
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,9 +2225,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 3991947798513114684}
   <Name>k__BackingField: Currency Icon
   <Element>k__BackingField: {fileID: 8466278139475242944}
+  window: {fileID: 3991947798513114684}
 --- !u!1 &7755297470905706426
 GameObject:
   m_ObjectHideFlags: 0
@@ -2335,9 +2362,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 3991947798513114684}
   <Name>k__BackingField: Close Button
   <Element>k__BackingField: {fileID: 1908882954617726377}
+  window: {fileID: 3991947798513114684}
 --- !u!1 &7764908486919513579
 GameObject:
   m_ObjectHideFlags: 0
@@ -3029,9 +3056,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 3991947798513114684}
   <Name>k__BackingField: Reward Icon
   <Element>k__BackingField: {fileID: 7691833845140468902}
+  window: {fileID: 3991947798513114684}
 --- !u!1 &9114350892077037136
 GameObject:
   m_ObjectHideFlags: 0
@@ -3182,6 +3209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 3991947798513114684}
   <Name>k__BackingField: Cost Stacks
   <Element>k__BackingField: {fileID: 7138607554230717192}
+  window: {fileID: 3991947798513114684}

@@ -150,9 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 6831720364878063803}
   <Name>k__BackingField: Description
   <Element>k__BackingField: {fileID: 883553275529809570}
+  window: {fileID: 6831720364878063803}
 --- !u!1 &2343023200310348116
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,9 +303,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 6831720364878063803}
   <Name>k__BackingField: Name
   <Element>k__BackingField: {fileID: 5797778250011991792}
+  window: {fileID: 6831720364878063803}
 --- !u!1 &4738681079748496775
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,6 +512,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
+  elements:
+  - key: Image
+    value: {fileID: 594820746164123112}
+  - key: Name
+    value: {fileID: 8046350760382163534}
+  - key: Description
+    value: {fileID: 7615391351425668646}
+  - key: Button
+    value: {fileID: 2138176838642194820}
 --- !u!114 &8761373097284049578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,9 +533,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 6831720364878063803}
   <Name>k__BackingField: Border
   <Element>k__BackingField: {fileID: 5889209293132502484}
+  window: {fileID: 6831720364878063803}
 --- !u!225 &-3456030695934744397
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -672,9 +681,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 6831720364878063803}
   <Name>k__BackingField: Button
   <Element>k__BackingField: {fileID: 946760098260632493}
+  window: {fileID: 6831720364878063803}
 --- !u!1 &6125090840085805035
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,6 +924,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 6831720364878063803}
   <Name>k__BackingField: Image
   <Element>k__BackingField: {fileID: 6081791583079986010}
+  window: {fileID: 6831720364878063803}

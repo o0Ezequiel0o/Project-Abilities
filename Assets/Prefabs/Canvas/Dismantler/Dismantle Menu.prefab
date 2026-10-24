@@ -134,9 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 2304883897226500693}
   <Name>k__BackingField: Dismantle All Button
   <Element>k__BackingField: {fileID: 5825503129840247307}
+  window: {fileID: 2304883897226500693}
 --- !u!1 &693122166717745760
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,9 +408,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 2304883897226500693}
   <Name>k__BackingField: Dismantle Button
   <Element>k__BackingField: {fileID: 8849533974303913961}
+  window: {fileID: 2304883897226500693}
 --- !u!1 &2170388011202457492
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,6 +463,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
+  elements:
+  - key: Layout Group
+    value: {fileID: 3616639789180501906}
+  - key: Dismantle Button
+    value: {fileID: 5764699290551174164}
+  - key: Dismantle All Button
+    value: {fileID: 5608893055524167449}
+  - key: Close Button
+    value: {fileID: 5294585375969571454}
 --- !u!222 &3752691934465254529
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -635,9 +644,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 2304883897226500693}
   <Name>k__BackingField: Close Button
   <Element>k__BackingField: {fileID: 6139952364208610901}
+  window: {fileID: 2304883897226500693}
 --- !u!1 &5336400615750271118
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,9 +744,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 2304883897226500693}
   <Name>k__BackingField: Layout Group
   <Element>k__BackingField: {fileID: 4865031522095469674}
+  window: {fileID: 2304883897226500693}
 --- !u!1 &5626725277898395392
 GameObject:
   m_ObjectHideFlags: 0

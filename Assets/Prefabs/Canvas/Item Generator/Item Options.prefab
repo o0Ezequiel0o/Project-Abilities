@@ -75,9 +75,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 5283664177091368193}
   <Name>k__BackingField: Layout Group
   <Element>k__BackingField: {fileID: 8208853755119329878}
+  window: {fileID: 5283664177091368193}
 --- !u!1 &6818040575554099689
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,6 +131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
+  elements:
+  - key: Layout Group
+    value: {fileID: 19707434593637705}
 --- !u!222 &5645419826071172353
 CanvasRenderer:
   m_ObjectHideFlags: 0

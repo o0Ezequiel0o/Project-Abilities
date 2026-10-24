@@ -227,9 +227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 2747287667754971207}
   <Name>k__BackingField: Description
   <Element>k__BackingField: {fileID: 4877608267236784309}
+  window: {fileID: 2747287667754971207}
 --- !u!1 &4884698597952122197
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,6 +280,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
+  elements:
+  - key: Name
+    value: {fileID: 8934916457768704028}
+  - key: Cost
+    value: {fileID: 3273403874413347835}
+  - key: Description
+    value: {fileID: 1346193822665799964}
+  - key: Icon
+    value: {fileID: 3738448370568236955}
 --- !u!1 &4970736730583132836
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,9 +591,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 2747287667754971207}
   <Name>k__BackingField: Cost
   <Element>k__BackingField: {fileID: 6862726865548782750}
+  window: {fileID: 2747287667754971207}
 --- !u!1 &8129004579106223527
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,9 +682,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 2747287667754971207}
   <Name>k__BackingField: Icon
   <Element>k__BackingField: {fileID: 7062670561045699283}
+  window: {fileID: 2747287667754971207}
 --- !u!1 &8678662631934817010
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,6 +872,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 2747287667754971207}
   <Name>k__BackingField: Name
   <Element>k__BackingField: {fileID: 2510674753861949770}
+  window: {fileID: 2747287667754971207}

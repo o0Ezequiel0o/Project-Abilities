@@ -50,6 +50,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
+  elements:
+  - key: Select Overlay
+    value: {fileID: 5069404573267552918}
+  - key: Icon Outline
+    value: {fileID: 8967928924048796270}
+  - key: Icon
+    value: {fileID: 8322871807928765703}
+  - key: Stacks
+    value: {fileID: 6840517158805201264}
+  - key: Clickbox
+    value: {fileID: 7988910429197284373}
 --- !u!1 &5454627752005758665
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,9 +194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 747943367650387590}
   <Name>k__BackingField: Clickbox
   <Element>k__BackingField: {fileID: 3618955404969961935}
+  window: {fileID: 747943367650387590}
 --- !u!1 &5797957051857414561
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,9 +286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 747943367650387590}
   <Name>k__BackingField: Icon Outline
   <Element>k__BackingField: {fileID: 9193878072164197136}
+  window: {fileID: 747943367650387590}
 --- !u!1 &6038524508009665507
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,9 +439,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 747943367650387590}
   <Name>k__BackingField: Stacks
   <Element>k__BackingField: {fileID: 5874348747137697495}
+  window: {fileID: 747943367650387590}
 --- !u!1 &6826508001964105583
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,9 +531,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 747943367650387590}
   <Name>k__BackingField: Select Overlay
   <Element>k__BackingField: {fileID: 8233834166775220683}
+  window: {fileID: 747943367650387590}
 --- !u!1 &7389013942127866858
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,9 +622,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 747943367650387590}
   <Name>k__BackingField: Icon
   <Element>k__BackingField: {fileID: 2348208000689916035}
+  window: {fileID: 747943367650387590}
 --- !u!1 &7920575577266263842
 GameObject:
   m_ObjectHideFlags: 0
