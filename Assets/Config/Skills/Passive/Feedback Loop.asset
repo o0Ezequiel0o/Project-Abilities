@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OrbCooldownReductionSkillData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Feedback Loop
-  <Description>k__BackingField: Dealing damage with orbs lowers cooldown 0.25 seconds.
+  <Description>k__BackingField: Dealing <style="Damage">damage</style> with orbs lowers cooldown 0.25 seconds.
   flatCooldownReduction:
     baseValue: 0.25
     increase: 0

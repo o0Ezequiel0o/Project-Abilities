@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a899b72c99c1f8f41a2d9fe7169f08e9, type: 3}
   m_Name: PassiveTemplate
   m_EditorClassIdentifier: 
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Name>k__BackingField: 
+  <Description>k__BackingField: 

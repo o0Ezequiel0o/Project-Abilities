@@ -84,3 +84,9 @@ MonoBehaviour:
   - key: Max Charges
     value:
       description: How much uses an ability can store, default is 1.
+  - key: Max Shield
+    value:
+      description: The maximum value your shield can reach.
+  - key: Healing
+    value:
+      description: "The current healing at that step\u2019s calculation (on received, on dealt, on before receiving, etc)."

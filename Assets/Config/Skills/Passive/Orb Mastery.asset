@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OrbExtraDamageSkillData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Orb Mastery
-  <Description>k__BackingField: Your orbs deal 1 <i><color=#5A5A5A>(+1 per level)</color></i>
-    extra damage.
+  <Description>k__BackingField: Your orbs deal 1 <style="Level Modifier">(+1 per level)</style> <style="Extra Damage">extra damage</style>.
   extraDamage:
     baseValue: 1
     increase: 1

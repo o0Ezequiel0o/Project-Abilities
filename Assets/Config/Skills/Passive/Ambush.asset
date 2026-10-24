@@ -14,9 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AmbushSkillData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Ambush
-  <Description>k__BackingField: After not dealing damage with a sniper projectile
-    for 5 seconds it deals 50% <i><color=#5A5A5A>(+5% per level)</color></i> more
-    damage.
+  <Description>k__BackingField: After not dealing <style="Damage">damage</style> with a sniper projectile for 5 seconds it deals 50% <style="Level Modifier">(+5% per level)</style> more <style="Damage">damage</style>.
   damageMultiplier:
     baseValue: 1.5
     increase: 0.05

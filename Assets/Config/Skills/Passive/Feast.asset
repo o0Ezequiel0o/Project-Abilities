@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealOnKillSkillData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Feast
-  <Description>k__BackingField: Killing an enemy heals for 1 <i><color=#5A5A5A>(+1
-    per level)</color></i>.
+  <Description>k__BackingField: Killing an enemy <style="Healing">heals</style> for 1 <style="Level Modifier">(+1 per level)</style>.
   healAmount:
     baseValue: 1
     increase: 1
     valueLimits:
       min: 0
       max: Infinity
+  <ProcCoefficient>k__BackingField: 1
