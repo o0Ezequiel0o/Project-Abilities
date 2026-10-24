@@ -18,7 +18,7 @@ namespace Zeke.UI
                 SyncEditorDictionary(window);
             }
 
-            DrawDefaultInspector();
+            DrawPropertiesExcluding(serializedObject, "m_Script");
 
             boxStyle ??= new GUIStyle(EditorStyles.helpBox);
 
