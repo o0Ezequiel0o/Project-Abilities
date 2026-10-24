@@ -1457,7 +1457,7 @@ MonoBehaviour:
   characterSelector: {fileID: 895908191}
   nameText: {fileID: 2142201701}
   root: {fileID: 1223617126}
-  skillWindowPrefab: {fileID: 0}
+  skillWindowPrefab: {fileID: 6830580980071300890, guid: 61961298e4ae56948894c3a873ed82a3, type: 3}
 --- !u!1 &1311280204
 GameObject:
   m_ObjectHideFlags: 0

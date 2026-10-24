@@ -77,6 +77,12 @@ namespace Zeke.Tooltips
         {
             UpdateState();
 
+            if (canvas == null)
+            {
+                Debug.LogError("Tooltip not in canvas");
+                return;
+            }
+
             if (tooltipObject.activeSelf)
             {
                 UpdatePosition(canvas.scaleFactor);
