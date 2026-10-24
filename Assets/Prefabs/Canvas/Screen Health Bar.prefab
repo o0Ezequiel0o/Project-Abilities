@@ -68,9 +68,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
-  window: {fileID: 6405216531569743264}
   <Name>k__BackingField: Health Bar
   <Element>k__BackingField: {fileID: 770489316858352154}
+  window: {fileID: 6405216531569743264}
 --- !u!1 &502492489102010497
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,6 +394,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
+  elements:
+  - key: Health Bar
+    value: {fileID: 363085090868879604}
 --- !u!1 &6150574400437070184
 GameObject:
   m_ObjectHideFlags: 0

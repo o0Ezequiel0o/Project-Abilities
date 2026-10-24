@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 namespace Zeke.UI
@@ -22,7 +23,7 @@ namespace Zeke.UI
 
             boxStyle ??= new GUIStyle(EditorStyles.helpBox);
 
-            CreateTableHeader();
+            CreateTableHeader(window);
 
             EditorGUILayout.BeginVertical(boxStyle);
 
@@ -31,11 +32,13 @@ namespace Zeke.UI
             EditorGUILayout.EndVertical();
         }
 
-        private void CreateTableHeader()
+        private void CreateTableHeader(UIWindow window)
         {
             EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
             GUILayout.Label("Key", EditorStyles.toolbarButton, GUILayout.Width(160));
             GUILayout.Label("UIElement", EditorStyles.toolbarButton);
+
+            GUILayout.Label(window.Elements.Count.ToString(), EditorStyles.toolbarButton, GUILayout.Width(34));
             EditorGUILayout.EndHorizontal();
         }
 
