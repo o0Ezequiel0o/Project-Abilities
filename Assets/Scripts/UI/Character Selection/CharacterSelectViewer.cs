@@ -12,7 +12,7 @@ public class CharacterSelectViewer : MonoBehaviour
 
     [Space]
 
-    [SerializeField] private UIWindow abilityWindowPrefab;
+    [SerializeField] private UIWindow skillWindowPrefab;
 
     private void Awake()
     {
@@ -43,7 +43,7 @@ public class CharacterSelectViewer : MonoBehaviour
 
     private void CreateAbilityWindow(AbilityData abilityData, AbilityType abilityType)
     {
-        UIWindow abilityWindow = Instantiate(abilityWindowPrefab, root);
+        UIWindow abilityWindow = Instantiate(skillWindowPrefab, root);
 
         abilityWindow.TryGetElement<Image>("Icon").sprite = abilityData.Icon;
         abilityWindow.TryGetElement<TextMeshProUGUI>("Name").text = abilityData.Name;
@@ -57,7 +57,7 @@ public class CharacterSelectViewer : MonoBehaviour
 
     private void CreatePassiveWindow(PassiveData passiveData, int index)
     {
-        UIWindow abilityWindow = Instantiate(abilityWindowPrefab, root);
+        UIWindow abilityWindow = Instantiate(skillWindowPrefab, root);
 
         abilityWindow.TryGetElement<Image>("Icon").sprite = passiveData.Icon;
         abilityWindow.TryGetElement<TextMeshProUGUI>("Name").text = passiveData.Name;
