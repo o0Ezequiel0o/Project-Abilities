@@ -7,6 +7,10 @@ public class GameDifficulty : ScriptableObject
     [field: SerializeField] public Sprite Icon { get; private set; }
     [field: SerializeField] public string Name { get; private set; }
 
+    [field: Space]
+
+    [field: SerializeField] public Color Color { get; private set; } = Color.white;
+
     [field: Header("Enemies")]
     [field: SerializeField] public float StartingDifficulty { get; private set; } = 0f;
     [field: SerializeField] public float DifficultyScaleRate { get; private set; } = 0f;

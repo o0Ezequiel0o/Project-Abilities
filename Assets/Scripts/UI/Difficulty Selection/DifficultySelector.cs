@@ -37,6 +37,7 @@ public class DifficultySelector : MonoBehaviour
             toggle.group = toggleGroup;
 
             window.TryGetElement<TextMeshProUGUI>("Name").text = difficulty.Name;
+            window.TryGetElement<Image>("Border").color = difficulty.Color;
 
             if (difficulty == defaultDifficulty || difficulties.Count == 1 || (defaultDifficulty == null && i == 0))
             {
