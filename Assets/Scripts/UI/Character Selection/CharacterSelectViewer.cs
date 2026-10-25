@@ -6,12 +6,24 @@ using Zeke.Abilities;
 
 public class CharacterSelectViewer : MonoBehaviour
 {
+    [Header("Dependency")]
     [SerializeField] private CharacterSelector characterSelector;
-    [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private RectTransform root;
 
-    [Space]
+    [Header("Text")]
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI descriptionText;
 
+    [Header("Icon")]
+    [SerializeField] private Image icon;
+
+    [Header("Stats")]
+    [SerializeField] private StatusBar offensiveBar;
+    [SerializeField] private StatusBar defensiveBar;
+    [SerializeField] private StatusBar mobilityBar;
+    [SerializeField] private StatusBar aoeBar;
+
+    [Header("Elements")]
     [SerializeField] private UIWindow skillWindowPrefab;
 
     private void Awake()
@@ -23,7 +35,15 @@ public class CharacterSelectViewer : MonoBehaviour
     {
         ClearRootElements();
 
-        nameText.text = spawnable.Name;
+        nameText.SetText(spawnable.Name);
+        descriptionText.SetText(spawnable.Description);
+
+        icon.sprite = spawnable.Icon;
+
+        offensiveBar.UpdateBar(spawnable.OffensiveRating, 100f);
+        defensiveBar.UpdateBar(spawnable.DefensiveRating, 100f);
+        mobilityBar.UpdateBar(spawnable.MobilityRating, 100f);
+        aoeBar.UpdateBar(spawnable.aoeRating, 100f);
 
         if (spawnable.Prefab.TryGetComponent(out AbilityController abilityController))
         {

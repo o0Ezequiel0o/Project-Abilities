@@ -7,6 +7,15 @@ public class Spawnable : ScriptableObject, IWeighted
     [field: SerializeField] public Sprite Icon { get; private set; }
     [field: SerializeField] public string Name { get; private set; }
 
+    [field: SerializeField, TextArea(5,5)] public string Description { get; private set; }
+
+    [field: Space]
+
+    [field: SerializeField, Range(0, 100)] public int OffensiveRating { get; private set; }
+    [field: SerializeField, Range(0, 100)] public int DefensiveRating { get; private set; }
+    [field: SerializeField, Range(0, 100)] public int MobilityRating { get; private set; }
+    [field: SerializeField, Range(0, 100)] public int aoeRating { get; private set; }
+
     [field: Header("Settings")]
     [field: SerializeField] public GameObject Prefab { get; private set; }
 
