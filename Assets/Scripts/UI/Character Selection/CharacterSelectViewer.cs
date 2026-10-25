@@ -18,6 +18,7 @@ public class CharacterSelectViewer : MonoBehaviour
     [SerializeField] private Image icon;
 
     [Header("Stats")]
+    [SerializeField] private StatusBar durabilityBar;
     [SerializeField] private StatusBar offensiveBar;
     [SerializeField] private StatusBar defensiveBar;
     [SerializeField] private StatusBar mobilityBar;
@@ -40,10 +41,11 @@ public class CharacterSelectViewer : MonoBehaviour
 
         icon.sprite = spawnable.Icon;
 
+        durabilityBar.UpdateBar(spawnable.DurabilityRating, 100f);
         offensiveBar.UpdateBar(spawnable.OffensiveRating, 100f);
         defensiveBar.UpdateBar(spawnable.DefensiveRating, 100f);
         mobilityBar.UpdateBar(spawnable.MobilityRating, 100f);
-        aoeBar.UpdateBar(spawnable.aoeRating, 100f);
+        aoeBar.UpdateBar(spawnable.AoeRating, 100f);
 
         if (spawnable.Prefab.TryGetComponent(out AbilityController abilityController))
         {

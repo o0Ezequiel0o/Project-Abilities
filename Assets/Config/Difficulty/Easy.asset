@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameDifficulty
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Easy
+  <Description>k__BackingField: Less enemies, enemies spawn less often and are weaker and prices scale slower. Recommended for new gamers and players new to the genre.
   <Color>k__BackingField: {r: 0, g: 1, b: 0.065425575, a: 1}
   <StartingDifficulty>k__BackingField: 0
   <DifficultyScaleRate>k__BackingField: 0.018

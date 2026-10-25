@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spawnable
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Orb Master
+  <Description>k__BackingField: 
+  <DurabilityRating>k__BackingField: 30
+  <OffensiveRating>k__BackingField: 65
+  <DefensiveRating>k__BackingField: 20
+  <MobilityRating>k__BackingField: 10
+  <AoeRating>k__BackingField: 40
   <Prefab>k__BackingField: {fileID: 3025409579336626117, guid: 11e5a1ed8f215244889b12c10b7a320c, type: 3}
   <MinDifficulty>k__BackingField: 0
   <MaxDifficulty>k__BackingField: Infinity

@@ -46,6 +46,14 @@ public class DifficultySelector : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (defaultDifficulty != null)
+        {
+            onDifficultySelected?.Invoke(defaultDifficulty);
+        }
+    }
+
     private void OnToggleValueChanged(bool state, GameDifficulty difficulty)
     {
         if (state == false) return;

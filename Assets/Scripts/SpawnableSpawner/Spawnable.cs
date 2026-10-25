@@ -11,10 +11,11 @@ public class Spawnable : ScriptableObject, IWeighted
 
     [field: Space]
 
+    [field: SerializeField, Range(0, 100)] public int DurabilityRating { get; private set; }
     [field: SerializeField, Range(0, 100)] public int OffensiveRating { get; private set; }
     [field: SerializeField, Range(0, 100)] public int DefensiveRating { get; private set; }
     [field: SerializeField, Range(0, 100)] public int MobilityRating { get; private set; }
-    [field: SerializeField, Range(0, 100)] public int aoeRating { get; private set; }
+    [field: SerializeField, Range(0, 100)] public int AoeRating { get; private set; }
 
     [field: Header("Settings")]
     [field: SerializeField] public GameObject Prefab { get; private set; }
