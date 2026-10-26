@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spawnable
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Hunter
-  <Description>k__BackingField: 
+  <Description>k__BackingField: 'A heavily augmented cybernetic assassin, the <b>Hunter</b> wields a <b>high-caliber sniper rifle</b>. He relies on deadly long-range <b>sniper shots</b> with his <b>ambush</b> passive to instantly kill enemies or close the distance to finish them off with his <b>plasma sword</b>. Becoming more robot than human came at a cost: he doesn''t naturally regenerate health, instead healing from damage taken using the <b>Feast</b> skill to consume the biomass and fluids of dead enemies. '
   <DurabilityRating>k__BackingField: 15
   <OffensiveRating>k__BackingField: 80
   <DefensiveRating>k__BackingField: 40

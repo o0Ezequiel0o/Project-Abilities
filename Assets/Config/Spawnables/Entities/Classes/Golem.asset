@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spawnable
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Golem
-  <Description>k__BackingField: 
-  <DurabilityRating>k__BackingField: 85
+  <Description>k__BackingField: 'The <b>Golem</b> is a masive heavy and durable armor driven by an elite pilot. He dominates the battlefield with devastating area damage from his <b>Titan Slam</b> and draws enemies into his kill zone with <b>Stomp</b>. Packing built-in synergy, his maximum health directly scales both his <b>Titan Slam</b> skill and healing capabilities. '
+  <DurabilityRating>k__BackingField: 90
   <OffensiveRating>k__BackingField: 30
   <DefensiveRating>k__BackingField: 35
   <MobilityRating>k__BackingField: 3

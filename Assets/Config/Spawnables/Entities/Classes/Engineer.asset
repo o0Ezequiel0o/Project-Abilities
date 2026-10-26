@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spawnable
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Engineer
-  <Description>k__BackingField: 
+  <Description>k__BackingField: A defensive specialist, the <b>Engineer</b> establishes territory with <b>automated turrets</b> that scale with his level and inherit his items. He keeps nearby Mechanical allies battle-ready with <b>repairs</b> and <b>stat boosts</b>, and his Ultimate deploys a pilotable <b>Mech</b> that grants an entirely new kit of abilities with it's own health bar.
   <DurabilityRating>k__BackingField: 43
   <OffensiveRating>k__BackingField: 50
   <DefensiveRating>k__BackingField: 80
