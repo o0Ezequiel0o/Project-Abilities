@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94c39e8d7ccab74429de160368d5d87d, type: 3}
-  m_Name: Desintegrate
+  m_Name: Disintegrate
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: Desintegrate
+  <Name>k__BackingField: Disintegrate
   <Description>k__BackingField: Fire a laser that deals 2 <style="Level Modifier">(+1 per level)</style> every 0.2 seconds with infinite <style="Pierce">pierce</style> and 100% <style="Armor Penetration">armor penetration</style> but slows your <style="Aiming Speed">aiming speed</style> by 50%.
   <CanManuallyDeactivate>k__BackingField: 1
   <CanHold>k__BackingField: 0
