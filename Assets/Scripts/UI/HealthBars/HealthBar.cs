@@ -8,7 +8,7 @@ public class HealthBar : ModularBar
     private float chipStartFill = 1f;
     private float chipTimer = 0f;
 
-    private bool chipping;
+    private bool chipping = false;
 
     private readonly BarID healthBarID = new BarID();
     private readonly BarID shieldBarID = new BarID();

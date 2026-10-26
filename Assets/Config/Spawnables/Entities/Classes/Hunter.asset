@@ -20,6 +20,7 @@ MonoBehaviour:
   <DefensiveRating>k__BackingField: 40
   <MobilityRating>k__BackingField: 30
   <AoeRating>k__BackingField: 50
+  <EffectRating>k__BackingField: 30
   <Prefab>k__BackingField: {fileID: 3497793791732653242, guid: ca115c90a6dd5bc4aaf2c83fe46ef586, type: 3}
   <MinDifficulty>k__BackingField: 0
   <MaxDifficulty>k__BackingField: Infinity

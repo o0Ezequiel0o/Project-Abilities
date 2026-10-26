@@ -19,7 +19,7 @@ public class StatusBar : MonoBehaviour
         bar.fillAmount = Mathf.Lerp(minFill, maxFill, Mathf.Clamp01(percentage));
     }
 
-    (float, float) GetFillLimits(Mode mode)
+    protected (float, float) GetFillLimits(Mode mode)
     {
         float minFill = 0f;
         float maxFill = 0f;

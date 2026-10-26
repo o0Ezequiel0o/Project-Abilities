@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2830225783544175434}
   - component: {fileID: 477914902905556012}
   - component: {fileID: 7206240770039358733}
-  - component: {fileID: 6458939696127039514}
   m_Layer: 5
   m_Name: Progress
   m_TagString: Untagged
@@ -76,20 +75,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6458939696127039514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4376532368436256605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad6841e0a0bfe3e45b84d1aca2d4d517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StatusBar
-  bar: {fileID: 7206240770039358733}
-  mode: 0
 --- !u!1 &5275570000676141343
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9007180563227127282}
-  - component: {fileID: 3817463860604102495}
+  - component: {fileID: 6512254619798324772}
   - component: {fileID: 4427314839592051481}
   - component: {fileID: 6621808486630730893}
   - component: {fileID: 3353037029216572977}
@@ -206,7 +191,7 @@ RectTransform:
   m_AnchoredPosition: {x: 49.091, y: -0.000030517578}
   m_SizeDelta: {x: -98.817, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3817463860604102495
+--- !u!114 &6512254619798324772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,11 +200,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5732563136852116731}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad6841e0a0bfe3e45b84d1aca2d4d517, type: 3}
+  m_Script: {fileID: 11500000, guid: e739322b8e0ee3042b7837342c1118f7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StatusBar
+  m_EditorClassIdentifier: Assembly-CSharp::CinematicStatusBar
   bar: {fileID: 7206240770039358733}
   mode: 0
+  duration: 0.25
+  resetAnimation: 1
 --- !u!222 &4427314839592051481
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -554,6 +541,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 4.9112854, y: 6.139206}
+  m_AnchoredPosition: {x: 4.911255, y: 6.13916}
   m_SizeDelta: {x: 509.8226, y: 62.2783}
   m_Pivot: {x: 0.5, y: 0.5}

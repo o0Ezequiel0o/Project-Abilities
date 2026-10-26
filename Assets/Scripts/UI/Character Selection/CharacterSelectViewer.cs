@@ -23,6 +23,7 @@ public class CharacterSelectViewer : MonoBehaviour
     [SerializeField] private StatusBar defensiveBar;
     [SerializeField] private StatusBar mobilityBar;
     [SerializeField] private StatusBar aoeBar;
+    [SerializeField] private StatusBar effectBar;
 
     [Header("Elements")]
     [SerializeField] private UIWindow skillWindowPrefab;
@@ -46,6 +47,7 @@ public class CharacterSelectViewer : MonoBehaviour
         defensiveBar.UpdateBar(spawnable.DefensiveRating, 100f);
         mobilityBar.UpdateBar(spawnable.MobilityRating, 100f);
         aoeBar.UpdateBar(spawnable.AoeRating, 100f);
+        effectBar.UpdateBar(spawnable.EffectRating, 100f);
 
         if (spawnable.Prefab.TryGetComponent(out AbilityController abilityController))
         {

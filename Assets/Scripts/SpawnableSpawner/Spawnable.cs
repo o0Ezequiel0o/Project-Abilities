@@ -16,6 +16,7 @@ public class Spawnable : ScriptableObject, IWeighted
     [field: SerializeField, Range(0, 100)] public int DefensiveRating { get; private set; }
     [field: SerializeField, Range(0, 100)] public int MobilityRating { get; private set; }
     [field: SerializeField, Range(0, 100)] public int AoeRating { get; private set; }
+    [field: SerializeField, Range(0, 100)] public int EffectRating { get; private set; }
 
     [field: Header("Settings")]
     [field: SerializeField] public GameObject Prefab { get; private set; }
