@@ -34,6 +34,8 @@ namespace Zeke.UI
                 GetParentWindow();
             }
 
+            if (window == null) return;
+
             if (!window.Contains(this))
             {
                 RegisterElement();
