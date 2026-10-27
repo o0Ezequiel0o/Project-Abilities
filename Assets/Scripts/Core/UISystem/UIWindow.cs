@@ -1,13 +1,29 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Zeke.UI
 {
     public class UIWindow : MonoBehaviour
     {
+        [SerializeField] private GameObject graphicRoot;
+
         [HideInInspector, SerializeField] private Dictionary<string, UIElement> elements = new Dictionary<string, UIElement>();
 
         public IReadOnlyDictionary<string, UIElement> Elements => elements;
+
+        public bool IsVisible => graphicRoot != null ? graphicRoot.activeSelf : gameObject.activeSelf;
+
+        public Action<UIWindow> onWindowOpened;
+        public Action<UIWindow> onWindowClosed;
+
+        public void SetGraphicVisibility(bool state)
+        {
+            if (graphicRoot == null) return;
+            if (state == graphicRoot.activeSelf) return;
+
+            graphicRoot.SetActive(state);
+        }
 
         public UIElement TryGetElement(string name)
         {
@@ -65,5 +81,15 @@ namespace Zeke.UI
             UnityEditor.EditorUtility.SetDirty(this);
         }
 #endif
+
+        private void OnEnable()
+        {
+            onWindowOpened?.Invoke(this);
+        }
+
+        private void OnDisable()
+        {
+            onWindowClosed?.Invoke(this);
+        }
     }
 }

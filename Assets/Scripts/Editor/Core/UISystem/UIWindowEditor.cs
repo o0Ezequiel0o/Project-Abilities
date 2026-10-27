@@ -11,6 +11,8 @@ namespace Zeke.UI
 
         public override void OnInspectorGUI()
         {
+            serializedObject.Update();
+
             UIWindow window = (UIWindow)target;
 
             if (!Application.isPlaying)
@@ -29,6 +31,8 @@ namespace Zeke.UI
             CreateTableElements(window);
 
             EditorGUILayout.EndVertical();
+
+            serializedObject.ApplyModifiedProperties();
         }
 
         private void CreateTableHeader(UIWindow window)
