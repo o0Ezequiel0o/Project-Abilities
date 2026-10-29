@@ -89,8 +89,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameInstance.onPause += OnPaused;
-        GameInstance.onResume += OnResumed;
+        GameInstance.onPause -= OnPaused;
+        GameInstance.onResume -= OnResumed;
     }
 
     private void Update()
