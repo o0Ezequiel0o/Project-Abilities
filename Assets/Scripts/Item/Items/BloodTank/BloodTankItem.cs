@@ -35,7 +35,7 @@ namespace Zeke.Items
 
             if (hasRequiredComponents)
             {
-                damageable.MaxHealth.onStatUpdated += OnHealthStatChanged;
+                damageable.MaxHealth.onValueChanged += OnHealthStatChanged;
                 damageable.onTakeDamage.Subscribe(OnTakeDamage, data.TriggerOrder);
             }
 
@@ -45,7 +45,9 @@ namespace Zeke.Items
         public override void OnRemoved()
         {
             if (!hasRequiredComponents) return;
+
             damageable.onTakeDamage.Unsubscribe(OnTakeDamage);
+            damageable.MaxHealth.onValueChanged -= OnHealthStatChanged;
 
             if (statusEffectHandler != null)
             {

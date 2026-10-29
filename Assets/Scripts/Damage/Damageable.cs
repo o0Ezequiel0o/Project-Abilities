@@ -252,8 +252,8 @@ public class Damageable : MonoBehaviour, IUpgradable
         IsAlive = true;
 
         MarkedForDeath = false;
-        MaxHealth.onStatUpdated += SyncHealth;
-        MaxShield.onStatUpdated += SyncShield;
+        MaxHealth.onValueChanged += SyncHealth;
+        MaxShield.onValueChanged += SyncShield;
     }
 
     private void Update()

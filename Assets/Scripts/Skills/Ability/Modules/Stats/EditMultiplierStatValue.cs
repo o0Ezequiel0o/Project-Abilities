@@ -27,7 +27,7 @@ namespace Zeke.Abilities.Modules.Stats
 
             if (statReference != null)
             {
-                statReference.onStatUpdated += UpdateMultiplier;
+                statReference.onValueChanged += UpdateMultiplier;
             }
         }
 
