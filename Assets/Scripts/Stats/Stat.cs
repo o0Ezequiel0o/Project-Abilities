@@ -19,7 +19,12 @@ public class Stat : IUpgradable
     public float ExtraValue => (Value - ScaledBaseValue);
 
     public int Level { get; private set; } = 1;
+
+    /// <summary> Internal gameplay events (excludes derived changes to prevent infinite calculation loops). </summary>
     public Action<StatUpdate> onStatUpdated;
+
+    /// <summary> General notification event for UI, achievements, audio, etc. Fires whenever Value changes by ANY means. </summary>
+    public Action<StatValueChange> onStatValueChanged;
 
     private float standardFlatModifier = 0f;
     private float derivedFlatModifier = 0f;
@@ -43,7 +48,8 @@ public class Stat : IUpgradable
 
     public void ApplyFlatModifier(params float[] increase)
     {
-        float oldValue = Value;
+        float oldStandardValue = ValueWithoutDerived;
+        float oldDisplayValue = Value;
         bool updated = false;
 
         for (int i = 0; i < increase.Length; i++)
@@ -58,21 +64,30 @@ public class Stat : IUpgradable
 
         if (updated)
         {
-            onStatUpdated?.Invoke(new StatUpdate(oldValue));
+            NotifyStatUpdated(oldStandardValue, oldDisplayValue);
         }
     }
 
     public void ApplyDerivedFlatModifier(params float[] increase)
     {
+        float oldDisplayValue = Value;
+
         for (int i = 0; i < increase.Length; i++)
         {
             derivedFlatModifier += increase[i];
         }
+
+        NotifyValueOnlyChanged(oldDisplayValue);
     }
 
     public void SetDerivedFlatModifier(float totalValue)
     {
+        if (derivedFlatModifier == totalValue) return;
+
+        float oldDisplayValue = Value;
         derivedFlatModifier = totalValue;
+
+        NotifyValueOnlyChanged(oldDisplayValue);
     }
 
     public Multiplier Multiply(float value)
@@ -87,7 +102,7 @@ public class Stat : IUpgradable
         if (!standardMultipliers.Contains(statMultiplier))
         {
             standardMultipliers.Add(statMultiplier);
-            statMultiplier.LinkToStat(this);
+            statMultiplier.LinkToStat(this, isDerived: false);
             RecalculateStandardMultiplierValue();
         }
     }
@@ -111,7 +126,7 @@ public class Stat : IUpgradable
         if (!derivedMultipliers.Contains(statMultiplier))
         {
             derivedMultipliers.Add(statMultiplier);
-            statMultiplier.LinkToStat(this);
+            statMultiplier.LinkToStat(this, isDerived: true);
             RecalculateDerivedMultiplierValue();
         }
     }
@@ -125,7 +140,9 @@ public class Stat : IUpgradable
 
     private void RecalculateStandardMultiplierValue()
     {
-        float oldValue = Value;
+        float oldStandardValue = ValueWithoutDerived;
+        float oldDisplayValue = Value;
+
         standardMultiplier = 1f;
 
         for (int i = 0; i < standardMultipliers.Count; i++)
@@ -133,40 +150,65 @@ public class Stat : IUpgradable
             standardMultiplier *= standardMultipliers[i].Value;
         }
 
-        onStatUpdated?.Invoke(new StatUpdate(oldValue));
+        NotifyStatUpdated(oldStandardValue, oldDisplayValue);
     }
 
     private void RecalculateDerivedMultiplierValue()
     {
+        float oldDisplayValue = Value;
+
         derivedMultiplier = 1f;
 
         for (int i = 0; i < derivedMultipliers.Count; i++)
         {
             derivedMultiplier *= derivedMultipliers[i].Value;
         }
+
+        NotifyValueOnlyChanged(oldDisplayValue);
     }
 
     public void Upgrade()
     {
-        float oldValue = Value;
+        float oldStandardValue = ValueWithoutDerived;
+        float oldDisplayValue = Value;
+
         Level += 1;
 
         if (increase != 0f)
         {
-            onStatUpdated?.Invoke(new StatUpdate(oldValue));
+            NotifyStatUpdated(oldStandardValue, oldDisplayValue);
         }
     }
 
     public void Reset()
     {
         onStatUpdated = null;
+        onStatValueChanged = null;
+
         standardMultipliers.Clear();
         derivedMultipliers.Clear();
+
         standardFlatModifier = 0f;
         derivedFlatModifier = 0f;
+
         standardMultiplier = 1f;
         derivedMultiplier = 1f;
+
         Level = 1;
+    }
+
+    private void NotifyStatUpdated(float oldStandardValue, float oldDisplayValue)
+    {
+        onStatUpdated?.Invoke(new StatUpdate(oldStandardValue));
+        NotifyValueOnlyChanged(oldDisplayValue);
+    }
+
+    private void NotifyValueOnlyChanged(float oldDisplayValue)
+    {
+        float newDisplayValue = Value;
+        if (Mathf.Approximately(oldDisplayValue, newDisplayValue)) return;
+
+        onStatValueChanged?.Invoke(new StatValueChange(oldDisplayValue, newDisplayValue));
     }
 
     public Stat(Stat original)
@@ -185,6 +227,7 @@ public class Stat : IUpgradable
     {
         public float Value { get; private set; } = 1f;
         private Stat linkedStat = null;
+        private bool isDerived = false;
 
         public Multiplier() { }
 
@@ -193,9 +236,10 @@ public class Stat : IUpgradable
             Value = multiplier;
         }
 
-        public void LinkToStat(Stat stat)
+        public void LinkToStat(Stat stat, bool isDerived)
         {
             linkedStat = stat;
+            this.isDerived = isDerived;
         }
 
         public void UnlinkStat()
@@ -208,7 +252,15 @@ public class Stat : IUpgradable
             if (Value != newMultiplierValue && linkedStat != null)
             {
                 Value = newMultiplierValue;
-                linkedStat.RecalculateStandardMultiplierValue();
+
+                if (isDerived)
+                {
+                    linkedStat.RecalculateDerivedMultiplierValue();
+                }
+                else
+                {
+                    linkedStat.RecalculateStandardMultiplierValue();
+                }
             }
         }
     }
@@ -220,6 +272,18 @@ public class Stat : IUpgradable
         public StatUpdate(float oldValue)
         {
             this.oldValue = oldValue;
+        }
+    }
+
+    public readonly struct StatValueChange
+    {
+        public readonly float oldValue;
+        public readonly float newValue;
+
+        public StatValueChange(float oldValue, float newValue)
+        {
+            this.oldValue = oldValue;
+            this.newValue = newValue;
         }
     }
 }
