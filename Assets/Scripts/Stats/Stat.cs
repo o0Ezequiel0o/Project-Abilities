@@ -75,7 +75,7 @@ public class Stat : IUpgradable
 
         for (int i = 0; i < increase.Length; i++)
         {
-            standardFlatModifier += increase[i];
+            derivedFlatModifier += increase[i];
 
             if (increase[i] != 0f)
             {
@@ -172,6 +172,7 @@ public class Stat : IUpgradable
         if (increase != 0f)
         {
             onValueChanged?.Invoke(new StatUpdate(oldValue));
+            onNonDerivedValueChanged?.Invoke(new StatUpdate(oldValue));
         }
     }
 
