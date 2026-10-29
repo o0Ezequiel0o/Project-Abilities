@@ -17,6 +17,8 @@ namespace Zeke.UI
         public Action<UIWindow> onWindowOpened;
         public Action<UIWindow> onWindowClosed;
 
+        private GraphicVisibilityTracker graphicVisibilityTracker;
+
         public void SetGraphicVisibility(bool state)
         {
             if (graphicRoot == null) return;
@@ -82,12 +84,38 @@ namespace Zeke.UI
         }
 #endif
 
+        private void Awake()
+        {
+            if (graphicRoot == null) return;
+
+            if (!graphicRoot.TryGetComponent(out graphicVisibilityTracker))
+            {
+                graphicVisibilityTracker = graphicRoot.AddComponent<GraphicVisibilityTracker>();
+            }
+        }
+
         private void OnEnable()
+        {
+            if (graphicVisibilityTracker == null) return;
+
+            graphicVisibilityTracker.onEnable += TriggerGraphicEnabledEvents;
+            graphicVisibilityTracker.onDisable += TriggerGraphicDisabledEvents;
+        }
+
+        private void OnDisable()
+        {
+            if (graphicVisibilityTracker == null) return;
+
+            graphicVisibilityTracker.onEnable -= TriggerGraphicEnabledEvents;
+            graphicVisibilityTracker.onDisable -= TriggerGraphicDisabledEvents;
+        }
+
+        private void TriggerGraphicEnabledEvents()
         {
             onWindowOpened?.Invoke(this);
         }
 
-        private void OnDisable()
+        private void TriggerGraphicDisabledEvents()
         {
             onWindowClosed?.Invoke(this);
         }

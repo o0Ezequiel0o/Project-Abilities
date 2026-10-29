@@ -87,6 +87,12 @@ public class PlayerController : MonoBehaviour
         GameInstance.onResume += OnResumed;
     }
 
+    private void OnDestroy()
+    {
+        GameInstance.onPause += OnPaused;
+        GameInstance.onResume += OnResumed;
+    }
+
     private void Update()
     {
         if (!inputEnabled) return;
