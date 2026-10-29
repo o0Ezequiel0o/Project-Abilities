@@ -20,10 +20,10 @@ public class Stat : IUpgradable
 
     public int Level { get; private set; } = 1;
 
-    /// <summary> Internal gameplay events (excludes derived changes to prevent infinite calculation loops). </summary>
+    /// <summary> Dependency between stats (excludes derived changes to prevent infinite calculation loops). </summary>
     public Action<StatUpdate> onStatUpdated;
 
-    /// <summary> General notification event for UI, achievements, audio, etc. Fires whenever Value changes by ANY means. </summary>
+    /// <summary> Read only operations (displays total value with derived modifiers). </summary>
     public Action<StatValueChange> onStatValueChanged;
 
     private float standardFlatModifier = 0f;
