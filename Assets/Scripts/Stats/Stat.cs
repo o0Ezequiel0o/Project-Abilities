@@ -35,7 +35,7 @@ public class Stat : IUpgradable
     private float ScaledBaseValue => baseValue + (increase * (Level - 1));
 
     private readonly List<Multiplier> standardMultipliers = new List<Multiplier>();
-    private readonly List<Multiplier> derivedMultipliers = new List<Multiplier>();
+    private readonly List<DerivedMultiplier> derivedMultipliers = new List<DerivedMultiplier>();
 
     public Stat() { }
 
@@ -113,14 +113,14 @@ public class Stat : IUpgradable
         RecalculateStandardMultiplierValue();
     }
 
-    public Multiplier MultiplyDerived(float value)
+    public DerivedMultiplier MultiplyDerived(float value)
     {
-        Multiplier multiplier = new Multiplier(value);
+        DerivedMultiplier multiplier = new DerivedMultiplier(value);
         AddDerivedMultiplier(multiplier);
         return multiplier;
     }
 
-    public void AddDerivedMultiplier(Multiplier statMultiplier)
+    public void AddDerivedMultiplier(DerivedMultiplier statMultiplier)
     {
         if (!derivedMultipliers.Contains(statMultiplier))
         {
@@ -130,7 +130,7 @@ public class Stat : IUpgradable
         }
     }
 
-    public void RemoveDerivedMultiplier(Multiplier statMultiplier)
+    public void RemoveDerivedMultiplier(DerivedMultiplier statMultiplier)
     {
         derivedMultipliers.Remove(statMultiplier);
         statMultiplier.UnlinkStat();
@@ -179,6 +179,7 @@ public class Stat : IUpgradable
     public void Reset()
     {
         onValueChanged = null;
+        onNonDerivedValueChanged = null;
         standardMultipliers.Clear();
         derivedMultipliers.Clear();
         standardFlatModifier = 0f;
@@ -202,8 +203,8 @@ public class Stat : IUpgradable
 
     public class Multiplier
     {
-        public float Value { get; private set; } = 1f;
-        private Stat linkedStat = null;
+        public float Value { get; protected set; } = 1f;
+        protected Stat linkedStat = null;
 
         public Multiplier() { }
 
@@ -222,12 +223,28 @@ public class Stat : IUpgradable
             linkedStat = null;
         }
 
-        public void UpdateMultiplier(float newMultiplierValue)
+        public virtual void UpdateMultiplier(float newMultiplierValue)
         {
             if (Value != newMultiplierValue && linkedStat != null)
             {
                 Value = newMultiplierValue;
                 linkedStat.RecalculateStandardMultiplierValue();
+            }
+        }
+    }
+
+    public class DerivedMultiplier : Multiplier
+    {
+        public DerivedMultiplier() : base() { }
+
+        public DerivedMultiplier(float multiplier) : base(multiplier) { }
+
+        public override void UpdateMultiplier(float newMultiplierValue)
+        {
+            if (Value != newMultiplierValue && linkedStat != null)
+            {
+                Value = newMultiplierValue;
+                linkedStat.RecalculateDerivedMultiplierValue();
             }
         }
     }
