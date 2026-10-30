@@ -157,6 +157,7 @@ GameObject:
   - component: {fileID: 1295819619765179186}
   - component: {fileID: 842629725209027823}
   - component: {fileID: 4757503293696331254}
+  - component: {fileID: 1005076709855551843}
   m_Layer: 8
   m_Name: Elite Zombie
   m_TagString: Untagged
@@ -691,6 +692,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntityTypeIdentifier
   type: 2
+--- !u!114 &1005076709855551843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581127942586707295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c0067395fa1a284ab91eef6ea024151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollisionDamage
+  damage:
+    baseValue: 1
+    increase: 0.2
+    valueLimits:
+      min: -Infinity
+      max: Infinity
+  armorPenetration: 0
+  procCoefficient: 0
 --- !u!1 &5232573915153245470
 GameObject:
   m_ObjectHideFlags: 0

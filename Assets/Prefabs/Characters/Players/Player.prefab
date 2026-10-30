@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 4867269373459583256}
   - component: {fileID: 8265923583279707991}
   - component: {fileID: 2278308551691039682}
+  - component: {fileID: -549456992416598927}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -784,3 +785,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a8356527b5e594faa0bf48ea69eaac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SetAsCameraControllerTarget
+--- !u!114 &-549456992416598927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218312312708394220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3678c176433047747ac41abace255308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollisionDamageReceiver
+  collider: {fileID: 4253214937047257628}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  interval: 0.2
