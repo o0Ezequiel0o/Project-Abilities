@@ -35,9 +35,11 @@ public class Stat : IUpgradable
     private float ScaledBaseValue => baseValue + (increase * (Level - 1));
 
     private readonly List<Multiplier> standardMultipliers = new List<Multiplier>();
-    private readonly List<DerivedMultiplier> derivedMultipliers = new List<DerivedMultiplier>();
+    private readonly List<Multiplier> derivedMultipliers = new List<Multiplier>();
 
     public Stat() { }
+
+    public Stat(Stat original) : this(original.baseValue, original.increase, original.valueLimits.Min, original.valueLimits.Max) { }
 
     public Stat(float baseValue, float increase, float min, float max)
     {
@@ -101,7 +103,8 @@ public class Stat : IUpgradable
         if (!standardMultipliers.Contains(statMultiplier))
         {
             standardMultipliers.Add(statMultiplier);
-            statMultiplier.LinkToStat(this);
+            statMultiplier.onValueChanged += RecalculateStandardMultiplierValue;
+
             RecalculateStandardMultiplierValue();
         }
     }
@@ -109,31 +112,34 @@ public class Stat : IUpgradable
     public void RemoveMultiplier(Multiplier statMultiplier)
     {
         standardMultipliers.Remove(statMultiplier);
-        statMultiplier.UnlinkStat();
+        statMultiplier.onValueChanged -= RecalculateStandardMultiplierValue;
+
         RecalculateStandardMultiplierValue();
     }
 
-    public DerivedMultiplier MultiplyDerived(float value)
+    public Multiplier MultiplyDerived(float value)
     {
-        DerivedMultiplier multiplier = new DerivedMultiplier(value);
+        Multiplier multiplier = new Multiplier(value);
         AddDerivedMultiplier(multiplier);
         return multiplier;
     }
 
-    public void AddDerivedMultiplier(DerivedMultiplier statMultiplier)
+    public void AddDerivedMultiplier(Multiplier statMultiplier)
     {
         if (!derivedMultipliers.Contains(statMultiplier))
         {
             derivedMultipliers.Add(statMultiplier);
-            statMultiplier.LinkToStat(this);
+            statMultiplier.onValueChanged += RecalculateDerivedMultiplierValue;
+
             RecalculateDerivedMultiplierValue();
         }
     }
 
-    public void RemoveDerivedMultiplier(DerivedMultiplier statMultiplier)
+    public void RemoveDerivedMultiplier(Multiplier statMultiplier)
     {
         derivedMultipliers.Remove(statMultiplier);
-        statMultiplier.UnlinkStat();
+        statMultiplier.onValueChanged -= RecalculateDerivedMultiplierValue;
+
         RecalculateDerivedMultiplierValue();
     }
 
@@ -189,13 +195,6 @@ public class Stat : IUpgradable
         Level = 1;
     }
 
-    public Stat(Stat original)
-    {
-        baseValue = original.baseValue;
-        increase = original.increase;
-        valueLimits = original.valueLimits;
-    }
-
     public Stat DeepCopy()
     {
         return new Stat(baseValue, increase, valueLimits.Min, valueLimits.Max);
@@ -204,47 +203,22 @@ public class Stat : IUpgradable
     public class Multiplier
     {
         public float Value { get; protected set; } = 1f;
-        protected Stat linkedStat = null;
 
-        public Multiplier() { }
+        public Action onValueChanged;
+
+        public Multiplier() : this(1f) { }
 
         public Multiplier(float multiplier)
         {
             Value = multiplier;
         }
 
-        public void LinkToStat(Stat stat)
-        {
-            linkedStat = stat;
-        }
-
-        public void UnlinkStat()
-        {
-            linkedStat = null;
-        }
-
         public virtual void UpdateMultiplier(float newMultiplierValue)
         {
-            if (Value != newMultiplierValue && linkedStat != null)
+            if (Value != newMultiplierValue)
             {
                 Value = newMultiplierValue;
-                linkedStat.RecalculateStandardMultiplierValue();
-            }
-        }
-    }
-
-    public class DerivedMultiplier : Multiplier
-    {
-        public DerivedMultiplier() : base() { }
-
-        public DerivedMultiplier(float multiplier) : base(multiplier) { }
-
-        public override void UpdateMultiplier(float newMultiplierValue)
-        {
-            if (Value != newMultiplierValue && linkedStat != null)
-            {
-                Value = newMultiplierValue;
-                linkedStat.RecalculateDerivedMultiplierValue();
+                onValueChanged?.Invoke();
             }
         }
     }
