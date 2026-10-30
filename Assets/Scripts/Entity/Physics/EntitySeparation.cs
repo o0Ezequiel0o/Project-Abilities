@@ -23,7 +23,9 @@ public class EntitySeparation : MonoBehaviour
 
     private readonly List<Collider2D> hits = new List<Collider2D>(4);
 
-    private void FixedUpdate()
+    private int bucketIndex = 0;
+
+    public void UpdateSeparation()
     {
         if (physics.MoveForces == Vector2.zero) return;
         if (entityMove.MoveDirection == Vector2.zero) return;
@@ -47,8 +49,13 @@ public class EntitySeparation : MonoBehaviour
         }
     }
 
-    private bool IsLayer(GameObject target, int layerValue)
+    private void OnEnable()
     {
-        return 1 << target.layer == layerValue;
+        bucketIndex = EntitySeparationController.Register(this);
+    }
+
+    private void OnDisable()
+    {
+        EntitySeparationController.Unregister(this, bucketIndex);
     }
 }
