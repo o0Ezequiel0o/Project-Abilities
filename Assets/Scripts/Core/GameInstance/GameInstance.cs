@@ -21,7 +21,8 @@ public class GameInstance : Singleton<GameInstance>
     public static float Difficulty { get; set; } = 0f;
     public static float CostMultiplier { get; set; } = 1f;
 
-    public static List<Player> players = new List<Player>();
+    public static IReadOnlyList<Player> Players => players;
+
     public static Player RandomPlayer
     {
         get
@@ -56,6 +57,8 @@ public class GameInstance : Singleton<GameInstance>
     private static float difficultyRamp = 0f;
 
     private static int currentID = int.MinValue;
+
+    private readonly static List<Player> players = new List<Player>();
 
     private readonly static List<GameSpeedModifier> timeScaleModifiers = new List<GameSpeedModifier>();
     private readonly static HashSet<PauseID> pauseIDs = new HashSet<PauseID>();
