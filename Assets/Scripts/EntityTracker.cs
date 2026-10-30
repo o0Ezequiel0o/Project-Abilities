@@ -9,7 +9,7 @@ public class EntityTracker : MonoBehaviour
 
     private void Start()
     {
-        spawner = FindAnyObjectByType<SpawnableSpawner>();
+        spawner = FindObjectsByType<SpawnableSpawner>()[1];
     }
 
     private void Update()
