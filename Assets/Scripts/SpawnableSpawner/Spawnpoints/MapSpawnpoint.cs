@@ -8,7 +8,7 @@ using Zeke.Graph;
 public class MapSpawnpoint : Spawnpoint
 {
     [SerializeField] private MapGenerator mapGenerator;
-    [SerializeField] private float blockRadius = 3f;
+    [SerializeField] private float minDistanceFromPlayer = 5f;
 
     [Header("Performance")]
     [SerializeField] private float msFrameBudget = 1f;
@@ -59,6 +59,8 @@ public class MapSpawnpoint : Spawnpoint
 
         bool validSpawn = false;
 
+        float sqrMinDistance = minDistanceFromPlayer * minDistanceFromPlayer;
+
         while (!validSpawn)
         {
             if (avaibleNodes.Count == 0 && blockedNodesStored.Count > 0)
@@ -80,7 +82,7 @@ public class MapSpawnpoint : Spawnpoint
             int randomIndex = UnityEngine.Random.Range(0, avaibleNodes.Count);
             Node randomNode = avaibleNodes[randomIndex];
 
-            validSpawn = Physics2D.OverlapCircle(randomNode.position, blockRadius, contactFilter, hits) == 0;
+            validSpawn = !InPlayerRange(randomNode, sqrMinDistance);
 
             if (!validSpawn)
             {
@@ -103,5 +105,20 @@ public class MapSpawnpoint : Spawnpoint
 
         stopwatch.Stop();
         onFinishedProcessing?.Invoke(false);
+    }
+
+    private bool InPlayerRange(Node node, float sqrMinDistance)
+    {
+        for (int i = 0; i < GameInstance.Players.Count; i++)
+        {
+            float sqrDist = (node.position - (Vector2)GameInstance.Players[i].transform.position).sqrMagnitude;
+
+            if (sqrDist < sqrMinDistance)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
