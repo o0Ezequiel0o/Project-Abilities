@@ -712,7 +712,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   mapGenerator: {fileID: 5742243307234529152}
-  blockRadius: 3
+  minDistanceFromPlayer: 6
   msFrameBudget: 1
 --- !u!1 &6755543048002554301
 GameObject:
