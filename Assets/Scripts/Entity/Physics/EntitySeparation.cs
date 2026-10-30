@@ -56,6 +56,7 @@ public class EntitySeparation : MonoBehaviour
 
     private void OnDisable()
     {
+        if (EntitySeparationController.IsNull) return;
         EntitySeparationController.Unregister(this, bucketIndex);
     }
 }

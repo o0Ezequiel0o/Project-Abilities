@@ -39,6 +39,9 @@ public class GameInstance : Singleton<GameInstance>
 
     public static Action<Player> onPlayerSpawned;
 
+    public static Action<Player> onPlayerAdded;
+    public static Action<Player> onPlayerRemoved;
+
     public static bool IsPaused => pauseIDs.Count > 0;
     public static float RunTimer { get; private set; }
 
@@ -69,18 +72,24 @@ public class GameInstance : Singleton<GameInstance>
         }
     }
 
+    public static void PlayerSpawned(Player player)
+    {
+        onPlayerSpawned?.Invoke(player);
+    }
+
     public static void AddPlayer(Player player)
     {
         if (!players.Contains(player))
         {
             players.Add(player);
-            onPlayerSpawned?.Invoke(player);
+            onPlayerAdded?.Invoke(player);
         }
     }
 
     public static void RemovePlayer(Player player)
     {
         players.Remove(player);
+        onPlayerRemoved?.Invoke(player);
     }
 
     public static int GetUniqueID()
