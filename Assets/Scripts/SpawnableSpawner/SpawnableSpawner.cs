@@ -16,6 +16,8 @@ public class SpawnableSpawner : MonoBehaviour
     [SerializeField] private List<Spawnpoint> spawnpoints;
     [SerializeField] private List<Spawnable> spawnables;
 
+    public int AliveSpawnables => aliveSpawnables.Count;
+
     public static OrderedAction<GameObject> onSpawnableSpawned = new OrderedAction<GameObject>();
 
     private readonly Dictionary<CachedSpawnableData, Spawnable> cachedSpawnablesRef = new Dictionary<CachedSpawnableData, Spawnable>();
