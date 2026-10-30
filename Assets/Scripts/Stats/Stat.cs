@@ -20,10 +20,10 @@ public class Stat : IUpgradable
 
     public int Level { get; private set; } = 1;
 
-    ///<summary>For use when you want to read the real value of a stat.</summary>
+    ///<summary>When you want to read the real value of a stat.</summary>
     public Action<StatUpdate> onValueChanged;
 
-    ///<summary>For use when you update a Derived value to avoid circular dependency (like a stat scaling based on another). Does not calculate other derived values. </summary>
+    ///<summary>When you update a Derived value to avoid circular dependency (like a stat scaling based on another). Does not calculate other derived values. </summary>
     public Action<StatUpdate> onNonDerivedValueChanged;
 
     private float standardFlatModifier = 0f;
