@@ -614,7 +614,7 @@ MonoBehaviour:
   startingPoints: 10
   basePointGeneration: 0.75
   pointGenerationDifficultyRatio: 0.04
-  maxAliveSpawnables: 1000
+  maxAliveSpawnables: 5000
   spawnpoints:
   - {fileID: 1734067508805335781}
   spawnables:
