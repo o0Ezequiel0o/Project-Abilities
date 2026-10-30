@@ -1429,6 +1429,7 @@ MonoBehaviour:
   screenCanvas: {fileID: 8001973668159243074}
   worldCanvas: {fileID: 193892494}
   difficulty: {fileID: 11400000, guid: 2bcb72fbb37161149a2d082d89bddba8, type: 2}
+  minCodeFrameRate: 50
 --- !u!114 &1967376057
 MonoBehaviour:
   m_ObjectHideFlags: 0

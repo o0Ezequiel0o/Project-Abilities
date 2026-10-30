@@ -10,9 +10,12 @@ public class GameInstance : Singleton<GameInstance>
     [SerializeField] private Canvas screenCanvas;
     [SerializeField] private Canvas worldCanvas;
 
-    [Space]
+    [Header("Dependency")]
 
     [SerializeField] private GameDifficulty difficulty;
+
+    [Header("Framerate")]
+    [SerializeField, Min(1)] private float minCodeFrameRate = 60;
 
     public static int Level { get; set; } = 0;
     public static float Difficulty { get; set; } = 0f;
@@ -166,6 +169,11 @@ public class GameInstance : Singleton<GameInstance>
 
         ClearPauseIDs();
         ClearTimeScaleModifiers();
+    }
+
+    private void Awake()
+    {
+        Time.maximumDeltaTime = 1f / minCodeFrameRate;
     }
 
     private void Update()
