@@ -647,7 +647,7 @@ MonoBehaviour:
   physics: {fileID: -347636825108832765}
   entityMove: {fileID: -3439713517639842716}
   separationDistance: 1.5
-  separationForce: 1.7
+  separationForce: 3
   entityLayer:
     serializedVersion: 2
     m_Bits: 256
