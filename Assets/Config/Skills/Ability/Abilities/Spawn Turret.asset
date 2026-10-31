@@ -14,10 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Spawn Turret
-  <Description>k__BackingField: Spawn a turret that inherits your items and level
-    and gives all their experience and gold earned to the summoner. There can be
-    only 3 alive at the same time, trying to spawn a new one will despawn the oldest.
-  <AbilityType>k__BackingField: 2
+  <Description>k__BackingField: Spawn a turret that inherits your items and level and gives all their experience and gold earned to the summoner. There can be only 3 alive at the same time, trying to spawn a new one will despawn the oldest.
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
   cooldownTime:
@@ -67,7 +64,7 @@ MonoBehaviour:
     - rid: 9133315464761704690
       type: {class: SummonData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
       data:
-        <Summon>k__BackingField: {fileID: 5647093461853523306, guid: fc767660a4dfee44ea2ee290c8a4a4ee, type: 3}
+        <Summon>k__BackingField: {fileID: 7599769246000596608, guid: 07a60dab0f412064f8c998d80e312efd, type: 3}
         modules:
         - rid: 9133315464761704691
         - rid: 9133315464761704692

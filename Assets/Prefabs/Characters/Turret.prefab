@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -140,9 +140,13 @@ GameObject:
   - component: {fileID: 3258373292319498312}
   - component: {fileID: 3220386045857683405}
   - component: {fileID: 3685242802834864705}
+  - component: {fileID: -971065111864936163}
+  - component: {fileID: 1029773119707240156}
+  - component: {fileID: 8351711770293325423}
   - component: {fileID: 7673138500625142514}
   - component: {fileID: 6323631814065473988}
   - component: {fileID: 4670485228891248934}
+  - component: {fileID: -320024880446377993}
   m_Layer: 8
   m_Name: Turret
   m_TagString: Untagged
@@ -216,7 +220,7 @@ SpriteRenderer:
   m_SortingOrder: -1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.8113208, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -383,6 +387,53 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   size: {x: 1, y: 1}
   duration: 5
+--- !u!114 &-971065111864936163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647093461853523306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ecac57559e8f541a8efaaa020f5a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectHandler
+--- !u!114 &1029773119707240156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647093461853523306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8491efab7295c1e419e899b892c0d54b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageableNumbers
+  displaySize: 1
+  yStart: 0.5
+  yLowest: -0.5
+  yLower: 0.3
+  xRandom: 0.15
+--- !u!114 &8351711770293325423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647093461853523306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7372d2cf336d13b42a07cd75619a825a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageable: {fileID: 3220386045857683405}
+  healthBarPrefab: {fileID: 2168890936801063155, guid: 9808f266e3dbf7f4096286ef70c6b192, type: 3}
+  center: {fileID: 4448657880497516374, guid: fc767660a4dfee44ea2ee290c8a4a4ee, type: 3}
+  offset: {x: 0, y: 0, z: 0}
+  size: {x: 1, y: 1}
+  duration: 5
 --- !u!114 &7673138500625142514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +449,7 @@ MonoBehaviour:
   spawn: {fileID: 4215261322861192610}
   <StartAbilities>k__BackingField:
   - key: 0
-    value: {fileID: 11400000, guid: 5fadbe00c23e49b49a856d97f78d02b1, type: 2}
+    value: {fileID: 11400000, guid: a8d4f176ae145634ab37da7091f83cf2, type: 2}
 --- !u!114 &6323631814065473988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,6 +475,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5f76439480cfe4cb6d557aaae48071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-320024880446377993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647093461853523306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa51f28770c6ba449982e32a80dd5a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityTypeIdentifier
+  type: 0
 --- !u!1 &8496455079109391439
 GameObject:
   m_ObjectHideFlags: 0
