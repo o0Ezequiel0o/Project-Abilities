@@ -90,7 +90,7 @@ public class SpawnableSpawner : MonoBehaviour
         processingSpawnpoints = true;
 
         tempSpawnpoints.Clear();
-        tempSpawnpoints.AddRange(cachedSpawnable.spawnpoints);
+        tempSpawnpoints.AddRange(cachedSpawnable.Spawnpoints);
 
         ProcessNextSpawnpoint(cachedSpawnable);
     }
@@ -134,7 +134,7 @@ public class SpawnableSpawner : MonoBehaviour
 
     private void SpawnSpawnable(CachedSpawnableData spawnable, Spawnpoint spawnpoint)
     {
-        GameObject spawnableInstance = spawnpoint.Spawn(spawnable.prefab);
+        GameObject spawnableInstance = spawnpoint.Spawn(spawnable.Prefab);
 
         if (!spawnableInstance.TryGetComponent(out DestroyEventTracker destroyEventTracker))
         {
@@ -143,7 +143,7 @@ public class SpawnableSpawner : MonoBehaviour
 
         destroyEventTracker.onDestroy += OnSpawnableDeath;
         aliveSpawnables.Add(spawnableInstance);
-        currentPoints -= spawnable.cost;
+        currentPoints -= spawnable.Cost;
 
         onSpawnableSpawned?.Invoke(spawnableInstance);
     }
@@ -157,7 +157,7 @@ public class SpawnableSpawner : MonoBehaviour
     {
         for (int i = cachedSpawnables.Count - 1; i >= 0; i--)
         {
-            if (GameInstance.Difficulty > cachedSpawnables[i].maxDifficulty)
+            if (GameInstance.Difficulty > cachedSpawnables[i].MaxDifficulty)
             {
                 RemoveCachedSpawnable(cachedSpawnables[i]);
             }
@@ -207,35 +207,28 @@ public class SpawnableSpawner : MonoBehaviour
         cachedSpawnables.Remove(cachedSpawnable);
     }
 
-    private class CachedSpawnableData : IWeighted //MAKE ALL just take spawnableRef data
+    private class CachedSpawnableData : IWeighted
     {
-        public readonly GameObject prefab;
-        public readonly Spawnable spawnableRef;
-        public readonly List<Spawnpoint> spawnpoints;
+        public IReadOnlyList<Spawnpoint> Spawnpoints => spawnpoints;
+        public GameObject Prefab => spawnable.Prefab;
 
-        public int Weight => weight;
+        public int Weight => spawnable.Weight;
+        public int Cost => spawnable.Cost;
 
-        public readonly float minDifficulty;
-        public readonly float maxDifficulty;
+        public float MinDifficulty => spawnable.MinDifficulty;
+        public float MaxDifficulty => spawnable.MaxDifficulty;
 
-        public readonly int weight;
-        public readonly int cost;
+        private readonly List<Spawnpoint> spawnpoints;
 
-        private int maxSpawnRollWeight;
+        private readonly int maxSpawnRollWeight;
+        private readonly Spawnable spawnable;
 
         public CachedSpawnableData(Spawnable waveSpawnable, List<Spawnpoint> spawnpoints)
         {
-            prefab = waveSpawnable.Prefab;
-            spawnableRef = waveSpawnable;
-
-            minDifficulty = waveSpawnable.MinDifficulty;
-            maxDifficulty = waveSpawnable.MaxDifficulty;
-
-            weight = waveSpawnable.Weight;
-            cost = waveSpawnable.Cost;
+            spawnable = waveSpawnable;
 
             this.spawnpoints = spawnpoints;
-            GetMaxSpawnpointRollWeight();
+            maxSpawnRollWeight = GetMaxSpawnpointRollWeight();
         }
 
         public Spawnpoint GetRandomSpawnpoint()
@@ -257,14 +250,16 @@ public class SpawnableSpawner : MonoBehaviour
             return null;
         }
 
-        private void GetMaxSpawnpointRollWeight()
+        private int GetMaxSpawnpointRollWeight()
         {
-            maxSpawnRollWeight = 0;
+            int maxWeight = 0;
 
             for (int i = 0; i < spawnpoints.Count; i++)
             {
-                maxSpawnRollWeight += spawnpoints[i].Weight;
+                maxWeight += spawnpoints[i].Weight;
             }
+
+            return maxWeight;
         }
     }
 }
