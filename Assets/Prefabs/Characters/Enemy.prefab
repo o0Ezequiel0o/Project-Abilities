@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -140,6 +140,8 @@ GameObject:
   - component: {fileID: 5832264677408755591}
   - component: {fileID: 6180469951032781243}
   - component: {fileID: -347636825108832765}
+  - component: {fileID: 560146304392565846}
+  - component: {fileID: 2847648351830069612}
   - component: {fileID: 1417673509132216369}
   - component: {fileID: 2288504394844029370}
   - component: {fileID: 3960528624533353987}
@@ -150,10 +152,13 @@ GameObject:
   - component: {fileID: 9060203667453175804}
   - component: {fileID: 3488604664206737772}
   - component: {fileID: 3637401574649249139}
+  - component: {fileID: -1916451124747499836}
   - component: {fileID: 1295819619765179186}
   - component: {fileID: 842629725209027823}
+  - component: {fileID: 3531111079805404579}
+  - component: {fileID: 1935616340564640357}
   m_Layer: 8
-  m_Name: Dummy
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -290,7 +295,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 1, g: 0.091103174, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -371,6 +376,46 @@ MonoBehaviour:
   rigidBody: {fileID: 6869314029301337046}
   forceReceivedMultiplier: 1
   linearDamping: 0.15
+--- !u!114 &560146304392565846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581127942586707295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 649323b1c2cf12d4eacc5f9b5c2a0ae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityMove
+  physics: {fileID: -347636825108832765}
+  <MoveSpeed>k__BackingField:
+    baseValue: 1
+    increase: 0
+    valueLimits:
+      min: -Infinity
+      max: Infinity
+  accelerationRatio: 10
+  brakingRatio: 20
+--- !u!114 &2847648351830069612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581127942586707295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac9dd0fb6fb6614083903083163ebcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <RotationSpeed>k__BackingField:
+    baseValue: 360
+    increase: 0
+    valueLimits:
+      min: -Infinity
+      max: Infinity
+  physics: {fileID: -347636825108832765}
 --- !u!114 &1417673509132216369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,7 +431,7 @@ MonoBehaviour:
   <Settings>k__BackingField: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
   <MaxHealth>k__BackingField:
     baseValue: 100
-    increase: 0
+    increase: 25
     valueLimits:
       min: 0
       max: Infinity
@@ -400,7 +445,7 @@ MonoBehaviour:
     baseValue: 0
     increase: 0
     valueLimits:
-      min: -Infinity
+      min: 0
       max: Infinity
   <ShieldRegen>k__BackingField:
     baseValue: 0
@@ -480,9 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawn: {fileID: 7698722109331752331}
-  <StartAbilities>k__BackingField:
-  - key: 0
-    value: {fileID: 11400000, guid: 3923edd6f174e124f9ffeeb3b19ef382, type: 2}
+  <StartAbilities>k__BackingField: []
 --- !u!114 &451946761675307707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,6 +615,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelHandler: {fileID: 5832264677408755591}
   settings: {fileID: 11400000, guid: 801fe73c4db35514bb50cde10a196968, type: 2}
+--- !u!114 &-1916451124747499836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581127942586707295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6210af3068a09441b1e090bec2d11e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AvoidanceTest
+  physics: {fileID: -347636825108832765}
+  entityMove: {fileID: 560146304392565846}
+  separationDistance: 0.75
+  separationForce: 3
+  entityLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  objectLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &1295819619765179186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,7 +661,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d46c8f5c187947b44b9a6d2705371cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeathRewards
-  deathRewardsData: {fileID: 11400000, guid: 5151aec341520f8408a90e295d81fcb9, type: 2}
+  deathRewardsData: {fileID: 0}
+--- !u!114 &3531111079805404579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581127942586707295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa51f28770c6ba449982e32a80dd5a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityTypeIdentifier
+  type: 0
+--- !u!114 &1935616340564640357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581127942586707295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c0067395fa1a284ab91eef6ea024151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollisionDamage
+  damage:
+    baseValue: 1
+    increase: 0.2
+    valueLimits:
+      min: -Infinity
+      max: Infinity
+  armorPenetration: 0
+  procCoefficient: 0
 --- !u!1 &5232573915153245470
 GameObject:
   m_ObjectHideFlags: 0

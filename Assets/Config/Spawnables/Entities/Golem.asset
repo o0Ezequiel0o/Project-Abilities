@@ -14,7 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spawnable
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Golem
-  <Prefab>k__BackingField: {fileID: 3581127942586707295, guid: 88446d754358e4848ad3515f4e9319ea, type: 3}
+  <Description>k__BackingField: 
+  <DurabilityRating>k__BackingField: 0
+  <OffensiveRating>k__BackingField: 0
+  <DefensiveRating>k__BackingField: 0
+  <MobilityRating>k__BackingField: 0
+  <AoeRating>k__BackingField: 0
+  <EffectRating>k__BackingField: 0
+  <Prefab>k__BackingField: {fileID: 5328556150813258431, guid: d2f90649c15b7d94eb53da69d8deb0be, type: 3}
   <MinDifficulty>k__BackingField: 5.5
   <MaxDifficulty>k__BackingField: Infinity
   <Weight>k__BackingField: 50

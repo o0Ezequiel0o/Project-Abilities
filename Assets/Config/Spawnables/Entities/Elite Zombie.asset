@@ -14,7 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Elite Zombie
-  <Prefab>k__BackingField: {fileID: 3581127942586707295, guid: b34b208478bb3a541af38e26cdbc713c, type: 3}
+  <Description>k__BackingField: 
+  <DurabilityRating>k__BackingField: 0
+  <OffensiveRating>k__BackingField: 0
+  <DefensiveRating>k__BackingField: 0
+  <MobilityRating>k__BackingField: 0
+  <AoeRating>k__BackingField: 0
+  <EffectRating>k__BackingField: 0
+  <Prefab>k__BackingField: {fileID: 3738375451921181663, guid: 3ea8d495dc08b3840b768ff3fca40925, type: 3}
   <MinDifficulty>k__BackingField: 0
   <MaxDifficulty>k__BackingField: Infinity
   <Weight>k__BackingField: 3
