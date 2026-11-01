@@ -43,6 +43,11 @@ public class DebugEnemyViewer : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        selectInput.action.started -= OnClick;
+    }
+
     private void CreateEntityCamera()
     {
         entityCamera = new GameObject("Entity View Cam").AddComponent<Camera>();
