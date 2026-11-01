@@ -13,7 +13,6 @@ public class DebugEnemyViewer : MonoBehaviour
     [SerializeField] private LayerMask interactionLayers;
     [SerializeReference] private InputActionReference selectInput;
 
-    private Camera mainCamera;
     private Camera entityCamera;
 
     private GameObject currentObj;
@@ -25,7 +24,6 @@ public class DebugEnemyViewer : MonoBehaviour
     private void Awake()
     {
         selectInput.action.started += OnClick;
-        mainCamera = Camera.main;
         CreateEntityCamera();
     }
 
@@ -82,7 +80,7 @@ public class DebugEnemyViewer : MonoBehaviour
 
     private void OnClick(InputAction.CallbackContext context)
     {
-        Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         mouseWorldPosition.z = 0f;
 
         Collider2D hit = Physics2D.OverlapPoint(mouseWorldPosition, interactionLayers);
