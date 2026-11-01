@@ -164,8 +164,7 @@ MonoBehaviour:
   itemOutlineDisplay: {fileID: 5032799860743271392}
   duplicatorWindow: {fileID: 3991947798513114684, guid: 873d60feca513514e8556660633469ac, type: 3}
   <Name>k__BackingField: Duplicator
-  <Description>k__BackingField: Duplicates the item in the duplicator using essence.
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
 --- !u!210 &5407902422879783876
 SortingGroup:
   m_ObjectHideFlags: 0

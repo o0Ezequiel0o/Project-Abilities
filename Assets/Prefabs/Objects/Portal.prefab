@@ -108,8 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Portal
   <InteractOverlay>k__BackingField: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   <Name>k__BackingField: Portal
-  <Description>k__BackingField: A portal leading somewhere strange? Im a tooltip bro i don't know everything
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
 --- !u!70 &8486543726795032092
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

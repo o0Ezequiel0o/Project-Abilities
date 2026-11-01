@@ -161,5 +161,4 @@ MonoBehaviour:
   selectedSlotColor: {r: 1, g: 1, b: 1, a: 1}
   unselectedSlotColor: {r: 1, g: 1, b: 1, a: 0}
   <Name>k__BackingField: Dismantler
-  <Description>k__BackingField: Turns items back into facility-only recyclable materials.
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}

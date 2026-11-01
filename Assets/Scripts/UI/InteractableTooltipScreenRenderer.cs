@@ -48,7 +48,6 @@ public class InteractableTooltipScreenRenderer : MonoBehaviour
     {
         windowInstance.TryGetElement<TextMeshProUGUI>("Name").SetText(renderer.Name);
         windowInstance.TryGetElement<TextMeshProUGUI>("Cost").SetText(renderer.Cost);
-        windowInstance.TryGetElement<TextMeshProUGUI>("Description").SetText(renderer.Description);
 
         windowInstance.TryGetElement<Image>("Icon").sprite = renderer.Icon;
     }

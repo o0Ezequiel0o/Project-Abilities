@@ -608,7 +608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableTooltipScreenRenderer
   handler: {fileID: 3315950687603881688}
-  windowPrefab: {fileID: 2747287667754971207, guid: 34e0f51f74f443d49832e3f1eb8b8a56, type: 3}
+  windowPrefab: {fileID: 1456716941730967228, guid: 34e0f51f74f443d49832e3f1eb8b8a56, type: 3}
 --- !u!114 &1445715788866165582
 MonoBehaviour:
   m_ObjectHideFlags: 0

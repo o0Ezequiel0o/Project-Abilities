@@ -179,7 +179,8 @@ MonoBehaviour:
     transform: {fileID: 7183042244788256241}
     entity: {fileID: 0}
   <InteractOverlay>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <InteractTooltip>k__BackingField: Wear
+  <Name>k__BackingField: Engineer Exosuit
+  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   damageable: {fileID: 1735273188120366476}
   statusEffectHandler: {fileID: 8409502478468267525}
   itemHandler: {fileID: 0}
