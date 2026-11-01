@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 8265923583279707991}
   - component: {fileID: 2278308551691039682}
   - component: {fileID: -549456992416598927}
+  - component: {fileID: 5562861826131366279}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -802,3 +803,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   interval: 0.2
+--- !u!114 &5562861826131366279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218312312708394220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e05cbce14b7a6454a81cfc1bc1f9596e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClampToLevelBounds
+  rigidBody: {fileID: 2582979104109749263}

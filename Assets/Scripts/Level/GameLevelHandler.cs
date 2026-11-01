@@ -5,14 +5,17 @@ public class GameLevelHandler : MonoBehaviour
 {
     [SerializeField] private List<GameLevel> randomStartLevel;
 
-    private GameLevel currentLevel;
-    private GameLevelInstance levelInstance;
+    public static GameLevel CurrentLevel { get; private set; }
+    public static GameLevelInstance CurrentLevelInstance { get; private set; }
 
     private void Awake()
     {
         GlobalEventBus.Subscribe<LoadLevelEvent>(OnLoadLevelEvent);
         GlobalEventBus.Subscribe<LoadNextLevelEvent>(LoadNextLevel);
+    }
 
+    private void Start()
+    {
         GameLevel startLevel = randomStartLevel[Random.Range(0, randomStartLevel.Count)];
         LoadLevel(startLevel);
     }
@@ -21,6 +24,9 @@ public class GameLevelHandler : MonoBehaviour
     {
         GlobalEventBus.Unsubscribe<LoadLevelEvent>(OnLoadLevelEvent);
         GlobalEventBus.Unsubscribe<LoadNextLevelEvent>(LoadNextLevel);
+
+        CurrentLevel = null;
+        CurrentLevelInstance = null;
     }
 
     private void OnLoadLevelEvent(LoadLevelEvent @event)
@@ -30,12 +36,12 @@ public class GameLevelHandler : MonoBehaviour
 
     private void LoadNextLevel(LoadNextLevelEvent @event)
     {
-        LoadNewLevel(currentLevel.GetNextLevel());
+        LoadNewLevel(CurrentLevel.GetNextLevel());
     }
 
     private void LoadNewLevel(GameLevel newLevel)
     {
-        UnloadLevel(levelInstance);
+        UnloadLevel(CurrentLevelInstance);
         LoadLevel(newLevel);
     }
 
@@ -52,10 +58,10 @@ public class GameLevelHandler : MonoBehaviour
 
     private void LoadLevel(GameLevel level)
     {
-        levelInstance = Instantiate(level.Prefab, Vector3.zero, Quaternion.identity);
-        currentLevel = level;
+        CurrentLevelInstance = Instantiate(level.Prefab, Vector3.zero, Quaternion.identity);
+        CurrentLevel = level;
 
-        GlobalEventBus.Invoke(new LevelLoadedEvent(levelInstance));
+        GlobalEventBus.Invoke(new LevelLoadedEvent(CurrentLevelInstance));
         GlobalEventBus.Invoke(new LevelStartEvent());
     }
 
@@ -74,7 +80,7 @@ public class GameLevelHandler : MonoBehaviour
 
     private void DestroyLevelSpawnables()
     {
-        SpawnableSpawner[] spawners = levelInstance.GetComponentsInChildren<SpawnableSpawner>();
+        SpawnableSpawner[] spawners = CurrentLevelInstance.GetComponentsInChildren<SpawnableSpawner>();
 
         for (int i = 0; i < spawners.Length; i++)
         {
