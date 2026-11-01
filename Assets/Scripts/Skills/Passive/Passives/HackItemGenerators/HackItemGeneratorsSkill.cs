@@ -59,7 +59,10 @@ public class HackItemGeneratorsSkill : PassiveBase
             {
                 currentItemGeneratorCollider = itemGenerator.GetComponent<Collider2D>();
                 progressBarInstance.transform.position = itemGenerator.transform.position;
+
                 progressBarInstance.gameObject.SetActive(true);
+                progressBarInstance.UpdateBar(0f);
+
                 currentItemGenerator = itemGenerator;
                 hackTimer = 0f;
                 break;

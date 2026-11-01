@@ -115,7 +115,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 1
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -298,6 +298,7 @@ GameObject:
   - component: {fileID: 5843109231543479938}
   - component: {fileID: 7127759910155004058}
   - component: {fileID: 2804298956457681160}
+  - component: {fileID: 1147128450683446276}
   m_Layer: 5
   m_Name: ItemDisplaySlot
   m_TagString: Untagged
@@ -355,5 +356,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemDisplaySlot: {fileID: 7127759910155004058}
-  itemInfoDisplaySlotPrefab: {fileID: 3097798835298879096, guid: 7eda6e40350cd094b95d1d8ad9a75826, type: 3}
-  offset: {x: 0, y: -25, z: 0}
+  trigger: {fileID: 1147128450683446276}
+--- !u!114 &1147128450683446276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799076533158132201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93f5d0e6bae352145862a01c56419987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Tooltips.UITooltipTrigger
