@@ -1,54 +1,24 @@
-using UnityEngine.EventSystems;
 using UnityEngine;
+using Zeke.Tooltips;
 
 namespace Zeke.Items
 {
-    [RequireComponent(typeof(ItemDisplaySlot))]
-    public class ItemInfoDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    [RequireComponent(typeof(ItemDisplaySlot)), RequireComponent(typeof(UITooltipTrigger))]
+    public class ItemInfoDisplay : MonoBehaviour
     {
         [Header("Dependency")]
         [SerializeField] private ItemDisplaySlot itemDisplaySlot;
-        [SerializeField] private ItemInfoDisplaySlot itemInfoDisplaySlotPrefab;
-
-        [Header("Settings")]
-        [SerializeField] private Vector3 offset;
-
-        private ItemInfoDisplaySlot itemInfoDisplaySlotInstance;
+        [SerializeField] private UITooltipTrigger trigger;
 
         private void Reset()
         {
-            itemDisplaySlot = GetComponentInChildren<ItemDisplaySlot>();
+            itemDisplaySlot = GetComponent<ItemDisplaySlot>();
+            trigger = GetComponent<UITooltipTrigger>();
         }
 
-        private void OnDisable()
+        private void Awake()
         {
-            if (itemInfoDisplaySlotInstance != null)
-            {
-                Destroy(itemInfoDisplaySlotInstance.gameObject);
-            }
-        }
-
-        private void OnDestroy()
-        {
-            if (itemInfoDisplaySlotInstance != null)
-            {
-                Destroy(itemInfoDisplaySlotInstance.gameObject);
-            }
-        }
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            itemInfoDisplaySlotInstance = Instantiate(itemInfoDisplaySlotPrefab, GameInstance.ScreenCanvas.transform);
-            itemInfoDisplaySlotInstance.transform.position = transform.position + offset;
-            itemInfoDisplaySlotInstance.SetData(itemDisplaySlot.ItemData.Name, itemDisplaySlot.ItemData.Description);
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            if (itemInfoDisplaySlotInstance != null)
-            {
-                Destroy(itemInfoDisplaySlotInstance.gameObject);
-            }
+            trigger.description = () => itemDisplaySlot.ItemData.Description;
         }
     }
 }
