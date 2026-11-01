@@ -164,6 +164,8 @@ public class DebugEnemyViewer : MonoBehaviour
         {
             windowInstance.TryGetElement<TextMeshProUGUI>("Level").text = levelHandler.Level.ToString();
             windowInstance.TryGetElement<TextMeshProUGUI>("XP Multiplier").text = (levelHandler.ExperienceMultiplier.Value * 100f).ToString() + "%";
+
+            windowInstance.TryGetElement<TextMeshProUGUI>("Experience").text = levelHandler.Experience.ToString() + " / " + levelHandler.ExperienceRequired.ToString();
         }
 
         if (moneyHandler != null)
