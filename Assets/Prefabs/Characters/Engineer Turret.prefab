@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5647093461853523306, guid: 15c47a48665e8314d8a017ae4beab109, type: 3}
       propertyPath: m_Name
-      value: Engineer Turret variant
+      value: Engineer Turret
       objectReference: {fileID: 0}
     - target: {fileID: 7818776284528732092, guid: 15c47a48665e8314d8a017ae4beab109, type: 3}
       propertyPath: m_Color.g
@@ -105,7 +105,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5647093461853523306, guid: 15c47a48665e8314d8a017ae4beab109, type: 3}
       insertIndex: 9
       addedObject: {fileID: -6424186919764169057}
+    - targetCorrespondingSourceObject: {fileID: 5647093461853523306, guid: 15c47a48665e8314d8a017ae4beab109, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 993716476711530435}
   m_SourcePrefab: {fileID: 100100000, guid: 15c47a48665e8314d8a017ae4beab109, type: 3}
+--- !u!61 &2419624381859562226 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 485676028982003992, guid: 15c47a48665e8314d8a017ae4beab109, type: 3}
+  m_PrefabInstance: {fileID: 2821870515088002026}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7599769246000596608 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5647093461853523306, guid: 15c47a48665e8314d8a017ae4beab109, type: 3}
@@ -166,3 +174,20 @@ MonoBehaviour:
     valueLimits:
       min: -Infinity
       max: Infinity
+--- !u!114 &993716476711530435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7599769246000596608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3678c176433047747ac41abace255308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollisionDamageReceiver
+  collider: {fileID: 2419624381859562226}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  interval: 0.2
