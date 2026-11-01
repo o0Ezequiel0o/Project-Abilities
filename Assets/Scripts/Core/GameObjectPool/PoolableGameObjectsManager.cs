@@ -5,7 +5,7 @@ namespace Zeke.PoolableGameObjects
 {
     public static class PoolableGameObjectsManager
     {
-        private static readonly HashSet<PoolableGameObject> poolableGameObjects = new HashSet<PoolableGameObject>();
+        private static readonly HashSet<PoolableGameObject> poolableGameObjects = new HashSet<PoolableGameObject>(256);
 
         public static void MarkPoolableForDestroy(PoolableGameObject poolableGameObject)
         {

@@ -31,7 +31,7 @@ public class Missile : BasicProjectile
 
     protected void Awake()
     {
-        filter = target => TeamManager.IsEnemy(SourceUser, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform, blockLayer);
+        filter = target => TeamManager.IsEnemy(SourceUser, target);
     }
 
     public override void OnRetrievedFromPool()

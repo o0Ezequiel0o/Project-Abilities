@@ -262,13 +262,10 @@ public class RangedFollowState : RangedBaseState
 
         if (InStartAttackAngle(context) && TargetInRange(transform, context))
         {
-            if (TargetAwareness.HasLineOfSight(transform.position, context.TargetCollider, context.ai.BlockLayers))
+            if (abilityController.CanUseAbility(context.ai.AttackType))
             {
-                if (abilityController.CanUseAbility(context.ai.AttackType))
-                {
-                    stateMachine.ChangeState(stateMachine.attackState);
-                    return;
-                }
+                stateMachine.ChangeState(stateMachine.attackState);
+                return;
             }
         }
 

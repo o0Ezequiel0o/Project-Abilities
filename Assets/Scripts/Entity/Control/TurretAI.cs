@@ -115,7 +115,7 @@ public class TurretIdleState : State<TurretStateContext>
         this.stateMachine = stateMachine;
 
         entityAim = gameObject.GetComponent<EntityAim>();
-        filter = target => TeamManager.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform, context.ai.BlockLayers);
+        filter = target => TeamManager.IsEnemy(gameObject, target);
     }
 
     public override void DestroyState(TurretStateContext context) { }

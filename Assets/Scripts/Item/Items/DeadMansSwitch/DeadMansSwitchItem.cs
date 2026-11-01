@@ -50,7 +50,6 @@ namespace Zeke.Items
             for (int i = 0; i < hits.Count; i++)
             {
                 if (TeamManager.IsAlly(source, hits[i].gameObject)) continue;
-                if (!TargetAwareness.HasLineOfSight(position, hits[i], data.BlockLayers)) continue;
 
                 if (hits[i].TryGetComponent(out Damageable damageable))
                 {

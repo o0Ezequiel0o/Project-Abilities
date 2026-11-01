@@ -83,8 +83,6 @@ namespace Zeke.Items
                 if (hits[i].gameObject == source) continue;
                 if (TeamManager.IsAlly(source, hits[i].gameObject)) continue;
 
-                if (!TargetAwareness.HasLineOfSight(source.transform.position, hits[i], data.BlockLayers)) continue;
-
                 if (hits[i].TryGetComponent(out Physics physics))
                 {
                     Vector2 direction = (hits[i].transform.position - source.transform.position).normalized;

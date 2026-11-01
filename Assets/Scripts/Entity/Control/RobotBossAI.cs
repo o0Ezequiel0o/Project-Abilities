@@ -310,25 +310,19 @@ public class RobotBossFollowState : RobotBossBaseState
 
         if (InStartAttackAngle(transform, context) && TargetInSecondaryRange(transform, context))
         {
-            if (TargetAwareness.HasLineOfSight(transform.position, context.TargetCollider, context.ai.BlockLayers | context.ai.TargetLayers))
+            if (abilityController.CanUseAbility(context.ai.SecondaryAttackType))
             {
-                if (abilityController.CanUseAbility(context.ai.SecondaryAttackType))
-                {
-                    stateMachine.ChangeState(stateMachine.secondaryAttackState);
-                    return;
-                }
+                stateMachine.ChangeState(stateMachine.secondaryAttackState);
+                return;
             }
         }
 
         if (InStartAttackAngle(transform, context) && TargetInPrimaryRange(transform, context))
         {
-            if (TargetAwareness.HasLineOfSight(transform.position, context.TargetCollider, context.ai.BlockLayers | context.ai.TargetLayers))
+            if (abilityController.CanUseAbility(context.ai.PrimaryAttackType))
             {
-                if (abilityController.CanUseAbility(context.ai.PrimaryAttackType))
-                {
-                    stateMachine.ChangeState(stateMachine.primaryAttackState);
-                    return;
-                }
+                stateMachine.ChangeState(stateMachine.primaryAttackState);
+                return;
             }
         }
         
