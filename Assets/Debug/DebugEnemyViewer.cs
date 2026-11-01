@@ -115,10 +115,13 @@ public class DebugEnemyViewer : MonoBehaviour
     {
         if (currentObj == null) return;
 
+        Player player = currentObj.GetComponent<Player>();
+        EntityAim entityAim = currentObj.GetComponent<EntityAim>();
         Damageable damageable = currentObj.GetComponent<Damageable>();
         EntityMove entityMove = currentObj.GetComponent<EntityMove>();
         ItemHandler itemHandler = currentObj.GetComponent<ItemHandler>();
         LevelHandler levelHandler = currentObj.GetComponent<LevelHandler>();
+        MoneyHandler moneyHandler = currentObj.GetComponent<MoneyHandler>();
         AbilityController abilityController = currentObj.GetComponent<AbilityController>();
         StatusEffectHandler statusEffectHandler = currentObj.GetComponent<StatusEffectHandler>();
 
@@ -131,15 +134,25 @@ public class DebugEnemyViewer : MonoBehaviour
             windowInstance.TryGetElement<TextMeshProUGUI>("Health").text = damageable.Health.ToString();
             windowInstance.TryGetElement<TextMeshProUGUI>("Shield").text = damageable.Shield.ToString();
             windowInstance.TryGetElement<TextMeshProUGUI>("Health Regen").text = damageable.HealthRegen.ToString();
+            windowInstance.TryGetElement<TextMeshProUGUI>("Shield Regen").text = damageable.ShieldRegen.ToString();
             windowInstance.TryGetElement<TextMeshProUGUI>("Armor").text = damageable.Armor.ToString();
 
             string damageReductionText = (Damageable.CalculateDamageReduction(damageable.Armor.Value) * 100f).ToString() + "%";
             windowInstance.TryGetElement<TextMeshProUGUI>("Damage Reduction").text = damageReductionText;
+
+            windowInstance.TryGetElement<TextMeshProUGUI>("Damage Received").text = (damageable.DamageReceivedMultiplier.Value * 100f).ToString() + "%";
+            windowInstance.TryGetElement<TextMeshProUGUI>("Healing Received").text = (damageable.HealingReceivedMultiplier.Value * 100f).ToString() + "%";
+            windowInstance.TryGetElement<TextMeshProUGUI>("Shield Received").text = (damageable.ShieldReceivedMultiplier.Value * 100f).ToString() + "%";
         }
 
         if (entityMove != null)
         {
-            windowInstance.TryGetElement<TextMeshProUGUI>("Move Speed").text = entityMove.MoveSpeed.ToString();
+            windowInstance.TryGetElement<TextMeshProUGUI>("Move Speed").text = entityMove.MoveSpeed.ToString() + "m/s";
+        }
+
+        if (entityAim != null)
+        {
+            windowInstance.TryGetElement<TextMeshProUGUI>("Aim Speed").text = entityAim.RotationSpeed.ToString() + "°/s";
         }
 
         if (itemHandler != null)
@@ -150,6 +163,12 @@ public class DebugEnemyViewer : MonoBehaviour
         if (levelHandler != null)
         {
             windowInstance.TryGetElement<TextMeshProUGUI>("Level").text = levelHandler.Level.ToString();
+            windowInstance.TryGetElement<TextMeshProUGUI>("XP Multiplier").text = (levelHandler.ExperienceMultiplier.Value * 100f).ToString() + "%";
+        }
+
+        if (moneyHandler != null)
+        {
+            windowInstance.TryGetElement<TextMeshProUGUI>("Gold Multiplier").text = (moneyHandler.GoldMultiplier.Value * 100f).ToString() + "%";
         }
 
         if (statusEffectHandler != null)
@@ -189,6 +208,8 @@ public class DebugEnemyViewer : MonoBehaviour
             TryUpdateRenderAbility(abilityController, AbilityType.Utility, windowInstance.TryGetElement<AbilityDisplaySlot>("Utility Ability"));
             TryUpdateRenderAbility(abilityController, AbilityType.Ultimate, windowInstance.TryGetElement<AbilityDisplaySlot>("Ultimate Ability"));
         }
+
+        windowInstance.TryGetElement<TextMeshProUGUI>("Is Player").text = (player != null).ToString();
     }
 
     private void TryUpdateRenderAbility(AbilityController abilityController, AbilityType abilityType, AbilityDisplaySlot abilityDisplaySlot)
