@@ -17,7 +17,7 @@ namespace Zeke.Abilities.Modules.Stats
 
             if (source.TryGetComponent(out AbilityController abilityController))
             {
-                stat = abilityController.Abilities[data.AbilityType].CooldownMultiplier;
+                stat = abilityController.AbilityTypeSlots[data.AbilityType].CooldownMultiplier;
             }
 
             return stat;

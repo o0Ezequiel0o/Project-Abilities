@@ -1,5 +1,3 @@
-using static Zeke.Abilities.AbilityController;
-
 namespace Zeke.Abilities
 {
     public class GetAbilityType : GetAbilityStrategy
@@ -11,14 +9,19 @@ namespace Zeke.Abilities
             this.data = data;
         }
 
-        public override AbilitySlot GetAbilitySlot(AbilityController controller)
+        public override bool TryGetAbilitySlot(AbilityController controller, out AbilitySlotInfo abilitySlotInfo)
         {
-            if (controller.TryGetAbility(data.Type, out IAbility ability))
+            abilitySlotInfo = default;
+
+            AbilityController.AbilityTypeSlot abilityTypeSlot = controller.GetAbilityTypeSlot(data.Type);
+
+            if (abilityTypeSlot.CurrentAbilitySlot != null)
             {
-                return controller.GetAbilitySlot(ability.Type);
+                abilitySlotInfo = new AbilitySlotInfo(abilityTypeSlot, 0);
+                return true;
             }
 
-            return null;
+            return false;
         }
     }
 }

@@ -64,7 +64,7 @@ namespace Zeke.Abilities
 
         private readonly List<AbilityModule> modules;
 
-        private float CooldownMultiplier => controller.Abilities[type].CooldownMultiplier.Value;
+        private float CooldownMultiplier => controller.AbilityTypeSlots[type].CooldownMultiplier.Value;
 
         private int queuedUpgrades = 0;
 
@@ -160,6 +160,11 @@ namespace Zeke.Abilities
             }
 
             return false;
+        }
+
+        public void ForceDeactivate()
+        {
+            Deactivate();
         }
 
         public void TryDeactivate()

@@ -1,7 +1,5 @@
 using UnityEngine;
 
-using static Zeke.Abilities.AbilityController;
-
 namespace Zeke.Abilities.Modules
 {
     public class LockAbility : AbilityModule
@@ -23,11 +21,10 @@ namespace Zeke.Abilities.Modules
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
             this.controller = controller;
-            AbilitySlot abilitySlot = strategy.GetAbilitySlot(controller);
 
-            if (abilitySlot != null)
+            if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilityTypeSlot))
             {
-                abilityLock.abilityType = abilitySlot.Ability.Type;
+                abilityLock.abilityType = abilityTypeSlot.abilityTypeSlot.AbilityType;
             }
         }
 
@@ -39,11 +36,9 @@ namespace Zeke.Abilities.Modules
         {
             controller.RemoveAbilityLock(abilityLock);
 
-            AbilitySlot abilitySlot = strategy.GetAbilitySlot(controller);
-
-            if (abilitySlot != null)
+            if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilityTypeSlot))
             {
-                abilityLock.abilityType = abilitySlot.AbilityType;
+                abilityLock.abilityType = abilityTypeSlot.abilityTypeSlot.AbilityType;
                 controller.AddAbilityLock(abilityLock);
             }
         }

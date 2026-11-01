@@ -25,12 +25,12 @@ public class AbilityControllerInterface : MonoBehaviour
         descriptionWindow.gameObject.SetActive(false);
     }
 
-    public void LoadData(Dictionary<AbilityType, AbilityController.AbilitySlot> abilities)
+    public void LoadData(IReadOnlyDictionary<AbilityType, AbilityController.AbilityTypeSlot> abilityTypeSlots)
     {
-        foreach (AbilityType abilityType in abilities.Keys)
+        foreach (AbilityType abilityType in abilityTypeSlots.Keys)
         {
-            if (abilities[abilityType].Ability == null) continue;
-            AddAbilitySlot(abilities[abilityType].Ability, abilityType);
+            if (abilityTypeSlots[abilityType].CurrentAbilitySlot == null) continue;
+            AddAbilitySlot(abilityTypeSlots[abilityType].CurrentAbilitySlot, abilityType);
         }
     }
 

@@ -1,5 +1,4 @@
 using UnityEngine;
-using static Zeke.Abilities.AbilityController;
 using static Zeke.Abilities.Modules.ReloadData;
 
 namespace Zeke.Abilities.Modules
@@ -88,8 +87,11 @@ namespace Zeke.Abilities.Modules
 
             public override void Activate(AbilityController controller)
             {
-                IAbility ability = strategy.GetAbilitySlot(controller).Ability;
-                ability?.SetCharges(ability.Charges + chargesAmount.ValueInt);
+                if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilitySlotInfo))
+                {
+                    IAbility ability = abilitySlotInfo.abilityTypeSlot.Abilities[abilitySlotInfo.abilityIndex];
+                    ability.SetCharges(ability.Charges + chargesAmount.ValueInt);
+                }
             }
 
             public override void Deactivate(AbilityController controller) { }
@@ -110,8 +112,11 @@ namespace Zeke.Abilities.Modules
 
             public override void Deactivate(AbilityController controller)
             {
-                IAbility ability = strategy.GetAbilitySlot(controller).Ability;
-                ability?.SetCharges(ability.Charges + chargesAmount.ValueInt);
+                if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilitySlotInfo))
+                {
+                    IAbility ability = abilitySlotInfo.abilityTypeSlot.Abilities[abilitySlotInfo.abilityIndex];
+                    ability.SetCharges(ability.Charges + chargesAmount.ValueInt);
+                }
             }
 
             public override void UpdateActive(AbilityController controller) { }
@@ -132,10 +137,9 @@ namespace Zeke.Abilities.Modules
 
             public override void Activate(AbilityController controller)
             {
-                IAbility ability = strategy.GetAbilitySlot(controller).Ability;
-
-                if (ability != null)
+                if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilitySlotInfo))
                 {
+                    IAbility ability = abilitySlotInfo.abilityTypeSlot.Abilities[abilitySlotInfo.abilityIndex];
                     timePerCharge = ability.DurationTime / ability.MaxCharges;
                 }
 
@@ -150,8 +154,12 @@ namespace Zeke.Abilities.Modules
 
                 if (timer >= timePerCharge)
                 {
-                    IAbility ability = strategy.GetAbilitySlot(controller).Ability;
-                    ability?.SetCharges(ability.Charges + chargesAmount.ValueInt);
+                    if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilitySlotInfo))
+                    {
+                        IAbility ability = abilitySlotInfo.abilityTypeSlot.Abilities[abilitySlotInfo.abilityIndex];
+                        ability.SetCharges(ability.Charges + chargesAmount.ValueInt);
+                    }
+
                     timer = 0f;
                 }
             }

@@ -25,7 +25,7 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out AbilityController abilityController))
             {
-                abilityController.Abilities[data.AbilityType].RechargeSpeed.ApplyFlatModifier(-chargeSpeedFlatModifier);
+                abilityController.AbilityTypeSlots[data.AbilityType].RechargeSpeed.ApplyFlatModifier(-chargeSpeedFlatModifier);
             }
 
             if (source.TryGetComponent(out EntityMove entityMove))
@@ -53,7 +53,7 @@ namespace Zeke.Items
                 float oldFlatModifier = chargeSpeedFlatModifier;
                 chargeSpeedFlatModifier = data.ExtraChargeSpeed.GetValue(stacks);
 
-                abilityController.Abilities[data.AbilityType].RechargeSpeed.ApplyFlatModifier(-oldFlatModifier, chargeSpeedFlatModifier);
+                abilityController.AbilityTypeSlots[data.AbilityType].RechargeSpeed.ApplyFlatModifier(-oldFlatModifier, chargeSpeedFlatModifier);
             }
         }
 

@@ -17,7 +17,7 @@ namespace Zeke.Abilities.Modules.Stats
 
             if (source.TryGetComponent(out AbilityController abilityController))
             {
-                stat = abilityController.Abilities[data.AbilityType].RechargeSpeed;
+                stat = abilityController.AbilityTypeSlots[data.AbilityType].RechargeSpeed;
             }
 
             return stat;

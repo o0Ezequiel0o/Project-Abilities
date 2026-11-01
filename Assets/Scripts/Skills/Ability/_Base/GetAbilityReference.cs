@@ -11,17 +11,25 @@ namespace Zeke.Abilities
             this.data = data;
         }
 
-        public override AbilitySlot GetAbilitySlot(AbilityController controller)
+        public override bool TryGetAbilitySlot(AbilityController controller, out AbilitySlotInfo abilitySlotInfo)
         {
+            abilitySlotInfo = default;
+
             if (controller.TryGetAbility(data.Reference, out IAbility ability))
             {
-                if (ability.Data == data.Reference)
+                AbilityTypeSlot abilityTypeSlot = controller.GetAbilityTypeSlot(ability.Type);
+
+                for (int i = 0; i < abilityTypeSlot.Abilities.Count; i++)
                 {
-                    return controller.GetAbilitySlot(ability.Type);
+                    if (abilityTypeSlot.Abilities[i].Data == data.Reference)
+                    {
+                        abilitySlotInfo = new AbilitySlotInfo(abilityTypeSlot, i);
+                        return true;
+                    }
                 }
             }
 
-            return null;
+            return false;
         }
     }
 }

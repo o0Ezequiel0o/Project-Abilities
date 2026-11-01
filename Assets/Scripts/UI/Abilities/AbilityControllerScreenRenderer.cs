@@ -1,6 +1,5 @@
 using UnityEngine;
 using Zeke.Abilities;
-using Zeke.UI;
 
 [RequireComponent(typeof(AbilityController))]
 public class AbilityControllerScreenRenderer : MonoBehaviour
@@ -37,20 +36,29 @@ public class AbilityControllerScreenRenderer : MonoBehaviour
     {
         abilityController.onAbilityAdded += interfaceInstance.AddAbilitySlot;
         abilityController.onAbilityRemoved += interfaceInstance.RemoveAbilitySlot;
+
+        abilityController.onAbilityOverriden += OnAbilityOverriden;
     }
 
     private void UpdateSkillsInterface()
     {
-        foreach (AbilityController.AbilitySlot abilitySlot in abilityController.Abilities.Values)
+        foreach (AbilityController.AbilityTypeSlot abilityTypeSlot in abilityController.AbilityTypeSlots.Values)
         {
-            if (abilitySlot.Ability == null) continue;
-            interfaceInstance.UpdateAbilitySlotRender(abilitySlot.Ability);
+            if (abilityTypeSlot.CurrentAbilitySlot == null) continue;
+
+            interfaceInstance.UpdateAbilitySlotRender(abilityTypeSlot.CurrentAbilitySlot);
         }
     }
 
     private void LoadInterfaceData()
     {
-        interfaceInstance.LoadData(abilityController.Abilities);
+        interfaceInstance.LoadData(abilityController.AbilityTypeSlots);
+    }
+
+    private void OnAbilityOverriden(AbilityController.AbilityOverrideData abilityOverrideData)
+    {
+        interfaceInstance.RemoveAbilitySlot(abilityOverrideData.overridenAbility, abilityOverrideData.overridenAbility.Type);
+        interfaceInstance.AddAbilitySlot(abilityOverrideData.overrideAbility, abilityOverrideData.overrideAbility.Type);
     }
 
     private void OnDestroy()

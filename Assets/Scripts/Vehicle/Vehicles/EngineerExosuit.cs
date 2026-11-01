@@ -21,7 +21,7 @@ public class EngineerExosuit : Exosuit
     private Stat.Multiplier moveSpeedStatMultiplier;
     private Stat.Multiplier damageStatMultiplier;
 
-    private readonly List<SwitchedAbilityData> switchedAbilities = new List<SwitchedAbilityData>();
+    private readonly List<IAbility> abilitiesInstance = new List<IAbility>();
 
     protected override void OnEnterVehicle(GameObject source)
     {
@@ -73,7 +73,7 @@ public class EngineerExosuit : Exosuit
         {
             foreach (AbilityType abilityType in suitAbilities.Keys)
             {
-                switchedAbilities.Add(new SwitchedAbilityData(abilityType, abilityController.SwitchAbility(suitAbilities[abilityType], abilityType)));
+                abilitiesInstance.Add(abilityController.AddAbility(suitAbilities[abilityType], abilityType));
             }
         }
     }
@@ -82,20 +82,13 @@ public class EngineerExosuit : Exosuit
     {
         if (source.TryGetComponent(out AbilityController abilityController))
         {
-            for (int i = 0; i < switchedAbilities.Count; i++)
+            for (int i = 0; i < abilitiesInstance.Count; i++)
             {
-                if (switchedAbilities[i].storedAbility != null)
-                {
-                    abilityController.SwitchAbility(switchedAbilities[i].storedAbility, switchedAbilities[i].abilityType, false);
-                }
-                else
-                {
-                    abilityController.RemoveAbility(switchedAbilities[i].abilityType);
-                }
+                abilityController.RemoveAbility(abilitiesInstance[i]);
             }
-        }
 
-        switchedAbilities.Clear();
+            abilitiesInstance.Clear();
+        }
     }
 
     private void LockAbilities(GameObject source) 
@@ -123,17 +116,5 @@ public class EngineerExosuit : Exosuit
     private void IncreaseDamage(Damageable.DamageEvent damageEvent)
     {
         damageEvent.Multiplier.Multiply(damageStatMultiplier.Value);
-    }
-
-    private readonly struct SwitchedAbilityData
-    {
-        public readonly AbilityType abilityType;
-        public readonly IAbility storedAbility;
-
-        public SwitchedAbilityData(AbilityType abilityType, IAbility storedAbility)
-        {
-            this.abilityType = abilityType;
-            this.storedAbility = storedAbility;
-        }
     }
 }

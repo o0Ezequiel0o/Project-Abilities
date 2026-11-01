@@ -18,20 +18,21 @@ namespace Zeke.Abilities
 
         public Action<IAbility, AbilityType> onAbilityAdded;
         public Action<IAbility, AbilityType> onAbilityRemoved;
+        public Action<AbilityOverrideData> onAbilityOverriden;
 
-        /// <summary> Called before ability is used. Returns AbilityType and if input is being held. </summary>
         public Action<AbilityType, bool> onUseAbility;
 
-        public Dictionary<AbilityType, AbilitySlot> Abilities { get; private set; } = new Dictionary<AbilityType, AbilitySlot>();
+        public IReadOnlyDictionary<AbilityType, AbilityTypeSlot> AbilityTypeSlots => abilityTypeSlots;
 
+        private readonly Dictionary<AbilityType, AbilityTypeSlot> abilityTypeSlots = new Dictionary<AbilityType, AbilityTypeSlot>();
         private readonly Dictionary<AbilityData, AbilityType> linkedAbilityData = new Dictionary<AbilityData, AbilityType>();
 
         private int level = 1;
 
-        public class AbilitySlot
+        public class AbilityTypeSlot
         {
-            public AbilityData AbilityData { get; internal set; }
-            public IAbility Ability { get; internal set; }
+            public IAbility CurrentAbilitySlot => Abilities.Count == 0 ? null : Abilities[^1];
+            public List<IAbility> Abilities { get; internal set; } = new List<IAbility>();
 
             public AbilityType AbilityType { get; private set; }
 
@@ -40,32 +41,47 @@ namespace Zeke.Abilities
 
             public HashSet<AbilityLock> AbilityLocks { get; internal set; } = new HashSet<AbilityLock>();
 
-            public AbilitySlot(AbilityType abilityType)
+            public AbilityTypeSlot(AbilityType abilityType)
             {
                 AbilityType = abilityType;
             }
         }
 
-        public AbilitySlot GetAbilitySlot(AbilityType abilityType)
+        public readonly struct AbilityOverrideData
         {
-            return Abilities[abilityType];
+            public readonly IAbility overrideAbility;
+            public readonly IAbility overridenAbility;
+
+            public AbilityOverrideData(IAbility overrideAbility, IAbility overridenAbility)
+            {
+                this.overrideAbility = overrideAbility;
+                this.overridenAbility = overridenAbility;
+            }
+        }
+
+        public AbilityTypeSlot GetAbilityTypeSlot(AbilityType abilityType)
+        {
+            return abilityTypeSlots[abilityType];
         }
 
         public bool IsLocked(AbilityType abilityType)
         {
-            return Abilities[abilityType].AbilityLocks.Count > 0;
+            return abilityTypeSlots[abilityType].AbilityLocks.Count > 0;
         }
 
         public bool TryGetAbility(AbilityData abilityData, out IAbility ability)
         {
             ability = null;
 
-            foreach(AbilitySlot abilitySlot in Abilities.Values)
+            foreach (AbilityTypeSlot abilityTypeSlot in abilityTypeSlots.Values)
             {
-                if (abilitySlot.AbilityData == abilityData)
+                for (int i = 0; i < abilityTypeSlot.Abilities.Count; i++)
                 {
-                    ability = abilitySlot.Ability;
-                    return true;
+                    if (abilityTypeSlot.Abilities[i].Data == abilityData)
+                    {
+                        ability = abilityTypeSlot.CurrentAbilitySlot;
+                        return ability != null;
+                    }
                 }
             }
 
@@ -74,7 +90,15 @@ namespace Zeke.Abilities
 
         public bool TryGetAbility(AbilityType abilityType, out IAbility ability)
         {
-            ability = Abilities[abilityType].Ability;
+            ability = null;
+
+            if (abilityTypeSlots[abilityType].Abilities.Count == 0)
+            {
+                return false;
+            }
+
+            ability = abilityTypeSlots[abilityType].CurrentAbilitySlot;
+
             return ability != null;
         }
 
@@ -93,47 +117,61 @@ namespace Zeke.Abilities
             return ability.CanActivate();
         }
 
-        public void AddAbility(AbilityData abilityData, AbilityType abilityType)
+        public IAbility AddAbility(AbilityData abilityData, AbilityType abilityType)
         {
-            AddAbility(abilityData.CreateModularAbility(this, spawn, gameObject, abilityType), abilityType);
+            return AddAbility(abilityData.CreateModularAbility(this, spawn, gameObject, abilityType), abilityType);
         }
 
-        public void AddAbility(IAbility ability, AbilityType abilityType)
+        private IAbility AddAbility(IAbility ability, AbilityType abilityType)
         {
-            AddAbility(ability, abilityType, true);
+            ability.Initialize();
+            return AddInitializedAbility(ability, abilityType);
         }
 
-        public void RemoveAbility(AbilityType abilityType)
+        public IAbility AddInitializedAbility(IAbility ability, AbilityType abilityType)
         {
-            RemoveAbility(abilityType, true);
-        }
+            linkedAbilityData.Add(ability.Data, abilityType);
+            abilityTypeSlots[abilityType].Abilities.Add(ability);
 
-        /// <summary> Returns the replaced ability by the new ability. </summary>
-        public IAbility SwitchAbility(AbilityData abilityData, AbilityType abilityType)
-        {
-            return SwitchAbility(abilityData.CreateModularAbility(this, spawn, gameObject, abilityType), abilityType, true);
-        }
-
-        /// <summary> Returns the replaced ability by the new ability. </summary>
-        public IAbility SwitchAbility(IAbility newAbility, AbilityType abilityType, bool initialize)
-        {
-            IAbility oldAbility = Abilities[abilityType].Ability;
-
-            RemoveAbility(abilityType, false);
-            AddAbility(newAbility, abilityType, initialize);
-
-            return oldAbility;
-        }
-
-        public void ReplaceAbility(IAbility newAbility, AbilityType abilityType)
-        {
-            IAbility oldAbility = Abilities[abilityType].Ability;
-
-            if (oldAbility != null)
+            while (ability.Level < level)
             {
-                RemoveAbility(abilityType, true);
-                AddAbility(newAbility, abilityType, true);
+                ability.QueueUpgrade();
             }
+
+            if (abilityTypeSlots[abilityType].Abilities.Count > 1)
+            {
+                IAbility overridenAbility = abilityTypeSlots[abilityType].Abilities[1];
+                onAbilityOverriden?.Invoke(new AbilityOverrideData(ability, overridenAbility));
+
+                overridenAbility.ForceDeactivate();
+            }
+
+            onAbilityAdded?.Invoke(ability, abilityType);
+
+            return ability;
+        }
+
+        public IAbility RemoveAbility(IAbility ability)
+        {
+            foreach (AbilityType abilityType in abilityTypeSlots.Keys)
+            {
+                List<IAbility> abilitySlots = abilityTypeSlots[abilityType].Abilities;
+
+                for (int i = 0; i < abilitySlots.Count; i++)
+                {
+                    if (abilitySlots[i] != ability) continue;
+
+                    linkedAbilityData.Remove(ability.Data);
+                    ability.ForceDeactivate();
+
+                    onAbilityRemoved?.Invoke(ability, abilityType);
+                    abilitySlots.RemoveAt(i);
+
+                    return ability;
+                }
+            }
+
+            return null;
         }
 
         public void TryUseAbility(AbilityType abilityType)
@@ -143,36 +181,49 @@ namespace Zeke.Abilities
 
         public void TryUseAbility(AbilityType abilityType, bool holding)
         {
-            onUseAbility?.Invoke(abilityType, holding);
+            if (TryGetAbility(abilityType, out IAbility ability))
+            {
+                if (ability == null || IsLocked(abilityType)) return;
+                if (holding && !ability.Data.CanHold) return;
 
-            IAbility ability = Abilities[abilityType].Ability;
+                onUseAbility?.Invoke(abilityType, holding);
+                UseAbility(ability, abilityType, holding);
+            }
+        }
 
-            if (ability == null || IsLocked(abilityType)) return;
-            if (holding && !ability.Data.CanHold) return;
-
-            UseAbility(ability, abilityType, holding);
+        public void UpgradeAbility(AbilityData abilityData)
+        {
+            if (TryGetAbility(abilityData, out IAbility ability))
+            {
+                ability.QueueUpgrade();
+            }
         }
 
         public void UpgradeAbility(AbilityType abilityType)
         {
-            Abilities[abilityType].Ability?.QueueUpgrade();
+            if (abilityTypeSlots[abilityType].Abilities.Count == 0) return;
+
+            abilityTypeSlots[abilityType].CurrentAbilitySlot.QueueUpgrade();
         }
 
         public void AddAbilityLock(AbilityLock abilityLock)
         {
-            Abilities[abilityLock.abilityType].AbilityLocks.Add(abilityLock);
+            abilityTypeSlots[abilityLock.abilityType].AbilityLocks.Add(abilityLock);
         }
 
         public void RemoveAbilityLock(AbilityLock abilityLock)
         {
-            Abilities[abilityLock.abilityType].AbilityLocks.Remove(abilityLock);
+            abilityTypeSlots[abilityLock.abilityType].AbilityLocks.Remove(abilityLock);
         }
 
         public void Upgrade()
         {
-            foreach (AbilitySlot abilitySlot in Abilities.Values)
+            foreach (AbilityTypeSlot abilityTypeSlot in abilityTypeSlots.Values)
             {
-                abilitySlot.Ability?.QueueUpgrade();
+                for (int i = 0; i < abilityTypeSlot.Abilities.Count; i++)
+                {
+                    abilityTypeSlot.Abilities[i]?.QueueUpgrade();
+                }
             }
 
             level += 1;
@@ -187,7 +238,7 @@ namespace Zeke.Abilities
         {
             foreach (AbilityType abilityType in Enum.GetValues(typeof(AbilityType)))
             {
-                Abilities.Add(abilityType, new AbilitySlot(abilityType));
+                abilityTypeSlots.Add(abilityType, new AbilityTypeSlot(abilityType));
             }
 
             foreach (AbilityType abilityType in StartAbilities.Keys)
@@ -198,70 +249,34 @@ namespace Zeke.Abilities
 
         private void Update()
         {
-            foreach (AbilitySlot abilitySlot in Abilities.Values)
+            foreach (AbilityTypeSlot abilityTypeSlot in abilityTypeSlots.Values)
             {
-                abilitySlot.Ability?.Update();
+                for (int i = 0; i < abilityTypeSlot.Abilities.Count; i++)
+                {
+                    abilityTypeSlot.Abilities[i]?.Update();
+                }
             }
         }
 
         private void LateUpdate()
         {
-            foreach (AbilitySlot abilitySlot in Abilities.Values)
+            foreach (AbilityTypeSlot abilityTypeSlot in abilityTypeSlots.Values)
             {
-                abilitySlot.Ability?.LateUpdate();
+                for (int i = 0; i < abilityTypeSlot.Abilities.Count; i++)
+                {
+                    abilityTypeSlot.Abilities[i]?.LateUpdate();
+                }
             }
         }
 
         private void OnDestroy()
         {
-            RemoveAbilities();
+            DestroyAbilities();
         }
 
-        private void RemoveAbility(AbilityType abilityType, bool destroy)
+        private void DestroyAbility(IAbility ability)
         {
-            RemoveAbility(Abilities[abilityType].Ability, destroy);
-        }
-
-        private void RemoveAbility(IAbility ability, bool destroy)
-        {
-            if (ability == null) return;
-
-            foreach (AbilityType abilityType in Abilities.Keys)
-            {
-                if (Abilities[abilityType].Ability != ability) continue;
-
-                linkedAbilityData.Remove(ability.Data);
-
-                Abilities[abilityType].AbilityData = null;
-                Abilities[abilityType].Ability = null;
-
-                ability.TryDeactivate();
-                if (destroy) ability.Destroy();
-
-                onAbilityRemoved?.Invoke(ability, abilityType);
-
-                break;
-            }
-        }
-
-        private void AddAbility(IAbility ability, AbilityType abilityType, bool initialize)
-        {
-            if (Abilities[abilityType].Ability == null)
-            {
-                linkedAbilityData.Add(ability.Data, abilityType);
-
-                if (initialize) ability.Initialize();
-
-                Abilities[abilityType].AbilityData = ability.Data;
-                Abilities[abilityType].Ability = ability;
-
-                onAbilityAdded?.Invoke(ability, abilityType);
-
-                while (ability.Level < level)
-                {
-                    ability.QueueUpgrade();
-                }
-            }
+            RemoveAbility(ability)?.Destroy();
         }
 
         private void UseAbility(IAbility ability, AbilityType abilityType, bool holding)
@@ -272,11 +287,14 @@ namespace Zeke.Abilities
             }   
         }
 
-        private void RemoveAbilities()
+        private void DestroyAbilities()
         {
-            foreach (AbilitySlot abilitySlot in Abilities.Values)
+            foreach (AbilityTypeSlot abilityTypeSlot in abilityTypeSlots.Values)
             {
-                RemoveAbility(abilitySlot.Ability, true);
+                for (int i = 0; i < abilityTypeSlot.Abilities.Count; i++)
+                {
+                    DestroyAbility(abilityTypeSlot.Abilities[i]);
+                }
             }
         }
     }

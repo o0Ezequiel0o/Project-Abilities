@@ -29,7 +29,11 @@ namespace Zeke.Abilities.Modules
         {
             for (int i = 0; i < data.Levels; i++)
             {
-                strategy.GetAbilitySlot(controller)?.Ability.QueueUpgrade();
+                if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilitySlotInfo))
+                {
+                    IAbility ability = abilitySlotInfo.abilityTypeSlot.Abilities[abilitySlotInfo.abilityIndex];
+                    ability.QueueUpgrade();
+                }
             }
         }
     }
