@@ -82,12 +82,12 @@ namespace Zeke.Abilities.Modules
             }
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            amount.Upgrade();
-            damage.Upgrade();
-            maxRange.Upgrade();
-            fireCooldown.Upgrade();
+            amount.Upgrade(levels);
+            damage.Upgrade(levels);
+            maxRange.Upgrade(levels);
+            fireCooldown.Upgrade(levels);
         }
 
         public override void Destroy()

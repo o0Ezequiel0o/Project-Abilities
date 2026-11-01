@@ -129,8 +129,8 @@ public class HackItemGeneratorsSkill : PassiveBase
         }
     }
 
-    protected override void UpgradeInternal()
+    protected override void UpgradeInternal(int levels)
     {
-        chargeSpeed.Upgrade();
+        chargeSpeed.Upgrade(levels);
     }
 }

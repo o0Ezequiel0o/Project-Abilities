@@ -60,9 +60,9 @@ public class DefenseSystemSkill : PassiveBase
         GameObject.Destroy(visualInstance);
     }
 
-    protected override void UpgradeInternal()
+    protected override void UpgradeInternal(int levels)
     {
-        radius.Upgrade();
+        radius.Upgrade(levels);
         AdjustVisualSize();
     }
 

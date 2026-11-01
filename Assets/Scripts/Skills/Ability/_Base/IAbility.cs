@@ -49,6 +49,6 @@ namespace Zeke.Abilities
 
         public abstract void Destroy();
 
-        public abstract void QueueUpgrade();
+        public abstract void QueueUpgrade(int levels);
     }
 }

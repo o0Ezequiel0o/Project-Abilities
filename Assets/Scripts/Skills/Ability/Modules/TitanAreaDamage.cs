@@ -74,10 +74,10 @@ namespace Zeke.Abilities.Modules
             }
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            radius.Upgrade();
-            damage.Upgrade();
+            radius.Upgrade(levels);
+            damage.Upgrade(levels);
         }
     }
 }

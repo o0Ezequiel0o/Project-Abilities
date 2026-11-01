@@ -55,11 +55,11 @@ namespace Zeke.Abilities.Modules
             selectedModule?.LateUpdate();
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
             for (int i = 0; i < choices.Count; i++)
             {
-                choices[i].module?.Upgrade();
+                choices[i].module?.Upgrade(levels);
             }
         }
 

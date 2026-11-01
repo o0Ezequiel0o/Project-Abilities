@@ -43,9 +43,9 @@ namespace Zeke.Abilities.Modules
             timer += Time.deltaTime * RechargeSpeed;
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            cooldown.Upgrade();
+            cooldown.Upgrade(levels);
         }
     }
 }

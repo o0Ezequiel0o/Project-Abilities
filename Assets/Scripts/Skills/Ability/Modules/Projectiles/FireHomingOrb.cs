@@ -26,10 +26,10 @@ namespace Zeke.Abilities.Modules.Projectiles
             projectile.gameObject.SetActive(true);
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            base.Upgrade();
-            pierce.Upgrade();
+            base.Upgrade(levels);
+            pierce.Upgrade(levels);
         }
     }
 }

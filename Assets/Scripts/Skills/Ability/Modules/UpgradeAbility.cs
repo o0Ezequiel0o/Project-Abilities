@@ -27,13 +27,10 @@ namespace Zeke.Abilities.Modules
 
         public override void Activate(bool holding)
         {
-            for (int i = 0; i < data.Levels; i++)
+            if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilitySlotInfo))
             {
-                if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilitySlotInfo))
-                {
-                    IAbility ability = abilitySlotInfo.abilityTypeSlot.Abilities[abilitySlotInfo.abilityIndex];
-                    ability.QueueUpgrade();
-                }
+                IAbility ability = abilitySlotInfo.abilityTypeSlot.Abilities[abilitySlotInfo.abilityIndex];
+                ability.QueueUpgrade(data.Levels);
             }
         }
     }

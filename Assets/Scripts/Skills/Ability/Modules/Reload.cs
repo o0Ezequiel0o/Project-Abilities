@@ -46,9 +46,9 @@ namespace Zeke.Abilities.Modules
             strategy.UpdateInactive(controller);
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            strategy.Upgrade(controller);
+            strategy.Upgrade(controller, levels);
         }
 
         public abstract class ReloadStrategy
@@ -70,9 +70,9 @@ namespace Zeke.Abilities.Modules
             public abstract void UpdateActive(AbilityController controller);
             public abstract void UpdateInactive(AbilityController controller);
 
-            public virtual void Upgrade(AbilityController controller)
+            public virtual void Upgrade(AbilityController controller, int levels)
             {
-                chargesAmount.Upgrade();
+                chargesAmount.Upgrade(levels);
             }
         }
 

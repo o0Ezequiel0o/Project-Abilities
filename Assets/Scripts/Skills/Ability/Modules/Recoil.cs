@@ -34,9 +34,9 @@ namespace Zeke.Abilities.Modules
             physics.AddForce(force.Value, GetRelativeDirection(data.Direction.normalized, entityAim.AimDirection));
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            force.Upgrade();
+            force.Upgrade(levels);
         }
 
         public Vector2 GetRelativeDirection(Vector2 direction, Vector2 relativeTo)

@@ -52,9 +52,9 @@ public class AmbushSkill : PassiveBase
         }
     }
 
-    protected override void UpgradeInternal()
+    protected override void UpgradeInternal(int levels)
     {
-        damageMultiplier.Upgrade();
+        damageMultiplier.Upgrade(levels);
     }
 
     private void OnDealDamage(Damageable.DamageEvent damageEvent)

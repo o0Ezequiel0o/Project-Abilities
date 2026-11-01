@@ -32,9 +32,14 @@ public class MoneyAndLevelRenderer : MonoBehaviour
         UpdateMoney(moneyHandler.Money);
     }
 
+    private void UpdateLevel(LevelHandler.LevelUpInfo levelUpInfo)
+    {
+        UpdateLevel(levelUpInfo.newLevel);
+    }
+
     private void UpdateLevel(int level)
     {
-        window.TryGetElement<TextMeshProUGUI>("Level").text = levelHandler.Level.ToString();
+        window.TryGetElement<TextMeshProUGUI>("Level").text = level.ToString();
     }
 
     private void UpdateMoney(int money)

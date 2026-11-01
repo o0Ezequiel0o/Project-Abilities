@@ -17,8 +17,8 @@ public class CollisionDamage : MonoBehaviour, IUpgradable
         }
     }
 
-    public void Upgrade()
+    public void Upgrade(int levels)
     {
-        damage.Upgrade();
+        damage.Upgrade(levels);
     }
 }

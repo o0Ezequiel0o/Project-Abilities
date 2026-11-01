@@ -42,9 +42,9 @@ namespace Zeke.Abilities.Modules.Stats
             statReference.ApplyFlatModifier(-changedAmount);
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            amount.Upgrade();
+            amount.Upgrade(levels);
         }
     }
 }

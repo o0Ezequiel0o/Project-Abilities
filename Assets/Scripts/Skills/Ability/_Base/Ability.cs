@@ -66,7 +66,7 @@ namespace Zeke.Abilities
 
         private float CooldownMultiplier => controller.AbilityTypeSlots[type].CooldownMultiplier.Value;
 
-        private int queuedUpgrades = 0;
+        private int queuedLevels = 0;
 
         public Ability(GameObject source, AbilityData data, AbilityController controller, Transform spawn, AbilityType type, Stat cooldownTime, Stat durationTime, Stat maxCharges)
         {
@@ -175,15 +175,15 @@ namespace Zeke.Abilities
             }
         }
 
-        public void QueueUpgrade()
+        public void QueueUpgrade(int levels)
         {
             if (CanUpgrade())
             {
-                Upgrade();
+                Upgrade(levels);
             }
             else
             {
-                queuedUpgrades += 1;
+                queuedLevels += levels;
             }
         }
 
@@ -304,16 +304,16 @@ namespace Zeke.Abilities
             }
         }
 
-        private void Upgrade()
+        private void Upgrade(int levels)
         {
             for (int i = 0; i < modules.Count; i++)
             {
-                modules[i].Upgrade();
+                modules[i].Upgrade(levels);
             }
 
-            cooldownTime.Upgrade();
-            durationTime.Upgrade();
-            maxCharges.Upgrade();
+            cooldownTime.Upgrade(levels);
+            durationTime.Upgrade(levels);
+            maxCharges.Upgrade(levels);
 
             Level += 1;
         }
@@ -335,15 +335,12 @@ namespace Zeke.Abilities
 
         private void CheckQueuedUpgrades()
         {
-            if (queuedUpgrades == 0) return;
+            if (queuedLevels == 0) return;
             if (!CanUpgrade()) return;
 
-            for (int i = 0; i < queuedUpgrades; i++)
-            {
-                Upgrade();
-            }
+            Upgrade(queuedLevels);
 
-            queuedUpgrades = 0;
+            queuedLevels = 0;
         }
     }
 }

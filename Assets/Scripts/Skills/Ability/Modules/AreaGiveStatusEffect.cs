@@ -50,10 +50,10 @@ namespace Zeke.Abilities.Modules
             }
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            base.Upgrade();
-            radius.Upgrade();
+            base.Upgrade(levels);
+            radius.Upgrade(levels);
         }
 
         public enum TargetingType

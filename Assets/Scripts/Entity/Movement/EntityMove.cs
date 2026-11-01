@@ -32,9 +32,9 @@ public class EntityMove : MonoBehaviour, IUpgradable
         moveDirection = desiredMoveDirection;
     }
 
-    public virtual void Upgrade()
+    public virtual void Upgrade(int levels)
     {
-        MoveSpeed.Upgrade();
+        MoveSpeed.Upgrade(levels);
     }
 
     protected virtual void Reset()

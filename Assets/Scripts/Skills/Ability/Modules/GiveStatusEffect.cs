@@ -32,9 +32,9 @@ namespace Zeke.Abilities.Modules
             statusEffectHandler.ApplyEffect(data.StatusEffect, source, stacks.ValueInt);
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            stacks.Upgrade();
+            stacks.Upgrade(levels);
         }
     }
 }

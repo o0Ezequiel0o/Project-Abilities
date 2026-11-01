@@ -19,9 +19,9 @@ public abstract class EntityAim : MonoBehaviour, IUpgradable
         desiredAimDirection = AimDirection;
     }
 
-    public virtual void Upgrade()
+    public virtual void Upgrade(int levels)
     {
-        RotationSpeed.Upgrade();
+        RotationSpeed.Upgrade(levels);
     }
 
     private void FixedUpdate()

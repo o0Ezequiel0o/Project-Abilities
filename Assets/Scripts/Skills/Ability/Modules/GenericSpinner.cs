@@ -75,11 +75,11 @@ namespace Zeke.Abilities.Modules
             spinnerInstance = null;
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            distance.Upgrade();
-            speed.Upgrade();
-            amount.Upgrade();
+            distance.Upgrade(levels);
+            speed.Upgrade(levels);
+            amount.Upgrade(levels);
         }
     }
 }

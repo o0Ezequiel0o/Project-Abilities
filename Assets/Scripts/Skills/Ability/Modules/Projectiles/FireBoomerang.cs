@@ -29,10 +29,10 @@ namespace Zeke.Abilities.Modules.Projectiles
             currentProjectiles += 1;
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            base.Upgrade();
-            maxBoomerangs.Upgrade();
+            base.Upgrade(levels);
+            maxBoomerangs.Upgrade(levels);
         }
 
         private void OnProjectileDespawn(Projectile projectile)

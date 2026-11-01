@@ -43,9 +43,9 @@ namespace Zeke.Abilities.Modules
             damageable.DealDamage(damageInfo, source, source);
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            damage.Upgrade();
+            damage.Upgrade(levels);
         }
 
         private float GetDamage(float amount, ValueType valueType)

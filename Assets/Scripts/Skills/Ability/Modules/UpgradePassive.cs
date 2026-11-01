@@ -30,10 +30,7 @@ namespace Zeke.Abilities.Modules
 
             if (passiveController.TryGetPassive(data.Passive, out IPassive passiveInstance))
             {
-                for (int i = 0; i < data.Levels; i++)
-                {
-                    passiveInstance.Upgrade();
-                }
+                passiveInstance.Upgrade(data.Levels);
             }
         }
     }

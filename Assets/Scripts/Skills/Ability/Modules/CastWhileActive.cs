@@ -113,10 +113,10 @@ namespace Zeke.Abilities.Modules
             }
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            inactiveLength.Upgrade();
-            module.Upgrade();
+            inactiveLength.Upgrade(levels);
+            module.Upgrade(levels);
         }
 
         public override void Destroy()

@@ -45,9 +45,9 @@ namespace Zeke.Abilities.Modules.Summoning
             SpawnSummon(WorldSpawnPosition, spawn.rotation);
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            maxSummons.Upgrade();
+            maxSummons.Upgrade(levels);
         }
 
         public override void Destroy()

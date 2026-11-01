@@ -32,9 +32,9 @@ namespace Zeke.Abilities.Modules
             Damageable.DamageEvent.onKill.Unsubscribe(source, OnKill);
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            amount.Upgrade();
+            amount.Upgrade(levels);
         }
 
         public override void Destroy()

@@ -67,9 +67,9 @@ namespace Zeke.Abilities.Modules
             module?.LateUpdate();
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            module?.Upgrade();
+            module?.Upgrade(levels);
         }
 
         public override void Destroy()

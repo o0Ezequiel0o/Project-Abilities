@@ -46,9 +46,9 @@ namespace Zeke.Abilities.Modules.Stats
             statReference.RemoveMultiplier(multiplier);
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            amount.Upgrade();
+            amount.Upgrade(levels);
         }
 
         private void UpdateMultiplier(Stat.StatUpdate _)

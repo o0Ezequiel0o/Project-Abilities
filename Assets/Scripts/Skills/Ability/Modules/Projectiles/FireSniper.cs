@@ -26,10 +26,10 @@ namespace Zeke.Abilities.Modules.Projectiles
             base.LaunchProjectile(position, direction, damageData, knockback, speed, maxRange, source, team);
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            base.Upgrade();
-            doubleDamageChance.Upgrade();
+            base.Upgrade(levels);
+            doubleDamageChance.Upgrade(levels);
         }
     }
 }

@@ -135,7 +135,7 @@ namespace Zeke.Abilities
 
             while (ability.Level < level)
             {
-                ability.QueueUpgrade();
+                ability.QueueUpgrade(level - ability.Level);
             }
 
             if (abilityTypeSlots[abilityType].Abilities.Count > 1)
@@ -191,19 +191,19 @@ namespace Zeke.Abilities
             }
         }
 
-        public void UpgradeAbility(AbilityData abilityData)
+        public void UpgradeAbility(AbilityData abilityData, int levels)
         {
             if (TryGetAbility(abilityData, out IAbility ability))
             {
-                ability.QueueUpgrade();
+                ability.QueueUpgrade(levels);
             }
         }
 
-        public void UpgradeAbility(AbilityType abilityType)
+        public void UpgradeAbility(AbilityType abilityType, int levels)
         {
             if (abilityTypeSlots[abilityType].Abilities.Count == 0) return;
 
-            abilityTypeSlots[abilityType].CurrentAbilitySlot.QueueUpgrade();
+            abilityTypeSlots[abilityType].CurrentAbilitySlot.QueueUpgrade(levels);
         }
 
         public void AddAbilityLock(AbilityLock abilityLock)
@@ -216,17 +216,17 @@ namespace Zeke.Abilities
             abilityTypeSlots[abilityLock.abilityType].AbilityLocks.Remove(abilityLock);
         }
 
-        public void Upgrade()
+        public void Upgrade(int levels)
         {
             foreach (AbilityTypeSlot abilityTypeSlot in abilityTypeSlots.Values)
             {
                 for (int i = 0; i < abilityTypeSlot.Abilities.Count; i++)
                 {
-                    abilityTypeSlot.Abilities[i]?.QueueUpgrade();
+                    abilityTypeSlot.Abilities[i]?.QueueUpgrade(levels);
                 }
             }
 
-            level += 1;
+            level += levels;
         }
 
         private void Reset()

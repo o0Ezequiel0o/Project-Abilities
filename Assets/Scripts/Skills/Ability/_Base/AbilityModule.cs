@@ -19,7 +19,7 @@ namespace Zeke.Abilities
         public virtual void Update() { }
         public virtual void LateUpdate() { }
 
-        public virtual void Upgrade() { }
+        public virtual void Upgrade(int levels) { }
         public virtual void Destroy() { }
     }
 }

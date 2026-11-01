@@ -79,11 +79,11 @@ namespace Zeke.Abilities.Modules
             sawInstance.transform.position = CastPosition;
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            base.Upgrade();
-            damage.Upgrade();
-            damageCooldown.Upgrade();
+            base.Upgrade(levels);
+            damage.Upgrade(levels);
+            damageCooldown.Upgrade(levels);
         }
 
         public override void Destroy()

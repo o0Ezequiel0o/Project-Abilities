@@ -29,10 +29,10 @@ namespace Zeke.Abilities.Modules
 
         public override void LateUpdate() { }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            base.Upgrade();
-            value.Upgrade();
+            base.Upgrade(levels);
+            value.Upgrade(levels);
             //Remember to upgrade all stats
         }
 

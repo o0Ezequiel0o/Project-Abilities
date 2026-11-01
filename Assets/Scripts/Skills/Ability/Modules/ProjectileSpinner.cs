@@ -37,11 +37,11 @@ namespace Zeke.Abilities.Modules
             base.UpdateActive();
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            base.Upgrade();
-            damage.Upgrade();
-            pierce.Upgrade();
+            base.Upgrade(levels);
+            damage.Upgrade(levels);
+            pierce.Upgrade(levels);
         }
 
         protected override void OnSpinnerInitialization(List<SpinnerProjectile> spawnedObjects)

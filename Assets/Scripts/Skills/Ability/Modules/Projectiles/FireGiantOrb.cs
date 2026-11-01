@@ -30,13 +30,13 @@ namespace Zeke.Abilities.Modules.Projectiles
             projectile.gameObject.SetActive(true);
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            base.Upgrade();
-            smallOrbDamage.Upgrade();
-            smallOrbSpeed.Upgrade();
-            smallOrbRange.Upgrade();
-            smallOrbPierce.Upgrade();
+            base.Upgrade(levels);
+            smallOrbDamage.Upgrade(levels);
+            smallOrbSpeed.Upgrade(levels);
+            smallOrbRange.Upgrade(levels);
+            smallOrbPierce.Upgrade(levels);
         }
     }
 }

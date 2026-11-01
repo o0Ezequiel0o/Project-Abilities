@@ -52,10 +52,10 @@ namespace Zeke.Abilities.Modules
             }
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            amount.Upgrade();
-            interval.Upgrade();
+            amount.Upgrade(levels);
+            interval.Upgrade(levels);
         }
     }
 }

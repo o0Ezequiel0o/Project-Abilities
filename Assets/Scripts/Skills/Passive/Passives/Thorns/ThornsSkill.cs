@@ -34,9 +34,9 @@ public class ThornsSkill : PassiveBase
         }
     }
 
-    protected override void UpgradeInternal()
+    protected override void UpgradeInternal(int levels)
     {
-        damagePerArmor.Upgrade();
+        damagePerArmor.Upgrade(levels);
     }
 
     private void OnTakenDamage(DamageEvent damageEvent)

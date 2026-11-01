@@ -175,10 +175,10 @@ public class Stat : IUpgradable
         onValueChanged?.Invoke(new StatUpdate(oldValue));
     }
 
-    public void Upgrade()
+    public void Upgrade(int levels)
     {
         float oldValue = Value;
-        Level += 1;
+        Level += levels;
 
         if (increase != 0f)
         {

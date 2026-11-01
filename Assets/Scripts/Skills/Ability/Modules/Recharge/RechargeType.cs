@@ -27,7 +27,7 @@ namespace Zeke.Abilities.Modules
         public virtual void UpdateDuration() { }
 
         public virtual void Destroy() { }
-        public virtual void Upgrade() { }
+        public virtual void Upgrade(int levels) { }
 
         protected void UpdateCooldown(float value, ValueType valueType)
         {

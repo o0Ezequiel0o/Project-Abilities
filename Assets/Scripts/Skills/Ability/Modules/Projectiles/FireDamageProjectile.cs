@@ -25,9 +25,9 @@ namespace Zeke.Abilities.Modules.Projectiles
 
         public abstract void LaunchProjectile(Vector3 position, Vector3 direction, DamageData damageData, float knockback, float speed, float maxRange, GameObject source, Teams team);
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            damage.Upgrade();
+            damage.Upgrade(levels);
         }
 
         public override void Destroy()

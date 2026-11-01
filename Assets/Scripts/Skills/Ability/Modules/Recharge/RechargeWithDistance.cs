@@ -41,10 +41,10 @@ namespace Zeke.Abilities.Modules
             lastPosition = source.transform.position;
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            amount.Upgrade();
-            distanceForAmount.Upgrade();
+            amount.Upgrade(levels);
+            distanceForAmount.Upgrade(levels);
         }
     }
 }

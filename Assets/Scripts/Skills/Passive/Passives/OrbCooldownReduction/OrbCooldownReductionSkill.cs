@@ -40,9 +40,9 @@ public class OrbCooldownReductionSkill : PassiveBase
         }
     }
 
-    protected override void UpgradeInternal()
+    protected override void UpgradeInternal(int levels)
     {
-        flatCooldownDecrease.Upgrade();
+        flatCooldownDecrease.Upgrade(levels);
     }
 
     private void LookForComponents()

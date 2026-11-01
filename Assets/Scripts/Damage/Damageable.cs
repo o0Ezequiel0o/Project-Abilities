@@ -149,19 +149,19 @@ public class Damageable : MonoBehaviour, IUpgradable
         immunitySources.Remove(id);
     }
 
-    public void Upgrade()
+    public void Upgrade(int levels)
     {
-        MaxHealth.Upgrade();
-        HealthRegen.Upgrade();
+        MaxHealth.Upgrade(levels);
+        HealthRegen.Upgrade(levels);
 
-        MaxShield.Upgrade();
-        ShieldRegen.Upgrade();
+        MaxShield.Upgrade(levels);
+        ShieldRegen.Upgrade(levels);
 
-        Armor.Upgrade();
+        Armor.Upgrade(levels);
 
-        DamageReceivedMultiplier.Upgrade();
-        HealingReceivedMultiplier.Upgrade();
-        ShieldReceivedMultiplier.Upgrade();
+        DamageReceivedMultiplier.Upgrade(levels);
+        HealingReceivedMultiplier.Upgrade(levels);
+        ShieldReceivedMultiplier.Upgrade(levels);
     }
 
     private float CalculateDamage(DamageEvent damageEvent)

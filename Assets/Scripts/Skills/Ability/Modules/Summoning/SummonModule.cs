@@ -8,6 +8,6 @@ namespace Zeke.Abilities.Modules.Summoning
 
         public abstract void OnDestroy(GameObject summon, GameObject source);
 
-        public virtual void Upgrade() { }
+        public virtual void Upgrade(int levels) { }
     }
 }

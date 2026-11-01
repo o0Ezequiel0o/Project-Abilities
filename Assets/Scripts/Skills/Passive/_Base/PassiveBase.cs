@@ -24,11 +24,11 @@ public abstract class PassiveBase : IPassive
 
     public virtual void LateUpdate() { }
 
-    public void Upgrade()
+    public void Upgrade(int levels)
     {
-        Level += 1;
-        UpgradeInternal();
+        Level += levels;
+        UpgradeInternal(levels);
     }
 
-    protected virtual void UpgradeInternal() { }
+    protected virtual void UpgradeInternal(int levels) { }
 }

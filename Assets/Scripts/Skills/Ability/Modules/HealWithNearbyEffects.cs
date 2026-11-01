@@ -64,10 +64,10 @@ namespace Zeke.Abilities.Modules
             damageable.GiveHealing(heal, source, source);
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            healingPerStack.Upgrade();
-            radius.Upgrade();
+            healingPerStack.Upgrade(levels);
+            radius.Upgrade(levels);
         }
     }
 }

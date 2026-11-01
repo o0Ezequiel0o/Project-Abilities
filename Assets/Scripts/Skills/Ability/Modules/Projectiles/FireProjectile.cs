@@ -36,11 +36,11 @@ namespace Zeke.Abilities.Modules.Projectiles
             LaunchProjectile(spawn.position, spawn.up, speed.Value, maxRange.Value, source);
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            speed.Upgrade();
-            maxRange.Upgrade();
-            projectile.Upgrade();
+            speed.Upgrade(levels);
+            maxRange.Upgrade(levels);
+            projectile.Upgrade(levels);
         }
 
         public override void Destroy()

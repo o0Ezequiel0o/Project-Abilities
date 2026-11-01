@@ -35,21 +35,21 @@ public class PassiveController : MonoBehaviour, IUpgradable
         return false;
     }
 
-    public void Upgrade()
+    public void Upgrade(int levels)
     {
         for (int i = 0; i < passives.Count; i++)
         {
-            passives[i].Upgrade();
+            passives[i].Upgrade(levels);
         }
     }
 
-    public void UpgradePassive(PassiveData passiveData)
+    public void UpgradePassive(PassiveData passiveData, int levels)
     {
         for (int i = 0; i < passives.Count; i++)
         {
             if (passives[i].Data == passiveData)
             {
-                passives[i].Upgrade();
+                passives[i].Upgrade(levels);
                 return;
             }
         }

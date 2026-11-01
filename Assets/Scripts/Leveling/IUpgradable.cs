@@ -1,4 +1,4 @@
 public interface IUpgradable
 {
-    public void Upgrade();
+    public void Upgrade(int levels);
 }

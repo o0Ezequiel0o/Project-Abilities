@@ -11,7 +11,7 @@ public class LevelHandler : MonoBehaviour
     public int Experience => experience;
     public int ExperienceRequired => experienceRequired;
 
-    public readonly OrderedAction<int> onLevelUp = new OrderedAction<int>();
+    public readonly OrderedAction<LevelUpInfo> onLevelUp = new OrderedAction<LevelUpInfo>();
     public readonly OrderedAction<int> onReceiveExperience = new OrderedAction<int>();
 
     private int experience = 0;
@@ -19,58 +19,89 @@ public class LevelHandler : MonoBehaviour
 
     private IUpgradable[] upgradableComponents;
 
+    public readonly struct LevelUpInfo
+    {
+        public readonly int oldLevel;
+        public readonly int newLevel;
+
+        public readonly int levels;
+
+        public LevelUpInfo(int oldLevel, int newLevel, int levels)
+        {
+            this.oldLevel = oldLevel;
+            this.newLevel = newLevel;
+            this.levels = levels;
+        }
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GiveExperience(300000);
+        }
+    }
+
     public void GiveExperience(int experienceGained)
     {
         int experienceReceived = Mathf.FloorToInt(experienceGained * ExperienceMultiplier.Value);
-
-        experience += Mathf.FloorToInt(experienceReceived);
+        experience += experienceReceived;
         onReceiveExperience?.Invoke(experienceReceived);
 
-        while (experience >= experienceRequired)
+        int levelsToGain = CalculateLevelsToGain();
+
+        if (levelsToGain > 0)
         {
-            LevelUp();
-            HandleOverflowXP();
+            experience -= CalculateExperienceForLevels(levelsToGain);
+            IncreaseLevel(levelsToGain);
         }
+    }
+
+    private int CalculateLevelsToGain()
+    {
+        double a = 75.0;
+        double b = 150.0 * Level - 125.0;
+        double c = -experience;
+
+        double discriminant = (b * b) - (4.0 * a * c);
+        if (discriminant < 0) return 0;
+
+        double k = (-b + Math.Sqrt(discriminant)) / (2.0 * a);
+        return Mathf.FloorToInt((float)k);
+    }
+
+    private int CalculateExperienceForLevels(int k)
+    {
+        long totalXP = 75L * k * k + (150L * Level - 125L) * k;
+        return (int)totalXP;
     }
 
     public void IncreaseLevel(int levels)
     {
-        for (int i = 0; i < levels; i++)
-        {
-            Level += 1;
-            UpgradeComponents();
-            onLevelUp?.Invoke(Level);
-        }
+        Level += levels;
 
         CalculateNextLevelExperience();
+        UpgradeComponents(levels);
+
+        onLevelUp?.Invoke(new LevelUpInfo(Level - levels, Level, levels));
     }
 
     private void Awake()
     {
-        CalculateNextLevelExperience();
         upgradableComponents = GetComponentsInChildren<IUpgradable>();
+        CalculateNextLevelExperience();
     }
 
-    private void LevelUp()
-    {
-        IncreaseLevel(1);
-    }
-
-    private void HandleOverflowXP()
-    {
-        experience -= experienceRequired;
-    }
-
-    private void UpgradeComponents()
+    private void UpgradeComponents(int levels)
     {
         for (int i = 0; i < upgradableComponents.Length; i++)
         {
-            upgradableComponents[i].Upgrade();
+            upgradableComponents[i].Upgrade(levels);
         }
     }
 
     private void CalculateNextLevelExperience()
     {
-        experienceRequired = (100 * Level) + 50 * (Level - 1);
+        experienceRequired = (150 * Level) - 50;
     }
 }

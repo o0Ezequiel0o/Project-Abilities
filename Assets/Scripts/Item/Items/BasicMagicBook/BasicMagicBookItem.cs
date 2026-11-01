@@ -38,13 +38,13 @@ namespace Zeke.Items
             }
         }
 
-        private void OnLevelUp(int level)
+        private void OnLevelUp(LevelHandler.LevelUpInfo levelUpInfo)
         {
             if (source.TryGetComponent(out AbilityController abilityController))
             {
                 abilities.Clear();
 
-                foreach (AbilityType abilityType in (AbilityType[])Enum.GetValues(typeof(AbilityType)))
+                foreach (AbilityType abilityType in Enum.GetValues(typeof(AbilityType)))
                 {
                     if (abilityController.TryGetAbility(abilityType, out IAbility ability))
                     {
@@ -56,11 +56,7 @@ namespace Zeke.Items
                 if (abilities.Count <= 0) return;
 
                 IAbility randomAbility = abilities[UnityEngine.Random.Range(0, abilities.Count)];
-
-                for (int i = 0; i < data.Levels.GetValue(stacks); i++)
-                {
-                    randomAbility.QueueUpgrade();
-                }
+                randomAbility.QueueUpgrade(Mathf.FloorToInt(data.Levels.GetValue(stacks)));
             }
         }
     }

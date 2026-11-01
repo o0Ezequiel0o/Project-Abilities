@@ -12,5 +12,5 @@ public interface IPassive
 
     public void OnRemove();
 
-    public void Upgrade();
+    public void Upgrade(int levels);
 }

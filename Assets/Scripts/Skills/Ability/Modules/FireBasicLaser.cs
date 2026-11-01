@@ -68,11 +68,11 @@ namespace Zeke.Abilities.Modules
             laserInstance.UpdateLaser(spawn.position, spawn.rotation, spawn.up, data.Radius, maxRange.Value);
         }
 
-        public override void Upgrade()
+        public override void Upgrade(int levels)
         {
-            damage.Upgrade();
-            maxRange.Upgrade();
-            damageCooldown.Upgrade();
+            damage.Upgrade(levels);
+            maxRange.Upgrade(levels);
+            damageCooldown.Upgrade(levels);
 
             if (laserInstance != null)
             {
