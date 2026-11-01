@@ -48,6 +48,11 @@ public class Stat : IUpgradable
         valueLimits = new Limits(min, max);
     }
 
+    public override string ToString()
+    {
+        return Value.ToString();
+    }
+
     public void ApplyFlatModifier(params float[] increase)
     {
         float oldValue = Value;
