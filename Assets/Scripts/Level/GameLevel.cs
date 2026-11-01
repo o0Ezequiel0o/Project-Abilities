@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Game Level", menuName = "new Game Level", order = 1)]
 public class GameLevel : ScriptableObject
 {
-    [field: SerializeField] public GameObject Prefab { get; private set; }
+    [field: SerializeField] public GameLevelInstance Prefab { get; private set; }
     [SerializeField] private List<GameLevel> nextLevelPool = new List<GameLevel>();
 
     public GameLevel GetNextLevel()

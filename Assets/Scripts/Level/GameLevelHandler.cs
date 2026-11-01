@@ -3,52 +3,59 @@ using UnityEngine;
 
 public class GameLevelHandler : MonoBehaviour
 {
-    [SerializeField] private float difficultyPerLevel = 3f;
     [SerializeField] private List<GameLevel> randomStartLevel;
 
     private GameLevel currentLevel;
-    private GameObject levelInstance;
-
-    private int loadLevelFrame = -1;
+    private GameLevelInstance levelInstance;
 
     private void Awake()
     {
-        GameInstance.Level = 0;
-
-        GlobalEventBus.Subscribe<LoadLevelEvent>(@event => LoadNewLevel(@event.Level));
-        GlobalEventBus.Subscribe<LoadNextLevelEvent>(_ => LoadNewLevel(currentLevel.GetNextLevel()));
+        GlobalEventBus.Subscribe<LoadLevelEvent>(OnLoadLevelEvent);
+        GlobalEventBus.Subscribe<LoadNextLevelEvent>(LoadNextLevel);
 
         GameLevel startLevel = randomStartLevel[Random.Range(0, randomStartLevel.Count)];
         LoadLevel(startLevel);
     }
 
+    private void OnDestroy()
+    {
+        GlobalEventBus.Unsubscribe<LoadLevelEvent>(OnLoadLevelEvent);
+        GlobalEventBus.Unsubscribe<LoadNextLevelEvent>(LoadNextLevel);
+    }
+
+    private void OnLoadLevelEvent(LoadLevelEvent @event)
+    {
+        LoadNewLevel(@event.Level);
+    }
+
+    private void LoadNextLevel(LoadNextLevelEvent @event)
+    {
+        LoadNewLevel(currentLevel.GetNextLevel());
+    }
+
     private void LoadNewLevel(GameLevel newLevel)
     {
-        if (loadLevelFrame == Time.frameCount) return;
-
-        loadLevelFrame = Time.frameCount;
         UnloadLevel(levelInstance);
         LoadLevel(newLevel);
     }
 
-    private void UnloadLevel(GameObject level)
+    private void UnloadLevel(GameLevelInstance level)
     {
+        if (level == null) return;
+
         DestroyLevelSpawnables();
-        Destroy(level);
+        Destroy(level.gameObject);
         ClearMinions();
 
-        GlobalEventBus.Invoke(new LevelUnloadedEvent());
+        GlobalEventBus.Invoke(new LevelUnloadedEvent(level));
     }
 
     private void LoadLevel(GameLevel level)
     {
-        GameInstance.Difficulty += difficultyPerLevel * GameInstance.Level;
         levelInstance = Instantiate(level.Prefab, Vector3.zero, Quaternion.identity);
-
-        GameInstance.Level += 1;
         currentLevel = level;
 
-        GlobalEventBus.Invoke(new LevelLoadedEvent());
+        GlobalEventBus.Invoke(new LevelLoadedEvent(levelInstance));
         GlobalEventBus.Invoke(new LevelStartEvent());
     }
 
@@ -87,11 +94,27 @@ public class GameLevelHandler : MonoBehaviour
         }
     }
 
-    public struct LevelEndEvent : IGlobalEvent { }
+    public readonly struct LevelEndEvent : IGlobalEvent { }
 
-    public struct LevelStartEvent : IGlobalEvent { }
+    public readonly struct LevelStartEvent : IGlobalEvent { }
 
-    public struct LevelLoadedEvent : IGlobalEvent { }
+    public readonly struct LevelLoadedEvent : IGlobalEvent
+    {
+        public readonly GameLevelInstance level;
 
-    public struct LevelUnloadedEvent : IGlobalEvent { }
+        public LevelLoadedEvent(GameLevelInstance level)
+        {
+            this.level = level;
+        }
+    }
+
+    public readonly struct LevelUnloadedEvent : IGlobalEvent
+    {
+        public readonly GameLevelInstance level;
+
+        public LevelUnloadedEvent(GameLevelInstance level)
+        {
+            this.level = level;
+        }
+    }
 }

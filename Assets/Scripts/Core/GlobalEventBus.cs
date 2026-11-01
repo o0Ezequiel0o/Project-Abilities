@@ -5,13 +5,16 @@ public static class GlobalEventBus
 {
     private readonly static Dictionary<Type, Delegate> events = new Dictionary<Type, Delegate>();
 
-    public static void Invoke(IGlobalEvent eventData)
+    public static void Invoke<T>(T eventData) where T : IGlobalEvent
     {
-        Type type = eventData.GetType();
+        Type type = typeof(T);
 
         if (events.TryGetValue(type, out Delegate @delegate))
         {
-            @delegate?.DynamicInvoke(eventData);
+            if (@delegate is Action<T> action)
+            {
+                action.Invoke(eventData);
+            }
         }
     }
 

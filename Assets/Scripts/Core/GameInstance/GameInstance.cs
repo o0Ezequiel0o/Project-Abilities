@@ -1,7 +1,8 @@
-using System.Collections.Generic;
-using UnityEngine.InputSystem;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using static GameLevelHandler;
 
 public class GameInstance : Singleton<GameInstance>
 {
@@ -185,7 +186,24 @@ public class GameInstance : Singleton<GameInstance>
 
     private void Awake()
     {
+        Level = 0;
         Time.maximumDeltaTime = 1f / minCodeFrameRate;
+    }
+
+    private void OnEnable()
+    {
+        GlobalEventBus.Subscribe<LevelLoadedEvent>(OnLevelLoaded);
+    }
+
+    private void OnDisable()
+    {
+        GlobalEventBus.Unsubscribe<LevelLoadedEvent>(OnLevelLoaded);
+    }
+
+    private void OnLevelLoaded(LevelLoadedEvent @event)
+    {
+        Difficulty += difficulty.DifficultyPerLevel * Level;
+        Level += 1;
     }
 
     private void Update()
