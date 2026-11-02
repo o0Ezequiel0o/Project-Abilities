@@ -69,6 +69,15 @@ namespace Zeke.UI
             Dictionary<string, UIElement> builtDictionary = new Dictionary<string, UIElement>();
             List<UIElement> elementsList = new List<UIElement>();
 
+            UIElement[] rootElements = window.GetComponents<UIElement>();
+            foreach (var rootElement in rootElements)
+            {
+                if (rootElement != null)
+                {
+                    elementsList.Add(rootElement);
+                }
+            }
+
             GetNonNestedChildren(window.transform, window.transform, elementsList);
 
             foreach (var element in elementsList)
@@ -186,9 +195,13 @@ namespace Zeke.UI
                     continue;
                 }
 
-                if (child.TryGetComponent<UIElement>(out var uiElement))
+                UIElement[] childElements = child.GetComponents<UIElement>();
+                foreach (var uiElement in childElements)
                 {
-                    results.Add(uiElement);
+                    if (uiElement != null)
+                    {
+                        results.Add(uiElement);
+                    }
                 }
 
                 GetNonNestedChildren(rootWindowTransform, child, results);
