@@ -157,7 +157,7 @@ namespace Zeke.Tooltips
         {
             if (state == State.Show && !tooltipObject.activeSelf)
             {
-                timer += Time.deltaTime;
+                timer += Time.unscaledDeltaTime;
 
                 if (timer > showDelay)
                 {
