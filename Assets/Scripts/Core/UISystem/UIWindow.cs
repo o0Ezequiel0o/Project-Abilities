@@ -27,6 +27,11 @@ namespace Zeke.UI
             graphicRoot.SetActive(state);
         }
 
+        public void ToggleGraphicVisibility()
+        {
+            SetGraphicVisibility(!IsVisible);
+        }
+
         public UIElement TryGetElement(string name)
         {
             if (string.IsNullOrEmpty(name)) return null;
