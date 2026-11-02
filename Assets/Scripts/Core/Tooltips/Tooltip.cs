@@ -44,8 +44,9 @@ namespace Zeke.Tooltips
         public static void SetText(string text)
         {
             Instance.tooltipText.text = text;
-            Vector2 sizeDelta = Vector2.zero;
+            Instance.tooltipText.ForceMeshUpdate();
 
+            Vector2 sizeDelta = Vector2.zero;
             Vector2 textSize = Instance.tooltipText.GetPreferredValues(text, Instance.maxSize.x, Instance.maxSize.y);
 
             sizeDelta.x = Mathf.Clamp(textSize.x, 0f, Instance.maxSize.x);
