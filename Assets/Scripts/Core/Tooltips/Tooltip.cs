@@ -19,6 +19,7 @@ namespace Zeke.Tooltips
         [Space]
 
         [SerializeField] private Vector2 maxSize = new Vector2(400f, 400f);
+        [SerializeField] private Vector2 padding = new Vector2(14f, 14f);
 
         [Space]
 
@@ -49,8 +50,8 @@ namespace Zeke.Tooltips
             Vector2 sizeDelta = Vector2.zero;
             Vector2 textSize = Instance.tooltipText.GetPreferredValues(text, Instance.maxSize.x, Instance.maxSize.y);
 
-            sizeDelta.x = Mathf.Clamp(textSize.x, 0f, Instance.maxSize.x);
-            sizeDelta.y = Mathf.Clamp(textSize.y, 0f, Instance.maxSize.y);
+            sizeDelta.x = Mathf.Clamp(textSize.x, 0f, Instance.maxSize.x + Instance.padding.x);
+            sizeDelta.y = Mathf.Clamp(textSize.y, 0f, Instance.maxSize.y + Instance.padding.y);
 
             Instance.tooltipRect.sizeDelta = sizeDelta;
         }
