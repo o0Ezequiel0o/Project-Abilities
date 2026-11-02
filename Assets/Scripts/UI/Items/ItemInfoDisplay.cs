@@ -3,22 +3,22 @@ using Zeke.Tooltips;
 
 namespace Zeke.Items
 {
-    [RequireComponent(typeof(ItemDisplaySlot)), RequireComponent(typeof(UITooltipTrigger))]
+    [RequireComponent(typeof(ItemSlotReference)), RequireComponent(typeof(UITooltipTrigger))]
     public class ItemInfoDisplay : MonoBehaviour
     {
         [Header("Dependency")]
-        [SerializeField] private ItemDisplaySlot itemDisplaySlot;
+        [SerializeField] private ItemSlotReference itemSlotReference;
         [SerializeField] private UITooltipTrigger trigger;
 
         private void Reset()
         {
-            itemDisplaySlot = GetComponent<ItemDisplaySlot>();
+            itemSlotReference = GetComponent<ItemSlotReference>();
             trigger = GetComponent<UITooltipTrigger>();
         }
 
         private void Awake()
         {
-            trigger.description = () => itemDisplaySlot.ItemData.Description;
+            trigger.description = () => itemSlotReference.ItemData.Description;
         }
     }
 }

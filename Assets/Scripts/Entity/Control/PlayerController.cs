@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     private AbilityInput utilityAbilityInput;
     private AbilityInput ultimateAbilityInput;
 
-    private bool inputEnabled = false;
+    private bool gameInputEnabled = false;
 
     private void Reset()
     {
@@ -64,16 +64,20 @@ public class PlayerController : MonoBehaviour
     {
         if (!GameInstance.IsPaused)
         {
-            EnableInput();
+            EnableGameInput();
         }
+
+        EnableUIInput();
     }
 
     private void OnDisable()
     {
         if (!GameInstance.IsPaused)
         {
-            DisableInput();
+            DisableGameInput();
         }
+
+        DisableUIInput();
     }
 
     private void Awake()
@@ -95,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!inputEnabled) return;
+        if (!gameInputEnabled) return;
 
         UpdateAimDirection();
         UpdateAbilityInputs();
@@ -105,7 +109,7 @@ public class PlayerController : MonoBehaviour
     {
         if (enabled)
         {
-            DisableInput();
+            DisableGameInput();
         }
     }
 
@@ -113,11 +117,11 @@ public class PlayerController : MonoBehaviour
     {
         if (enabled)
         {
-            EnableInput();
+            EnableGameInput();
         }
     }
 
-    private void EnableInput()
+    private void EnableGameInput()
     {
         moveInput.action.performed += OnMovementInputPerformed;
         moveInput.action.canceled += OnMovementInputCanceled;
@@ -135,12 +139,15 @@ public class PlayerController : MonoBehaviour
         interactInput.action.started += OnInteractionInputPerformed;
         exitVehicleInput.action.performed += OnExitVehicleInputPerformed;
 
-        toggleItemsMenuInput.action.performed += OnToggleItemsMenuInputPerformed;
-
-        inputEnabled = true;
+        gameInputEnabled = true;
     }
 
-    private void DisableInput()
+    private void EnableUIInput()
+    {
+        toggleItemsMenuInput.action.performed += OnToggleItemsMenuInputPerformed;
+    }
+
+    private void DisableGameInput()
     {
         moveInput.action.performed -= OnMovementInputPerformed;
         moveInput.action.canceled -= OnMovementInputCanceled;
@@ -158,10 +165,13 @@ public class PlayerController : MonoBehaviour
         interactInput.action.started -= OnInteractionInputPerformed;
         exitVehicleInput.action.performed -= OnExitVehicleInputPerformed;
 
-        toggleItemsMenuInput.action.performed -= OnToggleItemsMenuInputPerformed;
-
         entityMove.StopMoving();
-        inputEnabled = false;
+        gameInputEnabled = false;
+    }
+
+    private void DisableUIInput()
+    {
+        toggleItemsMenuInput.action.performed -= OnToggleItemsMenuInputPerformed;
     }
 
     private void UpdateAimDirection()

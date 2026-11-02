@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3586570919645728408}
   - component: {fileID: 8789758917670768999}
   - component: {fileID: 6640788606804527390}
+  - component: {fileID: 602811105762050722}
   m_Layer: 5
   m_Name: ItemStacks
   m_TagString: Untagged
@@ -137,6 +138,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &602811105762050722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227472946213156954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
+  <Name>k__BackingField: Stacks
+  <Element>k__BackingField: {fileID: 6640788606804527390}
+  window: {fileID: 8889133068123501293}
 --- !u!1 &5629296799023676163
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,6 +164,7 @@ GameObject:
   - component: {fileID: 1636323049890784073}
   - component: {fileID: 6526193785601908313}
   - component: {fileID: 808440095668163006}
+  - component: {fileID: 4981378645650365435}
   m_Layer: 5
   m_Name: ItemOutline
   m_TagString: Untagged
@@ -196,7 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -212,6 +229,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4981378645650365435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5629296799023676163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
+  <Name>k__BackingField: Outline
+  <Element>k__BackingField: {fileID: 808440095668163006}
+  window: {fileID: 8889133068123501293}
 --- !u!1 &6330077164748801955
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +255,7 @@ GameObject:
   - component: {fileID: 1183317307479842237}
   - component: {fileID: 5205528774990319980}
   - component: {fileID: 8222930228859771186}
+  - component: {fileID: 2289707773232997834}
   m_Layer: 5
   m_Name: ItemSprite
   m_TagString: Untagged
@@ -272,7 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -288,6 +321,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2289707773232997834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6330077164748801955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
+  <Name>k__BackingField: Icon
+  <Element>k__BackingField: {fileID: 8222930228859771186}
+  window: {fileID: 8889133068123501293}
 --- !u!1 &7799076533158132201
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,9 +345,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5843109231543479938}
+  - component: {fileID: 2277569232722225732}
+  - component: {fileID: 2418367413270646545}
+  - component: {fileID: 4132716073657990243}
+  - component: {fileID: 8889133068123501293}
   - component: {fileID: 7127759910155004058}
   - component: {fileID: 2804298956457681160}
   - component: {fileID: 1147128450683446276}
+  - component: {fileID: 1936444820674965150}
+  - component: {fileID: 6596665255540079160}
   m_Layer: 5
   m_Name: ItemDisplaySlot
   m_TagString: Untagged
@@ -328,6 +382,112 @@ RectTransform:
   m_AnchoredPosition: {x: 6.783325, y: -135.86963}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2277569232722225732
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799076533158132201}
+  m_CullTransparentMesh: 1
+--- !u!114 &2418367413270646545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799076533158132201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4132716073657990243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799076533158132201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2418367413270646545}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &8889133068123501293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799076533158132201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
+  graphicRoot: {fileID: 7799076533158132201}
+  elements:
+  - key: Clickbox
+    value: {fileID: 1936444820674965150}
+  - key: Item Slot Reference
+    value: {fileID: 6596665255540079160}
+  - key: Outline
+    value: {fileID: 4981378645650365435}
+  - key: Icon
+    value: {fileID: 2289707773232997834}
+  - key: Stacks
+    value: {fileID: 602811105762050722}
 --- !u!114 &7127759910155004058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,12 +497,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7799076533158132201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 430436eb7e61f2445894f8225b2f2617, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fcbfd53231a08a4ba91c7658615dc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 8222930228859771186}
-  outline: {fileID: 808440095668163006}
-  stacksText: {fileID: 6640788606804527390}
 --- !u!114 &2804298956457681160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,7 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e92bee40df9e584a8eebd757dfc615e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDisplaySlot: {fileID: 7127759910155004058}
+  itemSlotReference: {fileID: 7127759910155004058}
   trigger: {fileID: 1147128450683446276}
 --- !u!114 &1147128450683446276
 MonoBehaviour:
@@ -369,3 +526,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93f5d0e6bae352145862a01c56419987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Tooltips.UITooltipTrigger
+--- !u!114 &1936444820674965150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799076533158132201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
+  <Name>k__BackingField: Clickbox
+  <Element>k__BackingField: {fileID: 4132716073657990243}
+  window: {fileID: 8889133068123501293}
+--- !u!114 &6596665255540079160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799076533158132201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
+  <Name>k__BackingField: Item Slot Reference
+  <Element>k__BackingField: {fileID: 7127759910155004058}
+  window: {fileID: 8889133068123501293}

@@ -6,52 +6,38 @@ namespace Zeke.Items
     public class ItemsScreenRenderer : MonoBehaviour
     {
         [SerializeField] private ItemsInterface itemsInterfacePrefab;
-        [SerializeField] private ItemsInterface itemsInterfaceMenuPrefab;
+        [SerializeField] private ItemsMenuInterface itemsInterfaceMenuPrefab;
         [SerializeField] private ItemNotificatorInterface itemNotificatorInterfacePrefab;
 
         private ItemHandler itemHandler;
         private ItemsInterface itemsInterface;
-        private ItemsInterface itemsMenuInterface;
+        private ItemsMenuInterface itemsMenuInterface;
         private ItemNotificatorInterface itemNotificatorInterface;
 
         public void ToggleMenuVisibility()
         {
-            SetMenuVisibility(!itemsMenuInterface.gameObject.activeSelf);
-        }
-
-        public void SetMenuVisibility(bool visibility)
-        {
-            itemsMenuInterface.gameObject.SetActive(visibility);
-
-            if (visibility == true)
-            {
-                itemsMenuInterface.SubscribeToEvents(itemHandler);
-                itemsMenuInterface.RefreshAllItems(itemHandler);
-            }
-            else
-            {
-                itemsMenuInterface.UnsubscribeFromEvents(itemHandler);
-            }
+            itemsMenuInterface.Window.ToggleGraphicVisibility();
         }
 
         private void Awake()
         {
             SpawnInterfacesInCanvas();
             itemHandler = GetComponent<ItemHandler>();
-            itemsInterface.SubscribeToEvents(itemHandler);
-            itemNotificatorInterface.SubscribeToEvents(itemHandler);
+            itemsMenuInterface.Window.SetGraphicVisibility(false);
 
-            itemsMenuInterface.gameObject.SetActive(false);
+            SubscribeToEvents();
         }
 
         private void Start()
         {
-            itemsInterface.RefreshAllItems(itemHandler);
+            itemsInterface.AddMissingItems(itemHandler);
         }
 
         private void OnDestroy()
         {
             if (itemsInterface == null) return;
+
+            UnsubscribeFromEvents();
             Destroy(itemsInterface.gameObject);
         }
 
@@ -60,6 +46,49 @@ namespace Zeke.Items
             itemsInterface = Instantiate(itemsInterfacePrefab, GameInstance.ScreenCanvas.transform);
             itemsMenuInterface = Instantiate(itemsInterfaceMenuPrefab, GameInstance.ScreenCanvas.transform);
             itemNotificatorInterface = Instantiate(itemNotificatorInterfacePrefab, GameInstance.ScreenCanvas.transform);
+        }
+
+        private void SubscribeToEvents()
+        {
+            itemHandler.onItemAdded += OnItemAdded;
+            itemHandler.onItemRemoved += OnItemRemoved;
+            itemHandler.onStacksAdded += OnStacksAdded;
+            itemHandler.onStacksRemoved += OnStacksAdded;
+        }
+
+        private void UnsubscribeFromEvents()
+        {
+            itemHandler.onItemAdded -= OnItemAdded;
+            itemHandler.onItemRemoved -= OnItemRemoved;
+            itemHandler.onStacksAdded -= OnStacksAdded;
+            itemHandler.onStacksRemoved -= OnStacksRemoved;
+        }
+
+        private void OnItemAdded(ItemData itemData)
+        {
+            itemsInterface.AddItem(itemData, 1);
+            itemsMenuInterface.AddItem(itemData, 1);
+            itemNotificatorInterface.OnItemAdded(itemData);
+        }
+
+        private void OnItemRemoved(ItemData itemData)
+        {
+            itemsInterface.RemoveItem(itemData);
+            itemsMenuInterface.RemoveItem(itemData);
+        }
+
+        private void OnStacksAdded(ItemHandler.ItemStackUpdate @event)
+        {
+            itemsInterface.UpdateItemStacks(@event);
+            itemsMenuInterface.UpdateItemStacks(@event);
+            itemNotificatorInterface.OnItemStacksAdded(@event);
+        }
+
+        private void OnStacksRemoved(ItemHandler.ItemStackUpdate @event)
+        {
+            itemsInterface.UpdateItemStacks(@event);
+            itemsMenuInterface.UpdateItemStacks(@event);
+            itemNotificatorInterface.OnItemStacksRemoved(@event);
         }
     }
 }

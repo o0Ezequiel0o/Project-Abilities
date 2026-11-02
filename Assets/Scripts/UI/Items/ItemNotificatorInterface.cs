@@ -18,18 +18,41 @@ namespace Zeke.Items
 
         private readonly List<SlotData> deactivateSlots = new List<SlotData>();
 
-        public void SubscribeToEvents(ItemHandler itemHandler)
+        public void OnItemAdded(ItemData itemData)
         {
-            itemHandler.onItemAdded += OnItemAdded;
-            itemHandler.onStacksAdded += OnItemStacksAdded;
-            itemHandler.onStacksRemoved += OnItemStacksRemoved;
+            AddSlot(itemData, 0);
         }
 
-        public void UnsubscribeFromEvents(ItemHandler itemHandler)
+        public void OnItemStacksAdded(ItemStackUpdate stackUpdate)
         {
-            itemHandler.onItemAdded -= OnItemAdded;
-            itemHandler.onStacksAdded -= OnItemStacksAdded;
-            itemHandler.onStacksRemoved += OnItemStacksRemoved;
+            if (activeSlots.TryGetValue(stackUpdate.itemData, out SlotData slotData))
+            {
+                UpdateSlot(slotData, stackUpdate.amount);
+            }
+            else if (inactiveSlots.Count > 0)
+            {
+                AddInactiveSlot(stackUpdate.itemData, stackUpdate.amount);
+            }
+            else
+            {
+                AddSlot(stackUpdate.itemData, stackUpdate.amount);
+            }
+        }
+
+        public void OnItemStacksRemoved(ItemStackUpdate stackUpdate)
+        {
+            if (activeSlots.TryGetValue(stackUpdate.itemData, out SlotData slotData))
+            {
+                UpdateSlot(slotData, -stackUpdate.amount);
+            }
+            else if (inactiveSlots.Count > 0)
+            {
+                AddInactiveSlot(stackUpdate.itemData, -stackUpdate.amount);
+            }
+            else
+            {
+                AddSlot(stackUpdate.itemData, -stackUpdate.amount);
+            }
         }
 
         private void Update()
@@ -50,43 +73,6 @@ namespace Zeke.Items
             }
 
             deactivateSlots.Clear();
-        }
-
-        private void OnItemAdded(ItemData itemData)
-        {
-            AddSlot(itemData, 0);
-        }
-
-        private void OnItemStacksAdded(ItemStackUpdate stackUpdate)
-        {
-            if (activeSlots.TryGetValue(stackUpdate.itemData, out SlotData slotData))
-            {
-                UpdateSlot(slotData, stackUpdate.amount);
-            }
-            else if (inactiveSlots.Count > 0)
-            {
-                AddInactiveSlot(stackUpdate.itemData, stackUpdate.amount);
-            }
-            else
-            {
-                AddSlot(stackUpdate.itemData, stackUpdate.amount);
-            }
-        }
-
-        private void OnItemStacksRemoved(ItemStackUpdate stackUpdate)
-        {
-            if (activeSlots.TryGetValue(stackUpdate.itemData, out SlotData slotData))
-            {
-                UpdateSlot(slotData, -stackUpdate.amount);
-            }
-            else if (inactiveSlots.Count > 0)
-            {
-                AddInactiveSlot(stackUpdate.itemData, -stackUpdate.amount);
-            }
-            else
-            {
-                AddSlot(stackUpdate.itemData, -stackUpdate.amount);
-            }
         }
 
         private void AddSlot(ItemData itemData, int stacksUpdate)
