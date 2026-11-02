@@ -14,10 +14,21 @@ public class ItemsMenuInterface : ItemsInterface
         return windowInstance;
     }
 
+    private void Awake()
+    {
+        SetDefaultText();
+    }
+
     private void OnItemWindowClicked(UIWindow windowInstance)
     {
         ItemSlotReference itemSlotReference = windowInstance.TryGetElement<ItemSlotReference>("Item Slot Reference");
         UpdateCurrentItem(itemSlotReference.ItemData, itemSlotReference.Stacks);
+    }
+
+    private void SetDefaultText()
+    {
+        window.TryGetElement<TextMeshProUGUI>("Selected Item Name").text = "";
+        window.TryGetElement<TextMeshProUGUI>("Selected Item Description").text = "";
     }
 
     private void UpdateCurrentItem(ItemData itemData, int stacks)
