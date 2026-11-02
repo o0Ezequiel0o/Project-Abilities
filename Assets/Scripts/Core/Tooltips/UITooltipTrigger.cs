@@ -8,14 +8,23 @@ namespace Zeke.Tooltips
     {
         public Func<string> description;
 
+        private bool inside = false;
+
         public void OnPointerEnter(PointerEventData eventData)
         {
             Tooltip.Show(description?.Invoke());
+            inside = true;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             Tooltip.Hide();
+            inside = false;
+        }
+
+        private void OnDisable()
+        {
+            if (inside) Tooltip.Hide();
         }
     }
 }
