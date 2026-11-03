@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [field: SerializeField] public string Name { get; private set; }
+
     private void Awake()
     {
         GameInstance.PlayerSpawned(this);
