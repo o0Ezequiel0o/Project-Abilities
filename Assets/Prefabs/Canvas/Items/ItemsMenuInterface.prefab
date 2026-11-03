@@ -402,6 +402,8 @@ GameObject:
   - component: {fileID: 1329255819341835029}
   - component: {fileID: 7167111715008407134}
   - component: {fileID: 8186685988742711323}
+  - component: {fileID: 1974456676913199251}
+  - component: {fileID: 5064079125584880414}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -543,6 +545,31 @@ MonoBehaviour:
   <Name>k__BackingField: Selected Item Description
   <Element>k__BackingField: {fileID: 7167111715008407134}
   window: {fileID: 4128295981150954586}
+--- !u!114 &1974456676913199251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2534422181815909496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ccf10fbc127862468b2b6080b4eac36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Tooltips.HoverLinkHandlerTMPro
+--- !u!114 &5064079125584880414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2534422181815909496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e503320eacc54fa47bc4b3e8e9b616d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.LinkTooltipTrigger
+  tooltipLinksDB: {fileID: 11400000, guid: bae5a0dd95f22b849a39dedc7b0066ac, type: 2}
 --- !u!1 &3150393970819014330
 GameObject:
   m_ObjectHideFlags: 0
