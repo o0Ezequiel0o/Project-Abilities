@@ -16,6 +16,7 @@ namespace Zeke.Items
 
         public void ToggleMenuVisibility()
         {
+            if (GameInstance.IsPaused) return;
             itemsMenuInterface.Window.ToggleGraphicVisibility();
         }
 
@@ -32,6 +33,18 @@ namespace Zeke.Items
         {
             itemsInterface.AddMissingItems(itemHandler);
         }
+
+        private void OnEnable()
+        {
+            GameInstance.onPause += OnGamePaused;
+        }
+
+        private void OnDisable()
+        {
+            GameInstance.onPause -= OnGamePaused;
+        }
+
+        private void OnGamePaused() => itemsMenuInterface.Window.SetGraphicVisibility(false);
 
         private void OnDestroy()
         {
