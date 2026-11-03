@@ -25,7 +25,7 @@ namespace Zeke.UI
         {
             if (graphicRoot == null) return;
             if (state == graphicRoot.activeSelf) return;
-            if (!canChangeGraphicVisibility.Invoke()) return;
+            if (canChangeGraphicVisibility != null && !canChangeGraphicVisibility.Invoke()) return;
 
             graphicRoot.SetActive(state);
         }
