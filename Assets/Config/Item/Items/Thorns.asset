@@ -17,8 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Thorns
-  <Description>k__BackingField: Increase health regen by 3 (+3 per stack) and taking
-    damage applies 1 (+1 per stack) weaker bleeding to the enemy.
+  <Description>k__BackingField: Increase <style="Health Regen">health regen</style> by 3 <style="Level Modifier">(+3 per stack)</style> and taking <style="Damage">damage</style> applies 1 <style="Level Modifier">(+1 per stack)</style> weaker bleeding to the enemy.
   <Rarity>k__BackingField: 1
   <Effect>k__BackingField: {fileID: 11400000, guid: 67c94c0163d9a9c45bf33481a2de7bd4, type: 2}
   <Stacks>k__BackingField:

@@ -17,8 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Paycheck
-  <Description>k__BackingField: Deal up to 25% (+25% per stack) more damage based
-    on your current gold.
+  <Description>k__BackingField: Deal up to 25% <style="Level Modifier">(+25% per stack)</style> more <style="Damage">damage</style> based on your current gold.
   <Rarity>k__BackingField: 1
   <GoldRequiredForStack>k__BackingField: 10
   <DamageMultPerStack>k__BackingField:

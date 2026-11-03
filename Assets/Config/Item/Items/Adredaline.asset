@@ -17,14 +17,14 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Adredaline
-  <Description>k__BackingField: Heal 2 (+2 per stack) health every second and gain
-    1% (+1% per stack) healing received for every 10% missing health.
+  <Description>k__BackingField: <style="Healing">Heal</style> 2 <style="Level Modifier">(+2 per stack)</style> <style="Health">health</style> every second and gain 1% (+1% per stack) <style="Healing Received">healing received</style> for every 10% missing <style="Health">health</style>.
   <Rarity>k__BackingField: 1
   <Cooldown>k__BackingField: 1
   <Healing>k__BackingField:
     rid: 2308103083634196570
   <HealReceivedExtraMultPerStack>k__BackingField:
     rid: 1633593162037461070
+  <ProcCoefficient>k__BackingField: 1
   <MissingHealthRatioForStack>k__BackingField: 0.1
   references:
     version: 2

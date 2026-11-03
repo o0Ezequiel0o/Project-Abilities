@@ -17,15 +17,14 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Hitlist
-  <Description>k__BackingField: Every 15 seconds a random target is marked, the marked
-    target takes 25% (+25% per stack) damage.
+  <Description>k__BackingField: Every 15 seconds a random target is marked, the marked target takes 25% <style="Level Modifier">(+25% per stack)</style> <style="Damage">damage</style>.
   <Rarity>k__BackingField: 0
   <TargetVisual>k__BackingField: {fileID: 4275795746958274497, guid: bda097904f161c44981dd6aa7f05cb14, type: 3}
   <SearchRadius>k__BackingField: 20
   <TargetLayers>k__BackingField:
     serializedVersion: 2
     m_Bits: 256
-  <ValidTypes>k__BackingField: 0000000002000000
+  <ValidTypes>k__BackingField: 0000000002000000i
   <Duration>k__BackingField: 15
   <DamageMultiplier>k__BackingField:
     rid: 2308103184254763088

@@ -17,5 +17,5 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Essence
-  <Description>k__BackingField: Used on a duplicator to duplicate items using essence as a resource.
+  <Description>k__BackingField: Used on a duplicator to duplicate items using this as a resource.
   <Rarity>k__BackingField: 0

@@ -17,8 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Boxing Glove
-  <Description>k__BackingField: Hits knock the enemies back, knockback force scales
-    with stacks and damage health ratio.
+  <Description>k__BackingField: '<style="Hit">Hits</style> apply 50 <style="Level Modifier">(+50 per level)</style> <style="Knockback">knockback</style> (scales with the % of <style="Damage>damage</style> dealt to the target). '
   <Rarity>k__BackingField: 0
   <Knockback>k__BackingField:
     rid: 2308103063999873103

@@ -17,9 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Dead Man's Switch
-  <Description>k__BackingField: 'Killing an enemy deals damage in a 3 (+3 per stack)
-    meter radius around it equal to the overflow damage, minimum 25 (+12 per stack)
-    damage. '
+  <Description>k__BackingField: 'Killing an enemy deals <style="Damage">damage</style> in a 3 <style="Level Modifier">(+3 per stack)</style> meter radius around it equal to the <style="Overflow Damage">overflow damage</style>, <style="Value Cap">minimum 25</style> <style="Level Modifier">(+12 per stack)</style> <style="Damage">damage</style>. '
   <Rarity>k__BackingField: 2
   <ArmorPenetration>k__BackingField: 0
   <ProcCoefficient>k__BackingField: 1

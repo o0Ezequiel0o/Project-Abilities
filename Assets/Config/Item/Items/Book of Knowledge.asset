@@ -17,8 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Book of Knowledge
-  <Description>k__BackingField: Receive 50% (+50% per stack) more experience and
-    (+3%) for every tome.
+  <Description>k__BackingField: Receive 50% <style="Level Modifier">(+50% per stack)</style> more <style="Experience">experience</style> and +3% for every tome.
   <Rarity>k__BackingField: 3
   <XPMult>k__BackingField:
     rid: 2308102863504277867

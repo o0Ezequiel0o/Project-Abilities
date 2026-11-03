@@ -17,8 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Injector
-  <Description>k__BackingField: Increases primary skill charge speed by 7.5% (+7.5%
-    per stack).
+  <Description>k__BackingField: Increases primary skill <style="Recharge Speed">recharge speed</style> by 7.5% <style="Level Modifier">(+7.5% per stack)</style>.
   <Rarity>k__BackingField: 0
   <AbilityType>k__BackingField: 0
   <ExtraChargeSpeed>k__BackingField:

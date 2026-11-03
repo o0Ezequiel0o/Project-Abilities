@@ -17,9 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Facility Mushroom
-  <Description>k__BackingField: Using an ability with more than 1 second of cooldown
-    has a 10% of chance to spawn a spores cloud that scales in damage, radius and
-    ticks with the ability base cooldown time.
+  <Description>k__BackingField: Using an ability <style="Value Cap">(minimum 1 second base cooldown)</style> has a 10% of chance to spawn a spores cloud that scales in <style="Damage">damage</style>, radius and ticks with the ability base cooldown time.
   <Rarity>k__BackingField: 1
   <Prefab>k__BackingField: {fileID: -2497321183487775535, guid: 151913c5139187948bc52ef62017c52e, type: 3}
   <MinCooldownRequired>k__BackingField: 1

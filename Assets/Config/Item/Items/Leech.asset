@@ -17,11 +17,11 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Leech
-  <Description>k__BackingField: Hits heal equal to 1% (+1% per stack) of the damage
-    dealt.
+  <Description>k__BackingField: <style="Hit">Hits</style> <style="Healing">heal</style> equal to 1% <style="Level Modifier">(+1% per stack)</style> of the <style="Damage">damage</style> dealt.
   <Rarity>k__BackingField: 1
   <DamageHealRatio>k__BackingField:
     rid: 2308103083634196563
+  <ProcCoefficient>k__BackingField: 1
   references:
     version: 2
     RefIds:

@@ -17,8 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Glass Ball
-  <Description>k__BackingField: Every 10 seconds gain 60 (+60 per stack) armor until
-    taking damage.
+  <Description>k__BackingField: Every 10 seconds gain 60 <style="Level Modifier">(+60 per stack)</style> <style="Armor">armor</style> until taking <style="Damage">damage</style>.
   <Rarity>k__BackingField: 1
   <ActiveVisual>k__BackingField: {fileID: 4276854059904540485, guid: 1cecfbe7f3c62414ebc4dc2f6ae76de3, type: 3}
   <Cooldown>k__BackingField: 10

@@ -17,8 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Heartbeat Scanner
-  <Description>k__BackingField: 'When dealing damage, for every 10% health the target
-    is missing, deal 5% (+5% per stack) more damage. '
+  <Description>k__BackingField: 'When dealing <style="Damage">damage</style>, for every 10% <style="Health">health</style> the target is missing, deal 5% <style="Level Modifier">(+5% per stack)</style> more <style="Damage">damage</style>. '
   <Rarity>k__BackingField: 1
   <MissingHealthRatioForStack>k__BackingField: 0.1
   <DamageMultPerStack>k__BackingField:

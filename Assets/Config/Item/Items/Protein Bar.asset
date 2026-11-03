@@ -17,11 +17,12 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Protein Bar
-  <Description>k__BackingField: Every 5 meters walked heal 1 (+1 per stack) health.
+  <Description>k__BackingField: Every 5 meters walked <style="Healing">heal</style> 1 <style="Level Modifier">(+1 per stack)</style> <style="Health">health</style>.
   <Rarity>k__BackingField: 0
   <DistanceRequired>k__BackingField: 5
   <Healing>k__BackingField:
     rid: 2308103083634196562
+  <ProcCoefficient>k__BackingField: 1
   references:
     version: 2
     RefIds:

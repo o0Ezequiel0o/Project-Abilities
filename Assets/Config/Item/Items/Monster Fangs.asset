@@ -17,8 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Monster Fangs
-  <Description>k__BackingField: Kills increase your max health by 1 (+1 per stack)
-    up to 100 (+100 per stack) times.
+  <Description>k__BackingField: Kills increase your <style="Max Health">max health</style> by 1 <style="Level Modifier">(+1 per stack)</style> up to 100 <style="Level Modifier">(+100 per stack)</style> times.
   <Rarity>k__BackingField: 1
   <ExtraHealth>k__BackingField:
     rid: 2308103083634196568

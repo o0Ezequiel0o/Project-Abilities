@@ -17,8 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Magnetic Boots
-  <Description>k__BackingField: Every 10 meters walked a orb spawns that deals 20
-    (+20 per stack) damage and homes onto the closest enemy.
+  <Description>k__BackingField: Every 10 meters walked a orb spawns that deals 20 <style="Level Modifier">(+20 per stack)</style> <style="Damage">damage</style> and homes onto the closest enemy.
   <Rarity>k__BackingField: 0
   <Prefab>k__BackingField: {fileID: -1221922450799852821, guid: a67f971b497c47d47b6375ef17ade2b6, type: 3}
   <DistanceRequired>k__BackingField: 10

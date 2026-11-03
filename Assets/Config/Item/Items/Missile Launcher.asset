@@ -17,8 +17,7 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Missile Launcher
-  <Description>k__BackingField: Hits have a 10% chance to spawn a missile that deals
-    300% (+100% per stack) base damage.
+  <Description>k__BackingField: <style="Hit">Hits</style> have a 10% chance to spawn a missile that deals 300% <style="Level Modifier">(+100% per stack)</style> <style="Base Damage">base damage</style>.
   <Rarity>k__BackingField: 1
   <MissilePrefab>k__BackingField: {fileID: 786095908060177754, guid: 8150bc3e50f9b494ebc4b37f14482a65, type: 3}
   <ProcChance>k__BackingField: 10
