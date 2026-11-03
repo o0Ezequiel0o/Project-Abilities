@@ -12,14 +12,20 @@ namespace Zeke.Tooltips
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            Tooltip.Show(description?.Invoke());
-            inside = true;
+            if (!inside)
+            {
+                Tooltip.Show(description?.Invoke());
+                inside = true;
+            }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            Tooltip.Hide();
-            inside = false;
+            if (inside)
+            {
+                Tooltip.Hide();
+                inside = false;
+            }
         }
 
         private void OnDisable()

@@ -10,6 +10,8 @@ namespace Zeke.Abilities
 
         private ILinkHoverHandler linkHoverEvents;
 
+        private bool inside = false;
+
         private void Awake()
         {
             linkHoverEvents = GetComponent<ILinkHoverHandler>();
@@ -25,19 +27,31 @@ namespace Zeke.Abilities
         {
             linkHoverEvents.OnHoverEnterLink -= OnHoverEnterLink;
             linkHoverEvents.OnHoverExitLink -= OnHoverExitLink;
+
+            if (inside)
+            {
+                Tooltip.Hide();
+            }
         }
 
         private void OnHoverEnterLink(LinkHoverEventInfo linkHoverEventInfo)
         {
+            if (inside) return;
+
             if (tooltipLinksDB.TryGetValue(linkHoverEventInfo.id, out TooltipLinksDB.TooltipInfo toolTipInfo))
             {
                 Tooltip.Show(toolTipInfo.description);
             }
+
+            inside = true;
         }
 
         private void OnHoverExitLink(LinkHoverEventInfo linkHoverEventInfo)
         {
+            if (!inside) return;
+
             Tooltip.Hide();
+            inside = false;
         }
     }
 }
