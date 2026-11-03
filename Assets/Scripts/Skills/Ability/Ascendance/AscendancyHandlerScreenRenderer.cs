@@ -42,14 +42,6 @@ namespace Zeke.Abilities.Ascendancy
             ascendancyHandler.onAscendancyReady -= OnAscendancyReady;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                gameObject.GetComponent<LevelHandler>().GiveExperience(10000);
-            }
-        }
-
         private void CreateOptionsWindow()
         {
             windowInstance = Instantiate(optionsWindow, GameInstance.ScreenCanvas.transform);

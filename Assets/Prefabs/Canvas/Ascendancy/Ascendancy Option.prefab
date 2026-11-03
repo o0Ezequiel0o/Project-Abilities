@@ -518,7 +518,7 @@ MonoBehaviour:
   - key: Description
     value: {fileID: 7615391351425668646}
   - key: Clickbox
-    value: {fileID: 2138176838642194820}
+    value: {fileID: 4211886753127469236}
 --- !u!225 &-3456030695934744397
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 7517296025950652258}
   - component: {fileID: 7368011167242326901}
   - component: {fileID: 946760098260632493}
-  - component: {fileID: 2138176838642194820}
+  - component: {fileID: 4211886753127469236}
   m_Layer: 5
   m_Name: Clickbox
   m_TagString: Untagged
@@ -629,7 +629,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 0}
     m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0.14901961}
     m_PressedColor: {r: 0, g: 0, b: 0, a: 0.2509804}
     m_SelectedColor: {r: 0, g: 0, b: 0, a: 0}
@@ -652,7 +652,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2138176838642194820
+--- !u!114 &4211886753127469236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -165,6 +165,8 @@ GameObject:
   - component: {fileID: 2278308551691039682}
   - component: {fileID: -549456992416598927}
   - component: {fileID: 5562861826131366279}
+  - component: {fileID: 2560240222412214727}
+  - component: {fileID: 2821714099563017465}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -816,3 +818,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClampToLevelBounds
   rigidBody: {fileID: 2582979104109749263}
+--- !u!114 &2560240222412214727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218312312708394220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01853054b96ec74eb89e9b18a46e121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.Ascendancy.AscendancyHandler
+  ascendanciesData: {fileID: 11400000, guid: 6441a4910ae2f5944a178ecf2afd52f4, type: 2}
+  levelHandler: {fileID: 108859267500074294}
+--- !u!114 &2821714099563017465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218312312708394220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12bb0318e7a5fa743ba2e0e4acee48b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.Ascendancy.AscendancyHandlerScreenRenderer
+  optionsWindow: {fileID: 3882320326254278048, guid: 2d1480405c772bb4cbcf98a9b7c2ea77, type: 3}
+  optionWindow: {fileID: 6831720364878063803, guid: 1fe3f6ac15b32934db4783624282a1fc, type: 3}
+  optionAppearDuration: 0.2
