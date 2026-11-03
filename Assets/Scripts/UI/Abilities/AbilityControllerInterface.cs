@@ -30,7 +30,7 @@ public class AbilityControllerInterface : MonoBehaviour
         foreach (AbilityType abilityType in abilityTypeSlots.Keys)
         {
             if (abilityTypeSlots[abilityType].CurrentAbilitySlot == null) continue;
-            AddAbilitySlot(abilityTypeSlots[abilityType].CurrentAbilitySlot, abilityType);
+            AddAbilitySlot(abilityTypeSlots[abilityType].CurrentAbilitySlot);
         }
     }
 
@@ -65,13 +65,13 @@ public class AbilityControllerInterface : MonoBehaviour
         }
     }
 
-    public void AddAbilitySlot(IAbility ability, AbilityType abilityType)
+    public void AddAbilitySlot(IAbility ability)
     {
         if (!usedAbilityDisplaySlots.ContainsKey(ability))
         {
             usedAbilityDisplaySlots.Add(ability, null);
             LayoutGroup layoutGroup = root.GetComponentInChildren<LayoutGroup>();
-            Transform obj = layoutGroup.transform.GetChild((int)abilityType);
+            Transform obj = layoutGroup.transform.GetChild((int)ability.Type);
 
             AbilityDisplaySlot slot = obj.GetComponent<AbilityDisplaySlot>();
 
@@ -82,7 +82,7 @@ public class AbilityControllerInterface : MonoBehaviour
         }
     }
 
-    public void RemoveAbilitySlot(IAbility ability, AbilityType _)
+    public void RemoveAbilitySlot(IAbility ability)
     {
         if (usedAbilityDisplaySlots.TryGetValue(ability, out AbilityDisplaySlot slot))
         {

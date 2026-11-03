@@ -57,8 +57,8 @@ public class AbilityControllerScreenRenderer : MonoBehaviour
 
     private void OnAbilityOverriden(AbilityController.AbilityOverrideData abilityOverrideData)
     {
-        interfaceInstance.RemoveAbilitySlot(abilityOverrideData.overridenAbility, abilityOverrideData.overridenAbility.Type);
-        interfaceInstance.AddAbilitySlot(abilityOverrideData.overrideAbility, abilityOverrideData.overrideAbility.Type);
+        interfaceInstance.RemoveAbilitySlot(abilityOverrideData.overridenAbility);
+        interfaceInstance.AddAbilitySlot(abilityOverrideData.overrideAbility);
     }
 
     private void OnDestroy()

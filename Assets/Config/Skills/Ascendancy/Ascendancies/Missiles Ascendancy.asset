@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc7de2e1006a7d341a3f30dcb8c1e77b, type: 3}
+  m_Name: Missiles Ascendancy
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.Ascendancy.AscendancyData
+  <Title>k__BackingField: Test
+  <Description>k__BackingField: Yeah this is working i think.
+  <AbilityData>k__BackingField: {fileID: 11400000, guid: cf8375b8acee8ae4a9df10e6137f84d4, type: 2}
