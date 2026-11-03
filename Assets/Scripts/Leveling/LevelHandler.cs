@@ -34,14 +34,6 @@ public class LevelHandler : MonoBehaviour
         }
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            GiveExperience(300000);
-        }
-    }
-
     public void GiveExperience(int experienceGained)
     {
         int experienceReceived = Mathf.FloorToInt(experienceGained * ExperienceMultiplier.Value);
