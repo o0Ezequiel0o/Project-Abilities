@@ -6,8 +6,8 @@ namespace Zeke.Tooltips
     public class Tooltip : Singleton<Tooltip>
     {
         [Header("Dependency")]
-        [SerializeField] private GameObject tooltipObject;
-        [SerializeField] private RectTransform tooltipRect;
+        [SerializeField] private RectTransform tooltipBounds;
+        [SerializeField] private RectTransform tooltip;
         [SerializeField] private TMP_Text tooltipText;
 
         [Header("Tooltip")]
@@ -18,8 +18,7 @@ namespace Zeke.Tooltips
 
         [Space]
 
-        [SerializeField] private Vector2 maxSize = new Vector2(400f, 400f);
-        [SerializeField] private Vector2 padding = new Vector2(14f, 14f);
+        [SerializeField] private Vector2 maxSize = new Vector2(400f, 200f);
 
         [Space]
 
@@ -45,15 +44,6 @@ namespace Zeke.Tooltips
         public static void SetText(string text)
         {
             Instance.tooltipText.text = text;
-            Instance.tooltipText.ForceMeshUpdate();
-
-            Vector2 sizeDelta = Vector2.zero;
-            Vector2 textSize = Instance.tooltipText.GetPreferredValues(text, Instance.maxSize.x, Instance.maxSize.y);
-
-            sizeDelta.x = Mathf.Clamp(textSize.x, 0f, Instance.maxSize.x + Instance.padding.x);
-            sizeDelta.y = Mathf.Clamp(textSize.y, 0f, Instance.maxSize.y + Instance.padding.y);
-
-            Instance.tooltipRect.sizeDelta = sizeDelta;
         }
 
         public static void Show(string text)
@@ -66,12 +56,13 @@ namespace Zeke.Tooltips
         {
             Instance.timer = 0f;
             Instance.state = State.Hide;
-            Instance.tooltipObject.SetActive(false);
+            Instance.tooltip.gameObject.SetActive(false);
         }
 
         private void Awake()
         {
-            canvas = tooltipRect.GetComponentInParent<Canvas>();
+            canvas = tooltip.GetComponentInParent<Canvas>();
+            tooltipBounds.sizeDelta = maxSize;
             Hide();
         }
 
@@ -85,7 +76,7 @@ namespace Zeke.Tooltips
                 return;
             }
 
-            if (tooltipObject.activeSelf)
+            if (tooltip.gameObject.activeSelf)
             {
                 UpdatePosition(canvas.scaleFactor);
             }
@@ -94,9 +85,9 @@ namespace Zeke.Tooltips
         private void UpdatePosition(float scale)
         {
             Vector2 mousePosition = Input.mousePosition;
-            tooltipRect.position = mousePosition + GetOffset(scale);
+            tooltip.position = mousePosition + GetOffset(scale);
 
-            ClampToScreen(tooltipRect);
+            ClampToScreen(tooltip);
         }
 
         private void ClampToScreen(RectTransform rectTransform)
@@ -114,8 +105,8 @@ namespace Zeke.Tooltips
 
         private Vector2 GetOffset(float scale)
         {
-            Vector2 size = tooltipRect.rect.size * scale;
-            Vector2 pivot = tooltipRect.pivot;
+            Vector2 size = tooltip.rect.size * scale;
+            Vector2 pivot = tooltip.pivot;
 
             Vector2 newOffset = new Vector2(offset.x, offset.y) * scale;
 
@@ -156,13 +147,13 @@ namespace Zeke.Tooltips
 
         private void UpdateState()
         {
-            if (state == State.Show && !tooltipObject.activeSelf)
+            if (state == State.Show && !tooltip.gameObject.activeSelf)
             {
                 timer += Time.unscaledDeltaTime;
 
                 if (timer > showDelay)
                 {
-                    tooltipObject.SetActive(true);
+                    tooltip.gameObject.SetActive(true);
                 }
             }
         }
