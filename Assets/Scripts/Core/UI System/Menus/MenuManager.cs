@@ -54,7 +54,7 @@ namespace Zeke.UI.MenuManagment
             return TryPerformAction(menu, constraints => constraints.avoidsClosing);
         }
 
-        private static bool TryPerformAction(Menu menu, Func<MenuConstraints, bool> condition)
+        private static bool TryPerformAction(Menu menu, Func<MenuConstraints, bool> constraints)
         {
             if (!Instance.constraints.TryGetValue(menu.Identifier, out List<MenuConstraints> menuConstraints))
             {
@@ -67,7 +67,7 @@ namespace Zeke.UI.MenuManagment
                 {
                     for (int x = 0; x < menuInstances.Count; x++)
                     {
-                        if (StateEquals(menuConstraints[i].state, menuInstances[x].Window) && condition(menuConstraints[i]))
+                        if (StateEquals(menuConstraints[i].state, menuInstances[x].Window) && constraints(menuConstraints[i]))
                         {
                             Debug.Log($"{menuInstances[x].name} ({menuInstances.Count} duplicate keys) is not letting {menu} open.");
                             return false;
