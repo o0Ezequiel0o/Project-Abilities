@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Serialization;
 
 namespace Zeke.UI.MenuManagment
 {
     public class MenuManager : Singleton<MenuManager>
     {
         [SerializeField] private Dictionary<MenuIdentifier, Dictionary<MenuState, List<MenuInteraction>>> interactions;
-        [SerializeField] private Dictionary<MenuIdentifier, List<MenuConstraints>> constraints;
+        [SerializeField] private Dictionary<MenuIdentifier, List<MenuConstraint>> constraints;
 
         private readonly Dictionary<MenuIdentifier, List<Menu>> registeredMenus = new Dictionary<MenuIdentifier, List<Menu>>();
 
@@ -59,9 +60,9 @@ namespace Zeke.UI.MenuManagment
             return TryPerformAction(menu, constraints => constraints.avoidsClosing);
         }
 
-        private static bool TryPerformAction(Menu menu, Func<MenuConstraints, bool> constraints)
+        private static bool TryPerformAction(Menu menu, Func<MenuConstraint, bool> constraints)
         {
-            if (!Instance.constraints.TryGetValue(menu.Identifier, out List<MenuConstraints> menuConstraints))
+            if (!Instance.constraints.TryGetValue(menu.Identifier, out List<MenuConstraint> menuConstraints))
             {
                 return true;
             }
@@ -144,7 +145,7 @@ namespace Zeke.UI.MenuManagment
         }
 
         [Serializable]
-        private struct MenuConstraints
+        private struct MenuConstraint
         {
             public MenuIdentifier menu;
             public MenuState state;
