@@ -19,16 +19,24 @@ namespace Zeke.Items
 
         public override void Initialize()
         {
-            Damageable.DamageEvent.onHit.Subscribe(source, OnHit, data.TriggerOrder);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnHit.Subscribe(OnHit, data.TriggerOrder);
+            }
         }
 
         public override void OnRemoved()
         {
-            Damageable.DamageEvent.onHit.Unsubscribe(source, OnHit);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnHit.Unsubscribe(OnHit);
+            }
         }
 
-        private void OnHit(Damageable.DamageEvent damageEvent)
+        private void OnHit(Damageable.DamageEvent.OnHitEvent hitEvent)
         {
+            Damageable.DamageEvent damageEvent = hitEvent.damageEvent;
+
             if (!RollProc(data.ProcChance.GetValue(stacks), damageEvent.ProcCoefficient, itemHandler.Luck.ValueInt)) return;
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
 

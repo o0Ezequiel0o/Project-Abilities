@@ -139,6 +139,8 @@ GameObject:
   - component: {fileID: 1909817448961191980}
   - component: {fileID: 7452562510971966217}
   - component: {fileID: -7882419045995171510}
+  - component: {fileID: -7407455523528082275}
+  - component: {fileID: 2924701698077324152}
   - component: {fileID: 108859267500074294}
   - component: {fileID: -5244294688078608144}
   - component: {fileID: 7648585092559927398}
@@ -159,13 +161,13 @@ GameObject:
   - component: {fileID: 3315950687603881688}
   - component: {fileID: 5383467074626949665}
   - component: {fileID: 3333061981324723736}
+  - component: {fileID: 2560240222412214727}
   - component: {fileID: 3371380917540402303}
   - component: {fileID: 4867269373459583256}
   - component: {fileID: 8265923583279707991}
   - component: {fileID: 2278308551691039682}
   - component: {fileID: -549456992416598927}
   - component: {fileID: 5562861826131366279}
-  - component: {fileID: 2560240222412214727}
   - component: {fileID: 2821714099563017465}
   m_Layer: 8
   m_Name: Player
@@ -351,6 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecd39fddc1c22cb4192b0b5c53cf9647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: 
 --- !u!114 &-7882419045995171510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,6 +369,30 @@ MonoBehaviour:
   rigidBody: {fileID: 2582979104109749263}
   forceReceivedMultiplier: 1
   linearDamping: 0.15
+--- !u!114 &-7407455523528082275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218312312708394220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc3bda772d544743a3c13265642912c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageEventListener
+--- !u!114 &2924701698077324152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218312312708394220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae06203547c0ed4984db9d7c8711be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealEventListener
 --- !u!114 &108859267500074294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,6 +747,20 @@ MonoBehaviour:
     valueLimits:
       min: 0
       max: Infinity
+--- !u!114 &2560240222412214727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218312312708394220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01853054b96ec74eb89e9b18a46e121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.Ascendancy.AscendancyHandler
+  ascendanciesData: {fileID: 11400000, guid: 6441a4910ae2f5944a178ecf2afd52f4, type: 2}
+  levelHandler: {fileID: 108859267500074294}
 --- !u!114 &3371380917540402303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,20 +859,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClampToLevelBounds
   rigidBody: {fileID: 2582979104109749263}
---- !u!114 &2560240222412214727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5218312312708394220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01853054b96ec74eb89e9b18a46e121, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.Ascendancy.AscendancyHandler
-  ascendanciesData: {fileID: 11400000, guid: 6441a4910ae2f5944a178ecf2afd52f4, type: 2}
-  levelHandler: {fileID: 108859267500074294}
 --- !u!114 &2821714099563017465
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,12 +24,18 @@ namespace Zeke.Abilities.Modules
 
         public override void Activate()
         {
-            Damageable.DamageEvent.onKill.Subscribe(source, OnKill);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnKill.Subscribe(OnKill);
+            }
         }
 
         public override void Deactivate()
         {
-            Damageable.DamageEvent.onKill.Unsubscribe(source, OnKill);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnKill.Unsubscribe(OnKill);
+            }
         }
 
         public override void Upgrade(int levels)
@@ -39,10 +45,13 @@ namespace Zeke.Abilities.Modules
 
         public override void Destroy()
         {
-            Damageable.DamageEvent.onKill.Unsubscribe(source, OnKill);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnKill.Unsubscribe(OnKill);
+            }
         }
 
-        private void OnKill(Damageable.DamageEvent damageEvent)
+        private void OnKill(Damageable.DamageEvent.OnKillEvent _)
         {
             UpdateCooldown(amount.Value, data.ValueType);
         }

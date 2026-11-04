@@ -24,7 +24,10 @@ public class AmbushSkill : PassiveBase
 
     public override void Awake()
     {
-        Damageable.DamageEvent.onDealDamage.Subscribe(source, OnDealDamage);
+        if (source.TryGetComponent(out DamageEventListener eventListener))
+        {
+            eventListener.OnDealDamage.Subscribe(OnDealDamage);
+        }
 
         statusEffectHandler = source.GetComponent<StatusEffectHandler>();
     }
@@ -44,7 +47,10 @@ public class AmbushSkill : PassiveBase
 
     public override void OnRemove()
     {
-        Damageable.DamageEvent.onDealDamage.Unsubscribe(source, OnDealDamage);
+        if (source.TryGetComponent(out DamageEventListener eventListener))
+        {
+            eventListener.OnDealDamage.Unsubscribe(OnDealDamage);
+        }
 
         if (statusEffectHandler != null)
         {
@@ -57,8 +63,10 @@ public class AmbushSkill : PassiveBase
         damageMultiplier.Upgrade(levels);
     }
 
-    private void OnDealDamage(Damageable.DamageEvent damageEvent)
+    private void OnDealDamage(Damageable.DamageEvent.OnDealDamageEvent damageDealtEvent)
     {
+        Damageable.DamageEvent damageEvent = damageDealtEvent.damageEvent;
+
         if (damageEvent.SourceObject == null) return;
 
         if (damageEvent.SourceObject.TryGetComponent(out SniperProjectileIdentifier _))

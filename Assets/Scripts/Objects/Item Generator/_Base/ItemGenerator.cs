@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Zeke.Collections;
+using Zeke.GlobalEventsBus;
 using Zeke.UI;
 
 namespace Zeke.Items
@@ -34,9 +34,6 @@ namespace Zeke.Items
         [Header("Animation")]
         [SerializeField] private float optionAppearDuration = 0.2f;
 
-        public static OrderedActionDictionary<GameObject, List<ItemGenerationData>> onOptionsGenerated = new OrderedActionDictionary<GameObject, List<ItemGenerationData>>();
-        public static OrderedActionDictionary<GameObject, ItemGenerationData> onItemSelected = new OrderedActionDictionary<GameObject, ItemGenerationData>();
-
         public string Cost => $"{cost} gold";
 
         protected int cost = 0;
@@ -59,12 +56,12 @@ namespace Zeke.Items
 
         public abstract bool Hack(GameObject source);
 
-        public List<ItemGenerationData> GetRandomItems(int amount)
+        public List<ItemData> GetRandomItems(int amount)
         {
             return RollItems(amount);
         }
 
-        public ItemGenerationData GetRandomItem()
+        public ItemData GetRandomItem()
         {
             return RollItem();
         }
@@ -83,8 +80,10 @@ namespace Zeke.Items
 
         protected void GenerateOptions(GameObject source, int amount)
         {
-            List<ItemGenerationData> generatedItems = RollItems(amount);
-            onOptionsGenerated?.Invoke(source, generatedItems);
+            List<ItemData> generatedItems = RollItems(amount);
+
+            GlobalEventBus.Invoke(new OnOptionGeneratedEvent(this, generatedItems));
+
             CreateOptionsUIWindow(generatedItems, source);
         }
 
@@ -103,9 +102,9 @@ namespace Zeke.Items
             Destroy(gameObject);
         }
 
-        private List<ItemGenerationData> RollItems(int amount)
+        private List<ItemData> RollItems(int amount)
         {
-            List<ItemGenerationData> generatedItems = new List<ItemGenerationData>(amount);
+            List<ItemData> generatedItems = new List<ItemData>(amount);
 
             for (int i = 0; i < amount; i++)
             {
@@ -115,14 +114,13 @@ namespace Zeke.Items
             return generatedItems;
         }
 
-        private ItemGenerationData RollItem()
+        private ItemData RollItem()
         {
             ItemRarity rarity = WeightedSelect.SelectElement(drops.RaritySlots).rarity;
-            ItemData item = itemSettings.GetRandomItem(rarity);
-            return new ItemGenerationData(item, this);
+            return itemSettings.GetRandomItem(rarity);
         }
 
-        private void CreateOptionsUIWindow(List<ItemGenerationData> generatedItems, GameObject source)
+        private void CreateOptionsUIWindow(List<ItemData> generatedItems, GameObject source)
         {
             windowInstance = Instantiate(itemSelectionWindow, GameInstance.ScreenCanvas.transform);
             LayoutGroup layoutGroupRoot = windowInstance.TryGetElement<LayoutGroup>("Layout Group");
@@ -137,14 +135,14 @@ namespace Zeke.Items
             GameInstance.Pause(pauseID);
         }
 
-        private UIWindow CreateItemOptionUIWindow(Transform root, ItemGenerationData generatedItem, GameObject source)
+        private UIWindow CreateItemOptionUIWindow(Transform root, ItemData generatedItem, GameObject source)
         {
             UIWindow optionWindowInstance = Instantiate(itemOptionWindow, root);
 
-            optionWindowInstance.TryGetElement<Image>("Image").sprite = generatedItem.item.Icon;
-            optionWindowInstance.TryGetElement<TextMeshProUGUI>("Name").text = generatedItem.item.Name;
-            optionWindowInstance.TryGetElement<TextMeshProUGUI>("Description").text = generatedItem.item.Description;
-            optionWindowInstance.TryGetElement<Image>("Border").color = itemSettings.GetRarityColor(generatedItem.item.Rarity);
+            optionWindowInstance.TryGetElement<Image>("Image").sprite = generatedItem.Icon;
+            optionWindowInstance.TryGetElement<TextMeshProUGUI>("Name").text = generatedItem.Name;
+            optionWindowInstance.TryGetElement<TextMeshProUGUI>("Description").text = generatedItem.Description;
+            optionWindowInstance.TryGetElement<Image>("Border").color = itemSettings.GetRarityColor(generatedItem.Rarity);
 
             Button button = optionWindowInstance.TryGetElement<Button>("Button");
             button.onClick.AddListener(() => OnOptionSelected(source, generatedItem, optionWindowInstance));
@@ -152,7 +150,7 @@ namespace Zeke.Items
             return optionWindowInstance;
         }
 
-        private void OnOptionSelected(GameObject source, ItemGenerationData generatedItem, UIWindow selectedWindow)
+        private void OnOptionSelected(GameObject source, ItemData generatedItem, UIWindow selectedWindow)
         {
             if (!interactionEnabled) return;
 
@@ -160,7 +158,7 @@ namespace Zeke.Items
 
             if (source.TryGetComponent(out ItemHandler itemHandler))
             {
-                itemHandler.AddItem(generatedItem.item);
+                itemHandler.AddItem(generatedItem);
             }
 
             for (int i = 0; i < spawnedOptionWindows.Count; i++)
@@ -171,7 +169,7 @@ namespace Zeke.Items
 
                 if (window == selectedWindow)
                 {
-                    onItemSelected?.Invoke(source, generatedItem);
+                    GlobalEventBus.Invoke(new OnItemSelectedEvent(this, generatedItem));
 
                     PlayOptionSelectAnimation(window.gameObject, () =>
                     {
@@ -247,15 +245,27 @@ namespace Zeke.Items
                 .ChainCallback(() => onAnimationFinish?.Invoke());
         }
 
-        public class ItemGenerationData
+        public readonly struct OnOptionGeneratedEvent : IGlobalEvent
         {
-            public ItemData item;
-            public ItemGenerator itemGenerator;
+            public readonly ItemGenerator itemGenerator;
+            public readonly List<ItemData> generatedItems;
 
-            public ItemGenerationData(ItemData item, ItemGenerator itemGenerator)
+            public OnOptionGeneratedEvent(ItemGenerator itemGenerator, List<ItemData> generatedItems)
             {
-                this.item = item;
                 this.itemGenerator = itemGenerator;
+                this.generatedItems = generatedItems;
+            }
+        }
+
+        public readonly struct OnItemSelectedEvent : IGlobalEvent
+        {
+            public readonly ItemGenerator itemGenerator;
+            public readonly ItemData itemData;
+
+            public OnItemSelectedEvent(ItemGenerator itemGenerator, ItemData itemData)
+            {
+                this.itemGenerator = itemGenerator;
+                this.itemData = itemData;
             }
         }
     }

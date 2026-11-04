@@ -1,5 +1,4 @@
 using UnityEngine;
-using static Damageable;
 
 namespace Zeke.Items
 {
@@ -28,12 +27,19 @@ namespace Zeke.Items
         public override void Initialize()
         {
             hasRequiredComponents = source.TryGetComponent(out damageable);
-            DamageEvent.onKill.Subscribe(source, OnKill, data.TriggerOrder);
+
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnKill.Subscribe(OnKill, data.TriggerOrder);
+            }
         }
 
         public override void OnRemoved()
         {
-            DamageEvent.onKill.Unsubscribe(source, OnKill);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnKill.Unsubscribe(OnKill);
+            }
         }
 
         public override void OnStacksAdded(int amount)
@@ -49,8 +55,10 @@ namespace Zeke.Items
             UpdateHealthValue();
         }
 
-        private void OnKill(DamageEvent damageEvent)
+        private void OnKill(Damageable.DamageEvent.OnKillEvent killEvent)
         {
+            Damageable.DamageEvent damageEvent = killEvent.damageEvent;
+
             if (!hasRequiredComponents) return;
             if (effectStacks >= data.MaxStacks.GetValue(stacks)) return;
             if (damageEvent.Receiver != null && damageEvent.Receiver == source) return;

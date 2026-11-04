@@ -1,5 +1,4 @@
 using UnityEngine;
-using static Damageable;
 
 namespace Zeke.Items
 {
@@ -20,16 +19,24 @@ namespace Zeke.Items
 
         public override void Initialize()
         {
-            DamageEvent.onDealDamage.Subscribe(source, OnDealDamage, data.TriggerOrder);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnDealDamage.Subscribe(OnDealDamage, data.TriggerOrder);
+            }
         }
 
         public override void OnRemoved()
         {
-            DamageEvent.onDealDamage.Unsubscribe(source, OnDealDamage);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnDealDamage.Unsubscribe(OnDealDamage);
+            }
         }
 
-        private void OnDealDamage(DamageEvent damageEvent)
+        private void OnDealDamage(Damageable.DamageEvent.OnDealDamageEvent dealDamageEvent)
         {
+            Damageable.DamageEvent damageEvent = dealDamageEvent.damageEvent;
+
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
 
             float healthRatio = damageEvent.Receiver.Health / damageEvent.Receiver.MaxHealth.Value;

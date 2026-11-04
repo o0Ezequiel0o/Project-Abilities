@@ -1,5 +1,6 @@
 using UnityEngine;
 using Zeke.Abilities;
+using Zeke.GlobalEventsBus;
 
 public class OrbCooldownReductionSkill : PassiveBase
 {
@@ -52,16 +53,24 @@ public class OrbCooldownReductionSkill : PassiveBase
 
     private void SubscribeToEvents()
     {
-        Damageable.DamageEvent.onDamageDealt.Subscribe(source, OnDamageDealt);
+        if (source.TryGetComponent(out DamageEventListener eventListener))
+        {
+            eventListener.OnDealtDamage.Subscribe(OnDealtDamage);
+        }
     }
 
     private void UnsubscribeFromEvents()
     {
-        Damageable.DamageEvent.onDamageDealt.Unsubscribe(source, OnDamageDealt);
+        if (source.TryGetComponent(out DamageEventListener eventListener))
+        {
+            eventListener.OnDealtDamage.Unsubscribe(OnDealtDamage);
+        }
     }
 
-    private void OnDamageDealt(Damageable.DamageEvent damageEvent)
+    private void OnDealtDamage(Damageable.DamageEvent.OnDealtDamageEvent damageDealtEvent)
     {
+        Damageable.DamageEvent damageEvent = damageDealtEvent.damageEvent;
+
         if (damageEvent.SourceObject == null) return;
 
         if (damageEvent.SourceObject.TryGetComponent(out OrbIdentifier _))

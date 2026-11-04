@@ -138,6 +138,8 @@ GameObject:
   - component: {fileID: 374481338656721502}
   - component: {fileID: 2307074326761643055}
   - component: {fileID: 5832264677408755591}
+  - component: {fileID: -44879448940875955}
+  - component: {fileID: 8674622262995655331}
   - component: {fileID: 6180469951032781243}
   - component: {fileID: -347636825108832765}
   - component: {fileID: 560146304392565846}
@@ -348,6 +350,30 @@ MonoBehaviour:
     valueLimits:
       min: -Infinity
       max: Infinity
+--- !u!114 &-44879448940875955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581127942586707295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc3bda772d544743a3c13265642912c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageEventListener
+--- !u!114 &8674622262995655331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581127942586707295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae06203547c0ed4984db9d7c8711be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealEventListener
 --- !u!114 &6180469951032781243
 MonoBehaviour:
   m_ObjectHideFlags: 0

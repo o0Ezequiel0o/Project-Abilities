@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Zeke.Collections;
 using Zeke.UI;
-using TMPro;
 using System;
+using Zeke.GlobalEventsBus;
 
 public class InteractionHandler : MonoBehaviour
 {
@@ -18,7 +17,6 @@ public class InteractionHandler : MonoBehaviour
     [SerializeField] private float checkInterval;
 
     public GameObject SelectedInteractable => currentInteractable?.gameObject;
-    public readonly OrderedAction<InteractionResult> onInteraction = new OrderedAction<InteractionResult>();
 
     public Action<GameObject> onInteractableSelected;
     public Action<GameObject> onInteractableUnselected;
@@ -39,7 +37,7 @@ public class InteractionHandler : MonoBehaviour
         if (currentInteractable != null)
         {
             bool success = currentInteractable.interactable.Interact(gameObject);
-            onInteraction?.Invoke(new InteractionResult(currentInteractable.gameObject, success));
+            GlobalEventBus.Invoke(new InteractionEvent(currentInteractable.gameObject, success));
         }
     }
 

@@ -23,12 +23,19 @@ public class HealOnKillSkill : PassiveBase
     public override void Awake()
     {
         LookForComponents();
-        Damageable.DamageEvent.onKill.Subscribe(source, OnKill);
+
+        if (source.TryGetComponent(out DamageEventListener eventListener))
+        {
+            eventListener.OnKill.Subscribe(OnKill);
+        }
     }
 
     public override void OnRemove()
     {
-        Damageable.DamageEvent.onKill.Unsubscribe(source, OnKill);
+        if (source.TryGetComponent(out DamageEventListener eventListener))
+        {
+            eventListener.OnKill.Unsubscribe(OnKill);
+        }
     }
 
     protected override void UpgradeInternal(int levels)
@@ -41,9 +48,13 @@ public class HealOnKillSkill : PassiveBase
         hasRequiredComponents = source.TryGetComponent(out damageable);
     }
 
-    private void OnKill(Damageable.DamageEvent _)
+    private void OnKill(Damageable.DamageEvent.OnKillEvent killEvent)
     {
+        Damageable.DamageEvent damageEvent = killEvent.damageEvent;
+
         if (!hasRequiredComponents) return;
+        if (source == damageEvent.Receiver) return;
+
         HealInfo heal = new HealInfo(healAmount.Value, data.ProcCoefficient);
         damageable.GiveHealing(heal, source, null);
     }

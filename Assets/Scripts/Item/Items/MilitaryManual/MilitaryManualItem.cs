@@ -1,6 +1,5 @@
 using UnityEngine;
 using Zeke.Abilities;
-using static Damageable;
 
 namespace Zeke.Items
 {
@@ -23,7 +22,10 @@ namespace Zeke.Items
 
         public override void Initialize()
         {
-            DamageEvent.onDealDamage.Subscribe(source, OnDealDamage, data.TriggerOrder);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnDealDamage.Subscribe(OnDealDamage, data.TriggerOrder);
+            }
         }
 
         public override void OnRemoved()
@@ -33,7 +35,10 @@ namespace Zeke.Items
                 abilityController.AbilityTypeSlots[data.AbilityType].RechargeSpeed.ApplyFlatModifier(-flatModifier);
             }
 
-            DamageEvent.onDealDamage.Unsubscribe(source, OnDealDamage);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnDealDamage.Unsubscribe(OnDealDamage);
+            }
         }
 
         public override void OnStacksAdded(int amount)
@@ -57,8 +62,10 @@ namespace Zeke.Items
             }
         }
 
-        public void OnDealDamage(DamageEvent damageEvent)
+        public void OnDealDamage(Damageable.DamageEvent.OnDealDamageEvent dealDamageEvent)
         {
+            Damageable.DamageEvent damageEvent = dealDamageEvent.damageEvent;
+
             if (damageEvent.Receiver.gameObject == source) return;
             damageEvent.Multiplier.ApplyFlatModifier(data.FlatMultDamage.GetValue(stacks));
         }

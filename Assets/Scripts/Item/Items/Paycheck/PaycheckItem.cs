@@ -1,5 +1,4 @@
 using UnityEngine;
-using static Damageable;
 
 namespace Zeke.Items
 {
@@ -22,22 +21,24 @@ namespace Zeke.Items
 
         public override void Initialize()
         {
-            if (source.TryGetComponent(out moneyHandler))
+            if (source.TryGetComponent(out moneyHandler) && source.TryGetComponent(out DamageEventListener eventListener))
             {
-                DamageEvent.onHit.Subscribe(source, OnHit, data.TriggerOrder);
+                eventListener.OnHit.Subscribe(OnHit, data.TriggerOrder);
             }
         }
 
         public override void OnRemoved()
         {
-            if (moneyHandler != null)
+            if (source.TryGetComponent(out DamageEventListener eventListener))
             {
-                DamageEvent.onHit.Unsubscribe(source, OnHit);
+                eventListener.OnHit.Unsubscribe(OnHit);
             }
         }
 
-        private void OnHit(DamageEvent damageEvent)
+        private void OnHit(Damageable.DamageEvent.OnHitEvent hitEvent)
         {
+            Damageable.DamageEvent damageEvent = hitEvent.damageEvent;
+
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
 
             int effectStacks = Mathf.FloorToInt(moneyHandler.Money / data.GoldRequiredForStack);

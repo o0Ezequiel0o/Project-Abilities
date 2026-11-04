@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Zeke.TeamSystem;
-using static Damageable;
 
 namespace Zeke.Items
 {
@@ -29,14 +28,22 @@ namespace Zeke.Items
 
         public override void Initialize()
         {
-            DamageEvent.onDealDamage.Subscribe(source, OnDealDamage, data.TriggerOrder);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnDealDamage.Subscribe(OnDealDamage, data.TriggerOrder);
+            }
+
             visualInstance = GameObject.Instantiate(data.TargetVisual, GameInstance.WorldCanvas.transform);
             visualInstance.SetActive(false);
         }
 
         public override void OnRemoved()
         {
-            DamageEvent.onDealDamage.Unsubscribe(source, OnDealDamage);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnDealDamage.Unsubscribe(OnDealDamage);
+            }
+
             GameObject.Destroy(visualInstance);
         }
 
@@ -65,8 +72,10 @@ namespace Zeke.Items
             }
         }
 
-        private void OnDealDamage(DamageEvent damageEvent)
+        private void OnDealDamage(Damageable.DamageEvent.OnDealDamageEvent dealDamageEvent)
         {
+            Damageable.DamageEvent damageEvent = dealDamageEvent.damageEvent;
+
             if (damageEvent.Receiver.gameObject == source) return;
             if (damageEvent.Receiver.transform != target) return;
 

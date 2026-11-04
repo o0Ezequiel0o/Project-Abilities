@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using Zeke.TeamSystem;
-using static Damageable;
 
 namespace Zeke.Items
 {
@@ -29,16 +28,25 @@ namespace Zeke.Items
         public override void Initialize()
         {
             targetFilter = CanTarget;
-            DamageEvent.onHit.Subscribe(source, OnHit, data.TriggerOrder);
+
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnHit.Subscribe(OnHit, data.TriggerOrder);
+            }
         }
 
         public override void OnRemoved()
         {
-            DamageEvent.onHit.Unsubscribe(source, OnHit);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnHit.Unsubscribe(OnHit);
+            }
         }
         
-        private void OnHit(DamageEvent damageEvent)
+        private void OnHit(Damageable.DamageEvent.OnHitEvent hitEvent)
         {
+            Damageable.DamageEvent damageEvent = hitEvent.damageEvent;
+
             if (!RollProc(data.ProcChance, damageEvent.ProcCoefficient, itemHandler.Luck.ValueInt)) return;
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
             if (damageEvent.ProcChainBranch.Contains(Data)) return;

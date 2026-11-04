@@ -19,12 +19,18 @@ public class OrbExtraDamageSkill : PassiveBase
 
     public override void Awake()
     {
-        Damageable.DamageEvent.onDamageDealt.Subscribe(source, OnDamageDealt);
+        if (source.TryGetComponent(out DamageEventListener eventListener))
+        {
+            eventListener.OnDealtDamage.Subscribe(OnDealtDamage);
+        }
     }
 
     public override void OnRemove()
     {
-        Damageable.DamageEvent.onDamageDealt.Unsubscribe(source, OnDamageDealt);
+        if (source.TryGetComponent(out DamageEventListener eventListener))
+        {
+            eventListener.OnDealtDamage.Unsubscribe(OnDealtDamage);
+        }
     }
 
     protected override void UpgradeInternal(int levels)
@@ -32,8 +38,10 @@ public class OrbExtraDamageSkill : PassiveBase
         extraDamage.Upgrade(levels);
     }
 
-    private void OnDamageDealt(Damageable.DamageEvent damageEvent)
+    private void OnDealtDamage(Damageable.DamageEvent.OnDealtDamageEvent dealtDamageEvent)
     {
+        Damageable.DamageEvent damageEvent = dealtDamageEvent.damageEvent;
+
         if (damageEvent.SourceObject == null) return;
 
         if (damageEvent.SourceObject.TryGetComponent(out OrbIdentifier _))

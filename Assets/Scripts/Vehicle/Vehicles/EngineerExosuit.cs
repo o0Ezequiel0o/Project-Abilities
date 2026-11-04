@@ -14,12 +14,9 @@ public class EngineerExosuit : Exosuit
 
     [Header("Stats")]
     [SerializeField] private float flatMoveSpeedBoost = 0f;
-
     [SerializeField] private float moveSpeedMultiplier = 1f;
-    [SerializeField] private float damageMultiplier = 1f;
 
     private Stat.Multiplier moveSpeedStatMultiplier;
-    private Stat.Multiplier damageStatMultiplier;
 
     private readonly List<IAbility> abilitiesInstance = new List<IAbility>();
 
@@ -42,7 +39,6 @@ public class EngineerExosuit : Exosuit
     private void Awake()
     {
         moveSpeedStatMultiplier = new Stat.Multiplier(moveSpeedMultiplier);
-        damageStatMultiplier = new Stat.Multiplier(damageMultiplier);
     }
 
     private void ApplyExoBuffs(GameObject source)
@@ -52,8 +48,6 @@ public class EngineerExosuit : Exosuit
             entityMove.MoveSpeed.AddMultiplier(moveSpeedStatMultiplier);
             entityMove.MoveSpeed.ApplyFlatModifier(flatMoveSpeedBoost);
         }
-
-        Damageable.DamageEvent.onDealDamage.Subscribe(source, IncreaseDamage);
     }
 
     private void RemoveExoBuffs(GameObject source)
@@ -63,8 +57,6 @@ public class EngineerExosuit : Exosuit
             entityMove.MoveSpeed.RemoveMultiplier(moveSpeedStatMultiplier);
             entityMove.MoveSpeed.ApplyFlatModifier(-flatMoveSpeedBoost);
         }
-
-        Damageable.DamageEvent.onDealDamage.Unsubscribe(source, IncreaseDamage);
     }
 
     private void AddSuitSkills(GameObject source)
@@ -111,10 +103,5 @@ public class EngineerExosuit : Exosuit
                 abilityController.RemoveAbilityLock(abilityLocks[i]);
             }
         }
-    }
-
-    private void IncreaseDamage(Damageable.DamageEvent damageEvent)
-    {
-        damageEvent.Multiplier.Multiply(damageStatMultiplier.Value);
     }
 }

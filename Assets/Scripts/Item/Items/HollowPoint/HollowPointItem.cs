@@ -1,5 +1,4 @@
 using UnityEngine;
-using static Damageable;
 
 namespace Zeke.Items
 {
@@ -20,24 +19,34 @@ namespace Zeke.Items
 
         public override void Initialize()
         {
-            DamageEvent.onDealDamage.Subscribe(source, OnDealDamage, data.TriggerOrder);
-            DamageEvent.onHit.Subscribe(source, OnHit, data.TriggerOrder);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnDealDamage.Subscribe(OnDealDamage, data.TriggerOrder);
+                eventListener.OnHit.Subscribe(OnHit, data.TriggerOrder);
+            }
         }
 
         public override void OnRemoved()
         {
-            DamageEvent.onDealDamage.Unsubscribe(source, OnDealDamage);
-            DamageEvent.onHit.Unsubscribe(source, OnHit);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnDealDamage.Unsubscribe(OnDealDamage);
+                eventListener.OnHit.Unsubscribe(OnHit);
+            }
         }
 
-        public void OnDealDamage(DamageEvent damageEvent)
+        public void OnDealDamage(Damageable.DamageEvent.OnDealDamageEvent dealDamageEvent)
         {
+            Damageable.DamageEvent damageEvent = dealDamageEvent.damageEvent;
+
             if (damageEvent.Receiver.gameObject == source) return;
             damageEvent.Multiplier.ApplyFlatModifier(data.FlatMultDamage.GetValue(stacks));
         }
 
-        private void OnHit(DamageEvent damageEvent)
+        private void OnHit(Damageable.DamageEvent.OnHitEvent hitEvent)
         {
+            Damageable.DamageEvent damageEvent = hitEvent.damageEvent;
+
             if (damageEvent.Receiver.gameObject == source) return;
             damageEvent.FlatAccumulator += data.FlatDamage.GetValue(stacks);
         }

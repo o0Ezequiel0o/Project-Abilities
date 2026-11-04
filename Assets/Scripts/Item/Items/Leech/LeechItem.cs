@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static Damageable;
 
 namespace Zeke.Items
 {
@@ -25,17 +24,26 @@ namespace Zeke.Items
 
         public override void Initialize()
         {
-            DamageEvent.onDamageDealt.Subscribe(source, OnDamageDealt, data.TriggerOrder);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnDealtDamage.Subscribe(OnDealtDamage, data.TriggerOrder);
+            }
+
             hasRequiredComponents = source.TryGetComponent(out damageable);
         }
 
         public override void OnRemoved()
         {
-            DamageEvent.onDamageDealt.Unsubscribe(source, OnDamageDealt);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnDealtDamage.Unsubscribe(OnDealtDamage);
+            }
         }
 
-        private void OnDamageDealt(DamageEvent damageEvent)
+        private void OnDealtDamage(Damageable.DamageEvent.OnDealtDamageEvent dealtDamageEvent)
         {
+            Damageable.DamageEvent damageEvent = dealtDamageEvent.damageEvent;
+
             if (!hasRequiredComponents) return;
 
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;

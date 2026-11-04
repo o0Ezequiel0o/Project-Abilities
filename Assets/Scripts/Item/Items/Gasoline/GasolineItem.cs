@@ -25,16 +25,24 @@ namespace Zeke.Items
 
         public override void Initialize()
         {
-            Damageable.DamageEvent.onKill.Subscribe(source, OnKill, data.TriggerOrder);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnKill.Subscribe(OnKill, data.TriggerOrder);
+            }
         }
 
         public override void OnRemoved()
         {
-            Damageable.DamageEvent.onKill.Unsubscribe(source, OnKill);
+            if (source.TryGetComponent(out DamageEventListener eventListener))
+            {
+                eventListener.OnKill.Unsubscribe(OnKill);
+            }
         }
 
-        private void OnKill(Damageable.DamageEvent damageEvent)
+        private void OnKill(Damageable.DamageEvent.OnKillEvent killEvent)
         {
+            Damageable.DamageEvent damageEvent = killEvent.damageEvent;
+
             hits.Clear();
 
             ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.HitLayers, useLayerMask = true };

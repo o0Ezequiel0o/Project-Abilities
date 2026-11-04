@@ -3,41 +3,114 @@ using System;
 
 namespace Zeke.Collections
 {
-    public class OrderedAction
+    public interface IOrderedActionSubscription<T>
     {
-        public int Callbacks => callbacks.Count;
+        public void Subscribe(Action<T> callback);
 
-        private readonly List<Callback> callbacks = new List<Callback>();
+        public void Subscribe(Action<T> callback, int priority);
 
-        public void Invoke()
+        public void Unsubscribe(Action<T> callback);
+    }
+
+    public interface IOrderedActionSubscription<T1, T2>
+    {
+        public void Subscribe(Action<T1, T2> callback);
+
+        public void Subscribe(Action<T1, T2> callback, int priority);
+
+        public void Unsubscribe(Action<T1, T2> callback);
+    }
+
+    public sealed class OrderedAction<T> : IOrderedActionSubscription<T>
+    {
+        private readonly struct Entry
         {
-            for (int i = 0; i < callbacks.Count; i++)
+            public readonly Action<T> Callback;
+            public readonly int Priority;
+
+            public Entry(Action<T> callback, int priority)
             {
-                callbacks[i].action?.Invoke();
+                Callback = callback;
+                Priority = priority;
             }
         }
 
-        public void Subscribe(Action callback)
+        private readonly struct PendingOperation
         {
-            Subscribe(callback, int.MaxValue);
+            public readonly Entry Entry;
+            public readonly bool Subscribe;
+
+            public PendingOperation(Entry entry, bool subscribe)
+            {
+                Entry = entry;
+                Subscribe = subscribe;
+            }
         }
 
-        public void Subscribe(Action callback, int order)
+        private readonly List<Entry> callbacks = new(8);
+        private readonly HashSet<Action<T>> callbacksHash = new(8);
+        private readonly Queue<PendingOperation> pendingOperations = new(4);
+
+        private int invocationDepth;
+
+        public int Count => callbacksHash.Count;
+
+        public bool IsInvoking => invocationDepth > 0;
+
+        public void Subscribe(Action<T> callback)
         {
-            callbacks.Add(new Callback(callback, order));
-            callbacks.Sort((callback1, callback2) => callback2.order.CompareTo(callback1.order));
+            Subscribe(callback, 0);
         }
 
-        public void Unsubscribe(Action callback)
+        public void Subscribe(Action<T> callback, int priority)
         {
-            RemoveCallback(callback);
+            if (callback == null || !callbacksHash.Add(callback)) return;
+
+            Entry entry = new Entry(callback, priority);
+
+            if (IsInvoking)
+            {
+                pendingOperations.Enqueue(new PendingOperation(entry, true));
+            }
+            else
+            {
+                AddEntry(entry);
+            }
         }
 
-        private void RemoveCallback(Action action)
+        public void Unsubscribe(Action<T> callback)
+        {
+            if (callback == null || !callbacksHash.Remove(callback)) return;
+
+            Entry entry = new Entry(callback, 0);
+
+            if (IsInvoking)
+            {
+                pendingOperations.Enqueue(new PendingOperation(entry, false));
+            }
+            else
+            {
+                RemoveEntry(callback);
+            }
+        }
+
+        private void AddEntry(Entry entry)
+        {
+            int index = callbacks.Count;
+
+            while (index > 0 && callbacks[index - 1].Priority < entry.Priority)
+            {
+                index -= 1;
+            }
+
+            callbacks.Insert(index, entry);
+        }
+
+        private void RemoveEntry(Action<T> callback)
         {
             for (int i = 0; i < callbacks.Count; i++)
             {
-                if (callbacks[i].action == action)
+                if (callbacks[i].Callback == callback)
                 {
                     callbacks.RemoveAt(i);
                     return;
@@ -45,109 +118,152 @@ namespace Zeke.Collections
             }
         }
 
-        private readonly struct Callback
+        public void Invoke(T data)
         {
-            public readonly Action action;
-            public readonly int order;
+            invocationDepth += 1;
 
-            public Callback(Action action, int order)
-            {
-                this.action = action;
-                this.order = order;
-            }
-        }
-    }
-
-    public class OrderedAction<T1>
-    {
-        public int Callbacks => callbacks.Count;
-
-        private readonly List<Callback> callbacks = new List<Callback>();
-
-        public void Invoke(T1 param1)
-        {
             for (int i = 0; i < callbacks.Count; i++)
             {
-                callbacks[i].action?.Invoke(param1);
+                callbacks[i].Callback.Invoke(data);
+            }
+
+            invocationDepth -= 1;
+
+            if (invocationDepth == 0)
+            {
+                ApplyPendingOperations();
             }
         }
 
-        public void Subscribe(Action<T1> callback)
+        private void ApplyPendingOperations()
         {
-            Subscribe(callback, int.MaxValue);
-        }
-
-        public void Subscribe(Action<T1> callback, int order)
-        {
-            callbacks.Add(new Callback(callback, order));
-            callbacks.Sort((callback1, callback2) => callback1.order.CompareTo(callback2.order));
-        }
-
-        public void Unsubscribe(Action<T1> callback)
-        {
-            RemoveCallback(callback);
-        }
-
-        private void RemoveCallback(Action<T1> action)
-        {
-            for (int i = 0; i < callbacks.Count; i++)
+            while (pendingOperations.Count > 0)
             {
-                if (callbacks[i].action == action)
+                PendingOperation operation = pendingOperations.Dequeue();
+
+                if (operation.Subscribe)
                 {
-                    callbacks.RemoveAt(i);
-                    return;
+                    AddEntry(operation.Entry);
+                }
+                else
+                {
+                    RemoveEntry(operation.Entry.Callback);
                 }
             }
         }
 
-        private readonly struct Callback
+        public void Clear()
         {
-            public readonly Action<T1> action;
-            public readonly int order;
-
-            public Callback(Action<T1> action, int order)
+            if (IsInvoking)
             {
-                this.action = action;
-                this.order = order;
+                for (int i = 0; i < callbacks.Count; i++)
+                {
+                    Action<T> callback = callbacks[i].Callback;
+
+                    if (callbacksHash.Remove(callback))
+                    {
+                        pendingOperations.Enqueue(new PendingOperation(new Entry(callback, 0), false));
+                    }
+                }
+            }
+            else
+            {
+                callbacks.Clear();
+                callbacksHash.Clear();
+                pendingOperations.Clear();
             }
         }
     }
 
-    public class OrderedAction<T1, T2>
+    public sealed class OrderedAction<T1, T2> : IOrderedActionSubscription<T1, T2>
     {
-        public int Callbacks => callbacks.Count;
-
-        private readonly List<Callback> callbacks = new List<Callback>();
-
-        public void Invoke(T1 param1, T2 param2)
+        private readonly struct Entry
         {
-            for (int i = 0; i < callbacks.Count; i++)
+            public readonly Action<T1, T2> Callback;
+            public readonly int Priority;
+
+            public Entry(Action<T1, T2> callback, int priority)
             {
-                callbacks[i].action?.Invoke(param1, param2);
+                Callback = callback;
+                Priority = priority;
             }
         }
+
+        private readonly struct PendingOperation
+        {
+            public readonly Entry Entry;
+            public readonly bool Subscribe;
+
+            public PendingOperation(Entry entry, bool subscribe)
+            {
+                Entry = entry;
+                Subscribe = subscribe;
+            }
+        }
+
+        private readonly List<Entry> callbacks = new(8);
+        private readonly HashSet<Action<T1, T2>> callbacksHash = new(8);
+        private readonly Queue<PendingOperation> pendingOperations = new(4);
+
+        private int invocationDepth;
+
+        public int Count => callbacksHash.Count;
+        public bool IsInvoking => invocationDepth > 0;
 
         public void Subscribe(Action<T1, T2> callback)
         {
-            Subscribe(callback, int.MaxValue);
+            Subscribe(callback, 0);
         }
 
-        public void Subscribe(Action<T1, T2> callback, int order)
+        public void Subscribe(Action<T1, T2> callback, int priority)
         {
-            callbacks.Add(new Callback(callback, order));
-            callbacks.Sort((callback1, callback2) => callback1.order.CompareTo(callback2.order));
+            if (callback == null || !callbacksHash.Add(callback)) return;
+
+            Entry entry = new(callback, priority);
+
+            if (IsInvoking)
+            {
+                pendingOperations.Enqueue(new PendingOperation(entry, true));
+            }
+            else
+            {
+                AddEntry(entry);
+            }
         }
 
         public void Unsubscribe(Action<T1, T2> callback)
         {
-            RemoveCallback(callback);
+            if (callback == null || !callbacksHash.Remove(callback)) return;
+
+            Entry entry = new(callback, 0);
+
+            if (IsInvoking)
+            {
+                pendingOperations.Enqueue(new PendingOperation(entry, false));
+            }
+            else
+            {
+                RemoveEntry(callback);
+            }
         }
 
-        private void RemoveCallback(Action<T1, T2> action)
+        private void AddEntry(Entry entry)
+        {
+            int index = callbacks.Count;
+
+            while (index > 0 && callbacks[index - 1].Priority < entry.Priority)
+            {
+                index -= 1;
+            }
+
+            callbacks.Insert(index, entry);
+        }
+
+        private void RemoveEntry(Action<T1, T2> callback)
         {
             for (int i = 0; i < callbacks.Count; i++)
             {
-                if (callbacks[i].action == action)
+                if (callbacks[i].Callback == callback)
                 {
                     callbacks.RemoveAt(i);
                     return;
@@ -155,15 +271,59 @@ namespace Zeke.Collections
             }
         }
 
-        private readonly struct Callback
+        public void Invoke(T1 data1, T2 data2)
         {
-            public readonly Action<T1, T2> action;
-            public readonly int order;
+            invocationDepth += 1;
 
-            public Callback(Action<T1, T2> action, int order)
+            for (int i = 0; i < callbacks.Count; i++)
             {
-                this.action = action;
-                this.order = order;
+                callbacks[i].Callback.Invoke(data1, data2);
+            }
+
+            invocationDepth -= 1;
+
+            if (invocationDepth == 0)
+            {
+                ApplyPendingOperations();
+            }
+        }
+
+        private void ApplyPendingOperations()
+        {
+            while (pendingOperations.Count > 0)
+            {
+                PendingOperation operation = pendingOperations.Dequeue();
+
+                if (operation.Subscribe)
+                {
+                    AddEntry(operation.Entry);
+                }
+                else
+                {
+                    RemoveEntry(operation.Entry.Callback);
+                }
+            }
+        }
+
+        public void Clear()
+        {
+            if (IsInvoking)
+            {
+                for (int i = 0; i < callbacks.Count; i++)
+                {
+                    Action<T1, T2> callback = callbacks[i].Callback;
+
+                    if (callbacksHash.Remove(callback))
+                    {
+                        pendingOperations.Enqueue(new PendingOperation(new Entry(callback, 0), false));
+                    }
+                }
+            }
+            else
+            {
+                callbacks.Clear();
+                callbacksHash.Clear();
+                pendingOperations.Clear();
             }
         }
     }
