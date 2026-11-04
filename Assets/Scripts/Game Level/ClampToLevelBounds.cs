@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zeke.GlobalEventsBus;
 
 [DefaultExecutionOrder(100), RequireComponent(typeof(Rigidbody2D))]
 public class ClampToLevelBounds : MonoBehaviour

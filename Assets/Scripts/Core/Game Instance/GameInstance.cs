@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static GameLevelHandler;
+using Zeke.GlobalEventsBus;
 
 public class GameInstance : Singleton<GameInstance>
 {
@@ -192,15 +192,15 @@ public class GameInstance : Singleton<GameInstance>
 
     private void OnEnable()
     {
-        GlobalEventBus.Subscribe<LevelLoadedEvent>(OnLevelLoaded);
+        GlobalEventBus.Subscribe<GameLevelHandler.LevelLoadedEvent>(OnLevelLoaded);
     }
 
     private void OnDisable()
     {
-        GlobalEventBus.Unsubscribe<LevelLoadedEvent>(OnLevelLoaded);
+        GlobalEventBus.Unsubscribe<GameLevelHandler.LevelLoadedEvent>(OnLevelLoaded);
     }
 
-    private void OnLevelLoaded(LevelLoadedEvent @event)
+    private void OnLevelLoaded(GameLevelHandler.LevelLoadedEvent @event)
     {
         Difficulty += difficulty.DifficultyPerLevel * Level;
         Level += 1;

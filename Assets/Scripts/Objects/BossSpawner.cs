@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zeke.GlobalEventsBus;
 
 public class BossSpawner : MonoBehaviour, IInteractable, IInteractableTooltipRenderer
 {
@@ -40,6 +41,7 @@ public class BossSpawner : MonoBehaviour, IInteractable, IInteractableTooltipRen
 
     private void OnBossDeath(Damageable _)
     {
+        if (!Application.isPlaying) return;
         Instantiate(portalPrefab, portalSpawn.position, Quaternion.identity);
         GlobalEventBus.Invoke(new GameLevelHandler.LevelEndEvent());
     }

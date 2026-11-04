@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zeke.GlobalEventsBus;
 
 public class Portal : MonoBehaviour, IInteractable, IInteractableTooltipRenderer
 {
