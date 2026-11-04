@@ -206,7 +206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -36.869, y: 0}
+  m_AnchoredPosition: {x: -36.868896, y: 0}
   m_SizeDelta: {x: -73.738, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276936300449022499
@@ -1091,6 +1091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
   graphicRoot: {fileID: 90635157843216006}
+  defaultState: 1
   elements:
   - key: Name
     value: {fileID: 7960544497855732645}

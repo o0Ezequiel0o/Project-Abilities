@@ -7,6 +7,7 @@ namespace Zeke.UI
     public class UIWindow : MonoBehaviour
     {
         [SerializeField] private GameObject graphicRoot;
+        [SerializeField] private VisibilityState defaultState = VisibilityState.Inactive;
 
         [HideInInspector, SerializeField] private Dictionary<string, UIElement> elements = new Dictionary<string, UIElement>();
 
@@ -102,6 +103,16 @@ namespace Zeke.UI
         {
             if (graphicRoot == null) return;
 
+            switch (defaultState)
+            {
+                case VisibilityState.Inactive:
+                    graphicRoot.SetActive(false);
+                    break;
+                default:
+                    graphicRoot.SetActive(true);
+                    break;
+            }
+
             if (!graphicRoot.TryGetComponent(out graphicVisibilityTracker))
             {
                 graphicVisibilityTracker = graphicRoot.AddComponent<GraphicVisibilityTracker>();
@@ -132,6 +143,12 @@ namespace Zeke.UI
         private void TriggerGraphicDisabledEvents()
         {
             onWindowClosed?.Invoke(this);
+        }
+
+        private enum VisibilityState
+        {
+            Active,
+            Inactive
         }
     }
 }

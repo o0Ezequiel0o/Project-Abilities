@@ -1563,6 +1563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
   graphicRoot: {fileID: 2531924609420196561}
+  defaultState: 0
   elements:
   - key: Selected Item Outline
     value: {fileID: 7441524536318708701}

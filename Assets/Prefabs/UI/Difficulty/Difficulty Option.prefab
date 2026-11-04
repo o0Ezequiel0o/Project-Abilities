@@ -321,7 +321,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
+  graphicRoot: {fileID: 0}
+  defaultState: 0
   elements:
+  - key: Toggle
+    value: {fileID: 1833132497563923948}
   - key: Border
     value: {fileID: 8937812966719230946}
   - key: Icon

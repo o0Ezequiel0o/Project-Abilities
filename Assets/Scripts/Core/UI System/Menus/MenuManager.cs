@@ -9,7 +9,7 @@ namespace Zeke.UI.MenuManagment
         [SerializeField] private Dictionary<MenuIdentifier, Dictionary<MenuState, List<MenuInteraction>>> interactions;
         [SerializeField] private Dictionary<MenuIdentifier, List<MenuConstraints>> constraints;
 
-        private readonly Dictionary<MenuIdentifier, Menu> registeredMenus = new Dictionary<MenuIdentifier, Menu>();
+        private readonly Dictionary<MenuIdentifier, List<Menu>> registeredMenus = new Dictionary<MenuIdentifier, List<Menu>>();
 
         public static void RegisterMenu(Menu menu) 
         {
@@ -19,7 +19,12 @@ namespace Zeke.UI.MenuManagment
                 return;
             }
 
-            Instance.registeredMenus.Add(menu.Identifier, menu);
+            if (!Instance.registeredMenus.TryGetValue(menu.Identifier, out List<Menu> menus))
+            {
+                Instance.registeredMenus.Add(menu.Identifier, new List<Menu>());
+            }
+
+            Instance.registeredMenus[menu.Identifier].Add(menu);
 
             menu.onMenuOpened += Instance.OnMenuOpened;
             menu.onMenuClosed += Instance.OnMenuClosed;
@@ -35,27 +40,15 @@ namespace Zeke.UI.MenuManagment
 
         public static bool CanOpen(Menu menu)
         {
-            if (!Instance.constraints.TryGetValue(menu.Identifier, out List<MenuConstraints> menuConstraints))
-            {
-                return true;
-            }
-
-            for (int i = 0; i < menuConstraints.Count; i++)
-            {
-                if (Instance.registeredMenus.TryGetValue(menuConstraints[i].menu, out Menu menuInstance))
-                {
-                    if (StateEquals(menuConstraints[i].state, menuInstance.Window) && menuConstraints[i].avoidsOpening)
-                    {
-                        Debug.Log($"{menuInstance.name} is not letting {menu} open.");
-                        return false;
-                    }
-                }
-            }
-
-            return true;
+            return TryPerformAction(menu, constraints => constraints.avoidsOpening);
         }
 
         public static bool CanClose(Menu menu)
+        {
+            return TryPerformAction(menu, constraints => constraints.avoidsClosing);
+        }
+
+        private static bool TryPerformAction(Menu menu, Func<MenuConstraints, bool> condition)
         {
             if (!Instance.constraints.TryGetValue(menu.Identifier, out List<MenuConstraints> menuConstraints))
             {
@@ -64,11 +57,16 @@ namespace Zeke.UI.MenuManagment
 
             for (int i = 0; i < menuConstraints.Count; i++)
             {
-                if (Instance.registeredMenus.TryGetValue(menuConstraints[i].menu, out Menu menuInstance))
+                if (Instance.registeredMenus.TryGetValue(menuConstraints[i].menu, out List<Menu> menuInstances))
                 {
-                    if (StateEquals(menuConstraints[i].state, menuInstance.Window) && menuConstraints[i].avoidsClosing)
+                    for (int x = 0; x < menuInstances.Count; x++)
                     {
-                        return false;
+                        if (StateEquals(menuConstraints[i].state, menuInstances[x].Window) && condition(menuConstraints[i]))
+                        {
+                            Debug.Log($"{menuInstances[x].name} ({menuInstances.Count} duplicate keys) is not letting {menu} open.");
+                            return false;
+                        }
+
                     }
                 }
             }
@@ -103,12 +101,22 @@ namespace Zeke.UI.MenuManagment
             switch (menuInteraction.@event)
             {
                 case MenuState.Open:
-                    registeredMenus[menuInteraction.menu].Window.SetGraphicVisibility(true);
+                    SetMenusVisibility(menuInteraction.menu, true);
                     break;
 
                 case MenuState.Close:
-                    registeredMenus[menuInteraction.menu].Window.SetGraphicVisibility(false);
+                    SetMenusVisibility(menuInteraction.menu, false);
                     break;
+            }
+        }
+
+        private void SetMenusVisibility(MenuIdentifier identifier, bool visibility)
+        {
+            List<Menu> menus = registeredMenus[identifier];
+
+            for (int i = 0; i < menus.Count; i++)
+            {
+                menus[i].Window.SetGraphicVisibility(visibility);
             }
         }
 
