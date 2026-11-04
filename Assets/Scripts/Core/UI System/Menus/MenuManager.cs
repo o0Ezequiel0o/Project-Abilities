@@ -24,6 +24,12 @@ namespace Zeke.UI.MenuManagment
                 Instance.registeredMenus.Add(menu.Identifier, new List<Menu>());
             }
 
+            if (Instance.registeredMenus[menu.Identifier].Contains(menu))
+            {
+                Debug.LogWarning("Duplicate key and menu pair");
+                return;
+            }
+
             Instance.registeredMenus[menu.Identifier].Add(menu);
 
             menu.onMenuOpened += Instance.OnMenuOpened;
