@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Zeke.Collections;
+using Zeke.GlobalEventsBus;
 
 public class SpawnableSpawner : MonoBehaviour
 {
@@ -15,8 +15,6 @@ public class SpawnableSpawner : MonoBehaviour
     [SerializeField] private int maxAliveSpawnables = 1000;
     [SerializeField] private List<Spawnpoint> spawnpoints;
     [SerializeField] private List<Spawnable> spawnables;
-
-    public static OrderedAction<GameObject> onSpawnableSpawned = new OrderedAction<GameObject>();
 
     private readonly Dictionary<CachedSpawnableData, Spawnable> cachedSpawnablesRef = new Dictionary<CachedSpawnableData, Spawnable>();
     private readonly List<CachedSpawnableData> cachedSpawnables = new List<CachedSpawnableData>();
@@ -145,7 +143,7 @@ public class SpawnableSpawner : MonoBehaviour
         aliveSpawnables.Add(spawnableInstance);
         currentPoints -= spawnable.Cost;
 
-        onSpawnableSpawned?.Invoke(spawnableInstance);
+        GlobalEventBus.Invoke(new SpawnableSpawnedEvent(spawnableInstance));
     }
 
     private void OnSpawnableDeath(GameObject spawnableInstance)
@@ -260,6 +258,16 @@ public class SpawnableSpawner : MonoBehaviour
             }
 
             return maxWeight;
+        }
+    }
+
+    public readonly struct SpawnableSpawnedEvent : IGlobalEvent
+    {
+        public readonly GameObject spawnable;
+
+        public SpawnableSpawnedEvent(GameObject spawnable)
+        {
+            this.spawnable = spawnable;
         }
     }
 }

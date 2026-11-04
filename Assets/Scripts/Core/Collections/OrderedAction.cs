@@ -47,9 +47,9 @@ namespace Zeke.Collections
             }
         }
 
-        private readonly List<Entry> callbacks = new(8);
-        private readonly HashSet<Action<T>> callbacksHash = new(8);
-        private readonly Queue<PendingOperation> pendingOperations = new(4);
+        private readonly List<Entry> callbacks = new List<Entry>();
+        private readonly HashSet<Action<T>> callbacksHash = new HashSet<Action<T>>();
+        private readonly Queue<PendingOperation> pendingOperations = new Queue<PendingOperation>();
 
         private int invocationDepth;
 
