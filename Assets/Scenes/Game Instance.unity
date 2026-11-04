@@ -152,6 +152,7 @@ Transform:
   - {fileID: 597887915}
   - {fileID: 1476107929}
   - {fileID: 1967376055}
+  - {fileID: 649617575}
   - {fileID: 1920595092}
   - {fileID: 1474243316}
   m_Father: {fileID: 0}
@@ -572,6 +573,64 @@ MonoBehaviour:
     amount: 50
   - prefab: {fileID: 7869868662664362209, guid: b91fed7bc354bd74c8918088fd7399bb, type: 3}
     amount: 50
+--- !u!1 &649617574
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 649617575}
+  - component: {fileID: 649617576}
+  m_Layer: 0
+  m_Name: MenuManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &649617575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649617574}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 326.80286, y: 181.46715, z: -0.04586701}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 54836247}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &649617576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649617574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d1e74755c12fae43abb4bc034d4ff99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.MenuManagment.MenuManager
+  interactions:
+  - key: {fileID: 11400000, guid: 5ae82e30f7985534495de7917ee976b2, type: 2}
+    value:
+    - key: 0
+      value:
+      - menu: {fileID: 11400000, guid: 669e01d0fb66456459c2ded7458ea53f, type: 2}
+        event: 1
+  constraints:
+  - key: {fileID: 11400000, guid: 669e01d0fb66456459c2ded7458ea53f, type: 2}
+    value:
+    - menu: {fileID: 11400000, guid: 5ae82e30f7985534495de7917ee976b2, type: 2}
+      state: 0
+      avoidsOpening: 1
+      avoidsClosing: 0
 --- !u!1001 &1147547547
 PrefabInstance:
   m_ObjectHideFlags: 0

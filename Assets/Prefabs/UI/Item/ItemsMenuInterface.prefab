@@ -1495,6 +1495,7 @@ GameObject:
   - component: {fileID: 3279596086371315156}
   - component: {fileID: 4128295981150954586}
   - component: {fileID: 1777610072610201837}
+  - component: {fileID: -8469773484677850002}
   m_Layer: 5
   m_Name: ItemsMenuInterface
   m_TagString: Untagged
@@ -1586,6 +1587,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseWindow
   uiWindow: {fileID: 4128295981150954586}
+--- !u!114 &-8469773484677850002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8270697653349334733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a69dde4ed1504944884f9037e64c4e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.MenuManagment.Menu
+  <Identifier>k__BackingField: {fileID: 11400000, guid: 669e01d0fb66456459c2ded7458ea53f, type: 2}
+  <Window>k__BackingField: {fileID: 4128295981150954586}
 --- !u!1 &8462171263498972465
 GameObject:
   m_ObjectHideFlags: 0

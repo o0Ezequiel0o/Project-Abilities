@@ -16,7 +16,6 @@ namespace Zeke.Items
 
         public void ToggleMenuVisibility()
         {
-            if (GameInstance.IsPaused) return;
             itemsMenuInterface.Window.ToggleGraphicVisibility();
         }
 

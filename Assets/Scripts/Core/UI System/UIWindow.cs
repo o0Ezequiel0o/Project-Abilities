@@ -14,7 +14,8 @@ namespace Zeke.UI
 
         public bool IsVisible => graphicRoot != null ? graphicRoot.activeSelf : gameObject.activeSelf;
 
-        public Func<bool> canChangeGraphicVisibility;
+        public Func<bool> canOpen;
+        public Func<bool> canClose;
 
         public Action<UIWindow> onWindowOpened;
         public Action<UIWindow> onWindowClosed;
@@ -25,9 +26,14 @@ namespace Zeke.UI
         {
             if (graphicRoot == null) return;
             if (state == graphicRoot.activeSelf) return;
-            if (canChangeGraphicVisibility != null && !canChangeGraphicVisibility.Invoke()) return;
+            if (!CanChangeState(state)) return;
 
             graphicRoot.SetActive(state);
+        }
+
+        private bool CanChangeState(bool targetVisibility)
+        {
+            return targetVisibility == true ? canOpen == null || canOpen.Invoke() : canClose == null || canClose.Invoke();
         }
 
         public void ToggleGraphicVisibility()
