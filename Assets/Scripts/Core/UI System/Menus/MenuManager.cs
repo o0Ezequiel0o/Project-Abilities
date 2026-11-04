@@ -38,7 +38,12 @@ namespace Zeke.UI.MenuManagment
 
         public static void UnregisterMenu(Menu menu)
         {
-            Instance.registeredMenus.Remove(menu.Identifier);
+            if (!Instance.registeredMenus.TryGetValue(menu.Identifier, out List<Menu> menus))
+            {
+                return;
+            }
+
+            Instance.registeredMenus[menu.Identifier].Remove(menu);
 
             menu.onMenuOpened -= Instance.OnMenuOpened;
             menu.onMenuClosed -= Instance.OnMenuClosed;
