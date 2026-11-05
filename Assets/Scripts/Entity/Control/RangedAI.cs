@@ -7,6 +7,10 @@ public class RangedAI : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private RangedAISettings settings;
+    [SerializeField] private AbilityIndicatorDB abilityIndicatorDB;
+
+    [Space]
+
     [SerializeField] private Transform attackIndicatorSpawn;
 
     private RangedStateContext context;
@@ -19,7 +23,7 @@ public class RangedAI : MonoBehaviour
 
     private void Awake()
     {
-        context = new RangedStateContext(settings, attackIndicatorSpawn);
+        context = new RangedStateContext(settings, attackIndicatorSpawn, abilityIndicatorDB);
         stateMachine = new RangedStateMachine(gameObject, context);
 
         if (TryGetComponent(out Damageable damageable))
@@ -81,6 +85,7 @@ public class RangedAI : MonoBehaviour
 public class RangedStateContext
 {
     public readonly RangedAISettings ai;
+    public readonly AbilityIndicatorDB abilityIndicatorDB;
     public readonly Transform attackIndicatorSpawn;
 
     private Transform target;
@@ -100,9 +105,10 @@ public class RangedStateContext
 
     public Collider2D TargetCollider { get; private set; }
 
-    public RangedStateContext(RangedAISettings ai, Transform attackIndicatorSpawn)
+    public RangedStateContext(RangedAISettings ai, Transform attackIndicatorSpawn, AbilityIndicatorDB abilityIndicatorDB)
     {
         this.ai = ai;
+        this.abilityIndicatorDB = abilityIndicatorDB;
         this.attackIndicatorSpawn = attackIndicatorSpawn;
     }
 }
@@ -309,6 +315,7 @@ public class RangedAttackState : RangedBaseState
     private readonly AbilityIndicator abilityIndicator;
 
     private readonly RangedStateMachine stateMachine;
+    private readonly RangedStateContext context;
 
     private readonly Stat.Multiplier aimSpeedMultiplier;
 
@@ -328,6 +335,7 @@ public class RangedAttackState : RangedBaseState
     {
         transform = gameObject.transform;
         this.stateMachine = stateMachine;
+        this.context = context;
 
         entityMove = gameObject.GetComponent<EntityMove>();
         entityAim = gameObject.GetComponent<EntityAim>();
@@ -472,9 +480,9 @@ public class RangedAttackState : RangedBaseState
     {
         if (abilityController.TryGetAbility(abilityType, out IAbility ability))
         {
-            if (ability.IndicatorData != null)
+            if (context.abilityIndicatorDB.TryGetAbilityIndicator(ability.Data, out AbilityIndicatorData indicatorData))
             {
-                return ability.IndicatorData.CreateAbilityIndicator(gameObject, abilityController.Spawn);
+                return indicatorData.CreateAbilityIndicator(gameObject, abilityController.Spawn);
             }
         }
 

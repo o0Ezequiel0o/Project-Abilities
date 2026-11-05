@@ -8,6 +8,10 @@ public class RobotBossAI : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private RobotBossAISettings settings;
+    [SerializeField] private AbilityIndicatorDB abilityIndicatorDB;
+
+    [Space]
+
     [SerializeField] private Transform attackIndicatorSpawn;
 
     private RobotBossStateContext context;
@@ -20,7 +24,7 @@ public class RobotBossAI : MonoBehaviour
 
     private void Awake()
     {
-        context = new RobotBossStateContext(settings, attackIndicatorSpawn);
+        context = new RobotBossStateContext(settings, attackIndicatorSpawn, abilityIndicatorDB);
         stateMachine = new RobotBossStateMachine(gameObject, context);
 
         if (TryGetComponent(out Damageable damageable))
@@ -82,6 +86,7 @@ public class RobotBossAI : MonoBehaviour
 public class RobotBossStateContext
 {
     public readonly RobotBossAISettings ai;
+    public readonly AbilityIndicatorDB abilityIndicatorDB;
     public readonly Transform attackIndicatorSpawn;
 
     private Transform target;
@@ -101,9 +106,10 @@ public class RobotBossStateContext
 
     public Collider2D TargetCollider { get; private set; }
 
-    public RobotBossStateContext(RobotBossAISettings ai, Transform attackIndicatorSpawn)
+    public RobotBossStateContext(RobotBossAISettings ai, Transform attackIndicatorSpawn, AbilityIndicatorDB abilityIndicatorDB)
     {
         this.ai = ai;
+        this.abilityIndicatorDB = abilityIndicatorDB;
         this.attackIndicatorSpawn = attackIndicatorSpawn;
     }
 }
@@ -185,13 +191,13 @@ public abstract class RobotBossBaseState : State<RobotBossStateContext>
         return angleDifference < context.ai.MinStartAttackAngle;
     }
 
-    protected AbilityIndicator CreateAbilityIndicator(AbilityController abilityController, AbilityType abilityType, GameObject gameObject)
+    protected AbilityIndicator CreateAbilityIndicator(AbilityController abilityController, AbilityType abilityType, GameObject gameObject, AbilityIndicatorDB db)
     {
         if (abilityController.TryGetAbility(abilityType, out IAbility ability))
         {
-            if (ability.IndicatorData != null)
+            if (db.TryGetAbilityIndicator(ability.Data, out AbilityIndicatorData indicatorData))
             {
-                return ability.IndicatorData.CreateAbilityIndicator(gameObject, abilityController.Spawn);
+                return indicatorData.CreateAbilityIndicator(gameObject, abilityController.Spawn);
             }
         }
 
@@ -361,7 +367,7 @@ public class RobotBossPrimaryAttackState : RobotBossBaseState
 
         abilityController = gameObject.GetComponent<AbilityController>();
 
-        abilityIndicator = CreateAbilityIndicator(abilityController, context.ai.PrimaryAttackType, gameObject);
+        abilityIndicator = CreateAbilityIndicator(abilityController, context.ai.PrimaryAttackType, gameObject, context.abilityIndicatorDB);
     }
 
     public override void DestroyState(RobotBossStateContext context)
@@ -514,7 +520,7 @@ public class RobotBossSecondaryAttackState : RobotBossBaseState
 
         abilityController = gameObject.GetComponent<AbilityController>();
 
-        abilityIndicator = CreateAbilityIndicator(abilityController, context.ai.SecondaryAttackType, gameObject);
+        abilityIndicator = CreateAbilityIndicator(abilityController, context.ai.SecondaryAttackType, gameObject, context.abilityIndicatorDB);
         targetFilter = TargetFilter;
     }
 

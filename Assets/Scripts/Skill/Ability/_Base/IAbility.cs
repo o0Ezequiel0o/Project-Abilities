@@ -1,11 +1,8 @@
-using Zeke.Abilities.Indicators;
-
 namespace Zeke.Abilities
 {
     public interface IAbility
     {
         public abstract AbilityData Data { get; }
-        public abstract AbilityIndicatorData IndicatorData { get; }
 
         public int Level { get; }
 

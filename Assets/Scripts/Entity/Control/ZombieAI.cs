@@ -7,6 +7,10 @@ public class ZombieAI : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private ZombieAISettings settings;
+    [SerializeField] private AbilityIndicatorDB abilityIndicatorDB;
+
+    [Space]
+
     [SerializeField] private Transform attackIndicatorSpawn;
 
     private ZombieStateContext context;
@@ -19,7 +23,7 @@ public class ZombieAI : MonoBehaviour
 
     private void Awake()
     {
-        context = new ZombieStateContext(settings, attackIndicatorSpawn);
+        context = new ZombieStateContext(settings, attackIndicatorSpawn, abilityIndicatorDB);
         stateMachine = new ZombieStateMachine(gameObject, context);
 
         if (TryGetComponent(out Damageable damageable))
@@ -81,6 +85,7 @@ public class ZombieAI : MonoBehaviour
 public class ZombieStateContext
 {
     public readonly ZombieAISettings ai;
+    public readonly AbilityIndicatorDB abilityIndicatorDB;
     public readonly Transform attackIndicatorSpawn;
 
     private Transform target;
@@ -100,9 +105,10 @@ public class ZombieStateContext
 
     public Collider2D TargetCollider { get; private set; }
 
-    public ZombieStateContext(ZombieAISettings ai, Transform attackIndicatorSpawn)
+    public ZombieStateContext(ZombieAISettings ai, Transform attackIndicatorSpawn, AbilityIndicatorDB abilityIndicatorDB)
     {
         this.ai = ai;
+        this.abilityIndicatorDB = abilityIndicatorDB;
         this.attackIndicatorSpawn = attackIndicatorSpawn;
     }
 }
@@ -300,6 +306,7 @@ public class ZombieAttackState : ZombieBaseState
     private readonly AbilityIndicator abilityIndicator;
 
     private readonly ZombieStateMachine stateMachine;
+    private readonly ZombieStateContext context;
 
     private float attackTimer = 0f;
     private float recoverTimer = 0f;
@@ -316,6 +323,7 @@ public class ZombieAttackState : ZombieBaseState
     public ZombieAttackState(GameObject gameObject, ZombieStateMachine stateMachine, ZombieStateContext context)
     {
         this.stateMachine = stateMachine;
+        this.context = context;
 
         entityMove = gameObject.GetComponent<EntityMove>();
         entityAim = gameObject.GetComponent<EntityAim>();
@@ -443,9 +451,9 @@ public class ZombieAttackState : ZombieBaseState
     {
         if (abilityController.TryGetAbility(abilityType, out IAbility ability))
         {
-            if (ability.IndicatorData != null)
+            if (context.abilityIndicatorDB.TryGetAbilityIndicator(ability.Data, out AbilityIndicatorData indicatorData))
             {
-                return ability.IndicatorData.CreateAbilityIndicator(gameObject, abilityController.Spawn);
+                return indicatorData.CreateAbilityIndicator(gameObject, abilityController.Spawn);
             }
         }
 

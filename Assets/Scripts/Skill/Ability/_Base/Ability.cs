@@ -7,7 +7,6 @@ namespace Zeke.Abilities
     public class Ability : IAbility
     {
         public AbilityData Data => data;
-        public AbilityIndicatorData IndicatorData => data.IndicatorData;
 
         public int Level { get; private set; }
 

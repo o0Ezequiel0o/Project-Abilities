@@ -1,5 +1,6 @@
 using UnityEngine;
 using Zeke.Abilities;
+using Zeke.Abilities.Indicators;
 
 [CreateAssetMenu(fileName = "New Preset", menuName = "AI Presets/Robot Boss/New Preset")]
 public class RobotBossAISettings : ScriptableObject
@@ -22,6 +23,9 @@ public class RobotBossAISettings : ScriptableObject
     [field: Space]
 
     [field: SerializeField] public float MinStartAttackAngle { get; private set; }
+
+    [field: Header("Attack Indicator")]
+    [field: SerializeField] public AttackIndicatorData AttackIndicatorDB { get; private set; }
 
     [field: Header("Sounds")]
     [field: SerializeField] public Sound WindUpSound { get; private set; }
