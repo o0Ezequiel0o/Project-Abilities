@@ -6,9 +6,6 @@ namespace Zeke.Items
     [CreateAssetMenu(fileName = "Item Settings", menuName = "ScriptableObjects/Items/ItemSettings", order = 1)]
     public class ItemSettings : ScriptableObject
     {
-        [Header("Settings")]
-        [SerializeField] private List<ItemData> avaibleItems;
-
         [Header("Colors")]
         [SerializeField] private Color commonColor;
         [SerializeField] private Color rareColor;
@@ -16,65 +13,42 @@ namespace Zeke.Items
         [SerializeField] private Color legendaryColor;
         [SerializeField] private Color uniqueColor;
 
+        [Header("Items")]
+        [SerializeField] private List<ItemData> avaibleItems;
+
         [Header("Sorted Items")]
-        [ReadOnly, SerializeField] private List<ItemData> commonItems;
-        [ReadOnly, SerializeField] private List<ItemData> rareItems;
-        [ReadOnly, SerializeField] private List<ItemData> epicItems;
-        [ReadOnly, SerializeField] private List<ItemData> legendaryItems;
-        [ReadOnly, SerializeField] private List<ItemData> uniqueItems;
+        [ReadOnly, SerializeField] private Dictionary<ItemRarity, List<ItemData>> itemsByRarity;
+
+        public void AddItem(ItemData item)
+        {
+            if (item != null && !avaibleItems.Contains(item))
+            {
+                avaibleItems.Add(item);
+                AddFilteredItemData(item);
+            }
+        }
 
         public Color GetRarityColor(ItemRarity rarity)
         {
-            switch (rarity)
+            return rarity switch
             {
-                case ItemRarity.Common:
-                    return commonColor;
-
-                case ItemRarity.Rare:
-                    return rareColor;
-
-                case ItemRarity.Epic:
-                    return epicColor;
-
-                case ItemRarity.Legendary:
-                    return legendaryColor;
-
-                case ItemRarity.Unique:
-                    return uniqueColor;
-
-                default:
-                    throw new System.ArgumentOutOfRangeException();
-            }
+                ItemRarity.Common => commonColor,
+                ItemRarity.Rare => rareColor,
+                ItemRarity.Epic => epicColor,
+                ItemRarity.Legendary => legendaryColor,
+                ItemRarity.Unique => uniqueColor,
+                _ => throw new System.ArgumentOutOfRangeException(),
+            };
         }
 
         public ItemData GetRandomItem(ItemRarity rarity)
         {
-            switch (rarity)
+            if (itemsByRarity.TryGetValue(rarity, out List<ItemData> items))
             {
-                case ItemRarity.Common:
-                    if (commonItems.Count > 0)
-                        return commonItems[Random.Range(0, commonItems.Count)];
-                    break;
-
-                case ItemRarity.Rare:
-                    if (rareItems.Count > 0)
-                        return rareItems[Random.Range(0, rareItems.Count)];
-                    break;
-
-                case ItemRarity.Epic:
-                    if (epicItems.Count > 0)
-                        return epicItems[Random.Range(0, epicItems.Count)];
-                    break;
-
-                case ItemRarity.Legendary:
-                    if (legendaryItems.Count > 0)
-                        return legendaryItems[Random.Range(0, legendaryItems.Count)];
-                    break;
-
-                case ItemRarity.Unique:
-                    if (uniqueItems.Count > 0)
-                        return uniqueItems[Random.Range(0, uniqueItems.Count)];
-                    break;
+                if (items.Count > 0)
+                {
+                    return items[Random.Range(0, items.Count)];
+                }
             }
 
             return null;
@@ -82,33 +56,35 @@ namespace Zeke.Items
 
         private void OnValidate()
         {
-            RefreshItemRarityLists();
+            RefreshItemRarityList();
         }
 
-        private void Awake()
+        private void OnEnable()
         {
-            RefreshItemRarityLists();
+            itemsByRarity ??= new Dictionary<ItemRarity, List<ItemData>>();
+            RefreshItemRarityList();
         }
 
-        private void RefreshItemRarityLists()
+        private void RefreshItemRarityList()
         {
-            AddItemsOfRarityToList(commonItems, ItemRarity.Common);
-            AddItemsOfRarityToList(rareItems, ItemRarity.Rare);
-            AddItemsOfRarityToList(epicItems, ItemRarity.Epic);
-            AddItemsOfRarityToList(legendaryItems, ItemRarity.Legendary);
-            AddItemsOfRarityToList(uniqueItems, ItemRarity.Unique);
-        }
-
-        private void AddItemsOfRarityToList(List<ItemData> list, ItemRarity rarity)
-        {
-            list.Clear();
+            itemsByRarity.Clear();
 
             for (int i = 0; i < avaibleItems.Count; i++)
             {
-                if (avaibleItems[i].Rarity == rarity)
-                {
-                    list.Add(avaibleItems[i]);
-                }
+                AddFilteredItemData(avaibleItems[i]);
+            }
+        }
+
+        private void AddFilteredItemData(ItemData itemData)
+        {
+            if (!itemsByRarity.ContainsKey(itemData.Rarity))
+            {
+                itemsByRarity.Add(itemData.Rarity, new List<ItemData>());
+            }
+
+            if (!itemsByRarity[itemData.Rarity].Contains(itemData))
+            {
+                itemsByRarity[itemData.Rarity].Add(itemData);
             }
         }
     }

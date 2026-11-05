@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="DamageProjectileBase" Collapsed="true">
+    <Position X="16.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAyAQUBgAEAAAAAAAAAAAAAAAAAAEIAAACEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Projectile\_Base\DamageProjectileBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicProjectile" Collapsed="true">
+    <Position X="7.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAIIAAAAACAAA=</HashCode>
+      <FileName>Assets\Scripts\Projectile\Projectile\BasicProjectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoomerangProjectile" Collapsed="true">
+    <Position X="9.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQTAAAiAAAAAAECAAAIAABEACAAQAACEIACAAEAAAAg=</HashCode>
+      <FileName>Assets\Scripts\Projectile\Projectile\BoomerangProjectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FireBallProjectile" Collapsed="true">
+    <Position X="11.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAARAAAAAAAAAIAAAgAAAQAACAAIAAAAAACAAA=</HashCode>
+      <FileName>Assets\Scripts\Projectile\Projectile\FireBallProjectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GiantOrbProjectile" Collapsed="true">
+    <Position X="14" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUBQAAAQEAAAABBAAZABAAAIAIAAAAgIAAAAAACASE=</HashCode>
+      <FileName>Assets\Scripts\Projectile\Projectile\GiantOrbProjectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LightingBoltProjectile" Collapsed="true">
+    <Position X="16.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAQAAAAAAAAAMAAAAAAAQIAAAAoAQAAAACAAA=</HashCode>
+      <FileName>Assets\Scripts\Projectile\Projectile\LightingBoltProjectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MegaFireballProjectile" Collapsed="true">
+    <Position X="18.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACBAIAIRAAAAABAAIIAAAgogAQAACAAIAACAAACACA=</HashCode>
+      <FileName>Assets\Scripts\Projectile\Projectile\MegaFireballProjectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PiercingProjectile" Collapsed="true">
+    <Position X="23" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAQABAAEAAAEIAAAAAAAAAAABAIAAAAAACAAA=</HashCode>
+      <FileName>Assets\Scripts\Projectile\Projectile\PiercingProjectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Projectile" Collapsed="true">
+    <Position X="16.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CUWJoAmAWIKIAEJQECARMBcHjAYAAgACIABABgAYEQA=</HashCode>
+      <FileName>Assets\Scripts\Projectile\_Base\Projectile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="Missile" Collapsed="true">
+    <Position X="7.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAAAgAAAAAAIAwICAAkAAEAAAAAAAAAAAAAAAAAEI=</HashCode>
+      <FileName>Assets\Scripts\Projectile\_Base\Missile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MissileItemProjectile" Collapsed="true">
+    <Position X="7.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAggAQAAAAAAAAAIAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Projectile\Projectile\MissileItemProjectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlankingShotProjectile" Collapsed="true">
+    <Position X="20.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Projectile\Projectile\FlankingShotProjectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HomingOrbProjectile" Collapsed="true">
+    <Position X="23" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgAQAAAAEAEIAACABAACAAQAAAAIASAAEAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Projectile\Projectile\HomingOrbProjectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpinnerProjectile" Collapsed="true">
+    <Position X="25.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Projectile\Projectile\SpinnerProjectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
