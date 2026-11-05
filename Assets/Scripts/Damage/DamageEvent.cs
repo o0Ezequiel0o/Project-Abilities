@@ -74,7 +74,7 @@ public partial class Damageable
 
         public void ExecuteEventFlow()
         {
-            isDamageEventListener = SourceUser.TryGetComponent(out damageEventListener);
+            isDamageEventListener = SourceUser != null && SourceUser.TryGetComponent(out damageEventListener);
 
             if (!Receiver.IsAlive || Receiver.MarkedForDeath)
             {
