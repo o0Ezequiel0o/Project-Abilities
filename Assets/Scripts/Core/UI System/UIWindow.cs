@@ -13,6 +13,7 @@ namespace Zeke.UI
 
         public IReadOnlyDictionary<string, UIElement> Elements => elements;
 
+        public bool IsVisibleInHierarchy => graphicRoot != null ? graphicRoot.activeInHierarchy : gameObject.activeInHierarchy;
         public bool IsVisible => graphicRoot != null ? graphicRoot.activeSelf : gameObject.activeSelf;
 
         public Func<bool> canOpen;

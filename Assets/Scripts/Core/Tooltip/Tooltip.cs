@@ -76,7 +76,7 @@ namespace Zeke.Tooltips
                 return;
             }
 
-            if (tooltip.gameObject.activeSelf)
+            if (tooltip.gameObject.activeInHierarchy)
             {
                 UpdatePosition(canvas.scaleFactor);
             }

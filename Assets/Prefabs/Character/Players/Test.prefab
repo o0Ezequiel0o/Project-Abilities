@@ -87,7 +87,21 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5218312312708394220, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4201099071849167728}
+    - targetCorrespondingSourceObject: {fileID: 5218312312708394220, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5398329254871825540}
   m_SourcePrefab: {fileID: 100100000, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+--- !u!114 &329926689602090099 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1445715788866165582, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+  m_PrefabInstance: {fileID: 1190098513186107197}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6408410254461780945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37d4f8dcf818b9c4a9b9f4b506699670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6408410254461780945 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5218312312708394220, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
@@ -107,3 +121,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Items.AddItems
   items:
   - {fileID: 11400000, guid: c10295ed20c161d499a42eb88f780113, type: 2}
+--- !u!114 &5398329254871825540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6408410254461780945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363299c1652771b4c9ad6b7affff516b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Items.AddRandomItems
+  itemHandler: {fileID: 329926689602090099}
+  items: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
+  amount: 40

@@ -104,7 +104,8 @@ GameObject:
   - component: {fileID: 8855888990852992869}
   - component: {fileID: 1244476404031206187}
   - component: {fileID: 2711525490271769255}
-  - component: {fileID: 4267528766145007471}
+  - component: {fileID: 5875744613160558492}
+  - component: {fileID: 1806946213409794565}
   m_Layer: 5
   m_Name: ItemsInterface
   m_TagString: Untagged
@@ -190,7 +191,7 @@ MonoBehaviour:
   m_Inertia: 1
   m_DecelerationRate: 0.135
   m_ScrollSensitivity: 1
-  m_Viewport: {fileID: 0}
+  m_Viewport: {fileID: 6614544123155034292}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 0
@@ -213,7 +214,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
   graphicRoot: {fileID: 5883095700959390401}
+  defaultState: 0
   elements:
+  - key: Scroll Rect
+    value: {fileID: 1806946213409794565}
   - key: Layout Group
     value: {fileID: 4387957128733693031}
 --- !u!114 &2711525490271769255
@@ -230,7 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   window: {fileID: 1244476404031206187}
   itemSlotPrefab: {fileID: 8889133068123501293, guid: 41681b9948b46d04d96423470b929121, type: 3}
---- !u!114 &4267528766145007471
+--- !u!114 &5875744613160558492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -239,11 +243,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 5883095700959390401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52e9e19395da84c449abc8ec5acf151a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f0221c1ecf989a41b7501d2f8280991, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AutoScrollList
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Items.AutoScrollItemInterface
   scrollRect: {fileID: 8855888990852992869}
   scrollSpeed: 0.15
+  itemsInterface: {fileID: 2711525490271769255}
+  stopMovementTime: 1
+--- !u!114 &1806946213409794565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5883095700959390401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a4f9175dd502949afc8f25365e3bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIElement
+  <Name>k__BackingField: Scroll Rect
+  <Element>k__BackingField: {fileID: 8855888990852992869}
+  window: {fileID: 1244476404031206187}
 --- !u!1 &6503276567539602236
 GameObject:
   m_ObjectHideFlags: 0
