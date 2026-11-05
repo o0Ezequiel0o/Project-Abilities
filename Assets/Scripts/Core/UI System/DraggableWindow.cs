@@ -7,9 +7,16 @@ namespace Zeke.UI
     {
         [SerializeField] private RectTransform grabBounds;
 
+        private Canvas canvas;
+
+        private void Awake()
+        {
+            canvas = GetComponentInParent<Canvas>();
+        }
+
         public void OnDrag(PointerEventData eventData)
         {
-            grabBounds.anchoredPosition += eventData.delta / GameInstance.ScreenCanvas.scaleFactor;
+            grabBounds.anchoredPosition += eventData.delta / canvas.scaleFactor;
         }
     }
 }
