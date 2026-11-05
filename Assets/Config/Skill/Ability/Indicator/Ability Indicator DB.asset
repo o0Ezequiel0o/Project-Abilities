@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f86e2fd2b3352542b3ec0ce7276731b, type: 3}
-  m_Name: Attack Indicator DB
+  m_Name: Ability Indicator DB
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.Indicators.AbilityIndicatorDB
   indicators:
   - key: {fileID: 11400000, guid: cf44357de0be8b5419276f48a7ea8b89, type: 2}
