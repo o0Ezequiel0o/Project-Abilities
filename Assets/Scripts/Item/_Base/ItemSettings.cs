@@ -7,7 +7,6 @@ namespace Zeke.Items
     public class ItemSettings : ScriptableObject
     {
         [Header("Settings")]
-        [SerializeField] private ItemTriggerOrder itemTriggerOrder;
         [SerializeField] private List<ItemData> avaibleItems;
 
         [Header("Colors")]
@@ -17,17 +16,12 @@ namespace Zeke.Items
         [SerializeField] private Color legendaryColor;
         [SerializeField] private Color uniqueColor;
 
-        [Header("Debug")]
-        [ReadOnly, SerializeField] private List<ItemData> itemsNotInTriggerOrder;
-
         [Header("Sorted Items")]
         [ReadOnly, SerializeField] private List<ItemData> commonItems;
         [ReadOnly, SerializeField] private List<ItemData> rareItems;
         [ReadOnly, SerializeField] private List<ItemData> epicItems;
         [ReadOnly, SerializeField] private List<ItemData> legendaryItems;
         [ReadOnly, SerializeField] private List<ItemData> uniqueItems;
-
-        public List<ItemData> TriggerOrder => itemTriggerOrder.Order;
 
         public Color GetRarityColor(ItemRarity rarity)
         {
@@ -86,24 +80,8 @@ namespace Zeke.Items
             return null;
         }
 
-        public int GetTriggerOrder(ItemData itemData)
-        {
-            for (int i = 0; i < itemTriggerOrder.Order.Count; i++)
-            {
-                if (itemTriggerOrder.Order[i] == itemData)
-                {
-                    return i;
-                }
-            }
-
-            Debug.LogWarning($"{itemData.name} does not have a trigger order, please add it to {itemTriggerOrder.name}.", itemData);
-
-            return 0;
-        }
-
         private void OnValidate()
         {
-            SearchForAvaibleItemsNotInTriggerOrder();
             RefreshItemRarityLists();
         }
 
@@ -130,19 +108,6 @@ namespace Zeke.Items
                 if (avaibleItems[i].Rarity == rarity)
                 {
                     list.Add(avaibleItems[i]);
-                }
-            }
-        }
-
-        private void SearchForAvaibleItemsNotInTriggerOrder()
-        {
-            itemsNotInTriggerOrder.Clear();
-
-            for (int i = 0; i < avaibleItems.Count; i++)
-            {
-                if (!itemTriggerOrder.Order.Contains(avaibleItems[i]))
-                {
-                    itemsNotInTriggerOrder.Add(avaibleItems[i]);
                 }
             }
         }
