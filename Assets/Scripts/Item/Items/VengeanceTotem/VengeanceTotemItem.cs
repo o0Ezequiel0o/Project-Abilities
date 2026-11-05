@@ -22,7 +22,7 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out Damageable damageable))
             {
-                damageable.onTakenDamage.Subscribe(OnTakenDamage, data.TriggerOrder);
+                damageable.onTakenDamage.Subscribe(OnTakenDamage, data.ProcPriority);
             }
         }
 
@@ -45,7 +45,8 @@ namespace Zeke.Items
 
                 DamageInfo damageInfo = new DamageInfo(data.Damage.GetValue(stacks), data.ProcCoefficient, data.ArmorPenetration)
                 {
-                    direction = (damageEvent.SourceUser.transform.position - source.transform.position).normalized
+                    direction = (damageEvent.SourceUser.transform.position - source.transform.position).normalized,
+                    hit = false
                 };
 
                 damageable.DealDamage(damageInfo, source, source, newProcChainBranch);

@@ -17,7 +17,6 @@ namespace Zeke.Items
         [field: SerializeField] public float HealTickTime { get; private set; }
         [field: SerializeField, Min(1)] public int HealTicks { get; private set; }
 
-
         public override Item CreateItem(ItemHandler itemHandler, GameObject source)
         {
             return new WarpClockItem(this, itemHandler, source);

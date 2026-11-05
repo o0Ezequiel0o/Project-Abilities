@@ -21,6 +21,7 @@ MonoBehaviour:
   <Rarity>k__BackingField: 0
   <DamageMultiplier>k__BackingField:
     rid: 2308103063999873106
+  <DealDamageEventPriority>k__BackingField: 0
   references:
     version: 2
     RefIds:

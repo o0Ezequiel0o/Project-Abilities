@@ -32,8 +32,17 @@ namespace Zeke.Items
 
             if (hasRequiredComponents)
             {
-                damageable.onTakenDamage.Subscribe(OnTakenDamage);
+                damageable.onTakenDamage.Subscribe(OnTakenDamage, data.ProcPriority);
                 damageable.HealingReceivedMultiplier.AddMultiplier(multiplier);
+            }
+        }
+
+        public override void OnRemoved()
+        {
+            if (hasRequiredComponents)
+            {
+                damageable.onTakenDamage.Unsubscribe(OnTakenDamage);
+                damageable.HealingReceivedMultiplier.RemoveMultiplier(multiplier);
             }
         }
 

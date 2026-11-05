@@ -24,7 +24,7 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out Damageable damageable))
             {
-                damageable.onTakenDamage.Subscribe(OnTakenDamage, data.TriggerOrder);
+                damageable.onTakenDamage.Subscribe(OnTakenDamage, data.ProcPriority);
             }
         }
 

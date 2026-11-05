@@ -20,9 +20,11 @@ namespace Zeke.Items
         [field: SerializeField, TextArea(3, 10)] public string Description { get; private set; }
         [field: SerializeField] public ItemRarity Rarity { get; private set; }
 
-        public abstract Item CreateItem(ItemHandler itemHandler, GameObject source);
+        [field: Space]
 
-        public int TriggerOrder => settings.GetTriggerOrder(this);
+        [field: SerializeField] public int ProcPriority { get; private set; } = 0;
+
+        public abstract Item CreateItem(ItemHandler itemHandler, GameObject source);
 
         public GameObject CreateInWorld(Vector3 position, Quaternion rotation)
         {

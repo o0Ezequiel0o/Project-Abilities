@@ -27,7 +27,7 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out Damageable damageable))
             {
-                damageable.onTakeDamage.Subscribe(OnTakeDamage, data.TriggerOrder);
+                damageable.onTakeDamage.Subscribe(OnTakeDamage, data.ProcPriority);
             }
 
             statusEffectHandler = source.GetComponent<StatusEffectHandler>();

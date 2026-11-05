@@ -2,7 +2,6 @@ using UnityEngine;
 using Zeke.Abilities;
 using Zeke.PoolableGameObjects;
 using Zeke.TeamSystem;
-using static Bomb;
 
 namespace Zeke.Items
 {
@@ -29,7 +28,7 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out AbilityController abilityController))
             {
-                abilityController.onAbilityUsed.Subscribe(OnAbilityUsed, data.TriggerOrder);
+                abilityController.onAbilityUsed.Subscribe(OnAbilityUsed, data.ProcPriority);
             }
         }
 

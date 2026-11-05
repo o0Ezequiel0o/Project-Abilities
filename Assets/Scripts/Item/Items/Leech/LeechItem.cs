@@ -26,7 +26,7 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out DamageEventListener eventListener))
             {
-                eventListener.OnDealtDamage.Subscribe(OnDealtDamage, data.TriggerOrder);
+                eventListener.OnDealtDamage.Subscribe(OnDealtDamage, data.ProcPriority);
             }
 
             hasRequiredComponents = source.TryGetComponent(out damageable);

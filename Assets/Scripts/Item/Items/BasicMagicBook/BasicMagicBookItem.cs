@@ -26,7 +26,7 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out LevelHandler levelHandler))
             {
-                levelHandler.onLevelUp.Subscribe(OnLevelUp, data.TriggerOrder);
+                levelHandler.onLevelUp.Subscribe(OnLevelUp, data.ProcPriority);
             }
         }
 

@@ -21,7 +21,7 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out DamageEventListener eventListener))
             {
-                eventListener.OnHit.Subscribe(OnHit, data.TriggerOrder);
+                eventListener.OnHit.Subscribe(OnHit, data.ProcPriority);
             }
         }
 
@@ -41,7 +41,7 @@ namespace Zeke.Items
 
             if (damageEvent.Receiver.TryGetComponent(out Physics physics))
             {
-                float damageRatio = damageEvent.Damage / damageEvent.Receiver.MaxHealth.Value;
+                float damageRatio = damageEvent.BaseDamage / damageEvent.Receiver.MaxHealth.Value;
                 physics.AddForce(damageEvent.Direction * (data.Knockback.GetValue(stacks) * damageRatio));
             }
         }

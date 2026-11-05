@@ -26,7 +26,7 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out AbilityController abilityController))
             {
-                abilityController.onAbilityUsed.Subscribe(OnAbilityUsed, data.TriggerOrder);
+                abilityController.onAbilityUsed.Subscribe(OnAbilityUsed, data.ProcPriority);
             }
         }
 

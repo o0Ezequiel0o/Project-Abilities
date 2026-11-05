@@ -40,7 +40,7 @@ namespace Zeke.Items
 
             if (hasRequiredComponents)
             {
-                damageable.onTakenDamage.Subscribe(OnTakenDamage, data.TriggerOrder);
+                damageable.onTakenDamage.Subscribe(OnTakenDamage, data.ProcPriority);
             }
         }
 

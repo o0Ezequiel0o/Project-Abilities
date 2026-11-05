@@ -30,7 +30,7 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out DamageEventListener eventListener))
             {
-                eventListener.OnDealDamage.Subscribe(OnDealDamage, data.TriggerOrder);
+                eventListener.OnDealDamage.Subscribe(OnDealDamage, data.ProcPriority);
             }
 
             visualInstance = GameObject.Instantiate(data.TargetVisual, GameInstance.WorldCanvas.transform);

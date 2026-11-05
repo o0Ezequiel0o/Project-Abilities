@@ -26,7 +26,7 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out DamageEventListener eventListener))
             {
-                eventListener.OnHit.Subscribe(OnHit, data.TriggerOrder);
+                eventListener.OnHit.Subscribe(OnHit, data.ProcPriority);
             }
         }
 

@@ -36,7 +36,7 @@ namespace Zeke.Items
             if (hasRequiredComponents)
             {
                 damageable.MaxHealth.onValueChanged += OnHealthStatChanged;
-                damageable.onTakeDamage.Subscribe(OnTakeDamage, data.TriggerOrder);
+                damageable.onTakeDamage.Subscribe(OnTakeDamage, data.ProcPriority);
             }
 
             statusEffectHandler = source.GetComponent<StatusEffectHandler>();
