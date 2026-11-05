@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581127942586707295, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_Name
-      value: Robot Boss Variant
+      value: Robot Boss
       objectReference: {fileID: 0}
     - target: {fileID: 5082486445563014789, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_LocalScale.x
@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RobotBossAI
   settings: {fileID: 11400000, guid: d6effa20ab3144f48a3f6a9810817296, type: 2}
+  abilityIndicatorDB: {fileID: 11400000, guid: 431cabf8c8bbd8b4091ee09308a5671e, type: 2}
   attackIndicatorSpawn: {fileID: 5141656417354221663}
 --- !u!4 &5141656417354221663 stripped
 Transform:

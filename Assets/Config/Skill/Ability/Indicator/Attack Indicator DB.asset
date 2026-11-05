@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f86e2fd2b3352542b3ec0ce7276731b, type: 3}
+  m_Name: Attack Indicator DB
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.Indicators.AbilityIndicatorDB
+  indicators:
+  - key: {fileID: 11400000, guid: cf44357de0be8b5419276f48a7ea8b89, type: 2}
+    value: {fileID: 11400000, guid: 2ec5749152799634e948e5fd55b0b038, type: 2}
+  - key: {fileID: 11400000, guid: e08f8d983b17c914db1b18725148c4db, type: 2}
+    value: {fileID: 11400000, guid: ba73861ccb5d4924bba50bca83f55c93, type: 2}
+  - key: {fileID: 11400000, guid: 48c8554cac08c7540919c339f49cf03f, type: 2}
+    value: {fileID: 11400000, guid: 502d5784e0bf7bb4fb2f545e50f48f03, type: 2}
+  - key: {fileID: 11400000, guid: 3923edd6f174e124f9ffeeb3b19ef382, type: 2}
+    value: {fileID: 11400000, guid: 5b82ca4d54283ad449c2d2f5223c44c2, type: 2}
+  - key: {fileID: 11400000, guid: 5dba9bdd785d90c4eb98f6edb524e126, type: 2}
+    value: {fileID: 11400000, guid: ed766428b81af5b4f872c315d466115a, type: 2}
+  - key: {fileID: 11400000, guid: 0b94182b4d4927a4aa42c8f55f3d2dad, type: 2}
+    value: {fileID: 11400000, guid: a484a2d282b23504ea78dcd90d4f8e59, type: 2}
+  - key: {fileID: 11400000, guid: 44072412b50f13249a42c876f0eb75cd, type: 2}
+    value: {fileID: 11400000, guid: f274165d68f806d4a8765c853fb3fae5, type: 2}
+  - key: {fileID: 11400000, guid: bdf1878392de0d84fb563504b09188ac, type: 2}
+    value: {fileID: 11400000, guid: fc7ac9de9c5d36749a6fe1c041eed190, type: 2}

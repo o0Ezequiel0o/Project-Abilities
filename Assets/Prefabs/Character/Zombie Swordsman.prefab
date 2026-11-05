@@ -118,7 +118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581127942586707295, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_Name
-      value: Zombie Swordsman Variant
+      value: Zombie Swordsman
       objectReference: {fileID: 0}
     - target: {fileID: 5082486445563014789, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_LocalPosition.x
@@ -223,4 +223,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZombieAI
   settings: {fileID: 11400000, guid: 31878889643a8344f8dd3991b3660929, type: 2}
+  abilityIndicatorDB: {fileID: 11400000, guid: 431cabf8c8bbd8b4091ee09308a5671e, type: 2}
   attackIndicatorSpawn: {fileID: 377778833269536049}

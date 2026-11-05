@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Zeke.Abilities.Indicators
 {
     [CreateAssetMenu(fileName = "Attack Indicator DB", menuName = "ScriptableObjects/Ability/New Attack Indicator DB", order = 1)]
-    public class AbilityIndicatorDB : MonoBehaviour
+    public class AbilityIndicatorDB : ScriptableObject
     {
         [SerializeField] private Dictionary<AbilityData, AbilityIndicatorData> indicators = new Dictionary<AbilityData, AbilityIndicatorData>();
 

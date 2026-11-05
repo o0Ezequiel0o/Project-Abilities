@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZombieAI
   settings: {fileID: 11400000, guid: 46f414e026c2b3241a69aae28182c84e, type: 2}
+  abilityIndicatorDB: {fileID: 11400000, guid: 431cabf8c8bbd8b4091ee09308a5671e, type: 2}
   attackIndicatorSpawn: {fileID: 7531288175050490635}
 --- !u!4 &7531288175050490635 stripped
 Transform:

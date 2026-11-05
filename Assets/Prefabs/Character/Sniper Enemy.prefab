@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581127942586707295, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_Name
-      value: Sniper Enemy Variant
+      value: Sniper Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5082486445563014789, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_LocalScale.x
@@ -135,4 +135,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedAI
   settings: {fileID: 11400000, guid: 7fff574f445eefd42b73e153ba3a523a, type: 2}
+  abilityIndicatorDB: {fileID: 11400000, guid: 431cabf8c8bbd8b4091ee09308a5671e, type: 2}
   attackIndicatorSpawn: {fileID: 3769050777048801593}
