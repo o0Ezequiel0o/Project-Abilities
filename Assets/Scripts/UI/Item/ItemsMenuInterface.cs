@@ -2,7 +2,6 @@ using UnityEngine.UI;
 using Zeke.Items;
 using Zeke.UI;
 using TMPro;
-using UnityEngine;
 
 public class ItemsMenuInterface : ItemsInterface
 {
@@ -15,7 +14,9 @@ public class ItemsMenuInterface : ItemsInterface
         return windowInstance;
     }
 
-    protected override void CenterOnItem(RectTransform target, ScrollRect scrollRect) { }
+    protected override void OnItemModified(ItemData itemData) { }
+
+    protected override void OnItemRemoved(ItemData itemData, UIWindow windowInstance) { }
 
     private void Awake()
     {

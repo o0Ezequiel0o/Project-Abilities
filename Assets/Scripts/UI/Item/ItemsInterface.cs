@@ -1,10 +1,11 @@
 using PrimeTween;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zeke.UI;
 using System;
+using TMPro;
+using Unity.Burst;
 
 namespace Zeke.Items
 {
@@ -12,10 +13,23 @@ namespace Zeke.Items
     {
         [SerializeField] protected UIWindow window;
         [SerializeField] protected UIWindow itemSlotPrefab;
+        [SerializeField] protected GameObject dummyWindowPrefab;
+
+        [Header("Visual - Modified Animation")]
+        [SerializeField, Min(0)] private float maxRotation = 20f;
+        [SerializeField, Min(0)] private float effectDuration = 1f;
+        [SerializeField, Min(0)] private int frequency = 5;
+
+        [Header("Visual - Removed Animation")]
+        [SerializeField] private float jumpHeight = 50f;
+        [SerializeField] private float fallDepth = 200f;
+        [SerializeField] private float duration = 0.6f;
+        [SerializeField] private float rotationAmount = 180f;
 
         public UIWindow Window => window;
 
         protected readonly Dictionary<ItemData, UIWindow> itemSlots = new Dictionary<ItemData, UIWindow>();
+        protected readonly Dictionary<ItemData, GameObject> dummyWindows = new Dictionary<ItemData, GameObject>();
 
         public Action<UIWindow> onItemModified;
 
@@ -50,9 +64,7 @@ namespace Zeke.Items
 
             itemSlots.Add(itemData, windowInstance);
 
-            CenterOnItem(windowInstance.gameObject.GetComponent<RectTransform>(), window.TryGetElement<ScrollRect>("Scroll Rect"));
-
-            PlaySlotUpdateAnimation(windowInstance.gameObject);
+            OnItemModified(itemData);
 
             onItemModified?.Invoke(windowInstance);
 
@@ -64,9 +76,9 @@ namespace Zeke.Items
             if (itemSlots.TryGetValue(itemData, out UIWindow windowInstance))
             {
                 itemSlots.Remove(itemData);
-                Destroy(windowInstance.gameObject);
-
                 onItemModified?.Invoke(windowInstance);
+
+                OnItemRemoved(itemData, windowInstance);
 
                 return windowInstance;
             }
@@ -82,9 +94,7 @@ namespace Zeke.Items
             windowInstance.TryGetElement<TextMeshProUGUI>("Stacks").SetText(GetStacksString(stackUpdate.stacks));
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(window.TryGetElement<LayoutGroup>("Layout Group").GetComponent<RectTransform>());
-            CenterOnItem(windowInstance.gameObject.GetComponent<RectTransform>(), window.TryGetElement<ScrollRect>("Scroll Rect"));
-
-            PlaySlotUpdateAnimation(windowInstance.gameObject);
+            OnItemModified(stackUpdate.itemData);
 
             onItemModified?.Invoke(windowInstance);
 
@@ -97,20 +107,33 @@ namespace Zeke.Items
 
             RectTransform rectTransform = element.GetComponent<RectTransform>();
 
-            Tween.ShakeLocalRotation(rectTransform, strength: new Vector3(0f, 0f, 45f), duration: 1f, frequency: 5);
+            Tween.ShakeLocalRotation(rectTransform, strength: new Vector3(0f, 0f, maxRotation), duration: effectDuration, frequency: frequency);
         }
 
-        protected virtual void CenterOnItem(RectTransform target, ScrollRect scrollRect)
+        protected virtual void OnItemModified(ItemData itemData)
         {
-            if (target == null || scrollRect == null) return;
+            CenterOnItem(itemData);
+            PlaySlotUpdateAnimation(itemSlots[itemData].gameObject);
+        }
 
-            RectTransform targetRect = target;
+        protected virtual void OnItemRemoved(ItemData itemData, UIWindow windowInstance)
+        {
+            PlayDropAnimation(windowInstance.GetComponent<RectTransform>());
+        }
+
+        protected void CenterOnItem(ItemData itemData)
+        {
+            RectTransform rectTransform = itemSlots[itemData].gameObject.GetComponent<RectTransform>();
+            ScrollRect scrollRect = window.TryGetElement<ScrollRect>("Scroll Rect");
+
+            if (rectTransform == null || scrollRect == null) return;
+
             RectTransform content = scrollRect.content;
             RectTransform viewport = scrollRect.viewport;
 
-            if (targetRect == null || content == null || viewport == null) return;
+            if (rectTransform == null || content == null || viewport == null) return;
 
-            Vector3 worldCenter = targetRect.TransformPoint(targetRect.rect.center);
+            Vector3 worldCenter = rectTransform.TransformPoint(rectTransform.rect.center);
             Vector3 viewportCenter = viewport.InverseTransformPoint(worldCenter);
 
             Bounds contentBounds = RectTransformUtility.CalculateRelativeRectTransformBounds(viewport, content);
@@ -121,6 +144,56 @@ namespace Zeke.Items
             float normalizedPosition = scrollRect.horizontalNormalizedPosition + offset / scrollableWidth;
 
             scrollRect.horizontalNormalizedPosition = Mathf.Clamp01(normalizedPosition);
+        }
+
+        public void PlayDropAnimation(RectTransform itemRect)
+        {
+            Transform layoutParent = itemRect.parent;
+            int siblingIndex = itemRect.GetSiblingIndex();
+
+            RectTransform layoutGroup = window.TryGetElement<LayoutGroup>("Layout Group").GetComponent<RectTransform>();
+            CanvasGroup canvasGroup = itemRect.GetComponent<CanvasGroup>();
+
+            itemRect.SetParent(window.GetComponent<RectTransform>(), true);
+
+            float randomizedDuration = duration * UnityEngine.Random.Range(0.75f, 1f);
+            float randomizedJump = jumpHeight * UnityEngine.Random.Range(0.7f, 1.3f);
+            float randomizedRotation = rotationAmount * UnityEngine.Random.Range(0.2f, 5f);
+
+            float randomizedAlphaDuration = randomizedDuration * UnityEngine.Random.Range(0.75f, 1f);
+
+            float randomXOffset = UnityEngine.Random.Range(-30f, 30f);
+
+            Vector2 startPos = itemRect.anchoredPosition;
+            Vector2 peakPos = startPos + new Vector2(randomXOffset * 0.5f, randomizedJump);
+            Vector2 endPos = startPos + new Vector2(randomXOffset, -fallDepth);
+
+            CreateDummyItemSlotAtIndex(layoutGroup, siblingIndex);
+
+            Sequence.Create(useUnscaledTime: true)
+                .Group(Tween.UIAnchoredPosition(itemRect, peakPos, randomizedDuration * 0.3f, Ease.OutQuad))
+                .Chain(Tween.UIAnchoredPosition(itemRect, endPos, randomizedDuration * 0.7f, Ease.InQuad))
+                .Group(Tween.Rotation(itemRect, Quaternion.Euler(0, 0, randomizedRotation), randomizedDuration * 0.7f, Ease.InQuad))
+                .Group(Tween.Alpha(canvasGroup, 0f, randomizedAlphaDuration, Ease.InSine))
+                .OnComplete(() =>
+                {
+                    Destroy(itemRect.gameObject);
+                });;
+        }
+
+        private void CreateDummyItemSlotAtIndex(RectTransform root, int index)
+        {
+            GameObject dummy = Instantiate(dummyWindowPrefab, root);
+            RectTransform dummyRect = dummy.GetComponent<RectTransform>();
+
+            dummy.transform.SetSiblingIndex(index);
+            float startingWidth = dummyRect.rect.width;
+
+            Tween.Custom(dummy, startingWidth, 0f, duration, (target, val) => { dummyRect.sizeDelta = new Vector2(val, dummyRect.sizeDelta.y); }, Ease.InOutQuad, useUnscaledTime: true)
+                .OnComplete(() =>
+                {
+                    Destroy(dummy);
+                });
         }
 
         protected string GetStacksString(int stacks) => "x" + stacks.ToString();
