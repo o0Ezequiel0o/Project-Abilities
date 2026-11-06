@@ -1,11 +1,12 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpriteFlashController : MonoBehaviour
 {
+    [SerializeField, HideInInspector] private SpriteRenderer[] spriteRenderers;
+
     private static readonly int flashAmountID = Shader.PropertyToID("_FlashAmount");
 
-    private Material[] materials;
+    private MaterialPropertyBlock propertyBlock;
     private float flashTimer = 0f;
 
     public void StartFlash(float flashAmount, float flashDuration)
@@ -14,58 +15,49 @@ public class SpriteFlashController : MonoBehaviour
         SetFlashAmount(flashAmount);
     }
 
-    void Awake()
+    private void Awake()
     {
-        SpriteRenderer[] spriteRenderers = GetSpriteRenderers();
-        GetMaterialsFromSpriteRenderers(spriteRenderers);
+        propertyBlock = new MaterialPropertyBlock();
     }
 
-    void Update()
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (spriteRenderers == null || spriteRenderers.Length == 0)
+        {
+            spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+        }
+    }
+#endif
+
+    private void Update()
     {
         if (flashTimer < 0f) return;
         UpdateFlashTimer();
     }
 
-    SpriteRenderer[] GetSpriteRenderers()
-    {
-        return GetComponentsInChildren<SpriteRenderer>();
-    }
-
-    void GetMaterialsFromSpriteRenderers(SpriteRenderer[] spriteRenderers)
-    {
-        List<Material> materials = new List<Material>();
-
-        for (int i = 0; i < spriteRenderers.Length; i++)
-        {
-            if (spriteRenderers[i].material.HasProperty(flashAmountID))
-            {
-                materials.Add(spriteRenderers[i].material);
-            }
-        }
-
-        this.materials = materials.ToArray();
-    }
-
-    void UpdateFlashTimer()
+    private void UpdateFlashTimer()
     {
         flashTimer -= Time.deltaTime;
 
-        if (flashTimer <= 0)
+        if (flashTimer <= 0f)
         {
             StopFlash();
         }
     }
 
-    void StopFlash()
+    private void StopFlash()
     {
         SetFlashAmount(0f);
     }
 
-    void SetFlashAmount(float amount)
+    private void SetFlashAmount(float amount)
     {
-        for (int i = 0; i < materials.Length; i++)
+        propertyBlock.SetFloat(flashAmountID, amount);
+
+        for (int i = 0; i < spriteRenderers.Length; i++)
         {
-            materials[i].SetFloat(flashAmountID, amount);
+            spriteRenderers[i].SetPropertyBlock(propertyBlock);
         }
     }
 }
