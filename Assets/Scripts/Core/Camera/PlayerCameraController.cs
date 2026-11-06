@@ -6,6 +6,8 @@ public class PlayerCameraController : MonoBehaviour
 
     private Transform target = null;
 
+    private bool HasTarget => target != null && target.gameObject.activeInHierarchy;
+
     public void SetTarget(Transform target)
     {
         this.target = target;
@@ -15,7 +17,7 @@ public class PlayerCameraController : MonoBehaviour
     {
         if (GameInstance.IsPaused) return;
 
-        if (target != null && GameInstance.MainCamera != null)
+        if (HasTarget && GameInstance.MainCamera != null)
         {
             Follow();
         }

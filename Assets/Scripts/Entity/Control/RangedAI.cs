@@ -58,7 +58,7 @@ public class RangedAI : MonoBehaviour
 
         if (damageEvent.SourceUser == null) return;
 
-        if (context.Target != null)
+        if (context.HasTarget)
         {
             float currentTargetSqrDistance = (GetClosestTargetPoint() - (Vector2)transform.position).sqrMagnitude;
             float attackerTargetSqrDistance = (damageEvent.SourceUser.transform.position - transform.position).sqrMagnitude;
@@ -87,6 +87,8 @@ public class RangedStateContext
     public readonly RangedAISettings ai;
     public readonly AbilityIndicatorDB abilityIndicatorDB;
     public readonly Transform attackIndicatorSpawn;
+
+    public bool HasTarget => Target != null && Target.gameObject.activeInHierarchy;
 
     private Transform target;
     public Transform Target
@@ -189,7 +191,7 @@ public class RangedIdleState : RangedBaseState
 
     public override void UpdateState(RangedStateContext context)
     {
-        if (context.Target == null)
+        if (!context.HasTarget)
         {
             if (TryGetRandomTarget(out Transform target))
             {
@@ -248,7 +250,7 @@ public class RangedFollowState : RangedBaseState
 
     public override void UpdateState(RangedStateContext context)
     {
-        if (context.Target == null)
+        if (!context.HasTarget)
         {
             stateMachine.ChangeState(stateMachine.idleState);
         }
@@ -411,7 +413,7 @@ public class RangedAttackState : RangedBaseState
             abilityIndicator.Update();
             aimSpeedMultiplier.UpdateMultiplier(context.ai.AimingSpeedMultiplier);
 
-            if (context.Target != null)
+            if (context.HasTarget)
             {
                 Vector2 direction = (context.Target.position - transform.position).normalized;
                 entityAim.AimTowards(direction);
@@ -466,7 +468,7 @@ public class RangedAttackState : RangedBaseState
 
     private void FinishAttack(RangedStateContext context)
     {
-        if (context.Target == null)
+        if (!context.HasTarget) 
         {
             stateMachine.ChangeState(stateMachine.idleState);
         }

@@ -59,7 +59,7 @@ public class RobotBossAI : MonoBehaviour
 
         if (damageEvent.SourceUser == null) return;
 
-        if (context.Target != null)
+        if (context.HasTarget)
         {
             float currentTargetSqrDistance = (GetClosestTargetPoint() - (Vector2)transform.position).sqrMagnitude;
             float attackerTargetSqrDistance = (damageEvent.SourceUser.transform.position - transform.position).sqrMagnitude;
@@ -88,6 +88,8 @@ public class RobotBossStateContext
     public readonly RobotBossAISettings ai;
     public readonly AbilityIndicatorDB abilityIndicatorDB;
     public readonly Transform attackIndicatorSpawn;
+
+    public bool HasTarget => Target != null && Target.gameObject.activeInHierarchy;
 
     private Transform target;
     public Transform Target
@@ -237,7 +239,7 @@ public class RobotBossIdleState : RobotBossBaseState
 
     public override void UpdateState(RobotBossStateContext context)
     {
-        if (context.Target == null)
+        if (!context.HasTarget)
         {
             if (TryGetRandomTarget(out Transform target))
             {
@@ -296,7 +298,7 @@ public class RobotBossFollowState : RobotBossBaseState
 
     public override void UpdateState(RobotBossStateContext context)
     {
-        if (context.Target == null)
+        if (!context.HasTarget)
         {
             stateMachine.ChangeState(stateMachine.idleState);
         }
@@ -474,7 +476,7 @@ public class RobotBossPrimaryAttackState : RobotBossBaseState
 
     private void FinishAttack(RobotBossStateContext context)
     {
-        if (context.Target == null)
+        if (!context.HasTarget)
         {
             stateMachine.ChangeState(stateMachine.idleState);
         }
@@ -591,12 +593,12 @@ public class RobotBossSecondaryAttackState : RobotBossBaseState
     {
         abilityIndicator?.Update();
 
-        if (context.Target == null)
+        if (!context.HasTarget)
         {
             context.Target = TargetAwareness.GetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.SecondaryAttackRange, context.ai.TargetLayers, context.ai.BlockLayers, targetFilter);
         }
 
-        if (context.Target != null)
+        if (context.HasTarget)
         {
             Vector2 targetDirection = (context.Target.transform.position - transform.position).normalized;
             entityAim.AimTowards(targetDirection);
@@ -622,7 +624,7 @@ public class RobotBossSecondaryAttackState : RobotBossBaseState
 
     private void FinishAttack(RobotBossStateContext context)
     {
-        if (context.Target == null)
+        if (!context.HasTarget)
         {
             stateMachine.ChangeState(stateMachine.idleState);
         }

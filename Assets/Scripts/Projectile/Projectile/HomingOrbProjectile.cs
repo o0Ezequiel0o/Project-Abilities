@@ -14,6 +14,8 @@ public class HomingOrbProjectile : PiercingProjectile
 
     public bool ColliderEnabled { get; set; } = true;
 
+    private bool HasTarget => target != null && target.gameObject.activeInHierarchy;
+
     private Vector3 lastTargetPosition;
     private Transform target;
 
@@ -34,7 +36,7 @@ public class HomingOrbProjectile : PiercingProjectile
     {
         this.target = target;
 
-        if (target != null)
+        if (HasTarget)
         {
             lastTargetPosition = target.transform.position;
         }
@@ -54,7 +56,7 @@ public class HomingOrbProjectile : PiercingProjectile
 
     protected override void Update()
     {
-        if (target != null)
+        if (HasTarget)
         {
             lastTargetPosition = target.position;
             UpdateTrackingState(lastTargetPosition);

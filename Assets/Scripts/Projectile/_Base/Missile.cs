@@ -12,6 +12,8 @@ public class Missile : BasicProjectile
     [SerializeField] protected LayerMask seekTargetLayer;
     [SerializeField] protected float findTargetRange;
 
+    private bool HasTarget => target != null && target.gameObject.activeInHierarchy;
+
     private Transform target;
 
     private Predicate<GameObject> filter;
@@ -40,9 +42,9 @@ public class Missile : BasicProjectile
         target = null;
     }
 
-    private void SetTarget(Transform target)
+    private void SetTarget(Transform newTarget)
     {
-        this.target = target;
+        target = newTarget;
     }
 
     protected override void Update()
@@ -59,13 +61,13 @@ public class Missile : BasicProjectile
 
     private void UpdateMissileSeeking()
     {
-        if (target != null) return;
+        if (HasTarget) return;
         SetTarget(TargetAwareness.GetClosestTargetToDirection(TipPosition, Direction, findTargetRange, seekTargetLayer, blockLayer, filter));
     }
 
     private void UpdateMissileSteering()
     {
-        if (target == null) return;
+        if (!HasTarget) return;
 
         float angularStep = turnSpeed * Time.deltaTime;
         float targetAngle = GetRotation((target.position - transform.position).normalized);

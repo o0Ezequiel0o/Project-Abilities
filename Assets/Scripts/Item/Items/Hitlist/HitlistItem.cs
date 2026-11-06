@@ -17,6 +17,8 @@ namespace Zeke.Items
 
         private float timer = 0f;
 
+        private bool HasTarget => target != null && target.gameObject.activeInHierarchy;
+
         private readonly List<Collider2D> hits = new List<Collider2D>();
 
         public HitlistItem(HitlistItemData data, ItemHandler itemHandler, GameObject source)
@@ -62,7 +64,7 @@ namespace Zeke.Items
                 return;
             }
 
-            if (target == null)
+            if (!HasTarget)
             {
                 visualInstance.SetActive(false);
             }
@@ -97,7 +99,7 @@ namespace Zeke.Items
                 target = hits[i].transform;
             }
 
-            if (target != null)
+            if (HasTarget)
             {
                 visualInstance.SetActive(true);
             }

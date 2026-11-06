@@ -127,7 +127,7 @@ public static class TargetAwareness
         Transform closestTarget = null;
         float distance = float.MaxValue;
 
-        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = targetLayers, useLayerMask = true };
+        ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = targetLayers, useLayerMask = true};
         Physics2D.OverlapCircle(position, range, contactFilter, hits);
 
         for (int i = 0; i < hits.Count; i++)

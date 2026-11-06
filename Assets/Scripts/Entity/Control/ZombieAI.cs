@@ -58,7 +58,7 @@ public class ZombieAI : MonoBehaviour
 
         if (damageEvent.SourceUser == null) return;
 
-        if (context.Target != null)
+        if (context.HasTarget)
         {
             float currentTargetSqrDistance = (GetClosestTargetPoint() - (Vector2)transform.position).sqrMagnitude;
             float attackerTargetSqrDistance = (damageEvent.SourceUser.transform.position - transform.position).sqrMagnitude;
@@ -87,6 +87,8 @@ public class ZombieStateContext
     public readonly ZombieAISettings ai;
     public readonly AbilityIndicatorDB abilityIndicatorDB;
     public readonly Transform attackIndicatorSpawn;
+
+    public bool HasTarget => Target != null && Target.gameObject.activeInHierarchy;
 
     private Transform target;
     public Transform Target
@@ -189,7 +191,7 @@ public class ZombieIdleState : ZombieBaseState
 
     public override void UpdateState(ZombieStateContext context)
     {
-        if (context.Target == null)
+        if (!context.HasTarget)
         {
             if (TryGetRandomTarget(out Transform target))
             {
@@ -248,7 +250,7 @@ public class ZombieFollowState : ZombieBaseState
 
     public override void UpdateState(ZombieStateContext context)
     {
-        if (context.Target == null)
+        if (!context.HasTarget)
         {
             stateMachine.ChangeState(stateMachine.idleState);
         }
@@ -437,7 +439,7 @@ public class ZombieAttackState : ZombieBaseState
 
     private void FinishAttack(ZombieStateContext context)
     {
-        if (context.Target == null)
+        if (!context.HasTarget)
         {
             stateMachine.ChangeState(stateMachine.idleState);
         }
