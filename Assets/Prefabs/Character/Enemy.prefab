@@ -319,6 +319,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764cac745abfa654191cf1d33e742da9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderers:
+  - {fileID: 5750615414019374036}
+  - {fileID: 1614758132372178417}
+  - {fileID: 5782451048418697692}
 --- !u!210 &2307074326761643055
 SortingGroup:
   m_ObjectHideFlags: 0
