@@ -5,28 +5,24 @@ namespace Zeke.Collections
 {
     public interface IOrderedActionSubscription<T>
     {
-        public void Subscribe(Action<T> callback);
-
-        public void Subscribe(Action<T> callback, int priority);
-
-        public void Unsubscribe(Action<T> callback);
+        void Subscribe(Action<T> callback);
+        void Subscribe(Action<T> callback, int priority);
+        void Unsubscribe(Action<T> callback);
     }
 
     public interface IOrderedActionSubscription<T1, T2>
     {
-        public void Subscribe(Action<T1, T2> callback);
-
-        public void Subscribe(Action<T1, T2> callback, int priority);
-
-        public void Unsubscribe(Action<T1, T2> callback);
+        void Subscribe(Action<T1, T2> callback);
+        void Subscribe(Action<T1, T2> callback, int priority);
+        void Unsubscribe(Action<T1, T2> callback);
     }
 
     public sealed class OrderedAction<T> : IOrderedActionSubscription<T>
     {
-        private readonly struct Entry
+        private struct Entry
         {
-            public readonly Action<T> Callback;
-            public readonly int Priority;
+            public Action<T> Callback;
+            public int Priority;
 
             public Entry(Action<T> callback, int priority)
             {
@@ -35,26 +31,24 @@ namespace Zeke.Collections
             }
         }
 
-        private readonly struct PendingOperation
+        private struct PendingOperation
         {
-            public readonly Entry Entry;
-            public readonly bool Subscribe;
+            public Entry Entry;
+            public bool IsSubscribe;
 
-            public PendingOperation(Entry entry, bool subscribe)
+            public PendingOperation(Entry entry, bool isSubscribe)
             {
                 Entry = entry;
-                Subscribe = subscribe;
+                IsSubscribe = isSubscribe;
             }
         }
 
         private readonly List<Entry> callbacks = new List<Entry>();
-        private readonly HashSet<Action<T>> callbacksHash = new HashSet<Action<T>>();
-        private readonly Queue<PendingOperation> pendingOperations = new Queue<PendingOperation>();
+        private readonly List<PendingOperation> pendingOperations = new List<PendingOperation>();
 
         private int invocationDepth;
 
-        public int Count => callbacksHash.Count;
-
+        public int Count => callbacks.Count;
         public bool IsInvoking => invocationDepth > 0;
 
         public void Subscribe(Action<T> callback)
@@ -64,13 +58,18 @@ namespace Zeke.Collections
 
         public void Subscribe(Action<T> callback, int priority)
         {
-            if (callback == null || !callbacksHash.Add(callback)) return;
+            if (callback == null) return;
+
+            for (int i = 0; i < callbacks.Count; i++)
+            {
+                if (callbacks[i].Callback == callback) return;
+            }
 
             Entry entry = new Entry(callback, priority);
 
             if (IsInvoking)
             {
-                pendingOperations.Enqueue(new PendingOperation(entry, true));
+                pendingOperations.Add(new PendingOperation(entry, true));
             }
             else
             {
@@ -80,13 +79,11 @@ namespace Zeke.Collections
 
         public void Unsubscribe(Action<T> callback)
         {
-            if (callback == null || !callbacksHash.Remove(callback)) return;
-
-            Entry entry = new Entry(callback, 0);
+            if (callback == null) return;
 
             if (IsInvoking)
             {
-                pendingOperations.Enqueue(new PendingOperation(entry, false));
+                pendingOperations.Add(new PendingOperation(new Entry(callback, 0), false));
             }
             else
             {
@@ -129,7 +126,7 @@ namespace Zeke.Collections
 
             invocationDepth -= 1;
 
-            if (invocationDepth == 0)
+            if (invocationDepth == 0 && pendingOperations.Count > 0)
             {
                 ApplyPendingOperations();
             }
@@ -137,11 +134,11 @@ namespace Zeke.Collections
 
         private void ApplyPendingOperations()
         {
-            while (pendingOperations.Count > 0)
+            for (int i = 0; i < pendingOperations.Count; i++)
             {
-                PendingOperation operation = pendingOperations.Dequeue();
+                PendingOperation operation = pendingOperations[i];
 
-                if (operation.Subscribe)
+                if (operation.IsSubscribe)
                 {
                     AddEntry(operation.Entry);
                 }
@@ -150,6 +147,7 @@ namespace Zeke.Collections
                     RemoveEntry(operation.Entry.Callback);
                 }
             }
+            pendingOperations.Clear();
         }
 
         public void Clear()
@@ -158,18 +156,12 @@ namespace Zeke.Collections
             {
                 for (int i = 0; i < callbacks.Count; i++)
                 {
-                    Action<T> callback = callbacks[i].Callback;
-
-                    if (callbacksHash.Remove(callback))
-                    {
-                        pendingOperations.Enqueue(new PendingOperation(new Entry(callback, 0), false));
-                    }
+                    pendingOperations.Add(new PendingOperation(new Entry(callbacks[i].Callback, 0), false));
                 }
             }
             else
             {
                 callbacks.Clear();
-                callbacksHash.Clear();
                 pendingOperations.Clear();
             }
         }
@@ -177,10 +169,10 @@ namespace Zeke.Collections
 
     public sealed class OrderedAction<T1, T2> : IOrderedActionSubscription<T1, T2>
     {
-        private readonly struct Entry
+        private struct Entry
         {
-            public readonly Action<T1, T2> Callback;
-            public readonly int Priority;
+            public Action<T1, T2> Callback;
+            public int Priority;
 
             public Entry(Action<T1, T2> callback, int priority)
             {
@@ -189,25 +181,24 @@ namespace Zeke.Collections
             }
         }
 
-        private readonly struct PendingOperation
+        private struct PendingOperation
         {
-            public readonly Entry Entry;
-            public readonly bool Subscribe;
+            public Entry Entry;
+            public bool IsSubscribe;
 
-            public PendingOperation(Entry entry, bool subscribe)
+            public PendingOperation(Entry entry, bool isSubscribe)
             {
                 Entry = entry;
-                Subscribe = subscribe;
+                IsSubscribe = isSubscribe;
             }
         }
 
-        private readonly List<Entry> callbacks = new(8);
-        private readonly HashSet<Action<T1, T2>> callbacksHash = new(8);
-        private readonly Queue<PendingOperation> pendingOperations = new(4);
+        private readonly List<Entry> callbacks = new List<Entry>();
+        private readonly List<PendingOperation> pendingOperations = new List<PendingOperation>();
 
         private int invocationDepth;
 
-        public int Count => callbacksHash.Count;
+        public int Count => callbacks.Count;
         public bool IsInvoking => invocationDepth > 0;
 
         public void Subscribe(Action<T1, T2> callback)
@@ -217,13 +208,18 @@ namespace Zeke.Collections
 
         public void Subscribe(Action<T1, T2> callback, int priority)
         {
-            if (callback == null || !callbacksHash.Add(callback)) return;
+            if (callback == null) return;
 
-            Entry entry = new(callback, priority);
+            for (int i = 0; i < callbacks.Count; i++)
+            {
+                if (callbacks[i].Callback == callback) return;
+            }
+
+            Entry entry = new Entry(callback, priority);
 
             if (IsInvoking)
             {
-                pendingOperations.Enqueue(new PendingOperation(entry, true));
+                pendingOperations.Add(new PendingOperation(entry, true));
             }
             else
             {
@@ -233,13 +229,11 @@ namespace Zeke.Collections
 
         public void Unsubscribe(Action<T1, T2> callback)
         {
-            if (callback == null || !callbacksHash.Remove(callback)) return;
-
-            Entry entry = new(callback, 0);
+            if (callback == null) return;
 
             if (IsInvoking)
             {
-                pendingOperations.Enqueue(new PendingOperation(entry, false));
+                pendingOperations.Add(new PendingOperation(new Entry(callback, 0), false));
             }
             else
             {
@@ -282,7 +276,7 @@ namespace Zeke.Collections
 
             invocationDepth -= 1;
 
-            if (invocationDepth == 0)
+            if (invocationDepth == 0 && pendingOperations.Count > 0)
             {
                 ApplyPendingOperations();
             }
@@ -290,11 +284,11 @@ namespace Zeke.Collections
 
         private void ApplyPendingOperations()
         {
-            while (pendingOperations.Count > 0)
+            for (int i = 0; i < pendingOperations.Count; i++)
             {
-                PendingOperation operation = pendingOperations.Dequeue();
+                PendingOperation operation = pendingOperations[i];
 
-                if (operation.Subscribe)
+                if (operation.IsSubscribe)
                 {
                     AddEntry(operation.Entry);
                 }
@@ -303,6 +297,7 @@ namespace Zeke.Collections
                     RemoveEntry(operation.Entry.Callback);
                 }
             }
+            pendingOperations.Clear();
         }
 
         public void Clear()
@@ -311,18 +306,12 @@ namespace Zeke.Collections
             {
                 for (int i = 0; i < callbacks.Count; i++)
                 {
-                    Action<T1, T2> callback = callbacks[i].Callback;
-
-                    if (callbacksHash.Remove(callback))
-                    {
-                        pendingOperations.Enqueue(new PendingOperation(new Entry(callback, 0), false));
-                    }
+                    pendingOperations.Add(new PendingOperation(new Entry(callbacks[i].Callback, 0), false));
                 }
             }
             else
             {
                 callbacks.Clear();
-                callbacksHash.Clear();
                 pendingOperations.Clear();
             }
         }
