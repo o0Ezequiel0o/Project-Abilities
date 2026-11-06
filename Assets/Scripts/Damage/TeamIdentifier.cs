@@ -24,11 +24,6 @@ namespace Zeke.TeamSystem
         {
             TeamManager.Remove(gameObject, this);
         }
-
-        private void OnDestroy()
-        {
-            TeamManager.Remove(gameObject, this);
-        }
     }
 
     public enum Teams
