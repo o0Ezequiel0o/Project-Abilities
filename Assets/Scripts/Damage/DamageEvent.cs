@@ -37,14 +37,8 @@ public partial class Damageable
         private float armorPenetration;
         public float ArmorPenetration
         {
-            get
-            {
-                return Mathf.Clamp(armorPenetration, -1, 1);
-            }
-            set
-            {
-                armorPenetration = value;
-            }
+            get => Mathf.Clamp(armorPenetration, -1, 1);
+            set => armorPenetration = value;
         }
 
         private DamageEventListener damageEventListener;
