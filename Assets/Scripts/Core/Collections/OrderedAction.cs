@@ -5,16 +5,20 @@ namespace Zeke.Collections
 {
     public interface IOrderedActionSubscription<T>
     {
-        void Subscribe(Action<T> callback);
-        void Subscribe(Action<T> callback, int priority);
-        void Unsubscribe(Action<T> callback);
+        public void Subscribe(Action<T> callback);
+
+        public void Subscribe(Action<T> callback, int priority);
+
+        public void Unsubscribe(Action<T> callback);
     }
 
     public interface IOrderedActionSubscription<T1, T2>
     {
-        void Subscribe(Action<T1, T2> callback);
-        void Subscribe(Action<T1, T2> callback, int priority);
-        void Unsubscribe(Action<T1, T2> callback);
+        public void Subscribe(Action<T1, T2> callback);
+
+        public void Subscribe(Action<T1, T2> callback, int priority);
+
+        public void Unsubscribe(Action<T1, T2> callback);
     }
 
     public sealed class OrderedAction<T> : IOrderedActionSubscription<T>
