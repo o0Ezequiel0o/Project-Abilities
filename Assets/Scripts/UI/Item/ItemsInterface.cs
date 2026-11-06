@@ -1,11 +1,12 @@
+using NUnit.Framework.Interfaces;
 using PrimeTween;
+using System;
 using System.Collections.Generic;
+using TMPro;
+using Unity.Burst;
 using UnityEngine;
 using UnityEngine.UI;
 using Zeke.UI;
-using System;
-using TMPro;
-using Unity.Burst;
 
 namespace Zeke.Items
 {
@@ -96,29 +97,58 @@ namespace Zeke.Items
             LayoutRebuilder.ForceRebuildLayoutImmediate(window.TryGetElement<LayoutGroup>("Layout Group").GetComponent<RectTransform>());
             OnItemModified(stackUpdate.itemData);
 
+            if (stackUpdate.amount > 0 && stackUpdate.stacks != 1)
+            {
+                OnStacksAdded(stackUpdate.itemData);
+            }
+            else if (stackUpdate.amount < 0 && stackUpdate.stacks != 0)
+            {
+                OnStacksRemoved(stackUpdate.itemData);
+            }
+
             onItemModified?.Invoke(windowInstance);
 
             return windowInstance;
         }
 
-        protected void PlaySlotUpdateAnimation(GameObject element)
-        {
-            if (!element.activeInHierarchy) return;
-
-            RectTransform rectTransform = element.GetComponent<RectTransform>();
-
-            Tween.ShakeLocalRotation(rectTransform, strength: new Vector3(0f, 0f, maxRotation), duration: effectDuration, frequency: frequency);
-        }
-
         protected virtual void OnItemModified(ItemData itemData)
         {
             CenterOnItem(itemData);
+        }
+
+        protected virtual void OnStacksAdded(ItemData itemData)
+        {
             PlaySlotUpdateAnimation(itemSlots[itemData].gameObject);
+        }
+
+        protected virtual void OnStacksRemoved(ItemData itemData)
+        {
+            UIWindow windowInstance = itemSlots[itemData];
+            LayoutGroup layoutGroup = window.TryGetElement<LayoutGroup>("Layout Group");
+
+            int siblingIndex = windowInstance.transform.GetSiblingIndex();
+
+            GameObject copy = Instantiate(windowInstance.gameObject, layoutGroup.transform, false);
+            RectTransform copyRect = copy.GetComponent<RectTransform>();
+
+            copyRect.SetSiblingIndex(siblingIndex);
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup.GetComponent<RectTransform>());
+
+            copyRect.SetParent(window.transform, true);
+
+            PlayDropAnimation(copyRect);
         }
 
         protected virtual void OnItemRemoved(ItemData itemData, UIWindow windowInstance)
         {
-            PlayDropAnimation(windowInstance.GetComponent<RectTransform>());
+            RectTransform layoutGroup = window.TryGetElement<LayoutGroup>("Layout Group").GetComponent<RectTransform>();
+            RectTransform rectTransform = windowInstance.GetComponent<RectTransform>();
+
+            int siblingIndex = rectTransform.GetSiblingIndex();
+
+            PlayDropAnimation(rectTransform, (itemRect) => Destroy(itemRect.gameObject));
+            CreateDummyItemSlotAtIndex(layoutGroup, siblingIndex);
         }
 
         protected void CenterOnItem(ItemData itemData)
@@ -146,12 +176,22 @@ namespace Zeke.Items
             scrollRect.horizontalNormalizedPosition = Mathf.Clamp01(normalizedPosition);
         }
 
-        public void PlayDropAnimation(RectTransform itemRect)
+        protected void PlaySlotUpdateAnimation(GameObject element)
         {
-            Transform layoutParent = itemRect.parent;
-            int siblingIndex = itemRect.GetSiblingIndex();
+            if (!element.activeInHierarchy) return;
 
-            RectTransform layoutGroup = window.TryGetElement<LayoutGroup>("Layout Group").GetComponent<RectTransform>();
+            RectTransform rectTransform = element.GetComponent<RectTransform>();
+
+            Tween.ShakeLocalRotation(rectTransform, strength: new Vector3(0f, 0f, maxRotation), duration: effectDuration, frequency: frequency);
+        }
+
+        private void PlayDropAnimation(RectTransform itemRect)
+        {
+            PlayDropAnimation(itemRect, null);
+        }
+
+        private void PlayDropAnimation(RectTransform itemRect, Action<RectTransform> callback)
+        {
             CanvasGroup canvasGroup = itemRect.GetComponent<CanvasGroup>();
 
             itemRect.SetParent(window.GetComponent<RectTransform>(), true);
@@ -168,8 +208,6 @@ namespace Zeke.Items
             Vector2 peakPos = startPos + new Vector2(randomXOffset * 0.5f, randomizedJump);
             Vector2 endPos = startPos + new Vector2(randomXOffset, -fallDepth);
 
-            CreateDummyItemSlotAtIndex(layoutGroup, siblingIndex);
-
             Sequence.Create(useUnscaledTime: true)
                 .Group(Tween.UIAnchoredPosition(itemRect, peakPos, randomizedDuration * 0.3f, Ease.OutQuad))
                 .Chain(Tween.UIAnchoredPosition(itemRect, endPos, randomizedDuration * 0.7f, Ease.InQuad))
@@ -177,7 +215,7 @@ namespace Zeke.Items
                 .Group(Tween.Alpha(canvasGroup, 0f, randomizedAlphaDuration, Ease.InSine))
                 .OnComplete(() =>
                 {
-                    Destroy(itemRect.gameObject);
+                    callback?.Invoke(itemRect);
                 });;
         }
 
@@ -189,7 +227,7 @@ namespace Zeke.Items
             dummy.transform.SetSiblingIndex(index);
             float startingWidth = dummyRect.rect.width;
 
-            Tween.Custom(dummy, startingWidth, 0f, duration, (target, val) => { dummyRect.sizeDelta = new Vector2(val, dummyRect.sizeDelta.y); }, Ease.InOutQuad, useUnscaledTime: true)
+            Tween.Custom(dummy, startingWidth, 0f, duration, (target, val) => { dummyRect.sizeDelta = new Vector2(val, dummyRect.sizeDelta.y); }, Ease.InExpo, useUnscaledTime: true)
                 .OnComplete(() =>
                 {
                     Destroy(dummy);

@@ -18,6 +18,10 @@ public class ItemsMenuInterface : ItemsInterface
 
     protected override void OnItemRemoved(ItemData itemData, UIWindow windowInstance) { }
 
+    protected override void OnStacksAdded(ItemData itemData) { }
+
+    protected override void OnStacksRemoved(ItemData itemData) { }
+
     private void Awake()
     {
         SetDefaultText();

@@ -177,7 +177,7 @@ namespace Zeke.Items
             item.stacks -= maxStacks;
             item.OnStacksRemoved(maxStacks);
 
-            onStacksRemoved?.Invoke(new ItemStackUpdate(item.Data, item.stacks, maxStacks));
+            onStacksRemoved?.Invoke(new ItemStackUpdate(item.Data, item.stacks, -maxStacks));
         }
 
         public readonly struct ItemStackUpdate
