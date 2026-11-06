@@ -26,6 +26,8 @@ namespace Zeke.Abilities
 
         private readonly Dictionary<AbilityType, AbilityTypeSlot> abilityTypeSlots = new Dictionary<AbilityType, AbilityTypeSlot>();
 
+        private static readonly AbilityType[] abilityTypes = (AbilityType[])Enum.GetValues(typeof(AbilityType));
+
         private int level = 1;
 
         public class AbilityTypeSlot
@@ -274,7 +276,7 @@ namespace Zeke.Abilities
 
         private void Awake()
         {
-            foreach (AbilityType abilityType in Enum.GetValues(typeof(AbilityType)))
+            foreach (AbilityType abilityType in abilityTypes)
             {
                 abilityTypeSlots.Add(abilityType, new AbilityTypeSlot(abilityType));
             }
