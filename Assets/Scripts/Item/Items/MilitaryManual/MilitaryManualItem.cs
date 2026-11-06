@@ -22,7 +22,7 @@ namespace Zeke.Items
 
         public override void Initialize()
         {
-            if (source.TryGetComponent(out DamageEventListener eventListener))
+            if (source.TryGetComponent(out DamageableEventListener eventListener))
             {
                 eventListener.OnDealDamage.Subscribe(OnDealDamage, data.ProcPriority);
             }
@@ -35,7 +35,7 @@ namespace Zeke.Items
                 abilityController.AbilityTypeSlots[data.AbilityType].RechargeSpeed.ApplyFlatModifier(-flatModifier);
             }
 
-            if (source.TryGetComponent(out DamageEventListener eventListener))
+            if (source.TryGetComponent(out DamageableEventListener eventListener))
             {
                 eventListener.OnDealDamage.Unsubscribe(OnDealDamage);
             }

@@ -53,7 +53,7 @@ public class OrbCooldownReductionSkill : PassiveBase
 
     private void SubscribeToEvents()
     {
-        if (source.TryGetComponent(out DamageEventListener eventListener))
+        if (source.TryGetComponent(out DamageableEventListener eventListener))
         {
             eventListener.OnDealtDamage.Subscribe(OnDealtDamage);
         }
@@ -61,7 +61,7 @@ public class OrbCooldownReductionSkill : PassiveBase
 
     private void UnsubscribeFromEvents()
     {
-        if (source.TryGetComponent(out DamageEventListener eventListener))
+        if (source.TryGetComponent(out DamageableEventListener eventListener))
         {
             eventListener.OnDealtDamage.Unsubscribe(OnDealtDamage);
         }

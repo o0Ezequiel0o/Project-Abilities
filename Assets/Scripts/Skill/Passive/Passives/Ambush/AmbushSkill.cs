@@ -24,7 +24,7 @@ public class AmbushSkill : PassiveBase
 
     public override void Awake()
     {
-        if (source.TryGetComponent(out DamageEventListener eventListener))
+        if (source.TryGetComponent(out DamageableEventListener eventListener))
         {
             eventListener.OnDealDamage.Subscribe(OnDealDamage);
         }
@@ -47,7 +47,7 @@ public class AmbushSkill : PassiveBase
 
     public override void OnRemove()
     {
-        if (source.TryGetComponent(out DamageEventListener eventListener))
+        if (source.TryGetComponent(out DamageableEventListener eventListener))
         {
             eventListener.OnDealDamage.Unsubscribe(OnDealDamage);
         }

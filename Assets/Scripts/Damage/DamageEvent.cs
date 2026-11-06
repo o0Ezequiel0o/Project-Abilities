@@ -41,7 +41,7 @@ public partial class Damageable
             set => armorPenetration = value;
         }
 
-        private DamageEventListener damageEventListener;
+        private DamageableEventListener damageEventListener;
         private bool isDamageEventListener = false;
 
         public DamageEvent(DamageInfo damageInfo, Damageable receiver, GameObject userSource, GameObject sourceObject, List<ItemData> procChain)

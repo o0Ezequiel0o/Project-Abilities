@@ -24,7 +24,7 @@ namespace Zeke.Abilities.Modules
 
         public override void Activate()
         {
-            if (source.TryGetComponent(out DamageEventListener eventListener))
+            if (source.TryGetComponent(out DamageableEventListener eventListener))
             {
                 eventListener.OnKill.Subscribe(OnKill);
             }
@@ -32,7 +32,7 @@ namespace Zeke.Abilities.Modules
 
         public override void Deactivate()
         {
-            if (source.TryGetComponent(out DamageEventListener eventListener))
+            if (source.TryGetComponent(out DamageableEventListener eventListener))
             {
                 eventListener.OnKill.Unsubscribe(OnKill);
             }
@@ -45,7 +45,7 @@ namespace Zeke.Abilities.Modules
 
         public override void Destroy()
         {
-            if (source.TryGetComponent(out DamageEventListener eventListener))
+            if (source.TryGetComponent(out DamageableEventListener eventListener))
             {
                 eventListener.OnKill.Unsubscribe(OnKill);
             }

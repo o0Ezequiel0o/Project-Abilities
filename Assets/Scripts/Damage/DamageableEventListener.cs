@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zeke.Collections;
 
-public class DamageEventListener : MonoBehaviour
+public class DamageableEventListener : MonoBehaviour
 {
     public IOrderedActionSubscription<Damageable.DamageEvent.OnDealDamageEvent> OnDealDamage => onDealDamage;
     public IOrderedActionSubscription<Damageable.DamageEvent.OnDealtDamageEvent> OnDealtDamage => onDealtDamage;
@@ -9,15 +9,24 @@ public class DamageEventListener : MonoBehaviour
     public IOrderedActionSubscription<Damageable.DamageEvent.OnKillEvent> OnKill => onKill;
     public IOrderedActionSubscription<Damageable.DamageEvent.OnHitEvent> OnHit => onHit;
 
+    public IOrderedActionSubscription<Damageable.HealEvent.OnHealHealthEvent> OnHealHealth => onHealHealth;
+    public IOrderedActionSubscription<Damageable.HealEvent.OnHealedHealthEvent> OnHealedHealth => onHealedHealth;
+
     private readonly OrderedAction<Damageable.DamageEvent.OnDealDamageEvent> onDealDamage = new OrderedAction<Damageable.DamageEvent.OnDealDamageEvent>();
     private readonly OrderedAction<Damageable.DamageEvent.OnDealtDamageEvent> onDealtDamage = new OrderedAction<Damageable.DamageEvent.OnDealtDamageEvent>();
 
     private readonly OrderedAction<Damageable.DamageEvent.OnKillEvent> onKill = new OrderedAction<Damageable.DamageEvent.OnKillEvent>();
     private readonly OrderedAction<Damageable.DamageEvent.OnHitEvent> onHit = new OrderedAction<Damageable.DamageEvent.OnHitEvent>();
 
+    private readonly OrderedAction<Damageable.HealEvent.OnHealHealthEvent> onHealHealth = new OrderedAction<Damageable.HealEvent.OnHealHealthEvent>();
+    private readonly OrderedAction<Damageable.HealEvent.OnHealedHealthEvent> onHealedHealth = new OrderedAction<Damageable.HealEvent.OnHealedHealthEvent>();
+
     public void CallDealDamageEvent(Damageable.DamageEvent.OnDealDamageEvent onDealDamageEvent) => onDealDamage.Invoke(onDealDamageEvent);
     public void CallDealtDamageEvent(Damageable.DamageEvent.OnDealtDamageEvent onDealtDamageEvent) => onDealtDamage.Invoke(onDealtDamageEvent);
 
     public void CallKillEvent(Damageable.DamageEvent.OnKillEvent onKillEvent) => onKill.Invoke(onKillEvent);
     public void CallHitEvent(Damageable.DamageEvent.OnHitEvent onHitEvent) => onHit.Invoke(onHitEvent);
+
+    public void CallHealHealthEvent(Damageable.HealEvent.OnHealHealthEvent onHealHealthEvent) => onHealHealth.Invoke(onHealHealthEvent);
+    public void CallHealedHealthEvent(Damageable.HealEvent.OnHealedHealthEvent onHealedHealthEvent) => onHealedHealth.Invoke(onHealedHealthEvent);
 }

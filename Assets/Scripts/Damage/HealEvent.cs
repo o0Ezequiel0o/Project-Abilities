@@ -26,7 +26,7 @@ public partial class Damageable
         public float FlatAccumulator { get; set; }
         public Stat Multiplier { get; private set; }
 
-        private HealEventListener healEventListener;
+        private DamageableEventListener healEventListener;
         private bool isHealEventListener = false;
 
         public HealEvent(HealInfo healInfo, Damageable receiver, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)

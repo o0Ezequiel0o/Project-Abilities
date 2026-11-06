@@ -19,7 +19,7 @@ public class OrbExtraDamageSkill : PassiveBase
 
     public override void Awake()
     {
-        if (source.TryGetComponent(out DamageEventListener eventListener))
+        if (source.TryGetComponent(out DamageableEventListener eventListener))
         {
             eventListener.OnDealtDamage.Subscribe(OnDealtDamage);
         }
@@ -27,7 +27,7 @@ public class OrbExtraDamageSkill : PassiveBase
 
     public override void OnRemove()
     {
-        if (source.TryGetComponent(out DamageEventListener eventListener))
+        if (source.TryGetComponent(out DamageableEventListener eventListener))
         {
             eventListener.OnDealtDamage.Unsubscribe(OnDealtDamage);
         }

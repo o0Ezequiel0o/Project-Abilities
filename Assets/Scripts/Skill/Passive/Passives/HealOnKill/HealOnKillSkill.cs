@@ -24,7 +24,7 @@ public class HealOnKillSkill : PassiveBase
     {
         LookForComponents();
 
-        if (source.TryGetComponent(out DamageEventListener eventListener))
+        if (source.TryGetComponent(out DamageableEventListener eventListener))
         {
             eventListener.OnKill.Subscribe(OnKill);
         }
@@ -32,7 +32,7 @@ public class HealOnKillSkill : PassiveBase
 
     public override void OnRemove()
     {
-        if (source.TryGetComponent(out DamageEventListener eventListener))
+        if (source.TryGetComponent(out DamageableEventListener eventListener))
         {
             eventListener.OnKill.Unsubscribe(OnKill);
         }

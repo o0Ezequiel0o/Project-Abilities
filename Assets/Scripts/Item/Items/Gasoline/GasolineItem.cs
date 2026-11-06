@@ -25,7 +25,7 @@ namespace Zeke.Items
 
         public override void Initialize()
         {
-            if (source.TryGetComponent(out DamageEventListener eventListener))
+            if (source.TryGetComponent(out DamageableEventListener eventListener))
             {
                 eventListener.OnKill.Subscribe(OnKill, data.ProcPriority);
             }
@@ -33,7 +33,7 @@ namespace Zeke.Items
 
         public override void OnRemoved()
         {
-            if (source.TryGetComponent(out DamageEventListener eventListener))
+            if (source.TryGetComponent(out DamageableEventListener eventListener))
             {
                 eventListener.OnKill.Unsubscribe(OnKill);
             }

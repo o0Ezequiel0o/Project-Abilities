@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 485676028982003992}
   - component: {fileID: 9207376675633253813}
   - component: {fileID: 3258373292319498312}
+  - component: {fileID: 901008187710259339}
   - component: {fileID: 3220386045857683405}
   - component: {fileID: 3685242802834864705}
   - component: {fileID: -971065111864936163}
@@ -308,6 +309,18 @@ MonoBehaviour:
       min: 0
       max: Infinity
   pivot: {fileID: 2397659901102035805}
+--- !u!114 &901008187710259339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647093461853523306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc3bda772d544743a3c13265642912c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageableEventListener
 --- !u!114 &3220386045857683405
 MonoBehaviour:
   m_ObjectHideFlags: 0

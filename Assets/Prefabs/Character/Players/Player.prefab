@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 7452562510971966217}
   - component: {fileID: -7882419045995171510}
   - component: {fileID: -7407455523528082275}
-  - component: {fileID: 2924701698077324152}
   - component: {fileID: 108859267500074294}
   - component: {fileID: -5244294688078608144}
   - component: {fileID: 7648585092559927398}
@@ -384,18 +383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc3bda772d544743a3c13265642912c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageEventListener
---- !u!114 &2924701698077324152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5218312312708394220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fae06203547c0ed4984db9d7c8711be4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealEventListener
 --- !u!114 &108859267500074294
 MonoBehaviour:
   m_ObjectHideFlags: 0
