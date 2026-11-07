@@ -291,10 +291,7 @@ namespace Zeke.Abilities
         {
             foreach (AbilityTypeSlot abilityTypeSlot in abilityTypeSlots.Values)
             {
-                for (int i = 0; i < abilityTypeSlot.Abilities.Count; i++)
-                {
-                    abilityTypeSlot.Abilities[i]?.Update();
-                }
+                abilityTypeSlot.CurrentAbilitySlot?.Update();
             }
         }
 
@@ -302,10 +299,7 @@ namespace Zeke.Abilities
         {
             foreach (AbilityTypeSlot abilityTypeSlot in abilityTypeSlots.Values)
             {
-                for (int i = 0; i < abilityTypeSlot.Abilities.Count; i++)
-                {
-                    abilityTypeSlot.Abilities[i]?.LateUpdate();
-                }
+                abilityTypeSlot.CurrentAbilitySlot?.LateUpdate();
             }
         }
 
