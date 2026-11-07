@@ -18,6 +18,7 @@ namespace Zeke.Abilities
 
         public Action<IAbility> onAbilityAdded;
         public Action<IAbility> onAbilityRemoved;
+
         public Action<AbilityOverrideData> onAbilityOverriden;
 
         public Action<AbilityType, bool> onUseAbility;
@@ -53,10 +54,14 @@ namespace Zeke.Abilities
             public readonly IAbility overrideAbility;
             public readonly IAbility overridenAbility;
 
-            public AbilityOverrideData(IAbility overrideAbility, IAbility overridenAbility)
+            public readonly bool overridenRemoved;
+
+            public AbilityOverrideData(IAbility overrideAbility, IAbility overridenAbility, bool overridenRemoved)
             {
                 this.overrideAbility = overrideAbility;
                 this.overridenAbility = overridenAbility;
+
+                this.overridenRemoved = overridenRemoved;
             }
         }
 
@@ -156,7 +161,7 @@ namespace Zeke.Abilities
             if (abilityTypeSlots[abilityType].Abilities.Count > 1)
             {
                 IAbility overridenAbility = abilityTypeSlots[abilityType].Abilities[^2];
-                onAbilityOverriden?.Invoke(new AbilityOverrideData(ability, overridenAbility));
+                onAbilityOverriden?.Invoke(new AbilityOverrideData(ability, overridenAbility, false));
 
                 overridenAbility.Disable();
             }
@@ -170,10 +175,18 @@ namespace Zeke.Abilities
         {
             if (TryGetAbilitySlot(ability, out AbilityTypeSlot abilityTypeSlot, out int index))
             {
+                bool wasCurrentAbility = abilityTypeSlot.CurrentAbilitySlot == ability;
+                bool hadMultipleAbilitiesInSlot = abilityTypeSlot.Abilities.Count > 1;
+
                 ability.Disable();
 
                 onAbilityRemoved?.Invoke(ability);
                 abilityTypeSlot.Abilities.RemoveAt(index);
+
+                if (hadMultipleAbilitiesInSlot && wasCurrentAbility)
+                {
+                    onAbilityOverriden?.Invoke(new AbilityOverrideData(abilityTypeSlot.CurrentAbilitySlot, ability, true));
+                }
 
                 return ability;
             }
@@ -203,7 +216,7 @@ namespace Zeke.Abilities
 
                 if (abilityTypeSlot == abilityTypeSlot.CurrentAbilitySlot)
                 {
-                    onAbilityOverriden?.Invoke(new AbilityOverrideData(newAbility, replaceAbility));
+                    onAbilityOverriden?.Invoke(new AbilityOverrideData(newAbility, replaceAbility, true));
                 }
 
                 onAbilityAdded?.Invoke(newAbility);
@@ -227,7 +240,7 @@ namespace Zeke.Abilities
                 if (holding && !ability.Data.CanHold) return;
 
                 onUseAbility?.Invoke(abilityType, holding);
-                UseAbility(ability, abilityType, holding);
+                UseAbility(ability, holding);
             }
         }
 
@@ -354,7 +367,7 @@ namespace Zeke.Abilities
             return false;
         }
 
-        private void UseAbility(IAbility ability, AbilityType abilityType, bool holding)
+        private void UseAbility(IAbility ability, bool holding)
         {
             if (ability.TryActivate(holding))
             {

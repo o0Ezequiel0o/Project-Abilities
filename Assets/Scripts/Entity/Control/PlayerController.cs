@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using Zeke.Abilities;
 using Zeke.Items;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
@@ -39,10 +40,7 @@ public class PlayerController : MonoBehaviour
     [Header("Controls / UI")]
     [SerializeField] private InputActionReference toggleItemsMenuInput;
 
-    private AbilityInput primaryAbilityInput;
-    private AbilityInput secondaryAbilityInput;
-    private AbilityInput utilityAbilityInput;
-    private AbilityInput ultimateAbilityInput;
+    private readonly Dictionary<AbilityType, AbilityInput> abilityInputs = new Dictionary<AbilityType, AbilityInput>();
 
     private bool gameInputEnabled = false;
 
@@ -84,10 +82,10 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        primaryAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Primary);
-        secondaryAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Secondary);
-        utilityAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Utility);
-        ultimateAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Ultimate);
+        abilityInputs.Add(AbilityType.Primary, new AbilityInput(abilityController.TryUseAbility, AbilityType.Primary));
+        abilityInputs.Add(AbilityType.Secondary, new AbilityInput(abilityController.TryUseAbility, AbilityType.Secondary));
+        abilityInputs.Add(AbilityType.Utility, new AbilityInput(abilityController.TryUseAbility, AbilityType.Utility));
+        abilityInputs.Add(AbilityType.Ultimate, new AbilityInput(abilityController.TryUseAbility, AbilityType.Ultimate));
 
         Run.Instance.onPause += OnPaused;
         Run.Instance.onResume += OnResumed;
@@ -130,18 +128,20 @@ public class PlayerController : MonoBehaviour
         moveInput.action.performed += OnMovementInputPerformed;
         moveInput.action.canceled += OnMovementInputCanceled;
 
-        primaryInput.action.started += primaryAbilityInput.OnButtonPressed;
-        secondaryInput.action.started += secondaryAbilityInput.OnButtonPressed;
-        utilityInput.action.started += utilityAbilityInput.OnButtonPressed;
-        ultimateInput.action.started += ultimateAbilityInput.OnButtonPressed;
+        primaryInput.action.started += abilityInputs[AbilityType.Primary].OnButtonPressed;
+        secondaryInput.action.started += abilityInputs[AbilityType.Secondary].OnButtonPressed;
+        utilityInput.action.started += abilityInputs[AbilityType.Utility].OnButtonPressed;
+        ultimateInput.action.started += abilityInputs[AbilityType.Ultimate].OnButtonPressed;
 
-        primaryInput.action.canceled += primaryAbilityInput.OnButtonReleased;
-        secondaryInput.action.canceled += secondaryAbilityInput.OnButtonReleased;
-        utilityInput.action.canceled += utilityAbilityInput.OnButtonReleased;
-        ultimateInput.action.canceled += ultimateAbilityInput.OnButtonReleased;
+        primaryInput.action.canceled += abilityInputs[AbilityType.Primary].OnButtonReleased;
+        secondaryInput.action.canceled += abilityInputs[AbilityType.Secondary].OnButtonReleased;
+        utilityInput.action.canceled += abilityInputs[AbilityType.Utility].OnButtonReleased;
+        ultimateInput.action.canceled += abilityInputs[AbilityType.Ultimate].OnButtonReleased;
 
         interactInput.action.started += OnInteractionInputPerformed;
         exitVehicleInput.action.performed += OnExitVehicleInputPerformed;
+
+        abilityController.onAbilityOverriden += ResetInputState;
 
         gameInputEnabled = true;
     }
@@ -156,18 +156,20 @@ public class PlayerController : MonoBehaviour
         moveInput.action.performed -= OnMovementInputPerformed;
         moveInput.action.canceled -= OnMovementInputCanceled;
 
-        primaryInput.action.started -= primaryAbilityInput.OnButtonPressed;
-        secondaryInput.action.started -= secondaryAbilityInput.OnButtonPressed;
-        utilityInput.action.started -= utilityAbilityInput.OnButtonPressed;
-        ultimateInput.action.started -= ultimateAbilityInput.OnButtonPressed;
+        primaryInput.action.started -= abilityInputs[AbilityType.Primary].OnButtonPressed;
+        secondaryInput.action.started -= abilityInputs[AbilityType.Secondary].OnButtonPressed;
+        utilityInput.action.started -= abilityInputs[AbilityType.Utility].OnButtonPressed;
+        ultimateInput.action.started -= abilityInputs[AbilityType.Ultimate].OnButtonPressed;
 
-        primaryInput.action.canceled -= primaryAbilityInput.OnButtonReleased;
-        secondaryInput.action.canceled -= secondaryAbilityInput.OnButtonReleased;
-        utilityInput.action.canceled -= utilityAbilityInput.OnButtonReleased;
-        ultimateInput.action.canceled -= ultimateAbilityInput.OnButtonReleased;
+        primaryInput.action.canceled -= abilityInputs[AbilityType.Primary].OnButtonReleased;
+        secondaryInput.action.canceled -= abilityInputs[AbilityType.Secondary].OnButtonReleased;
+        utilityInput.action.canceled -= abilityInputs[AbilityType.Utility].OnButtonReleased;
+        ultimateInput.action.canceled -= abilityInputs[AbilityType.Ultimate].OnButtonReleased;
 
         interactInput.action.started -= OnInteractionInputPerformed;
         exitVehicleInput.action.performed -= OnExitVehicleInputPerformed;
+
+        abilityController.onAbilityOverriden -= ResetInputState;
 
         entityMove.StopMoving();
         gameInputEnabled = false;
@@ -185,10 +187,15 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAbilityInputs()
     {
-        primaryAbilityInput.Update();
-        secondaryAbilityInput.Update();
-        utilityAbilityInput.Update();
-        ultimateAbilityInput.Update();
+        foreach (AbilityInput abilityInput in abilityInputs.Values)
+        {
+            abilityInput.Update();
+        }
+    }
+
+    private void ResetInputState(AbilityController.AbilityOverrideData abilityOverrideData)
+    {
+        abilityInputs[abilityOverrideData.overridenAbility.Type].ResetInputState();
     }
 
     private void OnMovementInputPerformed(InputAction.CallbackContext context)
@@ -229,6 +236,11 @@ public class AbilityInput
     {
         this.action = action;
         this.abilityType = abilityType;
+    }
+
+    public void ResetInputState()
+    {
+        held = false;
     }
 
     public void OnButtonPressed(InputAction.CallbackContext _)

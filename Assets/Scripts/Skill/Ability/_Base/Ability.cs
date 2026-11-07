@@ -259,6 +259,8 @@ namespace Zeke.Abilities
 
         private void Activate(bool holding)
         {
+            bool resetCooldown = Charges == MaxCharges;
+
             SetCharges(Charges - 1);
 
             for (int i = 0; i < modules.Count; i++)
@@ -266,15 +268,8 @@ namespace Zeke.Abilities
                 modules[i].Activate(holding);
             }
 
-            if (Charges == MaxCharges)
-            {
-                CooldownTimer = 0f;
-            }
-
-            if (UsesDuration)
-            {
-                DurationActive = true;
-            }
+            if (resetCooldown) CooldownTimer = 0f;
+            if (UsesDuration) DurationActive = true;
         }
 
         private void Deactivate()
