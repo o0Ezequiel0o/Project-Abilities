@@ -7,6 +7,8 @@ namespace Zeke.Abilities.Indicators
     {
         private readonly List<AbilityIndicatorModule> modules = new List<AbilityIndicatorModule>();
 
+        public readonly AbilityIndicatorData data;
+
         public float FirstHideTime => firstHideTime;
         public float LastHideTime => lastHideTime;
 
@@ -14,6 +16,11 @@ namespace Zeke.Abilities.Indicators
         private float lastHideTime = 0f;
 
         private float timer = 0f;
+
+        public AbilityIndicator(AbilityIndicatorData data)
+        {
+            this.data = data;
+        }
 
         public void Initialize(GameObject source, Transform spawn, List<AbilityIndicatorModule> modules, AbilityIndicatorSettings settings)
         {
@@ -80,14 +87,12 @@ namespace Zeke.Abilities.Indicators
             }
         }
 
-        public void Reset(GameObject source)
+        public void Enable()
         {
             for (int i = 0; i < modules.Count; i++)
             {
-                modules[i].Reset(source);
+                modules[i].Enable();
             }
-
-            timer = 0f;
         }
 
         public void Disable()
@@ -96,6 +101,16 @@ namespace Zeke.Abilities.Indicators
             {
                 modules[i].Disable();
             }
+        }
+
+        public void Reset(GameObject source, Transform castTransform)
+        {
+            for (int i = 0; i < modules.Count; i++)
+            {
+                modules[i].Reset(source, castTransform);
+            }
+
+            timer = 0f;
         }
 
         public void Destroy()

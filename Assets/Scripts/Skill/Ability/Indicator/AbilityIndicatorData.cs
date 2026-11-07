@@ -11,7 +11,7 @@ namespace Zeke.Abilities.Indicators
 
         public AbilityIndicator CreateAbilityIndicator(GameObject source, Transform castTransform)
         {
-            AbilityIndicator abilityIndicator = new AbilityIndicator();
+            AbilityIndicator abilityIndicator = new AbilityIndicator(this);
             abilityIndicator.Initialize(source, castTransform, modules, settings);
 
             return abilityIndicator;
