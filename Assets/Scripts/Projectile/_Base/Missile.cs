@@ -33,7 +33,7 @@ public class Missile : BasicProjectile
 
     protected void Awake()
     {
-        filter = target => TeamManager.IsEnemy(SourceUser, target);
+        filter = target => TeamManager.Instance.IsEnemy(SourceUser, target);
     }
 
     public override void OnRetrievedFromPool()

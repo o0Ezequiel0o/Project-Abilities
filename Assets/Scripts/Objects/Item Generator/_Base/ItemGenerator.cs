@@ -42,7 +42,7 @@ namespace Zeke.Items
 
         private readonly List<UIWindow> spawnedOptionWindows = new List<UIWindow>();
 
-        private readonly GameInstance.PauseID pauseID = new();
+        private readonly Run.PauseID pauseID = new Run.PauseID();
 
         private bool interactionEnabled = true;
 
@@ -68,7 +68,7 @@ namespace Zeke.Items
 
         protected virtual void Start()
         {
-            int newValue = Mathf.FloorToInt(baseCost * GameInstance.CostMultiplier);
+            int newValue = Mathf.FloorToInt(baseCost * Run.Instance.CostMultiplier);
 
             if (baseCost >= 1 && newValue <= 0)
             {
@@ -122,7 +122,7 @@ namespace Zeke.Items
 
         private void CreateOptionsUIWindow(List<ItemData> generatedItems, GameObject source)
         {
-            windowInstance = Instantiate(itemSelectionWindow, GameInstance.ScreenCanvas.transform);
+            windowInstance = Instantiate(itemSelectionWindow, Run.Instance.ScreenCanvas.transform);
             LayoutGroup layoutGroupRoot = windowInstance.TryGetElement<LayoutGroup>("Layout Group");
 
             for (int i = 0; i < generatedItems.Count; i++)
@@ -132,7 +132,7 @@ namespace Zeke.Items
                 spawnedOptionWindows.Add(window);
             }
 
-            GameInstance.Pause(pauseID);
+            Run.Instance.Pause(pauseID);
         }
 
         private UIWindow CreateItemOptionUIWindow(Transform root, ItemData generatedItem, GameObject source)
@@ -191,7 +191,7 @@ namespace Zeke.Items
                 windowInstance.DestroyWindow();
             }
 
-            GameInstance.Unpause(pauseID);
+            Run.Instance.Unpause(pauseID);
         }
 
         private void PlayOptionAppearAnimation(GameObject window, float delay)

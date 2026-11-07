@@ -6,16 +6,16 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        GameInstance.PlayerSpawned(this);
+        Run.Instance.PlayerSpawned(this);
     }
 
     private void OnEnable()
     {
-        GameInstance.AddPlayer(this);
+        Run.Instance.AddPlayer(this);
     }
 
     private void OnDisable()
     {
-        GameInstance.RemovePlayer(this);
+        Run.Instance.RemovePlayer(this);
     }
 }

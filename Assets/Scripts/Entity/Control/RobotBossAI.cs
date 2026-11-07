@@ -55,7 +55,7 @@ public class RobotBossAI : MonoBehaviour
 
     private void OnDamageTaken(Damageable.DamageEvent damageEvent)
     {
-        if (TeamManager.IsAlly(damageEvent.SourceUser, gameObject)) return;
+        if (TeamManager.Instance.IsAlly(damageEvent.SourceUser, gameObject)) return;
 
         if (damageEvent.SourceUser == null) return;
 
@@ -255,7 +255,7 @@ public class RobotBossIdleState : RobotBossBaseState
 
     private bool TryGetRandomTarget(out Transform target)
     {
-        GameObject enemy = TeamManager.GetRandomEnemy(gameObject);
+        GameObject enemy = TeamManager.Instance.GetRandomEnemy(gameObject);
         target = null;
 
         if (enemy != null)
@@ -637,7 +637,7 @@ public class RobotBossSecondaryAttackState : RobotBossBaseState
     private bool TargetFilter(GameObject target)
     {
         if (target == gameObject) return false;
-        if (TeamManager.IsAlly(gameObject, target)) return false;
+        if (TeamManager.Instance.IsAlly(gameObject, target)) return false;
 
         return true;
     }

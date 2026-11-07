@@ -249,7 +249,7 @@ public class BodyguardProtectState : BodyguardBaseState
         entityMove = gameObject.GetComponent<EntityMove>();
         entityAim = gameObject.GetComponent<EntityAim>();
 
-        filter = target => TeamManager.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
+        filter = target => TeamManager.Instance.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
     }
 
     public override void DestroyState(BodyguardStateContext context) { }
@@ -265,7 +265,7 @@ public class BodyguardProtectState : BodyguardBaseState
 
     public override void UpdateState(BodyguardStateContext context)
     {
-        if (TargetsInFleetingRange(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, target => TeamManager.IsEnemy(gameObject, target)))
+        if (TargetsInFleetingRange(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, target => TeamManager.Instance.IsEnemy(gameObject, target)))
         {
             stateMachine.ChangeState(stateMachine.fleeState);
             return;
@@ -332,7 +332,7 @@ public class BodyguardAttackState : BodyguardBaseState
         abilityController = gameObject.GetComponent<AbilityController>();
         projectileDetector = gameObject.GetComponentInChildren<ProjectileDetector>();
 
-        filter = target => TeamManager.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
+        filter = target => TeamManager.Instance.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
     }
 
     public override void DestroyState(BodyguardStateContext context) { }
@@ -370,7 +370,7 @@ public class BodyguardAttackState : BodyguardBaseState
             return;
         }
 
-        if (TargetsInFleetingRange(transform.position, context.ai.EngageRange, context.ai.TargetLayers, target => TeamManager.IsEnemy(gameObject, target)))
+        if (TargetsInFleetingRange(transform.position, context.ai.EngageRange, context.ai.TargetLayers, target => TeamManager.Instance.IsEnemy(gameObject, target)))
         {
             stateMachine.ChangeState(stateMachine.fleeState);
             return;
@@ -409,7 +409,7 @@ public class BodyguardFleeState : BodyguardBaseState
 
         abilityController = gameObject.GetComponent<AbilityController>();
 
-        filter = target => TeamManager.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
+        filter = target => TeamManager.Instance.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
     }
 
     public override void DestroyState(BodyguardStateContext context) { }
@@ -482,7 +482,7 @@ public class BodyguardIdleState : BodyguardBaseState
         this.stateMachine = stateMachine;
 
         entityAim = gameObject.GetComponent<EntityAim>();
-        filter = target => TeamManager.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
+        filter = target => TeamManager.Instance.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
     }
 
     public override void DestroyState(BodyguardStateContext context) { }
@@ -501,7 +501,7 @@ public class BodyguardIdleState : BodyguardBaseState
             return;
         }
 
-        if (TargetsInFleetingRange(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, target => TeamManager.IsEnemy(gameObject, target)))
+        if (TargetsInFleetingRange(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, target => TeamManager.Instance.IsEnemy(gameObject, target)))
         {
             stateMachine.ChangeState(stateMachine.fleeState);
             return;
@@ -546,7 +546,7 @@ public class BodyguardReturnState : BodyguardBaseState
         entityMove = gameObject.GetComponent<EntityMove>();
         entityAim = gameObject.GetComponent<EntityAim>();
 
-        filter = target => TeamManager.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
+        filter = target => TeamManager.Instance.IsEnemy(gameObject, target) && TargetAwareness.HasLineOfSight(transform.position, target.transform.position, context.ai.BlockLayers);
     }
 
     public override void DestroyState(BodyguardStateContext context) { }
@@ -569,7 +569,7 @@ public class BodyguardReturnState : BodyguardBaseState
 
         if ((timer >= context.ai.ReturnLockStateTime || reachedTargetOnce) && ProtectTargetOutOfRange(transform.position, context))
         {
-            if (TargetsInFleetingRange(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, target => TeamManager.IsEnemy(gameObject, target)))
+            if (TargetsInFleetingRange(transform.position, context.ai.FleetingRange, context.ai.TargetLayers, target => TeamManager.Instance.IsEnemy(gameObject, target)))
             {
                 stateMachine.ChangeState(stateMachine.fleeState);
                 return;

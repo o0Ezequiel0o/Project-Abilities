@@ -56,7 +56,7 @@ namespace Zeke.Items
 
             for (int i = 0; i < hits.Count; i++)
             {
-                if (TeamManager.IsAlly(source, hits[i].gameObject)) continue;
+                if (TeamManager.Instance.IsAlly(source, hits[i].gameObject)) continue;
 
                 if (hits[i].TryGetComponent(out Damageable damageable))
                 {

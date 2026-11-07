@@ -54,7 +54,7 @@ public class RangedAI : MonoBehaviour
 
     private void OnDamageTaken(Damageable.DamageEvent damageEvent)
     {
-        if (TeamManager.IsAlly(damageEvent.SourceUser, gameObject)) return;
+        if (TeamManager.Instance.IsAlly(damageEvent.SourceUser, gameObject)) return;
 
         if (damageEvent.SourceUser == null) return;
 
@@ -207,7 +207,7 @@ public class RangedIdleState : RangedBaseState
 
     private bool TryGetRandomTarget(out Transform target)
     {
-        GameObject enemy = TeamManager.GetRandomEnemy(gameObject);
+        GameObject enemy = TeamManager.Instance.GetRandomEnemy(gameObject);
         target = null;
 
         if (enemy != null)

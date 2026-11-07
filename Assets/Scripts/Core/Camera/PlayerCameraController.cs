@@ -15,9 +15,9 @@ public class PlayerCameraController : MonoBehaviour
 
     private void Update()
     {
-        if (GameInstance.IsPaused) return;
+        if (Run.Instance.IsPaused) return;
 
-        if (HasTarget && GameInstance.MainCamera != null)
+        if (HasTarget && Run.Instance.MainCamera != null)
         {
             Follow();
         }
@@ -25,11 +25,11 @@ public class PlayerCameraController : MonoBehaviour
 
     private void Follow()
     {
-        Vector3 targetPos = (target.position + GameInstance.MouseWorldPosition) / 2;
+        Vector3 targetPos = (target.position + Run.Instance.MouseWorldPosition) / 2;
 
         targetPos.x = Mathf.Clamp(targetPos.x, -threshold.x + target.position.x, threshold.x + target.position.x);
         targetPos.y = Mathf.Clamp(targetPos.y, -threshold.y + target.position.y, threshold.y + target.position.y);
-        targetPos.z = GameInstance.MainCamera.transform.position.z;
+        targetPos.z = Run.Instance.MainCamera.transform.position.z;
 
         transform.position = targetPos;
     }

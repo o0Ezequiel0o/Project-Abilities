@@ -19,7 +19,7 @@ namespace Zeke.Abilities.Modules.Projectiles
 
         public override void LaunchProjectile(Vector3 position, Vector3 direction, DamageData damageData, float knockback, float speed, float maxRange, GameObject source, Teams team)
         {
-            Transform target = TargetAwareness.GetClosestTargetToDirection(position, direction, data.TargetRange, data.TargetLayer, data.BlockLayer, target => TeamManager.IsEnemy(source, target));
+            Transform target = TargetAwareness.GetClosestTargetToDirection(position, direction, data.TargetRange, data.TargetLayer, data.BlockLayer, target => TeamManager.Instance.IsEnemy(source, target));
             HomingOrbProjectile projectile = projectilePool.Get(data.Prefab);
             projectile.Launch(position, speed, direction, maxRange, damageData, knockback, pierce.ValueInt, target, source, team);
             projectile.gameObject.SetActive(true);

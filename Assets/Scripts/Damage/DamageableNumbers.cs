@@ -34,7 +34,7 @@ public class DamageableNumbers : MonoBehaviour
 
     private void Update()
     {
-        UpdateCurrentOffset(currentYoffset + (DamageNumbersManager.Config.FloatSpeed * Time.deltaTime));
+        UpdateCurrentOffset(currentYoffset + (DamageNumbersManager.Instance.Config.FloatSpeed * Time.deltaTime));
     }
 
     private void SubscribeToEvents()
@@ -50,7 +50,7 @@ public class DamageableNumbers : MonoBehaviour
     {
         Vector2 spawnOffset = new Vector2(Random.Range(-xRandom, xRandom), currentYoffset);
 
-        DamageNumbersManager.DisplayDamageNumber(transform.position, gameObject, damageEvent.UncappedDamageDealt, displaySize, spawnOffset);
+        DamageNumbersManager.Instance.DisplayDamageNumber(transform.position, gameObject, damageEvent.UncappedDamageDealt, displaySize, spawnOffset);
         UpdateCurrentOffset(currentYoffset - yLower);
     }
 
@@ -58,7 +58,7 @@ public class DamageableNumbers : MonoBehaviour
     {
         Vector2 spawnOffset = new Vector2(Random.Range(-xRandom, xRandom), currentYoffset);
 
-        DamageNumbersManager.DisplayHealNumber(transform.position, gameObject, healEvent.UncappedHealing, displaySize, spawnOffset);
+        DamageNumbersManager.Instance.DisplayHealNumber(transform.position, gameObject, healEvent.UncappedHealing, displaySize, spawnOffset);
         UpdateCurrentOffset(currentYoffset - yLower);
     }
 

@@ -34,7 +34,7 @@ namespace Zeke.Items
         private UIWindow windowInstance;
         private ItemData reward;
 
-        private readonly GameInstance.PauseID pauseID = new();
+        private readonly Run.PauseID pauseID = new Run.PauseID();
 
         public bool CanSelect(GameObject source)
         {
@@ -75,9 +75,9 @@ namespace Zeke.Items
 
         private void CreateMenu(GameObject source)
         {
-            GameInstance.Pause(pauseID);
+            Run.Instance.Pause(pauseID);
 
-            windowInstance = Instantiate(duplicatorWindow, GameInstance.ScreenCanvas.transform);
+            windowInstance = Instantiate(duplicatorWindow, Run.Instance.ScreenCanvas.transform);
 
             LoadCostPanelData();
             LoadRewardPanelData();
@@ -160,7 +160,7 @@ namespace Zeke.Items
             //cache this somehow and then update it for optimization
             Destroy(windowInstance.gameObject);
 
-            GameInstance.Unpause(pauseID);
+            Run.Instance.Unpause(pauseID);
         }
     }
 }

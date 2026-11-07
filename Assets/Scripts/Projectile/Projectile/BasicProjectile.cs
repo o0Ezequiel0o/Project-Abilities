@@ -12,7 +12,7 @@ public class BasicProjectile : DamageProjectileBase
 
         if (receiver == SourceUser) return;
 
-        if (TeamManager.IsEnemy(Team, receiver) || allyDamage)
+        if (TeamManager.Instance.IsEnemy(Team, receiver) || allyDamage)
         {
             Hit(receiver);
             TeleportToHitPoint(hit.point);

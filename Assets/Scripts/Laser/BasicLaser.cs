@@ -5,7 +5,7 @@ public class FireBasicLaser : Laser
 {
     protected override void OnCollision(GameObject hit)
     {
-        if (TeamManager.IsAlly(source, hit)) return;
+        if (TeamManager.Instance.IsAlly(source, hit)) return;
 
         if (hit.TryGetComponent(out Damageable damageable))
         {

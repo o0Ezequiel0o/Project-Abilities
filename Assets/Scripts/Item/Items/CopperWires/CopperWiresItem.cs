@@ -111,7 +111,7 @@ namespace Zeke.Items
                 return false;
             }
 
-            if (TeamManager.IsAlly(source, target))
+            if (TeamManager.Instance.IsAlly(source, target))
             {
                 return false;
             }

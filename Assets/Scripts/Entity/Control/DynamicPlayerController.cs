@@ -71,8 +71,8 @@ public class DynamicPlayerController : MonoBehaviour
         utilityAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Utility);
         ultimateAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Ultimate);
 
-        GameInstance.onPause += OnPaused;
-        GameInstance.onResume += OnResumed;
+        Run.Instance.onPause += OnPaused;
+        Run.Instance.onResume += OnResumed;
     }
 
     private void Update()
@@ -188,7 +188,7 @@ public class DynamicPlayerController : MonoBehaviour
 
     private void UpdateAimDirection()
     {
-        entityAim.AimTowards(((Vector2)(GameInstance.MouseWorldPosition - center.position)).normalized);
+        entityAim.AimTowards(((Vector2)(Run.Instance.MouseWorldPosition - center.position)).normalized);
     }
 
     private void UpdateAbilityInputs()

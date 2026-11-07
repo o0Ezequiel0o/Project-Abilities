@@ -37,7 +37,7 @@ namespace Zeke.Abilities.Modules
             for (int i = 0; i < hits.Count; i++)
             {
                 if (hits[i].collider.gameObject == source) continue;
-                if (TeamManager.IsAlly(hits[i].collider.gameObject, source)) continue;
+                if (TeamManager.Instance.IsAlly(hits[i].collider.gameObject, source)) continue;
 
                 float forceMultiplier = data.ScaleWithDistance ? Vector2.Distance(source.transform.position, hits[i].point) / radius.Value : 1f;
 

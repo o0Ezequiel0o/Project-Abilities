@@ -28,7 +28,7 @@ public class PiercingProjectile : DamageProjectileBase
         if (receiver == SourceUser) return;
         if (objectsNotExited.Contains(hit.collider.gameObject)) return;
 
-        if (TeamManager.IsEnemy(Team, receiver))
+        if (TeamManager.Instance.IsEnemy(Team, receiver))
         {
             Hit(hit.transform.gameObject);
         }

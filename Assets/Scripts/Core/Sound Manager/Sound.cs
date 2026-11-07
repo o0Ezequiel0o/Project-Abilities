@@ -9,6 +9,6 @@ public class Sound : ScriptableObject
 
     public void PlaySound()
     {
-        SoundManager.PlaySound(this);
+        SoundManager.Instance.PlaySound(this);
     }
 }

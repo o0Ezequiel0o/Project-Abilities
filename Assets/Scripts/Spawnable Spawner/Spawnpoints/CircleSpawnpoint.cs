@@ -17,7 +17,7 @@ public class CircleSpawnpoint : Spawnpoint
 
         for (int i = 0; i < hits.Count; i++)
         {
-            if (TeamManager.IsEnemy(team, hits[i].gameObject))
+            if (TeamManager.Instance.IsEnemy(team, hits[i].gameObject))
             {
                 onFinishedProcessing?.Invoke(true);
             }

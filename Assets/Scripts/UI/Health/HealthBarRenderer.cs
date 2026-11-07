@@ -47,7 +47,7 @@ public class HealthBarRenderer : MonoBehaviour
 
     private void SpawnHealthBar()
     {
-        Canvas worldCanvas = GameInstance.WorldCanvas;
+        Canvas worldCanvas = Run.Instance.WorldCanvas;
 
         if (worldCanvas == null) return;
 

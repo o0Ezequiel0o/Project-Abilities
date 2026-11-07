@@ -30,7 +30,7 @@ namespace Zeke.Abilities
 
             if (inside)
             {
-                Tooltip.Hide();
+                Tooltip.Instance.Hide();
             }
         }
 
@@ -40,7 +40,7 @@ namespace Zeke.Abilities
 
             if (tooltipLinksDB.TryGetValue(linkHoverEventInfo.id, out TooltipLinksDB.TooltipInfo toolTipInfo))
             {
-                Tooltip.Show(toolTipInfo.description);
+                Tooltip.Instance.Show(toolTipInfo.description);
             }
 
             inside = true;
@@ -50,7 +50,7 @@ namespace Zeke.Abilities
         {
             if (!inside) return;
 
-            Tooltip.Hide();
+            Tooltip.Instance.Hide();
             inside = false;
         }
     }

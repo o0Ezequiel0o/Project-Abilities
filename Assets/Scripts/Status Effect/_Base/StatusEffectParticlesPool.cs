@@ -3,18 +3,18 @@ using UnityEngine;
 using System;
 using Zeke.PoolableGameObjects;
 
-public class StatusEffectParticlesPool : Singleton<StatusEffectParticlesPool>
+public class StatusEffectParticlesPool : GameService<StatusEffectParticlesPool>
 {
     [SerializeField] private List<PreparedEffects> preparedEffects;
 
     private readonly Dictionary<GameObject, GameObjectPool<ParticleController>> particlePools = new Dictionary<GameObject, GameObjectPool<ParticleController>>();
 
-    public static ParticleController Get(ParticleController controller)
+    public ParticleController Get(ParticleController controller)
     {
         return Get(controller, null);
     }
 
-    public static ParticleController Get(ParticleController controller, Transform parent)
+    public ParticleController Get(ParticleController controller, Transform parent)
     {
         if (!Instance.particlePools.TryGetValue(controller.gameObject, out GameObjectPool<ParticleController> pool))
         {
@@ -24,7 +24,7 @@ public class StatusEffectParticlesPool : Singleton<StatusEffectParticlesPool>
         return Instance.particlePools[controller.gameObject].Get(controller, parent);
     }
 
-    protected override void OnInitialization()
+    protected override void InitializeService()
     {
         for (int i = 0; i < preparedEffects.Count; i++)
         {

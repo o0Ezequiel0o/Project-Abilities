@@ -41,8 +41,8 @@ namespace Zeke.Items
 
         private void SpawnInterfacesInCanvas()
         {
-            itemsInterface = Instantiate(itemsInterfacePrefab, GameInstance.ScreenCanvas.transform);
-            itemsMenuInterface = Instantiate(itemsInterfaceMenuPrefab, GameInstance.ScreenCanvas.transform);
+            itemsInterface = Instantiate(itemsInterfacePrefab, Run.Instance.ScreenCanvas.transform);
+            itemsMenuInterface = Instantiate(itemsInterfaceMenuPrefab, Run.Instance.ScreenCanvas.transform);
         }
 
         private void SubscribeToEvents()

@@ -43,7 +43,7 @@ public class CollisionDamageReceiver : MonoBehaviour
         {
             GameObject hit = hits[i].gameObject;
 
-            if (TeamManager.IsEnemy(gameObject, hit) && hit.TryGetComponent(out CollisionDamage collisionDamage))
+            if (TeamManager.Instance.IsEnemy(gameObject, hit) && hit.TryGetComponent(out CollisionDamage collisionDamage))
             {
                 collisionDamage.DealDamage(gameObject);
             }

@@ -93,7 +93,7 @@ namespace Zeke.Items
                 ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.HitLayers, useLayerMask = true };
                 for (int i = 0; i < Physics2D.OverlapCircle(source.transform.position, data.Radius.GetValue(stacks), contactFilter, hits); i++)
                 {
-                    if (TeamManager.IsEnemy(hits[i].gameObject, source)) continue;
+                    if (TeamManager.Instance.IsEnemy(hits[i].gameObject, source)) continue;
 
                     if (hits[i].TryGetComponent(out Damageable damageable))
                     {

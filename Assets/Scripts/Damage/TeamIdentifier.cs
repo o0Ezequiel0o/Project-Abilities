@@ -11,18 +11,18 @@ namespace Zeke.TeamSystem
 
         public void ChangeTeam(Teams team)
         {
-            TeamManager.ChangeTeams(gameObject, team);
+            TeamManager.Instance.ChangeTeams(gameObject, team);
             this.team = team;
         }
 
         private void OnEnable()
         {
-            TeamManager.Add(gameObject, this);
+            TeamManager.Instance.Add(gameObject, this);
         }
 
         private void OnDisable()
         {
-            TeamManager.Remove(gameObject, this);
+            TeamManager.Instance.Remove(gameObject, this);
         }
     }
 

@@ -115,7 +115,7 @@ public class TurretIdleState : State<TurretStateContext>
         this.stateMachine = stateMachine;
 
         entityAim = gameObject.GetComponent<EntityAim>();
-        filter = target => TeamManager.IsEnemy(gameObject, target);
+        filter = target => TeamManager.Instance.IsEnemy(gameObject, target);
     }
 
     public override void DestroyState(TurretStateContext context) { }
@@ -154,7 +154,7 @@ public class TurretAttackState : State<TurretStateContext>
         entityAim = gameObject.GetComponent<EntityAim>();
         abilityController = gameObject.GetComponent<AbilityController>();
 
-        IsEnemy = target => TeamManager.IsEnemy(gameObject, target);
+        IsEnemy = target => TeamManager.Instance.IsEnemy(gameObject, target);
     }
 
     public override void DestroyState(TurretStateContext context) { }

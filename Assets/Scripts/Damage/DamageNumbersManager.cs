@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageNumbersManager : Singleton<DamageNumbersManager>
+public class DamageNumbersManager : GameService<DamageNumbersManager>
 {
     [Header("Settings")]
     [SerializeField] private DamageNumber damageNumberPrefab;
@@ -11,36 +11,36 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
     [Header("Config")]
     [SerializeField] private DamageNumbersConfig config;
 
-    public static DamageNumbersConfig Config => Instance.config;
+    public DamageNumbersConfig Config => Instance.config;
 
-    public static float Duration => Duration;
+    public float Duration => Duration;
 
     private readonly Stack<DamageNumberData> inactiveDamageNumbers = new Stack<DamageNumberData>();
     private readonly List<DamageNumberData> activeDamageNumbers = new List<DamageNumberData>();
 
     private float currentTime = 0f;
 
-    public static void DisplayDamageNumber(Vector3 position, GameObject receiver, float value, float size)
+    public void DisplayDamageNumber(Vector3 position, GameObject receiver, float value, float size)
     {
         DisplayDamageNumber(position, receiver, value, size, Vector2.zero);
     }
 
-    public static void DisplayHealNumber(Vector3 position, GameObject receiver, float value, float size)
+    public void DisplayHealNumber(Vector3 position, GameObject receiver, float value, float size)
     {
         DisplayHealNumber(position, receiver, value, size, Vector2.zero);
     }
 
-    public static void DisplayDamageNumber(Vector3 position, GameObject receiver, float value, float size, Vector2 offset)
+    public void DisplayDamageNumber(Vector3 position, GameObject receiver, float value, float size, Vector2 offset)
     {
         DisplayNumber(position, receiver, value, size, offset, Instance.config.DefaultDamageColor);
     }
 
-    public static void DisplayHealNumber(Vector3 position, GameObject receiver, float value, float size, Vector2 offset)
+    public void DisplayHealNumber(Vector3 position, GameObject receiver, float value, float size, Vector2 offset)
     {
         DisplayNumber(position, receiver, value, size, offset, Instance.config.DefaultHealColor);
     }
 
-    private static void DisplayNumber(Vector3 position, GameObject receiver, float value, float size, Vector2 offset, Color color)
+    private void DisplayNumber(Vector3 position, GameObject receiver, float value, float size, Vector2 offset, Color color)
     {
         DamageNumberData damageNumber;
 
@@ -75,12 +75,12 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
         UpdateAndRemoveActiveNumbers();
     }
 
-    private static DamageNumber CreateDamageNumber()
+    private DamageNumber CreateDamageNumber()
     {
-        return Instantiate(Instance.damageNumberPrefab, GameInstance.WorldCanvas.transform);
+        return Instantiate(Instance.damageNumberPrefab, Run.Instance.WorldCanvas.transform);
     }
 
-    private static void ActivateDamageNumber(DamageNumberData damageNumberData, GameObject receiver, Vector2 offset)
+    private void ActivateDamageNumber(DamageNumberData damageNumberData, GameObject receiver, Vector2 offset)
     {
         damageNumberData.Initialize(receiver, Instance.currentTime, Instance.duration, offset);
 
@@ -90,7 +90,7 @@ public class DamageNumbersManager : Singleton<DamageNumbersManager>
         Instance.activeDamageNumbers.Add(damageNumberData);
     }
 
-    private static void InitializeDamageNumber(DamageNumber damageNumber, Vector3 position, float damage, float size, Color color)
+    private void InitializeDamageNumber(DamageNumber damageNumber, Vector3 position, float damage, float size, Color color)
     {
         damageNumber.Initialize(damage, size, color);
         damageNumber.UpdateAlpha(Instance.config.StartAlpha);

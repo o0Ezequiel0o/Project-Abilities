@@ -15,20 +15,20 @@ public class ClampToLevelBounds : MonoBehaviour
 
     private void Awake()
     {
-        GlobalEventBus.Subscribe<GameLevelHandler.LevelLoadedEvent>(OnLevelLoaded);
+        GlobalEventBus.Subscribe<RunLevelHandler.LevelLoadedEvent>(OnLevelLoaded);
     }
 
     private void Start()
     {
         if (levelInstance == null)
         {
-            levelInstance = GameLevelHandler.CurrentLevelInstance;
+            levelInstance = RunLevelHandler.Instance.CurrentLevelInstance;
         }
     }
 
     private void OnDestroy()
     {
-        GlobalEventBus.Unsubscribe<GameLevelHandler.LevelLoadedEvent>(OnLevelLoaded);
+        GlobalEventBus.Unsubscribe<RunLevelHandler.LevelLoadedEvent>(OnLevelLoaded);
     }
 
     private void FixedUpdate()
@@ -62,7 +62,7 @@ public class ClampToLevelBounds : MonoBehaviour
         return (position <= boundsMin && velocity < 0) || (position >= boundsMax && velocity > 0);
     }
 
-    private void OnLevelLoaded(GameLevelHandler.LevelLoadedEvent @event)
+    private void OnLevelLoaded(RunLevelHandler.LevelLoadedEvent @event)
     {
         levelInstance = @event.level;
     }

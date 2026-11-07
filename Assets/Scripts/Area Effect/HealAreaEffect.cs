@@ -29,7 +29,7 @@ public class HealAreaEffect : AreaEffect
             GameObject receiver = hits[i].gameObject;
 
             if (receiver == source) continue;
-            if (TeamManager.IsEnemy(source, receiver)) continue;
+            if (TeamManager.Instance.IsEnemy(source, receiver)) continue;
 
             if (receiver.TryGetComponent(out Damageable damageable))
             {

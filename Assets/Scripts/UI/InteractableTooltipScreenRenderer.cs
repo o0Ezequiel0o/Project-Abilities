@@ -36,7 +36,7 @@ public class InteractableTooltipScreenRenderer : MonoBehaviour
 
     private void Awake()
     {
-        windowInstance = Instantiate(windowPrefab, GameInstance.ScreenCanvas.transform);
+        windowInstance = Instantiate(windowPrefab, Run.Instance.ScreenCanvas.transform);
 
         handler.onInteractableSelected += OnInteractableSelected;
         handler.onInteractableUnselected += OnInteractableUnselected;

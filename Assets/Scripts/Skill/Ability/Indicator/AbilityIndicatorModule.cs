@@ -118,7 +118,7 @@ namespace Zeke.Abilities.Indicators
         {
             attackIndicatorInstance = attackIndicator.CreateInstance(settings);
 
-            attackIndicatorInstance.transform.SetParent(GameInstance.WorldCanvas.transform);
+            attackIndicatorInstance.transform.SetParent(Run.Instance.WorldCanvas.transform);
             attackIndicatorInstance.gameObject.SetActive(false);
         }
 

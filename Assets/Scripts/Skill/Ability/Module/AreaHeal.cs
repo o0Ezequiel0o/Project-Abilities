@@ -28,7 +28,7 @@ namespace Zeke.Abilities.Modules
 
             for (int i = 0; i < hits.Count; i++)
             {
-                if (TeamManager.IsEnemy(source, hits[i].gameObject)) continue;
+                if (TeamManager.Instance.IsEnemy(source, hits[i].gameObject)) continue;
 
                 if (hits[i].TryGetComponent(out Damageable damageable))
                 {

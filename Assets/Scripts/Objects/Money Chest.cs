@@ -47,7 +47,7 @@ public class MoneyChest : MonoBehaviour, IInteractable, IInteractableTooltipRend
 
     private void Awake()
     {
-        int newValue = Mathf.FloorToInt(baseReward * GameInstance.CostMultiplier);
+        int newValue = Mathf.FloorToInt(baseReward * Run.Instance.CostMultiplier);
 
         if (baseReward >= 1 && newValue <= 0)
         {

@@ -29,7 +29,7 @@ namespace Zeke.Abilities.Ascendancy
 
         private bool interactionEnabled = true;
 
-        private readonly GameInstance.PauseID pauseID = new();
+        private readonly Run.PauseID pauseID = new Run.PauseID();
 
         private void Awake()
         {
@@ -44,14 +44,14 @@ namespace Zeke.Abilities.Ascendancy
 
         private void CreateOptionsWindow()
         {
-            windowInstance = Instantiate(optionsWindow, GameInstance.ScreenCanvas.transform);
+            windowInstance = Instantiate(optionsWindow, Run.Instance.ScreenCanvas.transform);
             AscendancyHandler.AscendanceElementInfo info = pending.Dequeue();
             pendingHash.Remove(info.key);
 
             CreateOriginalElement(info);
             PopulateOptionsWindow(info);
 
-            GameInstance.Pause(pauseID);
+            Run.Instance.Pause(pauseID);
 
             interactionEnabled = true;
         }
@@ -71,7 +71,7 @@ namespace Zeke.Abilities.Ascendancy
         {
             Destroy(windowInstance.gameObject);
             spawnedOptionWindows.Clear();
-            GameInstance.Unpause(pauseID);
+            Run.Instance.Unpause(pauseID);
         }
 
         private void OnCloseAnimationFinished()

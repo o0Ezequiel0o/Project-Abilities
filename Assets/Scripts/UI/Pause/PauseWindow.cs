@@ -6,7 +6,7 @@ public class PauseWindow : MonoBehaviour
 {
     [SerializeField] private UIWindow uiWindow;
 
-    private readonly GameInstance.PauseID pauseID = new GameInstance.PauseID();
+    private readonly Run.PauseID pauseID = new Run.PauseID();
 
     private void Reset()
     {
@@ -15,7 +15,7 @@ public class PauseWindow : MonoBehaviour
 
     private void Awake()
     {
-        uiWindow.onWindowOpened += (_) => GameInstance.Pause(pauseID);
-        uiWindow.onWindowClosed += (_) => GameInstance.Unpause(pauseID);
+        uiWindow.onWindowOpened += (_) => Run.Instance.Pause(pauseID);
+        uiWindow.onWindowClosed += (_) => Run.Instance.Unpause(pauseID);
     }
 }

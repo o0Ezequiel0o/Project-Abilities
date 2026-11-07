@@ -101,7 +101,7 @@ namespace Zeke.Abilities.Modules
             for (int i = 0; i < spawnedObjects.Count; i++)
             {
                 DamageData damageData = new DamageData(damage.Value, data.ArmorPenetration, data.ProcCoefficient);
-                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damageData, data.Knockback, pierce.ValueInt, source, TeamManager.GetTeam(source));
+                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damageData, data.Knockback, pierce.ValueInt, source, TeamManager.Instance.GetTeam(source));
                 spawnedObjects[i].ColliderEnabled = false;
             }
 
@@ -156,7 +156,7 @@ namespace Zeke.Abilities.Modules
             for (int i = 0; i < unfilteredTargetsInRange.Count; i++)
             {
                 if (unfilteredTargetsInRange[i].gameObject == source) continue;
-                if (TeamManager.IsAlly(unfilteredTargetsInRange[i].gameObject, source)) continue;
+                if (TeamManager.Instance.IsAlly(unfilteredTargetsInRange[i].gameObject, source)) continue;
 
                 targetsInRange.Add(unfilteredTargetsInRange[i].transform);
             }
@@ -209,7 +209,7 @@ namespace Zeke.Abilities.Modules
             spinnerInstance.RemoveFromPivot(homingOrb.transform);
 
             DamageData damageData = new DamageData(damage.Value, data.ArmorPenetration, data.ProcCoefficient);
-            homingOrb.Launch(homingOrb.transform.position, 5f, direction, maxRange.Value, damageData, pierce.ValueInt, source, TeamManager.GetTeam(source));
+            homingOrb.Launch(homingOrb.transform.position, 5f, direction, maxRange.Value, damageData, pierce.ValueInt, source, TeamManager.Instance.GetTeam(source));
 
             homingOrb.SetTarget(target);
             homingOrb.ColliderEnabled = true;

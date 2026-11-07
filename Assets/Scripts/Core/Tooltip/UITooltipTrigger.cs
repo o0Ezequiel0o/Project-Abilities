@@ -14,7 +14,7 @@ namespace Zeke.Tooltips
         {
             if (!inside)
             {
-                Tooltip.Show(description?.Invoke());
+                Tooltip.Instance.Show(description?.Invoke());
                 inside = true;
             }
         }
@@ -23,14 +23,14 @@ namespace Zeke.Tooltips
         {
             if (inside)
             {
-                Tooltip.Hide();
+                Tooltip.Instance.Hide();
                 inside = false;
             }
         }
 
         private void OnDisable()
         {
-            if (inside) Tooltip.Hide();
+            if (inside) Tooltip.Instance.Hide();
         }
     }
 }

@@ -32,7 +32,7 @@ public class LightingBoltProjectile : DamageProjectileBase
 
         if (receiver == SourceUser) return;
 
-        if (TeamManager.IsEnemy(Team, receiver))
+        if (TeamManager.Instance.IsEnemy(Team, receiver))
         {
             Hit(hit.transform.gameObject);
         }
@@ -67,7 +67,7 @@ public class LightingBoltProjectile : DamageProjectileBase
 
         for (int i = 0; i < hits.Count; i++)
         {
-            if (TeamManager.IsAlly(Team, hits[i].gameObject)) continue;
+            if (TeamManager.Instance.IsAlly(Team, hits[i].gameObject)) continue;
             if (ignoreTargets.Contains(hits[i].gameObject)) continue;
 
             Hit(hits[i].gameObject);

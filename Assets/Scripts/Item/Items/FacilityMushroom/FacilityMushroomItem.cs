@@ -51,7 +51,7 @@ namespace Zeke.Items
             int ticks = Mathf.Max(1, Mathf.FloorToInt(ability.CooldownTime));
 
             DamageData damageData = new DamageData(damage, data.ArmorPenetration, data.ProcCoefficient);
-            areaEffect.CreateAreaEffect(ticks, data.TickInterval, radius, damageData, source, TeamManager.GetTeam(source));
+            areaEffect.CreateAreaEffect(ticks, data.TickInterval, radius, damageData, source, TeamManager.Instance.GetTeam(source));
             areaEffect.transform.position = source.transform.position;
 
             areaEffect.gameObject.SetActive(true);

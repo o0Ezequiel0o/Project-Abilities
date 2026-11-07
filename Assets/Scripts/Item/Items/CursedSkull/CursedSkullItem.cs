@@ -45,7 +45,7 @@ namespace Zeke.Items
 
             if (summon.TryGetComponent(out TeamIdentifier teamIdentifier))
             {
-                teamIdentifier.ChangeTeam(TeamManager.GetTeam(source));
+                teamIdentifier.ChangeTeam(TeamManager.Instance.GetTeam(source));
             }
 
             int extraLevels = Mathf.FloorToInt(data.ExtraLevels.GetValue(stacks));

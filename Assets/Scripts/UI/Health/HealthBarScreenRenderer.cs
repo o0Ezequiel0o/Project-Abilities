@@ -20,7 +20,7 @@ public class HealthBarScreenRenderer : MonoBehaviour
 
     private void Awake()
     {
-        window = Instantiate(windowPrefab, GameInstance.ScreenCanvas.transform);
+        window = Instantiate(windowPrefab, Run.Instance.ScreenCanvas.transform);
         healthBar = window.TryGetElement<ScreenHealthBar>("Health Bar");
 
         damageable.onAnyHealthUpdate += UpdateBar;

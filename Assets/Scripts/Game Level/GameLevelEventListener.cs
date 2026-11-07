@@ -14,25 +14,25 @@ public class GameLevelEventListener : MonoBehaviour
 
     private void OnEnable()
     {
-        GlobalEventBus.Subscribe<GameLevelHandler.LevelLoadedEvent>(OnLevelLoadEvent);
-        GlobalEventBus.Subscribe<GameLevelHandler.LevelUnloadedEvent>(OnLevelUnloadEvent);
+        GlobalEventBus.Subscribe<RunLevelHandler.LevelLoadedEvent>(OnLevelLoadEvent);
+        GlobalEventBus.Subscribe<RunLevelHandler.LevelUnloadedEvent>(OnLevelUnloadEvent);
 
-        GlobalEventBus.Subscribe<GameLevelHandler.LevelStartEvent>(OnLevelStartEvent);
-        GlobalEventBus.Subscribe<GameLevelHandler.LevelEndEvent>(OnLevelEndEvent);
+        GlobalEventBus.Subscribe<RunLevelHandler.LevelStartEvent>(OnLevelStartEvent);
+        GlobalEventBus.Subscribe<RunLevelHandler.LevelEndEvent>(OnLevelEndEvent);
     }
 
     private void OnDisable()
     {
-        GlobalEventBus.Unsubscribe<GameLevelHandler.LevelLoadedEvent>(OnLevelLoadEvent);
-        GlobalEventBus.Subscribe<GameLevelHandler.LevelUnloadedEvent>(OnLevelUnloadEvent);
+        GlobalEventBus.Unsubscribe<RunLevelHandler.LevelLoadedEvent>(OnLevelLoadEvent);
+        GlobalEventBus.Subscribe<RunLevelHandler.LevelUnloadedEvent>(OnLevelUnloadEvent);
 
-        GlobalEventBus.Unsubscribe<GameLevelHandler.LevelStartEvent>(OnLevelStartEvent);
-        GlobalEventBus.Unsubscribe<GameLevelHandler.LevelEndEvent>(OnLevelEndEvent);
+        GlobalEventBus.Unsubscribe<RunLevelHandler.LevelStartEvent>(OnLevelStartEvent);
+        GlobalEventBus.Unsubscribe<RunLevelHandler.LevelEndEvent>(OnLevelEndEvent);
     }
 
-    private void OnLevelLoadEvent(GameLevelHandler.LevelLoadedEvent _) => onLevelLoaded?.Invoke();
-    private void OnLevelUnloadEvent(GameLevelHandler.LevelUnloadedEvent _) => onLevelUnloaded?.Invoke();
+    private void OnLevelLoadEvent(RunLevelHandler.LevelLoadedEvent _) => onLevelLoaded?.Invoke();
+    private void OnLevelUnloadEvent(RunLevelHandler.LevelUnloadedEvent _) => onLevelUnloaded?.Invoke();
 
-    private void OnLevelStartEvent(GameLevelHandler.LevelStartEvent _) => onLevelStarted?.Invoke();
-    private void OnLevelEndEvent(GameLevelHandler.LevelEndEvent _) => onLevelEnded?.Invoke();
+    private void OnLevelStartEvent(RunLevelHandler.LevelStartEvent _) => onLevelStarted?.Invoke();
+    private void OnLevelEndEvent(RunLevelHandler.LevelEndEvent _) => onLevelEnded?.Invoke();
 }

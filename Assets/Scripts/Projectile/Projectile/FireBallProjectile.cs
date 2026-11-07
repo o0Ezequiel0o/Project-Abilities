@@ -24,7 +24,7 @@ public class FireBallProjectile : DamageProjectileBase
 
         if (receiver == SourceUser) return;
 
-        if (TeamManager.IsEnemy(Team, receiver) || allyCollision)
+        if (TeamManager.Instance.IsEnemy(Team, receiver) || allyCollision)
         {
             TeleportToHitPoint(hit.point);
             StopLoopingHits();
@@ -54,7 +54,7 @@ public class FireBallProjectile : DamageProjectileBase
 
     void Hit(GameObject receiver)
     {
-        if (TeamManager.IsAlly(Team, receiver)) return;
+        if (TeamManager.Instance.IsAlly(Team, receiver)) return;
 
         if (Physics2D.Linecast(TipPosition, receiver.transform.position, blockLayer)) return;
 

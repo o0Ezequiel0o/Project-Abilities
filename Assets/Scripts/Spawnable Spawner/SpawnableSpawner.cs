@@ -55,7 +55,7 @@ public class SpawnableSpawner : MonoBehaviour
 
     private void UpdatePoints()
     {
-        float points = (basePointGeneration + pointGenerationDifficultyRatio * GameInstance.Difficulty) * Time.deltaTime;
+        float points = (basePointGeneration + pointGenerationDifficultyRatio * Run.Instance.Difficulty) * Time.deltaTime;
         currentPoints += points;
     }
 
@@ -155,7 +155,7 @@ public class SpawnableSpawner : MonoBehaviour
     {
         for (int i = cachedSpawnables.Count - 1; i >= 0; i--)
         {
-            if (GameInstance.Difficulty > cachedSpawnables[i].MaxDifficulty)
+            if (Run.Instance.Difficulty > cachedSpawnables[i].MaxDifficulty)
             {
                 RemoveCachedSpawnable(cachedSpawnables[i]);
             }
@@ -165,7 +165,7 @@ public class SpawnableSpawner : MonoBehaviour
 
         for (int i = 0; i < oldIndex; i++)
         {
-            if (GameInstance.Difficulty >= spawnables[i].MinDifficulty && GameInstance.Difficulty < spawnables[i].MaxDifficulty)
+            if (Run.Instance.Difficulty >= spawnables[i].MinDifficulty && Run.Instance.Difficulty < spawnables[i].MaxDifficulty)
             {
                 if (!cachedSpawnablesRef.ContainsValue(spawnables[i]))
                 {

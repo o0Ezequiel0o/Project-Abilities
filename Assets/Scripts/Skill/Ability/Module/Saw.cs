@@ -117,7 +117,7 @@ namespace Zeke.Abilities.Modules
 
         private void OnHit(GameObject gameObject)
         {
-            if (TeamManager.IsAlly(source, gameObject)) return;
+            if (TeamManager.Instance.IsAlly(source, gameObject)) return;
 
             if (gameObject.TryGetComponent(out Damageable damageable))
             {

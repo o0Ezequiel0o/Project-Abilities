@@ -22,7 +22,7 @@ public class MoneyAndLevelRenderer : MonoBehaviour
 
     private void Start()
     {
-        window = Instantiate(windowPrefab, GameInstance.ScreenCanvas.transform);
+        window = Instantiate(windowPrefab, Run.Instance.ScreenCanvas.transform);
 
         levelHandler.onLevelUp.Subscribe(UpdateLevel);
         moneyHandler.onUsedMoney.Subscribe(UpdateMoney);

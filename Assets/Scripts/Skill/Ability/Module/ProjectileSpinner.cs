@@ -49,7 +49,7 @@ namespace Zeke.Abilities.Modules
             for (int i = 0; i < spawnedObjects.Count; i++)
             {
                 DamageData damageData = new DamageData(damage.Value, data.ArmorPenetration, data.ProcCoefficient);
-                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damageData, pierce.ValueInt, source, TeamManager.GetTeam(source));
+                spawnedObjects[i].Launch(spawnedObjects[i].transform.position, 0f, Vector2.zero, Mathf.Infinity, damageData, pierce.ValueInt, source, TeamManager.Instance.GetTeam(source));
             }
         }
     }

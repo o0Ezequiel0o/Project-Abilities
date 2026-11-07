@@ -9,7 +9,7 @@ public class XPCheat : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            IReadOnlyList<Player> players = GameInstance.Players;
+            IReadOnlyList<Player> players = Run.Instance.Players;
 
             for (int i = 0; i < players.Count; i++)
             {

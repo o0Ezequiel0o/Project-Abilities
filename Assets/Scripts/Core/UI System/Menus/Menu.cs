@@ -28,19 +28,19 @@ namespace Zeke.UI.MenuManagment
 
         private void OnEnable()
         {
-            MenuManager.RegisterMenu(this);
+            MenuManager.Instance.RegisterMenu(this);
         }
 
         private void OnDisable()
         {
             if (MenuManager.IsNull) return;
-            MenuManager.UnregisterMenu(this);
+            MenuManager.Instance.UnregisterMenu(this);
         }
 
         private void OnWindowOpened(UIWindow window) => onMenuOpened.Invoke(this);
         private void OnWindowClosed(UIWindow window) => onMenuClosed.Invoke(this);
 
-        private bool CanOpen() => MenuManager.CanOpen(this);
-        private bool CanClose() => MenuManager.CanClose(this);
+        private bool CanOpen() => MenuManager.Instance.CanOpen(this);
+        private bool CanClose() => MenuManager.Instance.CanClose(this);
     }
 }

@@ -1,18 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.Serialization;
 
 namespace Zeke.UI.MenuManagment
 {
-    public class MenuManager : Singleton<MenuManager>
+    public class MenuManager : GameService<MenuManager>
     {
         [SerializeField] private Dictionary<MenuIdentifier, Dictionary<MenuState, List<MenuInteraction>>> interactions;
         [SerializeField] private Dictionary<MenuIdentifier, List<MenuConstraint>> constraints;
 
         private readonly Dictionary<MenuIdentifier, List<Menu>> registeredMenus = new Dictionary<MenuIdentifier, List<Menu>>();
 
-        public static void RegisterMenu(Menu menu) 
+        public void RegisterMenu(Menu menu) 
         {
             if (menu.Identifier == null)
             {
@@ -37,7 +36,7 @@ namespace Zeke.UI.MenuManagment
             menu.onMenuClosed += Instance.OnMenuClosed;
         }
 
-        public static void UnregisterMenu(Menu menu)
+        public void UnregisterMenu(Menu menu)
         {
             if (!Instance.registeredMenus.TryGetValue(menu.Identifier, out List<Menu> menus))
             {
@@ -50,17 +49,17 @@ namespace Zeke.UI.MenuManagment
             menu.onMenuClosed -= Instance.OnMenuClosed;
         }
 
-        public static bool CanOpen(Menu menu)
+        public bool CanOpen(Menu menu)
         {
             return TryPerformAction(menu, constraints => constraints.avoidsOpening);
         }
 
-        public static bool CanClose(Menu menu)
+        public bool CanClose(Menu menu)
         {
             return TryPerformAction(menu, constraints => constraints.avoidsClosing);
         }
 
-        private static bool TryPerformAction(Menu menu, Func<MenuConstraint, bool> constraints)
+        private bool TryPerformAction(Menu menu, Func<MenuConstraint, bool> constraints)
         {
             if (!Instance.constraints.TryGetValue(menu.Identifier, out List<MenuConstraint> menuConstraints))
             {
@@ -86,7 +85,7 @@ namespace Zeke.UI.MenuManagment
             return true;
         }
 
-        protected override void OnInitialization()
+        protected override void InitializeService()
         {
             registeredMenus.Clear();
         }
@@ -132,7 +131,7 @@ namespace Zeke.UI.MenuManagment
             }
         }
 
-        private static bool StateEquals(MenuState state, UIWindow window)
+        private bool StateEquals(MenuState state, UIWindow window)
         {
             return (state == MenuState.Open && window.IsVisible) || (state == MenuState.Close && !window.IsVisible);
         }

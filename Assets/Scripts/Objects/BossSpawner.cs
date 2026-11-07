@@ -43,6 +43,6 @@ public class BossSpawner : MonoBehaviour, IInteractable, IInteractableTooltipRen
     {
         if (!Application.isPlaying) return;
         Instantiate(portalPrefab, portalSpawn.position, Quaternion.identity);
-        GlobalEventBus.Invoke(new GameLevelHandler.LevelEndEvent());
+        GlobalEventBus.Invoke(new RunLevelHandler.LevelEndEvent());
     }
 }

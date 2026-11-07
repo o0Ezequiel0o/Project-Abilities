@@ -14,12 +14,12 @@ public class PlayerStart : MonoBehaviour
 
     private void OnEnable()
     {
-        GameInstance.onPlayerSpawned += MovePlayerToPoint;
+        Run.Instance.onPlayerSpawned += MovePlayerToPoint;
     }
 
     private void OnDisable()
     {
-        GameInstance.onPlayerSpawned -= MovePlayerToPoint;
+        Run.Instance.onPlayerSpawned -= MovePlayerToPoint;
     }
 
     private void MovePlayerToPoint(Player player)

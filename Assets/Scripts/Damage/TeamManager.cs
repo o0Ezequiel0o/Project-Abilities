@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace Zeke.TeamSystem
 {
-    public static class TeamManager
+    public class TeamManager : GameService<TeamManager>
     {
-        private static readonly Dictionary<GameObject, TeamIdentifier> entitiesWithTeam = new Dictionary<GameObject, TeamIdentifier>();
-        private static readonly Dictionary<Teams, List<GameObject>> targeteables = new Dictionary<Teams, List<GameObject>>()
+        private readonly Dictionary<GameObject, TeamIdentifier> entitiesWithTeam = new Dictionary<GameObject, TeamIdentifier>();
+        private readonly Dictionary<Teams, List<GameObject>> targeteables = new Dictionary<Teams, List<GameObject>>()
         {
             {Teams.Team1, new List<GameObject>()},
             {Teams.Team2, new List<GameObject>()},
@@ -19,7 +19,7 @@ namespace Zeke.TeamSystem
             {Teams.IgnoreTeam, new List<GameObject>()}
         };
 
-        public static void Add(GameObject obj, TeamIdentifier identifier)
+        public void Add(GameObject obj, TeamIdentifier identifier)
         {
             if (entitiesWithTeam.ContainsKey(obj)) return;
 
@@ -34,7 +34,7 @@ namespace Zeke.TeamSystem
             }
         }
 
-        public static void Remove(GameObject obj, TeamIdentifier identifier)
+        public void Remove(GameObject obj, TeamIdentifier identifier)
         {
             entitiesWithTeam.Remove(obj);
 
@@ -47,12 +47,12 @@ namespace Zeke.TeamSystem
             }
         }
 
-        public static void ChangeTeams(GameObject obj, GameObject targetObj)
+        public void ChangeTeams(GameObject obj, GameObject targetObj)
         {
             ChangeTeams(obj, GetTeam(targetObj));
         }
 
-        public static void ChangeTeams(GameObject obj, Teams newTeam)
+        public void ChangeTeams(GameObject obj, Teams newTeam)
         {
             if (!HasTeamIdentifier(obj)) return;
 
@@ -71,7 +71,7 @@ namespace Zeke.TeamSystem
             }
         }
 
-        public static Teams GetTeam(GameObject obj)
+        public Teams GetTeam(GameObject obj)
         {
             if (entitiesWithTeam.TryGetValue(obj, out TeamIdentifier identifier))
             {
@@ -81,13 +81,13 @@ namespace Zeke.TeamSystem
             return Teams.IgnoreTeam;
         }
 
-        public static GameObject GetRandomEnemy(GameObject obj)
+        public GameObject GetRandomEnemy(GameObject obj)
         {
             entitiesWithTeam.TryGetValue(obj, out TeamIdentifier identifier);
 
             List<GameObject> enemies = GetEnemies(identifier);
 
-            int randomRoll = UnityEngine.Random.Range(0, enemies.Count);
+            int randomRoll = Random.Range(0, enemies.Count);
 
             if (identifier.Team == Teams.IgnoreTeam)
             {
@@ -115,13 +115,13 @@ namespace Zeke.TeamSystem
             return null;
         }
 
-        public static List<GameObject> GetEnemies(TeamIdentifier identifier)
+        public List<GameObject> GetEnemies(TeamIdentifier identifier)
         {
             if (identifier != null) return targeteables[identifier.Team];
             return targeteables[Teams.IgnoreTeam];
         }
 
-        public static List<GameObject> GetEnemies(GameObject obj)
+        public List<GameObject> GetEnemies(GameObject obj)
         {
             if (entitiesWithTeam.TryGetValue(obj, out TeamIdentifier identifier))
             {
@@ -131,22 +131,22 @@ namespace Zeke.TeamSystem
             return targeteables[Teams.IgnoreTeam];
         }
 
-        public static bool IsEnemy(GameObject obj1, GameObject obj2)
+        public bool IsEnemy(GameObject obj1, GameObject obj2)
         {
             return !IsAlly(obj1, obj2);
         }
 
-        public static bool IsEnemy(Teams team, GameObject obj1)
+        public bool IsEnemy(Teams team, GameObject obj1)
         {
             return !IsAlly(obj1, team);
         }
 
-        public static bool IsEnemy(GameObject obj1, Teams team)
+        public bool IsEnemy(GameObject obj1, Teams team)
         {
             return !IsAlly(obj1, team);
         }
 
-        public static bool IsAlly(GameObject obj1, GameObject obj2)
+        public bool IsAlly(GameObject obj1, GameObject obj2)
         {
             if (obj1 == null || obj2 == null) return false;
 
@@ -164,12 +164,12 @@ namespace Zeke.TeamSystem
             return false;
         }
 
-        public static bool IsAlly(Teams team, GameObject obj1)
+        public bool IsAlly(Teams team, GameObject obj1)
         {
             return IsAlly(obj1, team);
         }
 
-        public static bool IsAlly(GameObject obj1, Teams team)
+        public bool IsAlly(GameObject obj1, Teams team)
         {
             if (obj1 == null || team == Teams.IgnoreTeam) return false;
 
@@ -188,7 +188,7 @@ namespace Zeke.TeamSystem
             return false;
         }
 
-        private static bool HasTeamIdentifier(GameObject obj)
+        private bool HasTeamIdentifier(GameObject obj)
         {
             return entitiesWithTeam.ContainsKey(obj);
         }

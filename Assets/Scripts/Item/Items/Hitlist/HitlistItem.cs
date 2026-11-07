@@ -35,7 +35,7 @@ namespace Zeke.Items
                 eventListener.OnDealDamage.Subscribe(OnDealDamage, data.ProcPriority);
             }
 
-            visualInstance = GameObject.Instantiate(data.TargetVisual, GameInstance.WorldCanvas.transform);
+            visualInstance = GameObject.Instantiate(data.TargetVisual, Run.Instance.WorldCanvas.transform);
             visualInstance.SetActive(false);
         }
 
@@ -92,11 +92,15 @@ namespace Zeke.Items
 
             for (int i = 0; i < Physics2D.OverlapCircle(source.transform.position, data.SearchRadius, contactFilter, hits); i++)
             {
-                if (hits[i].gameObject == source) continue;
-                if (TeamManager.IsAlly(source, hits[i].gameObject)) continue;
-                if (!data.ValidTypes.Contains(EntityTypeIdentifier.GetEntityType(hits[i].gameObject))) continue;
+                GameObject newTarget = hits[i].gameObject;
 
-                target = hits[i].transform;
+                if (newTarget == source) continue;
+                if (TeamManager.Instance.IsAlly(source, newTarget)) continue;
+                if (!newTarget.TryGetComponent(out EntityTypeIdentifier entityTypeIdentifier)) continue;
+
+                if (!data.ValidTypes.Contains(entityTypeIdentifier.Type)) continue;
+
+                target = newTarget.transform;
             }
 
             if (HasTarget)

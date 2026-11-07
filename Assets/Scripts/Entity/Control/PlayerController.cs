@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!GameInstance.IsPaused)
+        if (!Run.Instance.IsPaused)
         {
             EnableGameInput();
         }
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        if (!GameInstance.IsPaused)
+        if (!Run.Instance.IsPaused)
         {
             DisableGameInput();
         }
@@ -87,14 +87,14 @@ public class PlayerController : MonoBehaviour
         utilityAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Utility);
         ultimateAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Ultimate);
 
-        GameInstance.onPause += OnPaused;
-        GameInstance.onResume += OnResumed;
+        Run.Instance.onPause += OnPaused;
+        Run.Instance.onResume += OnResumed;
     }
 
     private void OnDestroy()
     {
-        GameInstance.onPause -= OnPaused;
-        GameInstance.onResume -= OnResumed;
+        Run.Instance.onPause -= OnPaused;
+        Run.Instance.onResume -= OnResumed;
     }
 
     private void Update()
@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAimDirection()
     {
-        entityAim.AimTowards(((Vector2)(GameInstance.MouseWorldPosition - center.position)).normalized);
+        entityAim.AimTowards(((Vector2)(Run.Instance.MouseWorldPosition - center.position)).normalized);
     }
 
     private void UpdateAbilityInputs()

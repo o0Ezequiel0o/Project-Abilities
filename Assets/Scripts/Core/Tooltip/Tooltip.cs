@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Zeke.Tooltips
 {
-    public class Tooltip : Singleton<Tooltip>
+    public class Tooltip : GameService<Tooltip>
     {
         [Header("Dependency")]
         [SerializeField] private RectTransform tooltipBounds;
@@ -41,18 +41,18 @@ namespace Zeke.Tooltips
             Border
         }
 
-        public static void SetText(string text)
+        public void SetText(string text)
         {
             Instance.tooltipText.text = text;
         }
 
-        public static void Show(string text)
+        public void Show(string text)
         {
             SetText(text);
             Instance.state = State.Show;
         }
 
-        public static void Hide()
+        public void Hide()
         {
             Instance.timer = 0f;
             Instance.state = State.Hide;

@@ -34,7 +34,7 @@ namespace Zeke.Items
         private UIWindow windowInstance;
         private SlotData selectedSlot;
 
-        private readonly GameInstance.PauseID pauseID = new();
+        private readonly Run.PauseID pauseID = new Run.PauseID();
 
         private class SlotData
         {
@@ -67,9 +67,9 @@ namespace Zeke.Items
 
         private void CreateMenu(GameObject source)
         {
-            GameInstance.Pause(pauseID);
+            Run.Instance.Pause(pauseID);
 
-            windowInstance = Instantiate(itemSelectionWindow, GameInstance.ScreenCanvas.transform);
+            windowInstance = Instantiate(itemSelectionWindow, Run.Instance.ScreenCanvas.transform);
             windowInstance.TryGetElement<Button>("Close Button").onClick.AddListener(OnCloseMenu);
 
             RectTransform root = windowInstance.TryGetElement<GridLayoutGroup>("Layout Group").GetComponent<RectTransform>();
@@ -165,7 +165,7 @@ namespace Zeke.Items
             //cache this somehow and then update it for optimization
             Destroy(windowInstance.gameObject);
 
-            GameInstance.Unpause(pauseID);
+            Run.Instance.Unpause(pauseID);
         }
     }
 }

@@ -26,7 +26,7 @@ public class ScaleLevelWithDifficulty : MonoBehaviour, IPoolableGameObjectListen
 
     private void ScaleLevel()
     {
-        int levels = Mathf.FloorToInt(settings.LevelPerDifficulty * GameInstance.Difficulty);
+        int levels = Mathf.FloorToInt(settings.LevelPerDifficulty * Run.Instance.Difficulty);
         levelHandler.IncreaseLevel(levels);
     }
 }

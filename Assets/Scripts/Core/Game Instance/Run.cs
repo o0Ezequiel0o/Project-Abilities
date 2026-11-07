@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zeke.GlobalEventsBus;
 
-public class GameInstance : Singleton<GameInstance>
+public class Run : GameService<Run>
 {
     [Header("Dependency")]
     [SerializeField] private Camera mainCamera;
@@ -12,19 +12,18 @@ public class GameInstance : Singleton<GameInstance>
     [SerializeField] private Canvas worldCanvas;
 
     [Header("Dependency")]
-
     [SerializeField] private GameDifficulty difficulty;
 
     [Header("Framerate")]
     [SerializeField, Min(1)] private float minCodeFrameRate = 60;
 
-    public static int Level { get; set; } = 0;
-    public static float Difficulty { get; set; } = 0f;
-    public static float CostMultiplier { get; set; } = 1f;
+    public int Level { get; set; } = 0;
+    public float Difficulty { get; set; } = 0f;
+    public float CostMultiplier { get; set; } = 1f;
 
-    public static IReadOnlyList<Player> Players => players;
+    public IReadOnlyList<Player> Players => players;
 
-    public static Player RandomPlayer
+    public Player RandomPlayer
     {
         get
         {
@@ -36,33 +35,33 @@ public class GameInstance : Singleton<GameInstance>
         }
     }
 
-    public static Action onPause;
-    public static Action onResume;
+    public Action onPause;
+    public Action onResume;
 
-    public static Action<Player> onPlayerSpawned;
+    public Action<Player> onPlayerSpawned;
 
-    public static Action<Player> onPlayerAdded;
-    public static Action<Player> onPlayerRemoved;
+    public Action<Player> onPlayerAdded;
+    public Action<Player> onPlayerRemoved;
 
-    public static bool IsPaused => pauseIDs.Count > 0;
-    public static float RunTimer { get; private set; }
+    public bool IsPaused => pauseIDs.Count > 0;
+    public float RunTimer { get; private set; }
 
-    public static Camera MainCamera => Instance.mainCamera;
-    public static Vector3 MouseWorldPosition => mouseWorldPosition;
+    public Camera MainCamera => Instance.mainCamera;
+    public Vector3 MouseWorldPosition => mouseWorldPosition;
 
-    public static Canvas ScreenCanvas => Instance.screenCanvas;
-    public static Canvas WorldCanvas => Instance.worldCanvas;
+    public Canvas ScreenCanvas => Instance.screenCanvas;
+    public Canvas WorldCanvas => Instance.worldCanvas;
 
-    private static Vector3 mouseWorldPosition = Vector3.zero;
+    private Vector3 mouseWorldPosition = Vector3.zero;
 
-    private static float difficultyRamp = 0f;
+    private float difficultyRamp = 0f;
 
-    private static int currentID = int.MinValue;
+    private int currentID = int.MinValue;
 
-    private readonly static List<Player> players = new List<Player>();
+    private readonly List<Player> players = new List<Player>();
 
-    private readonly static List<GameSpeedModifier> timeScaleModifiers = new List<GameSpeedModifier>();
-    private readonly static HashSet<PauseID> pauseIDs = new HashSet<PauseID>();
+    private readonly List<GameSpeedModifier> timeScaleModifiers = new List<GameSpeedModifier>();
+    private readonly HashSet<PauseID> pauseIDs = new HashSet<PauseID>();
 
     public class PauseID { }
 
@@ -76,12 +75,12 @@ public class GameInstance : Singleton<GameInstance>
         }
     }
 
-    public static void PlayerSpawned(Player player)
+    public void PlayerSpawned(Player player)
     {
         onPlayerSpawned?.Invoke(player);
     }
 
-    public static void AddPlayer(Player player)
+    public void AddPlayer(Player player)
     {
         if (!players.Contains(player))
         {
@@ -90,13 +89,13 @@ public class GameInstance : Singleton<GameInstance>
         }
     }
 
-    public static void RemovePlayer(Player player)
+    public void RemovePlayer(Player player)
     {
         players.Remove(player);
         onPlayerRemoved?.Invoke(player);
     }
 
-    public static int GetUniqueID()
+    public int GetUniqueID()
     {
         int uniqueID = currentID;
         currentID += 1;
@@ -104,7 +103,7 @@ public class GameInstance : Singleton<GameInstance>
         return uniqueID;
     }
 
-    public static void Pause(PauseID pauseID)
+    public void Pause(PauseID pauseID)
     {
         if (pauseID == null) return;
         if (pauseIDs.Contains(pauseID)) return;
@@ -118,7 +117,7 @@ public class GameInstance : Singleton<GameInstance>
         }
     }
 
-    public static void Unpause(PauseID pauseID)
+    public void Unpause(PauseID pauseID)
     {
         if (pauseID == null) return;
         if (!pauseIDs.Contains(pauseID)) return;
@@ -132,31 +131,31 @@ public class GameInstance : Singleton<GameInstance>
         }
     }
 
-    public static void AddTimeScaleModifier(GameSpeedModifier modifier)
+    public void AddTimeScaleModifier(GameSpeedModifier modifier)
     {
         timeScaleModifiers.Add(modifier);
         UpdateTimeScale();
     }
 
-    public static void RemoveTimeScaleModifier(GameSpeedModifier modifier)
+    public void RemoveTimeScaleModifier(GameSpeedModifier modifier)
     {
         timeScaleModifiers.Remove(modifier);
         UpdateTimeScale();
     }
 
-    private static void ClearTimeScaleModifiers()
+    private void ClearTimeScaleModifiers()
     {
         timeScaleModifiers.Clear();
         UpdateTimeScale();
     }
 
-    private static void ClearPauseIDs()
+    private void ClearPauseIDs()
     {
         pauseIDs.Clear();
         UpdateTimeScale();
     }
 
-    private static void UpdateTimeScale()
+    private void UpdateTimeScale()
     {
         float timeScale = 1f;
 
@@ -175,8 +174,11 @@ public class GameInstance : Singleton<GameInstance>
         Time.timeScale = timeScale;
     }
 
-    protected override void OnInitialization()
+    protected override void InitializeService()
     {
+        Level = 0;
+        Time.maximumDeltaTime = 1f / minCodeFrameRate;
+
         UpdateMouseWorldPosition();
         ResetValuesToDefault();
 
@@ -184,23 +186,17 @@ public class GameInstance : Singleton<GameInstance>
         ClearTimeScaleModifiers();
     }
 
-    private void Awake()
-    {
-        Level = 0;
-        Time.maximumDeltaTime = 1f / minCodeFrameRate;
-    }
-
     private void OnEnable()
     {
-        GlobalEventBus.Subscribe<GameLevelHandler.LevelLoadedEvent>(OnLevelLoaded);
+        GlobalEventBus.Subscribe<RunLevelHandler.LevelLoadedEvent>(OnLevelLoaded);
     }
 
     private void OnDisable()
     {
-        GlobalEventBus.Unsubscribe<GameLevelHandler.LevelLoadedEvent>(OnLevelLoaded);
+        GlobalEventBus.Unsubscribe<RunLevelHandler.LevelLoadedEvent>(OnLevelLoaded);
     }
 
-    private void OnLevelLoaded(GameLevelHandler.LevelLoadedEvent @event)
+    private void OnLevelLoaded(RunLevelHandler.LevelLoadedEvent @event)
     {
         Difficulty += difficulty.DifficultyPerLevel * Level;
         Level += 1;

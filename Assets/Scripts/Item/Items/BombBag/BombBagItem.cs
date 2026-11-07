@@ -64,7 +64,7 @@ namespace Zeke.Items
             bomb.transform.SetPositionAndRotation(source.transform.position, Quaternion.identity);
 
             DamageData damageData = new DamageData(damage, data.ArmorPenetration, data.ProcCoefficient);
-            bomb.StartFuse(data.Fuse, data.Radius, damageData, data.Knockback, source, TeamManager.GetTeam(source));
+            bomb.StartFuse(data.Fuse, data.Radius, damageData, data.Knockback, source, TeamManager.Instance.GetTeam(source));
 
             bomb.gameObject.SetActive(true);
         }

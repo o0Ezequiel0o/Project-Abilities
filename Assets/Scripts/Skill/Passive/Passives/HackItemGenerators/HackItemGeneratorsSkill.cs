@@ -28,7 +28,7 @@ public class HackItemGeneratorsSkill : PassiveBase
 
     public override void Awake()
     {
-        progressBarInstance = GameObject.Instantiate(data.ProgressBarPrefab, GameInstance.WorldCanvas.transform);
+        progressBarInstance = GameObject.Instantiate(data.ProgressBarPrefab, Run.Instance.WorldCanvas.transform);
         progressBarInstance.gameObject.SetActive(false);
     }
 

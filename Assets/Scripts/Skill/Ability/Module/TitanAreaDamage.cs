@@ -49,7 +49,7 @@ namespace Zeke.Abilities.Modules
 
                 if (hits[i].gameObject == source) continue;
 
-                if (TeamManager.IsAlly(hits[i].gameObject, source)) continue;
+                if (TeamManager.Instance.IsAlly(hits[i].gameObject, source)) continue;
 
                 if (hits[i].TryGetComponent(out Damageable damageable))
                 {

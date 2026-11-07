@@ -14,7 +14,7 @@ namespace Zeke.Abilities.Modules.Summoning
 
         public override void OnSummonSpawn(GameObject summon, GameObject source)
         {
-            TeamManager.ChangeTeams(summon, source);
+            TeamManager.Instance.ChangeTeams(summon, source);
         }
 
         public override void OnDestroy(GameObject summon, GameObject source) { }

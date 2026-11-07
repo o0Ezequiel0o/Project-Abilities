@@ -41,8 +41,8 @@ public class BurningStatus : StatusEffect
             damageable.DamageReceivedMultiplier.AddMultiplier(damageReceivedMultiplier);
         }
 
-        particles = StatusEffectParticlesPool.Get(effectData.Particles);
-        trailParticles = StatusEffectParticlesPool.Get(effectData.TrailParticles);
+        particles = StatusEffectParticlesPool.Instance.Get(effectData.Particles);
+        trailParticles = StatusEffectParticlesPool.Instance.Get(effectData.TrailParticles);
 
         particles.transform.position = Vector3.zero;
         trailParticles.transform.position = Vector3.zero;
@@ -70,7 +70,7 @@ public class BurningStatus : StatusEffect
 
         if (timer >= effectData.TickTime)
         {
-            float damage = effectData.Damage * (1 + GameInstance.Difficulty);
+            float damage = effectData.Damage * (1 + Run.Instance.Difficulty);
             DamageInfo damageInfo = new DamageInfo(damage, 0f, 0f) { hit = false };
             damageable.DealDamage(damageInfo, source, null);
             UpdateTicks();

@@ -101,7 +101,7 @@ public class DebugEnemyViewer : MonoBehaviour
             Destroy(windowInstance.gameObject);
         }
 
-        windowInstance = Instantiate(window, GameInstance.ScreenCanvas.transform);
+        windowInstance = Instantiate(window, Run.Instance.ScreenCanvas.transform);
 
         windowInstance.TryGetElement<AbilityDisplaySlot>("Primary Ability").gameObject.SetActive(false);
         windowInstance.TryGetElement<AbilityDisplaySlot>("Secondary Ability").gameObject.SetActive(false);

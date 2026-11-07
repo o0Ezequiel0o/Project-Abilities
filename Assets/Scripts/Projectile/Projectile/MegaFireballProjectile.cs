@@ -37,7 +37,7 @@ public class MegaFireballProjectile : DamageProjectileBase
 
         if (receiver == SourceUser) return;
 
-        if (TeamManager.IsEnemy(Team, receiver))
+        if (TeamManager.Instance.IsEnemy(Team, receiver))
         {
             TeleportToHitPoint(hit.point);
             Explode();
@@ -64,7 +64,7 @@ public class MegaFireballProjectile : DamageProjectileBase
 
         for (int i = 0; i < hits.Count; i++)
         {
-            if (TeamManager.IsEnemy(Team, hits[i].gameObject))
+            if (TeamManager.Instance.IsEnemy(Team, hits[i].gameObject))
             {
                 Hit(hits[i].gameObject);
             }

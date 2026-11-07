@@ -66,7 +66,7 @@ namespace Zeke.Abilities.Modules
 
         private bool TryDealDamage(GameObject source, Collider2D target, float damage)
         {
-            if (TeamManager.IsEnemy(source, target.gameObject))
+            if (TeamManager.Instance.IsEnemy(source, target.gameObject))
             {
                 if (target.TryGetComponent(out Damageable damageable))
                 {

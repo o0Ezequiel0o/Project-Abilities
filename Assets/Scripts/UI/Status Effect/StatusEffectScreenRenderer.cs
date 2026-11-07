@@ -32,7 +32,7 @@ public class StatusEffectScreenRenderer : MonoBehaviour
 
     private void SpawnInterfaceInCanvas()
     {
-        interfaceInstance = Instantiate(interfacePrefab, GameInstance.ScreenCanvas.transform);
+        interfaceInstance = Instantiate(interfacePrefab, Run.Instance.ScreenCanvas.transform);
     }
 
     private void LoadInterfaceData()

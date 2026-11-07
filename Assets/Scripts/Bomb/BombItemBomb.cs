@@ -5,7 +5,7 @@ public class BombItemBomb : Bomb
 {
     protected override void Hit(Collider2D hit)
     {
-        if (TeamManager.IsAlly(team, hit.gameObject)) return;
+        if (TeamManager.Instance.IsAlly(team, hit.gameObject)) return;
 
         bool damageRejected = false;
 

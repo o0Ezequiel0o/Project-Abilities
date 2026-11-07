@@ -109,9 +109,9 @@ public class MapSpawnpoint : Spawnpoint
 
     private bool InPlayerRange(Node node, float sqrMinDistance)
     {
-        for (int i = 0; i < GameInstance.Players.Count; i++)
+        for (int i = 0; i < Run.Instance.Players.Count; i++)
         {
-            float sqrDist = (node.position - (Vector2)GameInstance.Players[i].transform.position).sqrMagnitude;
+            float sqrDist = (node.position - (Vector2)Run.Instance.Players[i].transform.position).sqrMagnitude;
 
             if (sqrDist < sqrMinDistance)
             {

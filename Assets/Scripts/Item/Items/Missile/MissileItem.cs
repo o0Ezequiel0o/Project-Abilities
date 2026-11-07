@@ -55,7 +55,7 @@ namespace Zeke.Items
 
             MissileItemProjectile missile = missilePool.Get(data.MissilePrefab);
             DamageData damageData = new DamageData(damage, data.ArmorPenetration, data.ProcCoefficient);
-            missile.Launch(source.transform.position, data.Speed, direction, data.MaxRange, damageData, data.Knockback, source, TeamManager.GetTeam(source), newProcChainBranch);
+            missile.Launch(source.transform.position, data.Speed, direction, data.MaxRange, damageData, data.Knockback, source, TeamManager.Instance.GetTeam(source), newProcChainBranch);
 
             missile.gameObject.SetActive(true);
         }

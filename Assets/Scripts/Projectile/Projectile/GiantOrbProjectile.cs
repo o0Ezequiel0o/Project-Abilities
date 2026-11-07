@@ -63,7 +63,7 @@ public class GiantOrbProjectile : DamageProjectileBase
 
     private void Hit(GameObject receiver)
     {
-        if (TeamManager.IsAlly(Team, receiver)) return;
+        if (TeamManager.Instance.IsAlly(Team, receiver)) return;
 
         bool damageRejected = DealDamage(receiver);
 
@@ -100,7 +100,7 @@ public class GiantOrbProjectile : DamageProjectileBase
         for (int i = 0; i < closeTargets.Count; i++)
         {
             if (closeTargets[i].collider.gameObject == SourceUser) continue;
-            if (TeamManager.IsAlly(Team, closeTargets[i].collider.gameObject)) continue;
+            if (TeamManager.Instance.IsAlly(Team, closeTargets[i].collider.gameObject)) continue;
             if (Physics2D.CircleCast(position, Radius, direction, Vector3.Distance(position, closeTargets[i].transform.position), findTargetBlockLayer)) continue;
 
             return closeTargets[i].transform;

@@ -39,7 +39,7 @@ public class StatusEffectRenderer : MonoBehaviour
 
     private void SpawnInterfaceInCanvas()
     {
-        interfaceInstance = Instantiate(interfacePrefab, GameInstance.WorldCanvas.transform);
+        interfaceInstance = Instantiate(interfacePrefab, Run.Instance.WorldCanvas.transform);
     }
 
     private void LoadInterfaceData()

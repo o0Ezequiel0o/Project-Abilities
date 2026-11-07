@@ -103,7 +103,7 @@ namespace Zeke.Abilities.Modules
                 GameObject receiver = hits[i].collider.gameObject;
 
                 if (source == receiver) continue;
-                if (TeamManager.IsAlly(source, receiver)) continue;
+                if (TeamManager.Instance.IsAlly(source, receiver)) continue;
 
                 Vector2 direction = (receiver.transform.position - source.transform.position).normalized;
                 transform.rotation = Quaternion.Euler(0f, 0f, GetRotation(direction));

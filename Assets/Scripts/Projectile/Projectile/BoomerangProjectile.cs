@@ -84,7 +84,7 @@ public class BoomerangProjectile : DamageProjectileBase
             return;
         }
 
-        if (TeamManager.IsEnemy(Team, receiver))
+        if (TeamManager.Instance.IsEnemy(Team, receiver))
         {
             Hit(receiver);
         }

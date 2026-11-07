@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zeke.GlobalEventsBus;
 
-public class GameLevelHandler : MonoBehaviour
+public class RunLevelHandler : GameService<RunLevelHandler>
 {
     [SerializeField] private List<GameLevel> randomStartLevel;
 
-    public static GameLevel CurrentLevel { get; private set; }
-    public static GameLevelInstance CurrentLevelInstance { get; private set; }
+    public GameLevel CurrentLevel { get; private set; }
+    public GameLevelInstance CurrentLevelInstance { get; private set; }
 
     private void Awake()
     {

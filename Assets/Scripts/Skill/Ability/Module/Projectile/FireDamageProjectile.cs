@@ -20,7 +20,7 @@ namespace Zeke.Abilities.Modules.Projectiles
         public override void LaunchProjectile(Vector3 position, Vector3 direction, float speed, float maxRange, GameObject source)
         {
             DamageData damageData = new DamageData(damage.Value, data.ArmorPenetration, data.ProcCoefficient);
-            LaunchProjectile(position, direction, damageData, data.Knockback, speed, maxRange, source, TeamManager.GetTeam(source));
+            LaunchProjectile(position, direction, damageData, data.Knockback, speed, maxRange, source, TeamManager.Instance.GetTeam(source));
         }
 
         public abstract void LaunchProjectile(Vector3 position, Vector3 direction, DamageData damageData, float knockback, float speed, float maxRange, GameObject source, Teams team);

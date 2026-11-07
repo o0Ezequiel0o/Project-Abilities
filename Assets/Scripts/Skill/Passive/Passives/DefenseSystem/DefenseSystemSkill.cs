@@ -92,7 +92,7 @@ public class DefenseSystemSkill : PassiveBase
             GameObject receiver = hits[i].gameObject;
 
             if (receiver == source) continue;
-            if (TeamManager.IsAlly(source, receiver)) continue;
+            if (TeamManager.Instance.IsAlly(source, receiver)) continue;
 
             if (receiver.TryGetComponent(out Damageable damageable))
             {

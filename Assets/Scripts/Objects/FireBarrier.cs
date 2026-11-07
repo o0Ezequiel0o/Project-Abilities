@@ -79,7 +79,7 @@ public class FireBarrier : MonoBehaviour//, IPoolableGameObjectConfirmator
     {
         if (ignoreGameObjects.Contains(receiver)) return;
 
-        if (TeamManager.IsAlly(source, receiver)) return;
+        if (TeamManager.Instance.IsAlly(source, receiver)) return;
 
         if (receiver.TryGetComponent(out StatusEffectHandler statusEffectHandler))
         {

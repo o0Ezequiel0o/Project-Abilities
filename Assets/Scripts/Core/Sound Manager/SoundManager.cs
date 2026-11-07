@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zeke.PoolableGameObjects;
 
-public class SoundManager : Singleton<SoundManager>
+public class SoundManager : GameService<SoundManager>
 {
     [SerializeField] private AudioSource audioSourcePrefab;
 
@@ -12,7 +12,7 @@ public class SoundManager : Singleton<SoundManager>
 
     private readonly GameObjectPool<AudioSource> audioSourcePool = new GameObjectPool<AudioSource>();
 
-    protected override void OnInitialization()
+    protected override void InitializeService()
     {
         for(int i = 0; i < poolAudioSources; i++)
         {
@@ -22,7 +22,7 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    private static AudioSource GetFreePooledSound()
+    private AudioSource GetFreePooledSound()
     {
         if (Instance.expandPool)
         {
@@ -34,7 +34,7 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    public static void PlaySound(Sound sound)
+    public void PlaySound(Sound sound)
     {
         AudioSource audioSource = GetFreePooledSound();
 
