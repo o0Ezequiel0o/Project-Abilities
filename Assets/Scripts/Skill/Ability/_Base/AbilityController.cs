@@ -25,7 +25,6 @@ namespace Zeke.Abilities
         public IReadOnlyDictionary<AbilityType, AbilityTypeSlot> AbilityTypeSlots => abilityTypeSlots;
 
         private readonly Dictionary<AbilityType, AbilityTypeSlot> abilityTypeSlots = new Dictionary<AbilityType, AbilityTypeSlot>();
-        private readonly List<IAbility> activeAbilities = new List<IAbility>();
 
         private static readonly AbilityType[] abilityTypes = (AbilityType[])Enum.GetValues(typeof(AbilityType));
 
@@ -160,9 +159,6 @@ namespace Zeke.Abilities
                 onAbilityOverriden?.Invoke(new AbilityOverrideData(ability, overridenAbility));
 
                 overridenAbility.ForceDeactivate();
-
-                activeAbilities.Remove(overridenAbility);
-                activeAbilities.Add(ability);
             }
 
             onAbilityAdded?.Invoke(ability);
@@ -178,8 +174,6 @@ namespace Zeke.Abilities
 
                 onAbilityRemoved?.Invoke(ability);
                 abilityTypeSlot.Abilities.RemoveAt(index);
-
-                activeAbilities.Remove(ability);
 
                 return ability;
             }
@@ -201,9 +195,6 @@ namespace Zeke.Abilities
                 newAbility.Initialize();
 
                 abilityTypeSlot.Abilities[index] = newAbility;
-
-                activeAbilities.Add(newAbility);
-                activeAbilities.Remove(replaceAbility);
 
                 if (newAbility.Level < level)
                 {
@@ -298,17 +289,17 @@ namespace Zeke.Abilities
 
         private void Update()
         {
-            for (int i = 0; i < activeAbilities.Count; i++)
+            foreach (AbilityTypeSlot abilityTypeSlot in abilityTypeSlots.Values)
             {
-                activeAbilities[i]?.Update();
+                abilityTypeSlot.CurrentAbilitySlot?.Update();
             }
         }
 
         private void LateUpdate()
         {
-            for (int i = 0; i < activeAbilities.Count; i++)
+            foreach (AbilityTypeSlot abilityTypeSlot in abilityTypeSlots.Values)
             {
-                activeAbilities[i]?.LateUpdate();
+                abilityTypeSlot.CurrentAbilitySlot?.LateUpdate();
             }
         }
 
