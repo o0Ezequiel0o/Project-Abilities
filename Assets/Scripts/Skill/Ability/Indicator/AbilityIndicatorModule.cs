@@ -1,22 +1,12 @@
-using System;
 using UnityEngine;
+
+using static Zeke.Abilities.Indicators.AbilityIndicatorModuleData;
 
 namespace Zeke.Abilities.Indicators
 {
-    [Serializable]
     public class AbilityIndicatorModule
     {
-        [SerializeField] private AttackIndicatorData attackIndicator;
-
-        [SerializeField] private StartingPoint spawnPosition;
-        [SerializeField] private Vector2 offset;
-        [SerializeField] private float angleOffset;
-
-        [SerializeField] private float showTime;
-        [SerializeField] private float hideTime;
-
-        public float ShowTime => showTime;
-        public float HideTime => hideTime;
+        public readonly AbilityIndicatorModuleData data;
 
         private Transform sourceTransform;
         private Transform spawnTransform;
@@ -25,19 +15,10 @@ namespace Zeke.Abilities.Indicators
 
         public AbilityIndicatorModule() { }
 
-        public AbilityIndicatorModule(AbilityIndicatorModule original)
+        public AbilityIndicatorModule(AbilityIndicatorModuleData data)
         {
-            offset = original.offset;
-            angleOffset = original.angleOffset;
-            spawnPosition = original.spawnPosition;
-
-            showTime = original.showTime;
-            hideTime = original.hideTime;
-
-            attackIndicator = original.attackIndicator.DeepCopy();
+            this.data = data;
         }
-
-        public AbilityIndicatorModule DeepCopy() => new AbilityIndicatorModule(this);
 
         public void Initialize(GameObject source, Transform spawn, AbilityIndicatorSettings settings)
         {
@@ -51,9 +32,9 @@ namespace Zeke.Abilities.Indicators
         {
             if (attackIndicatorInstance == null) return;
 
-            if (currentTime >= showTime)
+            if (currentTime >= data.ShowTime)
             {
-                if (currentTime < hideTime)
+                if (currentTime < data.HideTime)
                 {
                     UpdateActive(currentTime);
                 }
@@ -66,7 +47,7 @@ namespace Zeke.Abilities.Indicators
 
         public void LateUpdate()
         {
-            if (spawnPosition == StartingPoint.Source)
+            if (data.SpawnPosition == StartingPoint.Source)
             {
                 Follow(sourceTransform);
             }
@@ -102,12 +83,12 @@ namespace Zeke.Abilities.Indicators
 
         private void UpdateActive(float currentTime)
         {
+            attackIndicatorInstance.UpdateFill(GetTimePercentage(currentTime));
+
             if (!attackIndicatorInstance.gameObject.activeSelf)
             {
                 attackIndicatorInstance.gameObject.SetActive(true);
             }
-
-            attackIndicatorInstance.UpdateFill(GetTimePercentage(currentTime));
         }
 
         private void UpdateInactive(float currentTime)
@@ -120,15 +101,15 @@ namespace Zeke.Abilities.Indicators
 
         private void Follow(Transform target)
         {
-            Vector3 position = target.position + (spawnTransform.rotation * offset);
-            Quaternion rotation = Quaternion.Euler(0f, 0f, spawnTransform.rotation.eulerAngles.z - angleOffset);
+            Vector3 position = target.position + (spawnTransform.rotation * data.Offset);
+            Quaternion rotation = Quaternion.Euler(0f, 0f, spawnTransform.rotation.eulerAngles.z - data.AngleOffset);
 
             attackIndicatorInstance.transform.SetPositionAndRotation(position, rotation);
         }
 
         private void SpawnAttackIndicator(AbilityIndicatorSettings settings)
         {
-            attackIndicatorInstance = attackIndicator.CreateInstance(settings);
+            attackIndicatorInstance = data.AttackIndicator.CreateInstance(settings);
 
             attackIndicatorInstance.transform.SetParent(Run.Instance.WorldCanvas.transform);
             attackIndicatorInstance.gameObject.SetActive(false);
@@ -136,15 +117,7 @@ namespace Zeke.Abilities.Indicators
 
         private float GetTimePercentage(float currentTime)
         {
-            return Mathf.InverseLerp(showTime, hideTime, currentTime);
-        }
-
-        private enum StartingPoint
-        {
-            [InspectorName("Cast Position")]
-            CastPosition,
-            [InspectorName("Source Center")]
-            Source
+            return Mathf.InverseLerp(data.ShowTime, data.HideTime, currentTime);
         }
     }
 }

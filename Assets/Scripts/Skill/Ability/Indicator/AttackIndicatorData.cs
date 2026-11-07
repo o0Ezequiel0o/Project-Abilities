@@ -11,15 +11,6 @@ namespace Zeke.Abilities.Indicators
         [SerializeField] private Vector2 size = Vector2.one;
         [SerializeField] private Image.FillMethod fillMethod;
 
-        public AttackIndicatorData(AttackIndicatorData original)
-        {
-            sprite = original.sprite;
-            size = original.size;
-            fillMethod = original.fillMethod;
-        }
-
-        public AttackIndicatorData DeepCopy() => new AttackIndicatorData(this);
-
         public AttackIndicator CreateInstance(AbilityIndicatorSettings settings)
         {
             AttackIndicator instance = UnityEngine.Object.Instantiate(settings.Prefab);

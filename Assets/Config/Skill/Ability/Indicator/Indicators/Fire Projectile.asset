@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityIndicatorData
   settings: {fileID: 11400000, guid: 3780a04410384a94aaca79450fa3e300, type: 2}
   modules:
-  - attackIndicator:
+  - <AttackIndicator>k__BackingField:
       sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
       size: {x: 0.15, y: 10}
       fillMethod: 1
-    spawnPosition: 0
-    offset: {x: 0, y: 5.2}
-    angleOffset: 0
-    showTime: 0
-    hideTime: 1
+    <SpawnPosition>k__BackingField: 0
+    <Offset>k__BackingField: {x: 0.15, y: 10}
+    <AngleOffset>k__BackingField: 0
+    <ShowTime>k__BackingField: 0
+    <HideTime>k__BackingField: 1

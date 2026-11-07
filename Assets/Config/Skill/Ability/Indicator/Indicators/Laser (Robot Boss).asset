@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca23a91d20aadb4581074d30f87b4cc, type: 3}
   m_Name: Laser (Robot Boss)
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.Indicators.AbilityIndicatorData
-  settings: {fileID: 11400000, guid: 5e5ea81a5f739924dafa4ae2008e931d, type: 2}
+  settings: {fileID: 11400000, guid: 3780a04410384a94aaca79450fa3e300, type: 2}
   modules:
-  - attackIndicator:
+  - <AttackIndicator>k__BackingField:
       sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
       size: {x: 1, y: 15}
       fillMethod: 1
-    spawnPosition: 0
-    offset: {x: 0, y: 7.5}
-    angleOffset: 0
-    showTime: 0
-    hideTime: 1
+    <SpawnPosition>k__BackingField: 0
+    <Offset>k__BackingField: {x: 0, y: 7.5}
+    <AngleOffset>k__BackingField: 0
+    <ShowTime>k__BackingField: 0
+    <HideTime>k__BackingField: 1

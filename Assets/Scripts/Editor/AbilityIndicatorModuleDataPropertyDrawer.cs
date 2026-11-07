@@ -3,8 +3,8 @@ using UnityEditor;
 
 namespace Zeke.Abilities.Indicators
 {
-    [CustomPropertyDrawer(typeof(AbilityIndicatorModule))]
-    public class AbilityIndicatorModulePropertyDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(AbilityIndicatorModuleData))]
+    public class AbilityIndicatorModuleDataPropertyDrawer : PropertyDrawer
     {
         public VisualTreeAsset visualTreeAsset;
 

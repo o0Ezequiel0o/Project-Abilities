@@ -5,9 +5,9 @@ namespace Zeke.Abilities.Indicators
 {
     public class AbilityIndicator
     {
-        private readonly List<AbilityIndicatorModule> modules = new List<AbilityIndicatorModule>();
-
         public readonly AbilityIndicatorData data;
+
+        private List<AbilityIndicatorModule> modules;
 
         public float FirstHideTime => firstHideTime;
         public float LastHideTime => lastHideTime;
@@ -22,13 +22,9 @@ namespace Zeke.Abilities.Indicators
             this.data = data;
         }
 
-        public void Initialize(GameObject source, Transform spawn, List<AbilityIndicatorModule> modules, AbilityIndicatorSettings settings)
+        public void Initialize(List<AbilityIndicatorModule> modules)
         {
-            for (int i = 0; i < modules.Count; i++)
-            {
-                this.modules.Add(modules[i].DeepCopy());
-                this.modules[^1]?.Initialize(source, spawn, settings);
-            }
+            this.modules = modules;
 
             firstHideTime = FindFirstHideTime();
             lastHideTime = FindLastHideTime();
@@ -40,9 +36,9 @@ namespace Zeke.Abilities.Indicators
 
             for (int i = 0; i < modules.Count; i++)
             {
-                if (modules[i] != null && modules[i].HideTime < smallestHideTime)
+                if (modules[i] != null && modules[i].data.HideTime < smallestHideTime)
                 {
-                    smallestHideTime = modules[i].HideTime;
+                    smallestHideTime = modules[i].data.HideTime;
                 }
             }
 
@@ -60,9 +56,9 @@ namespace Zeke.Abilities.Indicators
 
             for (int i = 0; i < modules.Count; i++)
             {
-                if (modules[i] != null && modules[i].HideTime > biggestHideTime)
+                if (modules[i] != null && modules[i].data.HideTime > biggestHideTime)
                 {
-                    biggestHideTime = modules[i].HideTime;
+                    biggestHideTime = modules[i].data.HideTime;
                 }
             }
 

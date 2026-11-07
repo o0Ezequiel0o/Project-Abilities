@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Zeke.Abilities.Indicators;
 using Zeke.Abilities.Modules;
 
 namespace Zeke.Abilities
