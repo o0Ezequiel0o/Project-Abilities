@@ -13,9 +13,18 @@ public class PauseWindow : MonoBehaviour
         uiWindow = GetComponent<UIWindow>();
     }
 
-    private void Awake()
+    private void OnEnable()
     {
-        uiWindow.onWindowOpened += (_) => Run.Instance.Pause(pauseID);
-        uiWindow.onWindowClosed += (_) => Run.Instance.Unpause(pauseID);
+        uiWindow.onWindowOpened += OnWindowOpened;
+        uiWindow.onWindowClosed += OnWindowClosed;
     }
+
+    private void OnDisable()
+    {
+        uiWindow.onWindowOpened -= OnWindowOpened;
+        uiWindow.onWindowClosed -= OnWindowClosed;
+    }
+
+    private void OnWindowOpened(UIWindow _) => Run.Instance.Pause(pauseID);
+    private void OnWindowClosed(UIWindow _) => Run.Instance.Unpause(pauseID);
 }
