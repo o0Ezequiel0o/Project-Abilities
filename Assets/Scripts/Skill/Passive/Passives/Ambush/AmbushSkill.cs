@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zeke.Abilities;
 
 public class AmbushSkill : PassiveBase
 {
@@ -7,91 +8,83 @@ public class AmbushSkill : PassiveBase
 
     private readonly GameObject source;
 
-    private StatusEffectHandler statusEffectHandler;
-
-    private bool ready = false;
     private float timer = 0f;
 
-    private readonly Stat damageMultiplier;
+    private IAbility abilityInstance;
+    private AbilityController abilityController;
 
-    public AmbushSkill(GameObject source, PassiveController passiveController, AmbushSkillData data, Stat damageMultiplier) : base(passiveController)
+    private bool hasRequiredComponents = false;
+
+    public AmbushSkill(GameObject source, PassiveController passiveController, AmbushSkillData data) : base(passiveController)
     {
         this.source = source;
         this.data = data;
-
-        this.damageMultiplier = damageMultiplier;
     }
 
     public override void Awake()
     {
-        if (source.TryGetComponent(out DamageableEventListener eventListener))
-        {
-            eventListener.OnDealDamage.Subscribe(OnDealDamage);
-        }
+        hasRequiredComponents = source.TryGetComponent(out abilityController);
 
-        statusEffectHandler = source.GetComponent<StatusEffectHandler>();
+        if (hasRequiredComponents)
+        {
+            abilityController.onAbilityUsed.Subscribe(OnAbilityUsed);
+        }
     }
 
     public override void Update()
     {
-        if (ready) return;
+        if (!hasRequiredComponents) return;
 
-        timer += Time.deltaTime;
+        AbilityController.AbilityTypeSlot abilityTypeSlot = abilityController.AbilityTypeSlots[data.UpgradeType];
 
-        if (timer >= data.TimeToActivate)
+        if (abilityTypeSlot.CurrentAbilitySlot != null && abilityTypeSlot.CurrentAbilitySlot != abilityInstance)
         {
-            ready = true;
-            ShowVisual();
+            timer += Time.deltaTime;
+
+            if (timer > data.TimeToActivate)
+            {
+                AddAbility();
+            }
         }
     }
 
     public override void OnRemove()
     {
-        if (source.TryGetComponent(out DamageableEventListener eventListener))
-        {
-            eventListener.OnDealDamage.Unsubscribe(OnDealDamage);
-        }
-
-        if (statusEffectHandler != null)
-        {
-            statusEffectHandler.RemoveEffect(data.ActiveIndicator);
-        }
+        if (!hasRequiredComponents || abilityInstance == null) return;
+        abilityController.RemoveAbility(abilityInstance);
     }
 
-    protected override void UpgradeInternal(int levels)
+    private void AddAbility()
     {
-        damageMultiplier.Upgrade(levels);
+        abilityInstance = abilityController.AddAbility(data.AbilityOverride, data.UpgradeType);
     }
 
-    private void OnDealDamage(Damageable.DamageEvent.OnDealDamageEvent damageDealtEvent)
+    private void OnThisAbilityUsed()
     {
-        Damageable.DamageEvent damageEvent = damageDealtEvent.damageEvent;
-
-        if (damageEvent.SourceObject == null) return;
-
-        if (damageEvent.SourceObject.TryGetComponent(out SniperProjectileIdentifier _))
+        if (abilityInstance.Charges == 0)
         {
-            if (ready)
+            abilityController.RemoveAbility(abilityInstance);
+            abilityInstance.Destroy();
+
+            if (abilityController.TryGetAbility(data.UpgradeType, out IAbility currentAbility))
             {
-                damageEvent.Multiplier.Multiply(damageMultiplier.Value);
-
-                ready = false;
-                HideVisual();
+                currentAbility.SetCharges(currentAbility.Charges - 1);
             }
 
+            abilityInstance = null;
             timer = 0f;
         }
     }
 
-    private void ShowVisual()
+    private void OnAbilityUsed(IAbility ability)
     {
-        if (statusEffectHandler == null) return;
-        statusEffectHandler.ApplyEffect(data.ActiveIndicator, source);
-    }
-
-    private void HideVisual()
-    {
-        if (statusEffectHandler == null) return;
-        statusEffectHandler.RemoveEffect(data.ActiveIndicator);
+        if (ability == abilityInstance)
+        {
+            OnThisAbilityUsed();
+        }
+        else if (data.CancelTypes.Contains(ability.Type))
+        {
+            timer = 0f;
+        }
     }
 }
