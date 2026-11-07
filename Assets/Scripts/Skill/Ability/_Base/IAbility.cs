@@ -36,7 +36,7 @@ namespace Zeke.Abilities
 
         public abstract bool TryActivate(bool holding);
 
-        public abstract void ForceDeactivate();
+        public abstract void Disable();
 
         public abstract void TryDeactivate();
 

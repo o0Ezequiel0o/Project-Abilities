@@ -160,9 +160,17 @@ namespace Zeke.Abilities
             return false;
         }
 
-        public void ForceDeactivate()
+        public void Disable()
         {
-            Deactivate();
+            if (DurationActive)
+            {
+                Deactivate();
+            }
+
+            for (int i = 0; i < modules.Count; i++)
+            {
+                modules[i].Disable();
+            }
         }
 
         public void TryDeactivate()

@@ -158,7 +158,7 @@ namespace Zeke.Abilities
                 IAbility overridenAbility = abilityTypeSlots[abilityType].Abilities[^2];
                 onAbilityOverriden?.Invoke(new AbilityOverrideData(ability, overridenAbility));
 
-                overridenAbility.ForceDeactivate();
+                overridenAbility.Disable();
             }
 
             onAbilityAdded?.Invoke(ability);
@@ -170,7 +170,7 @@ namespace Zeke.Abilities
         {
             if (TryGetAbilitySlot(ability, out AbilityTypeSlot abilityTypeSlot, out int index))
             {
-                ability.ForceDeactivate();
+                ability.Disable();
 
                 onAbilityRemoved?.Invoke(ability);
                 abilityTypeSlot.Abilities.RemoveAt(index);
@@ -187,7 +187,7 @@ namespace Zeke.Abilities
             {
                 IAbility replaceAbility = abilityTypeSlot.Abilities[index];
 
-                replaceAbility.ForceDeactivate();
+                replaceAbility.Disable();
                 onAbilityRemoved?.Invoke(replaceAbility);
 
                 IAbility newAbility = newAbilityData.CreateModularAbility(this, spawn, gameObject, replaceAbility.Type);
