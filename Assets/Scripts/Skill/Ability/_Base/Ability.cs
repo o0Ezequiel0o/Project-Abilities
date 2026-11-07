@@ -108,10 +108,17 @@ namespace Zeke.Abilities
 
             if (Charges == MaxCharges)
             {
+                //Set the cooldown to full because the last charge is fully charged.
                 CooldownTimer = CooldownTime;
             }
 
-            controller.onAbilityCharged?.Invoke(new ChargeInfo(this, previousCharges, Charges, Charges - previousCharges));
+            if (previousCharges == MaxCharges && previousCharges > amount)
+            {
+                //If we had max charges and we lost any then we reset the cooldown.
+                CooldownTimer = 0f;
+            }
+
+            controller.onAbilityChargesUpdated?.Invoke(new ChargeInfo(this, previousCharges, Charges, Charges - previousCharges));
         }
 
         public void SetDuration(int amount)
