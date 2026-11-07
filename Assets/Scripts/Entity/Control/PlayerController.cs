@@ -240,13 +240,14 @@ public class AbilityInput
 
     public void ResetInputState()
     {
+        pressedThisFrame = false;
         held = false;
     }
 
     public void OnButtonPressed(InputAction.CallbackContext _)
     {
-        action?.Invoke(abilityType, false);
         pressedThisFrame = true;
+        action?.Invoke(abilityType, false);
     }
 
     public void OnButtonReleased(InputAction.CallbackContext _)
