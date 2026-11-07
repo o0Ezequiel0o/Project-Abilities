@@ -125,6 +125,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7698722109331752331, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
   m_PrefabInstance: {fileID: 8665046035424960480}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2430900975082897289 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6484100423389945961, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
+  m_PrefabInstance: {fileID: 8665046035424960480}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5328556150813258431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eed4b3f6c3032b40bb609739a283de1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5328556150813258431 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3581127942586707295, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
@@ -145,3 +156,40 @@ MonoBehaviour:
   settings: {fileID: 11400000, guid: 46f414e026c2b3241a69aae28182c84e, type: 2}
   abilityIndicatorDB: {fileID: 11400000, guid: 431cabf8c8bbd8b4091ee09308a5671e, type: 2}
   attackIndicatorSpawn: {fileID: 1339600495861504619}
+  damageable: {fileID: 7776867725584365521}
+  entityMove: {fileID: 9189145808089926582}
+  entityAim: {fileID: 6900794886403362444}
+  abilityController: {fileID: 2430900975082897289}
+--- !u!114 &6900794886403362444 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2847648351830069612, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
+  m_PrefabInstance: {fileID: 8665046035424960480}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5328556150813258431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac9dd0fb6fb6614083903083163ebcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7776867725584365521 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1417673509132216369, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
+  m_PrefabInstance: {fileID: 8665046035424960480}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5328556150813258431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e810a262e810dbd4187a6b07b89d52b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9189145808089926582 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 560146304392565846, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
+  m_PrefabInstance: {fileID: 8665046035424960480}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5328556150813258431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 649323b1c2cf12d4eacc5f9b5c2a0ae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityMove

@@ -87,14 +87,6 @@ namespace Zeke.Abilities.Indicators
             }
         }
 
-        public void Enable()
-        {
-            for (int i = 0; i < modules.Count; i++)
-            {
-                modules[i].Enable();
-            }
-        }
-
         public void Disable()
         {
             for (int i = 0; i < modules.Count; i++)

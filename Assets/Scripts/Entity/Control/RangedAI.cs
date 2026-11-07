@@ -5,7 +5,7 @@ using Zeke.TeamSystem;
 
 public class RangedAI : MonoBehaviour
 {
-    [Header("Settings")]
+    [Header("Dependency")]
     [SerializeField] private RangedAISettings settings;
     [SerializeField] private AbilityIndicatorDB abilityIndicatorDB;
 
@@ -13,271 +13,207 @@ public class RangedAI : MonoBehaviour
 
     [SerializeField] private Transform attackIndicatorSpawn;
 
-    private RangedStateContext context;
-    private RangedStateMachine stateMachine;
+    [Space]
 
-    public void SetTarget(Transform target)
+    [SerializeField] private Damageable damageable;
+
+    [SerializeField] private EntityMove entityMove;
+    [SerializeField] private EntityAim entityAim;
+
+    [SerializeField] private AbilityController abilityController;
+
+    private Transform target;
+    private Collider2D targetCollider;
+
+    public Transform Target
     {
-        context.Target = target;
+        get => target;
+        set
+        {
+            target = value;
+            if (target != null)
+            {
+                targetCollider = target.GetComponent<Collider2D>();
+            }
+            else
+            {
+                targetCollider = null;
+            }
+        }
+    }
+
+    public bool HasTarget => target != null && target.gameObject.activeInHierarchy;
+
+    private RangedState currentState = RangedState.Idle;
+
+    private AttackPhase attackPhase = AttackPhase.WindUp;
+
+    private AbilityIndicator abilityIndicator;
+    private Stat.Multiplier aimSpeedMultiplier;
+
+    private float attackTimer;
+    private float recoverTimer;
+
+    private enum RangedState
+    {
+        Idle,
+        Follow,
+        Attack
+    }
+
+    private enum AttackPhase
+    {
+        WindUp,
+        Attack,
+        Recover
+    }
+
+    private void Reset()
+    {
+        damageable = GetComponentInChildren<Damageable>();
+        entityMove = GetComponentInChildren<EntityMove>();
+        entityAim = GetComponentInChildren<EntityAim>();
+
+        abilityController = GetComponentInChildren<AbilityController>();
     }
 
     private void Awake()
     {
-        context = new RangedStateContext(settings, attackIndicatorSpawn, abilityIndicatorDB);
-        stateMachine = new RangedStateMachine(gameObject, context);
+        aimSpeedMultiplier = new Stat.Multiplier(1f);
 
-        if (TryGetComponent(out Damageable damageable))
-        {
-            damageable.onTakenDamage.Subscribe(OnDamageTaken);
-        }
+        abilityIndicator = GetAbilityIndicator(settings.AttackType);
+
+        damageable.onTakenDamage.Subscribe(OnDamageTaken);
+
     }
 
     private void Start()
     {
-        stateMachine.ChangeState(stateMachine.idleState);
+        ChangeState(RangedState.Idle);
     }
 
     private void Update()
     {
-        stateMachine.Update();
+        switch (currentState)
+        {
+            case RangedState.Idle:
+                UpdateIdle();
+                break;
+            case RangedState.Follow:
+                UpdateFollow();
+                break;
+            case RangedState.Attack:
+                UpdateAttack();
+                break;
+        }
     }
 
     private void LateUpdate()
     {
-        stateMachine.LateUpdate();
+        if (currentState == RangedState.Attack)
+        {
+            abilityIndicator?.LateUpdate();
+        }
     }
 
     private void OnDestroy()
     {
-        stateMachine?.Destroy();
-    }
-
-    private void OnDamageTaken(Damageable.DamageEvent damageEvent)
-    {
-        if (TeamManager.Instance.IsAlly(damageEvent.SourceUser, gameObject)) return;
-
-        if (damageEvent.SourceUser == null) return;
-
-        if (context.HasTarget)
+        if (AbilityIndicatorPool.IsNull)
         {
-            float currentTargetSqrDistance = (GetClosestTargetPoint() - (Vector2)transform.position).sqrMagnitude;
-            float attackerTargetSqrDistance = (damageEvent.SourceUser.transform.position - transform.position).sqrMagnitude;
-
-            if (attackerTargetSqrDistance > currentTargetSqrDistance) return;
+            abilityIndicator.Destroy();
         }
-
-        SetTarget(damageEvent.SourceUser.transform);
-    }
-
-    private Vector2 GetClosestTargetPoint()
-    {
-        Vector2 closestPoint = context.Target.position;
-
-        if (context.TargetCollider != null)
+        else
         {
-            closestPoint = context.TargetCollider.ClosestPoint(transform.position);
-        }
-
-        return closestPoint;
-    }
-}
-
-public class RangedStateContext
-{
-    public readonly RangedAISettings ai;
-    public readonly AbilityIndicatorDB abilityIndicatorDB;
-    public readonly Transform attackIndicatorSpawn;
-
-    public bool HasTarget => Target != null && Target.gameObject.activeInHierarchy;
-
-    private Transform target;
-    public Transform Target
-    {
-        get { return target; }
-        set
-        {
-            target = value;
-
-            if (value != null)
-            {
-                TargetCollider = value.GetComponent<Collider2D>();
-            }
+            abilityIndicator.Disable();
+            AbilityIndicatorPool.Instance.Return(abilityIndicator);
         }
     }
 
-    public Collider2D TargetCollider { get; private set; }
-
-    public RangedStateContext(RangedAISettings ai, Transform attackIndicatorSpawn, AbilityIndicatorDB abilityIndicatorDB)
+    private void ChangeState(RangedState newState)
     {
-        this.ai = ai;
-        this.abilityIndicatorDB = abilityIndicatorDB;
-        this.attackIndicatorSpawn = attackIndicatorSpawn;
-    }
-}
+        if (currentState == RangedState.Attack && newState != RangedState.Attack)
+        {
+            abilityIndicator?.Disable();
+            entityAim.RotationSpeed.RemoveMultiplier(aimSpeedMultiplier);
+        }
 
-public class RangedStateMachine : StateMachine<RangedStateContext>
-{
-    public readonly RangedFollowState followState;
-    public readonly RangedAttackState attackState;
-    public readonly RangedIdleState idleState;
-
-    private readonly RangedStateContext context;
-
-    public RangedStateMachine(GameObject gameObject, RangedStateContext context)
-    {
-        this.context = context;
-
-        followState = new RangedFollowState(gameObject, this);
-        attackState = new RangedAttackState(gameObject, this, context);
-        idleState = new RangedIdleState(gameObject, this);
-    }
-
-    public override void ChangeState(State<RangedStateContext> newState)
-    {
-        currentState?.ExitState(context);
         currentState = newState;
-        currentState?.EnterState(context);
-    }
 
-    public override void Update()
-    {
-        currentState?.UpdateState(context);
-    }
-
-    public override void LateUpdate()
-    {
-        currentState?.LateUpdateState(context);
-    }
-
-    public override void Destroy()
-    {
-        followState.DestroyState(context);
-        attackState.DestroyState(context);
-        idleState.DestroyState(context);
-    }
-}
-
-public abstract class RangedBaseState : State<RangedStateContext> { }
-
-public class RangedIdleState : RangedBaseState
-{
-    private readonly GameObject gameObject;
-
-    private readonly EntityMove entityMove;
-    private readonly EntityAim entityAim;
-
-    private readonly RangedStateMachine stateMachine;
-
-    public RangedIdleState(GameObject gameObject, RangedStateMachine stateMachine)
-    {
-        this.gameObject = gameObject;
-        this.stateMachine = stateMachine;
-
-        entityMove = gameObject.GetComponent<EntityMove>();
-        entityAim = gameObject.GetComponent<EntityAim>();
-    }
-
-    public override void DestroyState(RangedStateContext context) { }
-
-    public override void EnterState(RangedStateContext context)
-    {
-        entityMove.StopMoving();
-        entityAim.StopAiming();
-    }
-
-    public override void ExitState(RangedStateContext context) { }
-
-    public override void LateUpdateState(RangedStateContext context) { }
-
-    public override void UpdateState(RangedStateContext context)
-    {
-        if (!context.HasTarget)
+        switch (currentState)
         {
-            if (TryGetRandomTarget(out Transform target))
+            case RangedState.Idle:
+                entityMove.StopMoving();
+                entityAim.StopAiming();
+                break;
+
+            case RangedState.Follow:
+                break;
+
+            case RangedState.Attack:
+                entityMove.StopMoving();
+                entityAim.StopAiming();
+
+                attackPhase = AttackPhase.WindUp;
+                attackTimer = 0f;
+                recoverTimer = 0f;
+
+                abilityIndicator?.Reset(gameObject, attackIndicatorSpawn);
+                entityAim.RotationSpeed.AddMultiplier(aimSpeedMultiplier);
+                break;
+        }
+    }
+
+    private void UpdateIdle()
+    {
+        if (!HasTarget)
+        {
+            if (TryGetRandomTarget(out Transform foundTarget))
             {
-                context.Target = target;
-                stateMachine.ChangeState(stateMachine.followState);
+                Target = foundTarget;
+                ChangeState(RangedState.Follow);
             }
         }
         else
         {
-            stateMachine.ChangeState(stateMachine.followState);
+            ChangeState(RangedState.Follow);
         }
     }
 
-    private bool TryGetRandomTarget(out Transform target)
+    private bool TryGetRandomTarget(out Transform foundTarget)
     {
         GameObject enemy = TeamManager.Instance.GetRandomEnemy(gameObject);
-        target = null;
+        foundTarget = null;
 
         if (enemy != null)
         {
-            target = enemy.transform;
+            foundTarget = enemy.transform;
             return true;
         }
 
         return false;
     }
-}
 
-public class RangedFollowState : RangedBaseState
-{
-    private readonly Transform transform;
-
-    private readonly EntityMove entityMove;
-    private readonly EntityAim entityAim;
-
-    private readonly AbilityController abilityController;
-
-    private readonly RangedStateMachine stateMachine;
-
-    public RangedFollowState(GameObject gameObject, RangedStateMachine stateMachine)
+    private void UpdateFollow()
     {
-        transform = gameObject.transform;
-        this.stateMachine = stateMachine;
-
-        entityMove = gameObject.GetComponent<EntityMove>();
-        entityAim = gameObject.GetComponent<EntityAim>();
-
-        abilityController = gameObject.GetComponent<AbilityController>();
-    }
-
-    public override void DestroyState(RangedStateContext context) { }
-
-    public override void EnterState(RangedStateContext context) { }
-
-    public override void ExitState(RangedStateContext context) { }
-
-    public override void UpdateState(RangedStateContext context)
-    {
-        if (!context.HasTarget)
+        if (!HasTarget)
         {
-            stateMachine.ChangeState(stateMachine.idleState);
+            ChangeState(RangedState.Idle);
+            return;
         }
-        else
-        {
-            Update(context);
-        }
-    }
 
-    public override void LateUpdateState(RangedStateContext context) { }
-
-    private void Update(RangedStateContext context)
-    {
-        Vector2 targetDirection = (context.Target.position - transform.position).normalized;
-
+        Vector2 targetDirection = (target.position - transform.position).normalized;
         entityAim.AimTowards(targetDirection);
 
-        if (InStartAttackAngle(context) && TargetInRange(transform, context))
+        if (InStartAttackAngle() && TargetInRange())
         {
-            if (abilityController.CanUseAbility(context.ai.AttackType))
+            if (abilityController.CanUseAbility(settings.AttackType))
             {
-                stateMachine.ChangeState(stateMachine.attackState);
+                ChangeState(RangedState.Attack);
                 return;
             }
         }
 
-        if (Vector2.Distance(transform.position, context.Target.position) > context.ai.MinChaseRange)
+        if (Vector2.Distance(transform.position, target.position) > settings.MinChaseRange)
         {
             entityMove.MoveTowards(targetDirection);
         }
@@ -287,135 +223,57 @@ public class RangedFollowState : RangedBaseState
         }
     }
 
-    private bool InStartAttackAngle(RangedStateContext context)
+    private bool InStartAttackAngle()
     {
-        float angleDifference = Vector2.Angle(transform.up, context.Target.position - transform.position);
-        return angleDifference < context.ai.MinStartAttackAngle;
+        float angleDifference = Vector2.Angle(transform.up, target.position - transform.position);
+        return angleDifference < settings.MinStartAttackAngle;
     }
 
-    private bool TargetInRange(Transform transform, RangedStateContext context)
+    private bool TargetInRange()
     {
-        Vector3 targetPosition = context.Target.position;
+        Vector3 targetPosition = target.position;
 
-        if (context.TargetCollider != null)
+        if (targetCollider != null)
         {
-            targetPosition = context.TargetCollider.ClosestPoint(transform.position);
+            targetPosition = targetCollider.ClosestPoint(transform.position);
         }
 
-        return (targetPosition - transform.position).sqrMagnitude <= context.ai.AttackRange * context.ai.AttackRange;
-    }
-}
-
-public class RangedAttackState : RangedBaseState
-{
-    private readonly Transform transform;
-
-    private readonly EntityMove entityMove;
-    private readonly EntityAim entityAim;
-
-    private readonly AbilityController abilityController;
-    private readonly AbilityIndicator abilityIndicator;
-
-    private readonly RangedStateMachine stateMachine;
-    private readonly RangedStateContext context;
-
-    private readonly Stat.Multiplier aimSpeedMultiplier;
-
-    private float attackTimer = 0f;
-    private float recoverTimer = 0f;
-
-    private AttackPhase attackPhase = AttackPhase.WindUp;
-
-    private enum AttackPhase
-    {
-        WindUp,
-        Attack,
-        Recover
+        return (targetPosition - transform.position).sqrMagnitude <= settings.AttackRange * settings.AttackRange;
     }
 
-    public RangedAttackState(GameObject gameObject, RangedStateMachine stateMachine, RangedStateContext context)
-    {
-        transform = gameObject.transform;
-        this.stateMachine = stateMachine;
-        this.context = context;
-
-        entityMove = gameObject.GetComponent<EntityMove>();
-        entityAim = gameObject.GetComponent<EntityAim>();
-
-        abilityController = gameObject.GetComponent<AbilityController>();
-
-        aimSpeedMultiplier = new Stat.Multiplier(1f);
-        abilityIndicator = CreateAbilityIndicator(context.ai.AttackType, gameObject);
-    }
-
-    public override void DestroyState(RangedStateContext context)
-    {
-        if (abilityIndicator == null) return;
-        abilityIndicator.Destroy();
-    }
-
-    public override void EnterState(RangedStateContext context)
-    {
-        entityMove.StopMoving();
-        entityAim.StopAiming();
-
-        attackPhase = AttackPhase.WindUp;
-
-        attackTimer = 0f;
-        recoverTimer = 0f;
-
-        abilityIndicator?.Reset();
-
-        entityAim.RotationSpeed.AddMultiplier(aimSpeedMultiplier);
-    }
-
-    public override void ExitState(RangedStateContext context)
-    {
-        abilityIndicator?.Disable();
-        entityAim.RotationSpeed.RemoveMultiplier(aimSpeedMultiplier);
-    }
-
-    public override void UpdateState(RangedStateContext context)
+    private void UpdateAttack()
     {
         switch (attackPhase)
         {
             case AttackPhase.WindUp:
-                UpdateWindUp(context);
+                UpdateWindUp();
                 break;
-
             case AttackPhase.Attack:
-                UpdateAttack(context);
+                UpdateAttackPhase();
                 break;
-
             case AttackPhase.Recover:
-                UpdateRecover(context);
+                UpdateRecover();
                 break;
         }
     }
 
-    public override void LateUpdateState(RangedStateContext context)
-    {
-        abilityIndicator?.LateUpdate();
-    }
-
-    private void UpdateWindUp(RangedStateContext context)
+    private void UpdateWindUp()
     {
         if (abilityIndicator == null)
         {
-            PerformAttack(context);
+            PerformAttack();
             attackPhase = AttackPhase.Attack;
             aimSpeedMultiplier.UpdateMultiplier(1f);
         }
         else
         {
             attackTimer += Time.deltaTime;
-
             abilityIndicator.Update();
-            aimSpeedMultiplier.UpdateMultiplier(context.ai.AimingSpeedMultiplier);
+            aimSpeedMultiplier.UpdateMultiplier(settings.AimingSpeedMultiplier);
 
-            if (context.HasTarget)
+            if (HasTarget)
             {
-                Vector2 direction = (context.Target.position - transform.position).normalized;
+                Vector2 direction = (target.position - transform.position).normalized;
                 entityAim.AimTowards(direction);
             }
             else
@@ -425,19 +283,18 @@ public class RangedAttackState : RangedBaseState
 
             if (attackTimer > abilityIndicator.FirstHideTime)
             {
-                PerformAttack(context);
+                PerformAttack();
                 attackPhase = AttackPhase.Attack;
                 aimSpeedMultiplier.UpdateMultiplier(1f);
             }
         }
     }
 
-    private void UpdateAttack(RangedStateContext context)
+    private void UpdateAttackPhase()
     {
         if (abilityIndicator != null)
         {
             attackTimer += Time.deltaTime;
-
             abilityIndicator.Update();
 
             if (attackTimer > abilityIndicator.LastHideTime)
@@ -451,43 +308,71 @@ public class RangedAttackState : RangedBaseState
         }
     }
 
-    private void UpdateRecover(RangedStateContext context)
+    private void UpdateRecover()
     {
         recoverTimer += Time.deltaTime;
 
-        if (recoverTimer > context.ai.AttackRecover)
+        if (recoverTimer > settings.AttackRecover)
         {
-            FinishAttack(context);
+            FinishAttack();
         }
     }
 
-    private void PerformAttack(RangedStateContext context)
+    private void PerformAttack()
     {
-        abilityController.TryUseAbility(context.ai.AttackType);
+        abilityController.TryUseAbility(settings.AttackType);
     }
 
-    private void FinishAttack(RangedStateContext context)
+    private void FinishAttack()
     {
-        if (!context.HasTarget) 
+        if (!HasTarget)
         {
-            stateMachine.ChangeState(stateMachine.idleState);
+            ChangeState(RangedState.Idle);
         }
         else
         {
-            stateMachine.ChangeState(stateMachine.followState);
+            ChangeState(RangedState.Follow);
         }
     }
 
-    private AbilityIndicator CreateAbilityIndicator(AbilityType abilityType, GameObject gameObject)
+    private AbilityIndicator GetAbilityIndicator(AbilityType abilityType)
     {
         if (abilityController.TryGetAbility(abilityType, out IAbility ability))
         {
-            if (context.abilityIndicatorDB.TryGetAbilityIndicator(ability.Data, out AbilityIndicatorData indicatorData))
+            if (abilityIndicatorDB.TryGetAbilityIndicator(ability.Data, out AbilityIndicatorData indicatorData))
             {
-                return indicatorData.CreateAbilityIndicator(gameObject, abilityController.Spawn);
+                return AbilityIndicatorPool.Instance.Get(indicatorData, gameObject, attackIndicatorSpawn);
             }
         }
 
         return null;
+    }
+
+    private void OnDamageTaken(Damageable.DamageEvent damageEvent)
+    {
+        if (TeamManager.Instance.IsAlly(damageEvent.SourceUser, gameObject)) return;
+        if (damageEvent.SourceUser == null) return;
+
+        if (HasTarget)
+        {
+            float currentTargetSqrDistance = (GetClosestTargetPoint() - (Vector2)transform.position).sqrMagnitude;
+            float attackerTargetSqrDistance = (damageEvent.SourceUser.transform.position - transform.position).sqrMagnitude;
+
+            if (attackerTargetSqrDistance > currentTargetSqrDistance) return;
+        }
+
+        Target = damageEvent.SourceUser.transform;
+    }
+
+    private Vector2 GetClosestTargetPoint()
+    {
+        Vector2 closestPoint = target.position;
+
+        if (targetCollider != null)
+        {
+            closestPoint = targetCollider.ClosestPoint(transform.position);
+        }
+
+        return closestPoint;
     }
 }

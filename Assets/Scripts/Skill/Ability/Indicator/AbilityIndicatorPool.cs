@@ -35,6 +35,7 @@ namespace Zeke.Abilities.Indicators
                 }
 
                 indicators.Push(indicator);
+                return;
             }
 
             abilityIndicators.Add(indicator.data, new Stack<AbilityIndicator>());

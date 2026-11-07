@@ -5,197 +5,138 @@ using Zeke.TeamSystem;
 
 public class TurretAI : MonoBehaviour
 {
+    private enum TurretState
+    {
+        Idle,
+        Attack
+    }
+
     [Header("Dependency")]
     [SerializeField] private TurretAISettings settings;
 
-    private TurretStateContext context;
-    private TurretStateMachine stateMachine;
+    [Space]
+
+    [SerializeField] private EntityAim entityAim;
+    [SerializeField] private AbilityController abilityController;
+
+    private Transform target;
+    private Collider2D targetCollider;
+
+    public Transform Target
+    {
+        get => target;
+        set
+        {
+            target = value;
+            if (target != null)
+            {
+                targetCollider = target.GetComponent<Collider2D>();
+            }
+            else
+            {
+                targetCollider = null;
+            }
+        }
+    }
+
+    public bool HasTarget => target != null && target.gameObject.activeInHierarchy;
+
+    private TurretState currentState = TurretState.Idle;
+
+    private Predicate<GameObject> targetFilter;
+
+    private void Reset()
+    {
+        entityAim = GetComponentInChildren<EntityAim>();
+        abilityController = GetComponentInChildren<AbilityController>();
+    }
 
     private void Awake()
     {
-        context = new TurretStateContext(settings);
-        stateMachine = new TurretStateMachine(gameObject, context);
+        targetFilter = candidateTarget => TeamManager.Instance.IsEnemy(gameObject, candidateTarget);
+    }
 
-        stateMachine.ChangeState(stateMachine.idleState);
+    private void Start()
+    {
+        ChangeState(TurretState.Idle);
     }
 
     private void Update()
     {
-        stateMachine.Update();
-    }
-
-    private void LateUpdate()
-    {
-        stateMachine.LateUpdate();
-    }
-
-    private void OnDestroy()
-    {
-        stateMachine.Destroy();
-    }
-}
-
-public class TurretStateContext
-{
-    public readonly TurretAISettings ai;
-
-    private Transform target;
-    public Transform Target
-    {
-        get { return target; }
-        set
+        switch (currentState)
         {
-            target = value;
-
-            if (target != null)
-            {
-                TargetCollider = value.GetComponent<Collider2D>();
-            }
+            case TurretState.Idle:
+                UpdateIdle();
+                break;
+            case TurretState.Attack:
+                UpdateAttack();
+                break;
         }
     }
 
-    public Collider2D TargetCollider { get; private set; }
-
-    public TurretStateContext(TurretAISettings settings)
+    private void ChangeState(TurretState newState)
     {
-        ai = settings;
-    }
-}
-
-public class TurretStateMachine : StateMachine<TurretStateContext>
-{
-    public readonly TurretAttackState attackState;
-    public readonly TurretIdleState idleState;
-
-    private readonly TurretStateContext context;
-
-    public TurretStateMachine(GameObject gameObject, TurretStateContext context)
-    {
-        idleState = new TurretIdleState(gameObject, this, context);
-        attackState = new TurretAttackState(gameObject, this);
-
-        this.context = context;
-    }
-
-    public override void ChangeState(State<TurretStateContext> newState)
-    {
-        currentState?.ExitState(context);
         currentState = newState;
-        currentState?.EnterState(context);
-    }
 
-    public override void Destroy()
-    {
-        attackState.DestroyState(context);
-        idleState.DestroyState(context);
-    }
-
-    public override void LateUpdate()
-    {
-        currentState?.UpdateState(context);
-    }
-
-    public override void Update()
-    {
-        currentState?.UpdateState(context);
-    }
-}
-
-public class TurretIdleState : State<TurretStateContext>
-{
-    private readonly Transform transform;
-    private readonly EntityAim entityAim;
-
-    private readonly TurretStateMachine stateMachine;
-    private readonly Predicate<GameObject> filter;
-
-    public TurretIdleState(GameObject gameObject, TurretStateMachine stateMachine, TurretStateContext context)
-    {
-        transform = gameObject.transform;
-        this.stateMachine = stateMachine;
-
-        entityAim = gameObject.GetComponent<EntityAim>();
-        filter = target => TeamManager.Instance.IsEnemy(gameObject, target);
-    }
-
-    public override void DestroyState(TurretStateContext context) { }
-
-    public override void EnterState(TurretStateContext context) { }
-
-    public override void ExitState(TurretStateContext context) { }
-
-    public override void LateUpdateState(TurretStateContext context) { }
-
-    public override void UpdateState(TurretStateContext context)
-    {
-        if (TargetAwareness.TryGetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.Range, context.ai.TargetLayers, context.ai.BlockLayers, filter, out Transform target))
+        switch (currentState)
         {
-            context.Target = target;
-            stateMachine.ChangeState(stateMachine.attackState);
+            case TurretState.Idle:
+                Target = null;
+                break;
+
+            case TurretState.Attack:
+                break;
         }
     }
-}
 
-public class TurretAttackState : State<TurretStateContext>
-{
-    private readonly Transform transform;
-    private readonly EntityAim entityAim;
-
-    private readonly AbilityController abilityController;
-    private readonly TurretStateMachine stateMachine;
-
-    private readonly Predicate<GameObject> IsEnemy;
-
-    public TurretAttackState(GameObject gameObject, TurretStateMachine stateMachine)
+    private void UpdateIdle()
     {
-        transform = gameObject.transform;
-        this.stateMachine = stateMachine;
-
-        entityAim = gameObject.GetComponent<EntityAim>();
-        abilityController = gameObject.GetComponent<AbilityController>();
-
-        IsEnemy = target => TeamManager.Instance.IsEnemy(gameObject, target);
+        if (TargetAwareness.TryGetClosestTargetToDirection(
+            transform.position,
+            entityAim.AimDirection,
+            settings.Range,
+            settings.TargetLayers,
+            settings.BlockLayers,
+            targetFilter,
+            out Transform foundTarget))
+        {
+            Target = foundTarget;
+            ChangeState(TurretState.Attack);
+        }
     }
 
-    public override void DestroyState(TurretStateContext context) { }
-
-    public override void EnterState(TurretStateContext context) { }
-
-    public override void ExitState(TurretStateContext context) { }
-
-    public override void LateUpdateState(TurretStateContext context) { }
-
-    public override void UpdateState(TurretStateContext context)
+    private void UpdateAttack()
     {
-        if (context.Target == null || TargetOutOfRange(context))
+        if (!HasTarget || TargetOutOfRange())
         {
-            stateMachine.ChangeState(stateMachine.idleState);
+            ChangeState(TurretState.Idle);
         }
         else
         {
-            entityAim.AimTowards((context.Target.position - transform.position).normalized);
+            entityAim.AimTowards((target.position - transform.position).normalized);
 
-            if (TargetAwareness.AnyTargetInLineOfSight(transform.position, entityAim.AimDirection, context.ai.Range, context.ai.TargetLayers, IsEnemy, false))
+            if (TargetAwareness.AnyTargetInLineOfSight(
+                transform.position,
+                entityAim.AimDirection,
+                settings.Range,
+                settings.TargetLayers,
+                targetFilter,
+                false))
             {
-                Attack(context);
+                abilityController.TryUseAbility(settings.AttackType);
             }
         }
     }
 
-    private void Attack(TurretStateContext context)
+    private bool TargetOutOfRange()
     {
-        abilityController.TryUseAbility(context.ai.AttackType);
-    }
+        Vector3 targetPosition = target.position;
 
-    private bool TargetOutOfRange(TurretStateContext context)
-    {
-        Vector3 targetPosition = context.Target.position;
-
-        if (context.TargetCollider != null)
+        if (targetCollider != null)
         {
-            targetPosition = context.TargetCollider.ClosestPoint(transform.position);
+            targetPosition = targetCollider.ClosestPoint(transform.position);
         }
 
-        return (targetPosition - transform.position).sqrMagnitude > context.ai.Range * context.ai.Range;
+        return (targetPosition - transform.position).sqrMagnitude > settings.Range * settings.Range;
     }
 }

@@ -476,6 +476,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: f59ee330c2a0d584192cc7374f1d7b6e, type: 2}
+  entityAim: {fileID: 3258373292319498312}
+  abilityController: {fileID: 7673138500625142514}
 --- !u!114 &4670485228891248934
 MonoBehaviour:
   m_ObjectHideFlags: 0

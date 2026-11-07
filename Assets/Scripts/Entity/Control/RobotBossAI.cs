@@ -6,7 +6,7 @@ using Zeke.TeamSystem;
 
 public class RobotBossAI : MonoBehaviour
 {
-    [Header("Settings")]
+    [Header("Dependency")]
     [SerializeField] private RobotBossAISettings settings;
     [SerializeField] private AbilityIndicatorDB abilityIndicatorDB;
 
@@ -14,52 +14,431 @@ public class RobotBossAI : MonoBehaviour
 
     [SerializeField] private Transform attackIndicatorSpawn;
 
-    private RobotBossStateContext context;
-    private RobotBossStateMachine stateMachine;
+    [Space]
 
-    public void SetTarget(Transform target)
+    [SerializeField] private Damageable damageable;
+
+    [SerializeField] private EntityMove entityMove;
+    [SerializeField] private EntityAim entityAim;
+
+    [SerializeField] private AbilityController abilityController;
+
+    private Transform target;
+    private Collider2D targetCollider;
+
+    public Transform Target
     {
-        context.Target = target;
+        get => target;
+        set
+        {
+            target = value;
+            if (target != null)
+            {
+                targetCollider = target.GetComponent<Collider2D>();
+            }
+            else
+            {
+                targetCollider = null;
+            }
+        }
+    }
+
+    public bool HasTarget => target != null && target.gameObject.activeInHierarchy;
+
+    private BossState currentState = BossState.Idle;
+
+    private AttackPhase attackPhase = AttackPhase.WindUp;
+
+    private AbilityIndicator primaryAbilityIndicator;
+    private AbilityIndicator secondaryAbilityIndicator;
+
+    private float attackTimer;
+    private float recoverTimer;
+
+    private Predicate<GameObject> targetFilter;
+
+    private enum BossState
+    {
+        Idle,
+        Follow,
+        PrimaryAttack,
+        SecondaryAttack
+    }
+
+    private enum AttackPhase
+    {
+        WindUp,
+        Attack,
+        Recover,
+        Track
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        Target = newTarget;
+    }
+
+    private void Reset()
+    {
+        damageable = GetComponentInChildren<Damageable>();
+        entityMove = GetComponentInChildren<EntityMove>();
+        entityAim = GetComponentInChildren<EntityAim>();
+
+        abilityController = GetComponentInChildren<AbilityController>();
     }
 
     private void Awake()
     {
-        context = new RobotBossStateContext(settings, attackIndicatorSpawn, abilityIndicatorDB);
-        stateMachine = new RobotBossStateMachine(gameObject, context);
+        targetFilter = TargetFilter;
 
-        if (TryGetComponent(out Damageable damageable))
-        {
-            damageable.onTakenDamage.Subscribe(OnDamageTaken);
-        }
+        primaryAbilityIndicator = GetAbilityIndicator(settings.PrimaryAttackType);
+        secondaryAbilityIndicator = GetAbilityIndicator(settings.SecondaryAttackType);
+
+        damageable.onTakenDamage.Subscribe(OnDamageTaken);
     }
 
     private void Start()
     {
-        stateMachine.ChangeState(stateMachine.idleState);
+        ChangeState(BossState.Idle);
     }
 
     private void Update()
     {
-        stateMachine.Update();
+        switch (currentState)
+        {
+            case BossState.Idle:
+                UpdateIdle();
+                break;
+            case BossState.Follow:
+                UpdateFollow();
+                break;
+            case BossState.PrimaryAttack:
+                UpdatePrimaryAttack();
+                break;
+            case BossState.SecondaryAttack:
+                UpdateSecondaryAttack();
+                break;
+        }
     }
 
     private void LateUpdate()
     {
-        stateMachine.LateUpdate();
+        if (currentState == BossState.PrimaryAttack)
+        {
+            primaryAbilityIndicator?.LateUpdate();
+        }
+        else if (currentState == BossState.SecondaryAttack)
+        {
+            secondaryAbilityIndicator?.LateUpdate();
+        }
     }
 
     private void OnDestroy()
     {
-        stateMachine?.Destroy();
+        if (AbilityIndicatorPool.IsNull)
+        {
+            primaryAbilityIndicator.Destroy();
+        }
+        else
+        {
+            primaryAbilityIndicator.Disable();
+            AbilityIndicatorPool.Instance.Return(primaryAbilityIndicator);
+        }
+
+        if (AbilityIndicatorPool.IsNull)
+        {
+            secondaryAbilityIndicator.Destroy();
+        }
+        else
+        {
+            secondaryAbilityIndicator.Disable();
+            AbilityIndicatorPool.Instance.Return(secondaryAbilityIndicator);
+        }
+    }
+
+    private void ChangeState(BossState newState)
+    {
+        if (currentState == BossState.PrimaryAttack && newState != BossState.PrimaryAttack)
+        {
+            primaryAbilityIndicator?.Disable();
+        }
+        else if (currentState == BossState.SecondaryAttack && newState != BossState.SecondaryAttack)
+        {
+            secondaryAbilityIndicator?.Disable();
+        }
+
+        currentState = newState;
+
+        switch (currentState)
+        {
+            case BossState.Idle:
+                entityMove.StopMoving();
+                entityAim.StopAiming();
+                break;
+
+            case BossState.Follow:
+                break;
+
+            case BossState.PrimaryAttack:
+                entityMove.StopMoving();
+                entityAim.StopAiming();
+
+                attackPhase = AttackPhase.WindUp;
+
+                attackTimer = 0f;
+                recoverTimer = 0f;
+
+                primaryAbilityIndicator?.Reset(gameObject, attackIndicatorSpawn);
+                break;
+
+            case BossState.SecondaryAttack:
+                entityMove.StopMoving();
+                entityAim.StopAiming();
+
+                attackPhase = AttackPhase.WindUp;
+
+                attackTimer = 0f;
+
+                secondaryAbilityIndicator?.Reset(gameObject, attackIndicatorSpawn);
+                break;
+        }
+    }
+
+    private void UpdateIdle()
+    {
+        if (!HasTarget)
+        {
+            if (TryGetRandomTarget(out Transform foundTarget))
+            {
+                Target = foundTarget;
+                ChangeState(BossState.Follow);
+            }
+        }
+        else
+        {
+            ChangeState(BossState.Follow);
+        }
+    }
+
+    private bool TryGetRandomTarget(out Transform foundTarget)
+    {
+        GameObject enemy = TeamManager.Instance.GetRandomEnemy(gameObject);
+        foundTarget = null;
+
+        if (enemy != null)
+        {
+            foundTarget = enemy.transform;
+            return true;
+        }
+
+        return false;
+    }
+
+    private void UpdateFollow()
+    {
+        if (!HasTarget)
+        {
+            ChangeState(BossState.Idle);
+            return;
+        }
+
+        Vector2 targetDirection = (target.position - transform.position).normalized;
+        entityAim.AimTowards(targetDirection);
+
+        if (InStartAttackAngle() && TargetInSecondaryRange())
+        {
+            if (abilityController.CanUseAbility(settings.SecondaryAttackType))
+            {
+                ChangeState(BossState.SecondaryAttack);
+                return;
+            }
+        }
+
+        if (InStartAttackAngle() && TargetInPrimaryRange())
+        {
+            if (abilityController.CanUseAbility(settings.PrimaryAttackType))
+            {
+                ChangeState(BossState.PrimaryAttack);
+                return;
+            }
+        }
+
+        entityMove.MoveTowards(targetDirection);
+    }
+
+    private void UpdatePrimaryAttack()
+    {
+        switch (attackPhase)
+        {
+            case AttackPhase.WindUp:
+                if (primaryAbilityIndicator == null)
+                {
+                    abilityController.TryUseAbility(settings.PrimaryAttackType);
+                    attackPhase = AttackPhase.Attack;
+                }
+                else
+                {
+                    attackTimer += Time.deltaTime;
+                    primaryAbilityIndicator.Update();
+
+                    if (attackTimer > primaryAbilityIndicator.FirstHideTime)
+                    {
+                        abilityController.TryUseAbility(settings.PrimaryAttackType);
+                        attackPhase = AttackPhase.Attack;
+                    }
+                }
+                break;
+
+            case AttackPhase.Attack:
+                if (primaryAbilityIndicator != null)
+                {
+                    attackTimer += Time.deltaTime;
+                    primaryAbilityIndicator.Update();
+
+                    if (attackTimer > primaryAbilityIndicator.LastHideTime)
+                    {
+                        attackPhase = AttackPhase.Recover;
+                    }
+                }
+                else
+                {
+                    attackPhase = AttackPhase.Recover;
+                }
+                break;
+
+            case AttackPhase.Recover:
+                recoverTimer += Time.deltaTime;
+                if (recoverTimer > settings.PrimaryAttackRecover)
+                {
+                    FinishAttack();
+                }
+                break;
+        }
+    }
+
+    private void UpdateSecondaryAttack()
+    {
+        switch (attackPhase)
+        {
+            case AttackPhase.WindUp:
+                if (secondaryAbilityIndicator == null)
+                {
+                    abilityController.TryUseAbility(settings.SecondaryAttackType);
+                    attackPhase = AttackPhase.Track;
+                }
+                else
+                {
+                    attackTimer += Time.deltaTime;
+                    secondaryAbilityIndicator.Update();
+
+                    if (attackTimer > secondaryAbilityIndicator.FirstHideTime)
+                    {
+                        abilityController.TryUseAbility(settings.SecondaryAttackType);
+                        attackPhase = AttackPhase.Track;
+                    }
+                }
+                break;
+
+            case AttackPhase.Track:
+                secondaryAbilityIndicator?.Update();
+
+                if (!HasTarget)
+                {
+                    Target = TargetAwareness.GetClosestTargetToDirection(
+                        transform.position,
+                        entityAim.AimDirection,
+                        settings.SecondaryAttackRange,
+                        settings.TargetLayers,
+                        settings.BlockLayers,
+                        targetFilter
+                    );
+                }
+
+                if (HasTarget)
+                {
+                    Vector2 targetDirection = (target.position - transform.position).normalized;
+                    entityAim.AimTowards(targetDirection);
+                }
+
+                if (abilityController.TryGetAbility(settings.SecondaryAttackType, out IAbility ability))
+                {
+                    if (!ability.DurationActive)
+                    {
+                        FinishAttack();
+                    }
+                }
+                else
+                {
+                    FinishAttack();
+                }
+                break;
+        }
+    }
+
+    private void FinishAttack()
+    {
+        if (!HasTarget)
+        {
+            ChangeState(BossState.Idle);
+        }
+        else
+        {
+            ChangeState(BossState.Follow);
+        }
+    }
+
+    private bool TargetInPrimaryRange()
+    {
+        Vector3 targetPosition = target.position;
+        if (targetCollider != null)
+        {
+            targetPosition = targetCollider.ClosestPoint(transform.position);
+        }
+        return (targetPosition - transform.position).sqrMagnitude <= settings.PrimaryStartRange * settings.PrimaryStartRange;
+    }
+
+    private bool TargetInSecondaryRange()
+    {
+        Vector3 targetPosition = target.position;
+        if (targetCollider != null)
+        {
+            targetPosition = targetCollider.ClosestPoint(transform.position);
+        }
+        return (targetPosition - transform.position).sqrMagnitude <= settings.SecondaryStartRange * settings.SecondaryStartRange;
+    }
+
+    private bool InStartAttackAngle()
+    {
+        float angleDifference = Vector2.Angle(transform.up, target.position - transform.position);
+        return angleDifference < settings.MinStartAttackAngle;
+    }
+
+    private AbilityIndicator GetAbilityIndicator(AbilityType abilityType)
+    {
+        if (abilityController.TryGetAbility(abilityType, out IAbility ability))
+        {
+            if (abilityIndicatorDB.TryGetAbilityIndicator(ability.Data, out AbilityIndicatorData indicatorData))
+            {
+                return AbilityIndicatorPool.Instance.Get(indicatorData, gameObject, attackIndicatorSpawn);
+            }
+        }
+
+        return null;
+    }
+
+    private bool TargetFilter(GameObject candidateTarget)
+    {
+        if (candidateTarget == gameObject) return false;
+        if (TeamManager.Instance.IsAlly(gameObject, candidateTarget)) return false;
+        return true;
     }
 
     private void OnDamageTaken(Damageable.DamageEvent damageEvent)
     {
         if (TeamManager.Instance.IsAlly(damageEvent.SourceUser, gameObject)) return;
-
         if (damageEvent.SourceUser == null) return;
 
-        if (context.HasTarget)
+        if (HasTarget)
         {
             float currentTargetSqrDistance = (GetClosestTargetPoint() - (Vector2)transform.position).sqrMagnitude;
             float attackerTargetSqrDistance = (damageEvent.SourceUser.transform.position - transform.position).sqrMagnitude;
@@ -67,578 +446,18 @@ public class RobotBossAI : MonoBehaviour
             if (attackerTargetSqrDistance > currentTargetSqrDistance) return;
         }
 
-        SetTarget(damageEvent.SourceUser.transform);
+        Target = damageEvent.SourceUser.transform;
     }
 
     private Vector2 GetClosestTargetPoint()
     {
-        Vector2 closestPoint = context.Target.position;
+        Vector2 closestPoint = target.position;
 
-        if (context.TargetCollider != null)
+        if (targetCollider != null)
         {
-            closestPoint = context.TargetCollider.ClosestPoint(transform.position);
+            closestPoint = targetCollider.ClosestPoint(transform.position);
         }
 
         return closestPoint;
-    }
-}
-
-public class RobotBossStateContext
-{
-    public readonly RobotBossAISettings ai;
-    public readonly AbilityIndicatorDB abilityIndicatorDB;
-    public readonly Transform attackIndicatorSpawn;
-
-    public bool HasTarget => Target != null && Target.gameObject.activeInHierarchy;
-
-    private Transform target;
-    public Transform Target
-    {
-        get { return target; }
-        set
-        {
-            target = value;
-
-            if (value != null)
-            {
-                TargetCollider = value.GetComponent<Collider2D>();
-            }
-        }
-    }
-
-    public Collider2D TargetCollider { get; private set; }
-
-    public RobotBossStateContext(RobotBossAISettings ai, Transform attackIndicatorSpawn, AbilityIndicatorDB abilityIndicatorDB)
-    {
-        this.ai = ai;
-        this.abilityIndicatorDB = abilityIndicatorDB;
-        this.attackIndicatorSpawn = attackIndicatorSpawn;
-    }
-}
-
-public class RobotBossStateMachine : StateMachine<RobotBossStateContext>
-{
-    public readonly RobotBossFollowState followState;
-    public readonly RobotBossPrimaryAttackState primaryAttackState;
-    public readonly RobotBossSecondaryAttackState secondaryAttackState;
-    public readonly RobotBossIdleState idleState;
-
-    private readonly RobotBossStateContext context;
-
-    public RobotBossStateMachine(GameObject gameObject, RobotBossStateContext context)
-    {
-        this.context = context;
-
-        followState = new RobotBossFollowState(gameObject, this);
-        primaryAttackState = new RobotBossPrimaryAttackState(gameObject, this, context);
-        secondaryAttackState = new RobotBossSecondaryAttackState(gameObject, this, context);
-        idleState = new RobotBossIdleState(gameObject, this);
-    }
-
-    public override void ChangeState(State<RobotBossStateContext> newState)
-    {
-        currentState?.ExitState(context);
-        currentState = newState;
-        currentState?.EnterState(context);
-    }
-
-    public override void Update()
-    {
-        currentState?.UpdateState(context);
-    }
-
-    public override void LateUpdate()
-    {
-        currentState?.LateUpdateState(context);
-    }
-
-    public override void Destroy()
-    {
-        followState.DestroyState(context);
-        primaryAttackState.DestroyState(context);
-        secondaryAttackState.DestroyState(context);
-        idleState.DestroyState(context);
-    }
-}
-
-public abstract class RobotBossBaseState : State<RobotBossStateContext>
-{
-    protected bool TargetInPrimaryRange(Transform transform, RobotBossStateContext context)
-    {
-        Vector3 targetPosition = context.Target.position;
-
-        if (context.TargetCollider != null)
-        {
-            targetPosition = context.TargetCollider.ClosestPoint(transform.position);
-        }
-
-        return (targetPosition - transform.position).sqrMagnitude <= context.ai.PrimaryStartRange * context.ai.PrimaryStartRange;
-    }
-
-    protected bool TargetInSecondaryRange(Transform transform, RobotBossStateContext context)
-    {
-        Vector3 targetPosition = context.Target.position;
-
-        if (context.TargetCollider != null)
-        {
-            targetPosition = context.TargetCollider.ClosestPoint(transform.position);
-        }
-
-        return (targetPosition - transform.position).sqrMagnitude <= context.ai.SecondaryStartRange * context.ai.SecondaryStartRange;
-    }
-
-    protected bool InStartAttackAngle(Transform transform, RobotBossStateContext context)
-    {
-        float angleDifference = Vector2.Angle(transform.up, context.Target.position - transform.position);
-        return angleDifference < context.ai.MinStartAttackAngle;
-    }
-
-    protected AbilityIndicator CreateAbilityIndicator(AbilityController abilityController, AbilityType abilityType, GameObject gameObject, AbilityIndicatorDB db)
-    {
-        if (abilityController.TryGetAbility(abilityType, out IAbility ability))
-        {
-            if (db.TryGetAbilityIndicator(ability.Data, out AbilityIndicatorData indicatorData))
-            {
-                return indicatorData.CreateAbilityIndicator(gameObject, abilityController.Spawn);
-            }
-        }
-
-        return null;
-    }
-}
-
-public class RobotBossIdleState : RobotBossBaseState
-{
-    private readonly GameObject gameObject;
-
-    private readonly EntityMove entityMove;
-    private readonly EntityAim entityAim;
-
-    private readonly RobotBossStateMachine stateMachine;
-
-    public RobotBossIdleState(GameObject gameObject, RobotBossStateMachine stateMachine)
-    {
-        this.gameObject = gameObject;
-        this.stateMachine = stateMachine;
-
-        entityMove = gameObject.GetComponent<EntityMove>();
-        entityAim = gameObject.GetComponent<EntityAim>();
-    }
-
-    public override void DestroyState(RobotBossStateContext context) { }
-
-    public override void EnterState(RobotBossStateContext context)
-    {
-        entityMove.StopMoving();
-        entityAim.StopAiming();
-    }
-
-    public override void ExitState(RobotBossStateContext context) { }
-
-    public override void LateUpdateState(RobotBossStateContext context) { }
-
-    public override void UpdateState(RobotBossStateContext context)
-    {
-        if (!context.HasTarget)
-        {
-            if (TryGetRandomTarget(out Transform target))
-            {
-                context.Target = target;
-                stateMachine.ChangeState(stateMachine.followState);
-            }
-        }
-        else
-        {
-            stateMachine.ChangeState(stateMachine.followState);
-        }
-    }
-
-    private bool TryGetRandomTarget(out Transform target)
-    {
-        GameObject enemy = TeamManager.Instance.GetRandomEnemy(gameObject);
-        target = null;
-
-        if (enemy != null)
-        {
-            target = enemy.transform;
-            return true;
-        }
-
-        return false;
-    }
-}
-
-public class RobotBossFollowState : RobotBossBaseState
-{
-    private readonly Transform transform;
-
-    private readonly EntityMove entityMove;
-    private readonly EntityAim entityAim;
-
-    private readonly AbilityController abilityController;
-
-    private readonly RobotBossStateMachine stateMachine;
-
-    public RobotBossFollowState(GameObject gameObject, RobotBossStateMachine stateMachine)
-    {
-        transform = gameObject.transform;
-        this.stateMachine = stateMachine;
-
-        entityMove = gameObject.GetComponent<EntityMove>();
-        entityAim = gameObject.GetComponent<EntityAim>();
-
-        abilityController = gameObject.GetComponent<AbilityController>();
-    }
-
-    public override void DestroyState(RobotBossStateContext context) { }
-
-    public override void EnterState(RobotBossStateContext context) { }
-
-    public override void ExitState(RobotBossStateContext context) { }
-
-    public override void UpdateState(RobotBossStateContext context)
-    {
-        if (!context.HasTarget)
-        {
-            stateMachine.ChangeState(stateMachine.idleState);
-        }
-        else
-        {
-            Update(context);
-        }
-    }
-
-    public override void LateUpdateState(RobotBossStateContext context) { }
-
-    private void Update(RobotBossStateContext context)
-    {
-        Vector2 targetDirection = (context.Target.position - transform.position).normalized;
-
-        entityAim.AimTowards(targetDirection);
-
-        if (InStartAttackAngle(transform, context) && TargetInSecondaryRange(transform, context))
-        {
-            if (abilityController.CanUseAbility(context.ai.SecondaryAttackType))
-            {
-                stateMachine.ChangeState(stateMachine.secondaryAttackState);
-                return;
-            }
-        }
-
-        if (InStartAttackAngle(transform, context) && TargetInPrimaryRange(transform, context))
-        {
-            if (abilityController.CanUseAbility(context.ai.PrimaryAttackType))
-            {
-                stateMachine.ChangeState(stateMachine.primaryAttackState);
-                return;
-            }
-        }
-        
-        entityMove.MoveTowards(targetDirection);
-    }
-}
-
-public class RobotBossPrimaryAttackState : RobotBossBaseState
-{
-    private readonly EntityMove entityMove;
-    private readonly EntityAim entityAim;
-
-    private readonly AbilityController abilityController;
-    private readonly AbilityIndicator abilityIndicator;
-
-    private readonly RobotBossStateMachine stateMachine;
-
-    private float attackTimer = 0f;
-    private float recoverTimer = 0f;
-
-    private AttackPhase attackPhase = AttackPhase.WindUp;
-
-    private enum AttackPhase
-    {
-        WindUp,
-        Attack,
-        Recover
-    }
-
-    public RobotBossPrimaryAttackState(GameObject gameObject, RobotBossStateMachine stateMachine, RobotBossStateContext context)
-    {
-        this.stateMachine = stateMachine;
-
-        entityMove = gameObject.GetComponent<EntityMove>();
-        entityAim = gameObject.GetComponent<EntityAim>();
-
-        abilityController = gameObject.GetComponent<AbilityController>();
-
-        abilityIndicator = CreateAbilityIndicator(abilityController, context.ai.PrimaryAttackType, gameObject, context.abilityIndicatorDB);
-    }
-
-    public override void DestroyState(RobotBossStateContext context)
-    {
-        if (abilityIndicator == null) return;
-        abilityIndicator.Destroy();
-    }
-
-    public override void EnterState(RobotBossStateContext context)
-    {
-        entityMove.StopMoving();
-        entityAim.StopAiming();
-
-        attackPhase = AttackPhase.WindUp;
-
-        attackTimer = 0f;
-        recoverTimer = 0f;
-
-        abilityIndicator?.Reset();
-    }
-
-    public override void ExitState(RobotBossStateContext context)
-    {
-        abilityIndicator?.Disable();
-    }
-
-    public override void UpdateState(RobotBossStateContext context)
-    {
-        switch (attackPhase)
-        {
-            case AttackPhase.WindUp:
-                UpdateWindUp(context);
-                break;
-
-            case AttackPhase.Attack:
-                UpdateAttack(context);
-                break;
-
-            case AttackPhase.Recover:
-                UpdateRecover(context);
-                break;
-        }
-    }
-
-    public override void LateUpdateState(RobotBossStateContext context)
-    {
-        abilityIndicator?.LateUpdate();
-    }
-
-    private void UpdateWindUp(RobotBossStateContext context)
-    {
-        if (abilityIndicator == null)
-        {
-            PerformAttack(context);
-            attackPhase = AttackPhase.Attack;
-        }
-        else
-        {
-            attackTimer += Time.deltaTime;
-
-            abilityIndicator.Update();
-
-            if (attackTimer > abilityIndicator.FirstHideTime)
-            {
-                PerformAttack(context);
-                attackPhase = AttackPhase.Attack;
-            }
-        }
-    }
-
-    private void UpdateAttack(RobotBossStateContext context)
-    {
-        if (abilityIndicator != null)
-        {
-            attackTimer += Time.deltaTime;
-
-            abilityIndicator.Update();
-
-            if (attackTimer > abilityIndicator.LastHideTime)
-            {
-                attackPhase = AttackPhase.Recover;
-            }
-        }
-        else
-        {
-            attackPhase = AttackPhase.Recover;
-        }
-    }
-
-    private void UpdateRecover(RobotBossStateContext context)
-    {
-        recoverTimer += Time.deltaTime;
-
-        if (recoverTimer > context.ai.PrimaryAttackRecover)
-        {
-            FinishAttack(context);
-        }
-    }
-
-    private void PerformAttack(RobotBossStateContext context)
-    {
-        abilityController.TryUseAbility(context.ai.PrimaryAttackType);
-    }
-
-    private void FinishAttack(RobotBossStateContext context)
-    {
-        if (!context.HasTarget)
-        {
-            stateMachine.ChangeState(stateMachine.idleState);
-        }
-        else
-        {
-            stateMachine.ChangeState(stateMachine.followState);
-        }
-    }
-}
-
-public class RobotBossSecondaryAttackState : RobotBossBaseState
-{
-    private readonly GameObject gameObject;
-    private readonly Transform transform;
-
-    private readonly EntityMove entityMove;
-    private readonly EntityAim entityAim;
-
-    private readonly AbilityController abilityController;
-    private readonly AbilityIndicator abilityIndicator;
-
-    private readonly RobotBossStateMachine stateMachine;
-
-    private float attackTimer = 0f;
-
-    private readonly Predicate<GameObject> targetFilter;
-    private AttackPhase attackPhase = AttackPhase.WindUp;
-
-    private enum AttackPhase
-    {
-        WindUp,
-        Track
-    }
-
-    public RobotBossSecondaryAttackState(GameObject gameObject, RobotBossStateMachine stateMachine, RobotBossStateContext context)
-    {
-        this.stateMachine = stateMachine;
-        this.gameObject = gameObject;
-        transform = gameObject.transform;
-
-        entityMove = gameObject.GetComponent<EntityMove>();
-        entityAim = gameObject.GetComponent<EntityAim>();
-
-        abilityController = gameObject.GetComponent<AbilityController>();
-
-        abilityIndicator = CreateAbilityIndicator(abilityController, context.ai.SecondaryAttackType, gameObject, context.abilityIndicatorDB);
-        targetFilter = TargetFilter;
-    }
-
-    public override void DestroyState(RobotBossStateContext context)
-    {
-        if (abilityIndicator == null) return;
-        abilityIndicator.Destroy();
-    }
-
-    public override void EnterState(RobotBossStateContext context)
-    {
-        entityMove.StopMoving();
-        entityAim.StopAiming();
-
-        attackPhase = AttackPhase.WindUp;
-
-        attackTimer = 0f;
-
-        abilityIndicator?.Reset();
-    }
-
-    public override void ExitState(RobotBossStateContext context)
-    {
-        abilityIndicator?.Disable();
-    }
-
-    public override void UpdateState(RobotBossStateContext context)
-    {
-        switch (attackPhase)
-        {
-            case AttackPhase.WindUp:
-                UpdateWindUp(context);
-                break;
-
-            case AttackPhase.Track:
-                UpdateTracking(context);
-                break;
-        }
-    }
-
-    public override void LateUpdateState(RobotBossStateContext context)
-    {
-        abilityIndicator?.LateUpdate();
-    }
-
-    private void UpdateWindUp(RobotBossStateContext context)
-    {
-        if (abilityIndicator == null)
-        {
-            PerformAttack(context);
-            attackPhase = AttackPhase.Track;
-        }
-        else
-        {
-            attackTimer += Time.deltaTime;
-
-            abilityIndicator.Update();
-
-            if (attackTimer > abilityIndicator.FirstHideTime)
-            {
-                PerformAttack(context);
-                attackPhase = AttackPhase.Track;
-            }
-        }
-    }
-
-    private void UpdateTracking(RobotBossStateContext context)
-    {
-        abilityIndicator?.Update();
-
-        if (!context.HasTarget)
-        {
-            context.Target = TargetAwareness.GetClosestTargetToDirection(transform.position, entityAim.AimDirection, context.ai.SecondaryAttackRange, context.ai.TargetLayers, context.ai.BlockLayers, targetFilter);
-        }
-
-        if (context.HasTarget)
-        {
-            Vector2 targetDirection = (context.Target.transform.position - transform.position).normalized;
-            entityAim.AimTowards(targetDirection);
-        }
-
-        if (abilityController.TryGetAbility(context.ai.SecondaryAttackType, out IAbility ability))
-        {
-            if (!ability.DurationActive)
-            {
-                FinishAttack(context);
-            }
-        }
-        else
-        {
-            FinishAttack(context);
-        }
-    }
-
-    private void PerformAttack(RobotBossStateContext context)
-    {
-        abilityController.TryUseAbility(context.ai.SecondaryAttackType);
-    }
-
-    private void FinishAttack(RobotBossStateContext context)
-    {
-        if (!context.HasTarget)
-        {
-            stateMachine.ChangeState(stateMachine.idleState);
-        }
-        else
-        {
-            stateMachine.ChangeState(stateMachine.followState);
-        }
-    }
-
-    private bool TargetFilter(GameObject target)
-    {
-        if (target == gameObject) return false;
-        if (TeamManager.Instance.IsAlly(gameObject, target)) return false;
-
-        return true;
     }
 }

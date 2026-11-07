@@ -5,7 +5,7 @@ using Zeke.TeamSystem;
 
 public class ZombieAI : MonoBehaviour
 {
-    [Header("Settings")]
+    [Header("Dependency")]
     [SerializeField] private ZombieAISettings settings;
     [SerializeField] private AbilityIndicatorDB abilityIndicatorDB;
 
@@ -13,307 +13,52 @@ public class ZombieAI : MonoBehaviour
 
     [SerializeField] private Transform attackIndicatorSpawn;
 
-    private ZombieStateContext context;
-    private ZombieStateMachine stateMachine;
+    [Space]
 
-    public void SetTarget(Transform target)
-    {
-        context.Target = target;
-    }
+    [SerializeField] private Damageable damageable;
 
-    private void Awake()
-    {
-        context = new ZombieStateContext(settings, attackIndicatorSpawn, abilityIndicatorDB);
-        stateMachine = new ZombieStateMachine(gameObject, context);
+    [Space]
 
-        if (TryGetComponent(out Damageable damageable))
-        {
-            damageable.onTakenDamage.Subscribe(OnDamageTaken);
-        }
-    }
+    [SerializeField] private EntityMove entityMove;
+    [SerializeField] private EntityAim entityAim;
 
-    private void Start()
-    {
-        stateMachine.ChangeState(stateMachine.idleState);
-    }
-
-    private void Update()
-    {
-        stateMachine.Update();
-    }
-
-    private void LateUpdate()
-    {
-        stateMachine.LateUpdate();
-    }
-
-    private void OnDestroy()
-    {
-        stateMachine?.Destroy();
-    }
-
-    private void OnDamageTaken(Damageable.DamageEvent damageEvent)
-    {
-        if (TeamManager.Instance.IsAlly(damageEvent.SourceUser, gameObject)) return;
-
-        if (damageEvent.SourceUser == null) return;
-
-        if (context.HasTarget)
-        {
-            float currentTargetSqrDistance = (GetClosestTargetPoint() - (Vector2)transform.position).sqrMagnitude;
-            float attackerTargetSqrDistance = (damageEvent.SourceUser.transform.position - transform.position).sqrMagnitude;
-
-            if (attackerTargetSqrDistance > currentTargetSqrDistance) return;
-        }
-
-        SetTarget(damageEvent.SourceUser.transform);
-    }
-
-    private Vector2 GetClosestTargetPoint()
-    {
-        Vector2 closestPoint = context.Target.position;
-
-        if (context.TargetCollider != null)
-        {
-            closestPoint = context.TargetCollider.ClosestPoint(transform.position);
-        }
-
-        return closestPoint;
-    }
-}
-
-public class ZombieStateContext
-{
-    public readonly ZombieAISettings ai;
-    public readonly AbilityIndicatorDB abilityIndicatorDB;
-    public readonly Transform attackIndicatorSpawn;
-
-    public bool HasTarget => Target != null && Target.gameObject.activeInHierarchy;
+    [SerializeField] private AbilityController abilityController;
 
     private Transform target;
+    private Collider2D targetCollider;
+
     public Transform Target
     {
-        get { return target; }
+        get => target;
         set
         {
             target = value;
-
-            if (value != null)
+            if (target != null)
             {
-                TargetCollider = value.GetComponent<Collider2D>();
+                targetCollider = target.GetComponent<Collider2D>();
+            }
+            else
+            {
+                targetCollider = null;
             }
         }
     }
 
-    public Collider2D TargetCollider { get; private set; }
+    public bool HasTarget => target != null && target.gameObject.activeInHierarchy;
 
-    public ZombieStateContext(ZombieAISettings ai, Transform attackIndicatorSpawn, AbilityIndicatorDB abilityIndicatorDB)
-    {
-        this.ai = ai;
-        this.abilityIndicatorDB = abilityIndicatorDB;
-        this.attackIndicatorSpawn = attackIndicatorSpawn;
-    }
-}
-
-public class ZombieStateMachine : StateMachine<ZombieStateContext>
-{
-    public readonly ZombieFollowState followState;
-    public readonly ZombieAttackState attackState;
-    public readonly ZombieIdleState idleState;
-
-    private readonly ZombieStateContext context;
-
-    public ZombieStateMachine(GameObject gameObject, ZombieStateContext context)
-    {
-        this.context = context;
-
-        followState = new ZombieFollowState(gameObject, this);
-        attackState = new ZombieAttackState(gameObject, this, context);
-        idleState = new ZombieIdleState(gameObject, this);
-    }
-
-    public override void ChangeState(State<ZombieStateContext> newState)
-    {
-        currentState?.ExitState(context);
-        currentState = newState;
-        currentState?.EnterState(context);
-    }
-
-    public override void Update()
-    {
-        currentState?.UpdateState(context);
-    }
-
-    public override void LateUpdate()
-    {
-        currentState?.LateUpdateState(context);
-    }
-
-    public override void Destroy()
-    {
-        followState.DestroyState(context);
-        attackState.DestroyState(context);
-        idleState.DestroyState(context);
-    }
-}
-
-public abstract class ZombieBaseState : State<ZombieStateContext> { }
-
-public class ZombieIdleState : ZombieBaseState
-{
-    private readonly GameObject gameObject;
-
-    private readonly EntityMove entityMove;
-    private readonly EntityAim entityAim;
-
-    private readonly ZombieStateMachine stateMachine;
-
-    public ZombieIdleState(GameObject gameObject, ZombieStateMachine stateMachine)
-    {
-        this.gameObject = gameObject;
-        this.stateMachine = stateMachine;
-
-        entityMove = gameObject.GetComponent<EntityMove>();
-        entityAim = gameObject.GetComponent<EntityAim>();
-    }
-
-    public override void DestroyState(ZombieStateContext context) { }
-
-    public override void EnterState(ZombieStateContext context)
-    {
-        entityMove.StopMoving();
-        entityAim.StopAiming();
-    }
-
-    public override void ExitState(ZombieStateContext context) { }
-
-    public override void LateUpdateState(ZombieStateContext context) { }
-
-    public override void UpdateState(ZombieStateContext context)
-    {
-        if (!context.HasTarget)
-        {
-            if (TryGetRandomTarget(out Transform target))
-            {
-                context.Target = target;
-                stateMachine.ChangeState(stateMachine.followState);
-            }
-        }
-        else
-        {
-            stateMachine.ChangeState(stateMachine.followState);
-        }
-    }
-
-    private bool TryGetRandomTarget(out Transform target)
-    {
-        GameObject enemy = TeamManager.Instance.GetRandomEnemy(gameObject);
-        target = null;
-
-        if (enemy != null)
-        {
-            target = enemy.transform;
-            return true;
-        }
-
-        return false;
-    }
-}
-
-public class ZombieFollowState : ZombieBaseState
-{
-    private readonly Transform transform;
-
-    private readonly EntityMove entityMove;
-    private readonly EntityAim entityAim;
-
-    private readonly AbilityController abilityController;
-
-    private readonly ZombieStateMachine stateMachine;
-
-    public ZombieFollowState(GameObject gameObject, ZombieStateMachine stateMachine)
-    {
-        transform = gameObject.transform;
-        this.stateMachine = stateMachine;
-
-        entityMove = gameObject.GetComponent<EntityMove>();
-        entityAim = gameObject.GetComponent<EntityAim>();
-
-        abilityController = gameObject.GetComponent<AbilityController>();
-    }
-
-    public override void DestroyState(ZombieStateContext context) { }
-
-    public override void EnterState(ZombieStateContext context) { }
-
-    public override void ExitState(ZombieStateContext context) { }
-
-    public override void UpdateState(ZombieStateContext context)
-    {
-        if (!context.HasTarget)
-        {
-            stateMachine.ChangeState(stateMachine.idleState);
-        }
-        else
-        {
-            Update(context);
-        }
-    }
-
-    public override void LateUpdateState(ZombieStateContext context) { }
-
-    private void Update(ZombieStateContext context)
-    {
-        Vector2 targetDirection = (context.Target.position - transform.position).normalized;
-
-        entityAim.AimTowards(targetDirection);
-
-        if (InStartAttackAngle(context) && TargetInRange(transform, context))
-        {
-            if (abilityController.CanUseAbility(context.ai.AttackType))
-            {
-                stateMachine.ChangeState(stateMachine.attackState);
-                return;
-            }
-        }
-        
-        entityMove.MoveTowards(targetDirection);
-    }
-
-    private bool InStartAttackAngle(ZombieStateContext context)
-    {
-        float angleDifference = Vector2.Angle(transform.up, context.Target.position - transform.position);
-        return angleDifference < context.ai.MinStartAttackAngle;
-    }
-
-    private bool TargetInRange(Transform transform, ZombieStateContext context)
-    {
-        Vector3 targetPosition = context.Target.position;
-
-        if (context.TargetCollider != null)
-        {
-            targetPosition = context.TargetCollider.ClosestPoint(transform.position);
-        }
-
-        return (targetPosition - transform.position).sqrMagnitude <= context.ai.AttackRange * context.ai.AttackRange;
-    }
-}
-
-public class ZombieAttackState : ZombieBaseState
-{
-    private readonly EntityMove entityMove;
-    private readonly EntityAim entityAim;
-
-    private readonly AbilityController abilityController;
-    private readonly AbilityIndicator abilityIndicator;
-
-    private readonly ZombieStateMachine stateMachine;
-    private readonly ZombieStateContext context;
-
-    private float attackTimer = 0f;
-    private float recoverTimer = 0f;
+    private ZombieState currentState = ZombieState.Idle;
 
     private AttackPhase attackPhase = AttackPhase.WindUp;
+    private AbilityIndicator abilityIndicator;
+    private float attackTimer;
+    private float recoverTimer;
+
+    private enum ZombieState
+    {
+        Idle,
+        Follow,
+        Attack
+    }
 
     private enum AttackPhase
     {
@@ -322,93 +67,208 @@ public class ZombieAttackState : ZombieBaseState
         Recover
     }
 
-    public ZombieAttackState(GameObject gameObject, ZombieStateMachine stateMachine, ZombieStateContext context)
+    private void Reset()
     {
-        this.stateMachine = stateMachine;
-        this.context = context;
+        damageable = GetComponentInChildren<Damageable>();
+        entityMove = GetComponentInChildren<EntityMove>();
+        entityAim = GetComponentInChildren<EntityAim>();
 
-        entityMove = gameObject.GetComponent<EntityMove>();
-        entityAim = gameObject.GetComponent<EntityAim>();
-
-        abilityController = gameObject.GetComponent<AbilityController>();
-
-        abilityIndicator = CreateAbilityIndicator(context.ai.AttackType, gameObject);
+        abilityController = GetComponentInChildren<AbilityController>();
     }
 
-    public override void DestroyState(ZombieStateContext context)
+    private void Awake()
     {
-        if (abilityIndicator == null) return;
-        abilityIndicator.Destroy();
+        abilityIndicator = GetAbilityIndicator(settings.AttackType);
+        damageable.onTakenDamage.Subscribe(OnDamageTaken);
     }
 
-    public override void EnterState(ZombieStateContext context)
+    private void Start()
     {
-        entityMove.StopMoving();
-        entityAim.StopAiming();
-
-        attackPhase = AttackPhase.WindUp;
-
-        attackTimer = 0f;
-        recoverTimer = 0f;
-
-        abilityIndicator?.Reset();
+        ChangeState(ZombieState.Idle);
     }
 
-    public override void ExitState(ZombieStateContext context)
+    private void Update()
     {
-        abilityIndicator?.Disable();
-    }
-
-    public override void UpdateState(ZombieStateContext context)
-    {
-        switch (attackPhase)
+        switch (currentState)
         {
-            case AttackPhase.WindUp:
-                UpdateWindUp(context);
+            case ZombieState.Idle:
+                UpdateIdle();
                 break;
-
-            case AttackPhase.Attack:
-                UpdateAttack(context);
+            case ZombieState.Follow:
+                UpdateFollow();
                 break;
-
-            case AttackPhase.Recover:
-                UpdateRecover(context);
+            case ZombieState.Attack:
+                UpdateAttack();
                 break;
         }
     }
 
-    public override void LateUpdateState(ZombieStateContext context)
+    private void LateUpdate()
     {
-        abilityIndicator?.LateUpdate();
+        if (currentState == ZombieState.Attack)
+        {
+            abilityIndicator?.LateUpdate();
+        }
     }
 
-    private void UpdateWindUp(ZombieStateContext context)
+    private void OnDestroy()
+    {
+        if (AbilityIndicatorPool.IsNull)
+        {
+            abilityIndicator.Destroy();
+        }
+        else
+        {
+            abilityIndicator.Disable();
+            AbilityIndicatorPool.Instance.Return(abilityIndicator);
+        }
+    }
+
+    private void ChangeState(ZombieState newState)
+    {
+        if (currentState == ZombieState.Attack && newState != ZombieState.Attack)
+        {
+            abilityIndicator?.Disable();
+        }
+
+        currentState = newState;
+
+        switch (currentState)
+        {
+            case ZombieState.Idle:
+                entityMove.StopMoving();
+                entityAim.StopAiming();
+                break;
+
+            case ZombieState.Follow:
+                break;
+
+            case ZombieState.Attack:
+                entityMove.StopMoving();
+                entityAim.StopAiming();
+
+                attackPhase = AttackPhase.WindUp;
+
+                attackTimer = 0f;
+                recoverTimer = 0f;
+
+                abilityIndicator?.Reset(gameObject, attackIndicatorSpawn);
+                break;
+        }
+    }
+
+    private void UpdateIdle()
+    {
+        if (!HasTarget)
+        {
+            if (TryGetRandomTarget(out Transform foundTarget))
+            {
+                Target = foundTarget;
+                ChangeState(ZombieState.Follow);
+            }
+        }
+        else
+        {
+            ChangeState(ZombieState.Follow);
+        }
+    }
+
+    private bool TryGetRandomTarget(out Transform foundTarget)
+    {
+        GameObject enemy = TeamManager.Instance.GetRandomEnemy(gameObject);
+        foundTarget = null;
+
+        if (enemy != null)
+        {
+            foundTarget = enemy.transform;
+            return true;
+        }
+
+        return false;
+    }
+
+    private void UpdateFollow()
+    {
+        if (!HasTarget)
+        {
+            ChangeState(ZombieState.Idle);
+            return;
+        }
+
+        Vector2 targetDirection = (target.position - transform.position).normalized;
+        entityAim.AimTowards(targetDirection);
+
+        if (InStartAttackAngle() && TargetInRange())
+        {
+            if (abilityController.CanUseAbility(settings.AttackType))
+            {
+                ChangeState(ZombieState.Attack);
+                return;
+            }
+        }
+
+        entityMove.MoveTowards(targetDirection);
+    }
+
+    private bool InStartAttackAngle()
+    {
+        float angleDifference = Vector2.Angle(transform.up, target.position - transform.position);
+        return angleDifference < settings.MinStartAttackAngle;
+    }
+
+    private bool TargetInRange()
+    {
+        Vector3 targetPosition = target.position;
+
+        if (targetCollider != null)
+        {
+            targetPosition = targetCollider.ClosestPoint(transform.position);
+        }
+
+        return (targetPosition - transform.position).sqrMagnitude <= settings.AttackRange * settings.AttackRange;
+    }
+
+    private void UpdateAttack()
+    {
+        switch (attackPhase)
+        {
+            case AttackPhase.WindUp:
+                UpdateWindUp();
+                break;
+            case AttackPhase.Attack:
+                UpdateAttackPhase();
+                break;
+            case AttackPhase.Recover:
+                UpdateRecover();
+                break;
+        }
+    }
+
+    private void UpdateWindUp()
     {
         if (abilityIndicator == null)
         {
-            PerformAttack(context);
+            PerformAttack();
             attackPhase = AttackPhase.Attack;
         }
         else
         {
             attackTimer += Time.deltaTime;
-
             abilityIndicator.Update();
 
             if (attackTimer > abilityIndicator.FirstHideTime)
             {
-                PerformAttack(context);
+                PerformAttack();
                 attackPhase = AttackPhase.Attack;
             }
         }
     }
 
-    private void UpdateAttack(ZombieStateContext context)
+    private void UpdateAttackPhase()
     {
         if (abilityIndicator != null)
         {
             attackTimer += Time.deltaTime;
-
             abilityIndicator.Update();
 
             if (attackTimer > abilityIndicator.LastHideTime)
@@ -422,43 +282,71 @@ public class ZombieAttackState : ZombieBaseState
         }
     }
 
-    private void UpdateRecover(ZombieStateContext context)
+    private void UpdateRecover()
     {
         recoverTimer += Time.deltaTime;
 
-        if (recoverTimer > context.ai.AttackRecover)
+        if (recoverTimer > settings.AttackRecover)
         {
-            FinishAttack(context);
+            FinishAttack();
         }
     }
 
-    private void PerformAttack(ZombieStateContext context)
+    private void PerformAttack()
     {
-        abilityController.TryUseAbility(context.ai.AttackType);
+        abilityController.TryUseAbility(settings.AttackType);
     }
 
-    private void FinishAttack(ZombieStateContext context)
+    private void FinishAttack()
     {
-        if (!context.HasTarget)
+        if (!HasTarget)
         {
-            stateMachine.ChangeState(stateMachine.idleState);
+            ChangeState(ZombieState.Idle);
         }
         else
         {
-            stateMachine.ChangeState(stateMachine.followState);
+            ChangeState(ZombieState.Follow);
         }
     }
 
-    private AbilityIndicator CreateAbilityIndicator(AbilityType abilityType, GameObject gameObject)
+    private AbilityIndicator GetAbilityIndicator(AbilityType abilityType)
     {
         if (abilityController.TryGetAbility(abilityType, out IAbility ability))
         {
-            if (context.abilityIndicatorDB.TryGetAbilityIndicator(ability.Data, out AbilityIndicatorData indicatorData))
+            if (abilityIndicatorDB.TryGetAbilityIndicator(ability.Data, out AbilityIndicatorData indicatorData))
             {
-                return indicatorData.CreateAbilityIndicator(gameObject, abilityController.Spawn);
+                return AbilityIndicatorPool.Instance.Get(indicatorData, gameObject, attackIndicatorSpawn);
             }
         }
 
         return null;
+    }
+
+    private void OnDamageTaken(Damageable.DamageEvent damageEvent)
+    {
+        if (TeamManager.Instance.IsAlly(damageEvent.SourceUser, gameObject)) return;
+        if (damageEvent.SourceUser == null) return;
+
+        if (HasTarget)
+        {
+            float currentTargetSqrDistance = (GetClosestTargetPoint() - (Vector2)transform.position).sqrMagnitude;
+            float attackerTargetSqrDistance = (damageEvent.SourceUser.transform.position - transform.position).sqrMagnitude;
+
+            if (attackerTargetSqrDistance > currentTargetSqrDistance) return;
+        }
+
+        Target = damageEvent.SourceUser.transform;
+    }
+
+    private Vector2 GetClosestTargetPoint()
+    {
+        Vector2 closestPoint = target.position;
+
+        if (targetCollider != null)
+        {
+            closestPoint = targetCollider.ClosestPoint(transform.position);
+        }
+
+        return closestPoint;
     }
 }

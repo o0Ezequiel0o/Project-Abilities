@@ -308,6 +308,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 403318021}
+  - component: {fileID: 403318022}
   m_Layer: 0
   m_Name: Attack Indicator Pool Service
   m_TagString: Untagged
@@ -330,6 +331,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 647422456}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &403318022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403318020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3394b29f8317e2e4d8df0ed4dc9c6e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.Indicators.AbilityIndicatorPool
+  abilityIndicatorDB: {fileID: 11400000, guid: 431cabf8c8bbd8b4091ee09308a5671e, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
