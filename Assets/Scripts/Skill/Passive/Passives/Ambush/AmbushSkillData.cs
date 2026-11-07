@@ -15,9 +15,6 @@ public class AmbushSkillData : PassiveData
     [field: SerializeField] public AbilityData AbilityOverride { get; private set; }
     [field: SerializeField] public AbilityType UpgradeType { get; private set; }
 
-    [field: Header("Visual")]
-    [field: SerializeField] public StatusEffectData ActiveIndicator { get; private set; }
-
     public override IPassive CreatePassive(GameObject source, PassiveController passiveController)
     {
         return new AmbushSkill(source, passiveController, this);
