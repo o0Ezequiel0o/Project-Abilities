@@ -52,6 +52,11 @@ public class InteractionHandler : MonoBehaviour
     {
         scanSurroundingsTimer += Time.deltaTime;
 
+        if (currentInteractable == null && overlayObjectInstance.activeSelf)
+        {
+            overlayObjectInstance.SetActive(false);
+        }
+
         if (scanSurroundingsTimer > checkInterval)
         {
             DisplayClosestUsableInteractable();
