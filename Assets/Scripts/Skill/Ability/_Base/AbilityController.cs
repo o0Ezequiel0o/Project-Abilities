@@ -41,11 +41,24 @@ namespace Zeke.Abilities
             public Stat CooldownMultiplier { get; private set; } = new Stat(1f, 0f, 0f, float.PositiveInfinity);
             public Stat RechargeSpeed { get; private set; } = new Stat(1f, 0f, 0f, float.PositiveInfinity);
 
-            public HashSet<AbilityLock> AbilityLocks { get; internal set; } = new HashSet<AbilityLock>();
+            public int Level { get; private set; } = 1;
+
+            public HashSet<AbilityLock> AbilityLocks { get; set; } = new HashSet<AbilityLock>();
 
             public AbilityTypeSlot(AbilityType abilityType)
             {
                 AbilityType = abilityType;
+            }
+
+            public void UpgradeAbilityType(int levels)
+            {
+                Level += levels;
+
+                for (int i = 0; i < Abilities.Count; i++)
+                {
+                
+                    Abilities[i].QueueUpgrade(levels);
+                }
             }
         }
 
@@ -273,10 +286,7 @@ namespace Zeke.Abilities
         {
             foreach (AbilityTypeSlot abilityTypeSlot in abilityTypeSlots.Values)
             {
-                for (int i = 0; i < abilityTypeSlot.Abilities.Count; i++)
-                {
-                    abilityTypeSlot.Abilities[i]?.QueueUpgrade(levels);
-                }
+                abilityTypeSlot.UpgradeAbilityType(levels);
             }
 
             level += levels;
