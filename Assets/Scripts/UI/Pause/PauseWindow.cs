@@ -28,7 +28,7 @@ public class PauseWindow : MonoBehaviour
     private void OnWindowOpened(UIWindow _)
     {
         if (Run.IsNull) return;
-        Run.Instance.Unpause(pauseID);
+        Run.Instance.Pause(pauseID);
     }
 
     private void OnWindowClosed(UIWindow _)
