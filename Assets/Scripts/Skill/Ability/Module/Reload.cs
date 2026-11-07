@@ -1,4 +1,5 @@
 using UnityEngine;
+
 using static Zeke.Abilities.Modules.ReloadData;
 
 namespace Zeke.Abilities.Modules
@@ -54,14 +55,11 @@ namespace Zeke.Abilities.Modules
         public abstract class ReloadStrategy
         {
             private readonly ReloadStrategyData data;
-
-            protected readonly GetAbilityStrategy strategy;
             protected readonly Stat chargesAmount;
 
-            public ReloadStrategy(ReloadStrategyData data, GetAbilityStrategy strategy, Stat chargesAmount)
+            public ReloadStrategy(ReloadStrategyData data, Stat chargesAmount)
             {
                 this.data = data;
-                this.strategy = strategy;
                 this.chargesAmount = chargesAmount;
             }
 
@@ -80,16 +78,15 @@ namespace Zeke.Abilities.Modules
         {
             private readonly OnCastData data;
 
-            public OnCast(OnCastData data, GetAbilityStrategy strategy, Stat chargesAmount) : base(data, strategy, chargesAmount)
+            public OnCast(OnCastData data, Stat chargesAmount) : base(data, chargesAmount)
             {
                 this.data = data;
             }
 
             public override void Activate(AbilityController controller)
             {
-                if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilitySlotInfo))
+                if (controller.TryGetAbility(data.AbilityType, out IAbility ability))
                 {
-                    IAbility ability = abilitySlotInfo.abilityTypeSlot.Abilities[abilitySlotInfo.abilityIndex];
                     ability.SetCharges(ability.Charges + chargesAmount.ValueInt);
                 }
             }
@@ -103,7 +100,7 @@ namespace Zeke.Abilities.Modules
         {
             private readonly OnDurationEndData data;
 
-            public OnDurationEnd(OnDurationEndData data, GetAbilityStrategy strategy, Stat chargesAmount) : base(data, strategy, chargesAmount)
+            public OnDurationEnd(OnDurationEndData data, Stat chargesAmount) : base(data, chargesAmount)
             {
                 this.data = data;
             }
@@ -112,9 +109,8 @@ namespace Zeke.Abilities.Modules
 
             public override void Deactivate(AbilityController controller)
             {
-                if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilitySlotInfo))
+                if (controller.TryGetAbility(data.AbilityType, out IAbility ability))
                 {
-                    IAbility ability = abilitySlotInfo.abilityTypeSlot.Abilities[abilitySlotInfo.abilityIndex];
                     ability.SetCharges(ability.Charges + chargesAmount.ValueInt);
                 }
             }
@@ -127,7 +123,7 @@ namespace Zeke.Abilities.Modules
         {
             private readonly WhileActiveData data;
 
-            public WhileActive(WhileActiveData data, GetAbilityStrategy strategy, Stat chargesAmount) : base(data, strategy, chargesAmount)
+            public WhileActive(WhileActiveData data, Stat chargesAmount) : base(data, chargesAmount)
             {
                 this.data = data;
             }
@@ -137,9 +133,8 @@ namespace Zeke.Abilities.Modules
 
             public override void Activate(AbilityController controller)
             {
-                if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilitySlotInfo))
+                if (controller.TryGetAbility(data.AbilityType, out IAbility ability))
                 {
-                    IAbility ability = abilitySlotInfo.abilityTypeSlot.Abilities[abilitySlotInfo.abilityIndex];
                     timePerCharge = ability.DurationTime / ability.MaxCharges;
                 }
 
@@ -154,9 +149,8 @@ namespace Zeke.Abilities.Modules
 
                 if (timer >= timePerCharge)
                 {
-                    if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilitySlotInfo))
+                    if (controller.TryGetAbility(data.AbilityType, out IAbility ability))
                     {
-                        IAbility ability = abilitySlotInfo.abilityTypeSlot.Abilities[abilitySlotInfo.abilityIndex];
                         ability.SetCharges(ability.Charges + chargesAmount.ValueInt);
                     }
 

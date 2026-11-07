@@ -6,12 +6,12 @@ namespace Zeke.Abilities.Modules
     [Serializable]
     public class UpgradeAbilityData : AbilityModuleData
     {
-        [SerializeReference, SerializeReferenceDropdown] private GetAbilityStrategyData strategy = new GetAbilityTypeData();
+        [field: SerializeField] public AbilityType AbilityType { get; private set; }
         [field: SerializeField] public int Levels { get; private set; }
 
         public override AbilityModule CreateModule()
         {
-            return new UpgradeAbility(this, strategy.CreateStrategy());
+            return new UpgradeAbility(this);
         }
     }
 }

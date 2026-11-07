@@ -6,14 +6,11 @@ namespace Zeke.Abilities.Modules
     {
         private readonly UpgradeAbilityData data;
 
-        private readonly GetAbilityStrategy strategy;
-
         private AbilityController controller;
 
-        public UpgradeAbility(UpgradeAbilityData data, GetAbilityStrategy strategy)
+        public UpgradeAbility(UpgradeAbilityData data)
         {
             this.data = data;
-            this.strategy = strategy;
         }
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
@@ -27,11 +24,7 @@ namespace Zeke.Abilities.Modules
 
         public override void Activate(bool holding)
         {
-            if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilitySlotInfo))
-            {
-                IAbility ability = abilitySlotInfo.abilityTypeSlot.Abilities[abilitySlotInfo.abilityIndex];
-                ability.QueueUpgrade(data.Levels);
-            }
+            controller.GetAbilityTypeSlot(data.AbilityType).UpgradeAbilityType(data.Levels);
         }
     }
 }

@@ -6,26 +6,19 @@ namespace Zeke.Abilities.Modules
     {
         private readonly LockAbilityData data;
 
-        private readonly GetAbilityStrategy strategy;
-
         private AbilityController controller;
 
         private readonly AbilityLock abilityLock = new AbilityLock();
 
-        public LockAbility(LockAbilityData data, GetAbilityStrategy strategy)
+        public LockAbility(LockAbilityData data)
         {
             this.data = data;
-            this.strategy = strategy;
         }
 
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
             this.controller = controller;
-
-            if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilityTypeSlot))
-            {
-                abilityLock.abilityType = abilityTypeSlot.abilityTypeSlot.AbilityType;
-            }
+            controller.AddAbilityLock(abilityLock);
         }
 
         public override bool CanActivate() => true;
@@ -35,12 +28,7 @@ namespace Zeke.Abilities.Modules
         public override void Activate(bool holding)
         {
             controller.RemoveAbilityLock(abilityLock);
-
-            if (strategy.TryGetAbilitySlot(controller, out AbilitySlotInfo abilityTypeSlot))
-            {
-                abilityLock.abilityType = abilityTypeSlot.abilityTypeSlot.AbilityType;
-                controller.AddAbilityLock(abilityLock);
-            }
+            controller.AddAbilityLock(abilityLock);
         }
 
         public override void Deactivate()

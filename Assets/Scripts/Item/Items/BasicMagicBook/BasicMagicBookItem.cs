@@ -13,7 +13,7 @@ namespace Zeke.Items
         private readonly ItemHandler itemHandler;
         private readonly GameObject source;
 
-        private readonly List<IAbility> abilities = new List<IAbility>();
+        private readonly List<AbilityType> validUpgradeTypes = new List<AbilityType>();
 
         public BasicMagicBookItem(BasicMagicBookItemData data, ItemHandler itemHandler, GameObject source)
         {
@@ -42,21 +42,20 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out AbilityController abilityController))
             {
-                abilities.Clear();
+                validUpgradeTypes.Clear();
 
                 foreach (AbilityType abilityType in Enum.GetValues(typeof(AbilityType)))
                 {
-                    if (abilityController.TryGetAbility(abilityType, out IAbility ability))
+                    if (abilityController.AbilityTypeSlots[abilityType].Abilities.Count > 0)
                     {
-                        if (ability == null) continue;
-                        abilities.Add(ability);
+                        validUpgradeTypes.Add(abilityType);
                     }
                 }
 
-                if (abilities.Count <= 0) return;
+                if (validUpgradeTypes.Count <= 0) return;
 
-                IAbility randomAbility = abilities[UnityEngine.Random.Range(0, abilities.Count)];
-                randomAbility.QueueUpgrade(Mathf.FloorToInt(data.Levels.GetValue(stacks)));
+                AbilityType randomAbilityType = validUpgradeTypes[UnityEngine.Random.Range(0, validUpgradeTypes.Count)];
+                abilityController.AbilityTypeSlots[randomAbilityType].UpgradeAbilityType(Mathf.FloorToInt(data.Levels.GetValue(stacks)));
             }
         }
     }

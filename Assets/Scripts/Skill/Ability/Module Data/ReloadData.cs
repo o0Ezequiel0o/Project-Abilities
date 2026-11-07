@@ -13,7 +13,7 @@ namespace Zeke.Abilities.Modules
         [Serializable]
         public abstract class ReloadStrategyData
         {
-            [SerializeReferenceDropdown, SerializeReference] protected GetAbilityStrategyData strategy = new GetAbilityTypeData();
+            [field: SerializeField] public AbilityType AbilityType { get; private set; }
             [SerializeField] protected Stat chargesAmount;
 
             public abstract ReloadStrategy CreateStrategy();
@@ -29,7 +29,7 @@ namespace Zeke.Abilities.Modules
         {
             public override ReloadStrategy CreateStrategy()
             {
-                return new OnCast(this, strategy.CreateStrategy(), chargesAmount.DeepCopy());
+                return new OnCast(this, chargesAmount.DeepCopy());
             }
         }
 
@@ -38,7 +38,7 @@ namespace Zeke.Abilities.Modules
         {
             public override ReloadStrategy CreateStrategy()
             {
-                return new OnDurationEnd(this, strategy.CreateStrategy(), chargesAmount.DeepCopy());
+                return new OnDurationEnd(this, chargesAmount.DeepCopy());
             }
         }
 
@@ -47,7 +47,7 @@ namespace Zeke.Abilities.Modules
         {
             public override ReloadStrategy CreateStrategy()
             {
-                return new WhileActive(this, strategy.CreateStrategy(), chargesAmount.DeepCopy());
+                return new WhileActive(this, chargesAmount.DeepCopy());
             }
         }
     }
