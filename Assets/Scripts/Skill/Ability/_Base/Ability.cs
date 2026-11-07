@@ -100,7 +100,9 @@ namespace Zeke.Abilities
 
         public void SetCharges(int amount)
         {
-            int previousChargesAmount = Charges;
+            if (amount == 0) return;
+
+            int previousCharges = Charges;
 
             Charges = Mathf.Clamp(amount, 0, MaxCharges);
 
@@ -109,12 +111,7 @@ namespace Zeke.Abilities
                 CooldownTimer = CooldownTime;
             }
 
-            int loops = Mathf.Max(0, Charges - previousChargesAmount);
-
-            for (int i = 0; i < loops; i++)
-            {
-                controller.onAbilityCharged?.Invoke(this, type);
-            }
+            controller.onAbilityCharged?.Invoke(new ChargeInfo(this, previousCharges, Charges, Charges - previousCharges));
         }
 
         public void SetDuration(int amount)
@@ -262,6 +259,8 @@ namespace Zeke.Abilities
 
         private void Activate(bool holding)
         {
+            SetCharges(Charges - 1);
+
             for (int i = 0; i < modules.Count; i++)
             {
                 modules[i].Activate(holding);
@@ -271,8 +270,6 @@ namespace Zeke.Abilities
             {
                 CooldownTimer = 0f;
             }
-
-            SetCharges(Charges - 1);
 
             if (UsesDuration)
             {
@@ -347,6 +344,25 @@ namespace Zeke.Abilities
             Upgrade(queuedLevels);
 
             queuedLevels = 0;
+        }
+
+        public readonly struct ChargeInfo
+        {
+            public readonly IAbility ability;
+
+            public readonly int previousCharges;
+            public readonly int currentCharges;
+
+            public readonly int newCharges;
+
+            public ChargeInfo(IAbility ability, int previousCharges, int currentCharges, int newCharges)
+            {
+                this.ability = ability;
+
+                this.previousCharges = previousCharges;
+                this.currentCharges = currentCharges;
+                this.newCharges = newCharges;
+            }
         }
     }
 }

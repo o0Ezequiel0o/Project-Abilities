@@ -13,8 +13,8 @@ namespace Zeke.Abilities
 
         public Transform Spawn => spawn;
 
-        public readonly OrderedAction<IAbility, AbilityType> onAbilityUsed = new OrderedAction<IAbility, AbilityType>();
-        public readonly OrderedAction<IAbility, AbilityType> onAbilityCharged = new OrderedAction<IAbility, AbilityType>();
+        public readonly OrderedAction<IAbility> onAbilityUsed = new OrderedAction<IAbility>();
+        public readonly OrderedAction<Ability.ChargeInfo> onAbilityCharged = new OrderedAction<Ability.ChargeInfo>();
 
         public Action<IAbility> onAbilityAdded;
         public Action<IAbility> onAbilityRemoved;
@@ -358,7 +358,7 @@ namespace Zeke.Abilities
         {
             if (ability.TryActivate(holding))
             {
-                onAbilityUsed?.Invoke(ability, abilityType);
+                onAbilityUsed?.Invoke(ability);
             }   
         }
 
