@@ -100,7 +100,7 @@ namespace Zeke.Abilities
 
         public void SetCharges(int amount)
         {
-            if (amount == 0) return;
+            if (Charges == amount) return;
 
             int previousCharges = Charges;
 
