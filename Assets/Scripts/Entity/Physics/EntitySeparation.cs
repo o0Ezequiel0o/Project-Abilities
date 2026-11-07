@@ -51,12 +51,12 @@ public class EntitySeparation : MonoBehaviour
 
     private void OnEnable()
     {
-        bucketIndex = EntitySeparationController.Register(this);
+        bucketIndex = EntitySeparationController.Instance.Register(this);
     }
 
     private void OnDisable()
     {
         if (EntitySeparationController.IsNull) return;
-        EntitySeparationController.Unregister(this, bucketIndex);
+        EntitySeparationController.Instance.Unregister(this, bucketIndex);
     }
 }

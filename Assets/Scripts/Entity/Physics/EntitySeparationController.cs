@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntitySeparationController : Singleton<EntitySeparationController>
+public class EntitySeparationController : GameService<EntitySeparationController>
 {
     [Tooltip("Each group is equal to 1 more frame to iterate all entities.\nRecommended: 3")]
     [SerializeField, Min(1)] private int groups = 3;
@@ -10,7 +10,7 @@ public class EntitySeparationController : Singleton<EntitySeparationController>
 
     private int currentBucketIndex = 0;
 
-    protected override void OnInitialization()
+    protected override void InitializeService()
     {
         updateBuckets = new List<EntitySeparation>[groups];
 
@@ -23,7 +23,7 @@ public class EntitySeparationController : Singleton<EntitySeparationController>
     /// <summary>
     /// Registers a new entity into the bucket that currently has the fewest entities.
     /// </summary>
-    public static int Register(EntitySeparation entity)
+    public int Register(EntitySeparation entity)
     {
         int targetBucket = Instance.GetSmallestBucketIndex();
         Instance.updateBuckets[targetBucket].Add(entity);
@@ -33,7 +33,7 @@ public class EntitySeparationController : Singleton<EntitySeparationController>
     /// <summary>
     /// Removes the entity from the registered bucket.
     /// </summary>
-    public static void Unregister(EntitySeparation entity, int bucketIndex)
+    public void Unregister(EntitySeparation entity, int bucketIndex)
     {
         if (bucketIndex >= 0 && bucketIndex < Instance.updateBuckets.Length)
         {

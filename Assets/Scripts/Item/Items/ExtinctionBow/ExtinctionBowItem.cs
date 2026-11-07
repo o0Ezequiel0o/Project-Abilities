@@ -39,11 +39,12 @@ namespace Zeke.Items
 
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
 
-            EntityType entityType = EntityTypeIdentifier.GetEntityType(damageEvent.Receiver.gameObject);
-
-            if (data.Types.Contains(entityType))
+            if (damageEvent.Receiver.gameObject.TryGetComponent(out EntityTypeIdentifier entityTypeIdentifier))
             {
-                damageEvent.Multiplier.Multiply(data.DamageMultiplier.GetValue(stacks));
+                if (data.Types.Contains(entityTypeIdentifier.Type))
+                {
+                    damageEvent.Multiplier.Multiply(data.DamageMultiplier.GetValue(stacks));
+                }
             }
         }
     }
