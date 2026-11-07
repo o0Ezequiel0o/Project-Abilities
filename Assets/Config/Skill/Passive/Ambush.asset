@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AmbushSkillData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Ambush
-  <Description>k__BackingField: After not using your primary or secondary for more than 5 seconds your primary ability is upgraded to "Piercing Shot+", it deals 50% <style="Level Modifier">(+5% per level)</style> more <style="Damage">damage</style> and <style="Pierce">pierces</style> one more enemy.
+  <Description>k__BackingField: After not using your primary or secondary for more than 5 seconds your primary ability is upgraded to <link="Piercing Shot+"><color=#f6ff54>Piercing Shot+</color></link>.
   <TimeToActivate>k__BackingField: 5
   <CancelTypes>k__BackingField: 0000000003000000i
   <AbilityOverride>k__BackingField: {fileID: 11400000, guid: 2fe9894b815fa6143ba0857579b7dde6, type: 2}
   <UpgradeType>k__BackingField: 0
-  <ActiveIndicator>k__BackingField: {fileID: 11400000, guid: d60bc7f54c7a5a84fbc09c75114115d0, type: 2}
