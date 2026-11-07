@@ -22,6 +22,7 @@ namespace Zeke.TeamSystem
 
         private void OnDisable()
         {
+            if (TeamManager.IsNull) return;
             TeamManager.Instance.Remove(gameObject, this);
         }
     }

@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 
     private void OnDisable()
     {
+        if (Run.IsNull) return;
         Run.Instance.RemovePlayer(this);
     }
 }

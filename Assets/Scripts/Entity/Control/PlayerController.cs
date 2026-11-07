@@ -72,6 +72,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
+        if (Run.IsNull) return;
+
         if (!Run.Instance.IsPaused)
         {
             DisableGameInput();
@@ -93,6 +95,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (Run.IsNull) return;
+
         Run.Instance.onPause -= OnPaused;
         Run.Instance.onResume -= OnResumed;
     }

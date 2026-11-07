@@ -19,6 +19,7 @@ public class PlayerStart : MonoBehaviour
 
     private void OnDisable()
     {
+        if (Run.IsNull) return;
         Run.Instance.onPlayerSpawned -= MovePlayerToPoint;
     }
 
