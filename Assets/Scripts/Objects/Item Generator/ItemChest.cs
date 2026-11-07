@@ -1,3 +1,4 @@
+using PrimeTween;
 using UnityEngine;
 using Zeke.Items;
 
@@ -63,7 +64,14 @@ public class ItemChest : ItemGenerator
     private void Disappear()
     {
         SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        GeneralAnimator2D.FadeOut(this, spriteRenderers, fadeAwaySeconds, DestroyObject);
+
+        Sequence sequence = Sequence.Create();
+
+        for (int i = 0; i < spriteRenderers.Length; i++)
+        {
+            sequence.Insert(0f, Tween.Alpha(spriteRenderers[i], endValue: 0f, duration: 1f));
+        }
+
         DisableColliders();
     }
 }
