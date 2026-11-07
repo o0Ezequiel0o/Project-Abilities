@@ -76,10 +76,15 @@ namespace Zeke.Abilities.Indicators
             }
         }
 
-        public void Reset()
+        public void Disable()
         {
             if (attackIndicatorInstance == null) return;
             attackIndicatorInstance.gameObject.SetActive(false);
+        }
+
+        public void Reset(GameObject source)
+        {
+            sourceTransform = source.transform;
         }
 
         public void Destroy()

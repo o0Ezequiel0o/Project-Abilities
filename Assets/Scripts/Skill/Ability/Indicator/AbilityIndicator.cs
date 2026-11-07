@@ -80,19 +80,22 @@ namespace Zeke.Abilities.Indicators
             }
         }
 
-        public void Disable()
-        {
-            Reset();
-        }
-
-        public void Reset()
+        public void Reset(GameObject source)
         {
             for (int i = 0; i < modules.Count; i++)
             {
-                modules[i].Reset();
+                modules[i].Reset(source);
             }
 
             timer = 0f;
+        }
+
+        public void Disable()
+        {
+            for (int i = 0; i < modules.Count; i++)
+            {
+                modules[i].Disable();
+            }
         }
 
         public void Destroy()
