@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class HealthBar : ModularBar
 {
+    [Space]
+
     [SerializeField] private HealthBarSettings settings;
     [SerializeField] private StatusBar chip;
 
@@ -38,8 +40,10 @@ public class HealthBar : ModularBar
         UpdateBar(shieldBarID, shield, maxShield);
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         AddBar(healthBarID, settings.HealthColor);
         AddBar(shieldBarID, settings.ShieldColor);
     }

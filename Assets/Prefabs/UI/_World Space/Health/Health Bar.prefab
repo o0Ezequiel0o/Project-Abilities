@@ -58,7 +58,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -391,7 +391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e177bb316c4834c40a95455801ae4896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthBarTest
-  root: {fileID: 5581906770297980926}
+  root: {fileID: 3856862648674620551}
+  barsRoot: {fileID: 5581906770297980926}
   settings: {fileID: 11400000, guid: 5ad4939cf3056e644a9624a6b2488d45, type: 2}
   chip: {fileID: 7210841712571590365}
 --- !u!225 &84847715459837859

@@ -14,7 +14,10 @@ public class HealthBarRenderer : MonoBehaviour
     [SerializeField] private float duration = 5f;
 
     private HealthBar healthBar;
-    private float durationTimer;
+
+    private float durationTimer = 0f;
+    private int healthBarRequestID = 0;
+    private bool pendingHealthBar = false;
 
     private void Reset()
     {
@@ -25,40 +28,48 @@ public class HealthBarRenderer : MonoBehaviour
     private void Start()
     {
         if (damageable == null) return;
-
-        SpawnHealthBar();
         SubscribeToEvents();
-        ResetHealthBarDurationTimer();
     }
 
     private void LateUpdate()
     {
         if (healthBar == null) return;
-
         HealthBarFollowTargetPosition();
         UpdateHealthBarDurationTimer();
     }
 
     private void OnDestroy()
     {
-        if (healthBar == null) return;
-        Destroy(healthBar.gameObject);
-    }
+        if (HealthBarManager.IsNull) return;
 
-    private void SpawnHealthBar()
-    {
-        Canvas worldCanvas = Run.Instance.WorldCanvas;
-
-        if (worldCanvas == null) return;
-
-        healthBar = Instantiate(healthBarPrefab, worldCanvas.transform).GetComponent<HealthBar>();
-
-        if (healthBar.TryGetComponent(out RectTransform rectTransform))
+        if (healthBar != null)
         {
-            rectTransform.sizeDelta *= size;
+            HealthBarManager.Instance.StaggeredDisableAndReturn(healthBarPrefab, healthBar);
+            healthBar = null;
         }
 
-        HideHealthBar();
+        if (pendingHealthBar)
+        {
+            HealthBarManager.Instance.CancelGet(healthBarRequestID);
+            pendingHealthBar = false;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (HealthBarManager.IsNull) return;
+
+        if (healthBar != null)
+        {
+            HealthBarManager.Instance.StaggeredDisableAndReturn(healthBarPrefab, healthBar);
+            healthBar = null;
+        }
+
+        if (pendingHealthBar)
+        {
+            HealthBarManager.Instance.CancelGet(healthBarRequestID);
+            pendingHealthBar = false;
+        }
     }
 
     private void SubscribeToEvents()
@@ -69,14 +80,28 @@ public class HealthBarRenderer : MonoBehaviour
 
     private void OnDamageTaken(Damageable.DamageEvent damageEvent)
     {
-        if (healthBar == null) return;
-
-        if (!healthBar.gameObject.activeSelf)
+        if (healthBar == null && !pendingHealthBar)
         {
-            ShowHealthBar();
+            healthBarRequestID = HealthBarManager.Instance.StaggeredGet(healthBarPrefab, OnHealthBarReceived);
+            pendingHealthBar = true;
         }
 
         ResetHealthBarDurationTimer();
+    }
+
+    private void OnHealthBarReceived(HealthBar instance)
+    {
+        healthBar = instance;
+
+        healthBar = HealthBarManager.Instance.Get(healthBarPrefab);
+        healthBar.Root.sizeDelta *= size;
+
+        HealthBarFollowTargetPosition();
+        UpdateHealthBar();
+
+        healthBar.gameObject.SetActive(true);
+
+        pendingHealthBar = false;
     }
 
     private void UpdateHealthBar()
@@ -100,24 +125,13 @@ public class HealthBarRenderer : MonoBehaviour
 
         if (durationTimer >= duration)
         {
-            HideHealthBar();
+            HealthBarManager.Instance.StaggeredDisableAndReturn(healthBarPrefab, healthBar);
+            healthBar = null;
         }
     }
 
     private void ResetHealthBarDurationTimer()
     {
         durationTimer = 0f;
-    }
-
-    private void ShowHealthBar()
-    {
-        healthBar.gameObject.SetActive(true);
-        ResetHealthBarDurationTimer();
-    }
-
-    private void HideHealthBar()
-    {
-        healthBar.gameObject.SetActive(false);
-        ResetHealthBarDurationTimer();
     }
 }

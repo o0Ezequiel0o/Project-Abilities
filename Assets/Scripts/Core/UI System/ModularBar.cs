@@ -5,6 +5,9 @@ using UnityEngine.UI;
 public class ModularBar : MonoBehaviour
 {
     [SerializeField] protected RectTransform root;
+    [SerializeField] protected RectTransform barsRoot;
+
+    public RectTransform Root => barsRoot;
 
     public float CombinedValue => combinedValue;
     public float CombinedMaxValue => combinedMaxValue;
@@ -13,6 +16,18 @@ public class ModularBar : MonoBehaviour
     private float combinedMaxValue = 0f;
 
     private readonly List<BarIDPair> bars = new List<BarIDPair>();
+
+    private Vector2 originalDelta = Vector2.zero;
+
+    public void ResetValues()
+    {
+        root.sizeDelta = originalDelta;
+    }
+
+    protected virtual void Awake()
+    {
+        originalDelta = root.sizeDelta;
+    }
 
     public class BarID { }
 
@@ -83,7 +98,7 @@ public class ModularBar : MonoBehaviour
 
         RectTransform rectTransform = go.GetComponent<RectTransform>();
         go.GetComponent<Image>().color = color;
-        rectTransform.SetParent(root.transform, false);
+        rectTransform.SetParent(barsRoot.transform, false);
 
         Bar bar = new Bar(values, rectTransform);
         bars.Add(new BarIDPair(id, bar));
@@ -128,14 +143,14 @@ public class ModularBar : MonoBehaviour
 
     protected void UpdateBarRendering()
     {
-        if (root == null || root.gameObject == null) return;
+        if (barsRoot == null || barsRoot.gameObject == null) return;
 
         for (int i = 0; i < bars.Count; i++)
         {
             if (bars[i].bar.rectTransform.gameObject == null) continue;
 
-            float width = root.rect.width * bars[i].bar.values.Percentage * (bars[i].bar.values.maxValue / combinedMaxValue);
-            bars[i].bar.rectTransform.sizeDelta = new Vector2(width, root.rect.height);
+            float width = barsRoot.rect.width * bars[i].bar.values.Percentage * (bars[i].bar.values.maxValue / combinedMaxValue);
+            bars[i].bar.rectTransform.sizeDelta = new Vector2(width, barsRoot.rect.height);
         }
     }
 }
