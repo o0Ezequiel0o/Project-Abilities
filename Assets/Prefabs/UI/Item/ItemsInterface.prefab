@@ -246,7 +246,7 @@ MonoBehaviour:
   rotationAmount: 360
   flyInDuration: 0.75
   startVerticalOffset: -300
-  xOffsetPerSpawn: 70
+  xOffsetPerSpawn: 50
   xOffsetDecreaseRate: 70
 --- !u!114 &5875744613160558492
 MonoBehaviour:
