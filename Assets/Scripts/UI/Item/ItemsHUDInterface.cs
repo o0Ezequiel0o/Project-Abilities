@@ -166,7 +166,10 @@ namespace Zeke.Items
             UIWindow windowInstance = Instantiate(itemAddAnimationPrefab, root.transform);
             RectTransform itemRect = windowInstance.GetComponent<RectTransform>();
 
-            if (xOffset > root.rect.width - itemRect.rect.width * 0.5f)
+            float xOffsetCap = (root.rect.width - itemRect.rect.width) * 0.5f;
+            float center = root.rect.width * 0.5f;
+
+            if (xOffset > xOffsetCap || xOffset < xOffsetCap)
             {
                 xOffset = 0f;
             }
@@ -176,8 +179,8 @@ namespace Zeke.Items
 
             CanvasGroup itemCanvasGroup = windowInstance.GetComponent<CanvasGroup>();
 
-            Vector3 targetPosition = new Vector3(xOffset + itemRect.rect.width * 0.5f, itemRect.rect.height * 0.5f, 0f);
-            itemRect.position += new Vector3(xOffset + itemRect.rect.width * 0.5f, startVerticalOffset, 0f);
+            Vector3 targetPosition = new Vector3(center + xOffset + itemRect.rect.width * 0.5f, itemRect.rect.height * 0.5f, 0f);
+            itemRect.position += new Vector3(center + xOffset + itemRect.rect.width * 0.5f, startVerticalOffset, 0f);
 
             itemCanvasGroup.alpha = 0f;
             itemRect.localScale = Vector3.zero;
@@ -193,7 +196,7 @@ namespace Zeke.Items
                     windowInstance.DestroyWindow();
                 });
 
-            xOffset += xOffsetPerSpawn;
+            xOffset += xOffsetPerSpawn * -Mathf.Sign(xOffset);
         }
 
         protected virtual void OnItemRemoved(ItemData itemData, UIWindow windowInstance)
@@ -243,7 +246,12 @@ namespace Zeke.Items
 
         private void Update()
         {
-            xOffset = Mathf.Max(0, xOffset - xOffsetDecreaseRate * Time.deltaTime);
+            xOffset -= xOffsetDecreaseRate * Time.deltaTime * -Mathf.Sign(xOffset);
+
+            if (Mathf.Abs(xOffset) < 0.05f)
+            {
+                xOffset = 0f;
+            }
         }
 
         private void PlayDropAnimation(RectTransform itemRect)

@@ -9,7 +9,12 @@ namespace Zeke.Items
         [SerializeField] private ItemSettings items;
         [SerializeField] private int amount;
 
-        //private float timer = 0f;
+        [Space]
+
+        [SerializeField] private bool onUpdate;
+        [SerializeField] private float cooldown;
+
+        private float timer = 0f;
 
         private void Start()
         {
@@ -19,15 +24,17 @@ namespace Zeke.Items
             }
         }
 
-        //private void Update()
-        //{
-        //    timer += Time.deltaTime;
+        private void Update()
+        {
+            if (!onUpdate) return;
 
-        //    if (timer >= 0.25f)
-        //    {
-        //        itemHandler.AddItem(items.GetRandomItem((ItemRarity)UnityEngine.Random.Range(0, Enum.GetNames(typeof(ItemRarity)).Length - 1)));
-        //        timer = 0f;
-        //    }
-        //}
+            timer += Time.deltaTime;
+
+            if (timer >= cooldown)
+            {
+                itemHandler.AddItem(items.GetRandomItem((ItemRarity)UnityEngine.Random.Range(0, Enum.GetNames(typeof(ItemRarity)).Length - 1)));
+                timer = 0f;
+            }
+        }
     }
 }
