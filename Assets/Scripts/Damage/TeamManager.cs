@@ -1,23 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Zeke.TeamSystem
 {
     public class TeamManager : GameService<TeamManager>
     {
         private readonly Dictionary<GameObject, TeamIdentifier> entitiesWithTeam = new Dictionary<GameObject, TeamIdentifier>();
-        private readonly Dictionary<Teams, List<GameObject>> targeteables = new Dictionary<Teams, List<GameObject>>()
-        {
-            {Teams.Team1, new List<GameObject>()},
-            {Teams.Team2, new List<GameObject>()},
-            {Teams.Team3, new List<GameObject>()},
-            {Teams.Team4, new List<GameObject>()},
-            {Teams.Team5, new List<GameObject>()},
-            {Teams.Team6, new List<GameObject>()},
-            {Teams.Team7, new List<GameObject>()},
-            {Teams.Team8, new List<GameObject>()},
-            {Teams.IgnoreTeam, new List<GameObject>()}
-        };
+        private readonly Dictionary<Teams, List<GameObject>> targeteables = new Dictionary<Teams, List<GameObject>>();
+
+        private readonly Teams[] teams = (Teams[])Enum.GetValues(typeof(Teams));
 
         public void Add(GameObject obj, TeamIdentifier identifier)
         {
@@ -25,11 +17,11 @@ namespace Zeke.TeamSystem
 
             entitiesWithTeam.Add(obj, identifier);
 
-            foreach (Teams team in targeteables.Keys)
+            for (int i = 0; i < teams.Length; i++)
             {
-                if (team != identifier.Team || identifier.Team == Teams.IgnoreTeam)
+                if (teams[i] != identifier.Team || identifier.Team == Teams.IgnoreTeam)
                 {
-                    targeteables[team].Add(obj);
+                    targeteables[teams[i]].Add(obj);
                 }
             }
         }
@@ -38,11 +30,11 @@ namespace Zeke.TeamSystem
         {
             entitiesWithTeam.Remove(obj);
 
-            foreach (Teams team in targeteables.Keys)
+            for (int i = 0; i < teams.Length; i++)
             {
-                if (team != identifier.Team || identifier.Team == Teams.IgnoreTeam)
+                if (teams[i] != identifier.Team || identifier.Team == Teams.IgnoreTeam)
                 {
-                    targeteables[team].Remove(obj);
+                    targeteables[teams[i]].Remove(obj);
                 }
             }
         }
@@ -87,7 +79,7 @@ namespace Zeke.TeamSystem
 
             List<GameObject> enemies = GetEnemies(identifier);
 
-            int randomRoll = Random.Range(0, enemies.Count);
+            int randomRoll = UnityEngine.Random.Range(0, enemies.Count);
 
             if (identifier.Team == Teams.IgnoreTeam)
             {
@@ -186,6 +178,14 @@ namespace Zeke.TeamSystem
             }
 
             return false;
+        }
+
+        protected override void InitializeService()
+        {
+            for (int i = 0; i < teams.Length; i++)
+            {
+                targeteables.Add(teams[i], new List<GameObject>());
+            }
         }
 
         private bool HasTeamIdentifier(GameObject obj)
