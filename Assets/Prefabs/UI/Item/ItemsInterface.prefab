@@ -244,8 +244,8 @@ MonoBehaviour:
   fallDepth: 200
   duration: 0.6
   rotationAmount: 360
-  flyInDuration: 0.75
-  startVerticalOffset: -300
+  flyInDuration: 1
+  startVerticalOffset: -500
   xOffsetPerSpawn: 50
   xOffsetDecreaseRate: 70
 --- !u!114 &5875744613160558492
