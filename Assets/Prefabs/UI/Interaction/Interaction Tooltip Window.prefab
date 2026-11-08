@@ -316,6 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4073855948521585325}
   - component: {fileID: 1456716941730967228}
+  - component: {fileID: 7930170435247857123}
   m_Layer: 5
   m_Name: Interaction Tooltip Window
   m_TagString: Untagged
@@ -356,6 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
   graphicRoot: {fileID: 6602733976295653018}
+  defaultState: 0
   elements:
   - key: Icon
     value: {fileID: 4509100659682243758}
@@ -363,6 +365,18 @@ MonoBehaviour:
     value: {fileID: 7670729469498158457}
   - key: Name
     value: {fileID: 4627854127415938865}
+--- !u!225 &7930170435247857123
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790233939841971182}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6602733976295653018
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,14 +436,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.34901962}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1d62b301e82d0ed4e9350b43498ba406, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
