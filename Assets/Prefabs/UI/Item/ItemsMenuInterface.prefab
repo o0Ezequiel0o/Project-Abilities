@@ -1544,7 +1544,9 @@ MonoBehaviour:
   jumpHeight: 50
   fallDepth: 200
   duration: 0.6
-  rotationAmount: 180
+  rotationAmount: 360
+  flyInDuration: 0.5
+  startVerticalOffset: -150
 --- !u!114 &3279596086371315156
 MonoBehaviour:
   m_ObjectHideFlags: 0

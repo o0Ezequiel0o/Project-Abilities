@@ -229,11 +229,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5883095700959390401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bb31c4762265d14cbb374270f8666dc, type: 3}
+  m_Script: {fileID: 11500000, guid: cede3105ee7eea44ab36987ea8165668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   window: {fileID: 1244476404031206187}
   itemSlotPrefab: {fileID: 8889133068123501293, guid: 41681b9948b46d04d96423470b929121, type: 3}
+  itemAddAnimationPrefab: {fileID: 4255434255801088248, guid: 5b108951cf93cd74fb683ea5ea9b964a, type: 3}
   dummyWindowPrefab: {fileID: 3273574799411608746, guid: 844d60f3054fa4d4397eab87e47d9511, type: 3}
   maxRotation: 20
   effectDuration: 1
@@ -241,7 +242,11 @@ MonoBehaviour:
   jumpHeight: 50
   fallDepth: 200
   duration: 0.6
-  rotationAmount: 180
+  rotationAmount: 360
+  flyInDuration: 0.75
+  startVerticalOffset: -300
+  xOffsetPerSpawn: 70
+  xOffsetDecreaseRate: 100
 --- !u!114 &5875744613160558492
 MonoBehaviour:
   m_ObjectHideFlags: 0

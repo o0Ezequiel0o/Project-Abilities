@@ -5,7 +5,7 @@ namespace Zeke.Items
 {
     public class AutoScrollItemInterface : AutoScrollList
     {
-        [SerializeField] private ItemsInterface itemsInterface;
+        [SerializeField] private ItemsHUDInterface itemsInterface;
 
         [Space]
 
@@ -30,7 +30,7 @@ namespace Zeke.Items
         {
             base.Reset();
 
-            itemsInterface = GetComponentInChildren<ItemsInterface>();
+            itemsInterface = GetComponentInChildren<ItemsHUDInterface>();
         }
 
         private void OnEnable()

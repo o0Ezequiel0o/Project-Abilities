@@ -5,11 +5,11 @@ namespace Zeke.Items
     [RequireComponent(typeof(ItemHandler))]
     public class ItemsScreenRenderer : MonoBehaviour
     {
-        [SerializeField] private ItemsInterface itemsInterfacePrefab;
+        [SerializeField] private ItemsHUDInterface itemsInterfacePrefab;
         [SerializeField] private ItemsMenuInterface itemsInterfaceMenuPrefab;
 
         private ItemHandler itemHandler;
-        private ItemsInterface itemsInterface;
+        private ItemsHUDInterface itemsInterface;
         private ItemsMenuInterface itemsMenuInterface;
 
         public void ToggleMenuVisibility()
