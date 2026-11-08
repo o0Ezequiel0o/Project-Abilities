@@ -196,7 +196,7 @@ namespace Zeke.Items
                     windowInstance.DestroyWindow();
                 });
 
-            xOffset += xOffsetPerSpawn * -Mathf.Sign(xOffset);
+            xOffset = -(xOffset + (xOffsetPerSpawn * Mathf.Sign(xOffset)));
         }
 
         protected virtual void OnItemRemoved(ItemData itemData, UIWindow windowInstance)
@@ -246,12 +246,7 @@ namespace Zeke.Items
 
         private void Update()
         {
-            xOffset -= xOffsetDecreaseRate * Time.deltaTime * -Mathf.Sign(xOffset);
-
-            if (Mathf.Abs(xOffset) < 0.05f)
-            {
-                xOffset = 0f;
-            }
+            xOffset = Mathf.MoveTowards(xOffset, 0f, xOffsetDecreaseRate * Time.deltaTime);
         }
 
         private void PlayDropAnimation(RectTransform itemRect)

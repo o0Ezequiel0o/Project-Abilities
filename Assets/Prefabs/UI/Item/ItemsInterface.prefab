@@ -247,7 +247,7 @@ MonoBehaviour:
   flyInDuration: 0.75
   startVerticalOffset: -300
   xOffsetPerSpawn: 70
-  xOffsetDecreaseRate: 100
+  xOffsetDecreaseRate: 70
 --- !u!114 &5875744613160558492
 MonoBehaviour:
   m_ObjectHideFlags: 0
