@@ -8,6 +8,9 @@ public class DamageNumbersManager : GameService<DamageNumbersManager>
     [SerializeField] private int preWarmAmount = 10;
     [SerializeField] private float duration = 1.5f;
 
+    [Header("Optimization")]
+    [SerializeField, Min(1)] private int spreadFrames = 5;
+
     [Header("Config")]
     [SerializeField] private DamageNumbersConfig config;
 
@@ -17,6 +20,8 @@ public class DamageNumbersManager : GameService<DamageNumbersManager>
 
     private readonly Stack<DamageNumberData> inactiveDamageNumbers = new Stack<DamageNumberData>();
     private readonly List<DamageNumberData> activeDamageNumbers = new List<DamageNumberData>();
+
+    private Queue<InitializeDamageNumberData> pendingNumbers = new Queue<InitializeDamageNumberData>();
 
     private float currentTime = 0f;
 
@@ -42,20 +47,19 @@ public class DamageNumbersManager : GameService<DamageNumbersManager>
 
     private void DisplayNumber(Vector3 position, GameObject receiver, float value, float size, Vector2 offset, Color color)
     {
-        DamageNumberData damageNumber;
+        DamageNumberData damageNumberData;
 
         if (Instance.inactiveDamageNumbers.Count <= 0)
         {
-            damageNumber = new DamageNumberData(CreateDamageNumber());
+            damageNumberData = new DamageNumberData(CreateDamageNumber());
 
         }
         else
         {
-            damageNumber = Instance.inactiveDamageNumbers.Pop();
+            damageNumberData = Instance.inactiveDamageNumbers.Pop();
         }
 
-        InitializeDamageNumber(damageNumber.number, position, value, size, color);
-        ActivateDamageNumber(damageNumber, receiver, offset);
+        pendingNumbers.Enqueue(new InitializeDamageNumberData(damageNumberData, receiver, value, size, offset, color, receiver.transform.position));
     }
 
     private void Start()
@@ -71,18 +75,41 @@ public class DamageNumbersManager : GameService<DamageNumbersManager>
 
     private void Update()
     {
+        if (pendingNumbers.Count > 0)
+        {
+            int itemsToProcess = Mathf.CeilToInt((float)pendingNumbers.Count / spreadFrames);
+
+            for (int i = 0; i < itemsToProcess && pendingNumbers.Count > 0; i++)
+            {
+                InitializeDamageNumberData data = pendingNumbers.Dequeue();
+
+                Vector3 currentPosition = data.lastPosition;
+
+                if (data.receiver != null)
+                {
+                    currentPosition = data.receiver.transform.position;
+                }
+
+                InitializeDamageNumber(data.damageNumberData.number, currentPosition, data.value, data.size, data.color);
+                ActivateDamageNumber(data.damageNumberData, data.receiver, data.offset, currentPosition);
+            }
+        }
+
         currentTime += Time.deltaTime;
         UpdateAndRemoveActiveNumbers();
     }
 
     private DamageNumber CreateDamageNumber()
     {
-        return Instantiate(Instance.damageNumberPrefab, transform);
+        DamageNumber damageNumber = Instantiate(Instance.damageNumberPrefab, transform);
+        damageNumber.MeshRenderer.enabled = false;
+
+        return damageNumber;
     }
 
-    private void ActivateDamageNumber(DamageNumberData damageNumberData, GameObject receiver, Vector2 offset)
+    private void ActivateDamageNumber(DamageNumberData damageNumberData, GameObject receiver, Vector2 offset, Vector3 lastPosition)
     {
-        damageNumberData.Initialize(receiver, Instance.currentTime, Instance.duration, offset);
+        damageNumberData.Initialize(receiver, Instance.currentTime, Instance.duration, offset, lastPosition);
 
         damageNumberData.number.gameObject.transform.SetAsLastSibling();
         damageNumberData.number.MeshRenderer.enabled = true;
@@ -141,6 +168,31 @@ public class DamageNumbersManager : GameService<DamageNumbersManager>
         }
     }
 
+    public readonly struct InitializeDamageNumberData
+    {
+        public readonly DamageNumberData damageNumberData;
+        public readonly GameObject receiver;
+        public readonly float value;
+        public readonly float size;
+        public readonly Vector2 offset;
+        public readonly Color color;
+
+        public readonly Vector3 lastPosition;
+
+        public InitializeDamageNumberData(DamageNumberData damageNumberData, GameObject receiver, float value, float size, Vector2 offset, Color color, Vector3 lastPosition)
+        {
+            this.damageNumberData = damageNumberData;
+            this.receiver = receiver;
+
+            this.value = value;
+            this.size = size;
+            this.offset = offset;
+            this.color = color;
+
+            this.lastPosition = lastPosition;
+        }
+    }
+
     public class DamageNumberData
     {
         public DamageNumber number;
@@ -158,14 +210,14 @@ public class DamageNumbersManager : GameService<DamageNumbersManager>
             this.number = number;
         }
 
-        public void Initialize(GameObject receiver, float spawnTime, float duration, Vector3 offset)
+        public void Initialize(GameObject receiver, float spawnTime, float duration, Vector3 offset, Vector3 lastPosition)
         {
             this.receiver = receiver;
             this.spawnTime = spawnTime;
             this.offset = offset;
 
             despawnTime = spawnTime + duration;
-            lastPosition = receiver.transform.position;
+            this.lastPosition = lastPosition;
         }
 
         public void UpdateLastPosition()

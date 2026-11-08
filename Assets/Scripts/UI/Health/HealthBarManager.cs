@@ -4,7 +4,7 @@ using System;
 
 public class HealthBarManager : GameService<HealthBarManager>
 {
-    [SerializeField] private int poolingFramesSpread = 10;
+    [SerializeField, Min(1)] private int poolingFramesSpread = 10;
 
     private readonly Dictionary<HealthBar, Stack<HealthBar>> healthBars = new Dictionary<HealthBar, Stack<HealthBar>>();
 

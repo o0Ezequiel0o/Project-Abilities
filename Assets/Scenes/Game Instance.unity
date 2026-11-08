@@ -1956,6 +1956,7 @@ MonoBehaviour:
   damageNumberPrefab: {fileID: 4213150253408556074, guid: afa099423fe26634a81eb4dbb2e08978, type: 3}
   preWarmAmount: 300
   duration: 0.8
+  spreadFrames: 4
   config: {fileID: 11400000, guid: a330fcacc9b18ef4ba3f998e819efd4e, type: 2}
 --- !u!1 &1920595091
 GameObject:
