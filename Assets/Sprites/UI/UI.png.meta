@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a5543476e0ad09949aa9214fa08b219b
+guid: 1da0bf42b8748c24aafd3f980fb42d07
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -516091054131125173
-    second: Tooltip_0
+      213: -1557013538026691241
+    second: UI_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,8 +51,8 @@ TextureImporter:
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
-  spriteBorder: {x: 70, y: 70, z: 70, w: 70}
+  spritePixelsToUnits: 256
+  spriteBorder: {x: 94, y: 94, z: 94, w: 94}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -74,7 +74,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -102,7 +102,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tooltip_0
+      name: UI_0
       rect:
         serializedVersion: 2
         x: 0
@@ -117,8 +117,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b44e1ceabe976d8f0800000000000000
-      internalID: -516091054131125173
+      spriteID: 755e173cf60646ae0800000000000000
+      internalID: -1557013538026691241
       vertices: []
       indices: 
       edges: []
@@ -137,7 +137,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Tooltip_0: -516091054131125173
+      UI_0: -1557013538026691241
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
