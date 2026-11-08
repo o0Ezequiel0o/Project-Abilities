@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 7499824749584810112}
   - component: {fileID: 3989299346036747125}
   - component: {fileID: 6873815508699685373}
+  - component: {fileID: 8621086231382844785}
   m_Layer: 5
   m_Name: AttackIndicator
   m_TagString: Untagged
@@ -139,7 +140,6 @@ MonoBehaviour:
   fill: {fileID: 8732850608891471086}
   back: {fileID: 8221243735992932990}
   indicatorBar: {fileID: 6873815508699685373}
-  despawnAction: 1
 --- !u!114 &6873815508699685373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,6 +154,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bar: {fileID: 8732850608891471086}
   mode: 0
+--- !u!225 &8621086231382844785
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5112642658978455701}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &7936583577020418628
 GameObject:
   m_ObjectHideFlags: 0

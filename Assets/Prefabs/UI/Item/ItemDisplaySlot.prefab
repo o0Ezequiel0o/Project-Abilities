@@ -349,8 +349,6 @@ GameObject:
   - component: {fileID: 4132716073657990243}
   - component: {fileID: 8889133068123501293}
   - component: {fileID: 7127759910155004058}
-  - component: {fileID: 2804298956457681160}
-  - component: {fileID: 1147128450683446276}
   - component: {fileID: 1936444820674965150}
   - component: {fileID: 6596665255540079160}
   - component: {fileID: -8802821300907724492}
@@ -500,32 +498,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fcbfd53231a08a4ba91c7658615dc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2804298956457681160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7799076533158132201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e92bee40df9e584a8eebd757dfc615e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemSlotReference: {fileID: 7127759910155004058}
-  trigger: {fileID: 1147128450683446276}
---- !u!114 &1147128450683446276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7799076533158132201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93f5d0e6bae352145862a01c56419987, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Tooltips.UITooltipTrigger
 --- !u!114 &1936444820674965150
 MonoBehaviour:
   m_ObjectHideFlags: 0
