@@ -24,7 +24,7 @@ MonoBehaviour:
       min: 0
       max: Infinity
   duration:
-    baseValue: 0
+    baseValue: 0.3
     increase: 0
     valueLimits:
       min: 0
@@ -40,6 +40,9 @@ MonoBehaviour:
   - rid: 9133315464761704708
   - rid: 9133315464761704709
   - rid: 9133315464761704710
+  - rid: 5546512975126069339
+  - rid: 5546512975126069340
+  - rid: 5546512975126069341
   references:
     version: 2
     RefIds:
@@ -53,6 +56,18 @@ MonoBehaviour:
           valueLimits:
             min: -Infinity
             max: Infinity
+    - rid: 5546512975126069339
+      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        <AbilityType>k__BackingField: 0
+    - rid: 5546512975126069340
+      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        <AbilityType>k__BackingField: 1
+    - rid: 5546512975126069341
+      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        <AbilityType>k__BackingField: 3
     - rid: 9133315464761704706
       type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
