@@ -184,7 +184,7 @@ namespace Zeke.Items
             Sequence.Create(useUnscaledTime: true)
                 .Group(Tween.UIAnchoredPosition(itemRect, targetPosition, flyInDuration, Ease.OutQuad))
                 .Group(Tween.Alpha(itemCanvasGroup, 1f, flyInDuration * 0.25f, Ease.InSine))
-                .Group(Tween.Alpha(itemCanvasGroup, 0f, flyInDuration * 0.6f, Ease.InSine, startDelay: flyInDuration * 0.25f))
+                .Group(Tween.Alpha(itemCanvasGroup, 0f, flyInDuration * 0.5f, Ease.InSine, startDelay: flyInDuration * 0.25f))
                 .OnComplete(() =>
                 {
                     windowInstance.DestroyWindow();
