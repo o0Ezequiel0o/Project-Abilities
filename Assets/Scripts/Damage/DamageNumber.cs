@@ -11,11 +11,7 @@ public class DamageNumber : MonoBehaviour
 
     [SerializeField] private bool roundToCeil = true;
 
-    public MeshRenderer MeshRenderer
-    {
-        get => meshRenderer;
-        set => meshRenderer = value;
-    }
+    public MeshRenderer MeshRenderer => meshRenderer;
 
     public float Value { get; private set; }
 

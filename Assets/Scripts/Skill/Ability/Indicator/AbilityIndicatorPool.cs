@@ -7,7 +7,7 @@ namespace Zeke.Abilities.Indicators
     {
         [SerializeField] private AbilityIndicatorDB abilityIndicatorDB;
 
-        private Dictionary<AbilityIndicatorData, Stack<AbilityIndicator>> abilityIndicators = new Dictionary<AbilityIndicatorData, Stack<AbilityIndicator>>();
+        private readonly Dictionary<AbilityIndicatorData, Stack<AbilityIndicator>> abilityIndicators = new Dictionary<AbilityIndicatorData, Stack<AbilityIndicator>>();
 
         public AbilityIndicator Get(AbilityIndicatorData indicatorData, GameObject source, Transform castPosition)
         {

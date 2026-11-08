@@ -16,7 +16,7 @@ public class EntitySeparationController : GameService<EntitySeparationController
 
         for (int i = 0; i < groups; i++)
         {
-            updateBuckets[i] = new List<EntitySeparation>(800);
+            updateBuckets[i] = new List<EntitySeparation>(500);
         }
     }
 

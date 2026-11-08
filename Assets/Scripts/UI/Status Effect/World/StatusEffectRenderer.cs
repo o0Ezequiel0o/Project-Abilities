@@ -30,8 +30,9 @@ public class StatusEffectRenderer : MonoBehaviour
         if (interfaceInstance != null && !StatusEffectRendererManagerPool.IsNull)
         {
             UnsubscribeFromEvents();
-            interfaceInstance.gameObject.SetActive(false);
-            StatusEffectRendererManagerPool.Instance.Return(interfaceInstance);
+            StatusEffectRendererManagerPool.Instance.StaggeredDisableAndReturn(interfaceInstance);
+
+            interfaceInstance = null;
         }
     }
 
@@ -40,8 +41,9 @@ public class StatusEffectRenderer : MonoBehaviour
         if (interfaceInstance != null && !StatusEffectRendererManagerPool.IsNull)
         {
             UnsubscribeFromEvents();
-            interfaceInstance.gameObject.SetActive(false);
-            StatusEffectRendererManagerPool.Instance.Return(interfaceInstance);
+            StatusEffectRendererManagerPool.Instance.StaggeredDisableAndReturn(interfaceInstance);
+
+            interfaceInstance = null;
         }
     }
 

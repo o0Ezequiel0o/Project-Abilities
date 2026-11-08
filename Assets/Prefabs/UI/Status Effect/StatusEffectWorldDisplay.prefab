@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5336375882191938863}
   - component: {fileID: 5190231765355963196}
   - component: {fileID: 8360619127707872843}
-  - component: {fileID: 7453993718884606936}
   m_Layer: 5
   m_Name: StatusEffectWorldDisplay
   m_TagString: Untagged
@@ -80,15 +79,3 @@ MonoBehaviour:
   statusEffectDisplaySlotPrefab: {fileID: -5736844568995319268, guid: a3a8c094c2c94e947bd36ebc7011ab40, type: 3}
   statusEffectDisplaySlotsRoot: {fileID: 5336375882191938863}
   spawnAmount: 4
---- !u!225 &7453993718884606936
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2337608205834185525}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0

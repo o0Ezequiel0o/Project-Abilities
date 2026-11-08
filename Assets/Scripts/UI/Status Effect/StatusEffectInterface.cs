@@ -67,6 +67,17 @@ public class StatusEffectInterface : MonoBehaviour
         }
     }
 
+    public void Clear()
+    {
+        foreach (StatusEffectDisplaySlot slot in usedStatusEffectDisplaySlots.Values)
+        {
+            slot.gameObject.SetActive(false);
+            statusEffectDisplaySlots.Push(slot);
+        }
+
+        usedStatusEffectDisplaySlots.Clear();
+    }
+
     private void InitializeStatusEffectSlotData(StatusEffectDisplaySlot abilityDisplaySlot, StatusEffect statusEffect)
     {
         abilityDisplaySlot.Icon = statusEffect.Data.Icon;
