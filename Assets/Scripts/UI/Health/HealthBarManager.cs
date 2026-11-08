@@ -92,6 +92,7 @@ public class HealthBarManager : GameService<HealthBarManager>
         }
 
         instance = Instantiate(prefab, Run.Instance.WorldCanvas.transform);
+        instance.gameObject.SetActive(false);
 
         return instance;
     }

@@ -47,18 +47,7 @@ public class DamageNumbersManager : GameService<DamageNumbersManager>
 
     private void DisplayNumber(Vector3 position, GameObject receiver, float value, float size, Vector2 offset, Color color)
     {
-        DamageNumberData damageNumberData;
-
-        if (Instance.inactiveDamageNumbers.Count <= 0)
-        {
-            damageNumberData = new DamageNumberData(CreateDamageNumber());
-
-        }
-        else
-        {
-            damageNumberData = Instance.inactiveDamageNumbers.Pop();
-        }
-
+        DamageNumberData damageNumberData = Instance.inactiveDamageNumbers.Count <= 0 ? new DamageNumberData(CreateDamageNumber()) : Instance.inactiveDamageNumbers.Pop();
         pendingNumbers.Enqueue(new InitializeDamageNumberData(damageNumberData, receiver, value, size, offset, color, receiver.transform.position));
     }
 
@@ -77,26 +66,31 @@ public class DamageNumbersManager : GameService<DamageNumbersManager>
     {
         if (pendingNumbers.Count > 0)
         {
-            int itemsToProcess = Mathf.CeilToInt((float)pendingNumbers.Count / spreadFrames);
-
-            for (int i = 0; i < itemsToProcess && pendingNumbers.Count > 0; i++)
-            {
-                InitializeDamageNumberData data = pendingNumbers.Dequeue();
-
-                Vector3 currentPosition = data.lastPosition;
-
-                if (data.receiver != null)
-                {
-                    currentPosition = data.receiver.transform.position;
-                }
-
-                InitializeDamageNumber(data.damageNumberData.number, currentPosition, data.value, data.size, data.color);
-                ActivateDamageNumber(data.damageNumberData, data.receiver, data.offset, currentPosition);
-            }
+            ProcessPendingNumbers();
         }
 
         currentTime += Time.deltaTime;
         UpdateAndRemoveActiveNumbers();
+    }
+
+    private void ProcessPendingNumbers()
+    {
+        int itemsToProcess = Mathf.CeilToInt((float)pendingNumbers.Count / spreadFrames);
+
+        for (int i = 0; i < itemsToProcess && pendingNumbers.Count > 0; i++)
+        {
+            InitializeDamageNumberData data = pendingNumbers.Dequeue();
+
+            Vector3 currentPosition = data.lastPosition;
+
+            if (data.receiver != null)
+            {
+                currentPosition = data.receiver.transform.position;
+            }
+
+            InitializeDamageNumber(data.damageNumberData.number, currentPosition, data.value, data.size, data.color);
+            ActivateDamageNumber(data.damageNumberData, data.receiver, data.offset, currentPosition);
+        }
     }
 
     private DamageNumber CreateDamageNumber()

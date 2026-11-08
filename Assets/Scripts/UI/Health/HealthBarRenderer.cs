@@ -82,26 +82,36 @@ public class HealthBarRenderer : MonoBehaviour
     {
         if (healthBar == null && !pendingHealthBar)
         {
-            healthBarRequestID = HealthBarManager.Instance.StaggeredGet(healthBarPrefab, OnHealthBarReceived);
-            pendingHealthBar = true;
+            RequestHealthBar();
         }
 
         ResetHealthBarDurationTimer();
+    }
+
+    private void RequestHealthBar()
+    {
+        healthBarRequestID = HealthBarManager.Instance.StaggeredGet(healthBarPrefab, OnHealthBarReceived);
+        pendingHealthBar = true;
     }
 
     private void OnHealthBarReceived(HealthBar instance)
     {
         healthBar = instance;
 
-        healthBar = HealthBarManager.Instance.Get(healthBarPrefab);
-        healthBar.Root.sizeDelta *= size;
+        SetUpHealthBar();
 
         HealthBarFollowTargetPosition();
-        UpdateHealthBar();
-
         healthBar.gameObject.SetActive(true);
 
         pendingHealthBar = false;
+    }
+
+    private void SetUpHealthBar()
+    {
+        healthBar = HealthBarManager.Instance.Get(healthBarPrefab);
+        healthBar.Root.sizeDelta *= size;
+
+        UpdateHealthBar();
     }
 
     private void UpdateHealthBar()
