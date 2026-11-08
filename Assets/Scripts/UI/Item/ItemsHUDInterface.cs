@@ -169,7 +169,7 @@ namespace Zeke.Items
             float xOffsetCap = Mathf.Max(0f, (root.rect.width - itemRect.rect.width) * 0.5f);
             float center = root.rect.width * 0.5f;
 
-            if (xOffset > xOffsetCap || xOffset < xOffsetCap)
+            if (xOffset > xOffsetCap || xOffset < -xOffsetCap)
             {
                 xOffset = 0f;
             }
