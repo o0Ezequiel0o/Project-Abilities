@@ -17,8 +17,9 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Military Manual
-  <Description>k__BackingField: Increases primary ability <style="Recharge Speed">recharge speed</style> by 12% <style="Level Modifier">(+12% per stack)</style> and <style="Damage">damage</style> by 3% <style="Level Modifier">(+3% per stack)</style>.
+  <Description>k__BackingField: Increases primary ability <style="Recharge Speed">recharge speed</style> by 12% <style="Level Modifier">(+12% per stack)</style> and <style="Damage">damage</style> by 3% flat <style="Level Modifier">(+3% flat per stack)</style>.
   <Rarity>k__BackingField: 1
+  <ProcPriority>k__BackingField: 0
   <AbilityType>k__BackingField: 0
   <ExtraChargeSpeed>k__BackingField:
     rid: 2308103184254763089

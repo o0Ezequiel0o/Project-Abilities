@@ -17,8 +17,9 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Outline>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Milk
-  <Description>k__BackingField: <style="Hit">Hits</style> deal 3% <style="Level Modifier">(+3% per stack)</style> more <style="Damage">damage</style> based on your <style="Health">health</style> ratio.
+  <Description>k__BackingField: <style="Hit">Hits</style> deal 3% flat <style="Level Modifier">(+3% flat per stack)</style> more <style="Damage">damage</style> based on your <style="Health">health</style> ratio.
   <Rarity>k__BackingField: 0
+  <ProcPriority>k__BackingField: 0
   DamageFlatMult:
     rid: 2308103044736483409
   references:
