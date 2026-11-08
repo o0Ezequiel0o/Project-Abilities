@@ -166,7 +166,7 @@ namespace Zeke.Items
             UIWindow windowInstance = Instantiate(itemAddAnimationPrefab, root.transform);
             RectTransform itemRect = windowInstance.GetComponent<RectTransform>();
 
-            float xOffsetCap = (root.rect.width - itemRect.rect.width) * 0.5f;
+            float xOffsetCap = Mathf.Max(0f, (root.rect.width - itemRect.rect.width) * 0.5f);
             float center = root.rect.width * 0.5f;
 
             if (xOffset > xOffsetCap || xOffset < xOffsetCap)
