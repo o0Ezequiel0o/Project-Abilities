@@ -38,12 +38,30 @@ MonoBehaviour:
   modules:
   - rid: 9133315464761704664
   - rid: 9133315464761704666
-  - rid: 9133315464761704667
-  - rid: 9133315464761704670
-  <IndicatorData>k__BackingField: {fileID: 0}
+  - rid: 5546512975126069335
+  - rid: 5546512975126069336
   references:
     version: 2
     RefIds:
+    - rid: 5546512975126069335
+      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        <AbilityType>k__BackingField: 0
+    - rid: 5546512975126069336
+      type: {class: ReloadData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        strategy:
+          rid: 5546512975126069337
+    - rid: 5546512975126069337
+      type: {class: ReloadData/OnDurationEndData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        <AbilityType>k__BackingField: 0
+        chargesAmount:
+          baseValue: 100
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
     - rid: 9133315464761704664
       type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
@@ -62,32 +80,3 @@ MonoBehaviour:
           valueLimits:
             min: 0
             max: Infinity
-    - rid: 9133315464761704667
-      type: {class: ReloadData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        strategy:
-          rid: 9133315464761704668
-    - rid: 9133315464761704668
-      type: {class: ReloadData/OnDurationEndData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        strategy:
-          rid: 9133315464761704669
-        chargesAmount:
-          baseValue: 100
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-    - rid: 9133315464761704669
-      type: {class: GetAbilityTypeData, ns: Zeke.Abilities, asm: Assembly-CSharp}
-      data:
-        <Type>k__BackingField: 0
-    - rid: 9133315464761704670
-      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        strategy:
-          rid: 9133315464761704671
-    - rid: 9133315464761704671
-      type: {class: GetAbilityTypeData, ns: Zeke.Abilities, asm: Assembly-CSharp}
-      data:
-        <Type>k__BackingField: 0

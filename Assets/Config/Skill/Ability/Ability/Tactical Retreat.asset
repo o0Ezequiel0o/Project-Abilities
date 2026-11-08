@@ -40,10 +40,19 @@ MonoBehaviour:
   - rid: 9133315464761704708
   - rid: 9133315464761704709
   - rid: 9133315464761704710
-  <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
+    - rid: 5546512975126069333
+      type: {class: ReloadData/OnCastData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      data:
+        <AbilityType>k__BackingField: 0
+        chargesAmount:
+          baseValue: 1
+          increase: 0
+          valueLimits:
+            min: -Infinity
+            max: Infinity
     - rid: 9133315464761704706
       type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
@@ -71,19 +80,4 @@ MonoBehaviour:
       type: {class: ReloadData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
         strategy:
-          rid: 9133315464761704711
-    - rid: 9133315464761704711
-      type: {class: ReloadData/OnCastData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        strategy:
-          rid: 9133315464761704712
-        chargesAmount:
-          baseValue: 1
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-    - rid: 9133315464761704712
-      type: {class: GetAbilityTypeData, ns: Zeke.Abilities, asm: Assembly-CSharp}
-      data:
-        <Type>k__BackingField: 0
+          rid: 5546512975126069333
