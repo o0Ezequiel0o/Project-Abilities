@@ -68,10 +68,15 @@ public class ModularBar : MonoBehaviour
 
     public ModularBar AddBar(BarID id, Color color)
     {
-        return AddBar(id, color, 0f, 0f);
+        return AddBar(id, color, 0f, 0f, null);
     }
 
-    public ModularBar AddBar(BarID id, Color color, float current, float max)
+    public ModularBar AddBar(BarID id, Color color, Sprite sprite)
+    {
+        return AddBar(id, color, 0f, 0f, sprite);
+    }
+
+    public ModularBar AddBar(BarID id, Color color, float current, float max, Sprite sprite)
     {
         GameObject go = new GameObject("bar", typeof(CanvasRenderer), typeof(Image));
         StatusBarValue values = new StatusBarValue(current, max);

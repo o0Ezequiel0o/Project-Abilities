@@ -93,6 +93,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
+        DisableGameInput();
+        DisableUIInput();
+
         if (Run.IsNull) return;
 
         Run.Instance.onPause -= OnPaused;

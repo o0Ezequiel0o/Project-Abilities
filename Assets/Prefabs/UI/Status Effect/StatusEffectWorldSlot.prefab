@@ -115,7 +115,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 4147543110913513004}
   - component: {fileID: 8304075115048414835}
   - component: {fileID: -5736844568995319268}
+  - component: {fileID: 7620740504623004900}
   m_Layer: 5
   m_Name: StatusEffectWorldSlot
   m_TagString: Untagged
@@ -228,6 +229,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 8304075115048414835}
   stacksText: {fileID: 6677552847457329081}
+--- !u!225 &7620740504623004900
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252204940406302984}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &8663308499107616673
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,8 +44,9 @@ public class StatusEffectParticlesPool : GameService<StatusEffectParticlesPool>
         preparedEffects.Clear();
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
         Clear();
     }
 
