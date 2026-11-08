@@ -3,8 +3,19 @@ using TMPro;
 
 public class DamageNumber : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI display;
+    [Header("Dependency")]
+    [SerializeField] private TMP_Text display;
+    [SerializeField] private MeshRenderer meshRenderer;
+
+    [Header("Settings")]
+
     [SerializeField] private bool roundToCeil = true;
+
+    public MeshRenderer MeshRenderer
+    {
+        get => meshRenderer;
+        set => meshRenderer = value;
+    }
 
     public float Value { get; private set; }
 
@@ -23,7 +34,7 @@ public class DamageNumber : MonoBehaviour
     public void UpdateValue(float value)
     {
         if (roundToCeil) value = Mathf.Ceil(value);
-        display.text = NumberFormatter.FormatNumber(value);
+        display.SetText(NumberFormatter.FormatNumber(value));
         Value = value;
     }
 }

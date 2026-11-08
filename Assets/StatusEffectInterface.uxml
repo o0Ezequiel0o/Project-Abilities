@@ -1,0 +1,13 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" authoring-id="-1165872441" editor-extension-mode="False">
+    <ui:VisualElement name="Root" style="height: 59px; flex-grow: 1; bottom: auto; transform-origin: center; translate: -50% -100%;">
+        <ui:GroupBox name="GroupBox" style="align-items: stretch; height: 53px; flex-direction: row; top: auto; left: auto; bottom: auto; right: auto; padding-top: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-grow: 1;">
+            <ui:Image source="project://database/Assets/Sprites/Status%20Effects/Bleeding.png?fileID=2800000&amp;guid=ef70b23796fac4e41837a54c32f25ed0&amp;type=3#Bleeding"/>
+            <ui:Image source="project://database/Assets/Sprites/Status%20Effects/Bleeding.png?fileID=2800000&amp;guid=ef70b23796fac4e41837a54c32f25ed0&amp;type=3#Bleeding"/>
+            <ui:Image source="project://database/Assets/Sprites/Status%20Effects/Bleeding.png?fileID=2800000&amp;guid=ef70b23796fac4e41837a54c32f25ed0&amp;type=3#Bleeding"/>
+            <ui:Image source="project://database/Assets/Sprites/Status%20Effects/Bleeding.png?fileID=2800000&amp;guid=ef70b23796fac4e41837a54c32f25ed0&amp;type=3#Bleeding"/>
+            <ui:Image source="project://database/Assets/Sprites/Status%20Effects/Bleeding.png?fileID=2800000&amp;guid=ef70b23796fac4e41837a54c32f25ed0&amp;type=3#Bleeding"/>
+            <ui:Image source="project://database/Assets/Sprites/Status%20Effects/Bleeding.png?fileID=2800000&amp;guid=ef70b23796fac4e41837a54c32f25ed0&amp;type=3#Bleeding"/>
+            <ui:Image source="project://database/Assets/Sprites/Status%20Effects/Bleeding.png?fileID=2800000&amp;guid=ef70b23796fac4e41837a54c32f25ed0&amp;type=3#Bleeding"/>
+        </ui:GroupBox>
+    </ui:VisualElement>
+</ui:UXML>

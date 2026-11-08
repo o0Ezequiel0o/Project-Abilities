@@ -4,7 +4,6 @@ using UnityEngine;
 public class StatusEffectRenderer : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private StatusEffectInterface interfacePrefab;
     [SerializeField] private Transform follow;
     [SerializeField] private Vector3 offset;
 
@@ -16,11 +15,34 @@ public class StatusEffectRenderer : MonoBehaviour
         statusEffectHandler = GetComponent<StatusEffectHandler>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        SpawnInterfaceInCanvas();
+        interfaceInstance = StatusEffectRendererManagerPool.Instance.Get();
+
         SubscribeToEvents();
         LoadInterfaceData();
+
+        interfaceInstance.gameObject.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        if (interfaceInstance != null && !StatusEffectRendererManagerPool.IsNull)
+        {
+            UnsubscribeFromEvents();
+            interfaceInstance.gameObject.SetActive(false);
+            StatusEffectRendererManagerPool.Instance.Return(interfaceInstance);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (interfaceInstance != null && !StatusEffectRendererManagerPool.IsNull)
+        {
+            UnsubscribeFromEvents();
+            interfaceInstance.gameObject.SetActive(false);
+            StatusEffectRendererManagerPool.Instance.Return(interfaceInstance);
+        }
     }
 
     private void LateUpdate()
@@ -37,19 +59,17 @@ public class StatusEffectRenderer : MonoBehaviour
         statusEffectHandler.onStacksRemoved.Subscribe(interfaceInstance.UpdateStatusEffectSlot);
     }
 
-    private void SpawnInterfaceInCanvas()
+    private void UnsubscribeFromEvents()
     {
-        interfaceInstance = Instantiate(interfacePrefab, Run.Instance.WorldCanvas.transform);
+        statusEffectHandler.onEffectApplied.Unsubscribe(interfaceInstance.AddStatusEffectSlot);
+        statusEffectHandler.onEffectRemoved.Unsubscribe(interfaceInstance.RemoveStatusEffectSlot);
+
+        statusEffectHandler.onStacksApplied.Unsubscribe(interfaceInstance.UpdateStatusEffectSlot);
+        statusEffectHandler.onStacksRemoved.Unsubscribe(interfaceInstance.UpdateStatusEffectSlot);
     }
 
     private void LoadInterfaceData()
     {
         interfaceInstance.LoadData(statusEffectHandler.StatusEffects);
-    }
-
-    private void OnDestroy()
-    {
-        if (interfaceInstance == null) return;
-        Destroy(interfaceInstance);
     }
 }

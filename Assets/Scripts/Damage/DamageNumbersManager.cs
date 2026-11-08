@@ -63,7 +63,7 @@ public class DamageNumbersManager : GameService<DamageNumbersManager>
         for (int i = 0; i < preWarmAmount; i++)
         {
             DamageNumber damageNumber = CreateDamageNumber();
-            damageNumber.gameObject.SetActive(false);
+            damageNumber.MeshRenderer.enabled = false;
 
             inactiveDamageNumbers.Push(new DamageNumberData(damageNumber));
         }
@@ -77,7 +77,7 @@ public class DamageNumbersManager : GameService<DamageNumbersManager>
 
     private DamageNumber CreateDamageNumber()
     {
-        return Instantiate(Instance.damageNumberPrefab, Run.Instance.WorldCanvas.transform);
+        return Instantiate(Instance.damageNumberPrefab, transform);
     }
 
     private void ActivateDamageNumber(DamageNumberData damageNumberData, GameObject receiver, Vector2 offset)
@@ -85,7 +85,7 @@ public class DamageNumbersManager : GameService<DamageNumbersManager>
         damageNumberData.Initialize(receiver, Instance.currentTime, Instance.duration, offset);
 
         damageNumberData.number.gameObject.transform.SetAsLastSibling();
-        damageNumberData.number.gameObject.SetActive(true);
+        damageNumberData.number.MeshRenderer.enabled = true;
 
         Instance.activeDamageNumbers.Add(damageNumberData);
     }
@@ -121,7 +121,7 @@ public class DamageNumbersManager : GameService<DamageNumbersManager>
 
             if (currentTime > damageNumberData.despawnTime)
             {
-                damageNumberData.number.gameObject.SetActive(false);
+                damageNumberData.number.MeshRenderer.enabled = false;
                 inactiveDamageNumbers.Push(damageNumberData);
                 activeDamageNumbers.RemoveAt(i);
             }
