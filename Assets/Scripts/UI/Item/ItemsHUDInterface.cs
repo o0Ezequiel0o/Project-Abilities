@@ -180,11 +180,14 @@ namespace Zeke.Items
             itemRect.position += new Vector3(xOffset + itemRect.rect.width * 0.5f, startVerticalOffset, 0f);
 
             itemCanvasGroup.alpha = 0f;
+            itemRect.localScale = Vector3.zero;
 
             Sequence.Create(useUnscaledTime: true)
                 .Group(Tween.UIAnchoredPosition(itemRect, targetPosition, flyInDuration, Ease.OutQuad))
                 .Group(Tween.Alpha(itemCanvasGroup, 1f, flyInDuration * 0.25f, Ease.InSine))
                 .Group(Tween.Alpha(itemCanvasGroup, 0f, flyInDuration * 0.5f, Ease.InSine, startDelay: flyInDuration * 0.25f))
+                .Group(Tween.Scale(itemRect, Vector3.one * 1.4f, flyInDuration * 0.3f, Ease.OutQuad))
+                .Group(Tween.Scale(itemRect, Vector3.one * 0.5f, flyInDuration * 0.7f, Ease.InQuad, startDelay: flyInDuration * 0.3f))
                 .OnComplete(() =>
                 {
                     windowInstance.DestroyWindow();
