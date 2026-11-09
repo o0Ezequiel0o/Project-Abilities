@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: -549456992416598927}
   - component: {fileID: 5562861826131366279}
   - component: {fileID: 2821714099563017465}
+  - component: {fileID: -1176006277601527015}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -863,3 +864,17 @@ MonoBehaviour:
   optionsWindow: {fileID: 3882320326254278048, guid: 2d1480405c772bb4cbcf98a9b7c2ea77, type: 3}
   optionWindow: {fileID: 6831720364878063803, guid: 1fe3f6ac15b32934db4783624282a1fc, type: 3}
   optionAppearDuration: 0.2
+--- !u!114 &-1176006277601527015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218312312708394220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8fc13322ad2304db43dabaa0d3a146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExperienceScreenRenderer
+  levelHandler: {fileID: 108859267500074294}
+  windowPrefab: {fileID: 8683519037302637605, guid: a0ed4a834a61fd94d8c5477e7386872f, type: 3}
