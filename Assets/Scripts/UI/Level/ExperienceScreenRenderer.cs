@@ -48,13 +48,13 @@ public class ExperienceScreenRenderer : MonoBehaviour
 
     private void OnReceiveExperience(int experience)
     {
-        window.TryGetElement<StatusBar>("Bar").UpdateBar(levelHandler.Experience / levelHandler.ExperienceRequired);
+        window.TryGetElement<StatusBar>("Bar").UpdateBar((float)levelHandler.Experience / levelHandler.ExperienceRequired);
     }
 
     private void OnLevelUp(LevelHandler.LevelUpInfo levelUpInfo)
     {
         window.TryGetElement<TextMeshProUGUI>("Level Text").SetText(GetLevelText(levelHandler.Level));
-        window.TryGetElement<StatusBar>("Bar").UpdateBar(levelHandler.Experience / levelHandler.ExperienceRequired);
+        window.TryGetElement<StatusBar>("Bar").UpdateBar((float)levelHandler.Experience / levelHandler.ExperienceRequired);
     }
 
     private string GetLevelText(int level) => $"Level {level}";
