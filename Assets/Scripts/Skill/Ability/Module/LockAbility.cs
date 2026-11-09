@@ -18,7 +18,6 @@ namespace Zeke.Abilities.Modules
         public override void OnInitialization(AbilityController controller, Transform spawn, GameObject source, Ability ability)
         {
             this.controller = controller;
-            controller.AddAbilityLock(abilityLock);
         }
 
         public override bool CanActivate() => true;
