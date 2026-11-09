@@ -181,6 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
+  graphicRoot: {fileID: 0}
+  defaultState: 1
   elements:
   - key: Icon
     value: {fileID: 7198892146556740670}
@@ -260,8 +262,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '[CD: 5s]'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 695b9bdaaf3f2ab439f49448dd3c3c3f, type: 2}
+  m_sharedMaterial: {fileID: -656858761072720122, guid: 695b9bdaaf3f2ab439f49448dd3c3c3f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -285,12 +287,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13
+  m_fontSize: 11
   m_fontSizeBase: 21
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 1
-  m_fontSizeMax: 13
+  m_fontSizeMax: 11
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -568,15 +570,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: UTILITY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 695b9bdaaf3f2ab439f49448dd3c3c3f, type: 2}
+  m_sharedMaterial: {fileID: -656858761072720122, guid: 695b9bdaaf3f2ab439f49448dd3c3c3f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294951168
-  m_fontColor: {r: 0, g: 0.75686276, b: 1, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -593,8 +595,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19
-  m_fontSizeBase: 19
+  m_fontSize: 13.5
+  m_fontSizeBase: 13.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -759,8 +761,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Hello this is an epic ability description that describes very well how the ability works and i like talking a lot really much about how complex this ability is and deals 3 different types of damages that all have different proc chances and make you die instantly if you...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 695b9bdaaf3f2ab439f49448dd3c3c3f, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: d11ec7d0584b648408fd182695a111e7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -974,8 +976,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Super Long Ability Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 695b9bdaaf3f2ab439f49448dd3c3c3f, type: 2}
+  m_sharedMaterial: {fileID: -656858761072720122, guid: 695b9bdaaf3f2ab439f49448dd3c3c3f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -999,7 +1001,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21
+  m_fontSize: 13
   m_fontSizeBase: 21
   m_fontWeight: 400
   m_enableAutoSizing: 1
