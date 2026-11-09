@@ -19,9 +19,21 @@ public class ModularBar : MonoBehaviour
 
     private Vector2 originalDelta = Vector2.zero;
 
+    private bool isDirty = false;
+
     public void ResetValues()
     {
         root.sizeDelta = originalDelta;
+    }
+
+    private void OnEnable()
+    {
+        Canvas.willRenderCanvases += UpdateBarRendering;
+    }
+
+    private void OnDisable()
+    {
+        Canvas.willRenderCanvases -= UpdateBarRendering;
     }
 
     protected virtual void Awake()
@@ -121,9 +133,9 @@ public class ModularBar : MonoBehaviour
 
             combinedValue += currentDifference;
             combinedMaxValue += maxDifference;
-        }
 
-        UpdateBarRendering();
+            isDirty = true;
+        }
     }
 
     protected bool TryGetBar(BarID id, out Bar bar)
@@ -143,14 +155,22 @@ public class ModularBar : MonoBehaviour
 
     protected void UpdateBarRendering()
     {
-        if (barsRoot == null || barsRoot.gameObject == null) return;
+        if (!isDirty || barsRoot == null || barsRoot.gameObject == null) return;
+
+        float xStartPosition = -barsRoot.rect.width * 0.5f;
 
         for (int i = 0; i < bars.Count; i++)
         {
             if (bars[i].bar.rectTransform.gameObject == null) continue;
 
             float width = barsRoot.rect.width * bars[i].bar.values.Percentage * (bars[i].bar.values.maxValue / combinedMaxValue);
+
             bars[i].bar.rectTransform.sizeDelta = new Vector2(width, barsRoot.rect.height);
+            bars[i].bar.rectTransform.localPosition = new Vector2(xStartPosition + width * 0.5f, 0f);
+
+            xStartPosition += width;
         }
+
+        isDirty = false;
     }
 }
