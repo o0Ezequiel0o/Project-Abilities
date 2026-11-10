@@ -108,9 +108,7 @@ public class HealthBarRenderer : MonoBehaviour
 
     private void SetUpHealthBar()
     {
-        healthBar = HealthBarManager.Instance.Get(healthBarPrefab);
         healthBar.Root.sizeDelta *= size;
-
         UpdateHealthBar();
     }
 

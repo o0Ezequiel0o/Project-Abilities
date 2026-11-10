@@ -24,6 +24,7 @@ public class ModularBar : MonoBehaviour
     public void ResetValues()
     {
         root.sizeDelta = originalDelta;
+        isDirty = true;
     }
 
     private void OnEnable()
@@ -109,7 +110,12 @@ public class ModularBar : MonoBehaviour
         StatusBarValue values = new StatusBarValue(current, max);
 
         RectTransform rectTransform = go.GetComponent<RectTransform>();
-        go.GetComponent<Image>().color = color;
+
+        Image image = go.GetComponent<Image>();
+
+        image.color = color;
+        image.sprite = sprite;
+
         rectTransform.SetParent(barsRoot.transform, false);
 
         Bar bar = new Bar(values, rectTransform);
@@ -117,6 +123,11 @@ public class ModularBar : MonoBehaviour
 
         combinedMaxValue += max;
         combinedValue += current;
+
+        isDirty = true;
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(barsRoot);
+        UpdateBarRendering();
 
         return this;
     }
@@ -161,9 +172,18 @@ public class ModularBar : MonoBehaviour
 
         for (int i = 0; i < bars.Count; i++)
         {
-            if (bars[i].bar.rectTransform.gameObject == null) continue;
+            if (bars[i].bar.rectTransform == null) continue;
 
-            float width = barsRoot.rect.width * bars[i].bar.values.Percentage * (bars[i].bar.values.maxValue / combinedMaxValue);
+            float width;
+
+            if (combinedMaxValue > 0f)
+            {
+                width = barsRoot.rect.width * bars[i].bar.values.Percentage * (bars[i].bar.values.maxValue / combinedMaxValue);
+            }
+            else
+            {
+                width = 0f;
+            }
 
             bars[i].bar.rectTransform.sizeDelta = new Vector2(width, barsRoot.rect.height);
             bars[i].bar.rectTransform.localPosition = new Vector2(xStartPosition + width * 0.5f, 0f);
