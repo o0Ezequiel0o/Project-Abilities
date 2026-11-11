@@ -89,7 +89,7 @@ public class SpriteHealthBar : SpriteModularBar
         float targetFill = CombinedValue / CombinedMaxValue;
         UpdateChip(Mathf.Lerp(chipStart, targetFill, chipTimer / settings.ChipTime));
 
-        if (chipTimer >= settings.ChipTime)
+        if (chipTimer >= settings.ChipTime || chip.transform.localScale.x < targetFill)
         {
             StopChipping();
         }
