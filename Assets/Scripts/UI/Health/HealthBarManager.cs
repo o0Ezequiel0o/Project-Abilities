@@ -4,6 +4,7 @@ using System;
 
 public class HealthBarManager : GameService<HealthBarManager>
 {
+    [SerializeField] private Canvas canvas;
     [SerializeField, Min(1)] private int poolingFramesSpread = 10;
 
     private readonly Dictionary<HealthBar, Stack<HealthBar>> healthBars = new Dictionary<HealthBar, Stack<HealthBar>>();
@@ -12,6 +13,8 @@ public class HealthBarManager : GameService<HealthBarManager>
 
     private Stack<DelayedReturnData>[] returnUpdateBuckets;
     private Stack<DelayedGetData>[] getUpdateBuckets;
+
+    public Canvas Canvas => canvas;
 
     private int currentBucketIndex = 0;
 
@@ -79,7 +82,7 @@ public class HealthBarManager : GameService<HealthBarManager>
         if (!healthBars.ContainsKey(prefab))
         {
             healthBars.Add(prefab, new Stack<HealthBar>());
-            instance = Instantiate(prefab, Run.Instance.WorldCanvas.transform);
+            instance = Instantiate(prefab, canvas.transform);
             instance.gameObject.SetActive(false);
 
             return instance;
@@ -91,7 +94,7 @@ public class HealthBarManager : GameService<HealthBarManager>
             return instance;
         }
 
-        instance = Instantiate(prefab, Run.Instance.WorldCanvas.transform);
+        instance = Instantiate(prefab, canvas.transform);
         instance.gameObject.SetActive(false);
 
         return instance;

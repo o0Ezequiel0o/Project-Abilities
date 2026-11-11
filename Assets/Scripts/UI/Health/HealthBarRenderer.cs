@@ -19,10 +19,17 @@ public class HealthBarRenderer : MonoBehaviour
     private int healthBarRequestID = 0;
     private bool pendingHealthBar = false;
 
+    private Camera camera;
+
     private void Reset()
     {
         damageable = GetComponentInChildren<Damageable>();
         center = GetComponentInChildren<Transform>();
+    }
+
+    private void Awake()
+    {
+        camera = Camera.main;
     }
 
     private void Start()
@@ -124,7 +131,8 @@ public class HealthBarRenderer : MonoBehaviour
 
     private void HealthBarFollowTargetPosition()
     {
-        healthBar.transform.position = (center.position + offset);
+        Vector3 worldScreenPoint = camera.WorldToScreenPoint(center.position);
+        healthBar.transform.position = (worldScreenPoint + offset);
     }
 
     private void UpdateHealthBarDurationTimer()
