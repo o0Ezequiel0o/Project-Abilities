@@ -180,7 +180,7 @@ namespace Zeke.Items
             CanvasGroup itemCanvasGroup = windowInstance.GetComponent<CanvasGroup>();
 
             Vector3 targetPosition = new Vector3(center + xOffset + itemRect.rect.width * 0.5f, itemRect.rect.height * 0.5f, 0f);
-            itemRect.position += new Vector3(center + xOffset + itemRect.rect.width * 0.5f, startVerticalOffset, 0f);
+            itemRect.localPosition = new Vector3(xOffset + itemRect.rect.width * 0.5f, startVerticalOffset, 0f);
 
             itemCanvasGroup.alpha = 0f;
             itemRect.localScale = Vector3.zero;
