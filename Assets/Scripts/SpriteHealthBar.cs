@@ -64,7 +64,7 @@ public class SpriteHealthBar : SpriteModularBar
     private void UpdateChip(float percentage)
     {
         chip.transform.localScale = new Vector2(percentage, 1f);
-        chip.transform.localPosition = new Vector2(chip.transform.localScale.x - 1f, 0f);
+        chip.transform.localPosition = new Vector2((percentage - 1f) * 0.5f, 0f);
     }
 
     protected void StartChipping(float start)
