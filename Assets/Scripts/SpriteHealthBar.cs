@@ -19,6 +19,11 @@ public class SpriteHealthBar : SpriteModularBar
     private readonly BarID healthBarID = new BarID();
     private readonly BarID shieldBarID = new BarID();
 
+    public override void ResetValues()
+    {
+        StopChipping();
+    }
+
     public override void UpdateBar(BarID id, float current, float max)
     {
         float combinedOldValue = CombinedValue;
