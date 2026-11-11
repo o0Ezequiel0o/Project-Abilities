@@ -2,7 +2,7 @@ using UnityEngine;
 using Zeke.UI;
 using TMPro;
 
-public class DifficultyAndTimeScreenRenderer : MonoBehaviour
+public class DifficultyScreenRenderer : MonoBehaviour
 {
     [SerializeField] private UIWindow windowPrefab;
 
