@@ -4,17 +4,14 @@ using System;
 
 public class HealthBarManager : GameService<HealthBarManager>
 {
-    [SerializeField] private Canvas canvas;
     [SerializeField, Min(1)] private int poolingFramesSpread = 10;
 
-    private readonly Dictionary<HealthBar, Stack<HealthBar>> healthBars = new Dictionary<HealthBar, Stack<HealthBar>>();
+    private readonly Dictionary<SpriteHealthBar, Stack<SpriteHealthBar>> healthBars = new Dictionary<SpriteHealthBar, Stack<SpriteHealthBar>>();
 
     private readonly HashSet<int> pendingIDs = new HashSet<int>(256);
 
     private Stack<DelayedReturnData>[] returnUpdateBuckets;
     private Stack<DelayedGetData>[] getUpdateBuckets;
-
-    public Canvas Canvas => canvas;
 
     private int currentBucketIndex = 0;
 
@@ -22,10 +19,10 @@ public class HealthBarManager : GameService<HealthBarManager>
 
     private readonly struct DelayedReturnData
     {
-        public readonly HealthBar prefab;
-        public readonly HealthBar instance;
+        public readonly SpriteHealthBar prefab;
+        public readonly SpriteHealthBar instance;
 
-        public DelayedReturnData(HealthBar prefab, HealthBar instance)
+        public DelayedReturnData(SpriteHealthBar prefab, SpriteHealthBar instance)
         {
             this.prefab = prefab;
             this.instance = instance;
@@ -35,11 +32,11 @@ public class HealthBarManager : GameService<HealthBarManager>
     private readonly struct DelayedGetData
     {
         public readonly int id;
-        public readonly HealthBar prefab;
+        public readonly SpriteHealthBar prefab;
 
-        public readonly Action<HealthBar> callback;
+        public readonly Action<SpriteHealthBar> callback;
 
-        public DelayedGetData(int id, HealthBar prefab, Action<HealthBar> callback)
+        public DelayedGetData(int id, SpriteHealthBar prefab, Action<SpriteHealthBar> callback)
         {
             this.id = id;
             this.prefab = prefab;
@@ -47,7 +44,7 @@ public class HealthBarManager : GameService<HealthBarManager>
             this.callback = callback;
         }
 
-        public void Execute(HealthBar instance)
+        public void Execute(SpriteHealthBar instance)
         {
             callback?.Invoke(instance);
         }
@@ -61,7 +58,7 @@ public class HealthBarManager : GameService<HealthBarManager>
         }
     }
 
-    public int StaggeredGet(HealthBar prefab, Action<HealthBar> callback)
+    public int StaggeredGet(SpriteHealthBar prefab, Action<SpriteHealthBar> callback)
     {
         int id = GetNewID();
         pendingIDs.Add(id);
@@ -70,19 +67,19 @@ public class HealthBarManager : GameService<HealthBarManager>
         return id;
     }
 
-    public void StaggeredDisableAndReturn(HealthBar prefab, HealthBar instance)
+    public void StaggeredDisableAndReturn(SpriteHealthBar prefab, SpriteHealthBar instance)
     {
         returnUpdateBuckets[GetSmallestBucketIndex(returnUpdateBuckets)].Push(new DelayedReturnData(prefab, instance));
     }
 
-    public HealthBar Get(HealthBar prefab)
+    public SpriteHealthBar Get(SpriteHealthBar prefab)
     {
-        HealthBar instance;
+        SpriteHealthBar instance;
 
         if (!healthBars.ContainsKey(prefab))
         {
-            healthBars.Add(prefab, new Stack<HealthBar>());
-            instance = Instantiate(prefab, canvas.transform);
+            healthBars.Add(prefab, new Stack<SpriteHealthBar>());
+            instance = Instantiate(prefab);
             instance.gameObject.SetActive(false);
 
             return instance;
@@ -94,13 +91,13 @@ public class HealthBarManager : GameService<HealthBarManager>
             return instance;
         }
 
-        instance = Instantiate(prefab, canvas.transform);
+        instance = Instantiate(prefab);
         instance.gameObject.SetActive(false);
 
         return instance;
     }
 
-    public void Return(HealthBar prefab, HealthBar instance)
+    public void Return(SpriteHealthBar prefab, SpriteHealthBar instance)
     {
         healthBars[prefab].Push(instance);
     }

@@ -6,30 +6,23 @@ public class HealthBarRenderer : MonoBehaviour
     [SerializeField] private Damageable damageable;
 
     [Header("Settings")]
-    [SerializeField] private HealthBar healthBarPrefab;
+    [SerializeField] private SpriteHealthBar healthBarPrefab;
     [SerializeField] private Transform center;
     [Space]
     [SerializeField] private Vector3 offset = Vector3.zero;
     [SerializeField] private Vector2 size = Vector2.one;
     [SerializeField] private float duration = 5f;
 
-    private HealthBar healthBar;
+    private SpriteHealthBar healthBar;
 
     private float durationTimer = 0f;
     private int healthBarRequestID = 0;
     private bool pendingHealthBar = false;
 
-    private Camera camera;
-
     private void Reset()
     {
         damageable = GetComponentInChildren<Damageable>();
         center = GetComponentInChildren<Transform>();
-    }
-
-    private void Awake()
-    {
-        camera = Camera.main;
     }
 
     private void Start()
@@ -101,7 +94,7 @@ public class HealthBarRenderer : MonoBehaviour
         pendingHealthBar = true;
     }
 
-    private void OnHealthBarReceived(HealthBar instance)
+    private void OnHealthBarReceived(SpriteHealthBar instance)
     {
         healthBar = instance;
 
@@ -115,7 +108,7 @@ public class HealthBarRenderer : MonoBehaviour
 
     private void SetUpHealthBar()
     {
-        healthBar.Root.sizeDelta *= size;
+        healthBar.transform.localScale *= size;
         UpdateHealthBar();
     }
 
@@ -131,8 +124,7 @@ public class HealthBarRenderer : MonoBehaviour
 
     private void HealthBarFollowTargetPosition()
     {
-        Vector3 worldScreenPoint = camera.WorldToScreenPoint(center.position);
-        healthBar.transform.position = (worldScreenPoint + offset);
+        healthBar.transform.position = transform.position + offset;
     }
 
     private void UpdateHealthBarDurationTimer()
