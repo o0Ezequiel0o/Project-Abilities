@@ -163,7 +163,7 @@ namespace Zeke.Items
         {
             RectTransform root = window.GetComponent<RectTransform>();
 
-            UIWindow windowInstance = Instantiate(itemAddAnimationPrefab, root.transform);
+            UIWindow windowInstance = Instantiate(itemAddAnimationPrefab, root.transform, false);
             RectTransform itemRect = windowInstance.GetComponent<RectTransform>();
 
             float xOffsetCap = Mathf.Max(0f, (root.rect.width - itemRect.rect.width) * 0.5f);
