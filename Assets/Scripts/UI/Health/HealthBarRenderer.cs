@@ -108,7 +108,7 @@ public class HealthBarRenderer : MonoBehaviour
 
     private void SetUpHealthBar()
     {
-        healthBar.transform.localScale *= size;
+        healthBar.ChangeSize(size);
         UpdateHealthBar();
     }
 

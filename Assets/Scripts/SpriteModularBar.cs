@@ -1,10 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteAlways]
 public class SpriteModularBar : MonoBehaviour
 {
     [SerializeField] protected Transform root;
     [SerializeField] protected Transform barsRoot;
+    [SerializeField] protected Transform contentTransform;
+
+    [Space]
+
+    [Tooltip("X: Left, Y: Right, Z: Top, W: Bottom")]
+    [SerializeField] protected Vector4 padding = new Vector4(0.05f, 0.05f, 0.05f, 0.05f);
 
     public Transform Root => barsRoot;
 
@@ -18,14 +25,52 @@ public class SpriteModularBar : MonoBehaviour
 
     private Vector2 originalDelta = Vector2.zero;
 
-    public void ResetValues()
+    public virtual void ChangeSize(Vector2 size)
+    {
+        root.localScale *= size;
+        UpdateContentTransformBounds();
+    }
+
+    public virtual void ResetValues()
     {
         root.localScale = originalDelta;
+        UpdateContentTransformBounds();
     }
 
     protected virtual void Awake()
     {
         originalDelta = root.localScale;
+        UpdateContentTransformBounds();
+    }
+
+    protected virtual void OnValidate()
+    {
+        UpdateContentTransformBounds();
+    }
+
+    private void UpdateContentTransformBounds()
+    {
+        if (contentTransform == null || root == null) return;
+
+        float parentScaleX = root.localScale.x;
+        float parentScaleY = root.localScale.y;
+
+        if (Mathf.Approximately(parentScaleX, 0f)) parentScaleX = 1f;
+        if (Mathf.Approximately(parentScaleY, 0f)) parentScaleY = 1f;
+
+        float effLeft = padding.x / parentScaleX;
+        float effRight = padding.y / parentScaleX;
+        float effTop = padding.z / parentScaleY;
+        float effBottom = padding.w / parentScaleY;
+
+        float contentWidth = Mathf.Clamp(1.0f - (effLeft + effRight), 0f, 1.0f);
+        float contentHeight = Mathf.Clamp(1.0f - (effTop + effBottom), 0f, 1.0f);
+
+        float contentCenterX = (effLeft - effRight) * 0.5f;
+        float contentCenterY = (effBottom - effTop) * 0.5f;
+
+        contentTransform.localScale = new Vector2(contentWidth, contentHeight);
+        contentTransform.localPosition = new Vector2(contentCenterX, contentCenterY);
     }
 
     public class BarID { }
