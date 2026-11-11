@@ -5,7 +5,7 @@ public class SpriteHealthBar : SpriteModularBar
     [Space]
 
     [SerializeField] private HealthBarSettings settings;
-    [SerializeField] private StatusBar chip;
+    [SerializeField] private Transform chip;
 
     [Space]
 
@@ -34,7 +34,7 @@ public class SpriteHealthBar : SpriteModularBar
         }
         else if (CombinedMaxValue > combinedOldMaxValue)
         {
-            chip.UpdateBar(CombinedValue / CombinedMaxValue);
+            UpdateChip(CombinedValue / CombinedMaxValue);
         }
     }
 
@@ -61,6 +61,12 @@ public class SpriteHealthBar : SpriteModularBar
         }
     }
 
+    private void UpdateChip(float percentage)
+    {
+        chip.transform.localScale = new Vector2(percentage, 1f);
+        chip.transform.localPosition = new Vector2(chip.transform.localScale.x - 1f, 0f);
+    }
+
     protected void StartChipping(float start)
     {
         chipStart = start;
@@ -76,8 +82,7 @@ public class SpriteHealthBar : SpriteModularBar
     protected void UpdateChipBarFill()
     {
         float targetFill = CombinedValue / CombinedMaxValue;
-
-        chip.transform.localScale = new Vector2(Mathf.Lerp(chipStart, targetFill, chipTimer / settings.ChipTime), 1f);
+        UpdateChip(Mathf.Lerp(chipStart, targetFill, chipTimer / settings.ChipTime));
 
         if (chipTimer >= settings.ChipTime)
         {
