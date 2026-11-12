@@ -99,3 +99,6 @@ MonoBehaviour:
   - key: Piercing Shot+
     value:
       description: Fire a piercing bullet that deals 75 <style="Level Modifier">(+22.5 per level)</style> <style="Damage">damage</style>, has 2 <style="Proc Coefficient">proc coefficient</style>, 25% <style="Armor Penetration">armor penetration</style> and can <style="Pierce">pierce</style> up to 2 target <style="Level Modifier">(+1 per level)</style>.
+  - key: Shock
+    value:
+      description: Slows down aiming and movement speed by 99% for 5 seconds.
