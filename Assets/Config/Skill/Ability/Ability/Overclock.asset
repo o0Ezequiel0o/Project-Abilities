@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Overclock
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: Overclock
-  <Description>k__BackingField: Take 25% of your <style="Max Health">max health</style> as <style="Damage">damage</style> <style="Level Modifier">(non-lethal)</style> and increase <style="Move Speed">move speed</style> by 50%, secondary <style="Recharge Speed">recharge speed</style> by 50% but <style="Damage Received">damage received</style> by 50% for 3 seconds.
+  <Name>k__BackingField: 'Task: Overclock'
+  <Description>k__BackingField: Take <style="Damage">damage</style> up to a maximum of 10% of your <style="Max Shield>max shield</style> every second and increase your secondary <style="Recharge Speed">recharge speed</style> by 9% <style="Level Modifier">(+1% per level)</style> + 0.1% for every consumed <style="Shield">shield</style> . After being active for more than 8 seconds it will slowly ramp up the consumption by 1% every second.
   <CanManuallyDeactivate>k__BackingField: 1
   <CanHold>k__BackingField: 0
   cooldownTime:

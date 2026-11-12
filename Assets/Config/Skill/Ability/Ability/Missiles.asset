@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Missiles
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.AbilityData
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  <Name>k__BackingField: Missiles
+  <Name>k__BackingField: 'Task: Eliminate'
   <Description>k__BackingField: Fire 4 homing missiles, each one deals 30 <style="Level Modifier">(+7 per level)</style> <style="damage">damage</style>
   <CanManuallyDeactivate>k__BackingField: 0
   <CanHold>k__BackingField: 0
@@ -42,7 +42,6 @@ MonoBehaviour:
   - rid: 9133315464761704611
   - rid: 9133315464761704623
   - rid: 9133315464761704635
-  <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:
