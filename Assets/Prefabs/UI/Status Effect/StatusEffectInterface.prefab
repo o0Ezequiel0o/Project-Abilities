@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 6645520811967482280}
-  statusEffectDisplaySlotPrefab: {fileID: -5736844568995319268, guid: a3a8c094c2c94e947bd36ebc7011ab40, type: 3}
+  statusEffectDisplaySlotPrefab: {fileID: 6332464742674896020, guid: e9cf30db81b60a246afca76f2f9ad609, type: 3}
   statusEffectDisplaySlotsRoot: {fileID: 9073222153360652648}
   spawnAmount: 10
 --- !u!223 &8159725289440897453
