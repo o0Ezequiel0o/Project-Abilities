@@ -39,7 +39,6 @@ MonoBehaviour:
   - rid: 9133315464761704461
   - rid: 9133315464761704463
   - rid: 9133315464761704464
-  <IndicatorData>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds:

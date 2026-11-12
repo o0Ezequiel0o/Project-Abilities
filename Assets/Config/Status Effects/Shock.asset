@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7031163fdd810e40a2974638f05c9f2, type: 3}
+  m_Name: Shock
+  m_EditorClassIdentifier: Assembly-CSharp::ShockStatusData
+  <Icon>k__BackingField: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  <AlwaysApply>k__BackingField: 0
+  <MaxStacks>k__BackingField: 1
+  <StatusEffectType>k__BackingField: 2
+  moveSpeedMultiplier: 0.01
+  aimSpeedMultiplier: 0.01

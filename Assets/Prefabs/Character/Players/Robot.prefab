@@ -63,7 +63,7 @@ PrefabInstance:
     - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: <StartAbilities>k__BackingField.Array.data[3].value
       value: 
-      objectReference: {fileID: 11400000, guid: 90f20c28d3a512e4292f1895c917e9a7, type: 2}
+      objectReference: {fileID: 11400000, guid: 5bd5108ae1ad32a4b8d042d01101881a, type: 2}
     - target: {fileID: 3494898662879718562, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: <MoveSpeed>k__BackingField.baseValue
       value: 3.5
