@@ -196,6 +196,11 @@ public class Run : GameService<Run>
         GlobalEventBus.Unsubscribe<RunLevelHandler.LevelLoadedEvent>(OnLevelLoaded);
     }
 
+    private void OnDestroy()
+    {
+        Time.timeScale = 1f;
+    }
+
     private void OnLevelLoaded(RunLevelHandler.LevelLoadedEvent @event)
     {
         Difficulty += difficulty.DifficultyPerLevel * Level;
