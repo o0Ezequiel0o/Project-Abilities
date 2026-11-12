@@ -230,7 +230,7 @@ public partial class Damageable : MonoBehaviour, IUpgradable
 
     private float ReceiveShield(float shields)
     {
-        float shieldGained = Mathf.Min(MaxShield.Value - Shield, shields);
+        float shieldGained = Mathf.Clamp(shields, 0f, MaxShield.Value - Shield);
         Shield += shieldGained;
 
         if (shieldGained > 0)
