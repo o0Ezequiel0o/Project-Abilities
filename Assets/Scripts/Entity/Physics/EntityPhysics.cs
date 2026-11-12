@@ -4,6 +4,8 @@ public class EntityPhysics : Physics
 {
     public Vector2 MoveForces => moveForces;
 
+    public Vector2 MovingDirection => moveForces.normalized;
+
     private Vector2 moveForces;
 
     public void AddMoveForce(Vector2 moveForces)

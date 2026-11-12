@@ -46,38 +46,42 @@ public class EntityMove : MonoBehaviour, IUpgradable
     {
         Vector2 forceToReachDesiredSpeed = Vector2.zero;
 
-        forceToReachDesiredSpeed.x = GetForceForDesiredMoveSpeed(desiredMoveSpeed.x, physics.MoveForces.x);
-        forceToReachDesiredSpeed.y = GetForceForDesiredMoveSpeed(desiredMoveSpeed.y, physics.MoveForces.y);
+        forceToReachDesiredSpeed.x = GetForceForDesiredMoveSpeed(desiredMoveSpeed.x, physics.MoveForces.x, physics.MovingDirection.x);
+        forceToReachDesiredSpeed.y = GetForceForDesiredMoveSpeed(desiredMoveSpeed.y, physics.MoveForces.y, physics.MovingDirection.y);
 
         return forceToReachDesiredSpeed;
     }
 
-    private float GetForceForDesiredMoveSpeed(float desiredForcesAxis, float currentForcesAxis)
+    private float GetForceForDesiredMoveSpeed(float desiredForcesAxis, float currentForcesAxis, float currentDirection)
     {
         if (desiredForcesAxis != 0f)
         {
-            float maxForceRequired = Mathf.Sign(desiredForcesAxis) == 1
-                ? Mathf.Max(0, desiredForcesAxis - currentForcesAxis)
-                : Mathf.Min(0, desiredForcesAxis - currentForcesAxis);
-
+            float maxForceRequired = desiredForcesAxis - currentForcesAxis;       
             float accelerationStep = MoveSpeed.Value * accelerationRatio * Time.deltaTime;
-            return MoveTowards(maxForceRequired, accelerationStep);
+            accelerationStep += GetOverflowSpeedStep(currentForcesAxis, currentDirection);
+
+            return Mathf.MoveTowards(0f, maxForceRequired, accelerationStep);
         }
         else
         {
             float brakingStep = MoveSpeed.Value * brakingRatio * Time.deltaTime;
+            brakingStep += GetOverflowSpeedStep(currentForcesAxis, currentDirection);
 
             float maxForceRequired = -currentForcesAxis;
-            return MoveTowards(maxForceRequired, brakingStep);
+            return Mathf.MoveTowards(0f, maxForceRequired, brakingStep);
         }
     }
 
-    private float MoveTowards(float target, float step)
+    private float GetOverflowSpeedStep(float currentForce, float currentDirection)
     {
-        float stepRequired = Mathf.Sign(target) == 1
-            ? Mathf.Min(target, step)
-            : Mathf.Max(target, -step);
+        float step = 0f;
 
-        return stepRequired;
+        if ((currentForce < 0 && MoveSpeed.Value * currentDirection > currentForce) ||
+            currentForce > 0 && MoveSpeed.Value * currentDirection < currentForce)
+        {
+            step = Mathf.Abs(currentForce - (MoveSpeed.Value * currentDirection));
+        }
+
+        return step;
     }
 }
