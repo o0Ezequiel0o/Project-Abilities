@@ -116,7 +116,7 @@ public class Stat : IUpgradable
 
     public void RemoveMultiplier(Multiplier statMultiplier)
     {
-        standardMultipliers.Remove(statMultiplier);
+        if (!standardMultipliers.Remove(statMultiplier)) return;
         statMultiplier.onValueChanged -= RecalculateStandardMultiplierValue;
 
         RecalculateStandardMultiplierValue();
