@@ -15,16 +15,16 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Overclock
   <Description>k__BackingField: Take 25% of your <style="Max Health">max health</style> as <style="Damage">damage</style> <style="Level Modifier">(non-lethal)</style> and increase <style="Move Speed">move speed</style> by 50%, secondary <style="Recharge Speed">recharge speed</style> by 50% but <style="Damage Received">damage received</style> by 50% for 3 seconds.
-  <CanManuallyDeactivate>k__BackingField: 0
+  <CanManuallyDeactivate>k__BackingField: 1
   <CanHold>k__BackingField: 0
   cooldownTime:
-    baseValue: 12
+    baseValue: 3
     increase: 0
     valueLimits:
       min: 0
       max: Infinity
   duration:
-    baseValue: 3
+    baseValue: Infinity
     increase: 0
     valueLimits:
       min: 0
@@ -38,14 +38,37 @@ MonoBehaviour:
   modules:
   - rid: 9133315464761704643
   - rid: 9133315464761704645
-  - rid: 9133315464761704646
-  - rid: 9133315464761704647
-  - rid: 9133315464761704649
-  - rid: 9133315464761704651
-  <IndicatorData>k__BackingField: {fileID: 0}
+  - rid: 5546513062035194083
   references:
     version: 2
     RefIds:
+    - rid: 5546513062035194083
+      type: {class: OverclockData, ns: Zeke.Abilities.Modules.Characters, asm: Assembly-CSharp}
+      data:
+        <AffectedAbilities>k__BackingField: 01000000i
+        <TickDuration>k__BackingField: 1
+        baseRechargeRatioBoost:
+          baseValue: 0.09
+          increase: 0.01
+          valueLimits:
+            min: 0
+            max: Infinity
+        rechargeRatioPerShield:
+          baseValue: 0.001
+          increase: 0
+          valueLimits:
+            min: 0.0001
+            max: Infinity
+        shieldUsageRatio:
+          baseValue: 0.1
+          increase: 0
+          valueLimits:
+            min: 0
+            max: Infinity
+        <RampUpStartTick>k__BackingField: 8
+        <UsageRampUpRatio>k__BackingField: 0.01
+        <Penetration>k__BackingField: 1
+        <ProcCoefficient>k__BackingField: 0
     - rid: 9133315464761704643
       type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
       data:
@@ -64,62 +87,3 @@ MonoBehaviour:
           valueLimits:
             min: 0
             max: Infinity
-    - rid: 9133315464761704646
-      type: {class: TakeDamageData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
-      data:
-        damage:
-          baseValue: 0.25
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        <ValueType>k__BackingField: 1
-        <ArmorPenetration>k__BackingField: 1
-        <Lethal>k__BackingField: 0
-        <IgnoresShield>k__BackingField: 1
-    - rid: 9133315464761704647
-      type: {class: EditMultiplierStatValueData, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
-      data:
-        <Permanent>k__BackingField: 0
-        amount:
-          baseValue: 1.5
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        stat:
-          rid: 9133315464761704648
-    - rid: 9133315464761704648
-      type: {class: GetMoveSpeedStatData, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
-      data: 
-    - rid: 9133315464761704649
-      type: {class: EditFlatStatValueData, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
-      data:
-        <Permanent>k__BackingField: 0
-        amount:
-          baseValue: 2
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        stat:
-          rid: 9133315464761704650
-    - rid: 9133315464761704650
-      type: {class: GetAbilityRechargeSpeedStatData, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
-      data:
-        <AbilityType>k__BackingField: 1
-    - rid: 9133315464761704651
-      type: {class: EditMultiplierStatValueData, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
-      data:
-        <Permanent>k__BackingField: 0
-        amount:
-          baseValue: 1.5
-          increase: 0
-          valueLimits:
-            min: -Infinity
-            max: Infinity
-        stat:
-          rid: 9133315464761704652
-    - rid: 9133315464761704652
-      type: {class: GetDamageReceivedMultiplierStatData, ns: Zeke.Abilities.Modules.Stats, asm: Assembly-CSharp}
-      data: 
