@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using Zeke.Collections;
 using Zeke.Items;
 
@@ -44,7 +44,7 @@ public partial class Damageable : MonoBehaviour, IUpgradable
 
     /// <summary> Called when hit, before any condition. </summary>
     public readonly OrderedAction<DamageEvent> onDamageEvent = new OrderedAction<DamageEvent>();
-    
+
     public readonly OrderedAction<DamageEvent> onTakeDamage = new OrderedAction<DamageEvent>();
     public readonly OrderedAction<DamageEvent> onTakenDamage = new OrderedAction<DamageEvent>();
 
@@ -177,42 +177,49 @@ public partial class Damageable : MonoBehaviour, IUpgradable
         return CalculateHealing(healing);
     }
 
-    private float TakeDamage(float damage, bool lethal, bool ignoresShield)
+    private DamageTakenInfo TakeDamage(float damage, bool lethal, bool ignoresShield)
     {
-        float damageTaken;
+        float shieldDamage;
+        float healthDamage;
 
         if (!ignoresShield)
         {
-            damageTaken = Mathf.Min(CombinedHealth, damage);
+            damage = Mathf.Min(CombinedHealth, damage);
 
-            if (!lethal && damageTaken >= CombinedHealth)
+            if (!lethal && damage >= CombinedHealth)
             {
-                damageTaken *= 0.999f;
+                damage *= 0.999f;
             }
 
-            float overflow = GetOverflow(damageTaken, Shield);
+            float overflow = GetOverflow(damage, Shield);
 
-            Shield -= damageTaken - overflow;
-            Health -= overflow;
+            shieldDamage = damage - overflow;
+            healthDamage = overflow;
+
+            Shield -= shieldDamage;
+            Health -= healthDamage;
         }
         else
         {
-            damageTaken = Mathf.Min(Health, damage);
+            damage = Mathf.Min(Health, damage);
 
-            if (!lethal && damageTaken >= Health)
+            if (!lethal && damage >= Health)
             {
-                damageTaken *= 0.999f;
+                damage *= 0.999f;
             }
 
-            Health -= damageTaken;
+            shieldDamage = 0f;
+            healthDamage = damage;
+
+            Health -= healthDamage;
         }
 
-        if (damageTaken > 0)
+        if (damage > 0)
         {
             onAnyHealthUpdate?.Invoke();
         }
 
-        return damageTaken;
+        return new DamageTakenInfo(healthDamage, shieldDamage);
     }
 
     private float ReceiveHealing(float healing)
@@ -312,6 +319,18 @@ public partial class Damageable : MonoBehaviour, IUpgradable
 
             onAnyHealthUpdate?.Invoke();
             regenTimer = 0f;
+        }
+    }
+
+    private readonly struct DamageTakenInfo
+    {
+        public readonly float healthDamageTaken;
+        public readonly float shieldDamageTaken;
+
+        public DamageTakenInfo(float healthDamageTaken, float shieldDamageTaken)
+        {
+            this.healthDamageTaken = healthDamageTaken;
+            this.shieldDamageTaken = shieldDamageTaken;
         }
     }
 }

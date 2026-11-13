@@ -8,9 +8,12 @@ public partial class Damageable
     {
         public float Damage { get; private set; }
         public float BaseDamage { get; private set; }
-        public float DamageDealt { get; private set; }
         public float OverflowDamage { get; private set; }
 
+        public float HealthDamageDealt { get; private set; }
+        public float ShieldDamageDealt { get; private set; }
+
+        public float DamageDealt => HealthDamageDealt + ShieldDamageDealt;
         public float UncappedDamageDealt => DamageDealt + OverflowDamage;
 
         public bool DestroyedShield { get; private set; }
@@ -138,7 +141,8 @@ public partial class Damageable
             if (!Receiver.Immune) return;
 
             damageRejected = true;
-            DamageDealt = 0;
+            HealthDamageDealt = 0;
+            ShieldDamageDealt = 0;
         }
 
         private void HandleDamage()
@@ -146,7 +150,10 @@ public partial class Damageable
             bool hadShield = Receiver.Shield > 0;
 
             Damage = Receiver.CalculateDamage(this);
-            DamageDealt = Receiver.TakeDamage(Damage, IsLethal, IgnoresShield);
+            DamageTakenInfo damageTakenInfo = Receiver.TakeDamage(Damage, IsLethal, IgnoresShield);
+
+            HealthDamageDealt = damageTakenInfo.healthDamageTaken;
+            ShieldDamageDealt = damageTakenInfo.shieldDamageTaken;
 
             OverflowDamage = Mathf.Max(0f, Damage - DamageDealt);
 

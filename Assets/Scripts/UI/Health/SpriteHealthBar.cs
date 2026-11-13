@@ -19,12 +19,20 @@ public class SpriteHealthBar : SpriteModularBar
     private readonly BarID healthBarID = new BarID();
     private readonly BarID shieldBarID = new BarID();
 
+    public BarID Health => healthBarID;
+    public BarID Shield => shieldBarID;
+
     public override void ResetValues()
     {
         base.ResetValues();
-        chip.transform.localScale = new Vector3(1f, chip.transform.localScale.x, chip.transform.localScale.z);
+        chip.transform.localScale = new Vector3(1f, chip.transform.localScale.y, chip.transform.localScale.z);
         chip.transform.localPosition = Vector2.zero;
         StopChipping();
+    }
+
+    public override void ResetBar(BarID id, float current, float max)
+    {
+        base.ResetBar(id, current, max);
     }
 
     public override void UpdateBar(BarID id, float current, float max)
@@ -38,18 +46,12 @@ public class SpriteHealthBar : SpriteModularBar
 
         if (combinedOldValue > CombinedValue)
         {
-            StartChipping(combinedOldValue / CombinedMaxValue);
+            StartChipping(Mathf.Min(combinedOldValue, max) / CombinedMaxValue);
         }
         else if (CombinedMaxValue > combinedOldMaxValue)
         {
             UpdateChip(CombinedValue / CombinedMaxValue);
         }
-    }
-
-    public void UpdateBar(float health, float maxHealth, float shield, float maxShield)
-    {
-        UpdateBar(healthBarID, health, maxHealth);
-        UpdateBar(shieldBarID, shield, maxShield);
     }
 
     protected override void Awake()

@@ -153,7 +153,17 @@ public class SpriteModularBar : MonoBehaviour
         return this;
     }
 
+    public virtual void ResetBar(BarID id, float current, float max)
+    {
+        SetBar(id, current, max);
+    }
+
     public virtual void UpdateBar(BarID id, float current, float max)
+    {
+        SetBar(id, current, max);
+    }
+
+    protected void SetBar(BarID id, float current, float max)
     {
         if (TryGetBar(id, out Bar bar))
         {

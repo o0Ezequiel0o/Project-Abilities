@@ -19,6 +19,9 @@ public class HealthBarRenderer : MonoBehaviour
     private int healthBarRequestID = 0;
     private bool pendingHealthBar = false;
 
+    private float oldShield = 0f;
+    private float oldHealth = 0f;
+
     private void Reset()
     {
         damageable = GetComponentInChildren<Damageable>();
@@ -82,6 +85,9 @@ public class HealthBarRenderer : MonoBehaviour
     {
         if (healthBar == null && !pendingHealthBar)
         {
+            oldHealth = damageable.Health + damageEvent.HealthDamageDealt;
+            oldShield = damageable.Shield + damageEvent.ShieldDamageDealt;
+
             RequestHealthBar();
         }
 
@@ -103,23 +109,23 @@ public class HealthBarRenderer : MonoBehaviour
         HealthBarFollowTargetPosition();
         healthBar.gameObject.SetActive(true);
 
+        UpdateHealthBar();
+
         pendingHealthBar = false;
     }
 
     private void SetUpHealthBar()
     {
         healthBar.ChangeSize(size);
-        UpdateHealthBar();
+        healthBar.ResetBar(healthBar.Health, Mathf.Min(damageable.MaxHealth.Value, oldHealth), damageable.MaxHealth.Value);
+        healthBar.ResetBar(healthBar.Shield, Mathf.Min(damageable.MaxShield.Value, oldShield), damageable.MaxShield.Value);
     }
 
     private void UpdateHealthBar()
     {
         if (healthBar == null) return;
-
-        healthBar.UpdateBar (
-            damageable.Health, damageable.MaxHealth.Value,
-            damageable.Shield, damageable.MaxShield.Value
-            );
+        healthBar.UpdateBar(healthBar.Health, damageable.Health, damageable.MaxHealth.Value);
+        healthBar.UpdateBar(healthBar.Shield, damageable.Shield, damageable.MaxShield.Value);
     }
 
     private void HealthBarFollowTargetPosition()
