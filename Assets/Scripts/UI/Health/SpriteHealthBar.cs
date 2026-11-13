@@ -30,11 +30,6 @@ public class SpriteHealthBar : SpriteModularBar
         StopChipping();
     }
 
-    public override void ResetBar(BarID id, float current, float max)
-    {
-        base.ResetBar(id, current, max);
-    }
-
     public override void UpdateBar(BarID id, float current, float max)
     {
         float combinedOldValue = CombinedValue;

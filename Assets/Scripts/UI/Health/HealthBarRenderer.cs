@@ -117,8 +117,8 @@ public class HealthBarRenderer : MonoBehaviour
     private void SetUpHealthBar()
     {
         healthBar.ChangeSize(size);
-        healthBar.ResetBar(healthBar.Health, Mathf.Min(damageable.MaxHealth.Value, oldHealth), damageable.MaxHealth.Value);
-        healthBar.ResetBar(healthBar.Shield, Mathf.Min(damageable.MaxShield.Value, oldShield), damageable.MaxShield.Value);
+        healthBar.ResetBar(healthBar.Health, Mathf.Min(damageable.MaxHealth.Value, oldHealth), damageable.MaxHealth.Value, false);
+        healthBar.ResetBar(healthBar.Shield, Mathf.Min(damageable.MaxShield.Value, oldShield), damageable.MaxShield.Value, false);
     }
 
     private void UpdateHealthBar()

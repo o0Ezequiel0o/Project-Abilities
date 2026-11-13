@@ -156,11 +156,19 @@ public class SpriteModularBar : MonoBehaviour
     public virtual void ResetBar(BarID id, float current, float max)
     {
         SetBar(id, current, max);
+        UpdateBarRendering();
+    }
+
+    public virtual void ResetBar(BarID id, float current, float max, bool updateRendering)
+    {
+        SetBar(id, current, max);
+        if (updateRendering) UpdateBarRendering();
     }
 
     public virtual void UpdateBar(BarID id, float current, float max)
     {
         SetBar(id, current, max);
+        UpdateBarRendering();
     }
 
     protected void SetBar(BarID id, float current, float max)
@@ -175,8 +183,6 @@ public class SpriteModularBar : MonoBehaviour
 
             combinedValue += currentDifference;
             combinedMaxValue += maxDifference;
-
-            UpdateBarRendering();
         }
     }
 
