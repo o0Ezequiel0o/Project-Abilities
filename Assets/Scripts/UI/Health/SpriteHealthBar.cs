@@ -25,9 +25,13 @@ public class SpriteHealthBar : SpriteModularBar
     public override void ResetValues()
     {
         base.ResetValues();
-        chip.transform.localScale = new Vector3(1f, chip.transform.localScale.y, chip.transform.localScale.z);
-        chip.transform.localPosition = Vector2.zero;
         StopChipping();
+    }
+
+    public override void ResetBar(BarID id, float current, float max, bool updateRendering)
+    {
+        base.ResetBar(id, current, max, updateRendering);
+        UpdateChip(CombinedValue / CombinedMaxValue);
     }
 
     public override void UpdateBar(BarID id, float current, float max)

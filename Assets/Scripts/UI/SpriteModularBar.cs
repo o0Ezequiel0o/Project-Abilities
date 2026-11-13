@@ -155,8 +155,7 @@ public class SpriteModularBar : MonoBehaviour
 
     public virtual void ResetBar(BarID id, float current, float max)
     {
-        SetBar(id, current, max);
-        UpdateBarRendering();
+        ResetBar(id, current, max, true);
     }
 
     public virtual void ResetBar(BarID id, float current, float max, bool updateRendering)
