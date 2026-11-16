@@ -11,5 +11,10 @@ namespace Zeke.Items
         {
             return new HaloItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{HealthReceivedMult.GetValue(stacks) * 100f:0.##}%</style> healing received multiplier.";
+        }
     }
 }

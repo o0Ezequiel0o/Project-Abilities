@@ -16,5 +16,11 @@ namespace Zeke.Items
         {
             return new CoffeeItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{ExtraChargeSpeed.GetValue(stacks) * 100f:0.##}%</style> charge speed | " +
+                $"<style=\"Scaled Stat\">+{ExtraMoveSpeed.GetValue(stacks):0.##}</style> move speed.";
+        }
     }
 }

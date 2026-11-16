@@ -11,5 +11,10 @@ namespace Zeke.Items
         {
             return new SneakersItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{ExtraMoveSpeed.GetValue(stacks):0.##}</style> move speed.";
+        }
     }
 }

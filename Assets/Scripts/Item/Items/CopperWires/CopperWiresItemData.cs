@@ -22,5 +22,11 @@ namespace Zeke.Items
         {
             return new CopperWiresItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{MaxTargets.GetValue(stacks):0.##}</style> max targets | " +
+                $"<style=\"Scaled Stat\">{Radius.GetValue(stacks):0.##}</style> radius.";
+        }
     }
 }

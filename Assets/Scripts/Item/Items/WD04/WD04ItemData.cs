@@ -14,5 +14,11 @@ namespace Zeke.Items
         {
             return new WD04Item(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{ExtraMoveSpeed.GetValue(stacks):0.##}</style> move speed | " +
+                $"<style=\"Scaled Stat\">+{ExtraRotationSpeed.GetValue(stacks):0.##}°</style> rotation speed.";
+        }
     }
 }

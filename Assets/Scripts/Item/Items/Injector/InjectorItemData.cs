@@ -15,5 +15,10 @@ namespace Zeke.Items
         {
             return new InjectorItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{ExtraChargeSpeed.GetValue(stacks) * 100f:0.##}%</style> flat recharge speed.";
+        }
     }
 }

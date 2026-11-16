@@ -11,5 +11,10 @@ namespace Zeke.Items
         {
             return new BasicMagicBookItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{Levels.GetValue(stacks) * 100:0.##}%</style> xp.";
+        }
     }
 }

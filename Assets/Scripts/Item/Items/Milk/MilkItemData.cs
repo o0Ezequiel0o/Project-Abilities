@@ -11,5 +11,10 @@ namespace Zeke.Items
         {
             return new MilkItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{DamageFlatMult.GetValue(stacks) * 100f:0.##}%</style> flat damage multiplier.";
+        }
     }
 }

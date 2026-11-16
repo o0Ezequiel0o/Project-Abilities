@@ -16,5 +16,11 @@ namespace Zeke.Items
         {
             return new MagneticPlatingItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{ExtraShield.GetValue(stacks):0.##}</style> max shield | " +
+                $"<style=\"Scaled Stat\">{ExtraArmor.GetValue(stacks):0.##}</style> armor.";
+        }
     }
 }

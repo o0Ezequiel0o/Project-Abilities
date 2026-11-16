@@ -16,5 +16,10 @@ namespace Zeke.Items
         {
             return new ThiefBootsItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{SpeedMultiplier.GetValue(stacks) * 100f:0.##}%</style> speed multiplier.";
+        }
     }
 }

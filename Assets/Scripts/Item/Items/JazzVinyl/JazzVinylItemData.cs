@@ -14,5 +14,10 @@ namespace Zeke.Items
         {
             return new JazzVinylItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{ProcChance.GetValue(stacks) * 100f:0.##}%</style> proc chance.";
+        }
     }
 }

@@ -9,5 +9,10 @@ namespace Zeke.Items
         {
             return new EssenceItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return string.Empty;
+        }
     }
 }

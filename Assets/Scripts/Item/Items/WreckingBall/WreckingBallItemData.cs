@@ -11,5 +11,10 @@ namespace Zeke.Items
         {
             return new WreckingBallItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{ArmorPerMeter.GetValue(stacks):0.##}</style> armor per meter.";
+        }
     }
 }

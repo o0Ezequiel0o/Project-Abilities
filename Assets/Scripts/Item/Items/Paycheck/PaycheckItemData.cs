@@ -15,5 +15,11 @@ namespace Zeke.Items
         {
             return new PaycheckItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{DamageMultPerStack.GetValue(stacks) * 100f:0.##}%</style> damage multiplier per stack / " +
+                $"<style=\"Scaled Stat\">{DamageMultCap.GetValue(stacks) * 100f:0.##}%</style> cap.";
+        }
     }
 }

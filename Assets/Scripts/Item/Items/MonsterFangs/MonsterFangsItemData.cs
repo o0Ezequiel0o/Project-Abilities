@@ -14,5 +14,11 @@ namespace Zeke.Items
         {
             return new MonsterFangsItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{ExtraHealth.GetValue(stacks):0.##}</style> max health per stack | " +
+                $"<style=\"Scaled Stat\">{Mathf.FloorToInt(MaxStacks.GetValue(stacks)):0.##}</style> max stacks.";
+        }
     }
 }

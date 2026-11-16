@@ -11,5 +11,10 @@ namespace Zeke.Items
         {
             return new BoxingGloveItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"+<style=\"Scaled Stat\">{Knockback.GetValue(stacks):0.##}</style> knockback.";
+        }
     }
 }

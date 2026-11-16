@@ -16,5 +16,11 @@ namespace Zeke.Items
         {
             return new MilitaryManualItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{ExtraChargeSpeed.GetValue(stacks) * 100f:0.##}%</style> recharge speed | " +
+                $"<style=\"Scaled Stat\">{FlatMultDamage.GetValue(stacks) * 100f:0.##}%</style> flat damage multiplier.";
+        }
     }
 }

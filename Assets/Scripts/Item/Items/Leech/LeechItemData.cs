@@ -12,5 +12,10 @@ namespace Zeke.Items
         {
             return new LeechItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{DamageHealRatio.GetValue(stacks) * 100:0.##}%</style> healing.";
+        }
     }
 }

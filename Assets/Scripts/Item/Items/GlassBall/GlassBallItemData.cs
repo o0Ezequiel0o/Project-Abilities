@@ -18,5 +18,10 @@ namespace Zeke.Items
         {
             return new GlassBallItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{Armor.GetValue(stacks):0.##}</style> armor.";
+        }
     }
 }

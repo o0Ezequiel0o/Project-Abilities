@@ -11,5 +11,10 @@ namespace Zeke.Items
         {
             return new TomeItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{XPFlatMult.GetValue(stacks) * 100f:0.##}%</style> flat experience multiplier.";
+        }
     }
 }

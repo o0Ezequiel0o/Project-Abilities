@@ -10,5 +10,10 @@ namespace Zeke.Items
         {
             return new TemplateItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return string.Empty;
+        }
     }
 }

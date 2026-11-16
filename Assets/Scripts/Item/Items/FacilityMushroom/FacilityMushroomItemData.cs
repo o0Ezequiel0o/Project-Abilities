@@ -28,5 +28,11 @@ namespace Zeke.Items
         {
             return new FacilityMushroomItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{ProcChance.GetValue(stacks) * 100f:0.##}%</style> proc chance | " +
+                $"<style=\"Scaled Stat\">{DamageMultiplier.GetValue(stacks) * 100f:0.##}%</style> damage multiplier.";
+        }
     }
 }

@@ -12,5 +12,10 @@ namespace Zeke.Items
         {
             return new WeakPointAnalyzerItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{Chance.GetValue(stacks):0.##}%</style> chance.";
+        }
     }
 }

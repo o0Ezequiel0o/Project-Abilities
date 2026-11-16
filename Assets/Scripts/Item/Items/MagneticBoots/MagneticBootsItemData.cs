@@ -30,5 +30,10 @@ namespace Zeke.Items
         {
             return new MagneticBootsItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{OrbDamage.GetValue(stacks):0.##}</style> orb damage.";
+        }
     }
 }

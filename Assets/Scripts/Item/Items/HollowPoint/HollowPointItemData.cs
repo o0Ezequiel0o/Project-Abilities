@@ -12,5 +12,11 @@ namespace Zeke.Items
         {
             return new HollowPointItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{FlatMultDamage.GetValue(stacks) * 100f:0.##}%</style> flat damage multiplier | " +
+                $"<style=\"Scaled Stat\">{FlatDamage.GetValue(stacks):0.##}</style> flat damage.";
+        }
     }
 }

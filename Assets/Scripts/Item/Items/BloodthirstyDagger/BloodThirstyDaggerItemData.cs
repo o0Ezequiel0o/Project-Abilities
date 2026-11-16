@@ -14,5 +14,10 @@ namespace Zeke.Items
         {
             return new BloodthirstyDaggerItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{DamageMultiplier.GetValue(stacks) * 100f:0.##}%</style> damage multiplier.";
+        }
     }
 }

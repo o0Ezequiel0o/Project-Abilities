@@ -17,5 +17,10 @@ namespace Zeke.Items
         {
             return new BlackBloodItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{DamageReductionRatio * 100f:0.##}%</style> damage reduction | <style=\"Scaled Stat\">{Cooldown.GetValue(stacks):0.##}s</style> cooldown.";
+        }
     }
 }

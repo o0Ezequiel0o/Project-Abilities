@@ -12,5 +12,10 @@ namespace Zeke.Items
         {
             return new HeartbeatScannerItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{DamageMultPerStack.GetValue(stacks) * 100f:0.##}%</style> damage multiplier per stack.";
+        }
     }
 }

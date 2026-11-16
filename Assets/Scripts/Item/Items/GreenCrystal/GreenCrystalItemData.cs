@@ -11,5 +11,10 @@ namespace Zeke.Items
         {
             return new GreenCrystalItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{ExtraHealth.GetValue(stacks):0.##}</style> max health.";
+        }
     }
 }

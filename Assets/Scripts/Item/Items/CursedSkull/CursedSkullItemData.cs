@@ -15,5 +15,10 @@ namespace Zeke.Items
         {
             return new CursedSkullItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{ExtraLevels.GetValue(stacks):0.##}</style> extra levels.";
+        }
     }
 }

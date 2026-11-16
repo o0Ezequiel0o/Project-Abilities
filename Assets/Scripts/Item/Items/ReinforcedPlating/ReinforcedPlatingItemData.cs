@@ -11,5 +11,10 @@ namespace Zeke.Items
         {
             return new ReinforcedPlatingItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{ExtraArmor.GetValue(stacks):0.##}</style> armor.";
+        }
     }
 }

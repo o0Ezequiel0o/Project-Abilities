@@ -26,6 +26,13 @@ namespace Zeke.Items
 
         public abstract Item CreateItem(ItemHandler itemHandler, GameObject source);
 
+        public virtual string GetDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{stacks}</style> stacks: " + $"{GenerateDetailedStatDescription(stacks)}";
+        }
+
+        protected abstract string GenerateDetailedStatDescription(int stacks);
+
         public GameObject CreateInWorld(Vector3 position, Quaternion rotation)
         {
             if (worldPrefab == null)

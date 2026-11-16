@@ -13,5 +13,11 @@ namespace Zeke.Items
         {
             return new ElectricHeartItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{HealthRegen.GetValue(stacks):0.##}</style> health regen | " +
+                $"<style=\"Scaled Stat\">+{ShieldRegen.GetValue(stacks):0.##}</style> shield regen.";
+        }
     }
 }

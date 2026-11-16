@@ -11,5 +11,10 @@ namespace Zeke.Items
         {
             return new LayeredArmorItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{FlatDamageReduction.GetValue(stacks):0.##}</style> flat damage reduction.";
+        }
     }
 }

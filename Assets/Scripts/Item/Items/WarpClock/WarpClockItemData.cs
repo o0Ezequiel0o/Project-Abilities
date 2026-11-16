@@ -21,5 +21,10 @@ namespace Zeke.Items
         {
             return new WarpClockItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{DamageHealRatio.GetValue(stacks) * 100f:0.##}%</style> healing from damage.";
+        }
     }
 }

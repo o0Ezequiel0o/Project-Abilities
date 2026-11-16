@@ -17,5 +17,11 @@ namespace Zeke.Items
         {
             return new BloodTankItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{DamageReductionRatio * 100f:0.##}%</style> damage reduction | " +
+                $"<style=\"Scaled Stat\">{HealthInheritRatio.GetValue(stacks) * 100f:0.##}%</style> max health inherit";
+        }
     }
 }

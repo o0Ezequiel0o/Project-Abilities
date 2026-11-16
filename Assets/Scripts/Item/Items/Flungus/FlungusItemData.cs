@@ -19,5 +19,11 @@ namespace Zeke.Items
         {
             return new FlungusItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{Healing.GetValue(stacks):0.##}</style> healing | " +
+                $"<style=\"Scaled Stat\">{Radius.GetValue(stacks):0.##}</style> radius.";
+        }
     }
 }

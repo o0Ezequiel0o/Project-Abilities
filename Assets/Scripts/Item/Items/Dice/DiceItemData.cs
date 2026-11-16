@@ -11,5 +11,10 @@ namespace Zeke.Items
         {
             return new DiceItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{Mathf.FloorToInt(ExtraLuck.GetValue(stacks))}</style> luck.";
+        }
     }
 }

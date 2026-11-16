@@ -21,5 +21,11 @@ namespace Zeke.Items
         {
             return new UnstableCellItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{ExtraShield.GetValue(stacks):0.##}</style> shield | " +
+                $"<style=\"Scaled Stat\">{ExplosionCooldown.GetValue(stacks):0.##}s</style> explosion cooldown.";
+        }
     }
 }

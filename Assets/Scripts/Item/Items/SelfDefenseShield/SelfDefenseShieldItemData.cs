@@ -11,5 +11,10 @@ namespace Zeke.Items
         {
             return new SelfDefenseShieldItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{ExtraShield.GetValue(stacks):0.##}</style> shield.";
+        }
     }
 }

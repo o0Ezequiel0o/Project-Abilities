@@ -21,5 +21,11 @@ namespace Zeke.Items
         {
             return new DeadMansSwitchItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{MinDamage.GetValue(stacks):0.##}</style> min damage | " +
+                $"<style=\"Scaled Stat\">{Radius.GetValue(stacks):0.##}</style> radius.";
+        }
     }
 }

@@ -16,5 +16,11 @@ namespace Zeke.Items
         {
             return new KnowledgeBookItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{XPMult.GetValue(stacks) * 100f:0.##}%</style> experience multiplier " +
+                $"<style=\"Scaled Stat\">+{ExtraMultPerTome.GetValue(stacks) * 100f:0.##}%</style> per tome.";
+        }
     }
 }

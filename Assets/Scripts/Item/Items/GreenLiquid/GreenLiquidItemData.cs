@@ -11,5 +11,10 @@ namespace Zeke.Items
         {
             return new GreenLiquidItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{ExtraHealthRegen.GetValue(stacks):0.##}</style> health regen.";
+        }
     }
 }

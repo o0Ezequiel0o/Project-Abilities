@@ -15,5 +15,10 @@ namespace Zeke.Items
         {
             return new ProteinBarItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{Healing.GetValue(stacks):0.##}</style> healing.";
+        }
     }
 }

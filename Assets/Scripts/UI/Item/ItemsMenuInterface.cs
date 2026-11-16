@@ -63,12 +63,14 @@ public class ItemsMenuInterface : ItemsInterface
     {
         window.TryGetElement<TextMeshProUGUI>("Selected Item Name").text = "";
         window.TryGetElement<TextMeshProUGUI>("Selected Item Description").text = "";
+        window.TryGetElement<TextMeshProUGUI>("Selected Item Stat Description").text = "";
     }
 
     private void UpdateCurrentItem(ItemData itemData, int stacks)
     {
         window.TryGetElement<TextMeshProUGUI>("Selected Item Name").text = itemData.Name;
         window.TryGetElement<TextMeshProUGUI>("Selected Item Description").text = itemData.Description;
+        window.TryGetElement<TextMeshProUGUI>("Selected Item Stat Description").text = itemData.GetDetailedStatDescription(stacks);
 
         window.TryGetElement<Image>("Selected Item Icon").sprite = itemData.Icon;
         window.TryGetElement<Image>("Selected Item Outline").sprite = itemData.Outline;

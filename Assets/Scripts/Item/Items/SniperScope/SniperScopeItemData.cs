@@ -12,5 +12,10 @@ namespace Zeke.Items
         {
             return new SniperScopeItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{DamageMultIncreasePerMeter.GetValue(stacks) * 100f:0.##}%</style> damage multiplier per meter.";
+        }
     }
 }

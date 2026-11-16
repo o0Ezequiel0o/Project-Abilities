@@ -13,5 +13,10 @@ namespace Zeke.Items
         {
             return new CrowbarItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{DamageMult.GetValue(stacks) * 100f:0.##}%</style> damage multiplier.";
+        }
     }
 }

@@ -17,5 +17,11 @@ namespace Zeke.Items
         {
             return new BloodVialItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{Healing.GetValue(stacks):0.##}</style> healing | " +
+                $"<style=\"Scaled Stat\">+{HealReceivedExtraMultPerStack.GetValue(stacks) * 100f:0.##}%</style> healing.";
+        }
     }
 }

@@ -27,5 +27,10 @@ namespace Zeke.Items
         {
             return new BombBagItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">{Damage.GetValue(stacks):0.##}</style> damage.";
+        }
     }
 }

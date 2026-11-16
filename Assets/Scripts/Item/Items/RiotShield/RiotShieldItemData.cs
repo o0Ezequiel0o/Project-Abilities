@@ -14,5 +14,11 @@ namespace Zeke.Items
         {
             return new RiotShieldItem(this, itemHandler, source);
         }
+
+        protected override string GenerateDetailedStatDescription(int stacks)
+        {
+            return $"<style=\"Scaled Stat\">+{ExtraShield.GetValue(stacks):0.##}</style> shield | " +
+                $"<style=\"Scaled Stat\">+{ExtraShieldRegen.GetValue(stacks):0.##}</style> shield regen.";
+        }
     }
 }
