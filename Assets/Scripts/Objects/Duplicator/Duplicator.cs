@@ -63,7 +63,7 @@ namespace Zeke.Items
         private ItemData RollItem()
         {
             ItemRarity rarity = WeightedSelect.SelectElement(item.RaritySlots).rarity;
-            return itemSettings.GetRandomItem(rarity);
+            return ItemRegistry.Instance.GetRandomItem(rarity);
         }
 
         private void UpdateItemDisplay()

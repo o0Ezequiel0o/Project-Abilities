@@ -20,7 +20,7 @@ namespace Zeke.Items
         {
             for (int i = 0; i < amount; i++)
             {
-                itemHandler.AddItem(items.GetRandomItem((ItemRarity)UnityEngine.Random.Range(0, Enum.GetNames(typeof(ItemRarity)).Length - 1)));
+                itemHandler.AddItem(ItemRegistry.Instance.GetRandomItem((ItemRarity)UnityEngine.Random.Range(0, Enum.GetNames(typeof(ItemRarity)).Length - 1)));
             }
         }
 
@@ -32,7 +32,7 @@ namespace Zeke.Items
 
             if (timer >= cooldown)
             {
-                itemHandler.AddItem(items.GetRandomItem((ItemRarity)UnityEngine.Random.Range(0, Enum.GetNames(typeof(ItemRarity)).Length - 1)));
+                itemHandler.AddItem(ItemRegistry.Instance.GetRandomItem((ItemRarity)UnityEngine.Random.Range(0, Enum.GetNames(typeof(ItemRarity)).Length - 1)));
                 timer = 0f;
             }
         }
