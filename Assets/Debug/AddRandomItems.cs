@@ -6,7 +6,6 @@ namespace Zeke.Items
     public class AddRandomItems : MonoBehaviour
     {
         [SerializeField] private ItemHandler itemHandler;
-        [SerializeField] private ItemSettings items;
         [SerializeField] private int amount;
 
         [Space]
