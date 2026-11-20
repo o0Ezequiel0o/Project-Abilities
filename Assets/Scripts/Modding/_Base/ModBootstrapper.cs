@@ -1,18 +1,16 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Zeke.Modding
 {
     public class ModBootstrapper : GameService<ModBootstrapper>
     {
-        //Make ScriptableObject
-        [SerializeField] private List<Mod> mods;
+        [SerializeField] private ModLoadPreset modLoadPreset;
 
         private void Awake()
         {
-            for (int i = 0; i < mods.Count; i++)
+            for (int i = 0; i < modLoadPreset.Mods.Count; i++)
             {
-                mods[i].OnGameInitialization();
+                modLoadPreset.Mods[i].OnGameInitialization();
             }
         }
     }

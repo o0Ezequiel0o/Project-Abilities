@@ -727,8 +727,8 @@ Transform:
   - {fileID: 1476107929}
   - {fileID: 649617575}
   - {fileID: 1074700488}
-  - {fileID: 786529973}
   - {fileID: 333291324}
+  - {fileID: 786529973}
   m_Father: {fileID: 54836247}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &649617574
@@ -914,7 +914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2d3afc5579e9dd479fa007e8acf2a28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Modding.ModBootstrapper
-  mods: []
+  modLoadPreset: {fileID: 11400000, guid: 0b217de78c4cfcf459ed767578493c2d, type: 2}
 --- !u!1001 &1147547547
 PrefabInstance:
   m_ObjectHideFlags: 0
