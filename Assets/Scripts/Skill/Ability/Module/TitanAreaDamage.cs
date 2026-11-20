@@ -60,7 +60,7 @@ namespace Zeke.Abilities.Modules
                         totalDamage += sourceDamageable.MaxHealth.Value * healthPercentageDamageBoost.Value;
                     }
 
-                    damageRejected = damageable.DealDamage(new DamageInfo(totalDamage, data.ArmorPenetration, data.ProcCoefficient), source, source).damageRejected;
+                    damageRejected = damageable.DealDamage(new DamageInfo(totalDamage, data.ArmorPenetration, data.ProcCoefficient), source, source).IsRejected;
                 }
 
                 if (damageRejected) continue;

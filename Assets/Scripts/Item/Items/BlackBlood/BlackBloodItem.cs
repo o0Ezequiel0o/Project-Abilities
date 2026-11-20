@@ -57,7 +57,7 @@ namespace Zeke.Items
 
         private void OnTakeDamage(DamageEvent damageEvent)
         {
-            if (!active || damageEvent.damageRejected) return;
+            if (!active || damageEvent.IsRejected) return;
 
             damageEvent.Multiplier.Multiply(1 - data.DamageReductionRatio);
             DeactivateEffect();

@@ -19,7 +19,7 @@ public class BombItemBomb : Bomb
                 hit = true
             };
 
-            damageRejected = damageable.DealDamage(damageInfo, source, gameObject).damageRejected;
+            damageRejected = damageable.DealDamage(damageInfo, source, gameObject).IsRejected;
         }
 
         if (!damageRejected)

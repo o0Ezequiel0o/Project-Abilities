@@ -84,43 +84,43 @@ public partial class Damageable : MonoBehaviour, IUpgradable
 
     public DamageEvent DealDamage(DamageInfo damageInfo)
     {
-        return DealDamage(damageInfo, null, null, new List<ItemData>());
+        return DealDamage(DamageableEventPool.Instance.GetDamage(damageInfo, this, null, null, new List<ItemData>()));
     }
 
     public DamageEvent DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject)
     {
-        return DealDamage(damageInfo, sourceUser, sourceObject, new List<ItemData>());
+        return DealDamage(DamageableEventPool.Instance.GetDamage(damageInfo, this, sourceUser, sourceObject, new List<ItemData>()));
     }
 
     public DamageEvent DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
     {
-        return DealDamage(new DamageEvent(damageInfo, this, sourceUser, sourceObject, procChain));
+        return DealDamage(DamageableEventPool.Instance.GetDamage(damageInfo, this, sourceUser, sourceObject, procChain));
     }
 
     public DamageEvent DealDamage(DamageEvent damageEvent)
     {
-        damageEvent.ExecuteEventFlow();
+        damageEvent.Execute();
         return damageEvent;
     }
 
     public HealEvent GiveHealing(HealInfo healInfo)
     {
-        return GiveHealing(healInfo, null, null);
+        return GiveHealing(DamageableEventPool.Instance.GetHeal(healInfo, null, null, null, new List<ItemData>()));
     }
 
     public HealEvent GiveHealing(HealInfo healInfo, GameObject sourceUser, GameObject sourceObject)
     {
-        return GiveHealing(new HealEvent(healInfo, this, sourceUser, sourceObject, new List<ItemData>()));
+        return GiveHealing(DamageableEventPool.Instance.GetHeal(healInfo, this, sourceUser, sourceObject, new List<ItemData>()));
     }
 
     public HealEvent GiveHealing(HealInfo healInfo, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
     {
-        return GiveHealing(new HealEvent(healInfo, this, sourceUser, sourceObject, procChain));
+        return GiveHealing(DamageableEventPool.Instance.GetHeal(healInfo, this, sourceUser, sourceObject, procChain));
     }
 
     public HealEvent GiveHealing(HealEvent healingEvent)
     {
-        healingEvent.ExecuteEventFlow();
+        healingEvent.Execute();
         return healingEvent;
     }
 

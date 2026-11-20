@@ -48,7 +48,7 @@ public abstract class DamageProjectileBase : Projectile
             };
 
             Damageable.DamageEvent damageEvent = damageable.DealDamage(damageInfo, SourceUser, gameObject);
-            return damageEvent.damageRejected;
+            return damageEvent.IsRejected;
         }
 
         return true;

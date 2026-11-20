@@ -6,36 +6,22 @@ public partial class Damageable
 {
     public class DamageEvent
     {
-        public float Damage { get; private set; }
-        public float BaseDamage { get; private set; }
-        public float OverflowDamage { get; private set; }
-
-        public float HealthDamageDealt { get; private set; }
-        public float ShieldDamageDealt { get; private set; }
-
-        public float DamageDealt => HealthDamageDealt + ShieldDamageDealt;
-        public float UncappedDamageDealt => DamageDealt + OverflowDamage;
-
-        public bool DestroyedShield { get; private set; }
-        public bool DeathBlow { get; private set; }
-
-        public bool IgnoresShield { get; private set; }
-        public bool IsLethal { get; private set; }
-        public bool IsHit { get; private set; }
-
-        public Vector2 Direction { get; private set; }
-
-        public float ProcCoefficient { get; private set; }
-        public List<ItemData> ProcChainBranch { get; private set; }
-
+        // Input & Context
         public Damageable Receiver { get; private set; }
         public GameObject SourceUser { get; private set; }
         public GameObject SourceObject { get; private set; }
+        public Vector2 Direction { get; private set; }
+        public float ProcCoefficient { get; private set; }
+        public bool IsHit { get; private set; }
+        public bool IsLethal { get; private set; }
+        public bool IgnoresShield { get; private set; }
+        public List<ItemData> ProcChainBranch { get; private set; } = new List<ItemData>();
 
+        // Damage & Modifiers
+        public float BaseDamage { get; private set; }
+        public float Damage { get; private set; }
         public float FlatAccumulator { get; set; }
-        public Stat Multiplier { get; private set; }
-
-        public bool damageRejected = false;
+        public Stat Multiplier { get; private set; } = new Stat(1f, 0f, 0f, float.PositiveInfinity);
 
         private float armorPenetration;
         public float ArmorPenetration
@@ -44,16 +30,30 @@ public partial class Damageable
             set => armorPenetration = value;
         }
 
+        // Results & State
+        public float HealthDamageDealt { get; private set; }
+        public float ShieldDamageDealt { get; private set; }
+        public float OverflowDamage { get; private set; }
+        public float DamageDealt => HealthDamageDealt + ShieldDamageDealt;
+        public float UncappedDamageDealt => DamageDealt + OverflowDamage;
+
+        public bool DestroyedShield { get; private set; }
+        public bool DeathBlow { get; private set; }
+        public bool IsRejected { get; set; }
+
         private DamageableEventListener damageEventListener;
         private bool isDamageEventListener = false;
 
-        public DamageEvent(DamageInfo damageInfo, Damageable receiver, GameObject userSource, GameObject sourceObject, List<ItemData> procChain)
+        public DamageEvent() { }
+
+        public DamageEvent Initialize(DamageInfo damageInfo, Damageable receiver, GameObject userSource, GameObject sourceObject, List<ItemData> procChain)
         {
             IsHit = damageInfo.hit;
             IsLethal = damageInfo.lethal;
             IgnoresShield = damageInfo.ignoresShield;
 
-            ProcChainBranch = procChain;
+            ProcChainBranch.Clear();
+            ProcChainBranch.AddRange(procChain);
 
             Damage = damageInfo.baseDamage;
             BaseDamage = damageInfo.baseDamage;
@@ -66,55 +66,47 @@ public partial class Damageable
             SourceUser = userSource;
             SourceObject = sourceObject;
 
-            Multiplier = new Stat(1f, 0f, 0f, float.PositiveInfinity);
+            OverflowDamage = 0f;
+            HealthDamageDealt = 0f;
+            ShieldDamageDealt = 0f;
+
+            DestroyedShield = false;
+            IsRejected = false;
+            DeathBlow = false;
+
+            FlatAccumulator = 0f;
+
+            damageEventListener = null;
+            isDamageEventListener = false;
+
+            Multiplier.Clear();
+
+            return this;
         }
 
-        public void ExecuteEventFlow()
+        public void Execute()
         {
             isDamageEventListener = SourceUser != null && SourceUser.TryGetComponent(out damageEventListener);
 
-            if (!Receiver.IsAlive || Receiver.MarkedForDeath)
-            {
-                EndDamageEvent();
-                return;
-            }
+            if (Receiver == null || !Receiver.IsAlive || Receiver.MarkedForDeath) return;
 
             Receiver.onDamageEvent?.Invoke(this);
 
-            HandleImmunityState();
+            if (Receiver.Immune) HandleImmunityState();
 
-            if (damageRejected)
-            {
-                EndDamageEvent();
-                return;
-            }
+            if (IsRejected) return;
 
-            if (IsHit)
-            {
-                HandleOnHitEvents();
-            }
+            if (IsHit) HandleOnHitEvents();
 
-            if (damageRejected)
-            {
-                EndDamageEvent();
-                return;
-            }
+            if (IsRejected) return;
 
             HandlePreDamageEvents();
 
-            if (damageRejected || Damage <= 0)
-            {
-                EndDamageEvent();
-                return;
-            }
+            if (IsRejected || Damage <= 0) return;
 
             HandleDamage();
 
-            if (DamageDealt <= 0)
-            {
-                EndDamageEvent();
-                return;
-            }
+            if (DamageDealt <= 0) return;
 
             if (!Receiver.MarkedForDeath && Receiver.Health <= 0)
             {
@@ -124,23 +116,20 @@ public partial class Damageable
 
             HandlePostDamageEvents();
 
-            if (!Receiver.MarkedForDeath || !Receiver.IsAlive)
-            {
-                EndDamageEvent();
-                return;
-            }
+            if (!Receiver.MarkedForDeath || !Receiver.IsAlive) return;
 
             Receiver.IsAlive = false;
             HandleDeathEvents();
-        }
 
-        private void EndDamageEvent() { }
+            if (!DamageableEventPool.IsNull)
+            {
+                DamageableEventPool.Instance.ReturnDamage(this);
+            }
+        }
 
         private void HandleImmunityState()
         {
-            if (!Receiver.Immune) return;
-
-            damageRejected = true;
+            IsRejected = true;
             HealthDamageDealt = 0;
             ShieldDamageDealt = 0;
         }

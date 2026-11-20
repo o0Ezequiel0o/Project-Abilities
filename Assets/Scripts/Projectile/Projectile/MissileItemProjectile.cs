@@ -31,7 +31,7 @@ public class MissileItemProjectile : Missile
                 direction = GetHitDirection(receiver)
             };
 
-            damageRejected = damageable.DealDamage(damageInfo, SourceUser, gameObject, ProcChainCopy).damageRejected;
+            damageRejected = damageable.DealDamage(damageInfo, SourceUser, gameObject, ProcChainCopy).IsRejected;
         }
 
         if (!damageRejected)

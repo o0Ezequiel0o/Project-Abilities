@@ -187,7 +187,7 @@ public class Stat : IUpgradable
         }
     }
 
-    public void Reset()
+    public void Clear()
     {
         onValueChanged = null;
         onNonDerivedValueChanged = null;

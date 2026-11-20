@@ -14,7 +14,6 @@ public partial class Damageable
         public float UncappedHealing => HealthHealed + OverflowHealing;
 
         public float ProcCoefficient { get; private set; }
-        public List<ItemData> ProcChainBranch { get; private set; }
 
         public Damageable Receiver { get; private set; }
         public GameObject SourceUser { get; private set; }
@@ -24,12 +23,16 @@ public partial class Damageable
         public Vector2 Direction { get; private set; }
 
         public float FlatAccumulator { get; set; }
-        public Stat Multiplier { get; private set; }
+
+        public List<ItemData> ProcChainBranch { get; private set; }
+        public Stat Multiplier { get; private set; } = new Stat(1f, 0f, 0f, float.PositiveInfinity);
 
         private DamageableEventListener healEventListener;
         private bool isHealEventListener = false;
 
-        public HealEvent(HealInfo healInfo, Damageable receiver, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
+        public HealEvent() { }
+
+        public HealEvent Initialize(HealInfo healInfo, Damageable receiver, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
         {
             IsHit = healInfo.hit;
             Direction = healInfo.direction;
@@ -41,11 +44,25 @@ public partial class Damageable
             SourceUser = sourceUser;
             SourceObject = sourceObject;
 
-            ProcChainBranch = procChain;
-            Multiplier = new Stat(1f, 0f, 0f, float.PositiveInfinity);
+            ProcCoefficient = healInfo.procCoefficient;
+
+            ProcChainBranch.Clear();
+            ProcChainBranch.AddRange(procChain);
+
+            HealthHealed = 0f;
+            OverflowHealing = 0f;
+
+            FlatAccumulator = 0f;
+
+            healEventListener = null;
+            isHealEventListener = false;
+
+            Multiplier.Clear();
+
+            return this;
         }
 
-        public void ExecuteEventFlow()
+        public void Execute()
         {
             isHealEventListener = SourceUser.TryGetComponent(out healEventListener);
 
@@ -58,6 +75,11 @@ public partial class Damageable
             if (HealthHealed > 0)
             {
                 HandleHealingEvents();
+            }
+
+            if (!DamageableEventPool.IsNull)
+            {
+                DamageableEventPool.Instance.ReturnHeal(this);
             }
         }
 

@@ -47,7 +47,7 @@ namespace Zeke.Abilities.Modules
 
                 if (hits[i].TryGetComponent(out Damageable damageable))
                 {
-                    damageRejected = damageable.DealDamage(new DamageInfo(damage.Value, data.ArmorPenetration, data.ProcCoefficient), source, source).damageRejected;
+                    damageRejected = damageable.DealDamage(new DamageInfo(damage.Value, data.ArmorPenetration, data.ProcCoefficient), source, source).IsRejected;
                 }
 
                 if (damageRejected) continue;

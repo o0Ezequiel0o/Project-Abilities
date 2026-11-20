@@ -77,7 +77,7 @@ namespace Zeke.Abilities.Modules
 
                     Damageable.DamageEvent damageEvent = damageable.DealDamage(damageInfo, source, source);
 
-                    if (damageEvent.DamageDealt > 0f && !damageEvent.damageRejected)
+                    if (damageEvent.DamageDealt > 0f && !damageEvent.IsRejected)
                     {
                         return true;
                     }
