@@ -26,7 +26,7 @@ public partial class Damageable
         private float armorPenetration;
         public float ArmorPenetration
         {
-            get => Mathf.Clamp(armorPenetration, -1, 1);
+            get => Mathf.Clamp(armorPenetration, -1f, 1f);
             set => armorPenetration = value;
         }
 
@@ -102,13 +102,13 @@ public partial class Damageable
 
             HandlePreDamageEvents();
 
-            if (IsRejected || Damage <= 0) return;
+            if (IsRejected || Damage <= 0f) return;
 
             HandleDamage();
 
-            if (DamageDealt <= 0) return;
+            if (DamageDealt <= 0f) return;
 
-            if (!Receiver.MarkedForDeath && Receiver.Health <= 0)
+            if (!Receiver.MarkedForDeath && Receiver.Health <= 0f)
             {
                 DeathBlow = true;
                 Receiver.MarkedForDeath = true;
@@ -130,13 +130,13 @@ public partial class Damageable
         private void HandleImmunityState()
         {
             IsRejected = true;
-            HealthDamageDealt = 0;
-            ShieldDamageDealt = 0;
+            HealthDamageDealt = 0f;
+            ShieldDamageDealt = 0f;
         }
 
         private void HandleDamage()
         {
-            bool hadShield = Receiver.Shield > 0;
+            bool hadShield = Receiver.Shield > 0f;
 
             Damage = Receiver.CalculateDamage(this);
             DamageTakenInfo damageTakenInfo = Receiver.TakeDamage(Damage, IsLethal, IgnoresShield);
@@ -146,7 +146,7 @@ public partial class Damageable
 
             OverflowDamage = Mathf.Max(0f, Damage - DamageDealt);
 
-            if (hadShield && Receiver.Shield <= 0)
+            if (hadShield && Receiver.Shield <= 0f)
             {
                 DestroyedShield = true;
             }
@@ -154,14 +154,14 @@ public partial class Damageable
 
         private void HandlePreDamageEvents()
         {
-            if (Damage <= 0) return;
+            if (Damage <= 0f) return;
 
             if (isDamageEventListener)
             {
                 damageEventListener.CallDealDamageEvent(new OnDealDamageEvent(this));
             }
 
-            if (Damage <= 0) return;
+            if (Damage <= 0f) return;
 
             Receiver.onTakeDamage?.Invoke(this);
         }
