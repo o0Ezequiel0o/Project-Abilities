@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb81dbd942590a47adba0f9b5a03f2b, type: 3}
   m_Name: Ascendances Data
   m_EditorClassIdentifier: Assembly-CSharp::AscendanciesData
-  elements: []
+  elements:
+  - key: {fileID: 11400000, guid: 4c172195b9bd0a042ab65bd199ab25f8, type: 2}
+    value:
+      <RequiredLevel>k__BackingField: 2
+      options:
+      - {fileID: 11400000, guid: cdd39db95333c2b44a665b66e37bd8f8, type: 2}
+      - {fileID: 11400000, guid: 0e09ea3316f4b984d96cdec4311ad96e, type: 2}

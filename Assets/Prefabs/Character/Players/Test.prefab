@@ -117,7 +117,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Items.AddRandomItems
   itemHandler: {fileID: 329926689602090099}
-  items: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
-  amount: 9999
+  amount: 1
   onUpdate: 0
   cooldown: 0
