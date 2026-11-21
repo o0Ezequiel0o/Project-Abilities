@@ -24,7 +24,7 @@ public partial class Damageable
 
         public float FlatAccumulator { get; set; }
 
-        public List<ItemData> ProcChainBranch { get; private set; }
+        public List<ItemData> ProcChainBranch { get; private set; } = new List<ItemData>();
         public Stat Multiplier { get; private set; } = new Stat(1f, 0f, 0f, float.PositiveInfinity);
 
         private DamageableEventListener healEventListener;
