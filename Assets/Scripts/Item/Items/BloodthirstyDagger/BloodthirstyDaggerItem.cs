@@ -33,10 +33,8 @@ namespace Zeke.Items
             }
         }
 
-        private void OnDealDamage(Damageable.DamageEvent.OnDealDamageEvent dealDamageEvent)
+        private void OnDealDamage(Damageable.IDealDamageEvent damageEvent)
         {
-            Damageable.DamageEvent damageEvent = dealDamageEvent.damageEvent;
-
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
 
             float healthRatio = damageEvent.Receiver.Health / damageEvent.Receiver.MaxHealth.Value;

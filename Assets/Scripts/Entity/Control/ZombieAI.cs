@@ -322,7 +322,7 @@ public class ZombieAI : MonoBehaviour
         return null;
     }
 
-    private void OnDamageTaken(Damageable.DamageEvent damageEvent)
+    private void OnDamageTaken(Damageable.IDealtDamageEvent damageEvent)
     {
         if (TeamManager.Instance.IsAlly(damageEvent.SourceUser, gameObject)) return;
         if (damageEvent.SourceUser == null) return;

@@ -68,7 +68,7 @@ namespace Zeke.Items
             }
         }
 
-        private void OnTakenDamage(DamageEvent damageEvent)
+        private void OnTakenDamage(IDealtDamageEvent damageEvent)
         {
             if (timer < data.ExplosionCooldown.GetValue(stacks)) return;
             if (!damageEvent.DestroyedShield || damageEvent.Receiver.Shield > 0) return;

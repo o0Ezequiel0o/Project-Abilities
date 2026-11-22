@@ -83,7 +83,7 @@ namespace Zeke.Items
             }
         }
 
-        private void OnTakeDamage(DamageEvent damageEvent)
+        private void OnTakeDamage(IDealDamageEvent damageEvent)
         {
             if (damageEvent.SourceUser != null && damageEvent.SourceUser == source) return;
 

@@ -1,5 +1,4 @@
 using UnityEngine;
-using static Damageable;
 
 namespace Zeke.Items
 {
@@ -34,7 +33,7 @@ namespace Zeke.Items
             }
         }
 
-        private void OnTakeDamage(DamageEvent damageEvent)
+        private void OnTakeDamage(Damageable.IDealDamageEvent damageEvent)
         {
             damageEvent.FlatAccumulator -= data.FlatDamageReduction.GetValue(stacks);
         }

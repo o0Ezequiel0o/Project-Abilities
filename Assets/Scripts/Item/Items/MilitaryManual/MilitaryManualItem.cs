@@ -62,10 +62,8 @@ namespace Zeke.Items
             }
         }
 
-        public void OnDealDamage(Damageable.DamageEvent.OnDealDamageEvent dealDamageEvent)
+        public void OnDealDamage(Damageable.IDealDamageEvent damageEvent)
         {
-            Damageable.DamageEvent damageEvent = dealDamageEvent.damageEvent;
-
             if (damageEvent.Receiver.gameObject == source) return;
             damageEvent.Multiplier.ApplyFlatModifier(data.FlatMultDamage.GetValue(stacks));
         }

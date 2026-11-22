@@ -12,7 +12,7 @@ public class DeathRewards : MonoBehaviour
         }
     }
 
-    private void OnDeath(Damageable.DamageEvent damageEvent)
+    private void OnDeath(Damageable.IKillEvent damageEvent)
     {
         for (int i = 0; i < deathRewardsData.Rewards.Count; i++)
         {

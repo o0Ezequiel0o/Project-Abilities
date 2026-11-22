@@ -61,7 +61,7 @@ namespace Zeke.Items
             }
         }
 
-        private void OnTakenDamage(DamageEvent damageEvent)
+        private void OnTakenDamage(IDealtDamageEvent damageEvent)
         {
             float missingHealthRatio = 1f - (damageable.Health / damageable.MaxHealth.Value);
             int effectStacks = Mathf.FloorToInt(missingHealthRatio / data.MissingHealthRatioForStack);

@@ -40,10 +40,8 @@ namespace Zeke.Items
             }
         }
 
-        private void OnDealtDamage(Damageable.DamageEvent.OnDealtDamageEvent dealtDamageEvent)
+        private void OnDealtDamage(Damageable.IDealtDamageEvent damageEvent)
         {
-            Damageable.DamageEvent damageEvent = dealtDamageEvent.damageEvent;
-
             if (!hasRequiredComponents) return;
 
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;

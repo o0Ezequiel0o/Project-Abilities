@@ -11,7 +11,7 @@ public class DestroyOnDeath : MonoBehaviour
         }
     }
 
-    private void Destroy(Damageable.DamageEvent _)
+    private void Destroy(Damageable.IKillEvent _)
     {
         Destroy(gameObject);
     }

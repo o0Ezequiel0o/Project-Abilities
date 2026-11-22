@@ -1,5 +1,4 @@
 using UnityEngine;
-using static Damageable;
 
 public class DamageableNumbers : MonoBehaviour
 {
@@ -46,7 +45,7 @@ public class DamageableNumbers : MonoBehaviour
         }
     }
 
-    private void DisplayDamageNumber(DamageEvent damageEvent)
+    private void DisplayDamageNumber(Damageable.IDealtDamageEvent damageEvent)
     {
         Vector2 spawnOffset = new Vector2(Random.Range(-xRandom, xRandom), currentYoffset);
 
@@ -54,7 +53,7 @@ public class DamageableNumbers : MonoBehaviour
         UpdateCurrentOffset(currentYoffset - yLower);
     }
 
-    private void DisplayHealNumber(HealEvent healEvent)
+    private void DisplayHealNumber(Damageable.HealEvent healEvent)
     {
         Vector2 spawnOffset = new Vector2(Random.Range(-xRandom, xRandom), currentYoffset);
 

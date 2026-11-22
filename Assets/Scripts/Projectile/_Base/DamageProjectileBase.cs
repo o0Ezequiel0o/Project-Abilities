@@ -47,7 +47,7 @@ public abstract class DamageProjectileBase : Projectile
                 direction = GetHitDirection(receiver),
             };
 
-            Damageable.DamageEvent damageEvent = damageable.DealDamage(damageInfo, SourceUser, gameObject);
+            Damageable.IDamageEvent damageEvent = damageable.DealDamage(damageInfo, SourceUser, gameObject);
             return damageEvent.IsRejected;
         }
 

@@ -37,10 +37,8 @@ namespace Zeke.Items
             }
         }
 
-        private void OnKill(Damageable.DamageEvent.OnKillEvent killEvent)
+        private void OnKill(Damageable.IKillEvent damageEvent)
         {
-            Damageable.DamageEvent damageEvent = killEvent.damageEvent;
-
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
             if (damageEvent.ProcChainBranch.Contains(data)) return;
 

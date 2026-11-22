@@ -48,10 +48,8 @@ public class HealOnKillSkill : PassiveBase
         hasRequiredComponents = source.TryGetComponent(out damageable);
     }
 
-    private void OnKill(Damageable.DamageEvent.OnKillEvent killEvent)
+    private void OnKill(Damageable.IKillEvent damageEvent)
     {
-        Damageable.DamageEvent damageEvent = killEvent.damageEvent;
-
         if (!hasRequiredComponents) return;
         if (source == damageEvent.Receiver) return;
 

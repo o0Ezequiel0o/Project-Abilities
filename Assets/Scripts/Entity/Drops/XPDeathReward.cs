@@ -6,7 +6,7 @@ public class XPDeathReward : DeathReward
 {
     [SerializeField] private int experience;
 
-    public override void DropRewards(GameObject source, Damageable.DamageEvent deathEvent)
+    public override void DropRewards(GameObject source, Damageable.IKillEvent deathEvent)
     {
         if (deathEvent.SourceUser == null) return;
 

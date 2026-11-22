@@ -81,7 +81,7 @@ public class HealthBarRenderer : MonoBehaviour
         damageable.onAnyHealthUpdate += UpdateHealthBar;
     }
 
-    private void OnDamageTaken(Damageable.DamageEvent damageEvent)
+    private void OnDamageTaken(Damageable.IDealtDamageEvent damageEvent)
     {
         if (healthBar == null && !pendingHealthBar)
         {

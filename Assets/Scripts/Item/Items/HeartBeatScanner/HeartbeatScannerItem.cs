@@ -33,10 +33,8 @@ namespace Zeke.Items
             }
         }
 
-        private void OnHit(Damageable.DamageEvent.OnHitEvent hitEvent)
+        private void OnHit(Damageable.IHitEvent damageEvent)
         {
-            Damageable.DamageEvent damageEvent = hitEvent.damageEvent;
-
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
             float missingHealthRatio = 1f - (damageEvent.Receiver.Health / damageEvent.Receiver.MaxHealth.Value);
 

@@ -35,18 +35,14 @@ namespace Zeke.Items
             }
         }
 
-        public void OnDealDamage(Damageable.DamageEvent.OnDealDamageEvent dealDamageEvent)
+        public void OnDealDamage(Damageable.IDealDamageEvent damageEvent)
         {
-            Damageable.DamageEvent damageEvent = dealDamageEvent.damageEvent;
-
             if (damageEvent.Receiver.gameObject == source) return;
             damageEvent.Multiplier.ApplyFlatModifier(data.FlatMultDamage.GetValue(stacks));
         }
 
-        private void OnHit(Damageable.DamageEvent.OnHitEvent hitEvent)
+        private void OnHit(Damageable.IHitEvent damageEvent)
         {
-            Damageable.DamageEvent damageEvent = hitEvent.damageEvent;
-
             if (damageEvent.Receiver.gameObject == source) return;
             damageEvent.FlatAccumulator += data.FlatDamage.GetValue(stacks);
         }

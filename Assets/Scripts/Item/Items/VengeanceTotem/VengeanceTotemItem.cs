@@ -30,11 +30,11 @@ namespace Zeke.Items
         {
             if (source.TryGetComponent(out Damageable damageable))
             {
-                damageable.onTakeDamage.Unsubscribe(OnTakenDamage);
+                damageable.onTakenDamage.Unsubscribe(OnTakenDamage);
             }
         }
 
-        private void OnTakenDamage(Damageable.DamageEvent damageEvent)
+        private void OnTakenDamage(Damageable.IDealtDamageEvent damageEvent)
         {
             if (damageEvent.SourceUser == null || damageEvent.SourceUser == source) return;
             if (damageEvent.ProcChainBranch.Contains(Data)) return;

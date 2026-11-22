@@ -36,10 +36,8 @@ namespace Zeke.Items
             }
         }
 
-        private void OnHit(Damageable.DamageEvent.OnHitEvent hitEvent)
+        private void OnHit(Damageable.IHitEvent damageEvent)
         {
-            Damageable.DamageEvent damageEvent = hitEvent.damageEvent;
-
             if (damageEvent.Receiver.gameObject == source) return;
 
             if (increasedDamage.ContainsKey(damageEvent.Receiver))

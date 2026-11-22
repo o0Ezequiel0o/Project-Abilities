@@ -101,7 +101,7 @@ namespace Zeke.Items
             damageable.Armor.ApplyFlatModifier(-oldModifier, flatModifier);
         }
 
-        private void OnTakenDamage(DamageEvent _)
+        private void OnTakenDamage(IDealtDamageEvent _)
         {
             if (!active) return;
             Deactivate();

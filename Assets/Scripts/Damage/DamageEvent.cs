@@ -4,26 +4,31 @@ using Zeke.Items;
 
 public partial class Damageable
 {
-    public class DamageEvent
+    public class DamageEvent : IDamageEvent, IDealtDamageEvent, IDealDamageEvent, IKillEvent, IHitEvent
     {
-        // Input & Context
+        // Context
         public Damageable Receiver { get; private set; }
         public GameObject SourceUser { get; private set; }
         public GameObject SourceObject { get; private set; }
         public Vector2 Direction { get; private set; }
         public float ProcCoefficient { get; private set; }
+
+        // Flags
         public bool IsHit { get; private set; }
         public bool IsLethal { get; private set; }
         public bool IgnoresShield { get; private set; }
+
+        // Data
         public List<ItemData> ProcChainBranch { get; private set; } = new List<ItemData>();
 
-        // Damage & Modifiers
+        // Damage
         public float BaseDamage { get; private set; }
         public float Damage { get; private set; }
+
+        //Modifiers
         public float FlatAccumulator { get; set; }
         public Stat Multiplier { get; private set; } = new Stat(1f, 0f, 0f, float.PositiveInfinity);
 
-        private float armorPenetration;
         public float ArmorPenetration
         {
             get => Mathf.Clamp(armorPenetration, -1f, 1f);
@@ -33,13 +38,12 @@ public partial class Damageable
         // Results & State
         public float HealthDamageDealt { get; private set; }
         public float ShieldDamageDealt { get; private set; }
-        public float OverflowDamage { get; private set; }
-        public float DamageDealt => HealthDamageDealt + ShieldDamageDealt;
-        public float UncappedDamageDealt => DamageDealt + OverflowDamage;
 
         public bool DestroyedShield { get; private set; }
         public bool DeathBlow { get; private set; }
         public bool IsRejected { get; set; }
+
+        private float armorPenetration = 0f;
 
         private DamageableEventListener damageEventListener;
         private bool isDamageEventListener = false;
@@ -66,7 +70,6 @@ public partial class Damageable
             SourceUser = userSource;
             SourceObject = sourceObject;
 
-            OverflowDamage = 0f;
             HealthDamageDealt = 0f;
             ShieldDamageDealt = 0f;
 
@@ -106,9 +109,9 @@ public partial class Damageable
 
                 if (IsRejected || Damage <= 0f) return;
 
-                HandleDamage();
+                float damageDealt = HandleDamage();
 
-                if (DamageDealt <= 0f) return;
+                if (damageDealt <= 0f) return;
 
                 if (!Receiver.MarkedForDeath && Receiver.Health <= 0f)
                 {
@@ -139,7 +142,7 @@ public partial class Damageable
             ShieldDamageDealt = 0f;
         }
 
-        private void HandleDamage()
+        private float HandleDamage()
         {
             bool hadShield = Receiver.Shield > 0f;
 
@@ -149,12 +152,14 @@ public partial class Damageable
             HealthDamageDealt = damageTakenInfo.healthDamageTaken;
             ShieldDamageDealt = damageTakenInfo.shieldDamageTaken;
 
-            OverflowDamage = Mathf.Max(0f, Damage - DamageDealt);
+            float damageDealt = HealthDamageDealt + ShieldDamageDealt;
 
             if (hadShield && Receiver.Shield <= 0f)
             {
                 DestroyedShield = true;
             }
+
+            return damageDealt;
         }
 
         private void HandlePreDamageEvents()
@@ -163,7 +168,7 @@ public partial class Damageable
 
             if (isDamageEventListener)
             {
-                damageEventListener.CallDealDamageEvent(new OnDealDamageEvent(this));
+                damageEventListener.CallDealDamageEvent(this);
             }
 
             if (Damage <= 0f) return;
@@ -177,7 +182,7 @@ public partial class Damageable
 
             if (isDamageEventListener)
             {
-                damageEventListener.CallDealtDamageEvent(new OnDealtDamageEvent(this));
+                damageEventListener.CallDealtDamageEvent(this);
             }
         }
 
@@ -187,7 +192,7 @@ public partial class Damageable
 
             if (isDamageEventListener)
             {
-                damageEventListener.CallHitEvent(new OnHitEvent(this));
+                damageEventListener.CallHitEvent(this);
             }
         }
 
@@ -197,47 +202,7 @@ public partial class Damageable
 
             if (isDamageEventListener)
             {
-                damageEventListener.CallKillEvent(new OnKillEvent(this));
-            }
-        }
-
-        public readonly struct OnDealtDamageEvent
-        {
-            public readonly DamageEvent damageEvent;
-
-            public OnDealtDamageEvent(DamageEvent damageEvent)
-            {
-                this.damageEvent = damageEvent;
-            }
-        }
-
-        public readonly struct OnDealDamageEvent
-        {
-            public readonly DamageEvent damageEvent;
-
-            public OnDealDamageEvent(DamageEvent damageEvent)
-            {
-                this.damageEvent = damageEvent;
-            }
-        }
-
-        public readonly struct OnKillEvent
-        {
-            public readonly DamageEvent damageEvent;
-
-            public OnKillEvent(DamageEvent damageEvent)
-            {
-                this.damageEvent = damageEvent;
-            }
-        }
-
-        public readonly struct OnHitEvent
-        {
-            public readonly DamageEvent damageEvent;
-
-            public OnHitEvent(DamageEvent damageEvent)
-            {
-                this.damageEvent = damageEvent;
+                damageEventListener.CallKillEvent(this);
             }
         }
     }

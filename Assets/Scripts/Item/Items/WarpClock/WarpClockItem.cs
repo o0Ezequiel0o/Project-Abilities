@@ -68,7 +68,7 @@ namespace Zeke.Items
             }
         }
 
-        private void OnTakenDamage(DamageEvent damageEvent)
+        private void OnTakenDamage(IDealtDamageEvent damageEvent)
         {
             if (active || !hasRequiredComponents) return;
 

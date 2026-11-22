@@ -39,7 +39,7 @@ public class ThornsSkill : PassiveBase
         damagePerArmor.Upgrade(levels);
     }
 
-    private void OnTakenDamage(DamageEvent damageEvent)
+    private void OnTakenDamage(IDealtDamageEvent damageEvent)
     {
         if (damageEvent.SourceUser == null || damageEvent.SourceUser == source) return;
 

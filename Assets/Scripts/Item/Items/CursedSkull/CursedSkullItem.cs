@@ -34,10 +34,8 @@ namespace Zeke.Items
             }
         }
 
-        private void OnKill(Damageable.DamageEvent.OnKillEvent killEvent)
+        private void OnKill(Damageable.IKillEvent damageEvent)
         {
-            Damageable.DamageEvent damageEvent = killEvent.damageEvent;
-
             if (!RollProc(data.Chance, 1f, itemHandler.Luck.ValueInt)) return;
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
 

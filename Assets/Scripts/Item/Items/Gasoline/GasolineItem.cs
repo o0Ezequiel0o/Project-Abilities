@@ -39,10 +39,8 @@ namespace Zeke.Items
             }
         }
 
-        private void OnKill(Damageable.DamageEvent.OnKillEvent killEvent)
+        private void OnKill(Damageable.IKillEvent damageEvent)
         {
-            Damageable.DamageEvent damageEvent = killEvent.damageEvent;
-
             hits.Clear();
 
             ContactFilter2D contactFilter = new ContactFilter2D() { layerMask = data.HitLayers, useLayerMask = true };

@@ -51,7 +51,7 @@ namespace Zeke.Abilities.Modules
             }
         }
 
-        private void OnKill(Damageable.DamageEvent.OnKillEvent _)
+        private void OnKill(Damageable.IKillEvent _)
         {
             UpdateCooldown(amount.Value, data.ValueType);
         }

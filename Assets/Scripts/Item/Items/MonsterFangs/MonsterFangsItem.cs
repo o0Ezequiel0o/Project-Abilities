@@ -55,10 +55,8 @@ namespace Zeke.Items
             UpdateHealthValue();
         }
 
-        private void OnKill(Damageable.DamageEvent.OnKillEvent killEvent)
+        private void OnKill(Damageable.IKillEvent damageEvent)
         {
-            Damageable.DamageEvent damageEvent = killEvent.damageEvent;
-
             if (!hasRequiredComponents) return;
             if (effectStacks >= data.MaxStacks.GetValue(stacks)) return;
             if (damageEvent.Receiver != null && damageEvent.Receiver == source) return;

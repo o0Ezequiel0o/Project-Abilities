@@ -18,12 +18,17 @@ public class DamageableFlash : MonoBehaviour
         flashController = GetComponentInChildren<SpriteFlashController>();
     }
 
-    void Awake()
+    private void OnEnable()
     {
         SubscribeToEvents();
     }
 
-    void SubscribeToEvents()
+    private void OnDisable()
+    {
+        UnsubscribeFromEvents();
+    }
+
+    private void SubscribeToEvents()
     {
         if (!TryGetComponent(out Damageable damageable)) return;
 
@@ -39,9 +44,22 @@ public class DamageableFlash : MonoBehaviour
         }
     }
 
-    void StartFlash(Damageable.DamageEvent _)
+    private void UnsubscribeFromEvents()
     {
-        flashController.StartFlash(flashAmount, flashDuration);
+        if (!TryGetComponent(out Damageable damageable)) return;
+
+        damageable.onHitTaken.Unsubscribe(StartFlash);
+        damageable.onTakenDamage.Unsubscribe(StartFlash);
+    }
+
+    private void StartFlash(Damageable.IDealtDamageEvent _) => StartFlash();
+    private void StartFlash(Damageable.IHitEvent _) => StartFlash();
+
+    private void StartFlash()
+    {
+        {
+            flashController.StartFlash(flashAmount, flashDuration);
+        }
     }
 
     private enum TriggerEvent

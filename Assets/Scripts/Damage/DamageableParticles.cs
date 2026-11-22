@@ -8,7 +8,7 @@ public class DamageableParticles : MonoBehaviour
 
     private readonly List<HitParticles> hitParticles = new List<HitParticles>();
 
-    void Awake()
+    private void Awake()
     {
         if (TryGetComponent(out Damageable damageable))
         {
@@ -17,7 +17,7 @@ public class DamageableParticles : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         for (int i = 0; i < hitParticles.Count; i++)
         {
@@ -25,7 +25,7 @@ public class DamageableParticles : MonoBehaviour
         }
     }
 
-    void CreateHitParticles()
+    private void CreateHitParticles()
     {
         for (int i = 0; i < particlesConfig.Count; i++)
         {
@@ -33,29 +33,29 @@ public class DamageableParticles : MonoBehaviour
         }
     }
 
-    void SubscribeToEvents(Damageable damageable)
+    private void SubscribeToEvents(Damageable damageable)
     {
         damageable.onTakenDamage.Subscribe(OnDamageTaken);
         damageable.onHitTaken.Subscribe(OnHitTaken);
         damageable.onDeath.Subscribe(OnDeath);
     }
 
-    void OnDamageTaken(Damageable.DamageEvent _)
+    private void OnDamageTaken(Damageable.IDealtDamageEvent _)
     {
         SpawnParticles(ParticleTrigger.Damage);
     }
 
-    void OnHitTaken(Damageable.DamageEvent _)
+    private void OnHitTaken(Damageable.IHitEvent _)
     {
         SpawnParticles(ParticleTrigger.Hit);
     }
 
-    void OnDeath(Damageable.DamageEvent _)
+    private void OnDeath(Damageable.IKillEvent _)
     {
         SpawnParticles(ParticleTrigger.Death);
     }
 
-    void SpawnParticles(ParticleTrigger trigger)
+    private void SpawnParticles(ParticleTrigger trigger)
     {
         for (int i = 0; i < particlesConfig.Count; i++)
         {

@@ -45,11 +45,11 @@ public partial class Damageable : MonoBehaviour, IUpgradable
     /// <summary> Called when hit, before any condition. </summary>
     public readonly OrderedAction<DamageEvent> onDamageEvent = new OrderedAction<DamageEvent>();
 
-    public readonly OrderedAction<DamageEvent> onTakeDamage = new OrderedAction<DamageEvent>();
-    public readonly OrderedAction<DamageEvent> onTakenDamage = new OrderedAction<DamageEvent>();
+    public readonly OrderedAction<IDealDamageEvent> onTakeDamage = new OrderedAction<IDealDamageEvent>();
+    public readonly OrderedAction<IDealtDamageEvent> onTakenDamage = new OrderedAction<IDealtDamageEvent>();
 
-    public readonly OrderedAction<DamageEvent> onHitTaken = new OrderedAction<DamageEvent>();
-    public readonly OrderedAction<DamageEvent> onDeath = new OrderedAction<DamageEvent>();
+    public readonly OrderedAction<IHitEvent> onHitTaken = new OrderedAction<IHitEvent>();
+    public readonly OrderedAction<IKillEvent> onDeath = new OrderedAction<IKillEvent>();
 
     public Action<Damageable> onDespawn;
     public Action onAnyHealthUpdate;
@@ -82,22 +82,22 @@ public partial class Damageable : MonoBehaviour, IUpgradable
         return damageReduction;
     }
 
-    public DamageEvent DealDamage(DamageInfo damageInfo)
+    public IDamageEvent DealDamage(DamageInfo damageInfo)
     {
         return DealDamage(DamageableEventPool.Instance.GetDamage(damageInfo, this, null, null, new List<ItemData>()));
     }
 
-    public DamageEvent DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject)
+    public IDamageEvent DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject)
     {
         return DealDamage(DamageableEventPool.Instance.GetDamage(damageInfo, this, sourceUser, sourceObject, new List<ItemData>()));
     }
 
-    public DamageEvent DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
+    public IDamageEvent DealDamage(DamageInfo damageInfo, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
     {
         return DealDamage(DamageableEventPool.Instance.GetDamage(damageInfo, this, sourceUser, sourceObject, procChain));
     }
 
-    public DamageEvent DealDamage(DamageEvent damageEvent)
+    public IDamageEvent DealDamage(DamageEvent damageEvent)
     {
         damageEvent.Execute();
         return damageEvent;

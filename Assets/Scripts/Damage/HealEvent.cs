@@ -6,6 +6,17 @@ public partial class Damageable
 {
     public class HealEvent
     {
+        // Context
+        public Damageable Receiver { get; private set; }
+        public GameObject SourceUser { get; private set; }
+        public GameObject SourceObject { get; private set; }
+        public Vector2 Direction { get; private set; }
+        public float ProcCoefficient { get; private set; }
+
+        // Flags
+        public bool IsHit { get; private set; }
+
+        // Heal
         public float Healing { get; private set; }
         public float BaseHealing { get; private set; }
         public float HealthHealed { get; private set; }
@@ -13,19 +24,12 @@ public partial class Damageable
 
         public float UncappedHealing => HealthHealed + OverflowHealing;
 
-        public float ProcCoefficient { get; private set; }
-
-        public Damageable Receiver { get; private set; }
-        public GameObject SourceUser { get; private set; }
-        public GameObject SourceObject { get; private set; }
-
-        public bool IsHit { get; private set; }
-        public Vector2 Direction { get; private set; }
-
+        // Modifiers
         public float FlatAccumulator { get; set; }
-
-        public List<ItemData> ProcChainBranch { get; private set; } = new List<ItemData>();
         public Stat Multiplier { get; private set; } = new Stat(1f, 0f, 0f, float.PositiveInfinity);
+
+        // Data
+        public List<ItemData> ProcChainBranch { get; private set; } = new List<ItemData>();
 
         private DamageableEventListener healEventListener;
         private bool isHealEventListener = false;

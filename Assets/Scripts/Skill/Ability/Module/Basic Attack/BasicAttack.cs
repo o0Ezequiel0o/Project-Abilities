@@ -75,7 +75,7 @@ namespace Zeke.Abilities.Modules
                         direction = (damageable.transform.position - source.transform.position).normalized
                     };
 
-                    Damageable.DamageEvent damageEvent = damageable.DealDamage(damageInfo, source, source);
+                    Damageable.IDamageEvent damageEvent = damageable.DealDamage(damageInfo, source, source);
 
                     if (damageEvent.DamageDealt > 0f && !damageEvent.IsRejected)
                     {

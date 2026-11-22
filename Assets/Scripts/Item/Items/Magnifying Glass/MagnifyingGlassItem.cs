@@ -33,10 +33,8 @@ namespace Zeke.Items
             }
         }
 
-        private void OnDealDamage(Damageable.DamageEvent.OnDealDamageEvent dealDamageEvent)
+        private void OnDealDamage(Damageable.IDealDamageEvent damageEvent)
         {
-            Damageable.DamageEvent damageEvent = dealDamageEvent.damageEvent;
-            
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
 
             if (Vector3.Distance(source.transform.position, damageEvent.Receiver.transform.position) <= data.MinDistance)

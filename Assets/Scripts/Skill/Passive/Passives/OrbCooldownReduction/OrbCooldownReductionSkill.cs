@@ -67,10 +67,8 @@ public class OrbCooldownReductionSkill : PassiveBase
         }
     }
 
-    private void OnDealtDamage(Damageable.DamageEvent.OnDealtDamageEvent damageDealtEvent)
+    private void OnDealtDamage(Damageable.IDealtDamageEvent damageEvent)
     {
-        Damageable.DamageEvent damageEvent = damageDealtEvent.damageEvent;
-
         if (damageEvent.SourceObject == null) return;
 
         if (damageEvent.SourceObject.TryGetComponent(out OrbIdentifier _))
