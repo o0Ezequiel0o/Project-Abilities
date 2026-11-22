@@ -135,6 +135,13 @@ public partial class Damageable
             }
         }
 
+        public DamageEventSnapshot GetSnapshot()
+        {
+            return new DamageEventSnapshot(Receiver, SourceUser, SourceObject, Direction, ProcCoefficient, IsHit, IsLethal, IgnoresShield, IsRejected,
+                new List<ItemData>(ProcChainBranch), BaseDamage, Damage, FlatAccumulator, Multiplier.Value, ArmorPenetration,  HealthDamageDealt, 
+                ShieldDamageDealt, DestroyedShield, DeathBlow);
+        }
+
         private void HandleImmunityState()
         {
             IsRejected = true;
@@ -204,6 +211,70 @@ public partial class Damageable
             {
                 damageEventListener.CallKillEvent(this);
             }
+        }
+    }
+
+    public readonly struct DamageEventSnapshot
+    {
+        // Context
+        public readonly Damageable receiver;
+        public readonly GameObject sourceUser;
+        public readonly GameObject sourceObject;
+        public readonly Vector2 direction;
+        public readonly float procCoefficient;
+
+        // Flags
+        public readonly bool isHit;
+        public readonly bool isLethal;
+        public readonly bool ignoresShield;
+        public readonly bool isRejected;
+
+        // Data
+        public readonly List<ItemData> procChainBranch;
+
+        // Damage
+        public readonly float baseDamage;
+        public readonly float damage;
+
+        // Modifiers
+        public readonly float flatAccumulator;
+        public readonly float multiplier;
+        public readonly float armorPenetration;
+
+        // Results & State
+        public readonly float healthDamageDealt;
+        public readonly float shieldDamageDealt;
+        public float OverflowDamage => Mathf.Max(0f, damage - DamageDealt);
+        public float DamageDealt => healthDamageDealt + shieldDamageDealt;
+        public float UncappedDamageDealt => DamageDealt + OverflowDamage;
+
+        // Output
+        public readonly bool destroyedShield;
+        public readonly bool deathBlow;
+
+        public DamageEventSnapshot(Damageable receiver, GameObject sourceUser, GameObject sourceObject, Vector2 direction, float procCoefficient, bool isHit, 
+            bool isLethal, bool ignoresShield, bool isRejected, List<ItemData> procChainBranch, float baseDamage, float damage, float flatAccumulator, 
+            float multiplier, float armorPenetration, float healthDamageDealt, float shieldDamageDealt, bool destroyedShield, bool deathBlow)
+        {
+            this.receiver = receiver;
+            this.sourceUser = sourceUser;
+            this.sourceObject = sourceObject;
+            this.direction = direction;
+            this.procCoefficient = procCoefficient;
+            this.isHit = isHit;
+            this.isLethal = isLethal;
+            this.ignoresShield = ignoresShield;
+            this.isRejected = isRejected;
+            this.procChainBranch = procChainBranch;
+            this.baseDamage = baseDamage;
+            this.damage = damage;
+            this.flatAccumulator = flatAccumulator;
+            this.multiplier = multiplier;
+            this.armorPenetration = armorPenetration;
+            this.healthDamageDealt = healthDamageDealt;
+            this.shieldDamageDealt = shieldDamageDealt;
+            this.destroyedShield = destroyedShield;
+            this.deathBlow = deathBlow;
         }
     }
 }

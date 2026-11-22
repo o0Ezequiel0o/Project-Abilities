@@ -175,5 +175,7 @@ public partial class Damageable
         // Output
         public bool DestroyedShield { get; }
         public bool DeathBlow { get; }
+
+        public DamageEventSnapshot GetSnapshot();
     }
 }
