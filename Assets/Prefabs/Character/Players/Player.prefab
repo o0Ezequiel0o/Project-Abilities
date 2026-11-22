@@ -147,12 +147,6 @@ GameObject:
   - component: {fileID: 6656351697229743751}
   - component: {fileID: 3571629176375247297}
   - component: {fileID: 1194936845695977804}
-  - component: {fileID: 1263257551977199966}
-  - component: {fileID: 3336023691050110098}
-  - component: {fileID: 7245188018465221074}
-  - component: {fileID: 5498967705651383887}
-  - component: {fileID: 5379934569254923749}
-  - component: {fileID: 5724429136155617123}
   - component: {fileID: 1445715788866165582}
   - component: {fileID: 2688288251930177549}
   - component: {fileID: 3787346725820631185}
@@ -167,8 +161,6 @@ GameObject:
   - component: {fileID: 2278308551691039682}
   - component: {fileID: -549456992416598927}
   - component: {fileID: 5562861826131366279}
-  - component: {fileID: 2821714099563017465}
-  - component: {fileID: -1176006277601527015}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -546,89 +538,6 @@ MonoBehaviour:
   triggerEvent: 0
   flashAmount: 1
   flashDuration: 0.25
---- !u!114 &1263257551977199966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5218312312708394220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8987f0c7311b38468085c1dd8c3b61c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthBarScreenRenderer
-  damageable: {fileID: 3571629176375247297}
-  windowPrefab: {fileID: 6405216531569743264, guid: 2f786b583e9135747bdb34499dd2876f, type: 3}
---- !u!114 &3336023691050110098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5218312312708394220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37b5cdd2507a5fc44a77e99b51145807, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interfacePrefab: {fileID: 3542434859225608561, guid: a62850431b6d7f34593c1c105ef659d6, type: 3}
---- !u!114 &7245188018465221074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5218312312708394220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e0f71a7ffb18af438d3351f7e57e28b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interfacePrefab: {fileID: 4658496468204813169, guid: e0a9a20500f69ca47b7f0f8cf07813f9, type: 3}
---- !u!114 &5498967705651383887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5218312312708394220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1817788627ae654382acb5f489047f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MoneyAndLevelRenderer
-  moneyHandler: {fileID: 3333061981324723736}
-  levelHandler: {fileID: 108859267500074294}
-  windowPrefab: {fileID: 5987010915847803300, guid: 5dc4fd87518db5e4b8e203cdbd7e98c3, type: 3}
---- !u!114 &5379934569254923749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5218312312708394220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 232c7f94618af6c439f4f85744b653d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemsInterfacePrefab: {fileID: 2711525490271769255, guid: 2af3debb0e2103c45b03f0307a7de71b, type: 3}
-  itemsInterfaceMenuPrefab: {fileID: -131935931613072758, guid: 58a162b374754a54abede138ee783961, type: 3}
---- !u!114 &5724429136155617123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5218312312708394220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43ea316ef7a46254085991d55b2dccb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractableTooltipScreenRenderer
-  handler: {fileID: 3315950687603881688}
-  windowPrefab: {fileID: 1456716941730967228, guid: 34e0f51f74f443d49832e3f1eb8b8a56, type: 3}
 --- !u!114 &1445715788866165582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -768,7 +677,7 @@ MonoBehaviour:
   abilityController: {fileID: 2688288251930177549}
   interactionHandler: {fileID: 3315950687603881688}
   vehicleHandler: {fileID: 6380266063980628222}
-  itemsRenderer: {fileID: 5379934569254923749}
+  itemsRenderer: {fileID: 0}
   center: {fileID: 4369443556788299361}
   moveInput: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   primaryInput: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
@@ -849,32 +758,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClampToLevelBounds
   rigidBody: {fileID: 2582979104109749263}
---- !u!114 &2821714099563017465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5218312312708394220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12bb0318e7a5fa743ba2e0e4acee48b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.Ascendancy.AscendancyHandlerScreenRenderer
-  optionsWindow: {fileID: 3882320326254278048, guid: 2d1480405c772bb4cbcf98a9b7c2ea77, type: 3}
-  optionWindow: {fileID: 6831720364878063803, guid: 1fe3f6ac15b32934db4783624282a1fc, type: 3}
-  optionAppearDuration: 0.2
---- !u!114 &-1176006277601527015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5218312312708394220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad8fc13322ad2304db43dabaa0d3a146, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExperienceScreenRenderer
-  levelHandler: {fileID: 108859267500074294}
-  windowPrefab: {fileID: 8683519037302637605, guid: a0ed4a834a61fd94d8c5477e7386872f, type: 3}

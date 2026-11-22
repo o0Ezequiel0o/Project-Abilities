@@ -31,7 +31,7 @@ public class DynamicPlayerController : MonoBehaviour
     private InteractionHandler interactionHandler;
 
     private VehicleHandler vehicleHandler;
-    private ItemsScreenRenderer itemsRenderer;
+    private ItemsScreenLoader itemsRenderer;
 
     private AbilityInput primaryAbilityInput;
     private AbilityInput secondaryAbilityInput;
@@ -64,7 +64,7 @@ public class DynamicPlayerController : MonoBehaviour
         interactionHandler = GetComponentInChildren<InteractionHandler>();
 
         vehicleHandler = GetComponentInChildren<VehicleHandler>();
-        itemsRenderer = GetComponentInChildren<ItemsScreenRenderer>();
+        itemsRenderer = GetComponentInChildren<ItemsScreenLoader>();
 
         primaryAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Primary);
         secondaryAbilityInput = new AbilityInput(abilityController.TryUseAbility, AbilityType.Secondary);

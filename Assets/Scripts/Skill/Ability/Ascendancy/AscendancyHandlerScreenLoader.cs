@@ -8,12 +8,11 @@ using TMPro;
 
 namespace Zeke.Abilities.Ascendancy
 {
-    [RequireComponent(typeof(AscendancyHandler))]
-    public class AscendancyHandlerScreenRenderer : MonoBehaviour
+    public class AscendancyHandlerScreenLoader : MonoBehaviour
     {
         [Header("Visual - UI")]
-        [SerializeField] private UIWindow optionsWindow;
-        [SerializeField] private UIWindow optionWindow;
+        [SerializeField] private UIWindow window;
+        [SerializeField] private UIWindow optionPrefab;
 
         [Header("Animation")]
         [SerializeField] private float optionAppearDuration = 0.2f;
@@ -23,44 +22,42 @@ namespace Zeke.Abilities.Ascendancy
 
         private readonly List<UIWindow> spawnedOptionWindows = new List<UIWindow>();
 
-        private UIWindow windowInstance;
-
         private AscendancyHandler ascendancyHandler;
 
         private bool interactionEnabled = true;
 
-        private readonly Run.PauseID pauseID = new Run.PauseID();
-
         private void Awake()
         {
-            ascendancyHandler = GetComponent<AscendancyHandler>();
-            ascendancyHandler.onAscendancyReady += OnAscendancyReady;
+            Run.Instance.onPlayerAdded += OnPlayerAdded;
         }
 
-        private void OnDestroy()
+        private void OnPlayerAdded(Player newPlayer)
         {
-            ascendancyHandler.onAscendancyReady -= OnAscendancyReady;
+            Run.Instance.onPlayerAdded -= OnPlayerAdded;
+
+            bool playerHasRequiredComponents = newPlayer.TryGetComponent(out ascendancyHandler);
+
+            if (!playerHasRequiredComponents) return;
+
+            ascendancyHandler.onAscendancyReady += OnAscendancyReady;
         }
 
         private void CreateOptionsWindow()
         {
-            windowInstance = Instantiate(optionsWindow, Run.Instance.ScreenCanvas.transform);
             AscendancyHandler.AscendanceElementInfo info = pending.Dequeue();
             pendingHash.Remove(info.key);
 
             CreateOriginalElement(info);
             PopulateOptionsWindow(info);
 
-            Run.Instance.Pause(pauseID);
-
             interactionEnabled = true;
         }
 
         private void CreateOriginalElement(AscendancyHandler.AscendanceElementInfo info)
         {
-            RectTransform root = windowInstance.TryGetElement<RectTransform>("Original Root");
+            RectTransform root = window.TryGetElement<RectTransform>("Original Root");
 
-            UIWindow originalWindowInstance = Instantiate(optionWindow, root);
+            UIWindow originalWindowInstance = Instantiate(optionPrefab, root);
 
             originalWindowInstance.TryGetElement<Image>("Image").sprite = info.key.Icon;
             originalWindowInstance.TryGetElement<TextMeshProUGUI>("Name").text = info.key.Name;
@@ -69,18 +66,20 @@ namespace Zeke.Abilities.Ascendancy
 
         private void CloseOptionsWindow()
         {
-            Destroy(windowInstance.gameObject);
-            spawnedOptionWindows.Clear();
-            Run.Instance.Unpause(pauseID);
+            window.SetGraphicVisibility(false);
         }
 
         private void OnCloseAnimationFinished()
         {
-            CloseOptionsWindow();
+            ClearWindow();
 
             if (pending.Count > 0)
             {
                 CreateOptionsWindow();
+            }
+            else
+            {
+                CloseOptionsWindow();
             }
         }
 
@@ -91,15 +90,16 @@ namespace Zeke.Abilities.Ascendancy
             pending.Enqueue(element);
             pendingHash.Add(element.key);
 
-            if (windowInstance == null)
+            if (!window.IsVisible)
             {
+                window.SetGraphicVisibility(true);
                 CreateOptionsWindow();
             }
         }
 
         private void PopulateOptionsWindow(AscendancyHandler.AscendanceElementInfo elementsInfo)
         {
-            LayoutGroup layoutGroupRoot = windowInstance.TryGetElement<LayoutGroup>("Layout Group");
+            LayoutGroup layoutGroupRoot = window.TryGetElement<LayoutGroup>("Layout Group");
 
             for (int i = 0; i < elementsInfo.element.Options.Count; i++)
             {
@@ -109,9 +109,28 @@ namespace Zeke.Abilities.Ascendancy
             }
         }
 
+        private void ClearWindow()
+        {
+            spawnedOptionWindows.Clear();
+
+            LayoutGroup layoutGroupRoot = window.TryGetElement<LayoutGroup>("Layout Group");
+
+            foreach (Transform children in layoutGroupRoot.transform)
+            {
+                Destroy(children.gameObject);
+            }
+
+            RectTransform root = window.TryGetElement<RectTransform>("Original Root");
+
+            foreach (Transform children in root)
+            {
+                Destroy(children.gameObject);
+            }
+        }
+
         private UIWindow CreateOptionUIWindow(Transform root, AscendancyData option, AbilityData key)
         {
-            UIWindow optionWindowInstance = Instantiate(optionWindow, root);
+            UIWindow optionWindowInstance = Instantiate(optionPrefab, root);
 
             optionWindowInstance.TryGetElement<Image>("Image").sprite = option.Icon;
             optionWindowInstance.TryGetElement<TextMeshProUGUI>("Name").text = option.Title;
@@ -142,7 +161,7 @@ namespace Zeke.Abilities.Ascendancy
                     PlayOptionSelectAnimation(window.gameObject, () =>
                     {
                         PlayOptionDisappearAnimation(window.gameObject);
-                        PlayMenuPopOutAnimation(windowInstance.gameObject, OnCloseAnimationFinished);
+                        PlayMenuPopOutAnimation(window.gameObject, OnCloseAnimationFinished);
                     });
                 }
                 else
