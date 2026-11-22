@@ -86,44 +86,49 @@ public partial class Damageable
 
         public void Execute()
         {
-            isDamageEventListener = SourceUser != null && SourceUser.TryGetComponent(out damageEventListener);
-
-            if (Receiver == null || !Receiver.IsAlive || Receiver.MarkedForDeath) return;
-
-            Receiver.onDamageEvent?.Invoke(this);
-
-            if (Receiver.Immune) HandleImmunityState();
-
-            if (IsRejected) return;
-
-            if (IsHit) HandleOnHitEvents();
-
-            if (IsRejected) return;
-
-            HandlePreDamageEvents();
-
-            if (IsRejected || Damage <= 0f) return;
-
-            HandleDamage();
-
-            if (DamageDealt <= 0f) return;
-
-            if (!Receiver.MarkedForDeath && Receiver.Health <= 0f)
+            try
             {
-                DeathBlow = true;
-                Receiver.MarkedForDeath = true;
+                isDamageEventListener = SourceUser != null && SourceUser.TryGetComponent(out damageEventListener);
+
+                if (Receiver == null || !Receiver.IsAlive || Receiver.MarkedForDeath) return;
+
+                Receiver.onDamageEvent?.Invoke(this);
+
+                if (Receiver.Immune) HandleImmunityState();
+
+                if (IsRejected) return;
+
+                if (IsHit) HandleOnHitEvents();
+
+                if (IsRejected) return;
+
+                HandlePreDamageEvents();
+
+                if (IsRejected || Damage <= 0f) return;
+
+                HandleDamage();
+
+                if (DamageDealt <= 0f) return;
+
+                if (!Receiver.MarkedForDeath && Receiver.Health <= 0f)
+                {
+                    DeathBlow = true;
+                    Receiver.MarkedForDeath = true;
+                }
+
+                HandlePostDamageEvents();
+
+                if (!Receiver.MarkedForDeath || !Receiver.IsAlive) return;
+
+                Receiver.IsAlive = false;
+                HandleDeathEvents();
             }
-
-            HandlePostDamageEvents();
-
-            if (!Receiver.MarkedForDeath || !Receiver.IsAlive) return;
-
-            Receiver.IsAlive = false;
-            HandleDeathEvents();
-
-            if (!DamageableEventPool.IsNull)
+            finally
             {
-                DamageableEventPool.Instance.ReturnDamage(this);
+                if (!DamageableEventPool.IsNull)
+                {
+                    DamageableEventPool.Instance.ReturnDamage(this);
+                }
             }
         }
 
