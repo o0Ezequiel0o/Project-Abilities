@@ -2,7 +2,6 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
 using Zeke.Abilities;
-using Zeke.Items;
 using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
@@ -19,7 +18,6 @@ public class PlayerController : MonoBehaviour
     [Space]
 
     [SerializeField] private VehicleHandler vehicleHandler;
-    [SerializeField] private ItemsScreenLoader itemsRenderer;
 
     [Header("Settings")]
     [SerializeField] private Transform center;
@@ -53,7 +51,6 @@ public class PlayerController : MonoBehaviour
         interactionHandler = GetComponentInChildren<InteractionHandler>();
 
         vehicleHandler = GetComponentInChildren<VehicleHandler>();
-        itemsRenderer = GetComponentInChildren<ItemsScreenLoader>();
 
         center = GetComponentInChildren<Transform>();
     }
@@ -64,8 +61,6 @@ public class PlayerController : MonoBehaviour
         {
             EnableGameInput();
         }
-
-        EnableUIInput();
     }
 
     private void OnDisable()
@@ -76,8 +71,6 @@ public class PlayerController : MonoBehaviour
         {
             DisableGameInput();
         }
-
-        DisableUIInput();
     }
 
     private void Awake()
@@ -94,7 +87,6 @@ public class PlayerController : MonoBehaviour
     private void OnDestroy()
     {
         DisableGameInput();
-        DisableUIInput();
 
         if (Run.IsNull) return;
 
@@ -149,11 +141,6 @@ public class PlayerController : MonoBehaviour
         gameInputEnabled = true;
     }
 
-    private void EnableUIInput()
-    {
-        toggleItemsMenuInput.action.performed += OnToggleItemsMenuInputPerformed;
-    }
-
     private void DisableGameInput()
     {
         moveInput.action.performed -= OnMovementInputPerformed;
@@ -176,11 +163,6 @@ public class PlayerController : MonoBehaviour
 
         entityMove.StopMoving();
         gameInputEnabled = false;
-    }
-
-    private void DisableUIInput()
-    {
-        toggleItemsMenuInput.action.performed -= OnToggleItemsMenuInputPerformed;
     }
 
     private void UpdateAimDirection()
@@ -219,11 +201,6 @@ public class PlayerController : MonoBehaviour
     private void OnExitVehicleInputPerformed(InputAction.CallbackContext context)
     {
         vehicleHandler.ExitVehicle();
-    }
-
-    private void OnToggleItemsMenuInputPerformed(InputAction.CallbackContext context)
-    {
-        itemsRenderer.ToggleMenuVisibility();
     }
 }
 

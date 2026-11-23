@@ -844,6 +844,28 @@ MonoBehaviour:
     <Canceled>k__BackingField:
       m_PersistentCalls:
         m_Calls: []
+  - <Input>k__BackingField: {fileID: 4329412348586097452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    <Started>k__BackingField:
+      m_PersistentCalls:
+        m_Calls: []
+    <Performed>k__BackingField:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 859477289}
+          m_TargetAssemblyTypeName: Zeke.UI.UIWindow, Assembly-CSharp
+          m_MethodName: ToggleGraphicVisibility
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    <Canceled>k__BackingField:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &580556317
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,6 +1242,17 @@ Transform:
   - {fileID: 580556318}
   m_Father: {fileID: 647422456}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &859477289 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4128295981150954586, guid: 58a162b374754a54abede138ee783961, type: 3}
+  m_PrefabInstance: {fileID: 372597462}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fdbe9d31f432bc4983a02d617dbbb4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
 --- !u!1001 &899589811
 PrefabInstance:
   m_ObjectHideFlags: 0
