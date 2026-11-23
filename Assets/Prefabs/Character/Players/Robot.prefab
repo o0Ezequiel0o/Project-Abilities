@@ -64,6 +64,22 @@ PrefabInstance:
       propertyPath: <StartAbilities>k__BackingField.Array.data[3].value
       value: 
       objectReference: {fileID: 11400000, guid: 5bd5108ae1ad32a4b8d042d01101881a, type: 2}
+    - target: {fileID: 3304897291584582472, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 895e22e85097d1342a8ab6434ae944ad, type: 3}
+    - target: {fileID: 3304897291584582472, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3304897291584582472, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3304897291584582472, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3494898662879718562, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: <MoveSpeed>k__BackingField.baseValue
       value: 3.5

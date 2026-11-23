@@ -677,7 +677,6 @@ MonoBehaviour:
   abilityController: {fileID: 2688288251930177549}
   interactionHandler: {fileID: 3315950687603881688}
   vehicleHandler: {fileID: 6380266063980628222}
-  itemsRenderer: {fileID: 0}
   center: {fileID: 4369443556788299361}
   moveInput: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   primaryInput: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
