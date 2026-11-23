@@ -34,11 +34,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581127942586707295, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_Name
-      value: Sniper Enemy
+      value: Sniper
       objectReference: {fileID: 0}
     - target: {fileID: 5082486445563014789, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.85
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5082486445563014789, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_LocalPosition.x
@@ -81,13 +81,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5750615414019374036, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5750615414019374036, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
-      propertyPath: m_Color.g
-      value: 0.09019608
-      objectReference: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f6a5be1c95c2e484ba21d20705d59719, type: 3}
     - target: {fileID: 5782451048418697692, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -104,6 +100,10 @@ PrefabInstance:
       propertyPath: <StartAbilities>k__BackingField.Array.data[0].value
       value: 
       objectReference: {fileID: 11400000, guid: e08f8d983b17c914db1b18725148c4db, type: 2}
+    - target: {fileID: 7341995651351558490, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
+      propertyPath: m_Radius
+      value: 0.45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
