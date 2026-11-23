@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2107933409094834315, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2688288251930177549, guid: e74d625c79252ae49ae83c51e3805e32, type: 3}
       propertyPath: setAbilities.Array.size
