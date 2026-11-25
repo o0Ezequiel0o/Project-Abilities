@@ -12,10 +12,6 @@ PrefabInstance:
       propertyPath: separationDistance
       value: 1.5
       objectReference: {fileID: 0}
-    - target: {fileID: 374481338656721502, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
-      propertyPath: 'spriteRenderers.Array.data[1]'
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 842629725209027823, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: deathRewardsData
       value: 
