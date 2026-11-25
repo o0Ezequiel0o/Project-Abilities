@@ -53,7 +53,7 @@ public class DamageableFlash : MonoBehaviour
     }
 
     private void StartFlash(Damageable.IDealtDamageEvent _) => StartFlash();
-    private void StartFlash(Damageable.IHitEvent _) => StartFlash();
+    private void StartFlash(Damageable.IHitDamageEvent _) => StartFlash();
 
     private void StartFlash()
     {

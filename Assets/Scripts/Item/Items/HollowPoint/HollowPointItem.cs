@@ -41,7 +41,7 @@ namespace Zeke.Items
             damageEvent.Multiplier.ApplyFlatModifier(data.FlatMultDamage.GetValue(stacks));
         }
 
-        private void OnHit(Damageable.IHitEvent damageEvent)
+        private void OnHit(Damageable.IHitDamageEvent damageEvent)
         {
             if (damageEvent.Receiver.gameObject == source) return;
             damageEvent.FlatAccumulator += data.FlatDamage.GetValue(stacks);

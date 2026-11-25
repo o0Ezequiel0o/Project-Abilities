@@ -38,7 +38,7 @@ namespace Zeke.Items
             }
         }
 
-        private void OnHit(Damageable.IHitEvent damageEvent)
+        private void OnHit(Damageable.IHitDamageEvent damageEvent)
         {
             if (!HasRequiredComponents) return;
             if (damageEvent.Receiver.gameObject == source) return;

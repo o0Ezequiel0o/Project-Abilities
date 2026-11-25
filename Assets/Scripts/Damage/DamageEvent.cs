@@ -4,7 +4,7 @@ using Zeke.Items;
 
 public partial class Damageable
 {
-    public class DamageEvent : IDamageEvent, IDealtDamageEvent, IDealDamageEvent, IKillEvent, IHitEvent
+    public class DamageEvent : IDamageEvent, IDealtDamageEvent, IDealDamageEvent, IKillEvent, IHitDamageEvent
     {
         // Context
         public Damageable Receiver { get; private set; }
@@ -91,9 +91,9 @@ public partial class Damageable
         {
             try
             {
-                isDamageEventListener = SourceUser != null && SourceUser.TryGetComponent(out damageEventListener);
-
                 if (Receiver == null || !Receiver.IsAlive || Receiver.MarkedForDeath) return;
+
+                isDamageEventListener = SourceUser != null && SourceUser.TryGetComponent(out damageEventListener);      
 
                 Receiver.onDamageEvent?.Invoke(this);
 
@@ -244,9 +244,9 @@ public partial class Damageable
         // Results & State
         public readonly float healthDamageDealt;
         public readonly float shieldDamageDealt;
-        public float OverflowDamage => Mathf.Max(0f, damage - DamageDealt);
-        public float DamageDealt => healthDamageDealt + shieldDamageDealt;
-        public float UncappedDamageDealt => DamageDealt + OverflowDamage;
+        public readonly float overflowDamage;
+        public readonly float damageDealt;
+        public readonly float uncappedDamageDealt;
 
         // Output
         public readonly bool destroyedShield;
@@ -275,6 +275,10 @@ public partial class Damageable
             this.shieldDamageDealt = shieldDamageDealt;
             this.destroyedShield = destroyedShield;
             this.deathBlow = deathBlow;
+
+            damageDealt = healthDamageDealt + shieldDamageDealt;
+            overflowDamage = Mathf.Max(0f, damage - damageDealt);
+            uncappedDamageDealt = damageDealt + overflowDamage;
         }
     }
 }

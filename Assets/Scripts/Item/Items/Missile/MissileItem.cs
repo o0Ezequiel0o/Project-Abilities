@@ -40,7 +40,7 @@ namespace Zeke.Items
             missilePool.Clear();
         }
 
-        private void OnHit(Damageable.IHitEvent damageEvent)
+        private void OnHit(Damageable.IHitDamageEvent damageEvent)
         {
             if (!RollProc(data.ProcChance, damageEvent.ProcCoefficient, itemHandler.Luck.ValueInt)) return;
             if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;

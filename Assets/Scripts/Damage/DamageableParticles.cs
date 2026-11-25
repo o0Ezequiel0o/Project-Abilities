@@ -45,7 +45,7 @@ public class DamageableParticles : MonoBehaviour
         SpawnParticles(ParticleTrigger.Damage);
     }
 
-    private void OnHitTaken(Damageable.IHitEvent _)
+    private void OnHitTaken(Damageable.IHitDamageEvent _)
     {
         SpawnParticles(ParticleTrigger.Hit);
     }

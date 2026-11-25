@@ -39,16 +39,19 @@ public partial class Damageable : MonoBehaviour, IUpgradable
     public bool IsAlive { get; private set; }
     public bool MarkedForDeath { get; private set; }
 
-    public readonly OrderedAction<HealEvent> onReceiveHealth = new OrderedAction<HealEvent>();
-    public readonly OrderedAction<HealEvent> onReceivedHealth = new OrderedAction<HealEvent>();
-
     /// <summary> Called when hit, before any condition. </summary>
     public readonly OrderedAction<DamageEvent> onDamageEvent = new OrderedAction<DamageEvent>();
+    /// <summary> Called when healed, before any condition. </summary>
+    public readonly OrderedAction<HealEvent> onHealEvent = new OrderedAction<HealEvent>();
 
     public readonly OrderedAction<IDealDamageEvent> onTakeDamage = new OrderedAction<IDealDamageEvent>();
     public readonly OrderedAction<IDealtDamageEvent> onTakenDamage = new OrderedAction<IDealtDamageEvent>();
+    public readonly OrderedAction<IHealHealthEvent> onReceiveHealth = new OrderedAction<IHealHealthEvent>();
+    public readonly OrderedAction<IHealedHealthEvent> onReceivedHealth = new OrderedAction<IHealedHealthEvent>();
 
-    public readonly OrderedAction<IHitEvent> onHitTaken = new OrderedAction<IHitEvent>();
+    public readonly OrderedAction<IHitDamageEvent> onHitTaken = new OrderedAction<IHitDamageEvent>();
+    public readonly OrderedAction<IHitHealEvent> onHealHitTaken = new OrderedAction<IHitHealEvent>();
+
     public readonly OrderedAction<IKillEvent> onDeath = new OrderedAction<IKillEvent>();
 
     public Action<Damageable> onDespawn;
@@ -167,13 +170,13 @@ public partial class Damageable : MonoBehaviour, IUpgradable
 
     private float CalculateDamage(DamageEvent damageEvent)
     {
-        float damage = Mathf.Max(0, (damageEvent.Damage + damageEvent.FlatAccumulator) * damageEvent.Multiplier.Value);
+        float damage = Mathf.Max(0f, (damageEvent.Damage + damageEvent.FlatAccumulator) * damageEvent.Multiplier.Value);
         return CalculateDamage(damage, damageEvent.ArmorPenetration);
     }
 
     private float CalculateHealing(HealEvent healingEvent)
     {
-        float healing = Mathf.Max(0, (healingEvent.Healing + healingEvent.FlatAccumulator) * healingEvent.Multiplier.Value);
+        float healing = Mathf.Max(0f, (healingEvent.Healing + healingEvent.FlatAccumulator) * healingEvent.Multiplier.Value);
         return CalculateHealing(healing);
     }
 

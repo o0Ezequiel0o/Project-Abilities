@@ -53,7 +53,7 @@ public class DamageableNumbers : MonoBehaviour
         UpdateCurrentOffset(currentYoffset - yLower);
     }
 
-    private void DisplayHealNumber(Damageable.HealEvent healEvent)
+    private void DisplayHealNumber(Damageable.IHealedHealthEvent healEvent)
     {
         Vector2 spawnOffset = new Vector2(Random.Range(-xRandom, xRandom), currentYoffset);
 
