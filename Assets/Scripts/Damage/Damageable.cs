@@ -106,25 +106,25 @@ public partial class Damageable : MonoBehaviour, IUpgradable
         return damageEvent;
     }
 
-    public HealEvent GiveHealing(HealInfo healInfo)
+    public IHealEvent GiveHealing(HealInfo healInfo)
     {
         return GiveHealing(DamageableEventPool.Instance.GetHeal(healInfo, null, null, null, new List<ItemData>()));
     }
 
-    public HealEvent GiveHealing(HealInfo healInfo, GameObject sourceUser, GameObject sourceObject)
+    public IHealEvent GiveHealing(HealInfo healInfo, GameObject sourceUser, GameObject sourceObject)
     {
         return GiveHealing(DamageableEventPool.Instance.GetHeal(healInfo, this, sourceUser, sourceObject, new List<ItemData>()));
     }
 
-    public HealEvent GiveHealing(HealInfo healInfo, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
+    public IHealEvent GiveHealing(HealInfo healInfo, GameObject sourceUser, GameObject sourceObject, List<ItemData> procChain)
     {
         return GiveHealing(DamageableEventPool.Instance.GetHeal(healInfo, this, sourceUser, sourceObject, procChain));
     }
 
-    public HealEvent GiveHealing(HealEvent healingEvent)
+    public IHealEvent GiveHealing(HealEvent HealEvent)
     {
-        healingEvent.Execute();
-        return healingEvent;
+        HealEvent.Execute();
+        return HealEvent;
     }
 
     public void GiveShield(float shields, GameObject sourceUser, GameObject sourceObject)
