@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f7f6eb3c69c5d44aa5fc6af4598fd6, type: 3}
   m_Name: Robot
   m_EditorClassIdentifier: Assembly-CSharp::Spawnable
-  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 895e22e85097d1342a8ab6434ae944ad, type: 3}
   <Name>k__BackingField: Robot
   <Description>k__BackingField: The absolute pinnacle of military engineering, Model X-77 is an advanced combat unit built to purge battlefield threats with efficiency. It obliterates frontline forces with a high-intensity <b>laser beam</b>, <b>electrocutes</b> anything that dares close the distance, and launches heavy anti-armor <b>missiles</b> to shatter fortified vehicles.
   <DurabilityRating>k__BackingField: 50

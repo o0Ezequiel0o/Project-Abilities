@@ -1,40 +1,162 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zeke.Collections;
 using Zeke.Items;
-
-using static Stat;
+using System;
 
 public partial class Damageable : MonoBehaviour, IUpgradable
 {
-    [field: Header("Global Settings")]
-    [field: SerializeField] public DamageableSettings Settings { get; private set; }
+    [field: Header("Settings")]
+    [field: SerializeField] public HealthTypeData HealthType { get; private set; }
+    [field: SerializeField] public HealthTypeData ShieldTempPatch { get; private set; }
 
     [field: Header("Stats")]
-    [field: SerializeField] public Stat MaxHealth { get; private set; }
-    [field: SerializeField] public Stat MaxShield { get; private set; }
-    [field: SerializeField] public Stat HealthRegen { get; private set; }
-    [field: SerializeField] public Stat ShieldRegen { get; private set; }
     [field: SerializeField] public Stat Armor { get; private set; }
-    [field: Space]
     [field: SerializeField] public Stat DamageReceivedMultiplier { get; private set; }
-    [field: SerializeField] public Stat HealingReceivedMultiplier { get; private set; }
-    [field: SerializeField] public Stat ShieldReceivedMultiplier { get; private set; }
+    [SerializeField] private List<HealthType> healthTypes;
+
+    public float CombinedHealth
+    {
+        get
+        {
+            float total = 0f;
+
+            for (int i = 0; i < healthTypes.Count; i++)
+            {
+                total += healthTypes[i].Value;
+            }
+
+            return total;
+        }
+    }
 
     public float Health
     {
-        get => _health;
-        set => _health = Mathf.Clamp(value, 0f, MaxHealth.Value);
+        get
+        {
+            for (int i = 0; i < healthTypes.Count; i++)
+            {
+                if (healthTypes[i].Type == HealthType)
+                {
+                    return healthTypes[i].Value;
+                }
+            }
+
+            return 0f;
+        }
     }
 
     public float Shield
     {
-        get => _shield;
-        set => _shield = Mathf.Clamp(value, 0f, MaxShield.Value);
+        get
+        {
+            for (int i = 0; i < healthTypes.Count; i++)
+            {
+                if (healthTypes[i].Type == ShieldTempPatch)
+                {
+                    return healthTypes[i].Value;
+                }
+            }
+
+            return 0f;
+        }
     }
 
-    public float CombinedHealth => Health + Shield;
+    public Stat MaxHealth
+    {
+        get
+        {
+            for (int i = 0; i < healthTypes.Count; i++)
+            {
+                if (healthTypes[i].Type == HealthType)
+                {
+                    return healthTypes[i].Max;
+                }
+            }
+
+            return null;
+        }
+    }
+
+    public Stat MaxShield
+    {
+        get
+        {
+            for (int i = 0; i < healthTypes.Count; i++)
+            {
+                if (healthTypes[i].Type == ShieldTempPatch)
+                {
+                    return healthTypes[i].Max;
+                }
+            }
+
+            return null;
+        }
+    }
+
+    public Stat HealthRegen
+    {
+        get
+        {
+            for (int i = 0; i < healthTypes.Count; i++)
+            {
+                if (healthTypes[i].Type == HealthType)
+                {
+                    return healthTypes[i].Regen;
+                }
+            }
+
+            return null;
+        }
+    }
+
+    public Stat ShieldRegen
+    {
+        get
+        {
+            for (int i = 0; i < healthTypes.Count; i++)
+            {
+                if (healthTypes[i].Type == ShieldTempPatch)
+                {
+                    return healthTypes[i].Regen;
+                }
+            }
+
+            return null;
+        }
+    }
+
+    public Stat HealingReceivedMultiplier
+    {
+        get
+        {
+            for (int i = 0; i < healthTypes.Count; i++)
+            {
+                if (healthTypes[i].Type == HealthType)
+                {
+                    return healthTypes[i].ReceivedMultiplier;
+                }
+            }
+
+            return null;
+        }
+    }
+
+    public Stat ShieldReceivedMultiplier
+    {
+        get
+        {
+            for (int i = 0; i < healthTypes.Count; i++)
+            {
+                if (healthTypes[i].Type == ShieldTempPatch)
+                {
+                    return healthTypes[i].ReceivedMultiplier;
+                }
+            }
+
+            return null;
+        }
+    }
 
     public bool IsAlive { get; private set; }
     public bool MarkedForDeath { get; private set; }
@@ -61,11 +183,6 @@ public partial class Damageable : MonoBehaviour, IUpgradable
 
     private readonly HashSet<ImmunitySourceID> immunitySources = new HashSet<ImmunitySourceID>();
 
-    private float _health = 0f;
-    private float _shield = 0f;
-
-    private float regenTimer = 0f;
-
     public class ImmunitySourceID { }
 
     public static float CalculateDamageReduction(float armorValue)
@@ -83,6 +200,22 @@ public partial class Damageable : MonoBehaviour, IUpgradable
         }
 
         return damageReduction;
+    }
+
+    public bool TryGetHealthType(HealthTypeData healthType, out HealthType health)
+    {
+        health = null;
+
+        for (int i = 0; i < healthTypes.Count; i++)
+        {
+            if (healthTypes[i].Type == healthType)
+            {
+                health = healthTypes[i];
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public IDamageEvent DealDamage(DamageInfo damageInfo)
@@ -127,20 +260,16 @@ public partial class Damageable : MonoBehaviour, IUpgradable
         return HealEvent;
     }
 
-    public void GiveShield(float shields, GameObject sourceUser, GameObject sourceObject)
+    public void AddHealthType(HealthTypeData healthType, Stat max, Stat regen, Stat receivedMultiplier)
     {
-        ReceiveShield(shields);
+        healthTypes.Add(new HealthType().Initialize(healthType, max, regen, receivedMultiplier));
+        healthTypes.Sort((a, b) => b.Priority.CompareTo(a.Priority));
     }
 
     public float CalculateDamage(float damage, float armorPenetration)
     {
         float damageReduction = CalculateDamageReduction(Armor.Value, armorPenetration);
         return damage * (1 - damageReduction) * DamageReceivedMultiplier.Value;
-    }
-
-    public float CalculateHealing(float healing)
-    {
-        return healing * HealingReceivedMultiplier.Value;
     }
 
     public void AddImmunitySource(ImmunitySourceID id)
@@ -155,17 +284,19 @@ public partial class Damageable : MonoBehaviour, IUpgradable
 
     public void Upgrade(int levels)
     {
-        MaxHealth.Upgrade(levels);
-        HealthRegen.Upgrade(levels);
-
-        MaxShield.Upgrade(levels);
-        ShieldRegen.Upgrade(levels);
+        for (int i = 0; i < healthTypes.Count; i++)
+        {
+            healthTypes[i].Upgrade(levels);
+        }
 
         Armor.Upgrade(levels);
-
         DamageReceivedMultiplier.Upgrade(levels);
-        HealingReceivedMultiplier.Upgrade(levels);
-        ShieldReceivedMultiplier.Upgrade(levels);
+    }
+
+    //FIX
+    private float CalculateHealing(HealEvent healEvent)
+    {
+        return 0f;
     }
 
     private float CalculateDamage(DamageEvent damageEvent)
@@ -174,81 +305,70 @@ public partial class Damageable : MonoBehaviour, IUpgradable
         return CalculateDamage(damage, damageEvent.ArmorPenetration);
     }
 
-    private float CalculateHealing(HealEvent healingEvent)
+    //Make overload for filtered one that takes a specific health type
+    private DamageTakenInfo TakeDamage(List<HealthDamageTaken> healthDamage, float damage, bool lethal)
     {
-        float healing = Mathf.Max(0f, (healingEvent.Healing + healingEvent.FlatAccumulator) * healingEvent.Multiplier.Value);
-        return CalculateHealing(healing);
-    }
+        damage = Mathf.Min(CombinedHealth, damage);
 
-    private DamageTakenInfo TakeDamage(float damage, bool lethal, bool ignoresShield)
-    {
-        float shieldDamage;
-        float healthDamage;
-
-        if (!ignoresShield)
-        {
-            damage = Mathf.Min(CombinedHealth, damage);
-
-            if (!lethal && damage >= CombinedHealth)
-            {
-                damage *= 0.999f;
-            }
-
-            float overflow = GetOverflow(damage, Shield);
-
-            shieldDamage = damage - overflow;
-            healthDamage = overflow;
-
-            Shield -= shieldDamage;
-            Health -= healthDamage;
-        }
-        else
-        {
-            damage = Mathf.Min(Health, damage);
-
-            if (!lethal && damage >= Health)
-            {
-                damage *= 0.999f;
-            }
-
-            shieldDamage = 0f;
-            healthDamage = damage;
-
-            Health -= healthDamage;
-        }
+        float currentDamage = damage;
+        float totalDamage = 0f;
 
         if (damage > 0)
         {
+            for (int i = 0; i < healthTypes.Count; i++)
+            {
+                if (healthTypes[i].Value <= 0f) continue;
+
+                //If the damage is bigger than our current health type then we get the overflow and continue iterating
+                if (currentDamage >= healthTypes[i].Value)
+                {
+                    //If that health is our life and not lethal then we reduce it enough to not kill us.
+                    if (healthTypes[i].Type == HealthType && !lethal)
+                    {
+                        currentDamage = healthTypes[i].Value * 0.999f;
+                        totalDamage += currentDamage;
+                        Debug.Log($"index at: {i}, reached life and isn't lethal, we stop here.");
+                        healthDamage.Add(new HealthDamageTaken(healthTypes[i].Type, currentDamage, false));
+
+                        break;
+                    }
+                    else
+                    {
+                        healthDamage.Add(new HealthDamageTaken(healthTypes[i].Type, healthTypes[i].Value, true));
+                        currentDamage = GetOverflow(damage, healthTypes[i].Value);
+                        totalDamage += currentDamage;
+                        healthTypes[i].Value = 0f;
+                    }
+                }
+                else //If the damage is not bigger than our current health type then we stop looping and log the current damage taken of that bar.
+                {
+                    healthDamage.Add(new HealthDamageTaken(healthTypes[i].Type, currentDamage, false));
+                    totalDamage += currentDamage;
+                    currentDamage = 0f;
+                    break;
+                }
+            }
+
             onAnyHealthUpdate?.Invoke();
         }
 
-        return new DamageTakenInfo(healthDamage, shieldDamage);
+        return new DamageTakenInfo(totalDamage, currentDamage);
     }
 
+    //FIX
     private float ReceiveHealing(float healing)
     {
-        float healthHealed = Mathf.Min(MaxHealth.Value - Health, healing);
-        Health += healthHealed;
+        //float healthHealed = Mathf.Min(MaxHealth.Value - healthTypes, healing);
+        //healthTypes += healthHealed;
 
-        if (healthHealed > 0)
-        {
-            onAnyHealthUpdate?.Invoke();
-        }
+        //if (healthHealed > 0)
+        //{
+        //    onAnyHealthUpdate?.Invoke();
+        //}
 
-        return healthHealed;
-    }
+        //return healthHealed;
 
-    private float ReceiveShield(float shields)
-    {
-        float shieldGained = Mathf.Clamp(shields, 0f, MaxShield.Value - Shield);
-        Shield += shieldGained;
-
-        if (shieldGained > 0)
-        {
-            onAnyHealthUpdate?.Invoke();
-        }
-
-        return shieldGained;
+        return 0f;
     }
 
     private float GetOverflow(float damage, float health)
@@ -258,18 +378,24 @@ public partial class Damageable : MonoBehaviour, IUpgradable
 
     private void Awake()
     {
-        Health = MaxHealth.Value;
-        Shield = MaxShield.Value;
         IsAlive = true;
-
         MarkedForDeath = false;
-        MaxHealth.onValueChanged += SyncHealth;
-        MaxShield.onValueChanged += SyncShield;
+
+        healthTypes.Sort((a, b) => b.Priority.CompareTo(a.Priority));
+
+        for (int i = 0; i < healthTypes.Count; i++)
+        {
+            healthTypes[i].SetSource(this);
+            Debug.Log($"{healthTypes[i].Type.name}: {healthTypes[i].Value} / {healthTypes[i].Max.Value}");
+        }
     }
 
     private void Update()
     {
-        UpdateRegeneration();
+        for (int i = 0; i < healthTypes.Count; i++)
+        {
+            healthTypes[i].Update();
+        }
     }
 
     private void OnDestroy()
@@ -277,63 +403,29 @@ public partial class Damageable : MonoBehaviour, IUpgradable
         onDespawn?.Invoke(this);
     }
 
-    private void SyncHealth(StatUpdate statUpdate)
+    public readonly struct DamageTakenInfo
     {
-        float healthRatio = Mathf.Clamp01(Health / statUpdate.oldValue);
-        float change = MaxHealth.Value - statUpdate.oldValue;
+        public readonly float overflowDamage;
+        public readonly float totalDamage;
 
-        if (change == 0f) return;
-
-        if (change > 0f)
+        public DamageTakenInfo(float totalDamage, float overflowDamage)
         {
-            Health += change * healthRatio;
-        }
-        else if (change < 0f && _health > MaxHealth.Value)
-        {
-            _health = MaxHealth.Value;
-        }
-
-        onAnyHealthUpdate?.Invoke();
-    }
-
-    private void SyncShield(StatUpdate statUpdate)
-    {
-        float change = MaxHealth.Value - statUpdate.oldValue;
-
-        if (change == 0f) return;
-
-        onAnyHealthUpdate?.Invoke();
-    }
-
-    private void UpdateRegeneration()
-    {
-        regenTimer += Time.deltaTime;
-
-        if (regenTimer >= Settings.RegenInterval)
-        {
-            if (Health < MaxHealth.Value)
-            {
-                Health += HealthRegen.Value * regenTimer;
-            }
-            else
-            {
-                Shield += ShieldRegen.Value * regenTimer;
-            }
-
-            onAnyHealthUpdate?.Invoke();
-            regenTimer = 0f;
+            this.totalDamage = totalDamage;
+            this.overflowDamage = overflowDamage;
         }
     }
 
-    private readonly struct DamageTakenInfo
+    public readonly struct HealthDamageTaken
     {
-        public readonly float healthDamageTaken;
-        public readonly float shieldDamageTaken;
+        public readonly HealthTypeData healthType;
+        public readonly float damageTaken;
+        public readonly bool depleted;
 
-        public DamageTakenInfo(float healthDamageTaken, float shieldDamageTaken)
+        public HealthDamageTaken(HealthTypeData healthType, float damageTaken, bool depleted)
         {
-            this.healthDamageTaken = healthDamageTaken;
-            this.shieldDamageTaken = shieldDamageTaken;
+            this.healthType = healthType;
+            this.damageTaken = damageTaken;
+            this.depleted = depleted;
         }
     }
 }

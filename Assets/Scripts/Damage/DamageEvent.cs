@@ -26,6 +26,8 @@ public partial class Damageable
         public float BaseDamage { get; private set; }
         public float Damage { get; private set; }
 
+        public float DamageDealt { get; private set; }
+
         //Modifiers
         public float FlatAccumulator { get; set; }
         public Stat Multiplier { get; private set; } = new Stat(1f, 0f, 0f, float.PositiveInfinity);
@@ -36,10 +38,6 @@ public partial class Damageable
             set => armorPenetration = value;
         }
 
-        // Results & State
-        public float HealthDamageDealt { get; private set; }
-        public float ShieldDamageDealt { get; private set; }
-
         // Output
         public bool DestroyedShield { get; private set; }
         public bool DeathBlow { get; private set; }
@@ -48,6 +46,8 @@ public partial class Damageable
 
         private DamageableEventListener damageEventListener;
         private bool isDamageEventListener = false;
+
+        private readonly List<HealthDamageTaken> healthDamageCache = new List<HealthDamageTaken>();
 
         public DamageEvent() { }
 
@@ -70,9 +70,6 @@ public partial class Damageable
             Receiver = receiver;
             SourceUser = userSource;
             SourceObject = sourceObject;
-
-            HealthDamageDealt = 0f;
-            ShieldDamageDealt = 0f;
 
             DestroyedShield = false;
             IsRejected = false;
@@ -110,11 +107,13 @@ public partial class Damageable
 
                 if (IsRejected || Damage <= 0f) return;
 
-                float damageDealt = HandleDamage();
+                DamageDealt = HandleDamage();
 
-                if (damageDealt <= 0f) return;
+                if (DamageDealt <= 0f) return;
 
-                if (!Receiver.MarkedForDeath && Receiver.Health <= 0f)
+                Receiver.TryGetHealthType(Receiver.HealthType, out HealthType life);
+
+                if (!Receiver.MarkedForDeath && life.Value <= 0f)
                 {
                     DeathBlow = true;
                     Receiver.MarkedForDeath = true;
@@ -139,35 +138,22 @@ public partial class Damageable
         public DamageEventSnapshot GetSnapshot()
         {
             return new DamageEventSnapshot(Receiver, SourceUser, SourceObject, Direction, ProcCoefficient, IsHit, IsLethal, IgnoresShield, IsRejected,
-                new List<ItemData>(ProcChainBranch), BaseDamage, Damage, FlatAccumulator, Multiplier.Value, ArmorPenetration,  HealthDamageDealt, 
-                ShieldDamageDealt, DestroyedShield, DeathBlow);
+                new List<ItemData>(ProcChainBranch), BaseDamage, Damage, FlatAccumulator, Multiplier.Value, ArmorPenetration, DestroyedShield, DeathBlow, DamageDealt);
         }
 
         private void HandleImmunityState()
         {
             IsRejected = true;
-            HealthDamageDealt = 0f;
-            ShieldDamageDealt = 0f;
         }
 
         private float HandleDamage()
         {
-            bool hadShield = Receiver.Shield > 0f;
-
             Damage = Receiver.CalculateDamage(this);
-            DamageTakenInfo damageTakenInfo = Receiver.TakeDamage(Damage, IsLethal, IgnoresShield);
 
-            HealthDamageDealt = damageTakenInfo.healthDamageTaken;
-            ShieldDamageDealt = damageTakenInfo.shieldDamageTaken;
+            healthDamageCache.Clear();
+            DamageTakenInfo damageTakenInfo = Receiver.TakeDamage(healthDamageCache, Damage, IsLethal);
 
-            float damageDealt = HealthDamageDealt + ShieldDamageDealt;
-
-            if (hadShield && Receiver.Shield <= 0f)
-            {
-                DestroyedShield = true;
-            }
-
-            return damageDealt;
+            return damageTakenInfo.totalDamage;
         }
 
         private void HandlePreDamageEvents()
@@ -243,8 +229,6 @@ public partial class Damageable
         public readonly float armorPenetration;
 
         // Results & State
-        public readonly float healthDamageDealt;
-        public readonly float shieldDamageDealt;
         public readonly float overflowDamage;
         public readonly float damageDealt;
         public readonly float uncappedDamageDealt;
@@ -255,7 +239,7 @@ public partial class Damageable
 
         public DamageEventSnapshot(Damageable receiver, GameObject sourceUser, GameObject sourceObject, Vector2 direction, float procCoefficient, bool isHit, 
             bool isLethal, bool ignoresShield, bool isRejected, List<ItemData> procChainBranch, float baseDamage, float damage, float flatAccumulator, 
-            float multiplier, float armorPenetration, float healthDamageDealt, float shieldDamageDealt, bool destroyedShield, bool deathBlow)
+            float multiplier, float armorPenetration, bool destroyedShield, bool deathBlow, float damageDealt)
         {
             this.receiver = receiver;
             this.sourceUser = sourceUser;
@@ -272,12 +256,10 @@ public partial class Damageable
             this.flatAccumulator = flatAccumulator;
             this.multiplier = multiplier;
             this.armorPenetration = armorPenetration;
-            this.healthDamageDealt = healthDamageDealt;
-            this.shieldDamageDealt = shieldDamageDealt;
             this.destroyedShield = destroyedShield;
             this.deathBlow = deathBlow;
+            this.damageDealt = damageDealt;
 
-            damageDealt = healthDamageDealt + shieldDamageDealt;
             overflowDamage = Mathf.Max(0f, damage - damageDealt);
             uncappedDamageDealt = damageDealt + overflowDamage;
         }

@@ -73,14 +73,16 @@ namespace Zeke.Items
 
             timer += Time.deltaTime;
 
-            if (timer >= damageable.Settings.RegenInterval)
-            {
-                float regen = damageable.HealthRegen.Value * timer;
-                reserveHealth = Mathf.Min(reserveHealth + regen, reserveHealthCap);
+            //TODO: fix
 
-                timer = 0f;
-                UpdateDisplayer();
-            }
+            //if (timer >= damageable.Settings.RegenInterval)
+            //{
+            //    float regen = damageable.HealthRegen.Value * timer;
+            //    reserveHealth = Mathf.Min(reserveHealth + regen, reserveHealthCap);
+
+            //    timer = 0f;
+            //    UpdateDisplayer();
+            //}
         }
 
         private void OnTakeDamage(IDealDamageEvent damageEvent)

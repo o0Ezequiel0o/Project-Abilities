@@ -65,7 +65,8 @@ namespace Zeke.Items
 
             if (timer >= data.ShieldRegenInterval)
             {
-                damageable.GiveShield(data.ShieldRegen.GetValue(stacks), source, source);
+                //TODO: FIX
+                //damageable.GiveShield(data.ShieldRegen.GetValue(stacks), source, source);
                 timer = 0f;
             }
         }

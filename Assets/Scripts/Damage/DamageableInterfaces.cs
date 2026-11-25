@@ -88,10 +88,8 @@ public partial class Damageable
         public float ArmorPenetration { get; }
 
         // Results & State
-        public float HealthDamageDealt { get; }
-        public float ShieldDamageDealt { get; }
         public float OverflowDamage => Mathf.Max(0f, Damage - DamageDealt);
-        public float DamageDealt => HealthDamageDealt + ShieldDamageDealt;
+        public float DamageDealt { get; }
         public float UncappedDamageDealt => DamageDealt + OverflowDamage;
 
         // Output
@@ -127,10 +125,8 @@ public partial class Damageable
         public float ArmorPenetration { get; }
 
         // Results & State
-        public float HealthDamageDealt { get; }
-        public float ShieldDamageDealt { get; }
         public float OverflowDamage => Mathf.Max(0f, Damage - DamageDealt);
-        public float DamageDealt => HealthDamageDealt + ShieldDamageDealt;
+        public float DamageDealt { get; }
         public float UncappedDamageDealt => DamageDealt + OverflowDamage;
 
         // Output
@@ -166,10 +162,8 @@ public partial class Damageable
         public float ArmorPenetration { get; }
 
         // Results & State
-        public float HealthDamageDealt { get; }
-        public float ShieldDamageDealt { get; }
         public float OverflowDamage => Mathf.Max(0f, Damage - DamageDealt);
-        public float DamageDealt => HealthDamageDealt + ShieldDamageDealt;
+        public float DamageDealt { get; }
         public float UncappedDamageDealt => DamageDealt + OverflowDamage;
 
         // Output

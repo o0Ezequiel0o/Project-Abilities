@@ -443,31 +443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e810a262e810dbd4187a6b07b89d52b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Settings>k__BackingField: {fileID: 11400000, guid: c03ba7e5c27cbc34e8f85743214d536b, type: 2}
-  <MaxHealth>k__BackingField:
-    baseValue: 100
-    increase: 25
-    valueLimits:
-      min: 0
-      max: Infinity
-  <MaxShield>k__BackingField:
-    baseValue: 0
-    increase: 0
-    valueLimits:
-      min: -Infinity
-      max: Infinity
-  <HealthRegen>k__BackingField:
-    baseValue: 0
-    increase: 0
-    valueLimits:
-      min: 0
-      max: Infinity
-  <ShieldRegen>k__BackingField:
-    baseValue: 0
-    increase: 0
-    valueLimits:
-      min: -Infinity
-      max: Infinity
+  <HealthType>k__BackingField: {fileID: 11400000, guid: c48b07b8e81d3ab4db03c06f4a014510, type: 2}
+  <ShieldTempPatch>k__BackingField: {fileID: 11400000, guid: 0c0ceb24d3aa7534d9ee9b7a6d191bc6, type: 2}
   <Armor>k__BackingField:
     baseValue: 0
     increase: 0
@@ -480,18 +457,45 @@ MonoBehaviour:
     valueLimits:
       min: 0
       max: Infinity
-  <HealingReceivedMultiplier>k__BackingField:
-    baseValue: 1
-    increase: 0
-    valueLimits:
-      min: 0
-      max: Infinity
-  <ShieldReceivedMultiplier>k__BackingField:
-    baseValue: 1
-    increase: 0
-    valueLimits:
-      min: -Infinity
-      max: Infinity
+  healthTypes:
+  - <Type>k__BackingField: {fileID: 11400000, guid: c48b07b8e81d3ab4db03c06f4a014510, type: 2}
+    <Max>k__BackingField:
+      baseValue: 100
+      increase: 0
+      valueLimits:
+        min: 0
+        max: 0
+    <Regen>k__BackingField:
+      baseValue: 0
+      increase: 0
+      valueLimits:
+        min: 0
+        max: 0
+    <ReceivedMultiplier>k__BackingField:
+      baseValue: 1
+      increase: 0
+      valueLimits:
+        min: 0
+        max: 0
+  - <Type>k__BackingField: {fileID: 11400000, guid: 0c0ceb24d3aa7534d9ee9b7a6d191bc6, type: 2}
+    <Max>k__BackingField:
+      baseValue: 0
+      increase: 0
+      valueLimits:
+        min: 0
+        max: 0
+    <Regen>k__BackingField:
+      baseValue: 0
+      increase: 0
+      valueLimits:
+        min: 0
+        max: 0
+    <ReceivedMultiplier>k__BackingField:
+      baseValue: 1
+      increase: 0
+      valueLimits:
+        min: 0
+        max: 0
 --- !u!114 &2288504394844029370
 MonoBehaviour:
   m_ObjectHideFlags: 0

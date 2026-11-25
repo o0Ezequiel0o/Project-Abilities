@@ -85,8 +85,8 @@ public class HealthBarRenderer : MonoBehaviour
     {
         if (healthBar == null && !pendingHealthBar)
         {
-            oldHealth = damageable.Health + damageEvent.HealthDamageDealt;
-            oldShield = damageable.Shield + damageEvent.ShieldDamageDealt;
+            //oldHealth = damageable.Health + damageEvent.HealthDamageDealt;
+            //oldShield = damageable.Shield + damageEvent.ShieldDamageDealt;
 
             RequestHealthBar();
         }
