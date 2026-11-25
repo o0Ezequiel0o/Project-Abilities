@@ -25,7 +25,7 @@ namespace Zeke.Items
                 throw new System.Exception($"No items of {rarity} rarity, maybe core is not loaded?");
             }
 
-            return itemsOfRarity[Random.Range(0, itemsOfRarity.Count - 1)];
+            return itemsOfRarity[Random.Range(0, itemsOfRarity.Count)];
         }
 
         public void Add(List<ItemData> itemList)
