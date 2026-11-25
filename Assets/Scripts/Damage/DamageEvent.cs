@@ -17,6 +17,7 @@ public partial class Damageable
         public bool IsHit { get; private set; }
         public bool IsLethal { get; private set; }
         public bool IgnoresShield { get; private set; }
+        public bool IsRejected { get; set; }
 
         // Data
         public List<ItemData> ProcChainBranch { get; private set; } = new List<ItemData>();
@@ -39,9 +40,9 @@ public partial class Damageable
         public float HealthDamageDealt { get; private set; }
         public float ShieldDamageDealt { get; private set; }
 
+        // Output
         public bool DestroyedShield { get; private set; }
         public bool DeathBlow { get; private set; }
-        public bool IsRejected { get; set; }
 
         private float armorPenetration = 0f;
 

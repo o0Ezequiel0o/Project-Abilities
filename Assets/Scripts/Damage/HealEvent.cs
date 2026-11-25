@@ -15,6 +15,7 @@ public partial class Damageable
 
         // Flags
         public bool IsHit { get; private set; }
+        public bool IsRejected { get; set; }
 
         // Data
         public List<ItemData> ProcChainBranch { get; private set; } = new List<ItemData>();
@@ -29,8 +30,6 @@ public partial class Damageable
 
         // Results & State
         public float HealthHealed { get; private set; }
-
-        public bool IsRejected { get; set; }
 
         private DamageableEventListener healEventListener;
         private bool isHealEventListener = false;
