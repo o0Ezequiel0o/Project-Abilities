@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.UI.UIWindow
   graphicRoot: {fileID: 8650651368185394020}
-  defaultState: 1
+  defaultState: 0
   elements:
   - key: Layout Group
     value: {fileID: 7059007248700745855}
