@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581127942586707295, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_Name
-      value: Robot Boss
+      value: Robot
       objectReference: {fileID: 0}
     - target: {fileID: 5082486445563014789, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_LocalScale.x
@@ -91,6 +91,10 @@ PrefabInstance:
     - target: {fileID: 5082486445563014789, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5359202114343581178, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
+      propertyPath: size.x
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5750615414019374036, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_Color.b
