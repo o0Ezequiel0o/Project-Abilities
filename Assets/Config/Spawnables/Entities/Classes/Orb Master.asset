@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f7f6eb3c69c5d44aa5fc6af4598fd6, type: 3}
   m_Name: Orb Master
   m_EditorClassIdentifier: Assembly-CSharp::Spawnable
-  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: da67f43eb370b6a409bee45bdeda3d39, type: 3}
   <Name>k__BackingField: Orb Master
   <Description>k__BackingField: 
   <DurabilityRating>k__BackingField: 30
