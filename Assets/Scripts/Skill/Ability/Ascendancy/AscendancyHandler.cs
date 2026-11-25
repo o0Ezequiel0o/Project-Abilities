@@ -15,6 +15,8 @@ namespace Zeke.Abilities.Ascendancy
 
         private AbilityController controller;
 
+        private readonly HashSet<AbilityData> ascendenciesReadied = new HashSet<AbilityData>();
+
         public void ApplyAscension(AbilityData key, AscendancyData selected)
         {
             controller.ReplaceAbility(key, selected.AbilityData).Destroy();
@@ -26,10 +28,14 @@ namespace Zeke.Abilities.Ascendancy
 
             for (int i = 0; i < abilities.Count; i++)
             {
+                if (ascendenciesReadied.Contains(abilities[i].Data)) continue;
+
                 if (ascendanciesData.Elements.TryGetValue(abilities[i].Data, out AscendanceElement element))
                 {
                     if (element.RequiredLevel > levelHandler.Level) continue;
                     onAscendancyReady?.Invoke(new AscendanceElementInfo(abilities[i].Data, element));
+
+                    ascendenciesReadied.Add(abilities[i].Data);
                 }
             }
         }
