@@ -27,19 +27,14 @@ public class ModularBar : MonoBehaviour
         isDirty = true;
     }
 
-    private void OnEnable()
-    {
-        Canvas.willRenderCanvases += UpdateBarRendering;
-    }
-
-    private void OnDisable()
-    {
-        Canvas.willRenderCanvases -= UpdateBarRendering;
-    }
-
     protected virtual void Awake()
     {
         originalDelta = root.sizeDelta;
+    }
+
+    protected virtual void LateUpdate()
+    {
+        if (isDirty) UpdateBarRendering();
     }
 
     public class BarID { }
