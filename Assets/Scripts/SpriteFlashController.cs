@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SpriteFlashController : MonoBehaviour
 {
-    [SerializeField, HideInInspector] private SpriteRenderer[] spriteRenderers;
+    [SerializeField] private SpriteRenderer[] spriteRenderers;
 
     private static readonly int flashAmountID = Shader.PropertyToID("_FlashAmount");
 
@@ -21,7 +21,7 @@ public class SpriteFlashController : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    private void OnValidate()
+    private void Reset()
     {
         if (spriteRenderers == null || spriteRenderers.Length == 0)
         {
