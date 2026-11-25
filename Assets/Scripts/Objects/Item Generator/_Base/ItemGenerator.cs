@@ -117,7 +117,7 @@ namespace Zeke.Items
         private ItemData RollItem()
         {
             ItemRarity rarity = WeightedSelect.SelectElement(drops.RaritySlots).rarity;
-            return ItemRegistry.Instance.GetRandomItem(rarity);
+            return ItemRegistry.Instance.GetRandomItem(rarity, drops.Blacklist);
         }
 
         private void CreateOptionsUIWindow(List<ItemData> generatedItems, GameObject source)

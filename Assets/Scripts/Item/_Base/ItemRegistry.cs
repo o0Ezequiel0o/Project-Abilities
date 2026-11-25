@@ -16,6 +16,8 @@ namespace Zeke.Items
             { ItemRarity.Legendary, new List<ItemData>() },
         };
 
+        private readonly List<ItemData> filteredList = new List<ItemData>(256);
+
         public ItemData GetRandomItem(ItemRarity rarity)
         {
             List<ItemData> itemsOfRarity = sortedItems[rarity];
@@ -26,6 +28,33 @@ namespace Zeke.Items
             }
 
             return itemsOfRarity[Random.Range(0, itemsOfRarity.Count)];
+        }
+
+        public ItemData GetRandomItem(ItemRarity rarity, ItemBlacklist blacklist)
+        {
+            List<ItemData> itemsOfRarity = sortedItems[rarity];
+
+            if (itemsOfRarity.Count == 0)
+            {
+                throw new System.Exception($"No items of {rarity} rarity, maybe core is not loaded?");
+            }
+
+            filteredList.Clear();
+
+            foreach (ItemData item in itemsOfRarity)
+            {
+                if (!blacklist.IsBlacklisted(item))
+                {
+                    filteredList.Add(item);
+                }
+            }
+
+            if (filteredList.Count == 0)
+            {
+                throw new System.Exception($"No items of {rarity} rarity, all items ({itemsOfRarity.Count}) were blacklisted.");
+            }
+
+            return filteredList[Random.Range(0, filteredList.Count)];
         }
 
         public void Add(List<ItemData> itemList)
