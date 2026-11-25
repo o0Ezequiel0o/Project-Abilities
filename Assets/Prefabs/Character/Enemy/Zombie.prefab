@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 374481338656721502, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
+      propertyPath: 'spriteRenderers.Array.data[1]'
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 842629725209027823, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: deathRewardsData
       value: 
@@ -77,7 +81,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 3923edd6f174e124f9ffeeb3b19ef382, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5232573915153245470, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3581127942586707295, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
