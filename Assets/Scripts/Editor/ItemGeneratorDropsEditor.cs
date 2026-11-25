@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemGeneratorDropsEditor : Editor
 {
     private SerializedProperty raritySlots;
+    private SerializedProperty blackList;
 
     private GUIStyle centeredLabel;
     private GUIStyle centeredField;
@@ -13,6 +14,7 @@ public class ItemGeneratorDropsEditor : Editor
     private void OnEnable()
     {
         raritySlots = serializedObject.FindProperty("<RaritySlots>k__BackingField");
+        blackList = serializedObject.FindProperty("<Blacklist>k__BackingField");
 
         centeredLabel = new GUIStyle(EditorStyles.label)
         {
@@ -45,6 +47,11 @@ public class ItemGeneratorDropsEditor : Editor
 
     private void CreateTableHeader()
     {
+        EditorGUILayout.LabelField("Blacklist", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(blackList, GUIContent.none);
+
+        GUILayout.Space(5);
+
         EditorGUILayout.BeginHorizontal();
 
         EditorGUILayout.LabelField("Rarity", EditorStyles.boldLabel);

@@ -6,6 +6,7 @@ using System;
 [CreateAssetMenu(fileName = "Drops", menuName = "Objects/Item Generator/New Drops", order = 1)]
 public class ItemGeneratorDrops : ScriptableObject
 {
+    [field: SerializeField] public ItemBlacklist Blacklist { get; private set; }
     [field: SerializeField] public List<ItemRaritySlot> RaritySlots { get; private set; }
 
     [Serializable]

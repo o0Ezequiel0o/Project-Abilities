@@ -11,7 +11,7 @@ namespace Zeke.Items
         [field: Header("Settings")]
         [SerializeField] private ItemSettings itemSettings;
         [SerializeField] private DismantlerRewards rewards;
-        [SerializeField] private DisallowedItems disallowedItems;
+        [SerializeField] private ItemBlacklist disallowedItems;
 
         [field: Header("Visual - Object")]
         [field: SerializeField] public Sprite InteractOverlay { get; private set; }
@@ -91,7 +91,7 @@ namespace Zeke.Items
             {
                 Item item = items[i];
 
-                if (disallowedItems.IsDisallowed(item.Data)) continue;
+                if (disallowedItems.IsBlacklisted(item.Data)) continue;
 
                 UIWindow slot = Instantiate(ItemSlotWindow, root);
 

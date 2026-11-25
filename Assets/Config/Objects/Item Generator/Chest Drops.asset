@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de8fdb25a42b3c648bf35f6c5220c30a, type: 3}
   m_Name: Chest Drops
   m_EditorClassIdentifier: Assembly-CSharp::ItemGeneratorDrops
+  <Blacklist>k__BackingField: {fileID: 11400000, guid: 4aec0c6c3b3106143a451e758899ad72, type: 2}
   <RaritySlots>k__BackingField:
   - rarity: 0
     weight: 8000

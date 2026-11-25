@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Items.Dismantler
   itemSettings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   rewards: {fileID: 11400000, guid: f0acac9cc62af014fa04f1e6dfc05a46, type: 2}
-  disallowedItems: {fileID: 11400000, guid: 1452fc06b226dae4a806e1dec0603341, type: 2}
+  disallowedItems: {fileID: 11400000, guid: 943847bf937873f4eb7377c6f8a05edf, type: 2}
   <InteractOverlay>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   itemSelectionWindow: {fileID: 2304883897226500693, guid: 475fbdc63d9e40443b3939fcb37330b8, type: 3}
   ItemSlotWindow: {fileID: 747943367650387590, guid: b6c9308c3ab78124b8dbd986d5b59063, type: 3}
