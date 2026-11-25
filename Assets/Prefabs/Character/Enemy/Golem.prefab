@@ -34,11 +34,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5082486445563014789, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5082486445563014789, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5082486445563014789, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_LocalPosition.x
@@ -81,28 +81,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5750615414019374036, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5750615414019374036, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
-      propertyPath: m_Color.g
-      value: 0.050980393
-      objectReference: {fileID: 0}
-    - target: {fileID: 5750615414019374036, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
-      propertyPath: m_Color.r
-      value: 0.5764706
-      objectReference: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 616314ecff7bfdd4388f9ad99a549943, type: 3}
     - target: {fileID: 5782451048418697692, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5782451048418697692, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_Color.g
-      value: 0.050980393
+      value: 0.06666667
       objectReference: {fileID: 0}
     - target: {fileID: 5782451048418697692, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: m_Color.r
-      value: 0.5764706
+      value: 0.76470596
       objectReference: {fileID: 0}
     - target: {fileID: 6484100423389945961, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
       propertyPath: <StartAbilities>k__BackingField.Array.size
@@ -112,6 +104,14 @@ PrefabInstance:
       propertyPath: <StartAbilities>k__BackingField.Array.data[0].value
       value: 
       objectReference: {fileID: 11400000, guid: 44072412b50f13249a42c876f0eb75cd, type: 2}
+    - target: {fileID: 7341995651351558490, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
+      propertyPath: m_Radius
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8470754545782046534, guid: 924229b84bf2608459b100cba3a0e019, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7764
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
