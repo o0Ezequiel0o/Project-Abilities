@@ -14,6 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spawnable
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Zombie
+  <Description>k__BackingField: 
+  <DurabilityRating>k__BackingField: 30
+  <OffensiveRating>k__BackingField: 10
+  <DefensiveRating>k__BackingField: 0
+  <MobilityRating>k__BackingField: 0
+  <AoeRating>k__BackingField: 0
+  <EffectRating>k__BackingField: 0
   <Prefab>k__BackingField: {fileID: 8333746049575155794, guid: fbf4ee76d47732f41a39780c189d720b, type: 3}
   <MinDifficulty>k__BackingField: 0
   <MaxDifficulty>k__BackingField: Infinity

@@ -14,6 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spawnable
   <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   <Name>k__BackingField: Test
+  <Description>k__BackingField: 
+  <DurabilityRating>k__BackingField: 100
+  <OffensiveRating>k__BackingField: 100
+  <DefensiveRating>k__BackingField: 100
+  <MobilityRating>k__BackingField: 100
+  <AoeRating>k__BackingField: 100
+  <EffectRating>k__BackingField: 100
   <Prefab>k__BackingField: {fileID: 6408410254461780945, guid: b5f7255a8eaeee341a82547e16e0671d, type: 3}
   <MinDifficulty>k__BackingField: 0
   <MaxDifficulty>k__BackingField: Infinity
