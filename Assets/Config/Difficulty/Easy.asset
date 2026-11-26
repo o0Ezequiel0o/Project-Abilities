@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8e62384147eae458987b2764a058be, type: 3}
   m_Name: Easy
   m_EditorClassIdentifier: Assembly-CSharp::GameDifficulty
-  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: cc97c33b0a5f30248867e9552f6177ec, type: 3}
   <Name>k__BackingField: Easy
   <Description>k__BackingField: Less enemies, enemies spawn less often and are weaker and prices scale slower. Recommended for new gamers and players new to the genre.
   <Color>k__BackingField: {r: 0.3066038, g: 1, b: 0.3528301, a: 1}
   <StartingDifficulty>k__BackingField: 0
   <DifficultyScaleRate>k__BackingField: 0.018
   <DifficultyRampUp>k__BackingField: 0
+  <DifficultyPerLevel>k__BackingField: 3
   <PriceScalePerSecond>k__BackingField: 0.002

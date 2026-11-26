@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8e62384147eae458987b2764a058be, type: 3}
   m_Name: No Scaling
   m_EditorClassIdentifier: Assembly-CSharp::GameDifficulty
-  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: c4a3e64c41fdf654abad10e68c28a1bd, type: 3}
   <Name>k__BackingField: No Scaling
   <Description>k__BackingField: No Scaling, enemy level, prices and spawn credits will stay exactly the same during the whole run (unless i forgot to change the difficulty ramp when passing a stage). Makes the game very easy why would you even do this?
   <Color>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
   <StartingDifficulty>k__BackingField: 0
   <DifficultyScaleRate>k__BackingField: 0
   <DifficultyRampUp>k__BackingField: 0
+  <DifficultyPerLevel>k__BackingField: 3
   <PriceScalePerSecond>k__BackingField: 0
