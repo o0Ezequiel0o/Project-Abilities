@@ -19,7 +19,7 @@ public class LevelSpawnableSpawner : MonoBehaviour
 
     [SerializeField] private List<Spawnable> whitelist;
 
-    private readonly List<Spawnable> spawnables;
+    private readonly List<Spawnable> spawnables = new List<Spawnable>();
 
     private readonly Dictionary<CachedSpawnableData, Spawnable> cachedSpawnablesRef = new Dictionary<CachedSpawnableData, Spawnable>();
     private readonly List<CachedSpawnableData> cachedSpawnables = new List<CachedSpawnableData>();
