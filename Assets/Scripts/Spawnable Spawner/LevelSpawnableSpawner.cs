@@ -43,9 +43,10 @@ public class LevelSpawnableSpawner : MonoBehaviour
     public void WhitelistSpawnable(Spawnable spawnable)
     {
         whitelist.Add(spawnable);
+        EnemyRegistry.Instance.FilterSpawnables(spawnables, whitelist, EnemyRegistry.Filter.Whitelist);
     }
 
-    public void WhitelistSpawnable(List<Spawnable> spawnables)
+    public void WhitelistSpawnables(List<Spawnable> spawnables)
     {
         for (int i = 0; i < spawnables.Count; i++)
         {
