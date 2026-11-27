@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0, g: 0.112401485, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -154,11 +154,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemShrine
   itemSettings: {fileID: 11400000, guid: 3a3b8f095357ef042ba887c77b7cf282, type: 2}
   drops: {fileID: 11400000, guid: dbdc7ca8d8345a14c9e896a8898da446, type: 2}
-  <InteractOverlay>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <InteractOverlay>k__BackingField: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   itemSelectionWindow: {fileID: 5283664177091368193, guid: 15b69a7c7671b5f43bdee276a4731e4a, type: 3}
   itemOptionWindow: {fileID: 6831720364878063803, guid: 089f68913f42ad848ba1bde62a68f74d, type: 3}
   <Name>k__BackingField: Item Shrine (Greed)
-  <Icon>k__BackingField: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  <Icon>k__BackingField: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   baseCost: 10
   options: 1
   optionAppearDuration: 0.2
