@@ -44,7 +44,7 @@ namespace Zeke.Items
 
         private readonly Run.PauseID pauseID = new Run.PauseID();
 
-        private bool interactionEnabled = true;
+        private bool selectionEnabled = false;
 
         public abstract bool CanSelect(GameObject source);
 
@@ -128,7 +128,16 @@ namespace Zeke.Items
             for (int i = 0; i < generatedItems.Count; i++)
             {
                 UIWindow window = CreateItemOptionUIWindow(layoutGroupRoot.transform, generatedItems[i], source);
-                PlayOptionAppearAnimation(window.gameObject, optionAppearDuration * i);
+                bool lastOption = i == generatedItems.Count - 1;
+
+                if (lastOption)
+                {
+                    PlayOptionAppearAnimation(window.gameObject, optionAppearDuration * i, () => selectionEnabled = true);
+                }
+                else
+                {
+                    PlayOptionAppearAnimation(window.gameObject, optionAppearDuration * i);
+                }
                 spawnedOptionWindows.Add(window);
             }
 
@@ -152,9 +161,9 @@ namespace Zeke.Items
 
         private void OnOptionSelected(GameObject source, ItemData generatedItem, UIWindow selectedWindow)
         {
-            if (!interactionEnabled) return;
+            if (!selectionEnabled) return;
 
-            interactionEnabled = false;
+            selectionEnabled = false;
 
             if (source.TryGetComponent(out ItemHandler itemHandler))
             {
@@ -189,12 +198,18 @@ namespace Zeke.Items
             if (windowInstance != null)
             {
                 windowInstance.DestroyWindow();
+                spawnedOptionWindows.Clear();
             }
 
             Run.Instance.Unpause(pauseID);
         }
 
         private void PlayOptionAppearAnimation(GameObject window, float delay)
+        {
+            PlayOptionAppearAnimation(window, delay, null);
+        }
+
+        private void PlayOptionAppearAnimation(GameObject window, float delay, Action callback)
         {
             RectTransform rectTransform = window.GetComponent<RectTransform>();
             CanvasGroup canvasGroup = window.GetComponent<CanvasGroup>();
@@ -204,7 +219,8 @@ namespace Zeke.Items
 
             Sequence.Create(useUnscaledTime: true)
                 .Group(Tween.Scale(rectTransform, startValue: Vector3.one * 0.1f, endValue: Vector3.one, duration: optionAppearDuration, ease: Ease.OutBack, startDelay: delay))
-                .Group(Tween.Alpha(canvasGroup, startValue: 0f, endValue: 1f, duration: 0.15f, ease: Ease.OutSine, startDelay: delay));
+                .Group(Tween.Alpha(canvasGroup, startValue: 0f, endValue: 1f, duration: 0.15f, ease: Ease.OutSine, startDelay: delay))
+                .ChainCallback(() => callback?.Invoke());
         }
 
         private void PlayOptionDisappearAnimation(GameObject window)

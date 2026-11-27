@@ -6,7 +6,7 @@ public class ItemShrine : ItemGenerator
 {
     [Header("Shrine")]
     [SerializeField] private int maxRewards = 3;
-    [SerializeField, Range(0, 100)] private int rollNothingChange;
+    [SerializeField, Range(0, 100)] private int rollNothingChance;
 
     [Header("Despawn")]
     [SerializeField] private float fadeAwaySeconds;
@@ -58,7 +58,7 @@ public class ItemShrine : ItemGenerator
 
     private void Use(GameObject source)
     {
-        bool giveReward = Random.Range(1, 100) > rollNothingChange;
+        bool giveReward = Random.Range(1, 100) > rollNothingChance;
 
         if (giveReward)
         {

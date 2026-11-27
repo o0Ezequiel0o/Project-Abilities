@@ -163,5 +163,5 @@ MonoBehaviour:
   options: 1
   optionAppearDuration: 0.2
   maxRewards: 3
-  rollNothingChange: 60
+  rollNothingChance: 60
   fadeAwaySeconds: 1
