@@ -114,7 +114,7 @@ public class MapGenerator : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if (!drawGizmos || !Application.isPlaying) return;
+        if (!drawGizmos || !Application.isPlaying && graph != null) return;
         graph.DrawGizmos();
     }
 
