@@ -1,0 +1,276 @@
+using System.Collections.Generic;
+using UnityEngine;
+using Zeke.GlobalEventsBus;
+
+public class LevelSpawnableSpawner : MonoBehaviour
+{
+    [Header("Settings")]
+    [SerializeField] private float startingPoints = 1f;
+
+    [Header("Points per Second")]
+    [SerializeField] private float basePointGeneration = 1f;
+    [SerializeField] private float pointGenerationDifficultyRatio = 0f;
+
+    [Header("Spawning")]
+    [SerializeField] private int maxAliveSpawnables = 1000;
+    [SerializeField] private List<Spawnpoint> spawnpoints;
+
+    [Space]
+
+    [SerializeField] private List<Spawnable> whitelist;
+
+    private readonly List<Spawnable> spawnables;
+
+    private readonly Dictionary<CachedSpawnableData, Spawnable> cachedSpawnablesRef = new Dictionary<CachedSpawnableData, Spawnable>();
+    private readonly List<CachedSpawnableData> cachedSpawnables = new List<CachedSpawnableData>();
+    private readonly List<GameObject> aliveSpawnables = new List<GameObject>();
+
+    private readonly List<Spawnpoint> tempSpawnpoints = new List<Spawnpoint>();
+
+    private bool processingSpawnpoints = false;
+    private float currentPoints = 0;
+
+    public void DestroySpawnedSpawnables()
+    {
+        for (int i = 0; i < aliveSpawnables.Count; i++)
+        {
+            Destroy(aliveSpawnables[i]);
+        }
+
+        aliveSpawnables.Clear();
+    }
+
+    public void WhitelistSpawnable(Spawnable spawnable)
+    {
+        whitelist.Add(spawnable);
+    }
+
+    public void WhitelistSpawnable(List<Spawnable> spawnables)
+    {
+        for (int i = 0; i < spawnables.Count; i++)
+        {
+            whitelist.Add(spawnables[i]);
+        }  
+    }
+
+    private void Start()
+    {
+        EnemyRegistry.Instance.FilterSpawnables(spawnables, whitelist, EnemyRegistry.Filter.Whitelist);
+        FilterSpawnablesByDifficulty();
+        currentPoints = startingPoints;
+    }
+
+    private void Update()
+    {
+        UpdatePoints();
+        UpdateSpawning();
+    }
+
+    private void UpdatePoints()
+    {
+        float points = (basePointGeneration + pointGenerationDifficultyRatio * Run.Instance.Difficulty) * Time.deltaTime;
+        currentPoints += points;
+    }
+
+    private void UpdateSpawning()
+    {
+        if (processingSpawnpoints) return;
+        if (aliveSpawnables.Count >= maxAliveSpawnables) return;
+
+        float debt = Mathf.Max(currentPoints * -1f, 0f);
+
+        if (debt > 0f) return;
+
+        FilterSpawnablesByDifficulty();
+
+        if (cachedSpawnables.Count <= 0)
+        {
+            if (spawnables.Count > 0)
+            {
+                Debug.LogWarning("No valid spawnables");
+            }
+
+            return;
+        }
+
+        SpawnSpawnable(WeightedSelect.SelectElement(cachedSpawnables));
+    }
+
+    private void SpawnSpawnable(CachedSpawnableData cachedSpawnable)
+    {
+        processingSpawnpoints = true;
+
+        tempSpawnpoints.Clear();
+        tempSpawnpoints.AddRange(cachedSpawnable.Spawnpoints);
+
+        ProcessNextSpawnpoint(cachedSpawnable);
+    }
+
+    private void ProcessNextSpawnpoint(CachedSpawnableData spawnable)
+    {
+        Spawnpoint spawnpoint = WeightedSelect.SelectElement(tempSpawnpoints);
+
+        if (spawnpoint == null)
+        {
+            Debug.LogWarning("There are no avaible spawnpoints");
+        }
+        else
+        {
+            spawnpoint.ProcessBlockedState((blocked) => OnSpawnPointProcessed(spawnable, spawnpoint, blocked));
+        }
+    }
+
+    private void OnSpawnPointProcessed(CachedSpawnableData spawnable, Spawnpoint spawnpoint, bool blocked)
+    {
+        tempSpawnpoints.Remove(spawnpoint);
+
+        if (blocked)
+        {
+            if (tempSpawnpoints.Count <= 0)
+            {
+                processingSpawnpoints = false;
+                Debug.LogWarning("All avaible spawnpoints are blocked, consider adding more or the map might be full...");
+            }
+            else
+            {
+                ProcessNextSpawnpoint(spawnable);
+            }
+        }
+        else
+        {
+            SpawnSpawnable(spawnable, spawnpoint);
+            processingSpawnpoints = false;
+        }
+    }
+
+    private void SpawnSpawnable(CachedSpawnableData spawnable, Spawnpoint spawnpoint)
+    {
+        GameObject spawnableInstance = spawnpoint.Spawn(spawnable.Prefab);
+
+        if (!spawnableInstance.TryGetComponent(out DestroyEventTracker destroyEventTracker))
+        {
+            destroyEventTracker = spawnableInstance.AddComponent<DestroyEventTracker>();
+        }
+
+        destroyEventTracker.onDestroy += OnSpawnableDeath;
+        aliveSpawnables.Add(spawnableInstance);
+        currentPoints -= spawnable.Cost;
+
+        GlobalEventBus.Invoke(new SpawnableSpawnedEvent(spawnableInstance));
+    }
+
+    private void OnSpawnableDeath(GameObject spawnableInstance)
+    {
+        aliveSpawnables.Remove(spawnableInstance);
+    }
+
+    private void FilterSpawnablesByDifficulty()
+    {
+        for (int i = cachedSpawnables.Count - 1; i >= 0; i--)
+        {
+            if (Run.Instance.Difficulty > cachedSpawnables[i].MaxDifficulty)
+            {
+                RemoveCachedSpawnable(cachedSpawnables[i]);
+            }
+        }
+
+        int oldIndex = spawnables.Count;
+
+        for (int i = 0; i < oldIndex; i++)
+        {
+            if (Run.Instance.Difficulty >= spawnables[i].MinDifficulty && Run.Instance.Difficulty < spawnables[i].MaxDifficulty)
+            {
+                if (!cachedSpawnablesRef.ContainsValue(spawnables[i]))
+                {
+                    CreateCachedSpawnable(spawnables[i]);
+                }
+            }
+        }
+    }
+
+    private void CreateCachedSpawnable(Spawnable spawnable)
+    {
+        List<Spawnpoint> avaibleSpawnpoints = new List<Spawnpoint>();
+
+        for (int i = 0; i < spawnpoints.Count; i++)
+        {
+            if (spawnpoints[i].Includes(spawnable))
+            {
+                avaibleSpawnpoints.Add(spawnpoints[i]);
+            }
+        }
+
+        if (avaibleSpawnpoints.Count <= 0)
+        {
+            Debug.LogWarning($"{spawnable} does not have any valid spawnpoints", spawnable);
+        }
+        else
+        {
+            CachedSpawnableData cachedSpawnable = new CachedSpawnableData(spawnable, avaibleSpawnpoints);
+            cachedSpawnablesRef.Add(cachedSpawnable, spawnable);
+            cachedSpawnables.Add(cachedSpawnable);
+        }
+    }
+
+    private void RemoveCachedSpawnable(CachedSpawnableData cachedSpawnable)
+    {
+        cachedSpawnablesRef.Remove(cachedSpawnable);
+        cachedSpawnables.Remove(cachedSpawnable);
+    }
+
+    private class CachedSpawnableData : IWeighted
+    {
+        public IReadOnlyList<Spawnpoint> Spawnpoints => spawnpoints;
+        public GameObject Prefab => spawnable.Prefab;
+
+        public int Weight => spawnable.Weight;
+        public int Cost => spawnable.Cost;
+
+        public float MinDifficulty => spawnable.MinDifficulty;
+        public float MaxDifficulty => spawnable.MaxDifficulty;
+
+        private readonly List<Spawnpoint> spawnpoints;
+
+        private readonly int maxSpawnRollWeight;
+        private readonly Spawnable spawnable;
+
+        public CachedSpawnableData(Spawnable waveSpawnable, List<Spawnpoint> spawnpoints)
+        {
+            spawnable = waveSpawnable;
+
+            this.spawnpoints = spawnpoints;
+            maxSpawnRollWeight = GetMaxSpawnpointRollWeight();
+        }
+
+        public Spawnpoint GetRandomSpawnpoint()
+        {
+            int randomWeight = Random.Range(0, maxSpawnRollWeight);
+
+            for (int i = 0; i < spawnpoints.Count; i++)
+            {
+                if (spawnpoints[i].Weight > randomWeight)
+                {
+                    return spawnpoints[i];
+                }
+                else
+                {
+                    randomWeight -= spawnpoints[i].Weight;
+                }
+            }
+
+            return null;
+        }
+
+        private int GetMaxSpawnpointRollWeight()
+        {
+            int maxWeight = 0;
+
+            for (int i = 0; i < spawnpoints.Count; i++)
+            {
+                maxWeight += spawnpoints[i].Weight;
+            }
+
+            return maxWeight;
+        }
+    }
+}

@@ -4,6 +4,6 @@ namespace Zeke.Modding
 {
     public abstract class Mod : ScriptableObject
     {
-        public abstract void OnGameInitialization();
+        public abstract void OnRunStart();
     }
 }

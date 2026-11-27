@@ -93,5 +93,11 @@ namespace Zeke.Items
             sortedItems[item.Rarity].Remove(item);
             items.Remove(item);
         }
+
+        public enum Filter
+        {
+            Blacklist,
+            Whitelist
+        }
     }
 }

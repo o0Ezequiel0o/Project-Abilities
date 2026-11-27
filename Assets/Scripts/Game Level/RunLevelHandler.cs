@@ -4,10 +4,30 @@ using Zeke.GlobalEventsBus;
 
 public class RunLevelHandler : GameService<RunLevelHandler>
 {
-    [SerializeField] private List<GameLevel> randomStartLevel;
-
     public GameLevel CurrentLevel { get; private set; }
     public GameLevelInstance CurrentLevelInstance { get; private set; }
+
+    private readonly Dictionary<string, GameLevel> gameLevels = new Dictionary<string, GameLevel>();
+    private readonly List<string> startLevels = new List<string>();
+
+    public void AddLevel(GameLevel level)
+    {
+        if (level.StartLevel) startLevels.Add(level.ID);
+        gameLevels.Add(level.ID, level);
+    }
+
+    public void AddLevels(List<GameLevel> levels)
+    {
+        for (int i = 0; i < levels.Count; i++)
+        {
+            AddLevel(levels[i]);
+        }
+    }
+
+    public GameLevel GetLevel(string id)
+    {
+        return gameLevels.GetValueOrDefault(id);
+    }
 
     private void Awake()
     {
@@ -17,8 +37,13 @@ public class RunLevelHandler : GameService<RunLevelHandler>
 
     private void Start()
     {
-        GameLevel startLevel = randomStartLevel[Random.Range(0, randomStartLevel.Count)];
-        LoadLevel(startLevel);
+        if (startLevels.Count == 0) Debug.LogWarning("No start levels loaded.");
+        else
+        {
+            string randomStartLevelID = startLevels[Random.Range(0, startLevels.Count)];
+            GameLevel startLevel = gameLevels[randomStartLevelID];
+            LoadLevel(startLevel);
+        }
     }
 
     private void OnDestroy()
@@ -32,7 +57,7 @@ public class RunLevelHandler : GameService<RunLevelHandler>
 
     private void OnLoadLevelEvent(LoadLevelEvent @event)
     {
-        LoadNewLevel(@event.Level);
+        LoadNewLevel(@event.Level.ID);
     }
 
     private void LoadNextLevel(LoadNextLevelEvent @event)
@@ -40,10 +65,17 @@ public class RunLevelHandler : GameService<RunLevelHandler>
         LoadNewLevel(CurrentLevel.GetNextLevel());
     }
 
-    private void LoadNewLevel(GameLevel newLevel)
+    private void LoadNewLevel(string levelID)
     {
-        UnloadLevel(CurrentLevelInstance);
-        LoadLevel(newLevel);
+        if (!gameLevels.ContainsKey(levelID))
+        {
+            Debug.LogWarning($"{levelID} is not registered in {nameof(gameLevels)}. (loaded from {CurrentLevel})");
+        }
+        else
+        {
+            UnloadLevel(CurrentLevelInstance);
+            LoadLevel(gameLevels[levelID]);
+        }
     }
 
     private void UnloadLevel(GameLevelInstance level)
@@ -59,10 +91,10 @@ public class RunLevelHandler : GameService<RunLevelHandler>
 
     private void LoadLevel(GameLevel level)
     {
-        CurrentLevelInstance = Instantiate(level.Prefab, Vector3.zero, Quaternion.identity);
+        CurrentLevelInstance = level.CreateInstance();
         CurrentLevel = level;
 
-        GlobalEventBus.Invoke(new LevelLoadedEvent(CurrentLevelInstance));
+        GlobalEventBus.Invoke(new LevelLoadedEvent(CurrentLevelInstance, CurrentLevel));
         GlobalEventBus.Invoke(new LevelStartEvent());
     }
 
@@ -81,7 +113,7 @@ public class RunLevelHandler : GameService<RunLevelHandler>
 
     private void DestroyLevelSpawnables()
     {
-        SpawnableSpawner[] spawners = CurrentLevelInstance.GetComponentsInChildren<SpawnableSpawner>();
+        LevelSpawnableSpawner[] spawners = CurrentLevelInstance.GetComponentsInChildren<LevelSpawnableSpawner>();
 
         for (int i = 0; i < spawners.Length; i++)
         {
@@ -107,11 +139,13 @@ public class RunLevelHandler : GameService<RunLevelHandler>
 
     public readonly struct LevelLoadedEvent : IGlobalEvent
     {
-        public readonly GameLevelInstance level;
+        public readonly GameLevelInstance levelInstance;
+        public readonly GameLevel gameLevel;
 
-        public LevelLoadedEvent(GameLevelInstance level)
+        public LevelLoadedEvent(GameLevelInstance levelInstance, GameLevel gameLevel)
         {
-            this.level = level;
+            this.levelInstance = levelInstance;
+            this.gameLevel = gameLevel;
         }
     }
 

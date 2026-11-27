@@ -64,6 +64,6 @@ public class ClampToLevelBounds : MonoBehaviour
 
     private void OnLevelLoaded(RunLevelHandler.LevelLoadedEvent @event)
     {
-        levelInstance = @event.level;
+        levelInstance = @event.levelInstance;
     }
 }

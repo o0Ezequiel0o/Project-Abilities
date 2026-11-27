@@ -10,7 +10,7 @@ namespace Zeke.Modding
         {
             for (int i = 0; i < modLoadPreset.Mods.Count; i++)
             {
-                modLoadPreset.Mods[i].OnGameInitialization();
+                modLoadPreset.Mods[i].OnRunStart();
             }
         }
     }

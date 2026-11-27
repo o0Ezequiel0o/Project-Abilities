@@ -8,10 +8,15 @@ namespace Zeke.Modding
     public class Core : Mod
     {
         [SerializeField] private List<ItemData> items;
+        [SerializeField] private List<Spawnable> enemies;
+        [SerializeField] private List<GameLevel> levels;
 
-        public override void OnGameInitialization()
+        public override void OnRunStart()
         {
+            RunLevelHandler.Instance.AddLevels(levels);
+
             ItemRegistry.Instance.Add(items);
+            EnemyRegistry.Instance.Add(enemies);
         }
     }
 }

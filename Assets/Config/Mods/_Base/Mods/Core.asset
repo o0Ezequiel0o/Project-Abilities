@@ -73,3 +73,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6aff44e5d9b2c4543adea9ab1c38472b, type: 2}
   - {fileID: 11400000, guid: d608bfabef1ba08429d7c3fc720e6e49, type: 2}
   - {fileID: 11400000, guid: 6ef08440732f0d746af3ded5b8b6961b, type: 2}
+  enemies:
+  - {fileID: 11400000, guid: 0130a2bd164b1ac46a027e08fb0449b1, type: 2}
+  - {fileID: 11400000, guid: cac596071c18b9341ad19f552f10f929, type: 2}
+  - {fileID: 11400000, guid: d54aa131f705bb3439dd1946d60821d0, type: 2}
+  - {fileID: 11400000, guid: fdf7f94413dd14c42adafaeb0205fc27, type: 2}
+  - {fileID: 11400000, guid: bc88a756af04f3540b838903d3e092ec, type: 2}
+  - {fileID: 11400000, guid: 3338b2e8a0a6e8d43b433a4d67347372, type: 2}
+  levels:
+  - {fileID: 11400000, guid: 9debb2a85353ff247a5d1ef0de6d5627, type: 2}
