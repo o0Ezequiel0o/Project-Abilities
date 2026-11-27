@@ -727,6 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a8356527b5e594faa0bf48ea69eaac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SetAsCameraControllerTarget
+  zoomInput: {fileID: 6213697921946182944, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!114 &-549456992416598927
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -778,6 +778,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threshold: {x: 8, y: 4}
+  minZoom: 0.5
+  maxZoom: 2
 --- !u!1 &542593251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,7 +1547,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 174021539150542275, guid: e0a9a20500f69ca47b7f0f8cf07813f9, type: 3}
       propertyPath: m_overflowMode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 174021539150542275, guid: e0a9a20500f69ca47b7f0f8cf07813f9, type: 3}
       propertyPath: m_wordWrappingRatios
