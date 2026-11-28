@@ -52,6 +52,7 @@ public class SpawnableSpawner : MonoBehaviour
             destroyEventTracker = spawnableInstance.AddComponent<DestroyEventTracker>();
         }
 
+        destroyEventTracker.onDestroy += (_) => GlobalEventBus.Invoke(new SpawnableDestroyEvent(spawnableInstance));
         GlobalEventBus.Invoke(new SpawnableSpawnedEvent(spawnableInstance));
     }
 }

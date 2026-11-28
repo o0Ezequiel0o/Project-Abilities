@@ -30,16 +30,6 @@ public class LevelSpawnableSpawner : MonoBehaviour
     private bool processingSpawnpoints = false;
     private float currentPoints = 0;
 
-    public void DestroySpawnedSpawnables()
-    {
-        for (int i = 0; i < aliveSpawnables.Count; i++)
-        {
-            Destroy(aliveSpawnables[i]);
-        }
-
-        aliveSpawnables.Clear();
-    }
-
     public void WhitelistSpawnable(Spawnable spawnable)
     {
         whitelist.Add(spawnable);
@@ -163,6 +153,7 @@ public class LevelSpawnableSpawner : MonoBehaviour
     private void OnSpawnableDeath(GameObject spawnableInstance)
     {
         aliveSpawnables.Remove(spawnableInstance);
+        GlobalEventBus.Invoke(new SpawnableDestroyEvent(spawnableInstance));
     }
 
     private void FilterSpawnablesByDifficulty()

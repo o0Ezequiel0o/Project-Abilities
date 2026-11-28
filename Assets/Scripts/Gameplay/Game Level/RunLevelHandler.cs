@@ -10,6 +10,9 @@ public class RunLevelHandler : GameService<RunLevelHandler>
     private readonly Dictionary<string, GameLevel> gameLevels = new Dictionary<string, GameLevel>();
     private readonly List<string> startLevels = new List<string>();
 
+    private readonly List<GameObject> entitiesInLevel = new List<GameObject>(1024);
+    private readonly List<GameObject> entitiesInLevelCopy = new List<GameObject>(1024);
+
     public void AddLevel(GameLevel level)
     {
         if (level.StartLevel) startLevels.Add(level.ID);
@@ -31,6 +34,9 @@ public class RunLevelHandler : GameService<RunLevelHandler>
 
     private void Awake()
     {
+        GlobalEventBus.Subscribe<SpawnableSpawnedEvent>(OnSpawnableSpawned);
+        GlobalEventBus.Subscribe<SpawnableDestroyEvent>(OnSpawnableDestroyed);
+
         GlobalEventBus.Subscribe<LoadLevelEvent>(OnLoadLevelEvent);
         GlobalEventBus.Subscribe<LoadNextLevelEvent>(LoadNextLevel);
     }
@@ -82,9 +88,8 @@ public class RunLevelHandler : GameService<RunLevelHandler>
     {
         if (level == null) return;
 
-        DestroyLevelSpawnables();
+        DestroyNonPlayerSpawnables();
         Destroy(level.gameObject);
-        ClearMinions();
 
         GlobalEventBus.Invoke(new LevelUnloadedEvent(level));
     }
@@ -98,27 +103,37 @@ public class RunLevelHandler : GameService<RunLevelHandler>
         GlobalEventBus.Invoke(new LevelStartEvent());
     }
 
-    private void ClearMinions()
+    private void DestroyNonPlayerSpawnables()
     {
-        EntityTypeIdentifier[] entities = FindObjectsByType<EntityTypeIdentifier>(FindObjectsInactive.Include);
+        entitiesInLevelCopy.AddRange(entitiesInLevel);
 
-        for (int i = 0; i < entities.Length; i++)
+        for (int i = 0; i < entitiesInLevelCopy.Count; i++)
         {
-            if (entities[i].Type == EntityType.Minion)
+            if (!entitiesInLevelCopy[i].TryGetComponent(out Player _))
             {
-                Destroy(entities[i].gameObject);
+                Destroy(entitiesInLevelCopy[i]);
+            }  
+        }
+
+        entitiesInLevelCopy.Clear();
+
+        for (int i = 0; i < entitiesInLevel.Count; i++)
+        {
+            if (!entitiesInLevel[i].TryGetComponent(out Player _))
+            {
+                Debug.LogWarning($"{entitiesInLevel[i].name} failed to be cleared after level end.", entitiesInLevel[i]);
             }
         }
     }
 
-    private void DestroyLevelSpawnables()
+    private void OnSpawnableSpawned(SpawnableSpawnedEvent @event)
     {
-        LevelSpawnableSpawner[] spawners = CurrentLevelInstance.GetComponentsInChildren<LevelSpawnableSpawner>();
+        entitiesInLevel.Add(@event.spawnable);
+    }
 
-        for (int i = 0; i < spawners.Length; i++)
-        {
-            spawners[i].DestroySpawnedSpawnables();
-        }
+    private void OnSpawnableDestroyed(SpawnableDestroyEvent @event)
+    {
+        entitiesInLevel.Remove(@event.spawnable);
     }
 
     public struct LoadNextLevelEvent : IGlobalEvent { }

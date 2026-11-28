@@ -10,3 +10,13 @@ public readonly struct SpawnableSpawnedEvent : IGlobalEvent
         this.spawnable = spawnable;
     }
 }
+
+public readonly struct SpawnableDestroyEvent : IGlobalEvent
+{
+    public readonly GameObject spawnable;
+
+    public SpawnableDestroyEvent(GameObject spawnable)
+    {
+        this.spawnable = spawnable;
+    }
+}
