@@ -28,12 +28,12 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 1633593148161130574
-      type: {class: LinearStat, ns: , asm: Assembly-CSharp}
+      type: {class: LinearStat, ns: , asm: Zeke.Core}
       data:
         startValue: 4
         increase: 1
     - rid: 2308103063999873104
-      type: {class: LinearStat, ns: , asm: Assembly-CSharp}
+      type: {class: LinearStat, ns: , asm: Zeke.Core}
       data:
         startValue: 0
         increase: 0.01
