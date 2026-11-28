@@ -44,16 +44,16 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 9133315464761704658
-      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data:
         <UpdateMode>k__BackingField: 0
         type:
           rid: 9133315464761704659
     - rid: 9133315464761704659
-      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data: 
     - rid: 9133315464761704661
-      type: {class: DynamicCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: DynamicCastCooldownData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data:
         cooldown:
           baseValue: 0.5

@@ -1,0 +1,57 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Zeke.Items
+{
+    public class LeechItem : Item
+    {
+        public override ItemData Data => data;
+        private readonly LeechItemData data;
+
+        private readonly ItemHandler itemHandler;
+        private readonly GameObject source;
+
+        private Damageable damageable;
+
+        private bool hasRequiredComponents = false;
+
+        public LeechItem(LeechItemData data, ItemHandler itemHandler, GameObject source)
+        {
+            this.data = data;
+            this.source = source;
+            this.itemHandler = itemHandler;
+        }
+
+        public override void Initialize()
+        {
+            if (source.TryGetComponent(out DamageableEventListener eventListener))
+            {
+                eventListener.OnDealtDamage.Subscribe(OnDealtDamage, data.ProcPriority);
+            }
+
+            hasRequiredComponents = source.TryGetComponent(out damageable);
+        }
+
+        public override void OnRemoved()
+        {
+            if (source.TryGetComponent(out DamageableEventListener eventListener))
+            {
+                eventListener.OnDealtDamage.Unsubscribe(OnDealtDamage);
+            }
+        }
+
+        private void OnDealtDamage(Damageable.IDealtDamageEvent damageEvent)
+        {
+            if (!hasRequiredComponents) return;
+
+            if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
+            if (damageEvent.ProcChainBranch.Contains(Data)) return;
+
+            List<IProcSource> newProcChainBranch = new List<IProcSource>(damageEvent.ProcChainBranch) { Data };
+            float healing = damageEvent.Damage * data.DamageHealRatio.GetValue(stacks);
+
+            HealInfo heal = new HealInfo(healing, data.ProcCoefficient);
+            damageable.GiveHealing(heal, source, source, newProcChainBranch);
+        }
+    }
+}

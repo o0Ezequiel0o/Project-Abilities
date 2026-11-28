@@ -1,0 +1,16 @@
+{
+    "name": "Zeke.Modding",
+    "rootNamespace": "",
+    "references": [
+        "GUID:cdc2b8f36ad58624e97c7535b6778d19"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

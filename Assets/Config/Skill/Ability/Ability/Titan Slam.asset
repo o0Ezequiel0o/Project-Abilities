@@ -44,13 +44,13 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 9133315662046560344
-      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data:
         <UpdateMode>k__BackingField: 0
         type:
           rid: 9133315662046560346
     - rid: 9133315662046560345
-      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data:
         cooldown:
           baseValue: 0.05
@@ -59,7 +59,7 @@ MonoBehaviour:
             min: 0
             max: Infinity
     - rid: 9133315662046560346
-      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data: 
     - rid: 9133315662046560353
       type: {class: TitanAreaDamageData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}

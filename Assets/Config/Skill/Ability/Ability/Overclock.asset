@@ -70,16 +70,16 @@ MonoBehaviour:
         <Penetration>k__BackingField: 1
         <ProcCoefficient>k__BackingField: 0
     - rid: 9133315464761704643
-      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data:
         <UpdateMode>k__BackingField: 0
         type:
           rid: 9133315464761704644
     - rid: 9133315464761704644
-      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data: 
     - rid: 9133315464761704645
-      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data:
         cooldown:
           baseValue: 0.05

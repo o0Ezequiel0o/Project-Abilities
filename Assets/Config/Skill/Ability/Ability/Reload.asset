@@ -63,16 +63,16 @@ MonoBehaviour:
             min: -Infinity
             max: Infinity
     - rid: 9133315464761704664
-      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data:
         <UpdateMode>k__BackingField: 0
         type:
           rid: 9133315464761704665
     - rid: 9133315464761704665
-      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data: 
     - rid: 9133315464761704666
-      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: BaseCastCooldownData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data:
         cooldown:
           baseValue: 0.05

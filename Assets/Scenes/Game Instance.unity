@@ -554,6 +554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.Indicators.AbilityIndicatorPool
   abilityIndicatorDB: {fileID: 11400000, guid: 431cabf8c8bbd8b4091ee09308a5671e, type: 2}
+  worldCanvas: {fileID: 0}
 --- !u!1001 &413028754
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2692,6 +2693,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 353058994931375093, guid: 529f50574978ad642a12601c86e2db04, type: 3}
+      propertyPath: m_fontSize
+      value: 51.35
+      objectReference: {fileID: 0}
     - target: {fileID: 2429957808930646988, guid: 529f50574978ad642a12601c86e2db04, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -2715,6 +2720,10 @@ PrefabInstance:
     - target: {fileID: 3050608868307691694, guid: 529f50574978ad642a12601c86e2db04, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3716104165847041996, guid: 529f50574978ad642a12601c86e2db04, type: 3}
+      propertyPath: m_fontSize
+      value: 51.35
       objectReference: {fileID: 0}
     - target: {fileID: 3951567953391438812, guid: 529f50574978ad642a12601c86e2db04, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2760,10 +2769,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4946503161664472693, guid: 529f50574978ad642a12601c86e2db04, type: 3}
+      propertyPath: m_fontSize
+      value: 51.35
+      objectReference: {fileID: 0}
     - target: {fileID: 5843733162129869640, guid: 529f50574978ad642a12601c86e2db04, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1147547549}
+    - target: {fileID: 6427915419749136094, guid: 529f50574978ad642a12601c86e2db04, type: 3}
+      propertyPath: m_fontSize
+      value: 51.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7457840847913105654, guid: 529f50574978ad642a12601c86e2db04, type: 3}
+      propertyPath: m_fontSize
+      value: 51.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8653146342353095716, guid: 529f50574978ad642a12601c86e2db04, type: 3}
+      propertyPath: m_fontSize
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 8660349317513680210, guid: 529f50574978ad642a12601c86e2db04, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

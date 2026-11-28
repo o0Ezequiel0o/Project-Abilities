@@ -43,13 +43,13 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 9133315464761704640
-      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: RechargeData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data:
         <UpdateMode>k__BackingField: 0
         type:
           rid: 9133315464761704641
     - rid: 9133315464761704641
-      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data: 
     - rid: 9133315464761704642
       type: {class: ProjectileSpinnerData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}

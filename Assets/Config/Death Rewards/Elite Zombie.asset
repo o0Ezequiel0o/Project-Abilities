@@ -19,10 +19,10 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2308102816636862546
-      type: {class: XPDeathReward, ns: , asm: Assembly-CSharp}
+      type: {class: XPDeathReward, ns: , asm: Zeke.Core}
       data:
         experience: 15
     - rid: 2308103065204424785
-      type: {class: GoldDeathReward, ns: , asm: Assembly-CSharp}
+      type: {class: GoldDeathReward, ns: , asm: Zeke.Core}
       data:
         gold: 18

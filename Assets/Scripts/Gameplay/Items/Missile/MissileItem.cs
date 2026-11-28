@@ -1,0 +1,67 @@
+using System.Collections.Generic;
+using UnityEngine;
+using Zeke.PoolableGameObjects;
+using Zeke.TeamSystem;
+
+namespace Zeke.Items
+{
+    public class MissileItem : Item
+    {
+        public override ItemData Data => data;
+        private readonly MissileItemData data;
+
+        private readonly GameObject source;
+        private readonly ItemHandler itemHandler;
+
+        private readonly GameObjectPool<MissileItemProjectile> missilePool = new GameObjectPool<MissileItemProjectile>();
+
+        public MissileItem(MissileItemData data, ItemHandler itemHandler, GameObject source)
+        {
+            this.data = data;
+            this.source = source;
+            this.itemHandler = itemHandler;
+        }
+
+        public override void Initialize()
+        {
+            if (source.TryGetComponent(out DamageableEventListener eventListener))
+            {
+                eventListener.OnHit.Subscribe(OnHit, data.ProcPriority);
+            }
+        }
+
+        public override void OnRemoved()
+        {
+            if (source.TryGetComponent(out DamageableEventListener eventListener))
+            {
+                eventListener.OnHit.Unsubscribe(OnHit);
+            }
+
+            missilePool.Clear();
+        }
+
+        private void OnHit(Damageable.IHitDamageEvent damageEvent)
+        {
+            if (!RollProc(data.ProcChance, damageEvent.ProcCoefficient, itemHandler.Luck.ValueInt)) return;
+            if (damageEvent.Receiver != null && damageEvent.Receiver.gameObject == source) return;
+            if (damageEvent.ProcChainBranch.Contains(Data)) return;
+
+            float damage = damageEvent.BaseDamage * data.DamageMult.GetValue(stacks);
+            Vector2 direction = GetRelativeDirection(data.SpawnDirection, source.transform.up);
+
+            List<IProcSource> newProcChainBranch = new List<IProcSource>(damageEvent.ProcChainBranch) { Data };
+
+            MissileItemProjectile missile = missilePool.Get(data.MissilePrefab);
+            DamageData damageData = new DamageData(damage, data.ArmorPenetration, data.ProcCoefficient);
+            missile.Launch(source.transform.position, data.Speed, direction, data.MaxRange, damageData, data.Knockback, source, TeamManager.Instance.GetTeam(source), newProcChainBranch);
+
+            missile.gameObject.SetActive(true);
+        }
+
+        private Vector2 GetRelativeDirection(Vector2 direction, Vector2 relativeTo)
+        {
+            float angle = Vector2.SignedAngle(Vector2.up, direction);
+            return (Quaternion.Euler(0f, 0f, angle) * relativeTo).normalized;
+        }
+    }
+}
