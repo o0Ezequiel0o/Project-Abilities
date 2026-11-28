@@ -40,7 +40,7 @@ MonoBehaviour:
         startValue: 0
         increase: 70
     - rid: 2308103072427540563
-      type: {class: ReciprocalStat, ns: , asm: Assembly-CSharp}
+      type: {class: ReciprocalStat, ns: , asm: Zeke.Core}
       data:
         startExponent: 0
         baseValue: 0.9

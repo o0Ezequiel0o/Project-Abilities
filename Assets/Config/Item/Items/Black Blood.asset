@@ -27,7 +27,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 1633593167045722188
-      type: {class: ReciprocalStat, ns: , asm: Assembly-CSharp}
+      type: {class: ReciprocalStat, ns: , asm: Zeke.Core}
       data:
         startExponent: -1
         baseValue: 0.85
