@@ -44,16 +44,16 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 5546512975126069335
-      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         <AbilityType>k__BackingField: 0
     - rid: 5546512975126069336
-      type: {class: ReloadData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: ReloadData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         strategy:
           rid: 5546512975126069337
     - rid: 5546512975126069337
-      type: {class: ReloadData/OnDurationEndData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: ReloadData/OnDurationEndData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         <AbilityType>k__BackingField: 0
         chargesAmount:

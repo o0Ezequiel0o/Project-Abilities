@@ -1,0 +1,19 @@
+{
+    "name": "Zeke.Control",
+    "rootNamespace": "",
+    "references": [
+        "GUID:cdc2b8f36ad58624e97c7535b6778d19",
+        "GUID:5e099c61dd35c3241a5b3f7fe9e12f73",
+        "GUID:826faa960fa30c34a80178a265e003eb",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

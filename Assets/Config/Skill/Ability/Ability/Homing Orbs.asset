@@ -62,7 +62,7 @@ MonoBehaviour:
             min: 0
             max: Infinity
     - rid: 9133315464761704503
-      type: {class: SpawnHomingOrbsData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: SpawnHomingOrbsData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         <Prefab>k__BackingField: {fileID: -1221922450799852821, guid: a67f971b497c47d47b6375ef17ade2b6, type: 3}
         <Distance>k__BackingField: 1

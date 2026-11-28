@@ -64,14 +64,14 @@ MonoBehaviour:
             min: 0
             max: Infinity
     - rid: 9133315464761704604
-      type: {class: CastOffsetData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: CastOffsetData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         <Offset>k__BackingField: {x: -0.3, y: 0}
         <Angle>k__BackingField: 0
         module:
           rid: 9133315464761704609
     - rid: 9133315464761704609
-      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Zeke.Gameplay}
       data:
         <FireDistance>k__BackingField: 0
         <Spread>k__BackingField:
@@ -92,7 +92,7 @@ MonoBehaviour:
             min: -Infinity
             max: Infinity
     - rid: 9133315464761704610
-      type: {class: FireBasicProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      type: {class: FireBasicProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Zeke.Gameplay}
       data:
         <Prefab>k__BackingField: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
         <Damage>k__BackingField:
@@ -105,14 +105,14 @@ MonoBehaviour:
         <ProcCoefficient>k__BackingField: 1
         <Knockback>k__BackingField: 1
     - rid: 9133315464761704611
-      type: {class: CastOffsetData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: CastOffsetData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         <Offset>k__BackingField: {x: -0.3, y: 0}
         <Angle>k__BackingField: 45
         module:
           rid: 9133315464761704619
     - rid: 9133315464761704619
-      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Zeke.Gameplay}
       data:
         <FireDistance>k__BackingField: 0
         <Spread>k__BackingField:
@@ -133,7 +133,7 @@ MonoBehaviour:
             min: -Infinity
             max: Infinity
     - rid: 9133315464761704622
-      type: {class: FireBasicProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      type: {class: FireBasicProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Zeke.Gameplay}
       data:
         <Prefab>k__BackingField: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
         <Damage>k__BackingField:
@@ -146,14 +146,14 @@ MonoBehaviour:
         <ProcCoefficient>k__BackingField: 1
         <Knockback>k__BackingField: 1
     - rid: 9133315464761704623
-      type: {class: CastOffsetData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: CastOffsetData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         <Offset>k__BackingField: {x: 0.3, y: 0}
         <Angle>k__BackingField: 0
         module:
           rid: 9133315464761704631
     - rid: 9133315464761704631
-      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Zeke.Gameplay}
       data:
         <FireDistance>k__BackingField: 0
         <Spread>k__BackingField:
@@ -174,7 +174,7 @@ MonoBehaviour:
             min: -Infinity
             max: Infinity
     - rid: 9133315464761704634
-      type: {class: FireBasicProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      type: {class: FireBasicProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Zeke.Gameplay}
       data:
         <Prefab>k__BackingField: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
         <Damage>k__BackingField:
@@ -187,14 +187,14 @@ MonoBehaviour:
         <ProcCoefficient>k__BackingField: 1
         <Knockback>k__BackingField: 1
     - rid: 9133315464761704635
-      type: {class: CastOffsetData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: CastOffsetData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         <Offset>k__BackingField: {x: 0.3, y: 0}
         <Angle>k__BackingField: -45
         module:
           rid: 9133315464761704638
     - rid: 9133315464761704638
-      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Zeke.Gameplay}
       data:
         <FireDistance>k__BackingField: 0
         <Spread>k__BackingField:
@@ -215,7 +215,7 @@ MonoBehaviour:
             min: -Infinity
             max: Infinity
     - rid: 9133315464761704639
-      type: {class: FireBasicProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      type: {class: FireBasicProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Zeke.Gameplay}
       data:
         <Prefab>k__BackingField: {fileID: 5325695309262023029, guid: 2b918c8d375c5274cb1d4f1b67d934d8, type: 3}
         <Damage>k__BackingField:

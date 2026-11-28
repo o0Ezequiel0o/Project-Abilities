@@ -4,7 +4,7 @@ using System;
 
 namespace Zeke.UI
 {
-    public class UIWindow : MonoBehaviour
+    public class UIWindow : MonoBehaviour, IUIToggeable
     {
         [SerializeField] private GameObject graphicRoot;
         [SerializeField] private VisibilityState defaultState = VisibilityState.Inactive;

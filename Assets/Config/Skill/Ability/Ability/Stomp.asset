@@ -62,7 +62,7 @@ MonoBehaviour:
       type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data: 
     - rid: 9133315667693404251
-      type: {class: PullToCenterData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: PullToCenterData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         Radius:
           baseValue: 4

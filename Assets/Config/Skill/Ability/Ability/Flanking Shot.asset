@@ -63,7 +63,7 @@ MonoBehaviour:
             min: 0
             max: Infinity
     - rid: 9133315464761704497
-      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Zeke.Gameplay}
       data:
         <FireDistance>k__BackingField: 0
         <Spread>k__BackingField:
@@ -84,7 +84,7 @@ MonoBehaviour:
             min: -Infinity
             max: Infinity
     - rid: 9133315464761704498
-      type: {class: FirePiercingProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      type: {class: FirePiercingProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Zeke.Gameplay}
       data:
         <Prefab>k__BackingField: {fileID: 3338510750006898018, guid: d9080148ae01be14b9874cc11ca85fd0, type: 3}
         <Damage>k__BackingField:
@@ -103,7 +103,7 @@ MonoBehaviour:
             min: -Infinity
             max: Infinity
     - rid: 9133315464761704499
-      type: {class: RecoilData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: RecoilData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         force:
           baseValue: 100

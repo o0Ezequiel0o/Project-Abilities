@@ -62,7 +62,7 @@ MonoBehaviour:
             min: 0
             max: Infinity
     - rid: 9133315464761704594
-      type: {class: BasicAttackData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: BasicAttackData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         damage:
           baseValue: 15
@@ -81,6 +81,6 @@ MonoBehaviour:
         <CastOffset>k__BackingField: 1
         <CastAtSourceCenter>k__BackingField: 0
     - rid: 9133315464761704595
-      type: {class: BoxOverlap, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: BoxOverlap, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         size: {x: 3, y: 2}

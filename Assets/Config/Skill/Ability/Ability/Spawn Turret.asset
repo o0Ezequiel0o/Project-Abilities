@@ -62,7 +62,7 @@ MonoBehaviour:
             min: 0
             max: Infinity
     - rid: 9133315464761704690
-      type: {class: SummonData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+      type: {class: SummonData, ns: Zeke.Abilities.Modules.Summoning, asm: Zeke.Gameplay}
       data:
         <Summon>k__BackingField: {fileID: 7599769246000596608, guid: 07a60dab0f412064f8c998d80e312efd, type: 3}
         modules:
@@ -84,17 +84,17 @@ MonoBehaviour:
           serializedVersion: 2
           m_Bits: 2432
     - rid: 9133315464761704691
-      type: {class: JoinSourceTeamData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+      type: {class: JoinSourceTeamData, ns: Zeke.Abilities.Modules.Summoning, asm: Zeke.Gameplay}
       data: 
     - rid: 9133315464761704692
-      type: {class: ShareExperienceWithSourceData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+      type: {class: ShareExperienceWithSourceData, ns: Zeke.Abilities.Modules.Summoning, asm: Zeke.Gameplay}
       data: 
     - rid: 9133315464761704693
-      type: {class: ShareMoneyWithSourceData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+      type: {class: ShareMoneyWithSourceData, ns: Zeke.Abilities.Modules.Summoning, asm: Zeke.Gameplay}
       data: 
     - rid: 9133315464761704694
-      type: {class: InheritSourceItemsData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+      type: {class: InheritSourceItemsData, ns: Zeke.Abilities.Modules.Summoning, asm: Zeke.Gameplay}
       data: 
     - rid: 9133315464761704695
-      type: {class: SetSourceLevelData, ns: Zeke.Abilities.Modules.Summoning, asm: Assembly-CSharp}
+      type: {class: SetSourceLevelData, ns: Zeke.Abilities.Modules.Summoning, asm: Zeke.Gameplay}
       data: 

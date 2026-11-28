@@ -43,7 +43,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 5546513062035194083
-      type: {class: OverclockData, ns: Zeke.Abilities.Modules.Characters, asm: Assembly-CSharp}
+      type: {class: OverclockData, ns: Zeke.Abilities.Modules.Characters, asm: Zeke.Gameplay}
       data:
         <AffectedAbilities>k__BackingField: 01000000i
         <TickDuration>k__BackingField: 1

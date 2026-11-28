@@ -1,8 +1,9 @@
 using UnityEngine;
+using Zeke.UI;
 
 namespace Zeke.Items
 {
-    public class ItemsScreenLoader : MonoBehaviour
+    public class ItemsScreenLoader : MonoBehaviour, IUIToggeable
     {
         [SerializeField] private ItemsHUDInterface window;
         [SerializeField] private ItemsMenuInterface menuWindow;
@@ -26,10 +27,8 @@ namespace Zeke.Items
             SubscribeToEvents();
         }
 
-        public void ToggleMenuVisibility()
-        {
-            menuWindow.Window.ToggleGraphicVisibility();
-        }
+        public void SetGraphicVisibility(bool state) => menuWindow.Window.SetGraphicVisibility(state);
+        public void ToggleGraphicVisibility() => menuWindow.Window.ToggleGraphicVisibility();
 
         private void SubscribeToEvents()
         {

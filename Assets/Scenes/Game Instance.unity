@@ -554,7 +554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zeke.Abilities.Indicators.AbilityIndicatorPool
   abilityIndicatorDB: {fileID: 11400000, guid: 431cabf8c8bbd8b4091ee09308a5671e, type: 2}
-  worldCanvas: {fileID: 0}
+  worldCanvas: {fileID: 193892494}
 --- !u!1001 &413028754
 PrefabInstance:
   m_ObjectHideFlags: 0

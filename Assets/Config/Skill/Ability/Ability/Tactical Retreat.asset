@@ -47,7 +47,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 5546512975126069333
-      type: {class: ReloadData/OnCastData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: ReloadData/OnCastData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         <AbilityType>k__BackingField: 0
         chargesAmount:
@@ -57,15 +57,15 @@ MonoBehaviour:
             min: -Infinity
             max: Infinity
     - rid: 5546512975126069339
-      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         <AbilityType>k__BackingField: 0
     - rid: 5546512975126069340
-      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         <AbilityType>k__BackingField: 1
     - rid: 5546512975126069341
-      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: LockAbilityData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         <AbilityType>k__BackingField: 3
     - rid: 9133315464761704706
@@ -87,12 +87,12 @@ MonoBehaviour:
             min: 0
             max: Infinity
     - rid: 9133315464761704709
-      type: {class: DashData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: DashData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         <JumpForce>k__BackingField: 300
         <Direction>k__BackingField: {x: 0, y: -1}
     - rid: 9133315464761704710
-      type: {class: ReloadData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: ReloadData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         strategy:
           rid: 5546512975126069333

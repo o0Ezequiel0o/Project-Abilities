@@ -2,7 +2,8 @@
     "name": "Zeke.Modding",
     "rootNamespace": "",
     "references": [
-        "GUID:cdc2b8f36ad58624e97c7535b6778d19"
+        "GUID:cdc2b8f36ad58624e97c7535b6778d19",
+        "GUID:826faa960fa30c34a80178a265e003eb"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

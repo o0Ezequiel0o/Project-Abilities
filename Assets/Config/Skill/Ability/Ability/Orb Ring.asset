@@ -52,7 +52,7 @@ MonoBehaviour:
       type: {class: RechargeWithTimeData, ns: Zeke.Abilities.Modules, asm: Zeke.Core}
       data: 
     - rid: 9133315464761704642
-      type: {class: ProjectileSpinnerData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: ProjectileSpinnerData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         <Prefab>k__BackingField: {fileID: 5071053083290797565, guid: 4c810d6170641d54988cdfe555307cee, type: 3}
         distance:

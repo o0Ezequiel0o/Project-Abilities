@@ -61,7 +61,7 @@ MonoBehaviour:
             min: 0
             max: Infinity
     - rid: 9133315464761704464
-      type: {class: AreaDamageData, ns: Zeke.Abilities.Modules, asm: Assembly-CSharp}
+      type: {class: AreaDamageData, ns: Zeke.Abilities.Modules, asm: Zeke.Gameplay}
       data:
         radius:
           baseValue: 9999

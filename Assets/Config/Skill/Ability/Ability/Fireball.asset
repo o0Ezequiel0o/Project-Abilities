@@ -63,7 +63,7 @@ MonoBehaviour:
             min: 0
             max: Infinity
     - rid: 9133315464761704492
-      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      type: {class: FireProjectileData, ns: Zeke.Abilities.Modules.Projectiles, asm: Zeke.Gameplay}
       data:
         <FireDistance>k__BackingField: 0.2
         <Spread>k__BackingField:
@@ -84,7 +84,7 @@ MonoBehaviour:
             min: -Infinity
             max: Infinity
     - rid: 9133315464761704493
-      type: {class: FireFireballData, ns: Zeke.Abilities.Modules.Projectiles, asm: Assembly-CSharp}
+      type: {class: FireFireballData, ns: Zeke.Abilities.Modules.Projectiles, asm: Zeke.Gameplay}
       data:
         <Prefab>k__BackingField: {fileID: 437356665002056714, guid: 6c1002edcf6b99e47a629e10d9afb5f0, type: 3}
         <Damage>k__BackingField:

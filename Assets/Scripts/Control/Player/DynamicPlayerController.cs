@@ -221,6 +221,6 @@ public class DynamicPlayerController : MonoBehaviour
 
     private void OnToggleItemsMenuInputPerformed(InputAction.CallbackContext context)
     {
-        itemsRenderer.ToggleMenuVisibility();
+        itemsRenderer.ToggleGraphicVisibility();
     }
 }
