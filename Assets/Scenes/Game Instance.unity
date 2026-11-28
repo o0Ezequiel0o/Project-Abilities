@@ -488,7 +488,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemsMenuInterface
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3279596086371315156, guid: 58a162b374754a54abede138ee783961, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

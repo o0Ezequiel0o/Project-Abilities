@@ -1819,7 +1819,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5015617749680804254}
   - component: {fileID: -131935931613072758}
-  - component: {fileID: 3279596086371315156}
   - component: {fileID: 4128295981150954586}
   - component: {fileID: 1777610072610201837}
   - component: {fileID: -8469773484677850002}
@@ -1864,19 +1863,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemsMenuInterface
   window: {fileID: 4128295981150954586}
   itemSlotPrefab: {fileID: 8889133068123501293, guid: 41681b9948b46d04d96423470b929121, type: 3}
---- !u!114 &3279596086371315156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8270697653349334733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe7da81370826f4429d910286de5876e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HierarchySortingOrder
-  sortingOrder: 999
 --- !u!114 &4128295981150954586
 MonoBehaviour:
   m_ObjectHideFlags: 0
